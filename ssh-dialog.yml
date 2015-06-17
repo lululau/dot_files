@@ -1,0 +1,36 @@
+# ~/.config/ssh-dialog.yml
+
+defaults:
+  username: deploy
+
+groups:
+  work-servers:
+    hosts:
+      wendi:
+        hostname: 10.32.24.212
+        username: wendi
+        port: 18021
+      unode-29op2:
+        hostname: 10.18.10.39
+        username: deploy
+        port: 18021
+      rb:
+        hostname: 10.18.20.61
+        username: deploy
+        port: 18021
+      rb_bk:
+        hostname: 10.18.10.65
+        username: deploy
+        port: 18021
+      cist-6:
+        hostname: 10.11.100.6
+        username: cist
+        port: 18021
+      unode31-backup2(OP):
+        hostname: 10.18.10.41
+        username: deploy
+        port: 18021
+      unode90-db-slave08(OP):
+        hostname: 10.18.20.17
+        username: deploy
+        port: 18021

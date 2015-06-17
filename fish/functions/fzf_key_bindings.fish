@@ -1,0 +1,1 @@
+/Users/liuxiang/.fzf/shell/key-bindings.fish
