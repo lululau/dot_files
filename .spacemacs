@@ -7,7 +7,7 @@
   (setq-default
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path '("~/.config/spacemacs-config-layers/")
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
@@ -20,8 +20,8 @@
      ;; auto-completion
      ;; better-defaults
      emacs-lisp
-     ;; git
-     ;; markdown
+     git
+     markdown
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -119,7 +119,7 @@ before layers configuration."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'.
@@ -158,7 +158,10 @@ before layers configuration."
 layers configuration."
 (global-linum-mode)
 (setq mac-option-modifier 'meta)
+
+;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
 (global-set-key (kbd "M-@") 'set-mark-command)
+(global-set-key (kbd "<f1>") 'neotree-toggle)
 (global-set-key [mouse-4] '(lambda ()
   (interactive)
   (scroll-down 1)))
