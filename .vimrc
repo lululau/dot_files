@@ -251,7 +251,7 @@ nmap <F2> :TagbarToggle<CR>
 nnoremap <F3> :set invpaste paste?<CR>
 set pastetoggle=<F3>
 nnoremap <silent> <F4> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-map <F5> :!ctags -R --languages=-javascript --exclude=.git --exclude=log --exclude=target --fields=+iaS --extra=+q .<CR>
+map <F5> :!ctags -e -R --languages=-javascript --exclude=.git --exclude=log --exclude=target --fields=+iaS --extra=+q .<CR>
 nnoremap <Left> :tprevious<CR>
 nnoremap <Right> :tnext<CR>
 
