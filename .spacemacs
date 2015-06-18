@@ -158,6 +158,7 @@ before layers configuration."
 layers configuration."
 (global-linum-mode)
 (setq mac-option-modifier 'meta)
+(global-set-key (kbd "M-@") 'set-mark-command)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
