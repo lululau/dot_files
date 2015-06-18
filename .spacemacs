@@ -152,6 +152,10 @@ before layers configuration."
   ;; User initialization goes here
   )
 
+(defun update-tags()
+  (interactive)
+  (shell-command "ctags -e -R --languages=-javascript --exclude=.git --exclude=log --exclude=target --fields=+iaS --extra=+q ."))
+
 (defun dotspacemacs/config ()
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
@@ -160,6 +164,7 @@ layers configuration."
 (setq mac-option-modifier 'meta)
 
 ;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
+(global-set-key (kbd "<f5>") 'update-tags)
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "<f1>") 'neotree-toggle)
 (global-set-key [mouse-4] '(lambda ()
