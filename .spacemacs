@@ -177,6 +177,7 @@ before layers configuration."
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
 (global-linum-mode)
+(defalias 'evil-insert-state 'evil-emacs-state)
 (setq mac-option-modifier 'meta)
 
 ;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
