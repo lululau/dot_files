@@ -181,6 +181,8 @@ layers configuration."
 (setq mac-option-modifier 'meta)
 
 ;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
+(define-key evil-motion-state-map (kbd "t") #'evil-ace-jump-char-mode)
+(define-key evil-motion-state-map (kbd "T") #'evil-ace-jump-line-mode)
 (global-set-key (kbd "<f5>") 'update-tags)
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "<f1>") 'neotree-toggle)
