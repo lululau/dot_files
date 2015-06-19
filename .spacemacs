@@ -17,7 +17,8 @@
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     osx
+     (auto-completion :variables auto-completion-show-snippets-in-popup t)
      better-defaults
      emacs-lisp
      git
