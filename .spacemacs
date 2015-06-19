@@ -186,7 +186,7 @@ layers configuration."
 (define-key evil-motion-state-map (kbd "T") #'evil-ace-jump-line-mode)
 (global-set-key (kbd "<f5>") 'update-tags)
 (global-set-key (kbd "M-@") 'set-mark-command)
-(global-set-key (kbd "<f1>") 'neotree-toggle)
+(global-set-key (kbd "<f1>") 'neotree-find-project-root)
 (global-set-key [mouse-4] '(lambda ()
   (interactive)
   (scroll-down 1)))
