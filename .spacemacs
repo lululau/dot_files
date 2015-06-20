@@ -183,6 +183,7 @@ layers configuration."
 (global-linum-mode)
 (defalias 'evil-insert-state 'evil-emacs-state)
 (setq mac-option-modifier 'meta)
+(load-file "~/.config/secrets/paradox-github-token.el")
 
 ;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
 (define-key evil-motion-state-map (kbd "t") #'evil-ace-jump-char-mode)
