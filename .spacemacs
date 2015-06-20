@@ -167,6 +167,9 @@ before layers configuration."
    dotspacemacs-default-package-repository nil
    )
   ;; User initialization goes here
+
+  (setq-default ruby-version-manager 'rvm)
+  (setq-default ruby-enable-ruby-on-rails-support t)
   )
 
 (defun update-tags()
