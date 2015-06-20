@@ -187,6 +187,8 @@ layers configuration."
 ;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
 (define-key evil-motion-state-map (kbd "t") #'evil-ace-jump-char-mode)
 (define-key evil-motion-state-map (kbd "T") #'evil-ace-jump-line-mode)
+(global-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
+(global-set-key [M-tab] 'spacemacs/alternate-buffer)
 (global-set-key (kbd "<f5>") 'update-tags)
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "<f1>") 'neotree-find-project-root)
