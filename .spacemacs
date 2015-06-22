@@ -186,6 +186,17 @@ layers configuration."
 (load-file "~/.config/secrets/paradox-github-token.el")
 
 ;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
+
+(define-key window-numbering-keymap "\M-0" nil)
+(define-key window-numbering-keymap "\M-1" nil)
+(define-key window-numbering-keymap "\M-2" nil)
+(define-key window-numbering-keymap "\M-3" nil)
+(define-key window-numbering-keymap "\M-4" nil)
+(define-key window-numbering-keymap "\M-5" nil)
+(define-key window-numbering-keymap "\M-6" nil)
+(define-key window-numbering-keymap "\M-7" nil)
+(define-key window-numbering-keymap "\M-8" nil)
+(define-key window-numbering-keymap "\M-9" nil)
 (define-key evil-motion-state-map (kbd "t") #'evil-ace-jump-char-mode)
 (define-key evil-motion-state-map (kbd "T") #'evil-ace-jump-line-mode)
 (global-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
