@@ -229,5 +229,7 @@ layers configuration."
   (scroll-up 1)))
 )
 
+(desktop-save-mode 1)
+
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
