@@ -214,6 +214,7 @@ layers configuration."
 (global-set-key (kbd "s-o") 'helm-projectile-find-file)
 (global-set-key (kbd "s-f") 'find-file)
 (global-set-key (kbd "s-n") '(lambda () (interactive) (switch-to-buffer-other-window (generate-new-buffer "*Untitled*"))))
+(global-set-key (kbd "s-w") '(lambda () (interactive) (condition-case nil (delete-window) (error (kill-this-buffer)))))
 (define-key evil-motion-state-map (kbd "t") #'evil-ace-jump-char-mode)
 (define-key evil-motion-state-map (kbd "T") #'evil-ace-jump-line-mode)
 (global-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
