@@ -184,6 +184,7 @@ layers configuration."
 (defalias 'evil-insert-state 'evil-emacs-state)
 (setq mac-option-modifier 'meta)
 (load-file "~/.config/secrets/paradox-github-token.el")
+(setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
 
 ;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
 
@@ -213,6 +214,7 @@ layers configuration."
 (global-set-key (kbd "s-T") 'split-window-below)
 (global-set-key (kbd "s-o") 'helm-projectile-find-file)
 (global-set-key (kbd "s-f") 'find-file)
+(global-set-key (kbd "s-F") 'helm-locate)
 (global-set-key (kbd "s-b") '(lambda () (interactive) (condition-case nil (helm-mini) (error (helm-keyboard-quit)))))
 (global-set-key (kbd "s-[") 'spacemacs/previous-useful-buffer)
 (global-set-key (kbd "s-]") 'spacemacs/next-useful-buffer)
