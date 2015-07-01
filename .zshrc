@@ -187,17 +187,7 @@ export FZF_DEFAULT_OPTS='-x -m'
 
 function command_not_found_handler() {
   if [ $# -gt 0  ] && echo $1 | grep -q '^[0-9]\{6\}$'; then
-    if [ -n "$2" ] && echo $2 | grep -q '^[0-9]$'; then
-      session="session $2"
-    else
-      session="session 1"
-    fi
-    if [ -n "$ITERM_PROFILE" ]; then
-      session='current session'
-    fi
-    osascript <<EOF
-tell app "iTerm" to tell $session of first terminal to write text "alibas admin@web1 $1"
-EOF
+    alibas admin@web1 "$1"
   else
     return 127
   fi
@@ -206,3 +196,5 @@ EOF
 
 source ~/.xsh
 
+
+# source /Users/liuxiang/.iterm2_shell_integration.zsh
