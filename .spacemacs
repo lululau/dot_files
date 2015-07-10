@@ -22,20 +22,22 @@
      better-defaults
      emacs-lisp
      git
+     gtags
      markdown
-     ;; org
+     org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      syntax-checking
      version-control
      ruby
+     ruby-on-rails
      shell
      shell-scripts
      clojure
      dash
      emacs-lisp
-     evernote
+     ;; evernote
      evil-commenary
      extra-langs
      html
@@ -50,7 +52,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(edit-server)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -95,8 +97,8 @@ before layers configuration."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 13
+   dotspacemacs-default-font '("Monaco"
+                               :size 12
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -181,10 +183,20 @@ before layers configuration."
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
 (global-linum-mode)
+(setq diff-hl-side 'left)
+(setq enh-ruby-add-encoding-comment-on-save nil)
 (defalias 'evil-insert-state 'evil-emacs-state)
 (setq mac-option-modifier 'meta)
+(setq frame-title-format "%b")
 (load-file "~/.config/secrets/paradox-github-token.el")
 (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
+
+(when (require 'edit-server nil t)
+  (setq edit-server-new-frame nil)
+  (edit-server-start))
+
+(setq edit-server-url-major-mode-alist
+      '((".*" . markdown-mode)))
 
 ;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
 
@@ -210,6 +222,7 @@ layers configuration."
 (global-set-key (kbd "s-8") 'select-window-8)
 (global-set-key (kbd "s-9") 'select-window-9)
 (global-set-key (kbd "s-m") 'toggle-maximize-buffer)
+(global-set-key (kbd "<s-return>") 'toggle-maximize-buffer)
 (global-set-key (kbd "s-t") 'split-window-right)
 (global-set-key (kbd "s-T") 'split-window-below)
 (global-set-key (kbd "s-o") 'helm-projectile-find-file)
@@ -218,14 +231,23 @@ layers configuration."
 (global-set-key (kbd "s-b") '(lambda () (interactive) (condition-case nil (helm-mini) (error (helm-keyboard-quit)))))
 (global-set-key (kbd "s-[") 'spacemacs/previous-useful-buffer)
 (global-set-key (kbd "s-]") 'spacemacs/next-useful-buffer)
+(global-set-key (kbd "s-/") 'evilnc-comment-or-uncomment-lines)
 (global-set-key (kbd "s-\\") '(lambda () (interactive) (switch-to-buffer (current-buffer))))
 (global-set-key (kbd "s-n") '(lambda () (interactive) (switch-to-buffer-other-window (generate-new-buffer "*Untitled*"))))
-(global-set-key (kbd "s-w") '(lambda () (interactive) (condition-case nil (delete-window) (error (kill-this-buffer)))))
+(global-set-key (kbd "s-N") '(lambda () (interactive) (switch-to-buffer (generate-new-buffer "*Untitled*"))))
+(global-set-key (kbd "s-w") 'delete-window)
+(global-set-key (kbd "s-W") '(lambda () (interactive) (kill-this-buffer) (delete-window)))
+
 (define-key evil-motion-state-map (kbd "t") #'evil-ace-jump-char-mode)
 (define-key evil-motion-state-map (kbd "T") #'evil-ace-jump-line-mode)
+(define-key evil-motion-state-map (kbd "] c") #'diff-hl-next-hunk)
+(define-key evil-motion-state-map (kbd "[ c") #'diff-hl-previous-hunk)
+(define-key evil-motion-state-map (kbd "C-]") #'helm-gtags-find-tag)
+
 (global-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
-(global-set-key (kbd "<f5>") 'update-tags)
+(global-set-key (kbd "<f5>") '(lambda () (interactive) (helm-gtags-update-tags)))
+(global-set-key (kbd "<s-f5>") '(lambda () (interactive) (helm-gtags-create-tags (projectile-project-root) "ctags")))
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "<f1>") 'neotree-find-project-root)
 (global-set-key [mouse-4] '(lambda ()
@@ -240,3 +262,24 @@ layers configuration."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ahs-case-fold-search nil)
+ '(ahs-default-range (quote ahs-range-whole-buffer))
+ '(ahs-idle-interval 0.25)
+ '(ahs-idle-timer 0 t)
+ '(ahs-inhibit-face-list nil)
+ '(diff-hl-draw-borders nil)
+ '(diff-hl-margin-mode nil)
+ '(helm-gtags-preselect t)
+ '(ring-bell-function (quote ignore) t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
