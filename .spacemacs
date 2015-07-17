@@ -183,6 +183,9 @@ before layers configuration."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
+
+ ;;;;;;;;;;;; Function definitions ;;;;;;;;;;;;;;;;
+
 (global-linum-mode)
 (setq diff-hl-side 'left)
 (setq enh-ruby-add-encoding-comment-on-save nil)
