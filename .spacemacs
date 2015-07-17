@@ -228,7 +228,7 @@ layers configuration."
 (global-set-key (kbd "s-8") 'select-window-8)
 (global-set-key (kbd "s-9") 'select-window-9)
 (global-set-key (kbd "s-m") 'toggle-maximize-buffer)
-(global-set-key (kbd "<s-return>") 'toggle-maximize-buffer)
+(global-set-key (kbd "<s-S-return>") 'toggle-maximize-buffer)
 (global-set-key (kbd "s-t") 'split-window-right)
 (global-set-key (kbd "s-T") 'split-window-below)
 (global-set-key (kbd "s-o") 'helm-projectile-find-file)
