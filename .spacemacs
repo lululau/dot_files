@@ -266,6 +266,15 @@ layers configuration."
 (global-set-key [mouse-5] '(lambda ()
   (interactive)
   (scroll-up 1)))
+
+(mapc (lambda (s)
+        (eval `(define-key
+                 ,(intern (format "evil-%S-state-map" s))
+                 ,[?\S- ]
+                 evil-leader--default-map)))
+      '(emacs insert normal visual motion))
+(add-to-list 'guide-key/guide-key-sequence "S-SPC")
+
 )
 
 (desktop-save-mode 1)
