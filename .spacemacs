@@ -28,7 +28,7 @@
      (shell :variables
             shell-default-height 38
             shell-default-position 'bottom
-            shell-default-shell 'multi-term
+            shell-default-shell 'ansi-term
             shell-default-term-shell "/bin/zsh")
      syntax-checking
      version-control
