@@ -50,6 +50,7 @@
      chrome
      emoji
      ibuffer
+     search-engine
      ; evil-easymotion
      )
    ;; List of additional packages that will be installed wihout being
@@ -203,6 +204,8 @@ layers configuration."
 (setq edit-server-new-frame nil)
 (setq edit-server-url-major-mode-alist
       '((".*" . org-mode)))
+
+(setq search-engine-alist '((google :name "Google" :url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")  (github :name "Github" :url "https://github.com/search?ref=simplesearch&q=%s") (stack-overflow :name "Stack Overflow" :url "https://stackoverflow.com/search?q=%s") (google-maps :name "Google Maps" :url "http://www.google.cn/maps/search/%s")  (google-images :name "Google Images" :url "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s")   (spacemacs-issues :name "Spacemacs Issues" :url "https://github.com/syl20bnr/spacemacs/issues?utf8=%%E2%%9C%%93&q=is%%3Aissue+is%%3Aopen+%s") (wikipedia :name "Wikipedia" :url "http://www.wikipedia.org/search-redirect.php?language=zh&go=Go&search=%s") (wolfram-alpha :name "Wolfram Alpha" :url "http://www.wolframalpha.com/input/?i=%s")))
 
 ;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
 
