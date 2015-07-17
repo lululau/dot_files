@@ -25,14 +25,15 @@
      gtags
      markdown
      org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (shell :variables
+            shell-default-height 38
+            shell-default-position 'bottom
+            shell-default-shell 'multi-term
+            shell-default-term-shell "/bin/zsh")
      syntax-checking
      version-control
      ruby
      ruby-on-rails
-     shell
      shell-scripts
      clojure
      dash
