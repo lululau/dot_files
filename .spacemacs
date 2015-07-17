@@ -191,7 +191,7 @@ layers configuration."
 (setq enh-ruby-add-encoding-comment-on-save nil)
 (defalias 'evil-insert-state 'evil-emacs-state)
 (setq mac-option-modifier 'meta)
-(setq frame-title-format "%b")
+(setq frame-title-format '(:eval (concat (projectile-project-name) " - " (file-name-base (buffer-file-name)))))
 (load-file "~/.config/secrets/paradox-github-token.el")
 (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
 
