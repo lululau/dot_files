@@ -264,6 +264,10 @@ layers configuration."
 (define-key evil-motion-state-map (kbd "] c") #'diff-hl-next-hunk)
 (define-key evil-motion-state-map (kbd "[ c") #'diff-hl-previous-hunk)
 (define-key evil-motion-state-map (kbd "C-]") #'helm-gtags-find-tag)
+(define-key evil-outer-text-objects-map "o" 'evil-a-word)
+(define-key evil-inner-text-objects-map "o" 'evil-inner-word)
+(define-key evil-outer-text-objects-map "w" 'evil-a-symbol)
+(define-key evil-inner-text-objects-map "w" 'evil-inner-symbol)
 
 (global-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
