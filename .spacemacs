@@ -190,6 +190,7 @@ layers configuration."
 
  ;;;;;;;;;;;; Function definitions ;;;;;;;;;;;;;;;;
 
+(setenv "LANG" "zh_CN.UTF-8")
 (global-linum-mode)
 (setq diff-hl-side 'left)
 (setq enh-ruby-add-encoding-comment-on-save nil)
