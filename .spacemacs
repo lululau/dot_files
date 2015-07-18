@@ -205,6 +205,10 @@ layers configuration."
 (setq edit-server-url-major-mode-alist
       '((".*" . org-mode)))
 
+(setq inf-ruby-default-implementation "pry")
+(setq inf-ruby-eval-binding "Pry.toplevel_binding")
+(add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
+
 (setq search-engine-alist '((google :name "Google" :url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")  (github :name "Github" :url "https://github.com/search?ref=simplesearch&q=%s") (stack-overflow :name "Stack Overflow" :url "https://stackoverflow.com/search?q=%s") (google-maps :name "Google Maps" :url "http://www.google.cn/maps/search/%s")  (google-images :name "Google Images" :url "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s")   (spacemacs-issues :name "Spacemacs Issues" :url "https://github.com/syl20bnr/spacemacs/issues?utf8=%%E2%%9C%%93&q=is%%3Aissue+is%%3Aopen+%s") (wikipedia :name "Wikipedia" :url "http://www.wikipedia.org/search-redirect.php?language=zh&go=Go&search=%s") (wolfram-alpha :name "Wolfram Alpha" :url "http://www.wolframalpha.com/input/?i=%s")))
 
 ;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
@@ -240,6 +244,7 @@ layers configuration."
 (global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (helm-mini) (error (helm-keyboard-quit)))))
 (global-set-key (kbd "s-b") 'helm-projectile-switch-to-buffer)
 (global-set-key (kbd "s-p") 'helm-projectile-switch-project)
+(global-set-key (kbd "s-;") '(lambda() (interactive) (if (equal inf-ruby-buffer (buffer-name)) (delete-window) (if (not (comint-check-proc inf-ruby-buffer)) (rvm-use-default)) (call-interactively 'inf-ruby))))
 (global-set-key (kbd "s-[") 'spacemacs/previous-useful-buffer)
 (global-set-key (kbd "s-]") 'spacemacs/next-useful-buffer)
 (global-set-key (kbd "s-/") 'evilnc-comment-or-uncomment-lines)
