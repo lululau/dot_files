@@ -22,6 +22,7 @@
      better-defaults
      emacs-lisp
      git
+     github
      gtags
      markdown
      org
