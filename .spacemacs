@@ -252,7 +252,7 @@ layers configuration."
 (global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (helm-mini) (error (helm-keyboard-quit)))))
 (global-set-key (kbd "s-b") 'helm-projectile-switch-to-buffer)
 (global-set-key (kbd "s-p") 'helm-projectile-switch-project)
-(global-set-key (kbd "s-;") '(lambda() (interactive) (if (equal inf-ruby-buffer (buffer-name)) (delete-window) (if (not (comint-check-proc inf-ruby-buffer)) (rvm-use-default)) (call-interactively 'inf-ruby))))
+(global-set-key (kbd "s-;") '(lambda() (interactive) (if (and (boundp 'inf-ruby-buffer) (equal inf-ruby-buffer (buffer-name))) (delete-window) (if (or (not (boundp 'inf-ruby-buffer)) (not (comint-check-proc inf-ruby-buffer)))  (rvm-use-default)) (call-interactively 'inf-ruby))))
 (global-set-key (kbd "s-[") 'spacemacs/previous-useful-buffer)
 (global-set-key (kbd "s-]") 'spacemacs/next-useful-buffer)
 (global-set-key (kbd "s-/") 'evilnc-comment-or-uncomment-lines)
