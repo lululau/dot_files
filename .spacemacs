@@ -277,12 +277,11 @@ layers configuration."
 (define-key evil-motion-state-map (kbd "C-]") #'helm-gtags-find-tag)
 (define-key evil-motion-state-map (kbd "s-m") #'evil-emacs-state)
 (define-key evil-emacs-state-map (kbd "s-m") #'evil-exit-emacs-state)
-(add-hook 'magit-mode-hook '(lambda () (define-key evil-evilified-state-map (kbd "s-M") #'evil-motion-state) (define-key evil-motion-state-map (kbd "s-M") #'evil-evilified-state)))
+(add-hook 'magit-mode-hook '(lambda () (define-key evil-evilified-state-map (kbd "s-M") #'evil-motion-state) (define-key evil-motion-state-map (kbd "s-M") #'evil-evilified-state) (define-key magit-mode-map [S-tab] 'magit-section-cycle-global)))
 (define-key evil-outer-text-objects-map "o" 'evil-a-word)
 (define-key evil-inner-text-objects-map "o" 'evil-inner-word)
 (define-key evil-outer-text-objects-map "w" 'evil-a-symbol)
 (define-key evil-inner-text-objects-map "w" 'evil-inner-symbol)
-(define-key magit-mode-map [S-tab] 'magit-section-cycle-global)
 
 (global-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
