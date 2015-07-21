@@ -207,7 +207,7 @@ layers configuration."
 (setq mac-option-modifier 'meta)
 (setq frame-title-format '(:eval (if (buffer-file-name) (if (projectile-project-p)
                                      (concat (projectile-project-name) " ✈ " (substring (buffer-file-name) (length (projectile-project-root))))
-                                   (if (string-match (concat "^" (getenv "HOME")) (buffer-file-name)) (concat "~" (substring (buffer-file-name) (length (getenv "HOME")))) (buffer-file-name)))) (buffer-name)))
+                                   (if (string-match (concat "^" (getenv "HOME")) (buffer-file-name)) (concat "~" (substring (buffer-file-name) (length (getenv "HOME")))) (buffer-file-name))) (buffer-name))))
 (load-file "~/.config/secrets/paradox-github-token.el")
 (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
 (rvm-autodetect-ruby)
