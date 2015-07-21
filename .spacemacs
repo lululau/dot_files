@@ -319,6 +319,7 @@ layers configuration."
  '(diff-hl-draw-borders nil)
  '(diff-hl-margin-mode nil)
  '(helm-gtags-preselect t)
+ '(magit-not-reverted-hook (quote (magit-refresh-vc-mode-line)))
  '(projectile-git-command "git ls-files -zco")
  '(ring-bell-function (quote ignore) t))
 (custom-set-faces
