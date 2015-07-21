@@ -320,6 +320,14 @@ layers configuration."
  '(diff-hl-draw-borders nil)
  '(diff-hl-margin-mode nil)
  '(helm-gtags-preselect t)
+ '(inf-ruby-implementations
+   (quote
+    (("ruby" . "irb --prompt default --noreadline -r irb/completion")
+     ("jruby" . "jruby -S irb --prompt default --noreadline -r irb/completion")
+     ("rubinius" . "rbx -r irb/completion")
+     ("yarv" . "irb1.9 -r irb/completion")
+     ("macruby" . "macirb -r irb/completion")
+     ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.2-head/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.2-head/bin/pry"))))
  '(magit-not-reverted-hook (quote (magit-refresh-vc-mode-line)))
  '(projectile-git-command "git ls-files -zco")
  '(ring-bell-function (quote ignore) t))
