@@ -263,6 +263,7 @@ layers configuration."
 (global-set-key (kbd "s-N") '(lambda () (interactive) (switch-to-buffer (generate-new-buffer "*Untitled*"))))
 (global-set-key (kbd "s-w") 'delete-window)
 (global-set-key (kbd "s-W") '(lambda () (interactive) (kill-this-buffer) (delete-window)))
+(global-set-key (kbd "s-g") 'magit-status)
 (global-set-key (kbd "s-r c") 'projectile-rails-console)
 (global-set-key (kbd "s-r s") 'projectile-rails-server)
 
