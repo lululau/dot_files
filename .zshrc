@@ -198,7 +198,7 @@ function command_not_found_handler() {
 }
 
 
-source ~/.xsh
+# source ~/.xsh
 
 
 # source /Users/liuxiang/.iterm2_shell_integration.zsh
