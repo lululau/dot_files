@@ -295,8 +295,7 @@ layers configuration."
 
 (global-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
-(global-set-key (kbd "<f5>") '(lambda () (interactive) (helm-gtags-update-tags)))
-(global-set-key (kbd "<s-f5>") '(lambda () (interactive) (helm-gtags-create-tags (projectile-project-root) "ctags")))
+(global-set-key (kbd "<f5>") #'projectile-regenerate-tags)
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "<f1>") 'neotree-find-project-root)
 (global-set-key [mouse-4] '(lambda ()
