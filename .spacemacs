@@ -222,6 +222,8 @@ layers configuration."
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
 (eval-after-load 'company
   '(push 'company-robe company-backends))
+(autoload 'projectile-rails-robe-mode "projectile-rails-robe")
+(add-hook 'robe-mode-hook 'projectile-rails-robe-mode)
 
 (setq search-engine-alist '(
                             (google :name "Google" :url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
