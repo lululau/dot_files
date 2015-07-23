@@ -289,6 +289,7 @@ layers configuration."
 (define-key evil-motion-state-map (kbd "[ c") #'diff-hl-previous-hunk)
 (define-key evil-motion-state-map (kbd "C-]") #'helm-gtags-find-tag)
 (define-key evil-motion-state-map (kbd "s-m") #'evil-emacs-state)
+(define-key evil-emacs-state-map (kbd "C-]") #'helm-gtags-find-tag)
 (define-key evil-emacs-state-map (kbd "s-m") #'evil-exit-emacs-state)
 (add-hook 'magit-mode-hook '(lambda () (define-key evil-evilified-state-map (kbd "s-M") #'evil-motion-state) (define-key evil-motion-state-map (kbd "s-M") #'evil-evilified-state) (define-key magit-mode-map [S-tab] 'magit-section-cycle-global)))
 (define-key evil-outer-text-objects-map "o" 'evil-a-word)
