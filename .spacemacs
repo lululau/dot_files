@@ -212,6 +212,7 @@ layers configuration."
 (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
 (rvm-autodetect-ruby)
 (when (rvm-working-p) (add-hook 'enh-ruby-mode-hook 'rvm-activate-corresponding-ruby))
+(add-hook 'enh-ruby-mode-hook #'(lambda () (modify-syntax-entry ?: ".")))
 
 (setq edit-server-new-frame nil)
 (setq edit-server-url-major-mode-alist
