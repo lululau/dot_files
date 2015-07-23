@@ -201,6 +201,7 @@ layers configuration."
 (add-to-list 'load-path "~/.emacs.d/private/")
 (global-linum-mode)
 (setq helm-mode-fuzzy-match t)
+(setq helm-gtags-fuzzy-match t)
 (setq diff-hl-side 'left)
 (setq rvm--gemset-default "default")
 (setq enh-ruby-add-encoding-comment-on-save nil)
