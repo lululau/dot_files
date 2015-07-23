@@ -191,11 +191,19 @@ layers configuration."
 
  ;;;;;;;;;;;; Function definitions ;;;;;;;;;;;;;;;;
 
- (defun gantt ()
-   (interactive)
-   (require 'ox-taskjuggler)
-   (rvm-use-default)
-   (org-taskjuggler-export-process-and-open))
+(defun jump-to-definition-of-symbol-at-point ()
+    (interactive)
+    (if (bound-and-true-p robe-mode)
+        (if (and (symbol-at-point) (zerop (call-process "bash" nil nil nil "-c" (concat "[ -z $(global --result=grep -i " (thing-at-point 'symbol) ") ]"))))
+            (call-interactively 'robe-jump)
+            (call-interactively 'helm-gtags-find-tag))
+        (call-interactively 'helm-gtags-find-tag)))
+
+(defun gantt ()
+    (interactive)
+    (require 'ox-taskjuggler)
+    (rvm-use-default)
+    (org-taskjuggler-export-process-and-open))
 
 (setenv "LANG" "zh_CN.UTF-8")
 (add-to-list 'load-path "~/.emacs.d/private/")
@@ -289,9 +297,9 @@ layers configuration."
 (define-key evil-motion-state-map (kbd "T") #'evil-ace-jump-line-mode)
 (define-key evil-motion-state-map (kbd "] c") #'diff-hl-next-hunk)
 (define-key evil-motion-state-map (kbd "[ c") #'diff-hl-previous-hunk)
-(define-key evil-motion-state-map (kbd "C-]") #'helm-gtags-find-tag)
+(define-key evil-motion-state-map (kbd "C-]") #'jump-to-definition-of-symbol-at-point)
 (define-key evil-motion-state-map (kbd "s-m") #'evil-emacs-state)
-(define-key evil-emacs-state-map (kbd "C-]") #'helm-gtags-find-tag)
+(define-key evil-emacs-state-map (kbd "C-]") #'jump-to-definition-of-symbol-at-point)
 (define-key evil-emacs-state-map (kbd "s-m") #'evil-exit-emacs-state)
 (add-hook 'magit-mode-hook '(lambda () (define-key evil-evilified-state-map (kbd "s-M") #'evil-motion-state) (define-key evil-motion-state-map (kbd "s-M") #'evil-evilified-state) (define-key magit-mode-map [S-tab] 'magit-section-cycle-global)))
 (define-key evil-outer-text-objects-map "o" 'evil-a-word)
