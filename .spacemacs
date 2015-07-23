@@ -211,7 +211,7 @@ layers configuration."
 (load-file "~/.config/secrets/paradox-github-token.el")
 (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
 (rvm-autodetect-ruby)
-(when (rvm-working-p) (add-hook 'enh-ruby-mode 'rvm-activate-corresponding-ruby))
+(when (rvm-working-p) (add-hook 'enh-ruby-mode-hook 'rvm-activate-corresponding-ruby))
 
 (setq edit-server-new-frame nil)
 (setq edit-server-url-major-mode-alist
