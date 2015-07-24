@@ -221,7 +221,8 @@ layers configuration."
 (load-file "~/.config/secrets/paradox-github-token.el")
 (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
 (add-hook 'enh-ruby-mode-hook #'(lambda () (modify-syntax-entry ?: ".")))
-
+(remove-hook 'enh-ruby-mode-hook
+          (lambda () (rvm-activate-corresponding-ruby)))
 (setq edit-server-new-frame nil)
 (setq edit-server-url-major-mode-alist
       '((".*" . org-mode)))
@@ -292,6 +293,7 @@ layers configuration."
 (global-set-key (kbd "s-g") 'magit-status)
 (global-set-key (kbd "s-r c") 'projectile-rails-console)
 (global-set-key (kbd "s-r s") 'projectile-rails-server)
+(global-set-key (kbd "s-r s-r") 'rvm-activate-corresponding-ruby)
 
 (global-set-key (kbd "C-g") '(lambda () (interactive) (evil-search-highlight-persist-remove-all) (keyboard-quit)))
 (define-key evil-motion-state-map (kbd "t") #'evil-ace-jump-char-mode)
