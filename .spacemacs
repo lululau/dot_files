@@ -310,6 +310,7 @@ layers configuration."
 (global-set-key (kbd "<f5>") #'projectile-regenerate-tags)
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "<f1>") 'neotree-find-project-root)
+(global-set-key (kbd "<S-f1>") 'neotree-toggle)
 (global-set-key [mouse-4] '(lambda ()
   (interactive)
   (scroll-down 1)))
