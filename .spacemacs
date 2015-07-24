@@ -220,8 +220,6 @@ layers configuration."
                                    (if (string-match (concat "^" (getenv "HOME")) (buffer-file-name)) (concat "~" (substring (buffer-file-name) (length (getenv "HOME")))) (buffer-file-name))) (buffer-name))))
 (load-file "~/.config/secrets/paradox-github-token.el")
 (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
-(rvm-autodetect-ruby)
-(when (rvm-working-p) (add-hook 'enh-ruby-mode-hook 'rvm-activate-corresponding-ruby))
 (add-hook 'enh-ruby-mode-hook #'(lambda () (modify-syntax-entry ?: ".")))
 
 (setq edit-server-new-frame nil)
