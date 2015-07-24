@@ -233,6 +233,9 @@ layers configuration."
   '(push 'company-robe company-backends))
 (autoload 'projectile-rails-robe-mode "projectile-rails-robe")
 (add-hook 'robe-mode-hook 'projectile-rails-robe-mode)
+(autoload 'ragtag-mode "ragtag")
+(add-hook 'web-mode-hook 'ragtag-mode)
+(add-hook 'html-erb-mode-hook 'ragtag-mode)
 
 (setq search-engine-alist '(
                             (google :name "Google" :url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
