@@ -207,7 +207,7 @@ layers configuration."
 
 (setenv "LANG" "zh_CN.UTF-8")
 (add-to-list 'load-path "~/.emacs.d/private/")
-(global-linum-mode)
+(add-hook 'prog-mode-hook 'linum-mode)
 (setq helm-mode-fuzzy-match t)
 (setq helm-gtags-fuzzy-match t)
 (setq diff-hl-side 'left)
