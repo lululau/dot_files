@@ -329,7 +329,6 @@ layers configuration."
                  ,[?\S- ]
                  evil-leader--default-map)))
       '(emacs insert normal visual motion))
-(add-to-list 'guide-key/guide-key-sequence "S-SPC")
 
 )
 
