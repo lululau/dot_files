@@ -359,7 +359,8 @@ layers configuration."
      ("yarv" . "irb1.9 -r irb/completion")
      ("macruby" . "macirb -r irb/completion")
      ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.2-head/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.2-head/bin/pry"))))
- '(magit-not-reverted-hook (quote (magit-refresh-vc-mode-line)))
+ '(magit-not-reverted-hook (quote (magit-refresh-vc-mode-line)) t)
+ '(neo-theme (quote uni))
  '(projectile-git-command "git ls-files -zco")
  '(ring-bell-function (quote ignore) t))
 (custom-set-faces
