@@ -226,6 +226,9 @@ layers configuration."
 (setq edit-server-new-frame nil)
 (setq edit-server-url-major-mode-alist
       '((".*" . org-mode)))
+(setq org-directory "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/ToDo")
+(setq org-mobile-inbox-for-pull "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/ToDo/flagged.org")
+(setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
 
 (setq inf-ruby-default-implementation "pry")
 (setq inf-ruby-eval-binding "Pry.toplevel_binding")
@@ -359,8 +362,11 @@ layers configuration."
      ("yarv" . "irb1.9 -r irb/completion")
      ("macruby" . "macirb -r irb/completion")
      ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.2-head/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.2-head/bin/pry"))))
- '(magit-not-reverted-hook (quote (magit-refresh-vc-mode-line)) t)
+ '(magit-not-reverted-hook (quote (magit-refresh-vc-mode-line)))
  '(neo-theme (quote uni))
+ '(org-agenda-files
+   (quote
+    ("~/Library/Mobile Documents/com~apple~CloudDocs/ToDo/work/gantt.org" "~/Library/Mobile Documents/com~apple~CloudDocs/ToDo/work.org" "~/Library/Mobile Documents/com~apple~CloudDocs/ToDo/learnings.org" "~/Library/Mobile Documents/com~apple~CloudDocs/ToDo/homebrews.org")))
  '(projectile-git-command "git ls-files -zco")
  '(ring-bell-function (quote ignore) t))
 (custom-set-faces
