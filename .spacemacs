@@ -249,6 +249,7 @@ layers configuration."
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
 (eval-after-load 'company
   '(push 'company-robe company-backends))
+(setq company-minimum-prefix-length 1)
 (autoload 'projectile-rails-robe-mode "projectile-rails-robe")
 (add-hook 'robe-mode-hook 'projectile-rails-robe-mode)
 (autoload 'ragtag-mode "ragtag")
