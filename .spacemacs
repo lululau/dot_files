@@ -218,6 +218,13 @@ layers configuration."
     (rvm-use-default)
     (org-taskjuggler-export-process-and-open))
 
+(defun enh-ruby-mode-config ()
+  (define-key enh-ruby-mode-map (kbd "s-r b") 'ruby-toggle-block)
+  (modify-syntax-entry ?: ".")
+  (modify-syntax-entry ?! "_")
+  (modify-syntax-entry ?? "_")
+ )
+
 (setenv "LANG" "zh_CN.UTF-8")
 (add-to-list 'load-path "~/.emacs.d/private/")
 (add-hook 'prog-mode-hook 'linum-mode)
@@ -235,9 +242,7 @@ layers configuration."
                                    (if (string-match (concat "^" (getenv "HOME")) (buffer-file-name)) (concat "~" (substring (buffer-file-name) (length (getenv "HOME")))) (buffer-file-name))) (buffer-name))))
 (load-file "~/.config/secrets/paradox-github-token.el")
 (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
-(add-hook 'enh-ruby-mode-hook #'(lambda () (modify-syntax-entry ?: ".")))
-(add-hook 'enh-ruby-mode-hook #'(lambda () (modify-syntax-entry ?! "_")))
-(add-hook 'enh-ruby-mode-hook #'(lambda () (modify-syntax-entry ?? "_")))
+(add-hook 'enh-ruby-mode-hook #'enh-ruby-mode-config)
 (remove-hook 'enh-ruby-mode-hook
           (lambda () (rvm-activate-corresponding-ruby)))
 (setq edit-server-new-frame nil)
