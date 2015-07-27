@@ -301,7 +301,7 @@ layers configuration."
 (global-set-key (kbd "s-t") 'split-window-right)
 (global-set-key (kbd "s-T") 'split-window-below)
 (global-set-key (kbd "s-o") 'helm-projectile-find-file)
-(global-set-key (kbd "s-f") 'find-file)
+(global-set-key (kbd "s-f") 'spacemacs/helm-find-files)
 (global-set-key (kbd "s-F") 'helm-locate)
 (global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (helm-mini) (error (helm-keyboard-quit)))))
 (global-set-key (kbd "s-b") 'helm-projectile-switch-to-buffer)
