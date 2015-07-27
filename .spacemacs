@@ -344,6 +344,7 @@ layers configuration."
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "<f1>") 'neotree-find-project-root)
 (global-set-key (kbd "<S-f1>") 'neotree-toggle)
+(add-hook 'helm-mode-hook #'(lambda () (define-key helm-map (kbd "s-m") 'helm-toggle-visible-mark)))
 (global-set-key [mouse-4] '(lambda ()
   (interactive)
   (scroll-down 1)))
