@@ -221,6 +221,7 @@ layers configuration."
 (setenv "LANG" "zh_CN.UTF-8")
 (add-to-list 'load-path "~/.emacs.d/private/")
 (add-hook 'prog-mode-hook 'linum-mode)
+(setq magit-push-always-verify nil)
 (show-smartparens-global-mode -1)
 (setq helm-mode-fuzzy-match t)
 (setq helm-gtags-fuzzy-match t)
