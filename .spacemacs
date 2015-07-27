@@ -236,6 +236,8 @@ layers configuration."
 (load-file "~/.config/secrets/paradox-github-token.el")
 (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
 (add-hook 'enh-ruby-mode-hook #'(lambda () (modify-syntax-entry ?: ".")))
+(add-hook 'enh-ruby-mode-hook #'(lambda () (modify-syntax-entry ?! "_")))
+(add-hook 'enh-ruby-mode-hook #'(lambda () (modify-syntax-entry ?? "_")))
 (remove-hook 'enh-ruby-mode-hook
           (lambda () (rvm-activate-corresponding-ruby)))
 (setq edit-server-new-frame nil)
