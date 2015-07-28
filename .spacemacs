@@ -219,11 +219,28 @@ layers configuration."
     (org-taskjuggler-export-process-and-open))
 
 (defun enh-ruby-mode-config ()
-  (define-key enh-ruby-mode-map (kbd "s-r b") 'ruby-toggle-block)
+  (define-key enh-ruby-mode-map (kbd "s-r b") 'enh-ruby-toggle-block)
   (modify-syntax-entry ?: ".")
   (modify-syntax-entry ?! "_")
-  (modify-syntax-entry ?? "_")
- )
+  (modify-syntax-entry ?? "_"))
+
+
+(defun enh-ruby-toggle-block ()
+  (interactive)
+  (let ((start (point)) beg end)
+      (end-of-line)
+      (unless
+          (if (and (re-search-backward "\\(?:[^#]\\)\\({\\)\\|\\(\\_<do\\_>\\)")
+                  (progn
+                  (goto-char (or (match-beginning 1) (match-beginning 2)))
+                  (setq beg (point))
+                  (save-match-data (enh-ruby-forward-sexp))
+                  (setq end (point))
+                  (> end start)))
+              (if (match-beginning 1)
+                  (ruby-brace-to-do-end beg end)
+              (ruby-do-end-to-brace beg end)))
+      (goto-char start))))
 
 (setenv "LANG" "zh_CN.UTF-8")
 (add-to-list 'load-path "~/.emacs.d/private/")
