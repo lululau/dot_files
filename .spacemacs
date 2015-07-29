@@ -264,7 +264,7 @@ layers configuration."
           (lambda () (rvm-activate-corresponding-ruby)))
 (setq edit-server-new-frame nil)
 (setq edit-server-url-major-mode-alist
-      '((".*" . org-mode)))
+      '(("tbdocs\\.alibaba-inc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
 (setq org-directory "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/ToDo")
 (setq org-mobile-inbox-for-pull "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/ToDo/flagged.org")
 (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
@@ -278,6 +278,7 @@ layers configuration."
 (autoload 'projectile-rails-robe-mode "projectile-rails-robe")
 (add-hook 'robe-mode-hook 'projectile-rails-robe-mode)
 (autoload 'ragtag-mode "ragtag")
+(autoload 'confluence-edit-mode "confluence-edit.el")
 (add-hook 'web-mode-hook 'ragtag-mode)
 (add-hook 'html-erb-mode-hook 'ragtag-mode)
 
