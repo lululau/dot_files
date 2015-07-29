@@ -220,6 +220,7 @@ layers configuration."
 
 (defun enh-ruby-mode-config ()
   (define-key enh-ruby-mode-map (kbd "s-r b") 'enh-ruby-toggle-block)
+  (setq evil-shift-width 2)
   (modify-syntax-entry ?: ".")
   (modify-syntax-entry ?! "_")
   (modify-syntax-entry ?? "_"))
