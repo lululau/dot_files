@@ -423,6 +423,7 @@ layers configuration."
    (quote
     ("~/Library/Mobile Documents/com~apple~CloudDocs/ToDo/work/gantt.org" "~/Library/Mobile Documents/com~apple~CloudDocs/ToDo/work.org" "~/Library/Mobile Documents/com~apple~CloudDocs/ToDo/learnings.org" "~/Library/Mobile Documents/com~apple~CloudDocs/ToDo/homebrews.org")))
  '(projectile-git-command "git ls-files -zco")
+ '(projectile-tags-file-name "NON_EXISTS_FILE")
  '(ring-bell-function (quote ignore) t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
