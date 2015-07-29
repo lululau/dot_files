@@ -212,6 +212,14 @@ layers configuration."
         (puthash projectile-project-root index projectile-term-index-hash-table)
         (shell-pop-ansi-term index)))))
 
+;; Set the monospaced font size when mixed Chinese and English words
+(defun spacemacs//set-monospaced-font (english chinese english-size chinese-size)
+  (set-face-attribute 'default nil :font
+                      (format   "%s:pixelsize=%d"  english english-size))
+  (dolist (charset '(kana han symbol cjk-misc bopomofo))
+    (set-fontset-font (frame-parameter nil 'font) charset
+                      (font-spec :family chinese :size chinese-size))))
+
 (defun gantt ()
     (interactive)
     (require 'ox-taskjuggler)
@@ -242,7 +250,7 @@ layers configuration."
                   (ruby-brace-to-do-end beg end)
               (ruby-do-end-to-brace beg end)))
       (goto-char start))))
-
+(spacemacs//set-monospaced-font "Monaco" "STHeiti" 12 14)
 (setenv "LANG" "zh_CN.UTF-8")
 (add-to-list 'load-path "~/.emacs.d/private/")
 (add-hook 'prog-mode-hook 'linum-mode)
