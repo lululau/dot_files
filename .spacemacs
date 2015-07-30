@@ -380,6 +380,7 @@ layers configuration."
 (global-set-key (kbd "<f1>") #'(lambda () (interactive) (neotree-find-project-root) (window-numbering-update)))
 (global-set-key (kbd "<S-f1>") #'(lambda () (interactive) (neotree-toggle) (window-numbering-update)))
 (add-hook 'helm-mode-hook #'(lambda () (define-key helm-map (kbd "s-m") 'helm-toggle-visible-mark)))
+(add-hook 'artist-mode-hook #'(lambda () (define-key artist-mode-map [(down-mouse-3)] 'artist-mouse-choose-operation)))
 (global-set-key [mouse-4] '(lambda ()
   (interactive)
   (scroll-down 1)))
