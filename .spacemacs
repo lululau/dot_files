@@ -191,6 +191,12 @@ layers configuration."
 
  ;;;;;;;;;;;; Function definitions ;;;;;;;;;;;;;;;;
 
+(defun sudo-save ()
+    (interactive)
+    (if (not buffer-file-name)
+        (write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
+        (write-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
 (defun jump-to-definition-of-symbol-at-point ()
     (interactive)
     (if (bound-and-true-p robe-mode)
