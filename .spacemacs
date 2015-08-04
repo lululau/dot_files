@@ -383,7 +383,7 @@ layers configuration."
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "s-m") 'set-mark-command)
 (global-set-key (kbd "C-x s-m") 'pop-global-mark)
-(global-set-key (kbd "<f1>") #'(lambda () (interactive) (neotree-find-project-root) (window-numbering-update)))
+(global-set-key (kbd "<f1>") #'(lambda () (interactive) (condition-case nil (neotree-find-project-root) (error (neotree-toggle))) (window-numbering-update)))
 (global-set-key (kbd "<S-f1>") #'(lambda () (interactive) (neotree-toggle) (window-numbering-update)))
 (add-hook 'helm-mode-hook #'(lambda () (define-key helm-map (kbd "s-m") 'helm-toggle-visible-mark)))
 (add-hook 'artist-mode-hook #'(lambda () (define-key artist-mode-map [(down-mouse-3)] 'artist-mouse-choose-operation)))
