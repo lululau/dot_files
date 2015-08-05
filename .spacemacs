@@ -379,7 +379,7 @@ layers configuration."
 
 (global-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
-(global-set-key (kbd "<f5>") #'projectile-regenerate-tags)
+(global-set-key (kbd "<f5>") #'(lambda () (interactive) (unless (boundp 'ggtags-mode) (ggtags-mode)) (projectile-regenerate-tags)))
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "s-m") 'set-mark-command)
 (global-set-key (kbd "C-x s-m") 'pop-global-mark)
