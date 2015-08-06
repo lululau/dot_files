@@ -50,7 +50,7 @@
      scala
      chrome
      emoji
-     ibuffer
+     (ibuffer :variables ibuffer-group-buffers-by 'projects)
      search-engine
      ; evil-easymotion
      )
