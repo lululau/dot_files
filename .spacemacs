@@ -419,6 +419,7 @@ layers configuration."
    [default default default italic underline success warning error])
  '(diff-hl-draw-borders nil)
  '(diff-hl-margin-mode nil)
+ '(enh-ruby-add-encoding-comment-on-save nil)
  '(helm-gtags-preselect t)
  '(inf-ruby-implementations
    (quote
