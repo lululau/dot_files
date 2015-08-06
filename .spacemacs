@@ -430,7 +430,7 @@ layers configuration."
      ("macruby" . "macirb -r irb/completion")
      ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.2-head/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.2-head/bin/pry"))))
  '(magit-blame-heading-format "%-20a %A %s")
- '(magit-not-reverted-hook (quote (magit-refresh-vc-mode-line)))
+ '(magit-not-reverted-hook (quote (magit-refresh-vc-mode-line)) t)
  '(neo-theme (quote uni))
  '(org-agenda-files
    (quote
