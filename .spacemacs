@@ -271,9 +271,7 @@ layers configuration."
 (add-hook 'smartparens-enabled-hook #'turn-off-sp-on-large-file)
 (setq helm-mode-fuzzy-match t)
 (setq helm-gtags-fuzzy-match t)
-(setq diff-hl-side 'left)
 (setq rvm--gemset-default "default")
-(setq enh-ruby-add-encoding-comment-on-save nil)
 (defalias 'evil-insert-state 'evil-emacs-state)
 (setq mac-option-modifier 'meta)
 (setq frame-title-format '(:eval (if (buffer-file-name) (if (projectile-project-p)
@@ -403,7 +401,6 @@ layers configuration."
       '(emacs insert normal visual motion))
 
 )
-
 (desktop-save-mode 1)
 
 ;; Do not write anything past this comment. This is where Emacs will
