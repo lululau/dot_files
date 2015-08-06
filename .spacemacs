@@ -53,6 +53,7 @@
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      search-engine
      eyebrowse
+     gnus
      ; evil-easymotion
      )
    ;; List of additional packages that will be installed wihout being
