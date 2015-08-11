@@ -363,8 +363,8 @@ layers configuration."
 (global-set-key (kbd "s-r s-r") 'rvm-activate-corresponding-ruby)
 
 (global-set-key (kbd "C-g") '(lambda () (interactive) (evil-search-highlight-persist-remove-all) (keyboard-quit)))
-(define-key evil-motion-state-map (kbd "t") #'evil-ace-jump-char-mode)
-(define-key evil-motion-state-map (kbd "T") #'evil-ace-jump-line-mode)
+(define-key evil-motion-state-map (kbd "t") #'evil-avy-goto-char)
+(define-key evil-motion-state-map (kbd "T") #'evil-avy-goto-char-2)
 (define-key evil-motion-state-map (kbd "] c") #'diff-hl-next-hunk)
 (define-key evil-motion-state-map (kbd "[ c") #'diff-hl-previous-hunk)
 (define-key evil-motion-state-map (kbd "C-]") #'jump-to-definition-of-symbol-at-point)
