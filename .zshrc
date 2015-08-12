@@ -187,7 +187,8 @@ export FZF_DEFAULT_OPTS='-x -m'
 
 function command_not_found_handler() {
   if [ $# -gt 0  ] && echo $1 | grep -q '^[0-9]\{6\}$'; then
-    alibas admin@web1 "$1"
+    alibas web1 "$1"
+    # alibas admin@web1 "$1"
   elif [ $# -eq 1 ] && echo "$1" | grep -q '^ '; then
     ruby_exp=$(echo "$1" | perl -e '$x = join("", <>); $x =~ s/#(?!{)(.*?)#(?!{)/;system(%{$1});/gs; print $x')
     ruby_exp=$(echo "$ruby_exp" | perl -e "\$x = join('', <>); \$x = s/%\$\\{(.*?)\\}/\$1/gs; print \$x")
