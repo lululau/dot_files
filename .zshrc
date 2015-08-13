@@ -198,6 +198,15 @@ function command_not_found_handler() {
   fi
 }
 
+if [[ "$TERM" == "dumb" ]]
+then
+    unsetopt zle
+    unsetopt prompt_cr
+    unsetopt prompt_subst
+    unfunction precmd
+    unfunction preexec
+    PS1='$ '
+fi
 
 # source ~/.xsh
 
