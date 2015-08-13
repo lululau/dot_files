@@ -381,7 +381,12 @@ layers configuration."
 (define-key evil-outer-text-objects-map "w" 'evil-a-symbol)
 (define-key evil-inner-text-objects-map "w" 'evil-inner-symbol)
 
-(global-set-key (kbd "C-x C-f") 'helm-projectile-find-file)
+(add-hook 'term-mode-hook #'(lambda () (interactive)
+                             (define-key term-raw-map (kbd "<M-backspace>") #'term-send-raw-meta)
+                             (define-key term-raw-map (kbd "s-v") #'term-paste)
+                             (define-key term-raw-map (kbd "C-y") #'term-paste)
+                             ))
+
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
 (global-set-key (kbd "<f5>") #'(lambda () (interactive) (unless (boundp 'ggtags-mode) (ggtags-mode)) (projectile-regenerate-tags)))
 (global-set-key (kbd "M-@") 'set-mark-command)
