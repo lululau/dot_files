@@ -34,6 +34,7 @@
      syntax-checking
      version-control
      ruby
+     yaml
      ruby-on-rails
      shell-scripts
      clojure
