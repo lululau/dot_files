@@ -364,6 +364,8 @@ layers configuration."
 (global-set-key (kbd "s-r c") 'projectile-rails-console)
 (global-set-key (kbd "s-r s") 'projectile-rails-server)
 (global-set-key (kbd "s-r s-r") 'rvm-activate-corresponding-ruby)
+(evil-leader/set-key "gc" 'magit-checkout)
+(evil-leader/set-key "gp" 'magit-pull-current)
 
 (global-set-key (kbd "C-g") '(lambda () (interactive) (evil-search-highlight-persist-remove-all) (keyboard-quit)))
 (define-key evil-normal-state-map "s" #'(lambda () (interactive) (call-interactively 'evil-substitute) (call-interactively 'indent-for-tab-command)))
