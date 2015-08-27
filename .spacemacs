@@ -237,6 +237,8 @@ layers configuration."
 
 (defun enh-ruby-mode-config ()
   (define-key enh-ruby-mode-map (kbd "s-r b") 'enh-ruby-toggle-block)
+  (define-key enh-ruby-mode-map (kbd "M-s-b") #'toggle-pry-breakpoint)
+  (define-key enh-ruby-mode-map (kbd "M-s-c") #'cleanup-pry-breakpoints)
   (setq evil-shift-width 2)
   (modify-syntax-entry ?: ".")
   (modify-syntax-entry ?! "_")
@@ -259,6 +261,34 @@ layers configuration."
                   (ruby-brace-to-do-end beg end)
               (ruby-do-end-to-brace beg end)))
       (goto-char start))))
+
+
+(defun current-line-has-pry-breakpoint-p ()
+  (string-match-p "pry\\.binding" (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+
+(defun delete-pry-breakpoints ()
+  (save-excursion
+    (goto-char (point-min))
+    (while (/= (point) (point-max))
+      (if (current-line-has-pry-breakpoint-p) (kill-whole-line) (forward-line)))))
+
+(defun toggle-pry-breakpoint ()
+  (interactive)
+  (let ((buf-changed (buffer-modified-p)) (saved-evil-state evil-state))
+    (if (current-line-has-pry-breakpoint-p)
+        (kill-whole-line)
+      (evil-open-above 0)
+      (insert "require 'pry'; pry.binding;"))
+
+    (unless buf-changed (save-buffer))
+    (call-interactively (intern (concat "evil-" (symbol-name saved-evil-state) "-state")))))
+
+(defun cleanup-pry-breakpoints ()
+  (interactive)
+  (let ((buf-changed (buffer-modified-p)) (saved-evil-state evil-state))
+    (delete-pry-breakpoints)
+    (unless buf-changed (save-buffer))
+    (call-interactively (intern (concat "evil-" (symbol-name saved-evil-state) "-state")))))
 
 (defun turn-off-sp-on-large-file ()
   (interactive)
