@@ -264,7 +264,7 @@ layers configuration."
 
 
 (defun current-line-has-pry-breakpoint-p ()
-  (string-match-p "pry\\.binding" (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+  (string-match-p "binding\\.pry" (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
 
 (defun delete-pry-breakpoints ()
   (save-excursion
@@ -278,7 +278,7 @@ layers configuration."
     (if (current-line-has-pry-breakpoint-p)
         (kill-whole-line)
       (evil-open-above 0)
-      (insert "require 'pry'; pry.binding;"))
+      (insert "require 'pry'; binding.pry;"))
 
     (unless buf-changed (save-buffer))
     (call-interactively (intern (concat "evil-" (symbol-name saved-evil-state) "-state")))))
