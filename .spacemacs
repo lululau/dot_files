@@ -490,7 +490,7 @@ layers configuration."
                  ,(intern (format "evil-%S-state-map" s))
                  ,[?\S- ]
                  evil-leader--default-map)))
-      '(emacs insert normal visual motion))
+      '(emacs insert normal visual motion evilified))
 
 )
 (desktop-save-mode 1)
