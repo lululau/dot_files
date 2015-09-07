@@ -344,6 +344,8 @@ layers configuration."
                             (wikipedia :name "Wikipedia" :url "http://www.wikipedia.org/search-redirect.php?language=zh&go=Go&search=%s")
                             (wolfram-alpha :name "Wolfram Alpha" :url "http://www.wolframalpha.com/input/?i=%s")))
 
+(setq auto-mode-alist (cons '("\\.apib\\'" . markdown-mode) auto-mode-alist))
+
 ;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
 
 (define-key window-numbering-keymap "\M-0" nil)
