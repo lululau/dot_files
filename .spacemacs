@@ -33,7 +33,7 @@
             shell-default-term-shell "/bin/zsh")
      syntax-checking
      version-control
-     ruby
+     (ruby :variables ruby-enable-enh-ruby-mode t)
      yaml
      ruby-on-rails
      shell-scripts
