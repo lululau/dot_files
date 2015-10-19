@@ -321,6 +321,16 @@ layers configuration."
   (when (< 1200 (line-number-at-pos (buffer-size))) (turn-off-smartparens-mode) (turn-off-show-smartparens-mode))
    )
 
+(defun neotree--split-window-right (args)
+  (interactive "P")
+  )
+
+(defun neotree--magit-status (args)
+  (interactive "P")
+  )
+
+
+(setq neo-vc-integration nil)
 (spacemacs//set-monospaced-font "Monaco" "STHeiti" 12 14)
 (setenv "LANG" "zh_CN.UTF-8")
 (add-to-list 'load-path "~/.emacs.d/private/")
