@@ -337,6 +337,7 @@ layers configuration."
 (add-hook 'prog-mode-hook 'linum-mode)
 (setq magit-push-always-verify nil)
 (add-hook 'smartparens-enabled-hook #'turn-off-sp-on-large-file)
+(add-hook 'magit-not-reverted-hook #'magit-refresh-vc-mode-line)
 (setq helm-mode-fuzzy-match t)
 (setq helm-gtags-fuzzy-match t)
 (setq rvm--gemset-default "default")
