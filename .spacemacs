@@ -101,7 +101,7 @@ before layers configuration."
    ;                       leuven
    ;                       monokai
    ;                       zenburn)
-   dotspacemacs-themes (if (display-graphic-p) '(solarized-light atom-one-dark) '(atom-one-dark))
+   dotspacemacs-themes (if (display-graphic-p) '( spacemacs-dark solarized-light ) '(spacemacs-dark))
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
