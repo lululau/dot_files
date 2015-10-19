@@ -550,7 +550,7 @@ layers configuration."
  '(diff-hl-draw-borders nil)
  '(diff-hl-margin-mode nil)
  '(enh-ruby-add-encoding-comment-on-save nil)
- '(helm-gtags-fuzzy-match t)
+ '(helm-gtags-fuzzy-match t t)
  '(helm-gtags-preselect t)
  '(inf-ruby-implementations
    (quote
