@@ -220,6 +220,11 @@ layers configuration."
 
  ;;;;;;;;;;;; Function definitions ;;;;;;;;;;;;;;;;
 
+(defun byte-compile-current-buffer-file ()
+  (interactive)
+  (byte-compile-file (buffer-file-name))
+  )
+
 (defun sudo-save ()
     (interactive)
     (if (not buffer-file-name)
