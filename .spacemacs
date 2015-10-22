@@ -370,6 +370,7 @@ layers configuration."
 (autoload 'confluence-edit-mode "confluence-edit.el")
 (add-hook 'web-mode-hook 'ragtag-mode)
 (add-hook 'html-erb-mode-hook 'ragtag-mode)
+(add-hook 'web-mode-hook 'ragtag-mode)
 
 (setq search-engine-alist '(
                             (google :name "Google" :url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
