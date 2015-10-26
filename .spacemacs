@@ -562,7 +562,7 @@ layers configuration."
  '(diff-hl-draw-borders nil)
  '(diff-hl-margin-mode nil)
  '(enh-ruby-add-encoding-comment-on-save nil)
- '(helm-gtags-fuzzy-match t t)
+ '(helm-gtags-fuzzy-match t)
  '(helm-gtags-preselect t)
  '(inf-ruby-implementations
    (quote
@@ -574,7 +574,7 @@ layers configuration."
      ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.2-head/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.2-head/bin/pry"))))
  '(magit-blame-heading-format "%-20a %A %s")
  '(magit-diff-use-overlays nil)
- '(magit-not-reverted-hook (quote (magit-refresh-vc-mode-line)) t)
+ '(magit-not-reverted-hook (quote (magit-refresh-vc-mode-line)))
  '(neo-theme (quote uni))
  '(org-agenda-files
    (quote
