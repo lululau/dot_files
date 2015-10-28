@@ -340,6 +340,10 @@ layers configuration."
   (interactive "P")
   )
 
+(defun yank-to-end-of-line ()
+  (interactive "")
+  (evil-yank-line (point) (line-end-position))
+  )
 
 (setq neo-vc-integration nil)
 (spacemacs//set-monospaced-font "Monaco" "STHeiti" 12 14)
@@ -464,6 +468,8 @@ layers configuration."
 (define-key evil-emacs-state-map (kbd "<s-mouse-1>") #'(lambda (event) (interactive "e") (mouse-set-point event) (jump-to-definition-of-symbol-at-point)))
 (define-key evil-emacs-state-map (kbd "<s-mouse-3>") #'evil-jumper/backward)
 (define-key evil-emacs-state-map (kbd "s-q") #'evil-exit-emacs-state)
+(define-key evil-normal-state-map (kbd "Y") #'yank-to-end-of-line)
+(define-key evil-motion-state-map (kbd "Y") #'yank-to-end-of-line)
 (add-hook 'magit-mode-hook '(lambda () (define-key evil-evilified-state-map (kbd "s-M") #'evil-motion-state) (define-key evil-motion-state-map (kbd "s-M") #'evil-evilified-state) (define-key magit-mode-map [S-tab] 'magit-section-cycle-global)))
 (define-key evil-outer-text-objects-map "o" 'evil-a-word)
 (define-key evil-inner-text-objects-map "o" 'evil-inner-word)
