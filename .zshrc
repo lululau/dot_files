@@ -186,7 +186,7 @@ function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 export FZF_DEFAULT_OPTS='-x -m'
 
 function command_not_found_handler() {
-  if [ $# -gt 0  ]; then
+  if [ $# -eq 1  ]; then
       if echo $1 | grep -q  '^[0-9]\{6\}$'; then
         alibas Unode221-boss.et2 "$1"
       elif echo $1 | grep -q  '^[0-9]\{7\}$'; then
@@ -199,12 +199,12 @@ function command_not_found_handler() {
         elif [ "${1:0:1}" = d ]; then
             alibas db"${1:1:1}" "${1:2}"
         fi
+      elif echo "$1" | grep -q '^ '; then
+        ruby_exp=$(echo "$1" | perl -e '$x = join("", <>); $x =~ s/#(?!{)(.*?)#(?!{)/;system(%{$1});/gs; print $x')
+        ruby -e "$ruby_exp"
+      else
+          return 127
       fi
-    # alibas admin@web1 "$1"
-  elif [ $# -eq 1 ] && echo "$1" | grep -q '^ '; then
-    ruby_exp=$(echo "$1" | perl -e '$x = join("", <>); $x =~ s/#(?!{)(.*?)#(?!{)/;system(%{$1});/gs; print $x')
-    ruby_exp=$(echo "$ruby_exp" | perl -e "\$x = join('', <>); \$x = s/%\$\\{(.*?)\\}/\$1/gs; print \$x")
-    ruby -e "$ruby_exp"
   else
     return 127
   fi
