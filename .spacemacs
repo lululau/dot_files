@@ -588,7 +588,8 @@ layers configuration."
  '(projectile-completion-system (quote helm))
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
- '(ring-bell-function (quote ignore) t))
+ '(ring-bell-function (quote ignore) t)
+ '(vc-follow-symlinks t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
