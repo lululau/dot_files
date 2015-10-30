@@ -190,6 +190,7 @@ before layers configuration."
        ;; Your init file should contain only one such instance.
        ;; If there is more than one, they won't work right.
        '(enh-ruby-op-face ((t (:foreground "#b2b2b2"))))
+       '(enh-ruby-string-delimiter-face ((t (:foreground "#3c95d2"))))
        '(linum ((t (:background "#292b2e" :foreground "#44505c"))))
        '(mode-line ((t (:background "#222226" :foreground "#b2b2b2" :box (:line-width 1 :color "#5d4d7a") :overline nil :underline nil))))
        '(mode-line-inactive ((t (:background "#292b2e" :foreground "#b2b2b2" :box (:line-width 1 :color "#5d4d7a") :overline nil :underline nil))))
@@ -205,6 +206,7 @@ before layers configuration."
        ;; Your init file should contain only one such instance.
        ;; If there is more than one, they won't work right.
        '(enh-ruby-op-face ((t (:foreground "#748488"))))
+       '(enh-ruby-string-delimiter-face ((t (:foreground "#b58901"))))
        '(linum ((t (:background "#fdf6e4" :foreground "#93a1a1"))))
        '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#657b83") :overline nil :underline nil))))
        '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#93a1a1") :overline nil :underline nil))))
