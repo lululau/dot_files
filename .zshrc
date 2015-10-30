@@ -176,7 +176,7 @@ function rm() {
 
 if [ -n "$ITERM_SESSION_ID"  ]
 then
-  eval "$(icrt.rb "$ITERM_SESSION_ID")"
+  eval "$(icrt.rb "${ITERM_SESSION_ID%%:*}")"
 fi
 
 set -o interactivecomments
