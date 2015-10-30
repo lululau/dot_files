@@ -355,6 +355,7 @@ layers configuration."
 (setq magit-push-always-verify nil)
 (add-hook 'smartparens-enabled-hook #'turn-off-sp-on-large-file)
 (add-hook 'magit-not-reverted-hook #'magit-refresh-vc-mode-line)
+(add-hook 'git-commit-mode-hook 'evil-emacs-state)
 (setq helm-mode-fuzzy-match t)
 (setq helm-gtags-fuzzy-match t)
 (setq rvm--gemset-default "default")
