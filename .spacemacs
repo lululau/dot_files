@@ -574,6 +574,7 @@ layers configuration."
  '(enh-ruby-add-encoding-comment-on-save nil)
  '(helm-gtags-fuzzy-match t)
  '(helm-gtags-preselect t)
+ '(helm-imenu-fuzzy-match t)
  '(inf-ruby-implementations
    (quote
     (("ruby" . "irb --prompt default --noreadline -r irb/completion")
