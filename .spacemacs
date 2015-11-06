@@ -415,6 +415,7 @@ layers configuration."
 (define-key window-numbering-keymap "\M-9" nil)
 
 (global-unset-key (kbd "s-q"))
+(global-set-key (kbd "s-l") 'evil-avy-goto-line)
 (global-set-key (kbd "s-0") 'select-window-0)
 (global-set-key (kbd "s-1") 'select-window-1)
 (global-set-key (kbd "s-2") 'select-window-2)
