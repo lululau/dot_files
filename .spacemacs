@@ -376,7 +376,7 @@ layers configuration."
 (setq org-mobile-inbox-for-pull "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/ToDo/flagged.org")
 (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
 
-(setq comint-input-ring-file-name "/Users/liuxiang/.pry_history")
+(setq comint-input-ring-file-name "~/.pry_history")
 (setq comint-input-ring-size 100000)
 (add-hook 'inf-ruby-mode-hook #'(lambda () (interactive) (comint-read-input-ring) (add-hook 'comint-input-filter-functions #'(lambda (text) (interactive) '(comint-write-input-ring)) nil t)))
 (setq inf-ruby-default-implementation "pry")
