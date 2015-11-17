@@ -561,6 +561,7 @@ layers configuration."
 
 )
 (desktop-save-mode 1)
+(defadvice split-window-right (after split-window-right-and-balance activate) (balance-windows))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
