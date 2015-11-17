@@ -55,6 +55,7 @@
      search-engine
      eyebrowse
      gnus
+     chinese
      ; evil-easymotion
      )
    ;; List of additional packages that will be installed wihout being
