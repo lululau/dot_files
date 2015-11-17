@@ -336,14 +336,6 @@ layers configuration."
   (when (< 1200 (line-number-at-pos (buffer-size))) (turn-off-smartparens-mode) (turn-off-show-smartparens-mode))
    )
 
-(defun neotree--split-window-right (args)
-  (interactive "P")
-  )
-
-(defun neotree--magit-status (args)
-  (interactive "P")
-  )
-
 (defun yank-to-end-of-line ()
   (interactive "")
   (evil-yank-line (point) (line-end-position))
