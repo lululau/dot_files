@@ -377,6 +377,7 @@ layers configuration."
 (setq org-directory "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/ToDo")
 (setq org-mobile-inbox-for-pull "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/ToDo/flagged.org")
 (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
+(setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
 
 (setq comint-input-ring-file-name "~/.pry_history")
 (setq comint-input-ring-size 100000)
