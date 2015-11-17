@@ -386,6 +386,8 @@ layers configuration."
 (autoload 'confluence-edit-mode "confluence-edit.el")
 (add-hook 'web-mode-hook 'ragtag-mode)
 (add-hook 'html-erb-mode-hook 'ragtag-mode)
+(setq org-html-doctype "html5")
+(setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://lululau.gitcafe.io/assets/css/readtheorg.css\" />\n<script src=\"http://lululau.gitcafe.io/assets/js/readtheorg.js\"></script>")
 
 (setq search-engine-alist '(
                             (google :name "Google" :url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
