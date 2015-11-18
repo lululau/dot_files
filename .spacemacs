@@ -367,7 +367,7 @@ layers configuration."
 (setq edit-server-url-major-mode-alist
       '(("tbdocs\\.alibaba-inc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
 (setq org-directory "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/ToDo")
-(setq org-mobile-inbox-for-pull "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/ToDo/flagged.org")
+(setq org-mobile-inbox-for-pull "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/flagged.org")
 (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
 (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
 
@@ -394,6 +394,7 @@ layers configuration."
 (autoload 'confluence-edit-mode "confluence-edit.el")
 (add-hook 'web-mode-hook 'ragtag-mode)
 (add-hook 'html-erb-mode-hook 'ragtag-mode)
+(setq org-default-notes-file "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org")
 (setq org-html-doctype "html5")
 (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://lululau.gitcafe.io/assets/css/readtheorg.css\" />\n<script src=\"http://lululau.gitcafe.io/assets/js/readtheorg.js\"></script>")
 
@@ -605,7 +606,7 @@ layers configuration."
  '(neo-theme (quote uni))
  '(org-agenda-files
    (quote
-    ("~/Library/Mobile Documents/com~apple~CloudDocs/ToDo/work/gantt.org" "~/Library/Mobile Documents/com~apple~CloudDocs/ToDo/work.org" "~/Library/Mobile Documents/com~apple~CloudDocs/ToDo/learnings.org" "~/Library/Mobile Documents/com~apple~CloudDocs/ToDo/homebrews.org")))
+    ("~/Library/Mobile Documents/com~apple~CloudDocs/org/work/gantt.org" "~/Library/Mobile Documents/com~apple~CloudDocs/org/work.org" "~/Library/Mobile Documents/com~apple~CloudDocs/org/learnings.org" "~/Library/Mobile Documents/com~apple~CloudDocs/org/homebrews.org")))
  '(projectile-completion-system (quote helm))
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
