@@ -366,7 +366,8 @@ layers configuration."
 (setq edit-server-new-frame nil)
 (setq edit-server-url-major-mode-alist
       '(("tbdocs\\.alibaba-inc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
-(setq org-directory "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/ToDo")
+(setq org-directory "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org")
+(setq org-agenda-files (append (file-expand-wildcards "~/Library/Mobile Documents/com~apple~CloudDocs/org/**/*.org") (file-expand-wildcards  "~/Library/Mobile Documents/com~apple~CloudDocs/org/*.org")))
 (setq org-mobile-inbox-for-pull "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/flagged.org")
 (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
 (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
@@ -604,9 +605,6 @@ layers configuration."
  '(magit-diff-use-overlays nil)
  '(magit-not-reverted-hook (quote (magit-refresh-vc-mode-line)))
  '(neo-theme (quote uni))
- '(org-agenda-files
-   (quote
-    ("~/Library/Mobile Documents/com~apple~CloudDocs/org/")))
  '(projectile-completion-system (quote helm))
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
