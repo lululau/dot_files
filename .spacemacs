@@ -606,7 +606,7 @@ layers configuration."
  '(neo-theme (quote uni))
  '(org-agenda-files
    (quote
-    ("~/Library/Mobile Documents/com~apple~CloudDocs/org/work/gantt.org" "~/Library/Mobile Documents/com~apple~CloudDocs/org/work.org" "~/Library/Mobile Documents/com~apple~CloudDocs/org/learnings.org" "~/Library/Mobile Documents/com~apple~CloudDocs/org/homebrews.org")))
+    ("~/Library/Mobile Documents/com~apple~CloudDocs/org/")))
  '(projectile-completion-system (quote helm))
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
