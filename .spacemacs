@@ -368,6 +368,8 @@ layers configuration."
       '(("tbdocs\\.alibaba-inc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
 (setq org-directory "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org")
 (setq org-agenda-files (append (file-expand-wildcards "~/Library/Mobile Documents/com~apple~CloudDocs/org/**/*.org") (file-expand-wildcards  "~/Library/Mobile Documents/com~apple~CloudDocs/org/*.org")))
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9))))
 (setq org-mobile-inbox-for-pull "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/flagged.org")
 (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
 (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
