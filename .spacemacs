@@ -572,6 +572,8 @@ layers configuration."
       '(emacs insert normal visual motion evilified))
 
 )
+
+(add-hook 'org-mode-hook #'(lambda () (interactive) (define-key org-mode-map [(meta return)] nil)))
 (desktop-save-mode 1)
 (defadvice split-window-right (after split-window-right-and-balance activate) (balance-windows))
 
