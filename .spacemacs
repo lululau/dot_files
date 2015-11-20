@@ -602,7 +602,7 @@ layers configuration."
 
 )
 
-(add-hook 'org-mode-hook #'(lambda () (interactive) (define-key org-mode-map [(meta return)] nil)))
+(add-hook 'org-mode-hook #'(lambda () (interactive) (require 'ox-confluence) (define-key org-mode-map [(meta return)] nil)))
 (desktop-save-mode 1)
 (defadvice split-window-right (after split-window-right-and-balance activate) (balance-windows))
 
