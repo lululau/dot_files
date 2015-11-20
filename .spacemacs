@@ -513,6 +513,7 @@ layers configuration."
 
 (add-hook 'projectile-rails-mode-hook
           #'(lambda ()
+              (require 'helm-projectile)
               (defclass helm-source-rails-models-buffer (helm-source-projectile-buffer)
                 ((candidates :initform #'(lambda () (rails-buffer-candidates-function "models")))))
               (defclass helm-source-rails-views-buffer (helm-source-projectile-buffer)
