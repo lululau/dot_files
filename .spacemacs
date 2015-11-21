@@ -385,6 +385,7 @@ layers configuration."
 (setq org-mobile-inbox-for-pull "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/flagged.org")
 (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
 (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
+(setq org-link-search-must-match-exact-headline nil)
 
 (setq comint-input-ring-file-name "~/.pry_history")
 (setq comint-input-ring-size 100000)
