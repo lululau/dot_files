@@ -603,9 +603,24 @@ layers configuration."
                  evil-leader--default-map)))
       '(emacs insert normal visual motion evilified))
 
-)
+(add-hook 'evil-leader-mode-hook #'(lambda ()
+                                     (interactive)
+                                     (let* ((leader [?\S- ])
+                                            (mode-map (cdr (assoc major-mode evil-leader--mode-maps)))
+                                            (map (or mode-map evil-leader--default-map)))
+                                       (if evil-leader-mode
+                                           (progn
+                                             (define-key evil-emacs-state-local-map leader map)
+                                             (define-key evil-insert-state-local-map leader map)
+                                             (define-key evil-normal-state-local-map leader map)
+                                             (define-key evil-visual-state-local-map leader map)
+                                             (define-key evil-motion-state-local-map leader map)
+                                             (define-key evil-evilified-state-local-map leader map))))))
 
-(add-hook 'org-mode-hook #'(lambda () (interactive) (require 'ox-confluence) (define-key org-mode-map [(meta return)] nil)))
+(add-hook 'org-mode-hook #'(lambda () (interactive) (require 'ox-confluence)))
+
+) ;;; End of config.
+
 (desktop-save-mode 1)
 (defadvice split-window-right (after split-window-right-and-balance activate) (balance-windows))
 
