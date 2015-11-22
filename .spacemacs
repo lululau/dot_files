@@ -490,6 +490,7 @@ layers configuration."
 (define-key evil-normal-state-map "s" #'(lambda () (interactive) (call-interactively 'evil-substitute) (call-interactively 'indent-for-tab-command)))
 (define-key evil-motion-state-map (kbd "t") #'evil-avy-goto-char)
 (define-key evil-motion-state-map (kbd "T") #'evil-avy-goto-char-2)
+(define-key evil-motion-state-map (kbd "SPC SPC") #'evil-avy-goto-char-2)
 (define-key evil-motion-state-map (kbd "] c") #'diff-hl-next-hunk)
 (define-key evil-motion-state-map (kbd "[ c") #'diff-hl-previous-hunk)
 (define-key evil-motion-state-map (kbd "C-]") #'jump-to-definition-of-symbol-at-point)
