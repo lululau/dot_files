@@ -386,6 +386,8 @@ layers configuration."
 (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
 (setq org-bullets-bullet-list '("𝌆" "𝌇" "𝌎" "𝌓" "𝌮"))
 (setq org-link-search-must-match-exact-headline nil)
+(setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
+(org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
 
 (setq comint-input-ring-file-name "~/.pry_history")
 (setq comint-input-ring-size 100000)
