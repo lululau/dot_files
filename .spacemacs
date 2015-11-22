@@ -116,12 +116,12 @@ before layers configuration."
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
-   dotspacemacs-emacs-leader-key "M-m"
+   dotspacemacs-emacs-leader-key "S-SPC"
    ;; Major mode leader key is a shortcut key which is the equivalent of
    ;; pressing `<leader> m`. Set it to `nil` to disable it.
    dotspacemacs-major-mode-leader-key ","
    ;; Major mode leader key accessible in `emacs state' and `insert state'
-   dotspacemacs-major-mode-emacs-leader-key "C-M-m"
+   dotspacemacs-major-mode-emacs-leader-key "s-,"
    ;; The command key used for Evil commands (ex-commands) and
    ;; Emacs commands (M-x).
    ;; By default the command key is `:' so ex-commands are executed like in Vim
@@ -596,27 +596,6 @@ layers configuration."
 (global-set-key [mouse-5] '(lambda ()
   (interactive)
   (scroll-up 1)))
-
-(mapc (lambda (s)
-        (eval `(define-key
-                 ,(intern (format "evil-%S-state-map" s))
-                 ,[?\S- ]
-                 evil-leader--default-map)))
-      '(emacs insert normal visual motion evilified))
-
-(add-hook 'evil-leader-mode-hook #'(lambda ()
-                                     (interactive)
-                                     (let* ((leader [?\S- ])
-                                            (mode-map (cdr (assoc major-mode evil-leader--mode-maps)))
-                                            (map (or mode-map evil-leader--default-map)))
-                                       (if evil-leader-mode
-                                           (progn
-                                             (define-key evil-emacs-state-local-map leader map)
-                                             (define-key evil-insert-state-local-map leader map)
-                                             (define-key evil-normal-state-local-map leader map)
-                                             (define-key evil-visual-state-local-map leader map)
-                                             (define-key evil-motion-state-local-map leader map)
-                                             (define-key evil-evilified-state-local-map leader map))))))
 
 (add-hook 'org-mode-hook #'(lambda () (interactive) (require 'ox-confluence)))
 
