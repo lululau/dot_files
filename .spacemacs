@@ -365,9 +365,8 @@ layers configuration."
 
 (defun org-yank-image/get-file ()
   (let* ((default-dir (org-yank-image/default-dir))
-         (default-file (org-yank-image/default-file default-dir))
-         (default-path (format "%s/%s" default-dir default-file)))
-    (read-string "Save to file: " default-path)))
+         (default-file (org-yank-image/default-file default-dir)))
+    (read-file-name "Save to file: " default-dir nil nil default-file)))
 
 (defun org-yank-image/write-to-file (img-data path)
   (make-directory (file-name-directory path) t)
