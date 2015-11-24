@@ -1,10 +1,6 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
-# Mark sure '/usr/local/bin' have higher priority than '/usr/bin'
-# PATH=${PATH/\/usr\/bin/swap_usr_local_bin_and_user_bin}
-# PATH=${PATH/\/usr\/local\/bin/\/usr\/bin}
-# PATH=${PATH/swap_usr_local_bin_and_user_bin/\/usr\/local\/bin}
 export AUTOJUMP_KEEP_SYMLINKS=1
 export HOMEBREW_GITHUB_API_TOKEN=fa0caebdcdf2ae6658ea8607815036dc2f413260
 
@@ -28,14 +24,11 @@ export CLICOLOR=1
 # export LSCOLORS=ExFxCxDxBxegedabagacad
 export LANG=zh_CN.UTF-8
 export MAGICK_HOME=/opt/local
-PATH=/Users/liuxiang/Applications/Postgres.app/Contents/MacOS/bin:/Users/liuxiang/casecode/mygithub/rakudo/parrot_install/bin:$PATH:/usr/local/mysql/bin:/Users/liuxiang/cascode/github.com/xiki/bin
-# export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH
 export GOROOT=$HOME/go
 export GOOS=darwin
 export GOARCH=amd64
 export GOBIN=$HOME/gobin
 export GROOVY_HOME=/usr/lib/groovy
-export PATH=$PATH:/opt/local/bin:/opt/local/sbin:${GROOVY_HOME}/bin:$GOBIN
 export TERM2NARROW=false
 
 
@@ -108,12 +101,9 @@ plugins=(git autojump battery colorize colored-man command-not-found compleat cp
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-# export PATH=$PATH:/Users/liuxiang/Applications/Postgres.app/Contents/MacOS/bin:/Users/liuxiang/casecode/mygithub/rakudo/parrot_install/bin:/usr/local/bin:/usr/local/mysql/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/lib/groovy/bin:/Users/liuxiang/gobin:/usr/lib/jruby/bin:/usr/local/texlive/2010/bin/x86_64-darwin:/Users/liuxiang/bin
 
-export FPATH="$FPATH:/usr/local/share/zsh/site-functions/:/Users/liuxiang/casecode/mygithub/zsh-completions/src"
 compdef _ack2_completion ack
 
-PATH=/Users/liuxiang/bin/:/Users/liuxiang/Library/Python/2.7/bin:$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 
