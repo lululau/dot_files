@@ -62,7 +62,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(ox-reveal)
+   dotspacemacs-additional-packages '(ox-reveal calfw)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -385,8 +385,6 @@ layers configuration."
 (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
 (setq org-bullets-bullet-list '("𝌆" "𝌇" "𝌎" "𝌓" "𝌮"))
 (setq org-link-search-must-match-exact-headline nil)
-(setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
-(org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
 
 (setq comint-input-ring-file-name "~/.pry_history")
 (setq comint-input-ring-size 100000)
@@ -485,8 +483,8 @@ layers configuration."
   "gC" 'magit-commit
   "gc" 'magit-checkout
   "gu" #'(lambda () (interactive) (magit-checkout-file (magit-get-current-branch) (buffer-file-name)))
-  "gp" #'(lambda () (interactive) (call-interactively 'magit-pull-current) (magit-process-buffer)))
-
+  "gp" #'(lambda () (interactive) (call-interactively 'magit-pull-current) (magit-process-buffer))
+  "aoA" #'(lambda () (interactive) (require 'calfw-org) (cfw:open-org-calendar)))
 (global-set-key (kbd "C-g") '(lambda () (interactive) (evil-search-highlight-persist-remove-all) (keyboard-quit)))
 (define-key evil-normal-state-map "s" #'(lambda () (interactive) (call-interactively 'evil-substitute) (call-interactively 'indent-for-tab-command)))
 (define-key evil-motion-state-map (kbd "t") #'evil-avy-goto-char)
@@ -601,8 +599,11 @@ layers configuration."
   (interactive)
   (scroll-up 1)))
 
-(add-hook 'org-mode-hook #'(lambda () (interactive) (require 'ox-confluence)))
-
+(add-hook 'org-mode-hook #'(lambda ()
+                             (interactive)
+                             (require 'ox-confluence)
+                             (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
+                             (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
 ) ;;; End of config.
 
 (desktop-save-mode 1)
@@ -622,6 +623,7 @@ layers configuration."
  '(ahs-inhibit-face-list nil)
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
+ '(cfw:display-calendar-holidays nil)
  '(diff-hl-draw-borders nil)
  '(diff-hl-margin-mode nil)
  '(enh-ruby-add-encoding-comment-on-save nil)
