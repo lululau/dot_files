@@ -526,6 +526,8 @@ layers configuration."
   "gc" 'magit-checkout
   "gu" #'(lambda () (interactive) (magit-checkout-file (magit-get-current-branch) (buffer-file-name)))
   "gp" #'(lambda () (interactive) (call-interactively 'magit-pull-current) (magit-process-buffer))
+  "gP" #'(lambda () (interactive) (call-interactively 'magit-push-current) (magit-process-buffer))
+  "gM" #'(lambda () (interactive) (call-interactively 'magit-merge))
   "aoA" #'(lambda () (interactive) (require 'calfw-org) (cfw:open-org-calendar)))
 (global-set-key (kbd "C-g") '(lambda () (interactive) (evil-search-highlight-persist-remove-all) (keyboard-quit)))
 (define-key evil-normal-state-map "s" #'(lambda () (interactive) (call-interactively 'evil-substitute) (call-interactively 'indent-for-tab-command)))
