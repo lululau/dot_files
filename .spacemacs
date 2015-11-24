@@ -38,7 +38,6 @@
      yaml
      ruby-on-rails
      shell-scripts
-     clojure
      dash
      emacs-lisp
      ;; evernote
