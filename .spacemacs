@@ -351,6 +351,48 @@ layers configuration."
       )
     )))
 
+(defun org-yank-image/default-dir ()
+  (format "%s/media" (file-name-sans-extension (buffer-file-name))))
+
+(defun org-yank-image/default-file (dir)
+  (let ((last 0))
+    (format "image%d.png" (1+
+            (dolist (f (file-expand-wildcards (format "%s/*" dir)) last)
+              (when (string-match "/image\\([0-9]+\\)\\.png$" f)
+                (let ((n (string-to-number (match-string 1 f))))
+                  (when (> n last)
+                    (setq last n)))))))))
+
+(defun org-yank-image/get-file ()
+  (let* ((default-dir (org-yank-image/default-dir))
+         (default-file (org-yank-image/default-file default-dir))
+         (default-path (format "%s/%s" default-dir default-file)))
+    (read-string "Save to file: " default-path)))
+
+(defun org-yank-image/write-to-file (img-data path)
+  (make-directory (file-name-directory path) t)
+  (let ((temp-file (make-temp-file "org-yank-image")))
+    (write-region img-data nil temp-file)
+    (call-process-shell-command (format "sips %s --setProperty format %s --out %s" temp-file (file-name-extension path) (shell-quote-argument (expand-file-name path))))
+    (delete-file temp-file)))
+
+(defun org-yank-image/insert-link (file-path)
+  (insert (format "[[%s]]" file-path))
+  )
+
+(defun org-yank-image/write-and-insert (img)
+  (let* ((file-path (org-yank-image/get-file)))
+    (org-yank-image/write-to-file (plist-get (cdr img) :data) file-path)
+    (org-yank-image/insert-link file-path)
+    (org-display-inline-images nil)))
+
+(defun org-yank-image/yank ()
+  (interactive)
+  (let* ((pboard-item (current-kill 0 t))
+         (img (get-text-property 0 'display pboard-item)))
+    (if img
+        (org-yank-image/write-and-insert img)
+      (call-interactively 'yank))))
 
 (setq neo-vc-integration nil)
 (spacemacs//set-monospaced-font "Monaco" "STHeiti" 13 16)
@@ -602,6 +644,7 @@ layers configuration."
 (add-hook 'org-mode-hook #'(lambda ()
                              (interactive)
                              (require 'ox-confluence)
+                             (define-key org-mode-map (kbd "s-v") #'org-yank-image/yank)
                              (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                              (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
 ) ;;; End of config.
