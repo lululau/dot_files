@@ -651,6 +651,37 @@ layers configuration."
                              (define-key org-mode-map (kbd "s-v") #'org-yank-image/yank)
                              (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                              (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
+
+;; org-mode and appointment notifications on Mac OS 10.8+
+;; https://lists.gnu.org/archive/html/emacs-orgmode/2013-02/msg00644.html
+(require 'appt)
+(setq appt-time-msg-list nil)    ;; clear existing appt list
+(setq appt-display-interval 8) ;; warn every 10 minutes from t - appt-message-warning-time
+(setq
+  appt-message-warning-time 15  ;; send first warning 10 minutes before appointment
+  appt-display-mode-line nil     ;; don't show in the modeline
+  appt-display-format 'window)   ;; pass warnings to the designated window function
+(appt-activate 1)                ;; activate appointment notification
+(display-time)                   ;; activate time display
+
+(org-agenda-to-appt)             ;; generate the appt list from org agenda files on emacs launch
+(run-at-time "24:01" 3600 'org-agenda-to-appt)           ;; update appt list hourly
+(add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt) ;; update appt list on agenda view
+
+;; set up the call to terminal-notifier
+(defvar my-notifier-path
+  "/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier")
+(defun my-appt-send-notification (title msg)
+  (shell-command (concat my-notifier-path " -message " msg " -title " title " -sender org.gnu.Emacs -appIcon /Users/liuxiang/.emacs.d/private/org.png")))
+
+;; designate the window function for my-appt-send-notification
+(defun my-appt-display (min-to-app new-time msg)
+  (my-appt-send-notification
+    (format "'%s 分钟之后'" min-to-app)    ;; passed to -title in terminal-notifier call
+    (format "'%s'" msg)))                                ;; passed to -message in terminal-notifier call
+(setq appt-disp-window-function (function my-appt-display))
+
+
 ) ;;; End of config.
 
 (desktop-save-mode 1)
