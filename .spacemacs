@@ -353,7 +353,7 @@ layers configuration."
     )))
 
 (defun org-yank-image/default-dir ()
-  (format "%s/media" (file-name-sans-extension (buffer-file-name))))
+  (format "%s/media" (file-name-base (buffer-file-name))))
 
 (defun org-yank-image/default-file (dir)
   (let ((last 0))
@@ -367,7 +367,7 @@ layers configuration."
 (defun org-yank-image/get-file ()
   (let* ((default-dir (org-yank-image/default-dir))
          (default-file (org-yank-image/default-file default-dir)))
-    (read-file-name "Save to file: " default-dir nil nil default-file)))
+    (format "./%s" (file-relative-name (read-file-name "Save to file: " default-dir nil nil default-file) default-directory))))
 
 (defun org-yank-image/write-to-file (img-data path)
   (make-directory (file-name-directory path) t)
