@@ -652,6 +652,8 @@ layers configuration."
                              (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                              (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
 
+(setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
+
 ;; org-mode and appointment notifications on Mac OS 10.8+
 ;; https://lists.gnu.org/archive/html/emacs-orgmode/2013-02/msg00644.html
 (require 'appt)
