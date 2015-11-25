@@ -25,6 +25,7 @@
      github
      gtags
      markdown
+     pandoc
      (org :variables
           org-enable-github-support t)
      (shell :variables
