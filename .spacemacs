@@ -352,6 +352,18 @@ layers configuration."
       )
     )))
 
+(defun build-rails-source (type)
+  (let* ((rails-file-patterns `((models . (("app/models/" "/models/\\(.+\\)\\.rb$")))
+                                (controllers . (("app/controllers/" "/controllers/\\(.+\\)_controller\\.rb$")))
+                                (views . (("app/views/" ,(concat "app/views/\\(.+\\)" projectile-rails-views-re))))))
+         (file-pattern (cdr (assoc type rails-file-patterns)))
+         choices
+         )
+    (maphash (lambda (k v) (add-to-list 'choices (cons k v) t)) (projectile-rails-choices file-pattern))
+    (helm-build-sync-source (format "Rails %s files: " (symbol-name type)) :candidates choices :fuzzy-match t
+                            :action (lambda (file) (find-file (concat (projectile-rails-root) file))))
+    ))
+
 (defun org-yank-image/default-dir ()
   (format "%s/media" (file-name-base (buffer-file-name))))
 
@@ -612,9 +624,12 @@ layers configuration."
               (defvar helm-source-rails-models-buffers-list (helm-make-source "Rails models buffers" 'helm-source-rails-models-buffer))
               (defvar helm-source-rails-views-buffers-list (helm-make-source "Rails views buffers" 'helm-source-rails-views-buffer))
               (defvar helm-source-rails-controllers-buffers-list (helm-make-source "Rails controllers buffers" 'helm-source-rails-controllers-buffer))
-              (helm-projectile-command "switch-to-rails-models-buffer" 'helm-source-rails-models-buffers-list "Switch to Rails models buffer: ")
-              (helm-projectile-command "switch-to-rails-views-buffer" 'helm-source-rails-views-buffers-list "Switch to Rails views buffer: ")
-              (helm-projectile-command "switch-to-rails-controllers-buffer" 'helm-source-rails-controllers-buffers-list "Switch to Rails controllers buffer: ")
+              (defvar helm-source-rails-models-files-list (build-rails-source 'models))
+              (defvar helm-source-rails-controllers-files-list (build-rails-source 'controllers))
+              (defvar helm-source-rails-views-files-list (build-rails-source 'views))
+              (helm-projectile-command "switch-to-rails-models-buffer" '(helm-source-rails-models-buffers-list helm-source-rails-models-files-list) "Switch to Rails models buffer/file: ")
+              (helm-projectile-command "switch-to-rails-views-buffer" '(helm-source-rails-views-buffers-list helm-source-rails-views-files-list) "Switch to Rails views buffer/file: ")
+              (helm-projectile-command "switch-to-rails-controllers-buffer" '(helm-source-rails-controllers-buffers-list helm-source-rails-controllers-files-list) "Switch to Rails controllers buffer/file: ")
               (define-key projectile-rails-mode-map (kbd "s-r s-m") 'helm-projectile-switch-to-rails-models-buffer)
               (define-key projectile-rails-mode-map (kbd "s-r s-v") 'helm-projectile-switch-to-rails-views-buffer)
               (define-key projectile-rails-mode-map (kbd "s-r s-c") 'helm-projectile-switch-to-rails-controllers-buffer)
