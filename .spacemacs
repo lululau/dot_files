@@ -569,6 +569,7 @@ layers configuration."
 (global-set-key (kbd "s-r c") 'projectile-rails-console)
 (global-set-key (kbd "s-r s") 'projectile-rails-server)
 (global-set-key (kbd "s-r s-r") 'rvm-activate-corresponding-ruby)
+(global-set-key (kbd "s-u") 'universal-argument)
 (spacemacs/set-leader-keys
   "gC" 'magit-commit
   "gc" 'magit-checkout
