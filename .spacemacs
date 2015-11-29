@@ -51,7 +51,6 @@
      rust
      scala
      chrome
-     emoji
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      search-engine
      eyebrowse
