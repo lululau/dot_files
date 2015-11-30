@@ -760,6 +760,7 @@ layers configuration."
  '(diff-hl-draw-borders nil)
  '(diff-hl-margin-mode nil)
  '(enh-ruby-add-encoding-comment-on-save nil)
+ '(flycheck-disabled-checkers (quote (ruby-rubocop ruby-rubylint)))
  '(helm-gtags-fuzzy-match t)
  '(helm-gtags-preselect t)
  '(helm-imenu-fuzzy-match t)
