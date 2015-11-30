@@ -34,7 +34,7 @@
             shell-default-shell 'ansi-term
             shell-default-term-shell "/bin/zsh")
      syntax-checking
-     version-control
+     (version-control :variables version-control-diff-tool 'diff-hl version-control-global-margin t)
      (ruby :variables ruby-enable-enh-ruby-mode t)
      yaml
      ruby-on-rails
