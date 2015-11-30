@@ -443,6 +443,7 @@ layers configuration."
 (define-key evil-inner-text-objects-map "r" 'evil-same-match-lines)
 
 (setq neo-vc-integration nil)
+(setq diff-hl-side 'left)
 (spacemacs//set-monospaced-font "Monaco" "STHeiti" 13 16)
 (setenv "LANG" "zh_CN.UTF-8")
 (add-to-list 'load-path "~/.emacs.d/private/")
