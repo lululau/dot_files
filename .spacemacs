@@ -505,8 +505,9 @@ layers configuration."
 (add-hook 'html-erb-mode-hook 'ragtag-mode)
 (setq org-default-notes-file "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org")
 (setq org-html-doctype "html5")
-;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://lululau.gitcafe.io/assets/css/readtheorg.css\" />\n<script src=\"http://lululau.gitcafe.io/assets/js/readtheorg.js\"></script>")
-(setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://lululau.gitcafe.io/assets/css/worg.css\" type=\"text/css\" />\n<script type=\"text/javascript\" src=\"http://lululau.gitcafe.io/assets/js/org-toc.js\">")
+;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://liuxiang.gitcafe.io/assets/css/readtheorg.css\" />\n<script src=\"http://liuxiang.gitcafe.io/assets/js/readtheorg.js\"></script>")
+;; (setq org-html-head "<link href=\"http://thomasf.github.io/solarized-css/solarized-light.min.css\" rel=\"stylesheet\"></link>")
+(setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://liuxiang.gitcafe.io/assets/css/worg.css\" type=\"text/css\" />\n<script type=\"text/javascript\" src=\"http://liuxiang.gitcafe.io/assets/js/org-toc.js\">")
 
 (setq search-engine-alist '(
                             (google :name "Google" :url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
