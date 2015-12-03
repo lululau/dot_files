@@ -583,6 +583,7 @@ layers configuration."
   "gP" #'(lambda () (interactive) (call-interactively 'magit-push-current) (magit-process-buffer))
   "gM" #'(lambda () (interactive) (call-interactively 'magit-merge))
   "aoA" #'(lambda () (interactive) (require 'calfw-org) (cfw:open-org-calendar))
+  "aoR" #'(lambda () (interactive) (org-refile '(4)))
   "aob" 'org-iswitchb)
 (global-set-key (kbd "C-g") '(lambda () (interactive) (evil-search-highlight-persist-remove-all) (keyboard-quit)))
 (define-key evil-normal-state-map "s" #'(lambda () (interactive) (call-interactively 'evil-substitute) (call-interactively 'indent-for-tab-command)))
