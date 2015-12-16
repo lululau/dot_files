@@ -2,6 +2,8 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+(load-file "~/.config/emacs-init.el")
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
   (setq-default
