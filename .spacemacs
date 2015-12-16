@@ -231,12 +231,10 @@ before layers configuration."
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
 
- ;;;;;;;;;;;; Advices ;;;;;;;;;;;
+;;;;;;;;;;;; Function definitions ;;;;;;;;;;;;;;;;
 
-  (advice-add 'magit-blame-format-time-string :override #'(lambda (format time tz)
-                                                            (format-time-string format (seconds-to-time time))))
-
- ;;;;;;;;;;;; Function definitions ;;;;;;;;;;;;;;;;
+(defun binding-pry-filter (text)
+  (if (string-match "^ => [0-9]+:" text) (pop-to-buffer (current-buffer))))
 
 (defun byte-compile-current-buffer-file ()
   (interactive)
