@@ -152,7 +152,7 @@ before layers configuration."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup t
+   dotspacemacs-maximized-at-startup nil
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'.
@@ -389,9 +389,10 @@ layers configuration."
 
 (defun org-yank-image/write-to-file (img-data path)
   (make-directory (file-name-directory path) t)
-  (let ((temp-file (make-temp-file "org-yank-image")))
-    (write-region img-data nil temp-file)
-    (call-process-shell-command (format "sips %s --setProperty format %s --out %s" temp-file (file-name-extension path) (shell-quote-argument (expand-file-name path))))
+  (let* ((temp-file (make-temp-file "org-yank-image"))
+         (cmd (format "sips %s --setProperty format %s --out %s" temp-file (file-name-extension path) (shell-quote-argument (expand-file-name path)))))
+    (f-write-bytes img-data temp-file)
+    (call-process-shell-command cmd)
     (delete-file temp-file)))
 
 (defun org-yank-image/insert-link (file-path)
