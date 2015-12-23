@@ -1,6 +1,9 @@
 
 ;;;;; package hacks;;;;;;
 
+(with-eval-after-load 'helm
+  (define-key helm-map (kbd "s-l") 'ace-jump-helm-line))
+
 (defun projectile-switch-to-project-last-buffer (project)
   (interactive)
   (let* ((default-directory project)
