@@ -40,6 +40,7 @@
      (ruby :variables ruby-enable-enh-ruby-mode t)
      yaml
      ruby-on-rails
+     elixir
      shell-scripts
      dash
      emacs-lisp
