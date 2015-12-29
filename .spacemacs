@@ -691,6 +691,9 @@ layers configuration."
                 )))
 
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
+(define-key evil-normal-state-map "gf" #'(lambda () (interactive) (if projectile-rails-mode
+                                                                      (call-interactively 'projectile-rails-goto-file-at-point)
+                                                                    (call-interactively 'find-file-at-point))))
 (global-set-key (kbd "<f5>") #'(lambda () (interactive) (unless (boundp 'ggtags-mode) (ggtags-mode)) (projectile-regenerate-tags)))
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "s-m") 'set-mark-command)
