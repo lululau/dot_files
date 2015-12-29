@@ -620,8 +620,6 @@ layers configuration."
 (define-key evil-inner-text-objects-map "o" 'evil-inner-word)
 (define-key evil-outer-text-objects-map "w" 'evil-a-symbol)
 (define-key evil-inner-text-objects-map "w" 'evil-inner-symbol)
-(with-eval-after-load 'helm
-  (define-key helm-map (kbd "C-'") 'ace-jump-helm-line))
 (evil-leader/set-key "SPC" 'avy-goto-char-2)
 (add-hook 'term-mode-hook #'(lambda () (interactive)
                              (define-key term-raw-map (kbd "<M-backspace>") #'term-send-raw-meta)
