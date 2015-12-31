@@ -4,6 +4,9 @@
 (with-eval-after-load 'helm
   (define-key helm-map (kbd "s-l") 'ace-jump-helm-line))
 
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "C-r") 'helm-company))
+
 (defun projectile-switch-to-project-last-buffer (project)
   (interactive)
   (let* ((default-directory project)
@@ -38,6 +41,29 @@
                 ("Remove project(s) `M-D'" . helm-projectile-remove-known-project))))
 
   (helm-projectile-define-key helm-projectile-projects-map (kbd "<s-return>") #'projectile-switch-to-project-last-buffer)
+  )
+
+(with-eval-after-load "python"
+  (defun python-shell-send-line (&optional send-main)
+    "Send the entire buffer to inferior Python process.
+When optional argument SEND-MAIN is non-nil, allow execution of
+code inside blocks delimited by \"if __name__== '__main__':\".
+When called interactively SEND-MAIN defaults to nil, unless it's
+called with prefix argument."
+    (interactive "P")
+    (save-restriction
+      (widen)
+      (python-shell-send-region (line-beginning-position) (line-end-position) send-main)))
+
+  (defun python-shell-send-line-switch ()
+    (interactive)
+    (python-shell-send-line)
+    (python-shell-switch-to-shell)
+    (evil-insert-state))
+
+  (spacemacs/set-leader-keys-for-major-mode 'python-mode
+    "sL" 'python-shell-send-line-switch
+    "sl" 'python-shell-send-line)
   )
 
 ;;;;;;; Advices ;;;;;;;;
