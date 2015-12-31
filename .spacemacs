@@ -712,6 +712,7 @@ layers configuration."
                                  (define-key neotree-mode-map (kbd "s-N") #'(lambda () (interactive) (select-window-by-number 1) (switch-to-buffer (generate-new-buffer "*Untitled*"))))))
 (add-hook 'helm-mode-hook #'(lambda () (define-key helm-map (kbd "s-m") 'helm-toggle-visible-mark)))
 (add-hook 'artist-mode-hook #'(lambda () (define-key artist-mode-map [(down-mouse-3)] 'artist-mouse-choose-operation)))
+(add-hook 'company-mode-hook #'(lambda () (define-key company-active-map (kbd "C-r") 'helm-company)))
 (global-set-key [mouse-4] '(lambda ()
   (interactive)
   (scroll-down 1)))
