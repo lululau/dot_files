@@ -48,6 +48,7 @@
      evil-commenary
      extra-langs
      html
+     ;; java
      javascript
      python
      restclient
@@ -757,7 +758,7 @@ layers configuration."
     (format "'%s 分钟之后'" min-to-app)    ;; passed to -title in terminal-notifier call
     (format "'%s'" msg)))                                ;; passed to -message in terminal-notifier call
 (setq appt-disp-window-function (function my-appt-display))
-
+(setq eclim-eclipse-dirs "~/Applications/Eclipse.app" eclim-executable "~/Applications/Eclipse.app/Contents/Eclipse/eclim")
 
 ) ;;; End of config.
 
