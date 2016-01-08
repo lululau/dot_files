@@ -168,11 +168,9 @@ BUFFER defaults to the current buffer."
         (evil-set-cursor cursor))))))
 
 (advice-add 'ace-pinyin-jump-char :after #'(lambda (&rest args)
-                                       (message "hello world")
                                       (setq avy-last-goto-entity (cons 'ace-pinyin-jump-char args))))
 
 (advice-add 'ace-pinyin-jump-char-2 :after #'(lambda (&rest args)
-                                             (message "hello world")
                                              (setq avy-last-goto-entity (cons 'ace-pinyin-jump-char-2 args))))
 
 (global-set-key (kbd "s-.") #'(lambda () (interactive) (eval avy-last-goto-entity)))
