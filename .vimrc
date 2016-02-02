@@ -8,8 +8,8 @@ filetype off " required by vundle
 set runtimepath+=~/.vim/bundle/vundle/
 " set runtimepath+=$GOROOT/misc/vim
 
-let $GEM_HOME = '/Users/liuxiang/.rvm/gems/ruby-2.2-head'
-let $GEM_PATH = '/Users/liuxiang/.rvm/gems/ruby-2.2.0-head:/Users/liuxiang/.rvm/gems/ruby-2.2-head@global'
+let $GEM_HOME = '/Users/liuxiang/.rvm/gems/ruby-2.3.0'
+let $GEM_PATH = '/Users/liuxiang/.rvm/gems/ruby-2.3.0:/Users/liuxiang/.rvm/gems/ruby-2.3.0@global'
 
 call vundle#rc()
 

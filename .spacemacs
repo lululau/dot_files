@@ -802,7 +802,7 @@ layers configuration."
      ("rubinius" . "rbx -r irb/completion")
      ("yarv" . "irb1.9 -r irb/completion")
      ("macruby" . "macirb -r irb/completion")
-     ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.2-head/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.2-head/bin/pry"))))
+     ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.3.0/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.3.0/bin/pry"))))
  '(magit-blame-heading-format "%-20a %A %s")
  '(magit-diff-use-overlays nil)
  '(magit-not-reverted-hook (quote (magit-refresh-vc-mode-line)))
