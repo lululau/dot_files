@@ -204,8 +204,7 @@ before layers configuration."
        '(diff-hl-change ((t (:background "#69B7F0" :foreground "#00629D"))))
        '(diff-hl-delete ((t (:background "#FF6E64" :foreground "#990A1B"))))
        '(diff-hl-insert ((t (:background "#B4C342" :foreground "#546E00"))))
-       )
-       (set-mouse-color "white"))
+       ))
     (when (string= "solarized-light" spacemacs--cur-theme)
       (custom-set-faces
        ;; custom-set-faces was added by Custom.
@@ -220,8 +219,7 @@ before layers configuration."
        '(diff-hl-change ((t (:background "#69B7F0" :foreground "#00629D"))))
        '(diff-hl-delete ((t (:background "#FF6E64" :foreground "#990A1B"))))
        '(diff-hl-insert ((t (:background "#B4C342" :foreground "#546E00"))))
-       )
-       (set-mouse-color "black")))
+       )))
   )
 
 (defun update-tags()
