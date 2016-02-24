@@ -15,6 +15,6 @@ groups:
         username: liuxiang.lxiang
         port: 22
       wendi:
-        hostname: 10.32.24.212
+        hostname: 10.32.25.212
         username: wendi
         port: 18021
