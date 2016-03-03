@@ -68,7 +68,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(ox-reveal calfw ox-twbs)
+   dotspacemacs-additional-packages '(ox-reveal calfw ox-twbs browse-at-remote)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -604,7 +604,8 @@ layers configuration."
   "gM" #'(lambda () (interactive) (call-interactively 'magit-merge))
   "aoA" #'(lambda () (interactive) (require 'calfw-org) (cfw:open-org-calendar))
   "aoR" #'(lambda () (interactive) (org-refile '(4)))
-  "aob" 'org-iswitchb)
+  "aob" 'org-iswitchb
+  "gho" #'browse-at-remote/browse)
 (global-set-key (kbd "C-g") '(lambda () (interactive) (evil-search-highlight-persist-remove-all) (keyboard-quit)))
 (define-key evil-normal-state-map "s" #'(lambda () (interactive) (call-interactively 'evil-substitute) (call-interactively 'indent-for-tab-command)))
 (define-key evil-motion-state-map (kbd "t") #'evil-avy-goto-char)
@@ -787,6 +788,11 @@ layers configuration."
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(avy-keys (quote (97 115 100 106 107 108 119 111 112)))
+ '(browse-at-remote/remote-type-domains
+   (quote
+    (("bitbucket.org" . "bitbucket")
+     ("github.com" . "github")
+     ("gitlab.alibaba-inc.com" . "gitlab"))))
  '(cfw:display-calendar-holidays nil)
  '(diff-hl-draw-borders nil)
  '(diff-hl-margin-mode nil)
