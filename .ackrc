@@ -1,0 +1,7 @@
+--ignore-file=is:development.log
+--ignore-file=is:operation_data.log
+--ignore-file=is:operations.log
+--ignore-file=is:TAGS
+--ignore-file=is:GTAGS
+--ignore-file=is:GRTAGS
+--ignore-file=is:GPATH
