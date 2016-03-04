@@ -188,6 +188,7 @@ before layers configuration."
 
   (setq-default ruby-version-manager 'rvm)
   (setq-default ruby-enable-ruby-on-rails-support t)
+  (setq evil-want-C-i-jump t)
 
   (defun spacemacs/set-state-faces()
     (when (string= "spacemacs-dark" spacemacs--cur-theme)
