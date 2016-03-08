@@ -573,7 +573,7 @@ layers configuration."
 (global-set-key (kbd "s-f") 'spacemacs/helm-find-files)
 (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
 (global-set-key (kbd "s-F") 'helm-locate)
-(global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (helm-mini) (error (helm-keyboard-quit)))))
+(global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (progn (setq saved-ido-make-buffer-list-hook ido-make-buffer-list-hook) (setq ido-make-buffer-list-hook nil) (helm-mini) (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook)) (error (progn (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook) (helm-keyboard-quit))))))
 (global-set-key (kbd "s-b") 'helm-projectile-switch-to-buffer)
 (global-set-key (kbd "s-p") 'helm-projectile-switch-project)
 (global-set-key (kbd "s-P") 'spacemacs/helm-persp-switch-project)
