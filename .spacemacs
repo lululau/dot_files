@@ -63,6 +63,7 @@
      selectric
      ; evil-easymotion
      (elfeed :variables rmh-elfeed-org-files (list "~/.config/elfeeds.org"))
+     pdf-tools
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
@@ -464,6 +465,7 @@ layers configuration."
 (setq diff-hl-side 'left)
 (spacemacs//set-monospaced-font "Monaco" "STHeiti" 13 16)
 (setenv "LANG" "zh_CN.UTF-8")
+(setenv "PKG_CONFIG_PATH" "/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig")
 (add-to-list 'load-path "~/.emacs.d/private/")
 (add-hook 'prog-mode-hook 'linum-mode)
 (setq magit-push-always-verify nil)
