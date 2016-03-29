@@ -104,9 +104,6 @@ source $ZSH/oh-my-zsh.sh
 
 compdef _ack2_completion ack
 
-
-[[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
-
 function emacs() {
   /usr/local/bin/emacs "$@"
   echo $'\033]50;CursorShape=0\007'
@@ -217,6 +214,8 @@ then
     unfunction preexec
     PS1='$ '
 fi
+
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # source ~/.xsh
 
