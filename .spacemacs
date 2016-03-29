@@ -190,6 +190,7 @@ before layers configuration."
   (setq-default ruby-version-manager 'rvm)
   (setq-default ruby-enable-ruby-on-rails-support t)
   (setq evil-want-C-i-jump t)
+  (add-hook 'spacemacs-buffer-mode-hook #'(lambda () (define-key spacemacs-buffer-mode-map (kbd "s-r") #'configuration-layer/update-packages)))
 
   (defun spacemacs/set-state-faces()
     (when (string= "spacemacs-dark" spacemacs--cur-theme)
@@ -526,6 +527,7 @@ layers configuration."
 (setq org-default-notes-file "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org")
 (setq org-html-doctype "html5")
 ;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://liuxiang.gitcafe.io/assets/css/readtheorg.css\" />\n<script src=\"http://liuxiang.gitcafe.io/assets/js/readtheorg.js\"></script>")
+;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://spacemacs.org/css/readtheorg.css\" />\n<script src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>")
 ;; (setq org-html-head "<link href=\"http://thomasf.github.io/solarized-css/solarized-light.min.css\" rel=\"stylesheet\"></link>")
 (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://liuxiang.gitcafe.io/assets/css/worg.css\" type=\"text/css\" />\n<script type=\"text/javascript\" src=\"http://liuxiang.gitcafe.io/assets/js/org-toc.js\">")
 
@@ -611,6 +613,17 @@ layers configuration."
   "aoR" #'(lambda () (interactive) (org-refile '(4)))
   "aob" 'org-iswitchb
   "gho" #'browse-at-remote/browse)
+(spacemacs/set-leader-keys
+  "0" 'spacemacs/persp-switch-to-0
+  "1" 'spacemacs/persp-switch-to-1
+  "2" 'spacemacs/persp-switch-to-2
+  "3" 'spacemacs/persp-switch-to-3
+  "4" 'spacemacs/persp-switch-to-4
+  "5" 'spacemacs/persp-switch-to-5
+  "6" 'spacemacs/persp-switch-to-6
+  "7" 'spacemacs/persp-switch-to-7
+  "8" 'spacemacs/persp-switch-to-8
+  "9" 'spacemacs/persp-switch-to-9)
 (global-set-key (kbd "C-g") '(lambda () (interactive) (evil-search-highlight-persist-remove-all) (keyboard-quit)))
 (define-key evil-normal-state-map "s" #'(lambda () (interactive) (call-interactively 'evil-substitute) (call-interactively 'indent-for-tab-command)))
 (define-key evil-motion-state-map (kbd "t") #'evil-avy-goto-char)
