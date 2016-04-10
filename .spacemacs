@@ -526,9 +526,11 @@ layers configuration."
 (add-hook 'html-erb-mode-hook 'ragtag-mode)
 (setq org-default-notes-file "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org")
 (setq org-html-doctype "html5")
-;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://liuxiang.gitcafe.io/assets/css/readtheorg.css\" />\n<script src=\"http://liuxiang.gitcafe.io/assets/js/readtheorg.js\"></script>")
-;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://spacemacs.org/css/readtheorg.css\" />\n<script src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>")
-;; (setq org-html-head "<link href=\"http://thomasf.github.io/solarized-css/solarized-light.min.css\" rel=\"stylesheet\"></link>")
+;; #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://spacemacs.org/css/readtheorg.css" />\n<script src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+;; #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://liuxiang.gitcafe.io/assets/css/readtheorg.css" />\n<script src="http://liuxiang.gitcafe.io/assets/js/readtheorg.js"></script>
+;; #+HTML_HEAD: <link href="http://thomasf.github.io/solarized-css/solarized-light.min.css" rel="stylesheet"></link>
+;; #+HTML_HEAD: <link rel="stylesheet" href="http://dakrone.github.io/org.css" type="text/css" />
+
 (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://liuxiang.gitcafe.io/assets/css/worg.css\" type=\"text/css\" />\n<script type=\"text/javascript\" src=\"http://liuxiang.gitcafe.io/assets/js/org-toc.js\">")
 
 (setq search-engine-alist '(
