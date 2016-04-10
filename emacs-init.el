@@ -261,3 +261,11 @@ BUFFER defaults to the current buffer."
                                              (setq avy-last-goto-entity (cons 'ace-pinyin-jump-char-2 args))))
 
 (global-set-key (kbd "s-.") #'(lambda () (interactive) (eval avy-last-goto-entity)))
+
+(eval-after-load "hideshow"
+  '(add-to-list 'hs-special-modes-alist
+                `(enh-ruby-mode
+                  ,(rx (or "def" "class" "module" "do" "{" "[")) ; Block start
+                  ,(rx (or "}" "]" "end"))                       ; Block end
+                  ,(rx (or "#" "=begin"))                        ; Comment start
+                  enh-ruby-forward-sexp nil)))
