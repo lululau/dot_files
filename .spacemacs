@@ -523,6 +523,7 @@ layers configuration."
 (autoload 'ragtag-mode "ragtag")
 (autoload 'confluence-edit-mode "confluence-edit.el")
 (add-hook 'web-mode-hook 'ragtag-mode)
+(define-key evil-normal-state-map "za" (lambda () (interactive) (if (eq major-mode 'web-mode) (web-mode-fold-or-unfold) (evil-toggle-fold))))
 (add-hook 'html-erb-mode-hook 'ragtag-mode)
 (setq org-default-notes-file "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org")
 (setq org-html-doctype "html5")
@@ -588,7 +589,7 @@ layers configuration."
 (global-set-key (kbd "s-/") 'evilnc-comment-or-uncomment-lines)
 (global-set-key (kbd "s-\\") '(lambda () (interactive) (switch-to-buffer (current-buffer))))
 (global-set-key (kbd "s-M-'") #'(lambda () (interactive) (call-interactively 'split-window-right-and-focus) (ansi-term "/bin/zsh")))
-(global-set-key (kbd "s-'") #'(lambda () (interactive) (if (string= "term-mode" major-mode) (shell-pop-out) (shell-pop-ansi-term 0))))
+(global-set-key (kbd "s-'") #'(lambda () (interactive) (if (string= "term-mode" major-mode) (shell-pop-out) (spacemacs/shell-pop-ansi-term 0))))
 (global-set-key (kbd "s-\"") #'projectile-shell-pop)
 (global-set-key (kbd "s-n") '(lambda () (interactive) (switch-to-buffer-other-window (generate-new-buffer "*Untitled*"))))
 (global-set-key (kbd "s-N") '(lambda () (interactive) (switch-to-buffer (generate-new-buffer "*Untitled*"))))
@@ -720,6 +721,7 @@ layers configuration."
                 )))
 
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
+
 (define-key evil-normal-state-map "gf" #'(lambda () (interactive) (if projectile-rails-mode
                                                                       (call-interactively 'projectile-rails-goto-file-at-point)
                                                                     (call-interactively 'find-file-at-point))))
