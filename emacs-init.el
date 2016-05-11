@@ -110,7 +110,9 @@ it suitable for terminal.
           (and (equal name 'leaf)  (funcall n-insert-symbol "   "))))
      (t
       (or (and (equal name 'open)  (funcall n-insert-symbol "-"))
-          (and (equal name 'close) (funcall n-insert-symbol "+"))))))))
+          (and (equal name 'close) (funcall n-insert-symbol "+")))))))
+
+(define-key neotree-mode-map [tab] #'(lambda () (interactive) (neo-buffer--toggle-expand (neo-buffer--get-filename-current-line)) (neo-buffer--refresh t))))
 
 (with-eval-after-load "browse-at-remote"
   (defun browse-at-remote/parse-git-prefixed (remote-url)
