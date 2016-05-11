@@ -69,7 +69,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(ox-reveal calfw ox-twbs browse-at-remote)
+   dotspacemacs-additional-packages '(ox-reveal calfw ox-twbs browse-at-remote ranger)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -192,6 +192,14 @@ before layers configuration."
   (setq evil-want-C-i-jump t)
   (add-hook 'spacemacs-buffer-mode-hook #'(lambda () (define-key spacemacs-buffer-mode-map (kbd "s-r") #'configuration-layer/update-packages)))
 
+  ;; Set the monospaced font size when mixed Chinese and English words
+  (defun spacemacs//set-monospaced-font (english chinese english-size chinese-size)
+    (set-face-attribute 'default nil :font
+                        (format   "%s:pixelsize=%d"  english english-size))
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font) charset
+                        (font-spec :family chinese :size chinese-size))))
+
   (defun spacemacs/set-state-faces()
     (when (string= "spacemacs-dark" spacemacs--cur-theme)
       (custom-set-faces
@@ -222,7 +230,8 @@ before layers configuration."
        '(diff-hl-change ((t (:background "#69B7F0" :foreground "#00629D"))))
        '(diff-hl-delete ((t (:background "#FF6E64" :foreground "#990A1B"))))
        '(diff-hl-insert ((t (:background "#B4C342" :foreground "#546E00"))))
-       )))
+       ))
+    (spacemacs//set-monospaced-font "Monaco" "STHeiti" 13 16))
   )
 
 (defun update-tags()
@@ -270,14 +279,6 @@ layers configuration."
                         (1+ (apply 'max 99 (hash-table-values projectile-term-index-hash-table))))))
         (puthash projectile-project-root index projectile-term-index-hash-table)
         (shell-pop-ansi-term index)))))
-
-;; Set the monospaced font size when mixed Chinese and English words
-(defun spacemacs//set-monospaced-font (english chinese english-size chinese-size)
-  (set-face-attribute 'default nil :font
-                      (format   "%s:pixelsize=%d"  english english-size))
-  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-fontset-font (frame-parameter nil 'font) charset
-                      (font-spec :family chinese :size chinese-size))))
 
 (defun gantt ()
     (interactive)
