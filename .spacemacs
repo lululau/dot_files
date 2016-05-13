@@ -840,6 +840,11 @@ layers configuration."
  '(magit-blame-heading-format "%-20a %A %s")
  '(magit-diff-use-overlays nil)
  '(neo-theme (quote uni))
+ '(package-archives
+   (quote
+    (("melpa" . "http://elpa.zilongshanren.com/melpa/")
+     ("org" . "http://elpa.zilongshanren.com/org/")
+     ("gnu" . "http://elpa.zilongshanren.com/gnu/"))))
  '(projectile-completion-system (quote helm))
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
