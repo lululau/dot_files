@@ -550,6 +550,8 @@ layers configuration."
 
 (setq auto-mode-alist (cons '("\\.apib\\'" . markdown-mode) auto-mode-alist))
 
+(setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/8039/plantuml.8039.jar")
+
 ;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;
 
 (define-key window-numbering-keymap "\M-0" nil)
@@ -841,6 +843,7 @@ layers configuration."
  '(projectile-completion-system (quote helm))
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
+ '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8039/plantuml.8039.jar")
  '(ring-bell-function (quote ignore) t)
  '(safe-local-variable-values (quote ((org-html-head))))
  '(vc-follow-symlinks t))
