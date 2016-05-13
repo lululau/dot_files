@@ -846,6 +846,14 @@ layers configuration."
  '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8039/plantuml.8039.jar")
  '(ring-bell-function (quote ignore) t)
  '(safe-local-variable-values (quote ((org-html-head))))
+ '(sql-connection-alist
+   (quote
+    (("localhost-test"
+      (sql-product
+       (quote mysql))
+      (sql-user "root")
+      (sql-database "test")
+      (sql-server "")))))
  '(vc-follow-symlinks t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
