@@ -64,6 +64,9 @@
      ; evil-easymotion
      (elfeed :variables rmh-elfeed-org-files (list "~/.config/elfeeds.org"))
      pdf-tools
+     csv
+     sql
+     plantuml
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
