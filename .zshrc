@@ -221,3 +221,5 @@ export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 
 # source /Users/liuxiang/.iterm2_shell_integration.zsh
+
+source ~/.profile
