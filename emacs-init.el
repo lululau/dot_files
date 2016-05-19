@@ -1,6 +1,9 @@
 
 ;;;;; package hacks;;;;;;
 
+(with-eval-after-load 'rspec-mode
+  (define-key rspec-mode-map [M-s-tab] #'rspec-toggle-spec-and-target))
+
 (with-eval-after-load 'helm
   (define-key helm-map (kbd "s-l") 'ace-jump-helm-line))
 
