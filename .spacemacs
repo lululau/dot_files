@@ -319,6 +319,7 @@ layers configuration."
   (define-key enh-ruby-mode-map (kbd "s-r b") 'enh-ruby-toggle-block)
   (define-key enh-ruby-mode-map (kbd "M-s-b") #'toggle-pry-breakpoint)
   (define-key enh-ruby-mode-map (kbd "M-s-c") #'cleanup-pry-breakpoints)
+  (define-key enh-ruby-mode-map [M-s-tab] #'rspec-toggle-spec-and-target)
   (setq evil-shift-width 2)
   (modify-syntax-entry ?: ".")
   (modify-syntax-entry ?! "_")
@@ -635,6 +636,7 @@ layers configuration."
 (global-set-key (kbd "s-r s") 'projectile-rails-server)
 (global-set-key (kbd "s-r s-r") 'rvm-activate-corresponding-ruby)
 (global-set-key (kbd "s-u") 'universal-argument)
+(global-set-key [M-S-tab] #'spacemacs/alternate-buffer-in-persp)
 (spacemacs/set-leader-keys
   "gC" 'magit-commit
   "gc" 'magit-checkout
