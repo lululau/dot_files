@@ -112,7 +112,7 @@ before layers configuration."
    ;                       leuven
    ;                       monokai
    ;                       zenburn)
-   dotspacemacs-themes '(spacemacs-dark solarized-light)
+   dotspacemacs-themes '(solarized-light spacemacs-dark)
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
