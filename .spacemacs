@@ -3,6 +3,7 @@
 ;; It must be stored in your home directory.
 
 (load-file "~/.config/emacs-init.el")
+(load-file "~/.config/magit-vc-mode-line.el")
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
