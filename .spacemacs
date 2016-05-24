@@ -264,6 +264,19 @@ layers configuration."
 
 ;;;;;;;;;;;; Function definitions ;;;;;;;;;;;;;;;;
 
+(defun projectile-project-alternate-buffer ()
+  (car
+    (--remove
+    (or
+      (eq it (current-buffer))
+      (s-matches? "^[* ]" (buffer-name it)))
+    (projectile-project-buffers))))
+
+(defun projectile-project-switch-to-alternate-buffer ()
+  (interactive)
+  (let ((alternate-buffer (projectile-project-alternate-buffer)))
+    (if alternate-buffer (switch-to-buffer alternate-buffer))))
+
 (defun binding-pry-filter (text)
   (if (string-match "^ => [0-9]+:" text) (pop-to-buffer (current-buffer))))
 
@@ -627,6 +640,7 @@ layers configuration."
 (global-set-key (kbd "s-r s-r") 'rvm-activate-corresponding-ruby)
 (global-set-key (kbd "s-u") 'universal-argument)
 (global-set-key [M-S-tab] #'spacemacs/alternate-buffer-in-persp)
+(global-set-key [M-s-tab] #'projectile-project-switch-to-alternate-buffer)
 (spacemacs/set-leader-keys
   "gC" 'magit-commit
   "gc" 'magit-checkout
