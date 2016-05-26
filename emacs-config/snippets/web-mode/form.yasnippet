@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: twitter-bootstrap-form
+# key: form
+# group: twitter-bootstrap
+# --
+<form method="POST" action="$0">
+  <fieldset>
+    <legend>$1</legend>
+    <div class="form-group has-success has-feedback">
+      <label for="$2" class="control-label">$3</label>
+      <div class="input-group">
+        <span class="input-group-addon"><span class="glyphicon glyphicon-$4"></span></span>
+        <input name="$2" type="$2" placeholder="$5" class="form-control"/>
+        <span class="form-control-feedback glyphicon glyphicon-$6"></span>
+      </div>
+      <span class="help-block">$7</span>
+    </div>
+  </fieldset>
+</form>

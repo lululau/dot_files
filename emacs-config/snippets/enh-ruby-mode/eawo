@@ -1,0 +1,5 @@
+#name : each_with_object { |e, h| ... }
+#group : Enumerables
+# key: eawo
+# --
+each_with_object { |${e}, ${h}| $0 }
