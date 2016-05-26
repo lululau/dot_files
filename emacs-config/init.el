@@ -1,2 +1,7 @@
-(mapc 'load-file (directory-files "~/.config/emacs-config/advices" t "\.el$"))
-(mapc 'load-file (directory-files "~/.config/emacs-config/post-package-load" t "\.el$"))
+(dolist (dir '(
+               "funcs"
+               "advices"
+               "post-package-load"
+               "key-bindings"))
+  (dolist (el (directory-files (format "~/.config/emacs-config/%s" dir) t "\.el$"))
+    (load-file el)))

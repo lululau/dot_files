@@ -1,0 +1,8 @@
+(require 'helm-projectile)
+
+(defclass helm-source-rails-models-buffer (helm-source-projectile-buffer)
+  ((candidates :initform #'(lambda () (rails-buffer-candidates-function "models")))))
+(defclass helm-source-rails-views-buffer (helm-source-projectile-buffer)
+  ((candidates :initform #'(lambda () (rails-buffer-candidates-function "views")))))
+(defclass helm-source-rails-controllers-buffer (helm-source-projectile-buffer)
+  ((candidates :initform #'(lambda () (rails-buffer-candidates-function "controllers")))))
