@@ -7,7 +7,7 @@
   (setq-default
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
-   ;; dotspacemacs-configuration-layer-path '("~/.config/spacemacs-config-layers/")
+   dotspacemacs-configuration-layer-path '("~/cascode/github.com/spacemacs-layers")
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
@@ -512,7 +512,6 @@ layers configuration."
 (spacemacs//set-monospaced-font "Monaco" "STHeiti" 13 16)
 (setenv "LANG" "zh_CN.UTF-8")
 (setenv "PKG_CONFIG_PATH" "/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig")
-(add-to-list 'load-path "~/.emacs.d/private/")
 (add-hook 'prog-mode-hook 'linum-mode)
 (setq magit-push-always-verify nil)
 (add-hook 'smartparens-enabled-hook #'turn-off-sp-on-large-file)
@@ -533,7 +532,7 @@ layers configuration."
           (lambda () (rvm-activate-corresponding-ruby)))
 (setq edit-server-new-frame nil)
 (setq edit-server-url-major-mode-alist
-      '(("tbdocs\\.alibaba-inc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
+      '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
 (setq org-directory "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org")
 (setq org-agenda-files (append (file-expand-wildcards "~/Library/Mobile Documents/com~apple~CloudDocs/org/**/*.org") (file-expand-wildcards  "~/Library/Mobile Documents/com~apple~CloudDocs/org/*.org")))
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
@@ -563,13 +562,7 @@ layers configuration."
 (eval-after-load 'company
   '(push 'company-robe company-backends))
 (setq company-minimum-prefix-length 1)
-(autoload 'projectile-rails-robe-mode "projectile-rails-robe")
-(add-hook 'robe-mode-hook 'projectile-rails-robe-mode)
-(autoload 'ragtag-mode "ragtag")
-(autoload 'confluence-edit-mode "confluence-edit.el")
-(add-hook 'web-mode-hook 'ragtag-mode)
 (define-key evil-normal-state-map "za" (lambda () (interactive) (if (eq major-mode 'web-mode) (web-mode-fold-or-unfold) (evil-toggle-fold))))
-(add-hook 'html-erb-mode-hook 'ragtag-mode)
 (setq org-default-notes-file "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org")
 (setq org-html-doctype "html5")
 ;; #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://spacemacs.org/css/readtheorg.css" />\n<script src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
@@ -802,7 +795,6 @@ layers configuration."
 
 (add-hook 'org-mode-hook #'(lambda ()
                              (interactive)
-                             (require 'ox-confluence)
                              (define-key org-mode-map (kbd "s-v") #'org-yank-image/yank)
                              (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                              (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
