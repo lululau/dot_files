@@ -188,7 +188,7 @@ before layers configuration."
    )
   ;; User initialization goes here
 
-  (load-file "~/.config/emacs-init.el")
+  (load-file "~/.config/emacs-config/init.el")
 
   (setq-default ruby-version-manager 'rvm)
   (setq-default ruby-enable-ruby-on-rails-support t)
