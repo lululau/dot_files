@@ -18,7 +18,10 @@
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      osx
-     (auto-completion :variables auto-completion-show-snippets-in-popup t auto-completion-enable-snippets-in-popup t auto-completion-private-snippets-directory "~/.config/emacs-config/snippets")
+     (auto-completion :variables
+                      auto-completion-show-snippets-in-popup t
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-private-snippets-directory "~/.config/emacs-config/snippets")
      better-defaults
      emacs-lisp
      git
@@ -34,10 +37,14 @@
             shell-default-shell 'ansi-term
             shell-default-term-shell "/bin/zsh")
      syntax-checking
-     (version-control :variables version-control-diff-tool 'diff-hl version-control-global-margin t)
-     (ruby :variables ruby-enable-enh-ruby-mode t)
+     (version-control :variables
+                      version-control-diff-tool 'diff-hl
+                      version-control-global-margin t)
+     (ruby :variables
+           ruby-enable-enh-ruby-mode t)
      yaml
      ruby-on-rails
+     projectile-rails-robe
      elixir
      shell-scripts
      dash
@@ -53,18 +60,22 @@
      rust
      scala
      chrome
-     (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     (ibuffer :variables
+              ibuffer-group-buffers-by 'projects)
      search-engine
      eyebrowse
      gnus
      chinese
      selectric
      ; evil-easymotion
-     (elfeed :variables rmh-elfeed-org-files (list "~/.config/emacs-config/elfeeds.org"))
+     (elfeed :variables
+             rmh-elfeed-org-files (list "~/.config/emacs-config/elfeeds.org"))
      pdf-tools
      csv
      sql
      plantuml
+     confluence
+     ragtag
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
