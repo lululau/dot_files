@@ -247,16 +247,7 @@ layers configuration."
                                      (buffer-file-name)) (buffer-name)))))
   (load-file "~/.config/secrets/paradox-github-token.el")
   (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
-  (add-hook
-   'enh-ruby-mode-hook
-   #'(lambda ()
-       (setq evil-shift-width 2)
-       (modify-syntax-entry ?: ".")
-       (modify-syntax-entry ?! "_")
-       (modify-syntax-entry ?? "_")))
 
-  (remove-hook 'enh-ruby-mode-hook
-               (lambda () (rvm-activate-corresponding-ruby)))
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
         '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
@@ -286,8 +277,6 @@ layers configuration."
   (setq inf-ruby-default-implementation "pry")
   (setq inf-ruby-eval-binding "Pry.toplevel_binding")
   (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
-  (eval-after-load 'company
-    '(push 'company-robe company-backends))
   (setq company-minimum-prefix-length 1)
   (setq org-default-notes-file "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org")
   (setq org-html-doctype "html5")
@@ -298,37 +287,28 @@ layers configuration."
 
   (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://liuxiang.gitcafe.io/assets/css/worg.css\" type=\"text/css\" />\n<script type=\"text/javascript\" src=\"http://liuxiang.gitcafe.io/assets/js/org-toc.js\">")
 
-  (setq search-engine-alist '(
-                              (google :name "Google" :url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
-                              (github :name "Github" :url "https://github.com/search?ref=simplesearch&q=%s")
-                              (stack-overflow :name "Stack Overflow" :url "https://stackoverflow.com/search?q=%s")
-                              (google-maps :name "Google Maps" :url "http://www.google.cn/maps/search/%s")
-                              (google-images :name "Google Images" :url "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s")
-                              (spacemacs-issues :name "Spacemacs Issues" :url "https://github.com/syl20bnr/spacemacs/issues?utf8=%%E2%%9C%%93&q=is%%3Aissue+is%%3Aopen+%s")
-                              (wikipedia :name "Wikipedia" :url "http://www.wikipedia.org/search-redirect.php?language=zh&go=Go&search=%s")
-                              (wolfram-alpha :name "Wolfram Alpha" :url "http://www.wolframalpha.com/input/?i=%s")))
+  (setq search-engine-alist
+        '(
+          (google :name "Google" :url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
+          (github :name "Github" :url "https://github.com/search?ref=simplesearch&q=%s")
+          (stack-overflow :name "Stack Overflow" :url "https://stackoverflow.com/search?q=%s")
+          (google-maps :name "Google Maps" :url "http://www.google.cn/maps/search/%s")
+          (google-images :name "Google Images" :url "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s")
+          (spacemacs-issues :name "Spacemacs Issues" :url "https://github.com/syl20bnr/spacemacs/issues?utf8=%%E2%%9C%%93&q=is%%3Aissue+is%%3Aopen+%s")
+          (wikipedia :name "Wikipedia" :url "http://www.wikipedia.org/search-redirect.php?language=zh&go=Go&search=%s")
+          (wolfram-alpha :name "Wolfram Alpha" :url "http://www.wolframalpha.com/input/?i=%s")))
 
   (setq auto-mode-alist (cons '("\\.apib\\'" . markdown-mode) auto-mode-alist))
 
   (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/8039/plantuml.8039.jar")
 
-  (add-hook 'magit-mode-hook '(lambda () (define-key evil-evilified-state-map (kbd "s-M") #'evil-motion-state) (define-key evil-motion-state-map (kbd "s-M") #'evil-evilified-state) (define-key magit-mode-map [S-tab] 'magit-section-cycle-global)))
   (add-hook 'term-mode-hook #'(lambda () (interactive)
                                 (define-key term-raw-map (kbd "<M-backspace>") #'term-send-raw-meta)
                                 (define-key term-raw-map (kbd "s-v") #'term-paste)
                                 (define-key term-raw-map (kbd "C-y") #'term-paste)
                                 ))
 
-
-  (add-hook 'neotree-mode-hook #'(lambda ()
-                                   (interactive)
-                                   (define-key neotree-mode-map (kbd "s-t") #'(lambda () (interactive) (select-window-by-number 1) (split-window-right-and-focus)))
-                                   (define-key neotree-mode-map (kbd "s-T") #'(lambda () (interactive) (select-window-by-number 1) (split-window-below-and-focus)))
-                                   (define-key neotree-mode-map (kbd "s-n") #'(lambda () (interactive) (select-window-by-number 1) (switch-to-buffer-other-window (generate-new-buffer "*Untitled*"))))
-                                   (define-key neotree-mode-map (kbd "s-N") #'(lambda () (interactive) (select-window-by-number 1) (switch-to-buffer (generate-new-buffer "*Untitled*"))))))
-  (add-hook 'helm-mode-hook #'(lambda () (define-key helm-map (kbd "s-m") 'helm-toggle-visible-mark)))
   (add-hook 'artist-mode-hook #'(lambda () (define-key artist-mode-map [(down-mouse-3)] 'artist-mouse-choose-operation)))
-  (add-hook 'company-mode-hook #'(lambda () (define-key company-active-map (kbd "C-r") 'helm-company)))
 
   (add-hook 'org-mode-hook #'(lambda ()
                                (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")

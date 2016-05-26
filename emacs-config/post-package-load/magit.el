@@ -32,4 +32,6 @@ Like `vc-mode-line' but simpler, more efficient, and less buggy."
 
   (advice-add 'magit-checkout :after #'(lambda (&rest args) (run-hooks 'magit-post-checkout-hooks)))
   (add-hook 'magit-post-checkout-hooks 'magit-refresh-projectile-buffers-vc-mode-line)
+  (define-key magit-mode-map [S-tab] 'magit-section-cycle-global)
   (global-set-key (kbd "s-G") 'magit-refresh-projectile-buffers-vc-mode-line))
+
