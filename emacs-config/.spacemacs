@@ -67,7 +67,7 @@
      gnus
      chinese
      selectric
-                                        ; evil-easymotion
+     ; evil-easymotion
      (elfeed :variables
              rmh-elfeed-org-files (list "~/.config/emacs-config/elfeeds.org"))
      pdf-tools
@@ -115,13 +115,6 @@ before layers configuration."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-                                        ; dotspacemacs-themes '(solarized-light
-                                        ;                       solarized-dark
-                                        ;                       spacemacs-light
-                                        ;                       spacemacs-dark
-                                        ;                       leuven
-                                        ;                       monokai
-                                        ;                       zenburn)
    dotspacemacs-themes '(solarized-light spacemacs-dark)
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
