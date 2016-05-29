@@ -280,16 +280,7 @@ layers configuration."
 
   (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://liuxiang.gitcafe.io/assets/css/worg.css\" type=\"text/css\" />\n<script type=\"text/javascript\" src=\"http://liuxiang.gitcafe.io/assets/js/org-toc.js\">")
 
-  (setq search-engine-alist
-        '(
-          (google :name "Google" :url "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s")
-          (github :name "Github" :url "https://github.com/search?ref=simplesearch&q=%s")
-          (stack-overflow :name "Stack Overflow" :url "https://stackoverflow.com/search?q=%s")
-          (google-maps :name "Google Maps" :url "http://www.google.cn/maps/search/%s")
-          (google-images :name "Google Images" :url "http://www.google.com/images?hl=en&source=hp&biw=1440&bih=795&gbv=2&aq=f&aqi=&aql=&oq=&q=%s")
-          (spacemacs-issues :name "Spacemacs Issues" :url "https://github.com/syl20bnr/spacemacs/issues?utf8=%%E2%%9C%%93&q=is%%3Aissue+is%%3Aopen+%s")
-          (wikipedia :name "Wikipedia" :url "http://www.wikipedia.org/search-redirect.php?language=zh&go=Go&search=%s")
-          (wolfram-alpha :name "Wolfram Alpha" :url "http://www.wolframalpha.com/input/?i=%s")))
+  (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
 
   (setq auto-mode-alist (cons '("\\.apib\\'" . markdown-mode) auto-mode-alist))
 
