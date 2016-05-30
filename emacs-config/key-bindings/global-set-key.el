@@ -45,3 +45,13 @@
 (global-set-key (kbd "<S-f1>") #'(lambda () (interactive) (neotree-toggle) (window-numbering-update)))
 (global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 1)))
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 1)))
+
+(global-set-key (kbd "M-h") #'evil-window-left)
+(global-set-key (kbd "M-j") #'evil-window-down)
+(global-set-key (kbd "M-k") #'evil-window-up)
+(global-set-key (kbd "M-l") #'evil-window-right)
+
+(global-set-key (kbd "M-H") #'evil-window-move-far-left)
+(global-set-key (kbd "M-J") #'evil-window-move-very-bottom)
+(global-set-key (kbd "M-K") #'evil-window-move-very-top)
+(global-set-key (kbd "M-L") #'evil-window-move-far-right)
