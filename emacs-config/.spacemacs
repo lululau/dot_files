@@ -73,6 +73,7 @@
      csv
      sql
      plantuml
+     nginx
      confluence
      ragtag
      org-yank-image
