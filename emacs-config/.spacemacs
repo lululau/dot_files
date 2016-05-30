@@ -376,7 +376,7 @@ layers configuration."
  '(neo-theme (quote uni))
  '(package-archives
    (quote
-    (("melpa" . "http://elpa.zilongshanren.com/melpa")
+    (("melpa" . "http://elpa.zilongshanren.com/melpa/")
      ("org" . "http://elpa.zilongshanren.com/org/")
      ("gnu" . "http://elpa.zilongshanren.com/gnu/"))))
  '(projectile-completion-system (quote helm))
