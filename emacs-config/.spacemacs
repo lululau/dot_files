@@ -50,7 +50,7 @@
      dash
      emacs-lisp
      ;; evernote
-     evil-commenary
+     evil-commentary
      extra-langs
      html
      ;; java
@@ -63,7 +63,6 @@
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)
      search-engine
-     eyebrowse
      gnus
      chinese
      selectric
@@ -376,7 +375,7 @@ layers configuration."
  '(neo-theme (quote uni))
  '(package-archives
    (quote
-    (("melpa" . "http://elpa.zilongshanren.com/melpa/")
+    (("melpa" . "http://elpa.zilongshanren.com/melpa")
      ("org" . "http://elpa.zilongshanren.com/org/")
      ("gnu" . "http://elpa.zilongshanren.com/gnu/"))))
  '(projectile-completion-system (quote helm))
