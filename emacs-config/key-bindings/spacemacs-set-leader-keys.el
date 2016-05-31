@@ -10,7 +10,9 @@
   "aoA" #'(lambda () (interactive) (require 'calfw-org) (cfw:open-org-calendar))
   "aoR" #'(lambda () (interactive) (org-refile '(4)))
   "aob" 'org-iswitchb
-  "gho" #'browse-at-remote/browse)
+  "gho" #'browse-at-remote/browse
+  "to" #'org-toggle-link-display
+)
 (spacemacs/set-leader-keys
   "0" 'spacemacs/persp-switch-to-0
   "1" 'spacemacs/persp-switch-to-1
