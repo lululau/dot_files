@@ -56,7 +56,7 @@
      ;; java
      javascript
      python
-     restclient
+     (restclient :variables restclient-use-org t)
      rust
      scala
      chrome
