@@ -274,18 +274,14 @@ layers configuration."
   (setq company-minimum-prefix-length 1)
   (setq org-default-notes-file "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org")
   (setq org-html-doctype "html5")
-  ;; #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://spacemacs.org/css/readtheorg.css" />\n<script src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
-  ;; #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://liuxiang.gitcafe.io/assets/css/readtheorg.css" />\n<script src="http://liuxiang.gitcafe.io/assets/js/readtheorg.js"></script>
-  ;; #+HTML_HEAD: <link href="http://thomasf.github.io/solarized-css/solarized-light.min.css" rel="stylesheet"></link>
-  ;; #+HTML_HEAD: <link rel="stylesheet" href="http://dakrone.github.io/org.css" type="text/css" />
 
-  (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://liuxiang.gitcafe.io/assets/css/worg.css\" type=\"text/css\" />\n<script type=\"text/javascript\" src=\"http://liuxiang.gitcafe.io/assets/js/org-toc.js\">")
+  (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://orgmode.org/worg/style/worg.css\" type=\"text/css\" />")
 
   (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
 
   (setq auto-mode-alist (cons '("\\.apib\\'" . markdown-mode) auto-mode-alist))
 
-  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/8039/plantuml.8039.jar")
+  (setq org-plantuml-jar-path (car (f--files "/usr/local/Cellar/plantuml/" (string= (f-ext it) "jar") t)))
 
   (add-hook 'term-mode-hook #'(lambda () (interactive)
                                 (define-key term-raw-map (kbd "<M-backspace>") #'term-send-raw-meta)
