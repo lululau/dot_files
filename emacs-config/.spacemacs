@@ -255,6 +255,7 @@ layers configuration."
 
   (setq comint-input-ring-file-name "~/.pry_history")
   (setq comint-input-ring-size 100000)
+  (remove-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)
   (add-hook 'inf-ruby-mode-hook #'(lambda ()
                                     (interactive)
                                     (comint-read-input-ring)
