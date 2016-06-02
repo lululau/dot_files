@@ -74,6 +74,7 @@
      sql
      plantuml
      nginx
+     (mu4e :variables mu4e-enable-notifications t mu4e-enable-mode-line)
      confluence
      ragtag
      org-yank-image
@@ -326,6 +327,41 @@ layers configuration."
      (format "'%s'" msg)))                                ;; passed to -message in terminal-notifier call
   (setq appt-disp-window-function (function my-appt-display))
   (setq eclim-eclipse-dirs "~/Applications/Eclipse.app" eclim-executable "~/Applications/Eclipse.app/Contents/Eclipse/eclim")
+
+  ;;; mu4e config
+  ;;; Set up some common mu4e variables
+  (require 'mu4e-contrib)
+  (setq mu4e-maildir "~/Maildir"
+        mu4e-trash-folder "/Deleted Messages"
+        mu4e-refile-folder "/Junk"
+        mu4e-sent-folder "/Sent Messages"
+        mu4e-get-mail-command "offlineimap"
+        mu4e-update-interval 240
+        mu4e-compose-signature-auto-include nil
+        mu4e-html2text-command "mu4e-shr2text"
+        mu4e-view-show-images t
+        mu4e-view-show-addresses t)
+
+  ;;; Mail directory shortcuts
+  (setq mu4e-maildir-shortcuts
+        '(("/INBOX" . ?i)))
+
+  ;;; Bookmarks
+  (setq mu4e-bookmarks
+        `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+          ("date:today..now" "Today's messages" ?t)
+          ("date:7d..now" "Last 7 days" ?w)
+          ("mime:image/*" "Messages with images" ?p)
+          (,(mapconcat 'identity
+                       (mapcar
+                        (lambda (maildir)
+                          (concat "maildir:" (car maildir)))
+                        mu4e-maildir-shortcuts) " OR ")
+           "All inboxes" ?i)))
+
+  (with-eval-after-load 'mu4e-alert
+    ;; Enable Desktop notifications
+    (mu4e-alert-set-default-style 'notifier))
 
   ) ;;; End of config.
 
