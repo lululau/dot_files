@@ -281,7 +281,7 @@ layers configuration."
 
   (setq auto-mode-alist (cons '("\\.apib\\'" . markdown-mode) auto-mode-alist))
 
-  (setq org-plantuml-jar-path (car (f--files "/usr/local/Cellar/plantuml/" (string= (f-ext it) "jar") t)))
+  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")
 
   (add-hook 'term-mode-hook #'(lambda () (interactive)
                                 (define-key term-raw-map (kbd "<M-backspace>") #'term-send-raw-meta)
@@ -379,7 +379,7 @@ layers configuration."
  '(projectile-completion-system (quote helm))
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
- '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8039/plantuml.8039.jar")
+ '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")
  '(ring-bell-function (quote ignore) t)
  '(safe-local-variable-values (quote ((org-html-head))))
  '(sql-connection-alist
