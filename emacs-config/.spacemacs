@@ -276,7 +276,8 @@ layers configuration."
   (setq org-default-notes-file "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org")
   (setq org-html-doctype "html5")
 
-  (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://orgmode.org/worg/style/worg.css\" type=\"text/css\" />")
+  ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://orgmode.org/worg/style/worg.css\" type=\"text/css\" />")
+  (setq org-html-head "<link rel=\"stylesheet\" href=\"http://dakrone.github.io/org.css\" type=\"text/css\" />")
 
   (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
 
