@@ -12,13 +12,20 @@
         )))
 
   (defun build-rails-source (type)
-    (let* ((rails-file-patterns `((models . (("app/models/" "/models/\\(.+\\)\\.rb$")))
-                                  (controllers . (("app/controllers/" "/controllers/\\(.+\\)_controller\\.rb$")))
-                                  (views . (("app/views/" ,(concat "app/views/\\(.+\\)" projectile-rails-views-re))))))
-           (file-pattern (cdr (assoc type rails-file-patterns)))
-           choices
-           )
-      (maphash (lambda (k v) (add-to-list 'choices (cons k v) t)) (projectile-rails-choices file-pattern))
+    (let* (choices)
+      (cond
+       ((eq type 'models) (setq choices (lambda ()
+                                     (let (result)
+                                       (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices '(("app/models/" "/models/\\(.+\\)\\.rb$")))) result))))
+
+       ((eq type 'views) (setq choices (lambda ()
+                                          (let (result)
+                                            (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices `(("app/views/" ,(concat "app/views/\\(.+\\)" projectile-rails-views-re))))) result))))
+       
+       ((eq type 'controllers) (setq choices (lambda ()
+                                          (let (result)
+                                            (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices '(("app/controllers/" "/controllers/\\(.+\\)_controller\\.rb$")))) result))))
+       )
       (helm-build-sync-source (format "Rails %s files: " (symbol-name type)) :candidates choices :fuzzy-match t
                               :action (lambda (file) (find-file (concat (projectile-rails-root) file))))
       ))
