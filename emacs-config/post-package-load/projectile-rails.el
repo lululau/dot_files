@@ -21,7 +21,6 @@
        ((eq type 'views) (setq choices (lambda ()
                                           (let (result)
                                             (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices `(("app/views/" ,(concat "app/views/\\(.+\\)" projectile-rails-views-re))))) result))))
-       
        ((eq type 'controllers) (setq choices (lambda ()
                                           (let (result)
                                             (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices '(("app/controllers/" "/controllers/\\(.+\\)_controller\\.rb$")))) result))))

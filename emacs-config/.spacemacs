@@ -83,7 +83,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(ox-reveal calfw ox-twbs browse-at-remote ranger)
+   dotspacemacs-additional-packages '(ox-reveal calfw ox-twbs browse-at-remote ranger helm-mu)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -338,7 +338,7 @@ layers configuration."
         mu4e-get-mail-command "offlineimap"
         mu4e-update-interval 240
         mu4e-compose-signature-auto-include nil
-        mu4e-html2text-command "mu4e-shr2text"
+        mu4e-html2text-command 'mu4e-shr2text
         mu4e-view-show-images t
         mu4e-view-show-addresses t)
 
@@ -362,6 +362,27 @@ layers configuration."
   (with-eval-after-load 'mu4e-alert
     ;; Enable Desktop notifications
     (mu4e-alert-set-default-style 'notifier))
+
+  ;;; SMTP
+  (setq user-full-name "刘向")
+  (setq user-mail-address "infinite.loop.1@foxmail.com")
+  (setq send-mail-function 'smtpmail-send-it)
+  (setq smtpmail-stream-type 'ssl)
+  (setq smtpmail-smtp-server "smtp.qq.com")
+  (setq smtpmail-smtp-service 465)
+
+  (spacemacs|define-custom-layout "@Mail"
+    :binding "m"
+    :body
+    (progn
+      ;; hook to add all mu4e buffers to the layout
+      (defun spacemacs-layouts/add-mu4e-buffer-to-persp ()
+        (persp-add-buffer (current-buffer)
+                          (persp-get-by-name
+                           mu4e-spacemacs-layout-name)))
+      (add-hook 'mu4e-mode-hook #'spacemacs-layouts/add-mu4e-buffer-to-persp)
+      ;; Start mu4e
+      (call-interactively 'mu4e)))
 
   ) ;;; End of config.
 
@@ -396,6 +417,8 @@ layers configuration."
  '(helm-gtags-fuzzy-match t)
  '(helm-gtags-preselect t)
  '(helm-imenu-fuzzy-match t)
+ '(helm-mu-default-search-string "(maildir:/INBOX OR maildir:/Sent)")
+ '(helm-mu-gnu-sed-program "gsed")
  '(inf-ruby-implementations
    (quote
     (("ruby" . "irb --prompt default --noreadline -r irb/completion")
