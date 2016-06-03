@@ -105,4 +105,34 @@ current query will be used to initialize the search.  Otherwise
 
 (with-eval-after-load 'org-mu4e
   (setq org-mu4e-convert-to-html t)
-  (spacemacs/set-leader-keys-for-major-mode 'org-mu4e-compose-org-mode "to" 'mu4e-toggle-org-mode))
+  (spacemacs/set-leader-keys-for-major-mode 'org-mu4e-compose-org-mode "to" 'mu4e-toggle-org-mode)
+  (defun org~mu4e-mime-convert-to-html ()
+    "Convert the current body to html."
+    (unless (fboundp 'org-export-string-as)
+      (mu4e-error "require function 'org-export-string-as not found."))
+    (let* ((begin
+            (save-excursion
+              (goto-char (point-min))
+              (search-forward mail-header-separator)))
+           (end (point-max))
+           (raw-body (buffer-substring begin end))
+           (tmp-file (make-temp-name (expand-file-name "mail"
+                                                       temporary-file-directory)))
+           (org-export-skip-text-before-1st-heading nil)
+           (org-export-htmlize-output-type 'inline-css)
+           (org-export-preserve-breaks t)
+           (org-export-with-LaTeX-fragments
+            (if (executable-find "dvipng") 'dvipng
+              (mu4e-message "Cannot find dvipng, ignore inline LaTeX") nil))
+           (html-and-images
+            (org~mu4e-mime-replace-images
+             (org-export-string-as raw-body 'html nil)
+             tmp-file))
+           (html-images (cdr html-and-images))
+           (html (car html-and-images)))
+      (delete-region begin end)
+      (save-excursion
+        (goto-char begin)
+        (newline)
+        (insert (org~mu4e-mime-multipart
+                 raw-body html (mapconcat 'identity html-images "\n")))))))
