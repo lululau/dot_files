@@ -328,49 +328,6 @@ layers configuration."
   (setq appt-disp-window-function (function my-appt-display))
   (setq eclim-eclipse-dirs "~/Applications/Eclipse.app" eclim-executable "~/Applications/Eclipse.app/Contents/Eclipse/eclim")
 
-  ;;; mu4e config
-  ;;; Set up some common mu4e variables
-  (require 'mu4e-contrib)
-  (setq mu4e-maildir "~/Maildir"
-        mu4e-trash-folder "/Deleted Messages"
-        mu4e-refile-folder "/Junk"
-        mu4e-sent-folder "/Sent Messages"
-        mu4e-get-mail-command "offlineimap"
-        mu4e-update-interval 240
-        mu4e-compose-signature-auto-include nil
-        mu4e-html2text-command 'mu4e-shr2text
-        mu4e-view-show-images t
-        mu4e-view-show-addresses t)
-
-  ;;; Mail directory shortcuts
-  (setq mu4e-maildir-shortcuts
-        '(("/INBOX" . ?i)))
-
-  ;;; Bookmarks
-  (setq mu4e-bookmarks
-        `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
-          ("date:today..now" "Today's messages" ?t)
-          ("date:7d..now" "Last 7 days" ?w)
-          ("mime:image/*" "Messages with images" ?p)
-          (,(mapconcat 'identity
-                       (mapcar
-                        (lambda (maildir)
-                          (concat "maildir:" (car maildir)))
-                        mu4e-maildir-shortcuts) " OR ")
-           "All inboxes" ?i)))
-
-  (with-eval-after-load 'mu4e-alert
-    ;; Enable Desktop notifications
-    (mu4e-alert-set-default-style 'notifier))
-
-  ;;; SMTP
-  (setq user-full-name "刘向")
-  (setq user-mail-address "infinite.loop.1@foxmail.com")
-  (setq send-mail-function 'smtpmail-send-it)
-  (setq smtpmail-stream-type 'ssl)
-  (setq smtpmail-smtp-server "smtp.qq.com")
-  (setq smtpmail-smtp-service 465)
-
   (spacemacs|define-custom-layout "@Mail"
     :binding "m"
     :body
@@ -383,7 +340,6 @@ layers configuration."
       (add-hook 'mu4e-mode-hook #'spacemacs-layouts/add-mu4e-buffer-to-persp)
       ;; Start mu4e
       (call-interactively 'mu4e)))
-
   ) ;;; End of config.
 
 ;; (desktop-save-mode 1)

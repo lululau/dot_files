@@ -55,3 +55,5 @@
 (global-set-key (kbd "M-J") #'evil-window-move-very-bottom)
 (global-set-key (kbd "M-K") #'evil-window-move-very-top)
 (global-set-key (kbd "M-L") #'evil-window-move-far-right)
+
+(global-set-key (kbd "s-M") #'helm-mu)
