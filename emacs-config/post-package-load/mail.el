@@ -101,10 +101,12 @@ current query will be used to initialize the search.  Otherwise
     "fo" 'open-message-with-mail-app))
 
 (with-eval-after-load 'mu4e-compose
+  (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode "a" 'mml-attach-file)
   (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode "to" 'mu4e-toggle-org-mode))
 
 (with-eval-after-load 'org-mu4e
   (setq org-mu4e-convert-to-html t)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mu4e-compose-org-mode "a" 'mml-attach-file)
   (spacemacs/set-leader-keys-for-major-mode 'org-mu4e-compose-org-mode "to" 'mu4e-toggle-org-mode)
   (defun org~mu4e-mime-convert-to-html ()
     "Convert the current body to html."
