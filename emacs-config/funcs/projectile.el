@@ -18,7 +18,7 @@
   (interactive)
   (let ((project (get-current-persp-project)))
     (if project
-        (if (and (projectile-project-p) (string= project (projectile-project-root)))
+        (if (and (projectile-project-p) (string= (expand-file-name project) (projectile-project-root)))
             (let ((alternate-buffer (projectile-project-alternate-buffer)))
               (if alternate-buffer (switch-to-buffer alternate-buffer)))
           (let* ((default-directory project)
