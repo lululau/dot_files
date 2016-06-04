@@ -1,3 +1,11 @@
+(defun get-current-persp-project ()
+  (let ((persp (get-current-persp))
+        persp-name)
+    (when persp
+      (setq persp-name (persp-name persp))
+      (when (-contains? (projectile-open-projects) persp-name)
+        persp-name))))
+
 (defun projectile-project-alternate-buffer ()
   (car
    (--remove
@@ -8,5 +16,12 @@
 
 (defun projectile-project-switch-to-alternate-buffer ()
   (interactive)
-  (let ((alternate-buffer (projectile-project-alternate-buffer)))
-    (if alternate-buffer (switch-to-buffer alternate-buffer))))
+  (let ((project (get-current-persp-project)))
+    (if project
+        (if (and (projectile-project-p) (string= project (projectile-project-root)))
+            (let ((alternate-buffer (projectile-project-alternate-buffer)))
+              (if alternate-buffer (switch-to-buffer alternate-buffer)))
+          (let* ((default-directory project)
+                 (buf (cadr (projectile-project-buffers))))
+            (switch-to-buffer buf)))
+      (call-interactively #'spacemacs/alternate-buffer-in-persp))))
