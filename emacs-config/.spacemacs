@@ -389,9 +389,9 @@ layers configuration."
  '(neo-theme (quote uni))
  '(package-archives
    (quote
-    (("melpa" . "http://elpa.zilongshanren.com/melpa/")
-     ("org" . "http://elpa.zilongshanren.com/org/")
-     ("gnu" . "http://elpa.zilongshanren.com/gnu/"))))
+    (("melpa" . "https://elpa.zilongshanren.com/melpa/")
+     ("org" . "https://elpa.zilongshanren.com/org/")
+     ("gnu" . "https://elpa.zilongshanren.com/gnu/"))))
  '(projectile-completion-system (quote helm))
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
