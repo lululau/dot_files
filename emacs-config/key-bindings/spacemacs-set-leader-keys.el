@@ -13,14 +13,3 @@
   "gho" #'browse-at-remote/browse
   "to" #'org-toggle-link-display
 )
-(spacemacs/set-leader-keys
-  "0" 'spacemacs/persp-switch-to-0
-  "1" 'spacemacs/persp-switch-to-1
-  "2" 'spacemacs/persp-switch-to-2
-  "3" 'spacemacs/persp-switch-to-3
-  "4" 'spacemacs/persp-switch-to-4
-  "5" 'spacemacs/persp-switch-to-5
-  "6" 'spacemacs/persp-switch-to-6
-  "7" 'spacemacs/persp-switch-to-7
-  "8" 'spacemacs/persp-switch-to-8
-  "9" 'spacemacs/persp-switch-to-9)

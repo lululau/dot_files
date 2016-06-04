@@ -57,3 +57,14 @@
 (global-set-key (kbd "M-L") #'evil-window-move-far-right)
 
 (global-set-key (kbd "s-M") #'helm-mu)
+
+(global-set-key (kbd "s-0") 'spacemacs/persp-switch-to-0)
+(global-set-key (kbd "s-1") 'spacemacs/persp-switch-to-1)
+(global-set-key (kbd "s-2") 'spacemacs/persp-switch-to-2)
+(global-set-key (kbd "s-3") 'spacemacs/persp-switch-to-3)
+(global-set-key (kbd "s-4") 'spacemacs/persp-switch-to-4)
+(global-set-key (kbd "s-5") 'spacemacs/persp-switch-to-5)
+(global-set-key (kbd "s-6") 'spacemacs/persp-switch-to-6)
+(global-set-key (kbd "s-7") 'spacemacs/persp-switch-to-7)
+(global-set-key (kbd "s-8") 'spacemacs/persp-switch-to-8)
+(global-set-key (kbd "s-9") 'spacemacs/persp-switch-to-9)
