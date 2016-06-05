@@ -386,8 +386,8 @@ layers configuration."
      ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.3.0/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.3.0/bin/pry"))))
  '(magit-blame-heading-format "%-20a %A %s")
  '(magit-diff-use-overlays nil)
+ '(mu4e-attachment-dir "/Users/liuxiang/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
- '(mu4e-headers-time-format "%H:%M")
  '(mu4e-headers-fields
    (quote
     ((:human-date . 12)
@@ -395,6 +395,7 @@ layers configuration."
      (:mailing-list . 10)
      (:from-or-to . 22)
      (:subject))))
+ '(mu4e-headers-time-format "%H:%M")
  '(neo-theme (quote uni))
  '(package-archives
    (quote
