@@ -2,7 +2,6 @@
 ZSH=$HOME/.oh-my-zsh
 
 export AUTOJUMP_KEEP_SYMLINKS=1
-export HOMEBREW_GITHUB_API_TOKEN=fa0caebdcdf2ae6658ea8607815036dc2f413260
 
 alias -- +x='chmod +x '
 alias l1='ls -1'
