@@ -1,6 +1,7 @@
 (spacemacs/declare-prefix "o" "user key bindings")
 (spacemacs/declare-prefix "oo" "open org files")
 (spacemacs/declare-prefix "oi" "open info nodes")
+(spacemacs/declare-prefix "oe" "open demo files")
 
 (defun lx/open-bookmarks.org ()
   (interactive)
@@ -10,9 +11,33 @@
   (interactive)
   (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org"))
 
-(defun lx/open-demo.http ()
+(defun lx/open-http-demo ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo.http"))
+  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.http"))
+
+(defun lx/open-ruby-demo ()
+  (interactive)
+  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.rb"))
+
+(defun lx/open-perl-demo ()
+  (interactive)
+  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.pl"))
+
+(defun lx/open-python-demo ()
+  (interactive)
+  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.py"))
+
+(defun lx/open-java-demo ()
+  (interactive)
+  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/Demo.java"))
+
+(defun lx/open-shell-demo ()
+  (interactive)
+  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.sh"))
+
+(defun lx/open-elisp-demo ()
+  (interactive)
+  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.el"))
 
 (defun lx/open-emacs-info ()
   (interactive)
@@ -43,7 +68,15 @@
   ;; Org
   "oob" #'lx/open-bookmarks.org
   "oon" #'lx/open-notes.org
-  "ooh" #'lx/open-demo.http
+
+  ;; Demo files
+  "oeh" #'lx/open-http-demo
+  "oel" #'lx/open-elisp-demo
+  "oer" #'lx/open-ruby-demo
+  "oey" #'lx/open-python-demo
+  "oej" #'lx/open-java-demo
+  "oes" #'lx/open-shell-demo
+  "oep" #'lx/open-perl-demo
 
   ;; Info bookmarks
   "oie" #'lx/open-emacs-info
