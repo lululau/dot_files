@@ -1,0 +1,8 @@
+#group: source block
+# key: <uml
+# --
+#+BEGIN_SRC plantuml :exports results :file $0
+@startuml
+$1
+@enduml
+#+END_SRC

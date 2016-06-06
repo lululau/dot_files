@@ -1,0 +1,6 @@
+#group: source block
+# key: <ruby
+# --
+#+BEGIN_SRC ruby
+$0
+#+END_SRC

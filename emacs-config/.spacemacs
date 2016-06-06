@@ -397,6 +397,7 @@ layers configuration."
      (:subject))))
  '(mu4e-headers-time-format "%H:%M")
  '(neo-theme (quote uni))
+ '(org-confirm-babel-evaluate nil)
  '(package-archives
    (quote
     (("melpa" . "https://elpa.zilongshanren.com/melpa/")
