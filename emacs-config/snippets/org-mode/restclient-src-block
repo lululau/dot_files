@@ -1,0 +1,6 @@
+#group: source block
+# key: <rest
+# --
+#+BEGIN_SRC restclient :pretty
+$0
+#+END_SRC
