@@ -39,6 +39,10 @@
   (interactive)
   (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.el"))
 
+(defun lx/open-org-demo ()
+  (interactive)
+  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.org"))
+
 (defun lx/open-emacs-info ()
   (interactive)
   (org-open-link-from-string "info:emacs#Top"))
@@ -77,6 +81,7 @@
   "oej" #'lx/open-java-demo
   "oes" #'lx/open-shell-demo
   "oep" #'lx/open-perl-demo
+  "oeo" #'lx/open-org-demo
 
   ;; Info bookmarks
   "oie" #'lx/open-emacs-info
