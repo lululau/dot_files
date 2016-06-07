@@ -371,6 +371,7 @@ layers configuration."
  '(diff-hl-margin-mode nil)
  '(enh-ruby-add-encoding-comment-on-save nil)
  '(flycheck-disabled-checkers (quote (ruby-rubocop ruby-rubylint)))
+ '(helm-dash-browser-func (quote lx/browse-url-in-safari))
  '(helm-gtags-fuzzy-match t)
  '(helm-gtags-preselect t)
  '(helm-imenu-fuzzy-match t)
@@ -396,6 +397,7 @@ layers configuration."
      (:from-or-to . 22)
      (:subject))))
  '(mu4e-headers-time-format "%H:%M")
+ '(mu4e-hide-index-messages t)
  '(neo-theme (quote uni))
  '(org-confirm-babel-evaluate nil)
  '(package-archives
