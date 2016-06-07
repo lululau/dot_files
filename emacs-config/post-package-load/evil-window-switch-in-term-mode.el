@@ -1,5 +1,4 @@
-(spacemacs|use-package-add-hook term
-  :post-config
+(with-eval-after-load 'term
   (let ((map (lookup-key term-raw-map "\e")))
     (define-key map "h" #'evil-window-left)
     (define-key map "j" #'evil-window-down)
