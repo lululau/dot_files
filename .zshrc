@@ -214,6 +214,11 @@ then
     PS1='$ '
 fi
 
+# for shell-pop
+chpwd() { print -P "\033AnSiTc %d" }
+print -P "\033AnSiTu %n"
+print -P "\033AnSiTc %d"
+
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # source ~/.xsh
