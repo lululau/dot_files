@@ -215,7 +215,7 @@ layers configuration."
 
   (setq neo-vc-integration nil)
   (setq diff-hl-side 'left)
-  (spacemacs//set-monospaced-font "Monaco" "STHeiti" 13 16)
+  (spacemacs/set-state-faces)
   (setenv "LANG" "zh_CN.UTF-8")
   (setenv "PKG_CONFIG_PATH" "/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig")
   (add-hook 'prog-mode-hook 'linum-mode)
