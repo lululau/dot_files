@@ -5,3 +5,4 @@
 --ignore-file=is:GTAGS
 --ignore-file=is:GRTAGS
 --ignore-file=is:GPATH
+--ignore-dir=.cache
