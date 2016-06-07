@@ -1,4 +1,4 @@
-(defun spacemacs/set-state-faces()
+(advice-add 'spacemacs/set-state-faces :override (lambda ()
   (when (string= "spacemacs-dark" spacemacs--cur-theme)
     (face-spec-set 'enh-ruby-op-face '((t (:foreground "#b2b2b2"))))
     (face-spec-set 'enh-ruby-string-delimiter-face '((t (:foreground "#3c95d2"))))
@@ -44,4 +44,4 @@
            (set (intern (format "evil-%s-state-cursor" state))
                 (list (when dotspacemacs-colorize-cursor-according-to-state color)
                       cursor)))
-  (spacemacs//set-monospaced-font "Monaco" "STHeiti" 13 16))
+  (spacemacs//set-monospaced-font "Monaco" "STHeiti" 13 16)))
