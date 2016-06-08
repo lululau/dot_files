@@ -29,5 +29,6 @@
 (define-key evil-ex-completion-map "\C-b" nil)
 (define-key evil-ex-completion-map "\C-d" nil)
 (define-key evil-ex-completion-map "\C-k" nil)
-
+(define-key evil-normal-state-map (kbd "RET") #'(lambda () (interactive) (evil-insert-newline-below)))
+(define-key evil-motion-state-map (kbd "RET") #'(lambda () (interactive) (evil-insert-newline-below)))
 (evil-leader/set-key "SPC" 'avy-goto-char-2)
