@@ -160,11 +160,6 @@ export PERL5LIB=/Users/liuxiang/perl5/lib/perl5/
 #   mm --help
 # }
 
-if [ -n "$ITERM_SESSION_ID"  ]
-then
-  eval "$(icrt.rb "${ITERM_SESSION_ID%%:*}")"
-fi
-
 set -o interactivecomments
 export NULLCMD=:
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
@@ -215,17 +210,17 @@ then
 fi
 
 # for shell-pop
-if [[ "$TERM" == "eterm-color" ]]
+if [ -n "$EMACS" ]
 then
   chpwd() { print -P "\033AnSiTc %d" }
   print -P "\033AnSiTu %n"
   print -P "\033AnSiTc %d"
+  source $HOME/.zlogin
 fi
 
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # source ~/.xsh
-
 
 # source /Users/liuxiang/.iterm2_shell_integration.zsh
 
