@@ -298,6 +298,7 @@ layers configuration."
                                (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
 
   (setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
+  (setq mu4e-hide-index-messages t)
 
   ;; org-mode and appointment notifications on Mac OS 10.8+
   ;; https://lists.gnu.org/archive/html/emacs-orgmode/2013-02/msg00644.html
@@ -446,7 +447,6 @@ layers configuration."
      (:from-or-to . 22)
      (:subject))))
  '(mu4e-headers-time-format "%H:%M")
- '(mu4e-hide-index-messages t)
  '(neo-theme (quote uni))
  '(org-confirm-babel-evaluate nil)
  '(package-archives
