@@ -84,13 +84,19 @@
                   ("s-r Rx" . projectile-rails-extract-region)))
     (define-key projectile-rails-mode-map (kbd (car pair)) (cdr pair)))
 
+
+  (define-button-type 'help-open-file
+    :supertype 'help-xref
+    'help-function 'org-open-file
+    'help-echo (purecopy "mouse-2, RET: open file"))
+
   (defun lx/get-rails-locale-files ()
     (directory-files (format "%s/config/locales/" (projectile-project-root)) t "\\.ya?ml$"))
 
   (defun lx/get-rails-locale-message (key)
     (--map
-     (let ((locale (car (s-split "\\." (car (s-match "..\\.ya?ml$" "sasa_zh.yml"))))))
-       (cons it (format "%s" (shell-command-to-string (format "~/bin/yamlq '%s' '%s.%s'" it locale key)))))
+     (let ((locale (car (s-split "\\." (car (s-match "..\\.ya?ml$" it))))))
+       (cons it (format "%s" (shell-command-to-string (format "~/bin/yamlq '%s' '%s.%s' 2>/dev/null" it locale key)))))
      (lx/get-rails-locale-files)))
 
   (defun lx/find-rails-locale-message ()
@@ -99,7 +105,6 @@
       (dolist (item (lx/get-rails-locale-message (thing-at-point 'filename t)))
         (when (not (s-blank? (cdr item)))
           (with-current-buffer (help-buffer)
-            (help-insert-xref-button (car item) 'help-theme-def (car item)))
+            (help-insert-xref-button (car item) 'help-open-file (car item) t nil (cdr item)))
           (princ (format ":  %s\n\n" (cdr item)))))))
-
   (spacemacs/set-leader-keys-for-minor-mode 'projectile-rails-mode "d" #'lx/find-rails-locale-message))
