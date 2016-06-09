@@ -15,15 +15,15 @@
     (let* (choices)
       (cond
        ((eq type 'models) (setq choices (lambda ()
-                                     (let (result)
-                                       (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices '(("app/models/" "/models/\\(.+\\)\\.rb$")))) result))))
+                                          (let (result)
+                                            (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices '(("app/models/" "/models/\\(.+\\)\\.rb$")))) result))))
 
        ((eq type 'views) (setq choices (lambda ()
-                                          (let (result)
-                                            (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices `(("app/views/" ,(concat "app/views/\\(.+\\)" projectile-rails-views-re))))) result))))
+                                         (let (result)
+                                           (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices `(("app/views/" ,(concat "app/views/\\(.+\\)" projectile-rails-views-re))))) result))))
        ((eq type 'controllers) (setq choices (lambda ()
-                                          (let (result)
-                                            (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices '(("app/controllers/" "/controllers/\\(.+\\)_controller\\.rb$")))) result))))
+                                               (let (result)
+                                                 (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices '(("app/controllers/" "/controllers/\\(.+\\)_controller\\.rb$")))) result))))
        )
       (helm-build-sync-source (format "Rails %s files: " (symbol-name type)) :candidates choices :fuzzy-match t
                               :action (lambda (file) (find-file (concat (projectile-rails-root) file))))
@@ -82,4 +82,24 @@
                   ("s-r G" . projectile-rails-generate)
                   ("s-r r:" . projectile-rails-rake)
                   ("s-r Rx" . projectile-rails-extract-region)))
-    (define-key projectile-rails-mode-map (kbd (car pair)) (cdr pair))))
+    (define-key projectile-rails-mode-map (kbd (car pair)) (cdr pair)))
+
+  (defun lx/get-rails-locale-files ()
+    (directory-files (format "%s/config/locales/" (projectile-project-root)) t "\\.ya?ml$"))
+
+  (defun lx/get-rails-locale-message (key)
+    (--map
+     (let ((locale (car (s-split "\\." (car (s-match "..\\.ya?ml$" "sasa_zh.yml"))))))
+       (cons it (format "%s" (shell-command-to-string (format "~/bin/yamlq '%s' '%s.%s'" it locale key)))))
+     (lx/get-rails-locale-files)))
+
+  (defun lx/find-rails-locale-message ()
+    (interactive)
+    (with-help-window (help-buffer)
+      (dolist (item (lx/get-rails-locale-message (thing-at-point 'filename t)))
+        (when (not (s-blank? (cdr item)))
+          (with-current-buffer (help-buffer)
+            (help-insert-xref-button (car item) 'help-theme-def (car item)))
+          (princ (format ":  %s\n\n" (cdr item)))))))
+
+  (spacemacs/set-leader-keys-for-minor-mode 'projectile-rails-mode "d" #'lx/find-rails-locale-message))
