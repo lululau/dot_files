@@ -7,5 +7,6 @@ export MANPATH="$MANPATH:/Users/liuxiang/.fzf/man"
 export FPATH="$FPATH:/usr/local/share/zsh/site-functions:/Users/liuxiang/casecode/mygithub/zsh-completions/src"
 export XAPIAN_CJK_NGRAM=1
 export SDKMAN_DIR="/Users/liuxiang/.sdkman"
+source $HOME/.config/private/homebrew_github_api_token.sh
 
 [ -n "$EMACS" ] && source $HOME/.zprofile
