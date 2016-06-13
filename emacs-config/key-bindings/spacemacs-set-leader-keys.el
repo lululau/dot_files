@@ -1,4 +1,5 @@
 (spacemacs/set-leader-keys
+  "bk" #'(lambda () (interactive) (call-interactively 'kill-buffer))
   "gC" 'magit-commit
   "gc" 'magit-checkout
   "gS" 'magit-status
