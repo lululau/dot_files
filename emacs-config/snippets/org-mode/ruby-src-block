@@ -1,5 +1,5 @@
 #group: source block
-# key: <ruby
+# key: sruby
 # --
 #+BEGIN_SRC ruby
 $0

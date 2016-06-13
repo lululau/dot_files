@@ -1,5 +1,5 @@
 #group: source block
-# key: <js
+# key: sjs
 # --
 #+BEGIN_SRC js
 $0

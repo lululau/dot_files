@@ -1,5 +1,5 @@
 #group: source block
-# key: <el
+# key: sel
 # --
 #+BEGIN_SRC elisp
 $0
