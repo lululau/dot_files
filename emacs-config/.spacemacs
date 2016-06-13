@@ -458,6 +458,7 @@ layers configuration."
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
  '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")
+ '(rake-completion-system (quote helm))
  '(ring-bell-function (quote ignore) t)
  '(safe-local-variable-values (quote ((org-html-head))))
  '(sql-connection-alist
