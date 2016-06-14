@@ -96,7 +96,7 @@
   (defun lx/get-rails-locale-message (key)
     (--map
      (let ((locale (car (s-split "\\." (car (s-match "..\\.ya?ml$" it))))))
-       (cons it (format "%s" (shell-command-to-string (format "~/bin/yamlq '%s' '%s.%s' 2>/dev/null" it locale key)))))
+       (cons it (format "%s" (shell-command-to-string (format "~/bin/yamlq '%s' '%s.%s'" it locale key)))))
      (lx/get-rails-locale-files)))
 
   (defun lx/find-rails-locale-message ()
