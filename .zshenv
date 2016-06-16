@@ -4,6 +4,7 @@ export PATH="$PATH:$HOME/.fzf/bin"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export MANPATH="$MANPATH:$HOME/.fzf/man"
 export FPATH="$FPATH:/usr/local/share/zsh/site-functions"
+export PYTHONPATH=/Users/liuxiang/Library/Python/2.7/lib/python/site-packages
 export XAPIAN_CJK_NGRAM=1
 export SDKMAN_DIR="$HOME/.sdkman"
 source $HOME/.config/private/homebrew_github_api_token.sh
