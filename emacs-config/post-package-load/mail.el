@@ -2,7 +2,7 @@
 ;; Set up some common mu4e variables
 (setq mu4e-maildir "~/Maildir"
       mu4e-trash-folder "/Deleted Messages"
-      mu4e-refile-folder "/&UXZO1mWHTvZZOQ-.Archived"
+      mu4e-refile-folder "/Archive"
       mu4e-sent-folder "/Sent Messages"
       mu4e-get-mail-command "offlineimap"
       mu4e-update-interval 300
@@ -13,7 +13,8 @@
 
 ;; Mail directory shortcuts
 (setq mu4e-maildir-shortcuts
-      '(("/INBOX" . ?i) ("/Sent Messages" . ?s) ("/Deleted Messages" . ?d)))
+      '(("/INBOX" . ?i) ("/Sent Messages" . ?s) ("/Deleted Messages" . ?d)
+        ("/Archive" . ?a)))
 
 ;; Bookmarks
 (setq mu4e-bookmarks
