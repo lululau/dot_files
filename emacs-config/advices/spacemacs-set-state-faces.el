@@ -44,4 +44,4 @@
            (set (intern (format "evil-%s-state-cursor" state))
                 (list (when dotspacemacs-colorize-cursor-according-to-state color)
                       cursor)))
-  (spacemacs//set-monospaced-font "Monaco" "STHeiti" 13 16)))
+  (spacemacs//set-monospaced-font "Monaco" "STHeiti" 12 14)))

@@ -2,7 +2,7 @@
 ;; Set up some common mu4e variables
 (setq mu4e-maildir "~/Maildir"
       mu4e-trash-folder "/Deleted Messages"
-      mu4e-refile-folder "/Junk"
+      mu4e-refile-folder "/&UXZO1mWHTvZZOQ-.Archived"
       mu4e-sent-folder "/Sent Messages"
       mu4e-get-mail-command "offlineimap"
       mu4e-update-interval 300
@@ -30,10 +30,10 @@
 
 ;; SMTP
 (setq user-full-name "刘向")
-(setq user-mail-address "infinite.loop.1@foxmail.com")
+(setq user-mail-address "liuxiang@ktjr.com")
 (setq send-mail-function 'smtpmail-send-it)
 (setq smtpmail-stream-type 'ssl)
-(setq smtpmail-smtp-server "smtp.qq.com")
+(setq smtpmail-smtp-server "smtp.exmail.qq.com")
 (setq smtpmail-smtp-service 465)
 
 (with-eval-after-load 'mu4e-alert
