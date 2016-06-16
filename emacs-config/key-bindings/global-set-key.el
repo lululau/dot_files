@@ -68,3 +68,4 @@
 (global-set-key (kbd "s-7") 'spacemacs/persp-switch-to-7)
 (global-set-key (kbd "s-8") 'spacemacs/persp-switch-to-8)
 (global-set-key (kbd "s-9") 'spacemacs/persp-switch-to-9)
+(global-set-key (kbd "<f12>") #'lx/open-mail-custom-layout-or-mu4e-main)
