@@ -366,7 +366,7 @@ layers configuration."
    (quote
     (("bitbucket.org" . "bitbucket")
      ("github.com" . "github")
-     ("gitlab.alibaba-inc.com" . "gitlab"))))
+     ("github.ktjr.com" . "github"))))
  '(cfw:display-calendar-holidays nil)
  '(dash-at-point-mode-alist
    (quote
