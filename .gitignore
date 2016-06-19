@@ -39,3 +39,4 @@ Session.vim
 secrets
 /mpv
 /private
+/imap_inotify/config.json
