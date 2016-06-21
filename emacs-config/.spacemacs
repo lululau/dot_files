@@ -55,7 +55,7 @@
      html
      ;; java
      javascript
-     python
+     (python :variables python-test-runner '(nose))
      (restclient :variables restclient-use-org t)
      rust
      scala
@@ -448,6 +448,7 @@ layers configuration."
      (:subject))))
  '(mu4e-headers-time-format "%H:%M")
  '(neo-theme (quote uni))
+ '(ns-pop-up-frames nil)
  '(org-confirm-babel-evaluate nil)
  '(package-archives
    (quote
@@ -459,7 +460,7 @@ layers configuration."
  '(projectile-tags-file-name "NON_EXISTS_FILE")
  '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")
  '(rake-completion-system (quote helm))
- '(ring-bell-function (quote ignore) t)
+ '(ring-bell-function (quote ignore))
  '(safe-local-variable-values (quote ((org-html-head))))
  '(sql-connection-alist
    (quote
