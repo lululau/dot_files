@@ -49,13 +49,13 @@ https://github.com/d11wtq/grizzl")))
 https://github.com/abo-abo/swiper")))
      (t (funcall projectile-completion-system prompt choices))))))
 
-(advice-add 'run-ruby :override #'(lambda (&optional command name)
+(advice-add 'run-ruby :override #'(lambda (&optional command name check-buf)
   (interactive)
   (setq command (or command (cdr (assoc inf-ruby-default-implementation
                                         inf-ruby-implementations))))
   (setq name (or name "ruby"))
 
-  (if (not (comint-check-proc (if (projectile-bundler-root) (get-ruby-buffer) inf-ruby-buffer)))
+  (if (not (comint-check-proc (or check-buf (if (string-match-p "\\(railsconsole\\|railsserver\\|bundleconsole\\)\\*\\*$" inf-ruby-buffer) nil inf-ruby-buffer))))
       (let ((commandlist (split-string-and-unquote command))
             (buffer (current-buffer))
             (process-environment process-environment))
@@ -78,7 +78,7 @@ https://github.com/abo-abo/swiper")))
                                (projectile-rails-with-preloader
                                 :spring "bundle exec spring rails server"
                                 :zeus "zeus server"
-                                :vanilla (format "bundle exec rails server -p %d" port)) (concat "*" (projectile-project-name)  "railsserver*"))
+                                :vanilla (format "bundle exec rails server -p %d" port)) (concat "*" (projectile-project-name)  "railsserver*") (concat "*" (projectile-project-name)  "railsserver*"))
            (projectile-rails-mode +1)
            (add-hook 'comint-output-filter-functions 'binding-pry-filter nil t))))))
 
@@ -92,7 +92,7 @@ https://github.com/abo-abo/swiper")))
                                (projectile-rails-with-preloader
                                 :spring "bundle exec spring rails console"
                                 :zeus "zeus console"
-                                :vanilla "bundle exec rails console") (concat "*" (projectile-project-name)  "railsconsole*"))
+                                :vanilla "bundle exec rails console") (concat "*" (projectile-project-name)  "railsconsole*") (concat "*" (projectile-project-name)  "railsconsole*"))
            (projectile-rails-mode +1))))))
 
 (advice-add 'evil-refresh-cursor :override #'(lambda (&optional state buffer)
