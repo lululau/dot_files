@@ -13,4 +13,5 @@
   "aob" 'org-iswitchb
   "gho" #'browse-at-remote/browse
   "to" #'org-toggle-link-display
+  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Monaco" "STHeiti" 12 14 13 16))
 )

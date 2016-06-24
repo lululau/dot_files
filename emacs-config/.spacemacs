@@ -196,8 +196,6 @@ before layers configuration."
 
   (load-file "~/.config/emacs-config/init.el")
 
-  (lx/set-monospaced-font "Monaco" "STHeiti" 12 14 13 16)
-
   (setq-default ruby-version-manager 'rvm)
   (setq-default ruby-enable-ruby-on-rails-support t)
   (setq evil-want-C-i-jump t)
@@ -275,8 +273,6 @@ layers configuration."
   (setq inf-ruby-eval-binding "Pry.toplevel_binding")
   (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
   (setq company-minimum-prefix-length 1)
-
-  (add-hook 'window-configuration-change-hook #'(lambda () (lx/set-monospaced-font "Monaco" "STHeiti" 12 14 13 16)))
 
   (setq org-default-notes-file "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org")
   (setq org-html-doctype "html5")
