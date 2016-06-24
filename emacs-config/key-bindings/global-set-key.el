@@ -16,7 +16,7 @@
 (global-set-key (kbd "s-[") 'spacemacs/previous-useful-buffer)
 (global-set-key (kbd "s-]") 'spacemacs/next-useful-buffer)
 (global-set-key (kbd "s-/") 'evilnc-comment-or-uncomment-lines)
-(global-set-key (kbd "s-\\") '(lambda () (interactive) (switch-to-buffer (current-buffer))))
+(global-set-key (kbd "s-\\") 'lx/switch-to-previous-perp)
 (global-set-key (kbd "s-M-'") #'(lambda () (interactive) (call-interactively 'split-window-right-and-focus) (ansi-term "/bin/zsh")))
 (global-set-key (kbd "s-'") #'(lambda (prefix) (interactive "P") (if (string= "term-mode" major-mode) (shell-pop-out) (let ((shell-pop-autocd-to-working-dir (if prefix nil t))) (spacemacs/shell-pop-ansi-term 0)))))
 (global-set-key (kbd "s-\"") #'projectile-shell-pop)
