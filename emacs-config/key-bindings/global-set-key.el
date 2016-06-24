@@ -28,7 +28,7 @@
 (global-set-key (kbd "M-s-w") 'delete-frame)
 (global-set-key (kbd "s-C") 'bzg-big-fringe-mode)
 (global-set-key (kbd "s-g") 'magit-status)
-(global-set-key (kbd "s-r c") 'projectile-rails-console)
+(global-set-key (kbd "s-r c") 'projectile-bundler-console)
 (global-set-key (kbd "s-r s") 'projectile-rails-server)
 (global-set-key (kbd "s-r s-r") 'rvm-activate-corresponding-ruby)
 (global-set-key (kbd "s-u") 'universal-argument)

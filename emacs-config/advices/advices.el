@@ -49,6 +49,24 @@ https://github.com/d11wtq/grizzl")))
 https://github.com/abo-abo/swiper")))
      (t (funcall projectile-completion-system prompt choices))))))
 
+(advice-add 'run-ruby :override #'(lambda (&optional command name)
+  (interactive)
+  (setq command (or command (cdr (assoc inf-ruby-default-implementation
+                                        inf-ruby-implementations))))
+  (setq name (or name "ruby"))
+
+  (if (not (comint-check-proc (if (projectile-bundler-root) (get-ruby-buffer) inf-ruby-buffer)))
+      (let ((commandlist (split-string-and-unquote command))
+            (buffer (current-buffer))
+            (process-environment process-environment))
+        ;; http://debbugs.gnu.org/15775
+        (setenv "PAGER" (executable-find "cat"))
+        (set-buffer (apply 'make-comint name (car commandlist)
+                           nil (cdr commandlist)))
+        (inf-ruby-mode)
+        (ruby-remember-ruby-buffer buffer)))
+  (pop-to-buffer (setq inf-ruby-buffer (format "*%s*" name)))))
+
 (advice-add 'projectile-rails-server :override #'(lambda (port)
       (interactive "P")
       (require 'inf-ruby)
@@ -96,6 +114,8 @@ BUFFER defaults to the current buffer."
           (setq default (evil-filter-list #'stringp default)))
         (evil-set-cursor default)
         (evil-set-cursor cursor))))))
+
+(advice-add 'bundle-command :override #'(lambda (cmd) (let ((shell-command-switch "-lc")) (async-shell-command cmd "*Bundler*"))))
 
 (advice-add 'ace-pinyin-jump-char :after #'(lambda (&rest args)
                                       (setq avy-last-goto-entity (cons 'ace-pinyin-jump-char args))))
