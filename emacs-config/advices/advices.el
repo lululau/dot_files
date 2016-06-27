@@ -55,7 +55,7 @@ https://github.com/abo-abo/swiper")))
                                         inf-ruby-implementations))))
   (setq name (or name "ruby"))
 
-  (if (not (comint-check-proc (or check-buf (if (string-match-p "\\(railsconsole\\|railsserver\\|bundleconsole\\)\\*\\*$" inf-ruby-buffer) nil inf-ruby-buffer))))
+  (if (not (comint-check-proc (or check-buf (if (string-match-p "\\(railsconsole\\|railsserver\\|bundleconsole\\)\\*\\*$" (or inf-ruby-buffer "")) nil inf-ruby-buffer))))
       (let ((commandlist (split-string-and-unquote command))
             (buffer (current-buffer))
             (process-environment process-environment))
