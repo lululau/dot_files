@@ -31,5 +31,4 @@ This function is called by `org-babel-execute-src-block'."
 
     (defun org-babel-prep-session:puml (session params)
       "Return an error because plantuml does not support sessions."
-      (error "Plantuml does not support sessions"))
-    (add-to-list 'org-babel-load-languages '(puml . t))))
+      (error "Plantuml does not support sessions"))))
