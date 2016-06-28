@@ -19,6 +19,7 @@
      ;; ----------------------------------------------------------------
      osx
      (auto-completion :variables
+                      auto-completion-tab-key-behavior 'complete
                       auto-completion-show-snippets-in-popup t
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-private-snippets-directory "~/.config/emacs-config/snippets")
