@@ -1,7 +1,6 @@
  (spacemacs|use-package-add-hook persp-mode
    :pre-init
    (progn
-     (message "hello post-init-persp-mode")
      (spacemacs|transient-state-format-hint layouts
        spacemacs--layouts-ts-full-hint
        "\n\n
