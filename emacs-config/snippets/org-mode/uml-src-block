@@ -1,7 +1,7 @@
 #group: source block
 # key: suml
 # --
-#+BEGIN_SRC plantuml :exports results :file $0
+#+BEGIN_SRC puml :exports results :file $0
 @startuml
 $1
 @enduml
