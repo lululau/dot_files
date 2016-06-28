@@ -256,6 +256,8 @@ layers configuration."
   (setq org-bullets-bullet-list '("𝌆" "𝌇" "𝌎" "𝌓" "𝌮"))
   (setq org-link-search-must-match-exact-headline nil)
 
+  (add-hook 'org-capture-after-finalize-hook #'lx/delete-global-org-capture-frame)
+
   (setq comint-input-ring-file-name "~/.pry_history")
   (setq comint-input-ring-size 100000)
   (remove-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)
@@ -453,6 +455,17 @@ layers configuration."
  '(mu4e-headers-time-format "%H:%M")
  '(neo-theme (quote uni))
  '(ns-pop-up-frames nil)
+ '(org-capture-templates
+   (quote
+    (("t" "Todo" entry
+      (file+headline "" "Tasks")
+      "* TODO %?
+  %u
+  %a")
+     ("g" "Todo" entry
+      (file+headline "" "Tasks")
+      "* TODO %?
+  %u"))))
  '(org-confirm-babel-evaluate nil)
  '(package-archives
    (quote
@@ -464,7 +477,7 @@ layers configuration."
  '(projectile-tags-file-name "NON_EXISTS_FILE")
  '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")
  '(rake-completion-system (quote helm))
- '(ring-bell-function (quote ignore))
+ '(ring-bell-function (quote ignore) t)
  '(safe-local-variable-values (quote ((org-html-head))))
  '(sql-connection-alist
    (quote
