@@ -11,6 +11,10 @@
   (interactive)
   (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org"))
 
+(defun lx/open-rails-guides.org ()
+  (interactive)
+  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/rails-guides-org/rails-guides-index.org"))
+
 (defun lx/open-http-demo ()
   (interactive)
   (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.http"))
@@ -43,6 +47,10 @@
   (interactive)
   (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.org"))
 
+(defun lx/open-coffee-demo ()
+  (interactive)
+  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.coffee"))
+
 (defun lx/open-emacs-info ()
   (interactive)
   (org-open-link-from-string "info:emacs#Top"))
@@ -72,6 +80,7 @@
   ;; Org
   "oob" #'lx/open-bookmarks.org
   "oon" #'lx/open-notes.org
+  "oor" #'lx/open-rails-guides.org
 
   ;; Demo files
   "oeh" #'lx/open-http-demo
@@ -82,6 +91,7 @@
   "oes" #'lx/open-shell-demo
   "oep" #'lx/open-perl-demo
   "oeo" #'lx/open-org-demo
+  "oec" #'lx/open-coffee-demo
 
   ;; Info bookmarks
   "oie" #'lx/open-emacs-info
