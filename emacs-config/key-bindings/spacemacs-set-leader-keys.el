@@ -11,7 +11,7 @@
   "aoA" #'(lambda () (interactive) (require 'calfw-org) (cfw:open-org-calendar))
   "aoR" #'(lambda () (interactive) (org-refile '(4)))
   "aob" 'org-iswitchb
-  "gho" #'browse-at-remote/browse
+  "gho" #'browse-at-remote
   "to" #'org-toggle-link-display
   "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Monaco" "STHeiti" 12 14 13 16))
 )
