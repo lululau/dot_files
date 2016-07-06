@@ -7,6 +7,6 @@ groups:
   work-servers:
     hosts:
       dev1:
-        hostname: 10.132.1.244
+        hostname: dev01.kaitongamc.com
         username: deploy
         port: 22
