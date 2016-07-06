@@ -31,7 +31,8 @@
      markdown
      pandoc
      (org :variables
-          org-enable-github-support t)
+          org-enable-github-support t
+          org-projectile-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/projects.org")
      (shell :variables
             shell-default-height 38
             shell-default-position 'bottom
