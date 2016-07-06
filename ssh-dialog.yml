@@ -6,15 +6,7 @@ defaults:
 groups:
   work-servers:
     hosts:
-      Test 1:
-        hostname: 10.101.235.2
-        username: liuxiang.lxiang
+      dev1:
+        hostname: 10.132.1.244
+        username: deploy
         port: 22
-      Test 2:
-        hostname: 10.101.235.3
-        username: liuxiang.lxiang
-        port: 22
-      wendi:
-        hostname: 10.32.25.212
-        username: wendi
-        port: 18021
