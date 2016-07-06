@@ -1,0 +1,40 @@
+{
+ "autoExec" : false,
+ "autoExpand" : false,
+ "autocompletionMode" : 1,
+ "batchSize" : 50,
+ "connections" : [
+  {
+   "connectionName" : "Local",
+   "credentials" : [
+    {
+     "databaseName" : "admin",
+     "enabled" : false,
+     "mechanism" : "SCRAM-SHA-1",
+     "userName" : "",
+     "userPassword" : ""
+    }
+   ],
+   "defaultDatabase" : "",
+   "serverHost" : "localhost",
+   "serverPort" : 27017
+  }
+ ],
+ "disableConnectionShortcuts" : false,
+ "lineNumbers" : false,
+ "loadMongoRcJs" : false,
+ "style" : "Native",
+ "textFontFamily" : "",
+ "textFontPointSize" : -1,
+ "timeZone" : 0,
+ "toolbars" : {
+  "connect" : true,
+  "exec" : true,
+  "explorer" : true,
+  "logs" : false,
+  "open_save" : true
+ },
+ "uuidEncoding" : 0,
+ "version" : "2.0",
+ "viewMode" : 1
+}
