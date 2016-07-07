@@ -43,6 +43,7 @@
                       version-control-diff-tool 'diff-hl
                       version-control-global-margin t)
      (ruby :variables
+           ruby-test-runner 'rspec
            ruby-enable-enh-ruby-mode t)
      yaml
      ruby-on-rails
