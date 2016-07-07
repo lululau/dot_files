@@ -482,6 +482,7 @@ layers configuration."
  '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")
  '(rake-completion-system (quote helm))
  '(ring-bell-function (quote ignore) t)
+ '(rspec-primary-source-dirs (quote ("app" "lib" "src")))
  '(safe-local-variable-values (quote ((org-html-head))))
  '(sql-connection-alist
    (quote
