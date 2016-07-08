@@ -95,7 +95,7 @@ export RI='-f ansi'
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 autoload -U compinit; compinit
-plugins=(git autojump battery colorize colored-man command-not-found compleat cp cpanm encode64 gem github gnu-utils go golang history jruby macports mvn mysql-macports node npm osx perl pip python rails rake rsync ruby rvm safe-paste scala screen svn terminalapp terminitor textmate themes bundler httpie ack2 funcfind gemcd alibas)
+plugins=(git autojump battery colorize colored-man command-not-found compleat cp cpanm encode64 gem github gnu-utils go golang history jruby macports mvn mysql-macports node npm osx perl pip python rails rake rsync ruby rvm safe-paste scala screen svn terminalapp terminitor textmate themes bundler httpie ack2 funcfind gemcd alibas vagrant)
 
 source $ZSH/oh-my-zsh.sh
 
