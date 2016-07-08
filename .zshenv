@@ -1,4 +1,4 @@
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 export PATH=$PATH:$HOME/cascode/github.com/xiki/bin
 export PATH="$PATH:$HOME/.fzf/bin"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
