@@ -6,3 +6,7 @@
   ((candidates :initform #'(lambda () (rails-buffer-candidates-function "views")))))
 (defclass helm-source-rails-controllers-buffer (helm-source-projectile-buffer)
   ((candidates :initform #'(lambda () (rails-buffer-candidates-function "controllers")))))
+(defclass helm-source-rails-apis-buffer (helm-source-projectile-buffer)
+  ((candidates :initform #'(lambda () (rails-buffer-candidates-function "apis")))))
+(defclass helm-source-rails-jobs-buffer (helm-source-projectile-buffer)
+  ((candidates :initform #'(lambda () (rails-buffer-candidates-function "jobs")))))

@@ -1,5 +1,20 @@
 (setq helm-projectile-rails-macro-file-name load-file-name)
 (with-eval-after-load 'projectile-rails
+
+  (defun projectile-rails-find-api ()
+    (interactive)
+    (projectile-rails-find-resource
+     "API: "
+     '(("app/api/" "/api/\\(.+?\\)\\(_api\\)?\\.rb$"))
+     "app/api/${filename}_api.rb"))
+
+  (defun projectile-rails-find-job ()
+    (interactive)
+    (projectile-rails-find-resource
+     "job: "
+     '(("app/jobs/" "/jobs/\\(.+?\\)\\.rb$"))
+     "app/jobs/${filename}.rb"))
+
   (defun rails-buffer-candidates-function (type)
     (let ((result '()))
       (dolist (buf-name helm-projectile-buffers-list-cache result)
@@ -24,7 +39,12 @@
        ((eq type 'controllers) (setq choices (lambda ()
                                                (let (result)
                                                  (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices '(("app/controllers/" "/controllers/\\(.+\\)_controller\\.rb$")))) result))))
-       )
+        ((eq type 'apis) (setq choices (lambda ()
+                                                (let (result)
+                                                  (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices '(("app/api/" "/api/\\(.+\\)_api\\.rb$")))) result))))
+        ((eq type 'jobs) (setq choices (lambda ()
+                                                (let (result)
+                                                  (maphash (lambda (k v) (add-to-list 'result (cons k v) t)) (projectile-rails-choices '(("app/jobs/" "/jobs/\\(.+\\)\\.rb$")))) result)))))
       (helm-build-sync-source (format "Rails %s files: " (symbol-name type)) :candidates choices :fuzzy-match t
                               :action (lambda (file) (find-file (concat (projectile-rails-root) file))))
       ))
@@ -34,16 +54,30 @@
   (defvar helm-source-rails-models-buffers-list (helm-make-source "Rails models buffers" 'helm-source-rails-models-buffer))
   (defvar helm-source-rails-views-buffers-list (helm-make-source "Rails views buffers" 'helm-source-rails-views-buffer))
   (defvar helm-source-rails-controllers-buffers-list (helm-make-source "Rails controllers buffers" 'helm-source-rails-controllers-buffer))
+  (defvar helm-source-rails-apis-buffers-list (helm-make-source "Rails APIs buffers" 'helm-source-rails-apis-buffer))
+  (defvar helm-source-rails-jobs-buffers-list (helm-make-source "Rails jobs buffers" 'helm-source-rails-jobs-buffer))
   (setq helm-source-rails-models-files-list (build-rails-source 'models))
   (setq helm-source-rails-controllers-files-list (build-rails-source 'controllers))
   (setq helm-source-rails-views-files-list (build-rails-source 'views))
+  (setq helm-source-rails-apis-files-list (build-rails-source 'apis))
+  (setq helm-source-rails-jobs-files-list (build-rails-source 'jobs))
   (helm-projectile-command "switch-to-rails-models-buffer" '(helm-source-rails-models-buffers-list helm-source-rails-models-files-list) "Switch to Rails models buffer/file: ")
   (helm-projectile-command "switch-to-rails-views-buffer" '(helm-source-rails-views-buffers-list helm-source-rails-views-files-list) "Switch to Rails views buffer/file: ")
   (helm-projectile-command "switch-to-rails-controllers-buffer" '(helm-source-rails-controllers-buffers-list helm-source-rails-controllers-files-list) "Switch to Rails controllers buffer/file: ")
+  (helm-projectile-command "switch-to-rails-apis-buffer" '(helm-source-rails-apis-buffers-list helm-source-rails-apis-files-list) "Switch to Rails APIs buffer/file: ")
+  (helm-projectile-command "switch-to-rails-jobs-buffer" '(helm-source-rails-jobs-buffers-list helm-source-rails-jobs-files-list) "Switch to Rails jobs buffer/file: ")
   (define-key projectile-rails-mode-map (kbd "s-r s-m") 'helm-projectile-switch-to-rails-models-buffer)
   (define-key projectile-rails-mode-map (kbd "s-r s-v") 'helm-projectile-switch-to-rails-views-buffer)
   (define-key projectile-rails-mode-map (kbd "s-r s-c") 'helm-projectile-switch-to-rails-controllers-buffer)
+  (define-key projectile-rails-mode-map (kbd "s-r s-a") 'helm-projectile-switch-to-rails-apis-buffer)
+  (define-key projectile-rails-mode-map (kbd "s-r j") 'helm-projectile-switch-to-rails-jobs-buffer)
+  (dolist (mode '(ruby-mode enh-ruby-mode))
+    (spacemacs/set-leader-keys-for-major-mode mode
+      "rfA" 'projectile-rails-find-api
+      "rfJ" 'projectile-rails-find-job))
   (dolist (pair '(
+                  ("s-r fA" . projectile-rails-find-api)
+                  ("s-r fJ" . projectile-rails-find-job)
                   ("s-r fa" . projectile-rails-find-locale)
                   ("s-r fc" . projectile-rails-find-controller)
                   ("s-r fe" . projectile-rails-find-environment)
