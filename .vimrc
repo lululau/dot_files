@@ -3,15 +3,16 @@
 " Last Modified:  May 14, 2014
 "
 
+set nocp
 filetype off " required by vundle
 
-set runtimepath+=~/.vim/bundle/vundle/
+set runtimepath+=~/liuxiang/.vim,~/liuxiang/.vim/bundle/vundle/
 " set runtimepath+=$GOROOT/misc/vim
 
-let $GEM_HOME = '/Users/liuxiang/.rvm/gems/ruby-2.3.0'
-let $GEM_PATH = '/Users/liuxiang/.rvm/gems/ruby-2.3.0:/Users/liuxiang/.rvm/gems/ruby-2.3.0@global'
+let $GEM_HOME = '/home/deploy/.rvm/gems/ruby-2.2.2'
+let $GEM_PATH = '/home/deploy/.rvm/gems/ruby-2.2.2:/home/deploy/.rvm/gems/ruby-2.2.2@global'
 
-call vundle#rc()
+call vundle#rc('~/liuxiang/.vim/bundle')
 
 " vim-scripts repos
 Bundle 'bufexplorer.zip'
