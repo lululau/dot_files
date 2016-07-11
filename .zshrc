@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+ZSH=$HOME/liuxiang/.oh-my-zsh
 
 export AUTOJUMP_KEEP_SYMLINKS=1
 
@@ -222,6 +222,6 @@ export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # source ~/.xsh
 
-source /Users/liuxiang/.iterm2_shell_integration.zsh
+source $HOME/liuxiang/.iterm2_shell_integration.zsh
 
 # source ~/.profile
