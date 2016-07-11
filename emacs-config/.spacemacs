@@ -32,6 +32,7 @@
      pandoc
      (org :variables
           org-enable-github-support t
+          org-enable-reveal-js-support t
           org-projectile-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/projects.org")
      (shell :variables
             shell-default-height 38
@@ -87,7 +88,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(ox-reveal calfw ox-twbs browse-at-remote ranger helm-mu)
+   dotspacemacs-additional-packages '(calfw ox-twbs browse-at-remote ranger helm-mu)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
