@@ -10,3 +10,4 @@ groups:
         hostname: dev01.kaitongamc.com
         username: deploy
         port: 22
+        command: 'PATH=$PATH:/home/deploy/liuxiang/local/bin ZDOTDIR=/home/deploy/liuxiang/ /home/deploy/liuxiang/local/bin/zsh --login'
