@@ -21,7 +21,7 @@ Bundle 'toyamarinyon/vim-swift'
 
 " original repos on GitHub
 Bundle 'larrylv/ShowMarks'
-Bundle 'wincent/Command-T'
+Bundle 'wincent/command-t'
 " Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-rails'
