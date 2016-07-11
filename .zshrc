@@ -61,6 +61,7 @@ alias aaaaaaa='cd ../../../../../../../'
 alias aaaaaaaa='cd ../../../../../../../../'
 alias aaaaaaaaa='cd ../../../../../../../../../'
 alias rspec='rspec -I. -fd --color'
+alias vim="vim -u ~/liuxiang/.vimrc"
 alias vih="sudo vim /etc/hosts"
 export PAGER='less -R'
 export RI='-f ansi'
