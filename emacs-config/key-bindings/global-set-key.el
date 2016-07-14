@@ -4,6 +4,7 @@
 (global-set-key (kbd "s-t") 'split-window-right-and-focus)
 (global-set-key (kbd "s-T") 'split-window-below-and-focus)
 (global-set-key (kbd "s-o") 'helm-projectile-find-file)
+(global-set-key (kbd "s-O") 'helm-projectile-find-file-dwim)
 (global-set-key (kbd "s-f") 'spacemacs/helm-find-files)
 (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
 (global-set-key (kbd "s-F") 'helm-locate)
