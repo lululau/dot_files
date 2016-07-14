@@ -259,6 +259,7 @@ layers configuration."
   (setq org-bullets-bullet-list '("𝌆" "𝌇" "𝌎" "𝌓" "𝌮"))
   (setq org-link-search-must-match-exact-headline nil)
 
+  (setq org-projectile:capture-template "* TODO %? %a\n")
   (add-hook 'org-capture-after-finalize-hook #'lx/delete-global-org-capture-frame)
 
   (setq comint-input-ring-file-name "~/.pry_history")
