@@ -373,7 +373,7 @@ layers configuration."
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(avy-keys (quote (97 115 100 106 107 108 119 111 112)))
- '(browse-at-remote/remote-type-domains
+ '(browse-at-remote-remote-type-domains
    (quote
     (("bitbucket.org" . "bitbucket")
      ("github.com" . "github")
