@@ -351,6 +351,7 @@ let g:gist_detect_filetype = 1
 " let g:EasyMotion_mapping_k = '<leader>k'
 " let g:EasyMotion_mapping_n = '<leader>n'
 " let g:EasyMotion_mapping_N = '<leader>N'
+let g:EasyMotion_smartcase = 1
 map <Leader>l <Plug>(easymotion-bd-jk)
 nmap <Leader>o <Plug>(easymotion-s2)
 
