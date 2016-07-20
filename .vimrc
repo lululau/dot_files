@@ -345,12 +345,14 @@ let g:gist_detect_filetype = 1
 
 " vim-easymotion configurations
 " let g:EasyMotion_leader_key = '\\'
-let g:EasyMotion_mapping_f = 't'
-let g:EasyMotion_mapping_F = 'T'
-let g:EasyMotion_mapping_j = '<leader>j'
-let g:EasyMotion_mapping_k = '<leader>k'
-let g:EasyMotion_mapping_n = '<leader>n'
-let g:EasyMotion_mapping_N = '<leader>N'
+" let g:EasyMotion_mapping_f = 't'
+" let g:EasyMotion_mapping_F = 'T'
+" let g:EasyMotion_mapping_j = '<leader>j'
+" let g:EasyMotion_mapping_k = '<leader>k'
+" let g:EasyMotion_mapping_n = '<leader>n'
+" let g:EasyMotion_mapping_N = '<leader>N'
+map <Leader>l <Plug>(easymotion-bd-jk)
+nmap <Leader>o <Plug>(easymotion-s2)
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
