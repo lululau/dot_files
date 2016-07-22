@@ -124,3 +124,22 @@ BUFFER defaults to the current buffer."
                                              (setq avy-last-goto-entity (cons 'ace-pinyin-jump-char-2 args))))
 
 (global-set-key (kbd "s-.") #'(lambda () (interactive) (eval avy-last-goto-entity)))
+
+(advice-add
+ 'ggtags-eldoc-function
+ :after-until
+ #'(lambda (&rest args)
+     (let* ((current-symbol (eldoc-current-symbol))
+            (current-fnsym  (eldoc-fnsym-in-current-sexp))
+            (doc (cond
+                  ((null current-fnsym)
+                   nil)
+                  ((eq current-symbol (car current-fnsym))
+                   (or (apply 'eldoc-get-fnsym-args-string
+                              current-fnsym)
+                       (eldoc-get-var-docstring current-symbol)))
+                  (t
+                   (or (eldoc-get-var-docstring current-symbol)
+                       (apply 'eldoc-get-fnsym-args-string
+                              current-fnsym))))))
+       doc)))
