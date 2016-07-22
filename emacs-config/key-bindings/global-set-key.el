@@ -33,6 +33,7 @@
 (global-set-key (kbd "s-r s") 'projectile-rails-server)
 (global-set-key (kbd "s-r s-r") 'rvm-activate-corresponding-ruby)
 (global-set-key (kbd "s-u") 'universal-argument)
+(define-key universal-argument-map (kbd "s-u") 'universal-argument-more)
 (global-set-key [M-s-tab] #'spacemacs/alternate-buffer-in-persp)
 (global-set-key [M-S-tab] #'projectile-project-switch-to-alternate-buffer)
 
