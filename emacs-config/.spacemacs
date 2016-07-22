@@ -486,6 +486,7 @@ layers configuration."
  '(ring-bell-function (quote ignore) t)
  '(rspec-primary-source-dirs (quote ("app" "lib" "src")))
  '(safe-local-variable-values (quote ((org-html-head))))
+ '(sp-highlight-pair-overlay nil)
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
  '(sql-connection-alist
    (quote
