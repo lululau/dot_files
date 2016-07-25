@@ -218,6 +218,15 @@ layers configuration."
 
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
+  (setq-default
+   ;; js2-mode
+   js2-basic-offset 2
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
   (setq neo-vc-integration nil)
   (setq diff-hl-side 'left)
   (spacemacs/set-state-faces)
