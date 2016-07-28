@@ -1,0 +1,43 @@
+(defun lx/window-move-very-top ()
+  (interactive)
+  (if (neo-global--window-exists-p)
+      (progn
+        (delete-window neo-global--window)
+        (call-interactively 'evil-window-move-very-top)
+        (let ((win (get-buffer-window)))
+          (neo-global--open)
+          (select-window win)))
+    (call-interactively 'evil-window-move-very-top)))
+
+(defun lx/window-move-very-bottom ()
+  (interactive)
+  (if (neo-global--window-exists-p)
+      (progn
+        (delete-window neo-global--window)
+        (call-interactively 'evil-window-move-very-bottom)
+        (let ((win (get-buffer-window)))
+          (neo-global--open)
+          (select-window win)))
+    (call-interactively 'evil-window-move-very-bottom)))
+
+(defun lx/window-move-far-left ()
+  (interactive)
+  (if (neo-global--window-exists-p)
+      (progn
+        (delete-window neo-global--window)
+        (call-interactively 'evil-window-move-far-left)
+        (let ((win (get-buffer-window)))
+          (neo-global--open)
+          (select-window win)))
+    (call-interactively 'evil-window-move-far-left)))
+
+(defun lx/window-move-far-right ()
+  (interactive)
+  (if (neo-global--window-exists-p)
+      (progn
+        (delete-window neo-global--window)
+        (call-interactively 'evil-window-move-far-right)
+        (let ((win (get-buffer-window)))
+          (neo-global--open)
+          (select-window win)))
+    (call-interactively 'evil-window-move-far-right)))
