@@ -374,11 +374,11 @@ layers configuration."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ahs-case-fold-search nil)
- '(ahs-default-range (quote ahs-range-whole-buffer))
- '(ahs-idle-interval 0.25)
+ '(ahs-case-fold-search nil t)
+ '(ahs-default-range (quote ahs-range-whole-buffer) t)
+ '(ahs-idle-interval 0.25 t)
  '(ahs-idle-timer 0 t)
- '(ahs-inhibit-face-list nil)
+ '(ahs-inhibit-face-list nil t)
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(avy-keys (quote (97 115 100 106 107 108 119 111 112)))
@@ -487,12 +487,15 @@ layers configuration."
     (("melpa" . "https://elpa.zilongshanren.com/melpa/")
      ("org" . "https://elpa.zilongshanren.com/org/")
      ("gnu" . "https://elpa.zilongshanren.com/gnu/"))))
- '(projectile-completion-system (quote helm))
+ '(package-selected-packages
+   (quote
+    (projectile sbt-mode anzu rust-mode evil-unimpaired flycheck gh marshal magit-popup yaml-mode xterm-color ws-butler wolfram-mode window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org thrift tagedit stan-mode sql-indent spacemacs-theme spaceline solarized-theme smeargle slim-mode shell-pop selectric-mode scss-mode scad-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restclient restart-emacs rbenv ranger rainbow-delimiters racer quelpa qml-mode pyvenv pytest pyenv-mode py-yapf puml-mode projectile-rails pip-requirements persp-mode pdf-tools pbcopy paradox pangu-spacing pandoc-mode ox-twbs ox-reveal ox-pandoc ox-gfm osx-trash orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file ob-http nginx-mode neotree mwim multi-term mu4e-maildirs-extension mu4e-alert move-text mmm-mode matlab-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum logito livid-mode live-py-mode linum-relative link-hint less-css-mode launchctl julia-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mu helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gmail-message-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md ggtags flycheck-rust flycheck-pos-tip flycheck-mix flx-ido fish-mode find-by-pinyin-dired fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help ensime enh-ruby-mode engine-mode emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies edit-server diff-hl define-word dash-at-point cython-mode csv-mode company-web company-tern company-statistics company-shell company-quickhelp company-anaconda column-enforce-mode coffee-mode clean-aindent-mode chruby calfw bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile arduino-mode alchemist aggressive-indent adaptive-wrap ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell)))
+ '(projectile-completion-system (quote helm) t)
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
  '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")
  '(rake-completion-system (quote helm))
- '(ring-bell-function (quote ignore) t)
+ '(ring-bell-function (quote ignore))
  '(rspec-primary-source-dirs (quote ("app" "lib" "src")))
  '(safe-local-variable-values (quote ((org-html-head))))
  '(sp-highlight-pair-overlay nil)
