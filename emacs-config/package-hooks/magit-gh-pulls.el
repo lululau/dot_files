@@ -1,4 +1,8 @@
 (with-eval-after-load 'magit-gh-pulls
+
+  (defun magit-gh-pulls-get-remote-branch (local-branch)
+    (replace-regexp-in-string "^refs/heads/" "" (magit-get "branch" local-branch "merge")))
+
   (defun magit-gh-pulls-build-req (api user proj callback)
     "Builds a request entity for a new pull request. Under
    synchronous flow (editor disabled), fires CALLBACK with
@@ -37,6 +41,7 @@
                  (body (read-string "Description: " default-body))
                  (req (make-instance 'gh-pulls-request :head head :base base :body body :title title)))
             (funcall callback api user proj req))))))
+
   (defun magit-gh-pulls-url-for-pull (info)
     "Return github url for a pull request using INFO."
     (let* ((domain
