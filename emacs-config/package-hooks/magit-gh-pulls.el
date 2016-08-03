@@ -10,7 +10,7 @@
            (base-branch (magit-read-branch-or-commit "Base" current-default))
            (head-branch (magit-read-branch-or-commit "Head" current))
            (head-user (replace-regexp-in-string "^.*[:/]\\([^/]*\\)/[^/]*\\.git" "\\1" (magit-get "remote" (magit-get-remote head-branch) "url"))))
-      (let* ((head-remote (concat (magit-get-remote head-branch) "/" head-branch))
+      (let* ((head-remote (concat (magit-get-remote head-branch) "/" (magit-gh-pulls-get-remote-branch head-branch)))
              (pushed-p (and (magit-branch-p head-remote)
                             (null (magit-git-lines "diff" (concat head-remote ".." head-branch))))))
         (when (and (not pushed-p)
@@ -19,11 +19,11 @@
       (let* ((base
               (make-instance 'gh-repos-ref :user (make-instance 'gh-users-user :name user)
                              :repo (make-instance 'gh-repos-repo :name proj)
-                             :ref base-branch))
+                             :ref (magit-gh-pulls-get-remote-branch base-branch)))
              (head
               (make-instance 'gh-repos-ref :user (make-instance 'gh-users-user :name head-user)
                              :repo (make-instance 'gh-repos-repo :name proj)
-                             :ref (format "%s%s" (if (string= user head-user) "" (format "%s:" head-user)) head-branch)))
+                             :ref (format "%s%s" (if (string= user head-user) "" (format "%s:" head-user)) (magit-gh-pulls-get-remote-branch head-branch))))
              (default-title (magit-git-string "log"
                                               (format "%s..%s" base-branch head-branch)
                                               "--format=%s" "--reverse"))
