@@ -20,4 +20,35 @@
           (insert ruby-eval-separator "\n")
           (set-marker m (point))))
       (comint-send-region (inf-ruby-proc) start end)
-      (when print (ruby-print-result)))))
+      (when print (ruby-print-result))))
+
+  (defun lx/ruby-send-line ()
+    (interactive)
+    (ruby-send-region (line-beginning-position) (line-end-position))
+    (comint-send-string (inf-ruby-proc) "\n"))
+
+  (defun lx/ruby-send-line-and-go ()
+    (interactive)
+    (lx/ruby-send-line)
+    (ruby-switch-to-inf t))
+
+  (defun lx/ruby-send-paragraph ()
+    (interactive)
+    (let ((start (save-excursion
+                   (backward-paragraph)
+                   (point)))
+          (end (save-excursion
+                 (forward-paragraph)
+                 (point))))
+      (ruby-send-region start end)))
+
+  (defun lx/ruby-send-paragraph-and-go ()
+    (interactive)
+    (lx/ruby-send-paragraph)
+    (ruby-switch-to-inf t))
+  (spacemacs/set-leader-keys-for-major-mode 'enh-ruby-mode
+    "sl" 'lx/ruby-send-line
+    "sL" 'lx/ruby-send-line-and-go
+    "sp" 'lx/ruby-send-paragraph
+    "sP" 'lx/ruby-send-paragraph-and-go)
+  )
