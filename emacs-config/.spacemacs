@@ -492,7 +492,7 @@ layers configuration."
  '(projectile-completion-system (quote helm) t)
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
- '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")
+ '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8046/plantuml.8046.jar")
  '(rake-completion-system (quote helm))
  '(ring-bell-function (quote ignore))
  '(rspec-primary-source-dirs (quote ("app" "lib" "src")))
