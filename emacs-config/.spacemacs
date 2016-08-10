@@ -59,6 +59,7 @@
      extra-langs
      html
      ;; java
+     c-c++
      javascript
      (python :variables python-test-runner '(nose))
      (restclient :variables restclient-use-org t)
