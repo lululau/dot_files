@@ -447,9 +447,7 @@ layers configuration."
     (("github" :url "https://api.github.com" :remote-regexp "^\\(?:git@github\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?")
      ("kaitong" :url "https://github.ktjr.com/api/v3" :remote-regexp "^\\(?:git@github\\.ktjr\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.ktjr\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?"))))
  '(helm-ag-command-option "-U")
- '(helm-ag-ignore-patterns
-   (quote
-    (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "production.log" "test.log" "development.log")))
+ '(helm-ag-ignore-patterns (quote (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "log")))
  '(helm-ag-use-agignore t)
  '(helm-dash-browser-func (quote lx/browse-url-in-safari))
  '(helm-gtags-fuzzy-match t)
