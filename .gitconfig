@@ -30,6 +30,9 @@
 	l = log
 	d = diff
 	dd = diff --cached
+  rb = rebase
+  rbi = rebase -i
+  rbc = rebase --continue
 [filter "media"]
 	required = true
 	clean = git media clean %f
