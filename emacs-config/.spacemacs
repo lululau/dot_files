@@ -192,7 +192,7 @@ before layers configuration."
    dotspacemacs-persistent-server nil
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
-   dotspacemacs-search-tools '("ack" "ag" "pt" "grep")
+   dotspacemacs-search-tools '("ag" "ack" "pt" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now.
@@ -446,6 +446,11 @@ layers configuration."
    (quote
     (("github" :url "https://api.github.com" :remote-regexp "^\\(?:git@github\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?")
      ("kaitong" :url "https://github.ktjr.com/api/v3" :remote-regexp "^\\(?:git@github\\.ktjr\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.ktjr\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?"))))
+ '(helm-ag-command-option "-U")
+ '(helm-ag-ignore-patterns
+   (quote
+    (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "production.log" "test.log" "development.log")))
+ '(helm-ag-use-agignore t)
  '(helm-dash-browser-func (quote lx/browse-url-in-safari))
  '(helm-gtags-fuzzy-match t)
  '(helm-gtags-preselect t)
