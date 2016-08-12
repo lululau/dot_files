@@ -43,6 +43,14 @@ unless $USER_PRYRC_LOADED
     require "active_support/all"
   end
 
+  Pry.commands.block_command 'require-factories' do
+    Dir.glob(File.join(Dir.pwd, "spec/factories/**/**/*.rb")).each do |factory|
+      require factory
+    end
+  end
+
+  Pry.commands.alias_command 'load-factories', 'require-factories'
+
   def rm(const)
     Object.send :remove_const, const
   end
