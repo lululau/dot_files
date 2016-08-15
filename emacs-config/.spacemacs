@@ -453,7 +453,6 @@ layers configuration."
  '(helm-gtags-fuzzy-match t)
  '(helm-gtags-preselect t)
  '(helm-imenu-fuzzy-match t)
- '(helm-mu-default-search-string "(maildir:/INBOX OR maildir:/\"Sent Messages\")")
  '(helm-mu-gnu-sed-program "gsed")
  '(inf-ruby-implementations
    (quote
