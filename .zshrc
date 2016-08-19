@@ -4,6 +4,7 @@ ZSH=$HOME/.oh-my-zsh
 export AUTOJUMP_KEEP_SYMLINKS=1
 
 alias -- +x='chmod +x '
+alias -- '--=git checkout -'
 alias l1='ls -1'
 alias cdg='cd ~liuxiang/git-umeng'
 alias e='emacsclient -n'
