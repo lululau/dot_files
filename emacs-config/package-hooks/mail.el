@@ -14,7 +14,7 @@
 ;; Mail directory shortcuts
 (setq mu4e-maildir-shortcuts
       '(("/INBOX" . ?i) ("/Sent Messages" . ?s) ("/Deleted Messages" . ?d)
-        ("/Archive" . ?a)))
+        ("/Archive" . ?a) ("/Drafts" . ?D)))
 
 ;; Bookmarks
 (setq mu4e-bookmarks
