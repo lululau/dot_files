@@ -51,6 +51,14 @@ unless $USER_PRYRC_LOADED
 
   Pry.commands.alias_command 'load-factories', 'require-factories'
 
+  Pry.commands.block_command 'enable-mongoid-query-log' do
+    if Object.const_defined?(:Moped)
+      Moped.logger = Logger.new(STDOUT, :debug)
+    else
+      Mongo::Logger.logger = Logger.new(STDOUT, :debug)
+    end
+  end
+
   def rm(const)
     Object.send :remove_const, const
   end
