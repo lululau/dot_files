@@ -312,6 +312,13 @@ layers configuration."
           ("gitorious.org" git-link-gitorious)
           ("gitlab.com"    git-link-gitlab)))
 
+  (setq git-link-commit-remote-alist
+    '(("github.ktjr.com" git-link-commit-github)
+      ("github.com"    git-link-commit-github)
+      ("bitbucket.org" git-link-commit-bitbucket)
+      ("gitorious.org" git-link-commit-gitorious)
+      ("gitlab.com"    git-link-commit-github)))
+
   ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://orgmode.org/worg/style/worg.css\" type=\"text/css\" />")
   (setq org-html-head "<link rel=\"stylesheet\" href=\"http://dakrone.github.io/org.css\" type=\"text/css\" />")
 
