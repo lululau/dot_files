@@ -157,7 +157,7 @@ set hlsearch
 set incsearch
 set ignorecase
 
-let g:fugitive_github_domains = ['http://github.umeng.com', 'http://gitlab.alibaba-inc.com']
+let g:fugitive_github_domains = ['http://github.ktjr.com']
 
 
 " vim-powerline configurations
@@ -332,9 +332,9 @@ let g:bufExplorerShowRelativePath=1 " BufExplorer: show relative paths
 
 
 " rails.vim configurations
-noremap <leader>c :Rcontroller<cr>
-noremap <leader>v :Rview<cr>
-noremap <leader>m :Rmodel<cr>
+noremap <leader>c :Econtroller<cr>
+noremap <leader>v :Eview<cr>
+noremap <leader>m :Emodel<cr>
 " map <leader>h :Rhelper<cr>
 
 " gist-vim configurations
