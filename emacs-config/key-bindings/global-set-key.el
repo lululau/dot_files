@@ -6,6 +6,7 @@
 (global-set-key (kbd "s-o") 'helm-projectile-find-file)
 (global-set-key (kbd "s-O") 'helm-projectile-find-file-dwim)
 (global-set-key (kbd "s-f") 'spacemacs/helm-find-files)
+(global-set-key (kbd "M-s-f") 'helm-find)
 (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
 (global-set-key (kbd "s-F") 'helm-locate)
 (global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (progn (setq saved-ido-make-buffer-list-hook ido-make-buffer-list-hook) (setq ido-make-buffer-list-hook nil) (helm-mini) (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook)) (error (progn (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook) (helm-keyboard-quit))))))
