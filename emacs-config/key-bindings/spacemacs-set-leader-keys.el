@@ -1,3 +1,5 @@
+(spacemacs|create-align-repeat-x "hash" "#")
+
 (spacemacs/set-leader-keys
   "bk" #'(lambda () (interactive) (call-interactively 'kill-buffer))
   "gC" 'magit-commit
@@ -17,4 +19,5 @@
   "ps" #'lx/find-or-create-projectile-snippet-file
   "ad" #'(lambda () (interactive) (call-interactively 'dired))
   "tl" #'copy-org-links-at-point
+  "xa#" #'spacemacs/align-repeat-hash
 )
