@@ -20,8 +20,8 @@ Bundle 'toyamarinyon/vim-swift'
 
 " original repos on GitHub
 Bundle 'larrylv/ShowMarks'
-Bundle 'wincent/Command-T'
-" Bundle 'kien/ctrlp.vim'
+" Bundle 'wincent/Command-T'
+Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
@@ -686,12 +686,18 @@ snoremap <c-x><c-s> <c-o>:w<CR>
 noremap <c-x><c-k> :bw!<CR>
 inoremap <c-x><c-k> <ESC>:bw!<CR>
 
-noremap <c-x><c-b> <ESC>:CommandTBuffer<CR>
-inoremap <c-x><c-b> <ESC>:CommandTBuffer<CR>
-noremap <c-x>b <ESC>:CommandTMRU<CR>
-inoremap <c-x>b <ESC>:CommandTMRU<CR>
-noremap <c-x><c-f> <ESC>:CommandT<CR>
-inoremap <c-x><c-f> <ESC>:CommandT<CR>
+" noremap <c-x><c-b> <ESC>:CommandTBuffer<CR>
+" inoremap <c-x><c-b> <ESC>:CommandTBuffer<CR>
+" noremap <c-x>b <ESC>:CommandTMRU<CR>
+" inoremap <c-x>b <ESC>:CommandTMRU<CR>
+" noremap <c-x><c-f> <ESC>:CommandT<CR>
+" inoremap <c-x><c-f> <ESC>:CommandT<CR>
+noremap <c-x><c-b> <ESC>:CtrlPBuffer<CR>
+inoremap <c-x><c-b> <ESC>:CtrlPBuffer<CR>
+noremap <c-x>b <ESC>:CtrlPMRU<CR>
+inoremap <c-x>b <ESC>:CtrlPMRU<CR>
+noremap <c-x><c-f> <ESC>:CtrlP<CR>
+inoremap <c-x><c-f> <ESC>:CtrlP<CR>
 noremap <esc><cr> o<ESC>
 cnoremap <c-p> <up>
 cnoremap <c-n> <down>
