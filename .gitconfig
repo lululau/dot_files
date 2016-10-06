@@ -66,3 +66,5 @@
 	tool = Kaleidoscope
 [github "kaitong"]
 	user = liuxiang
+[pull]
+	rebase = true
