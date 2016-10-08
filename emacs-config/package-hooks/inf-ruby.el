@@ -46,7 +46,7 @@
     (interactive)
     (lx/ruby-send-paragraph)
     (ruby-switch-to-inf t))
-  (spacemacs/set-leader-keys-for-major-mode 'enh-ruby-mode
+  (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
     "sl" 'lx/ruby-send-line
     "sL" 'lx/ruby-send-line-and-go
     "sp" 'lx/ruby-send-paragraph

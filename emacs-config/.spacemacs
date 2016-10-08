@@ -45,7 +45,7 @@
                       version-control-global-margin t)
      (ruby :variables
            ruby-test-runner 'rspec
-           ruby-enable-enh-ruby-mode t)
+           ruby-enable-enh-ruby-mode nil)
      yaml
      ruby-on-rails
      projectile-bundler
@@ -528,6 +528,7 @@ layers configuration."
  '(rake-completion-system (quote helm))
  '(ring-bell-function (quote ignore))
  '(rspec-primary-source-dirs (quote ("app" "lib" "src")))
+ '(ruby-insert-encoding-magic-comment nil)
  '(safe-local-variable-values (quote ((org-html-head))))
  '(sp-highlight-pair-overlay nil)
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
