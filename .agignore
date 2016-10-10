@@ -1,0 +1,11 @@
+development.log
+operation_data.log
+operations.log
+TAGS
+GTAGS
+GRTAGS
+GPATH
+.cache
+*.min.js
+*.min.css
+/coverage/
