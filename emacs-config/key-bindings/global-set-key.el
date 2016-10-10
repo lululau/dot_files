@@ -61,9 +61,31 @@
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 1)))
 
 (global-set-key (kbd "M-h") #'evil-window-left)
-(global-set-key (kbd "M-j") #'evil-window-down)
-(global-set-key (kbd "M-k") #'evil-window-up)
 (global-set-key (kbd "M-l") #'evil-window-right)
+(global-set-key
+ (kbd "M-j")
+ #'(lambda ()
+     (interactive)
+     (condition-case
+         err
+         (call-interactively 'evil-window-down)
+       (user-error (let ((message  (error-message-string err)))
+                     (if (and (= 2 (length (frame-list)))
+                              (string-match "Minibuffer is inactive\\|No Window \\w+ from selected window" message))
+                         (other-frame 1)
+                       (signal (car err) (cdr err))))))))
+(global-set-key
+ (kbd "M-k")
+ #'(lambda ()
+     (interactive)
+     (condition-case
+         err
+         (call-interactively 'evil-window-up)
+       (user-error (let ((message  (error-message-string err)))
+                     (if (and (= 2 (length (frame-list)))
+                              (string-match "Minibuffer is inactive\\|No Window \\w+ from selected window" message))
+                         (other-frame 1)
+                       (signal (car err) (cdr err))))))))
 
 (global-set-key (kbd "M-H") #'lx/window-move-far-left)
 (global-set-key (kbd "M-J") #'lx/window-move-very-bottom)
