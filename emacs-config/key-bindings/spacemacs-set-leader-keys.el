@@ -4,6 +4,7 @@
   "bk" #'(lambda () (interactive) (call-interactively 'kill-buffer))
   "gC" 'magit-commit
   "gc" 'magit-checkout
+  "gc" #'(lambda (arg) (interactive "P") (call-interactively (if arg 'magit-branch-and-checkout 'magit-checkout)))
   "gS" 'magit-status
   "gs" #'(lambda () (interactive) (magit-run-git-async "status") (magit-process-buffer))
   "gu" #'(lambda () (interactive) (magit-checkout-file (magit-get-current-branch) (buffer-file-name)))
