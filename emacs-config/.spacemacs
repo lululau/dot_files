@@ -332,7 +332,7 @@ layers configuration."
 
   (setq auto-mode-alist (cons '("\\.apib\\'" . markdown-mode) auto-mode-alist))
 
-  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/8046/plantuml.8046.jar")
+  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/8048/plantuml.8048.jar")
 
   (add-hook 'term-mode-hook #'(lambda () (interactive)
                                 (define-key term-raw-map (kbd "<M-backspace>") #'term-send-raw-meta)
