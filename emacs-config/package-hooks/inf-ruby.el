@@ -1,4 +1,9 @@
 (with-eval-after-load 'inf-ruby
+
+  (defun lx/last-inf-ruby-proc ()
+    (or (get-buffer-process (--first (eq (with-current-buffer it major-mode) 'inf-ruby-mode) (buffer-list)))
+        (error "No current process.")))
+
   (defun ruby-send-region (start end &optional print)
     "Send the current region to the inferior Ruby process."
     (interactive "r\nP")

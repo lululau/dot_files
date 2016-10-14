@@ -1,2 +1,11 @@
-(with-eval-after-load 'inf-ruby-mode
-  (define-key inf-ruby-mode-map (kbd "s-W") '(lambda () (interactive) (comint-send-eof) (kill-this-buffer) (delete-window))))
+(with-eval-after-load 'inf-ruby
+  (define-key inf-ruby-mode-map (kbd "s-W") '(lambda () (interactive) (comint-send-eof) (kill-this-buffer) (delete-window)))
+  (define-key inf-ruby-mode-map (kbd "<s-left>") #'(lambda () (interactive) (comint-send-string (inf-ruby-proc) "frame\n")))
+  (define-key inf-ruby-mode-map (kbd "<s-up>") #'(lambda () (interactive) (comint-send-string (inf-ruby-proc) "up\n")))
+  (define-key inf-ruby-mode-map (kbd "<s-down>") #'(lambda () (interactive) (comint-send-string (inf-ruby-proc) "down\n")))
+  (define-key inf-ruby-mode-map (kbd "<f6>") #'(lambda () (interactive) (comint-send-string (inf-ruby-proc) "s\n")))
+  (define-key inf-ruby-mode-map (kbd "<f7>") #'(lambda () (interactive) (comint-send-string (inf-ruby-proc) "f\n")))
+  (define-key inf-ruby-mode-map (kbd "<f8>") #'(lambda () (interactive) (comint-send-string (inf-ruby-proc) "c\n")))
+  (define-key inf-ruby-mode-map (kbd "<f9>") #'(lambda () (interactive) (comint-send-string (inf-ruby-proc) "n\n")))
+  (define-key inf-ruby-mode-map (kbd "s-, tl") #'(lambda () (interactive) (with-selected-window (cadr (window-list)) (call-interactively 'rspec-run-last-failed))))
+  (define-key inf-ruby-mode-map (kbd "s-, tr") #'(lambda () (interactive) (with-selected-window (cadr (window-list)) (call-interactively 'rspec-rerun)))))
