@@ -202,6 +202,7 @@ before layers configuration."
    ;; specified with an installed package.
    ;; Not used for now.
    dotspacemacs-default-package-repository nil
+   dotspacemacs-helm-use-fuzzy 'always
    )
   ;; User initialization goes here
 
@@ -418,6 +419,7 @@ layers configuration."
      ("github.com" . "github")
      ("github.ktjr.com" . "github"))))
  '(cfw:display-calendar-holidays nil)
+ '(company-search-regexp-function (quote company-search-flex-regexp))
  '(custom-safe-themes
    (quote
     ("398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" default)))
@@ -478,15 +480,20 @@ layers configuration."
    (quote
     (("github" :url "https://api.github.com" :remote-regexp "^\\(?:git@github\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?")
      ("kaitong" :url "https://github.ktjr.com/api/v3" :remote-regexp "^\\(?:git@github\\.ktjr\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.ktjr\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?"))))
+ '(helm-M-x-fuzzy-match t)
  '(helm-ag-command-option "-U")
  '(helm-ag-ignore-patterns (quote (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "log")))
  '(helm-ag-use-agignore t)
+ '(helm-buffers-fuzzy-matching t)
+ '(helm-completion-in-region-fuzzy-match t)
  '(helm-dash-browser-func (quote lx/browse-url-in-safari))
- '(helm-gtags-fuzzy-match t)
+ '(helm-gtags-fuzzy-match t t)
  '(helm-gtags-preselect t)
  '(helm-imenu-fuzzy-match t)
+ '(helm-locate-fuzzy-match t)
  '(helm-mu-default-search-string "(m:/INBOX or m:/\"Sent Messages\" or m:/Archive)")
  '(helm-mu-gnu-sed-program "gsed")
+ '(helm-recentf-fuzzy-match t)
  '(inf-ruby-implementations
    (quote
     (("ruby" . "irb --prompt default --noreadline -r irb/completion")
