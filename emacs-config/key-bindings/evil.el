@@ -26,7 +26,7 @@
 (define-key evil-normal-state-map "za" (lambda () (interactive) (if (eq major-mode 'web-mode) (web-mode-fold-or-unfold) (evil-toggle-fold))))
 (define-key evil-normal-state-map "gf" #'(lambda () (interactive) (if (and (not (eq 'term-mode major-mode)) projectile-rails-mode)
                                                                       (call-interactively 'projectile-rails-goto-file-at-point)
-                                                                    (call-interactively 'find-file-at-point))))
+                                                                    (call-interactively 'ffap-other-window))))
 (define-key evil-ex-completion-map "\C-a" nil)
 (define-key evil-ex-completion-map "\C-b" nil)
 (define-key evil-ex-completion-map "\C-d" nil)

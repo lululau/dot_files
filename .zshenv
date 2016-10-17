@@ -7,6 +7,7 @@ path+=($HOME/cascode/github.com/xiki/bin /usr/local/sbin)
 path+=($HOME/.fzf/bin)
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 path+=($HOME/.rvm/bin) # Add RVM to PATH for scripting
+export EDITOR=vim
 export GOROOT=/usr/local/opt/go/libexec/
 export GOPATH=$HOME/.go
 export MANPATH="$MANPATH:$HOME/.fzf/man:$HOME/.linux-man"

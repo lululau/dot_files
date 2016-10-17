@@ -3,7 +3,7 @@
   (define-key ruby-mode-map (kbd "M-s-b") #'toggle-pry-breakpoint)
   (define-key ruby-mode-map (kbd "M-s-c") #'cleanup-pry-breakpoints)
   (define-key ruby-mode-map (kbd "<left-margin> <s-mouse-1>") #'(lambda () (interactive)
-                                                                  (comint-send-string (lx/last-inf-ruby-proc) (format "b %s:%s\nb\n" (buffer-file-name) (spacemacs//line-at-click)))))
+                                                                  (comint-send-string (lx/last-pry-proc) (format "b %s:%s\nb\n" (buffer-file-name) (spacemacs//line-at-click)))))
   (dolist (mode '(ruby-mode))
     (spacemacs/set-leader-keys-for-major-mode mode "TAB" 'rspec-toggle-spec-and-target)))
 
