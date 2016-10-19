@@ -23,14 +23,16 @@
 
 (global-set-key (kbd "s-'") #'(lambda (prefix)
                                 (interactive "P")
-                                (if (string= "term-mode" major-mode)
-                                    (shell-pop-out)
-                                  (let ((shell-pop-autocd-to-working-dir nil))
-                                    (spacemacs/shell-pop-ansi-term 0)
-                                    (when shell-pop-last-shell-buffer-name
-                                      (with-current-buffer shell-pop-last-shell-buffer-name
-                                        (end-of-buffer)
-                                        (backward-char)))))))
+                                (if prefix
+                                    (switch-to-buffer (get-buffer "*ansi-term-0*"))
+                                  (if (string= "term-mode" major-mode)
+                                      (shell-pop-out)
+                                    (let ((shell-pop-autocd-to-working-dir nil))
+                                      (spacemacs/shell-pop-ansi-term 0)
+                                      (when shell-pop-last-shell-buffer-name
+                                        (with-current-buffer shell-pop-last-shell-buffer-name
+                                          (end-of-buffer)
+                                          (backward-char))))))))
 
 (global-set-key (kbd "s-\"") #'projectile-shell-pop)
 (global-set-key (kbd "s-n") '(lambda () (interactive) (switch-to-buffer-other-window (generate-new-buffer "*Untitled*"))))
