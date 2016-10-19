@@ -97,7 +97,7 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(calfw browse-at-remote ranger helm-mu)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim pangu-spacing)
+   dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim pangu-spacing helm-purpose ivy-purpose window-purpose spacemacs-purpose-popwin popwin)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
