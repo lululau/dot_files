@@ -9,7 +9,7 @@ alias l1='ls -1'
 alias cdg='cd ~liuxiang/git-umeng'
 alias e='emacsclient -n'
 alias guse='rvm gemset use'
-alias gls='rvm gemset list'
+alias gemls='rvm gemset list'
 alias ls="ls -G"
 # alias go="open"
 alias grep="grep --color=auto"

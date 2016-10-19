@@ -24,7 +24,7 @@
 (define-key evil-inner-text-objects-map "w" 'evil-inner-symbol)
 
 (define-key evil-normal-state-map "za" (lambda () (interactive) (if (eq major-mode 'web-mode) (web-mode-fold-or-unfold) (evil-toggle-fold))))
-(define-key evil-normal-state-map "gf" #'(lambda () (interactive) (if (and (not (eq 'term-mode major-mode)) projectile-rails-mode)
+(define-key evil-normal-state-map "gf" #'(lambda () (interactive) (if (and (eq 'ruby-mode major-mode) projectile-rails-mode)
                                                                       (call-interactively 'projectile-rails-goto-file-at-point)
                                                                     (call-interactively 'ffap-other-window))))
 (define-key evil-ex-completion-map "\C-a" nil)
