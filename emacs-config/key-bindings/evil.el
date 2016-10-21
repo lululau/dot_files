@@ -6,12 +6,6 @@
 (define-key evil-motion-state-map (kbd "[ c") #'diff-hl-previous-hunk)
 (define-key evil-motion-state-map (kbd "C-]") #'jump-to-definition-of-symbol-at-point)
 (define-key evil-motion-state-map (kbd "<C-return>") #'(lambda () (interactive) (call-interactively (if (eq major-mode 'org-mode) 'org-insert-heading-respect-content 'jump-to-definition-of-symbol-at-point))))
-(define-key evil-motion-state-map (kbd "<s-return>") #'(lambda () (interactive) (pcase major-mode
-                                                                                   ('org-mode (call-interactively 'org-insert-heading-respect-content))
-                                                                                   ('term-mode (shell-pop--cd-to-cwd
-                                                                                                (file-name-directory
-                                                                                                 (buffer-file-name (get-buffer shell-pop-last-buffer)))))
-                                                                                   (x (call-interactively 'jump-to-definition-of-symbol-at-point-other-window)))))
 
 (define-key evil-motion-state-map (kbd "<s-mouse-1>") #'(lambda (event) (interactive "e") (mouse-set-point event) (jump-to-definition-of-symbol-at-point)))
 (define-key evil-motion-state-map (kbd "<s-mouse-3>") #'evil-jumper/backward)
@@ -19,12 +13,6 @@
 (define-key evil-lisp-state-map (kbd "s-q") #'evil-emacs-state)
 (define-key evil-emacs-state-map (kbd "C-]") #'jump-to-definition-of-symbol-at-point)
 (define-key evil-emacs-state-map (kbd "<C-return>") #'(lambda () (interactive) (call-interactively (if (eq major-mode 'org-mode) 'org-insert-heading-respect-content 'jump-to-definition-of-symbol-at-point))))
-(define-key evil-emacs-state-map (kbd "<s-return>") #'(lambda () (interactive) (pcase major-mode
-                                                                                  ('org-mode (call-interactively 'org-insert-heading-respect-content))
-                                                                                  ('term-mode (shell-pop--cd-to-cwd
-                                                                                               (file-name-directory
-                                                                                                (buffer-file-name (get-buffer shell-pop-last-buffer)))))
-                                                                                  (x (call-interactively 'jump-to-definition-of-symbol-at-point-other-window)))))
 (define-key evil-emacs-state-map (kbd "<s-mouse-1>") #'(lambda (event) (interactive "e") (mouse-set-point event) (jump-to-definition-of-symbol-at-point)))
 (define-key evil-emacs-state-map (kbd "<s-mouse-3>") #'evil-jumper/backward)
 (define-key evil-emacs-state-map (kbd "s-q") #'evil-exit-emacs-state)
