@@ -5,13 +5,6 @@
                            (shell-pop--cd-to-cwd
                             (with-current-buffer (get-buffer shell-pop-last-buffer) (projectile-project-root)))))
 
-  (define-key term-raw-map
-    (kbd "<s-return>") #'(lambda ()
-                           (interactive)
-                           (shell-pop--cd-to-cwd
-                            (file-name-directory
-                             (buffer-file-name (get-buffer shell-pop-last-buffer))))))
-
   (define-key term-raw-map (kbd "<s-left>") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "frame\n")))
   (define-key term-raw-map (kbd "<s-up>") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "up\n")))
   (define-key term-raw-map (kbd "<s-down>") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "down\n")))
