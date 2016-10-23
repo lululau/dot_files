@@ -16,7 +16,7 @@
   "aob" 'org-iswitchb
   "gho" #'browse-at-remote
   "to" #'org-toggle-link-display
-  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Monaco" "STHeiti" 12 14 13 16))
+  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "STHeiti" 12 14 13 16))
   "ps" #'lx/find-or-create-projectile-snippet-file
   "ad" #'(lambda () (interactive) (call-interactively 'dired))
   "tl" #'copy-org-links-at-point
