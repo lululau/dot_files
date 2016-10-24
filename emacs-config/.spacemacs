@@ -208,6 +208,7 @@ before layers configuration."
    ;; Not used for now.
    dotspacemacs-default-package-repository nil
    dotspacemacs-helm-use-fuzzy 'always
+   dotspacemacs-swith-to-buffer-prefers-purpose nil
    )
   ;; User initialization goes here
 
@@ -230,15 +231,6 @@ layers configuration."
   ;; (load-file "~/.config/emacs-config/doom-themes.el")
 
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
-
-  (setcdr (assq 'switch-to-buffer purpose-action-sequences)
-          '(purpose-display-maybe-same-window
-            purpose-display-reuse-window-buffer
-            purpose-display-reuse-window-purpose
-            purpose-display-maybe-other-window
-            purpose-display-maybe-other-frame
-            purpose-display-maybe-pop-up-window
-            purpose-display-maybe-pop-up-frame))
 
   (setq-default
    ;; js2-mode
