@@ -232,6 +232,8 @@ layers configuration."
 
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
+  (which-key-mode -1)  ;; Disable whick-key-mode by default
+
   (setq-default
    ;; js2-mode
    js2-basic-offset 2
