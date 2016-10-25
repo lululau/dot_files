@@ -276,12 +276,12 @@ layers configuration."
   (setq edit-server-url-major-mode-alist
         '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
   (setq org-directory "/Users/liuxiang/Documents/org")
-  (setq org-agenda-files (append (file-expand-wildcards "~/Documents/org/**/*.org") (file-expand-wildcards  "~/Documents/org/*.org")))
+  ;; (setq org-agenda-files (append (file-expand-wildcards "~/Documents/org/**/*.org") (file-expand-wildcards  "~/Documents/org/*.org")))
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
   (setq org-mobile-inbox-for-pull "/Users/liuxiang/Documents/org/flagged.org")
   (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
-  (setq org-bullets-bullet-list '("𝌆" "𝌇" "𝌎" "𝌓" "𝌮"))
+  ;; (setq org-bullets-bullet-list '("𝌆" "𝌇" "𝌎" "𝌓" "𝌮"))
   (setq org-link-search-must-match-exact-headline nil)
 
   (setq org-projectile:capture-template "* TODO %? %a\n")
@@ -499,7 +499,7 @@ layers configuration."
  '(helm-buffers-fuzzy-matching t)
  '(helm-completion-in-region-fuzzy-match t)
  '(helm-dash-browser-func (quote lx/browse-url-in-safari))
- '(helm-gtags-fuzzy-match t)
+ '(helm-gtags-fuzzy-match t t)
  '(helm-gtags-preselect t)
  '(helm-imenu-fuzzy-match t)
  '(helm-locate-fuzzy-match t)
@@ -529,6 +529,7 @@ layers configuration."
  '(mu4e-headers-time-format "%H:%M")
  '(neo-theme (quote uni))
  '(ns-pop-up-frames nil)
+ '(org-agenda-files "~/.agenda_files")
  '(org-capture-templates
    (quote
     (("t" "Todo" entry
