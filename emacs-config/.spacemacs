@@ -69,7 +69,7 @@
      c-c++
      javascript
      (python :variables python-test-runner '(nose))
-     (restclient :variables restclient-use-org t)
+     restclient
      rust
      scala
      chrome
