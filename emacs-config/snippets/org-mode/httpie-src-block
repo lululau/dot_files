@@ -1,0 +1,6 @@
+#group: source block
+# key: shttpie
+# --
+#+BEGIN_SRC sh :results output
+http --pretty format GET $0
+#+END_SRC
