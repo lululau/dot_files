@@ -530,6 +530,7 @@ layers configuration."
  '(neo-theme (quote uni))
  '(ns-pop-up-frames nil)
  '(org-agenda-files "~/.agenda_files")
+ '(org-bullets-bullet-list (quote ("" "◎" "❍" "⦿" "★" "☆" "✪" "❑" "⎈" "❖" "✦" "✧")))
  '(org-capture-templates
    (quote
     (("t" "Todo" entry
