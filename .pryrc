@@ -1,7 +1,18 @@
 unless $USER_PRYRC_LOADED
 
   if defined?(Rails) && Rails.const_defined?("ConsoleMethods") && Rails.env
-    extend Rails::ConsoleMethods 
+    extend Rails::ConsoleMethods
+  end
+
+  if defined?(Rails) && Rails.root.to_s =~ /^#{ENV["HOME"]}\/kt\/(baton|notab)/
+    BA = BaseAsset
+    VA = VirtualAsset
+    RP = RegisteredProduct
+    AU = AssetUnit
+    PS = PackageStrategy
+    PCR = ProductCodeRange
+    CI = ConsigneeInterest
+    AF = AttachFile
   end
 
   Pry.config.editor = "vim"
@@ -12,7 +23,7 @@ unless $USER_PRYRC_LOADED
   #   Pry.commands.rename_command 'n', 'next'
   # end
 
-  # if defined?(PryDebugger) || defined? (PryByebug) 
+  # if defined?(PryDebugger) || defined? (PryByebug)
   #   Pry.commands.rename_command 'b', 'break'
   #   Pry.commands.rename_command 'c', 'continue'
   #   Pry.commands.rename_command 's', 'step'
@@ -26,6 +37,7 @@ unless $USER_PRYRC_LOADED
   Pry.commands.rename_command 'n', 'next' if Pry.commands.valid_command?('next')
   Pry.commands.rename_command 'f', 'finish' if Pry.commands.valid_command?('finish')
 
+  Pry.commands.alias_command 'rc', 'reload-code'
   Pry.commands.alias_command 'ed', 'edit'
   Pry.commands.alias_command 'w', 'whereami'
   Pry.commands.alias_command 'pwd', 'nesting'
@@ -75,7 +87,7 @@ unless $USER_PRYRC_LOADED
   end
 
   def pbp_str
-    `pbpaste` 
+    `pbpaste`
   end
 
   def pc(contents)
@@ -114,6 +126,6 @@ unless $USER_PRYRC_LOADED
     IRB.conf[:USE_READLINE] = false
     Pry.config.pager = false
     Pry.config.correct_indent = false
-    Pry.config.editor = "emacsclient"
+    Pry.config.editor = "emacs-other-window"
   end
 end
