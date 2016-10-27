@@ -101,7 +101,7 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(calfw browse-at-remote ranger helm-mu jq-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim pangu-spacing)
+   dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -376,8 +376,7 @@ layers configuration."
   (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt) ;; update appt list on agenda view
 
   ;; set up the call to terminal-notifier
-  (defvar my-notifier-path
-    "/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier")
+  (defvar my-notifier-path "/usr/local/bin/terminal-notifier")
   (defun my-appt-send-notification (title msg)
     (shell-command (concat my-notifier-path " -message " msg " -title " title " -sender org.gnu.Emacs -appIcon /Users/liuxiang/.emacs.d/private/org.png")))
 
@@ -387,6 +386,7 @@ layers configuration."
      (format "'%s 分钟之后'" min-to-app)    ;; passed to -title in terminal-notifier call
      (format "'%s'" msg)))                                ;; passed to -message in terminal-notifier call
   (setq appt-disp-window-function (function my-appt-display))
+
   (setq eclim-eclipse-dirs "~/Applications/Eclipse.app" eclim-executable "~/Applications/Eclipse.app/Contents/Eclipse/eclim")
 
   (spacemacs|define-custom-layout "@Mail"

@@ -13,6 +13,8 @@ unless $USER_PRYRC_LOADED
     PCR = ProductCodeRange
     CI = ConsigneeInterest
     AF = AttachFile
+    INS = Institution
+    TR = Transaction
   end
 
   Pry.config.editor = "vim"
@@ -100,7 +102,7 @@ unless $USER_PRYRC_LOADED
 
   def pc(contents)
     p = IO.popen("pbcopy", "w")
-    p.write(contents)
+    p.puts(contents)
     p.close
   end
 
