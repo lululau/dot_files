@@ -63,11 +63,19 @@ unless $USER_PRYRC_LOADED
 
   Pry.commands.alias_command 'load-factories', 'require-factories'
 
-  Pry.commands.block_command 'enable-mongoid-query-log' do
+  Pry.commands.block_command 'toggle-mongoid-query-log' do
     if Object.const_defined?(:Moped)
-      Moped.logger = Logger.new(STDOUT, :debug)
+      if $pry_previous_mongo_logger
+        $pry_previous_mongo_logger, Moped.logger = Moped.logger, $pry_previous_mongo_logger
+      else
+        $pry_previous_mongo_logger, Moped.logger = Moped.logger, Logger.new(STDOUT, :debug)
+      end
     else
-      Mongo::Logger.logger = Logger.new(STDOUT, :debug)
+      if $pry_previous_mongo_logger
+        $pry_previous_mongo_logger, Mongo::Logger.logger = Mongo::Logger.logger, $pry_previous_mongo_logger
+      else
+        $pry_previous_mongo_logger, Mongo::Logger.logger = Mongo::Logger.logger, Logger.new(STDOUT, :debug)
+      end
     end
   end
 
