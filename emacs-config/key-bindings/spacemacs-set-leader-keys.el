@@ -8,6 +8,8 @@
   "gS" 'magit-status
   "gs" #'(lambda () (interactive) (magit-run-git-async "status") (magit-process-buffer))
   "gu" #'(lambda () (interactive) (magit-checkout-file (magit-get-current-branch) (buffer-file-name)))
+  "gr" 'diff-hl-revert-hunk
+  "gd" 'magit-diff-buffer-file
   "gp" #'(lambda () (interactive) (call-interactively 'magit-pull-from-upstream) (magit-process-buffer))
   "gP" #'(lambda () (interactive) (call-interactively 'magit-push-current-to-upstream) (magit-process-buffer))
   "gM" #'(lambda () (interactive) (call-interactively 'magit-merge))
