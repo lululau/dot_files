@@ -10,7 +10,6 @@ path+=($HOME/.rvm/bin) # Add RVM to PATH for scripting
 export EDITOR=vim
 export GOROOT=/usr/local/opt/go/libexec/
 export GOPATH=$HOME/.go
-export MANPATH="$MANPATH:$HOME/.fzf/man:$HOME/.linux-man"
 export FPATH="$FPATH:/usr/local/share/zsh/site-functions"
 export PYTHONPATH=/Users/liuxiang/Library/Python/2.7/lib/python/site-packages
 export XAPIAN_CJK_NGRAM=1
