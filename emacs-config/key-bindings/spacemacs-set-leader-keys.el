@@ -21,7 +21,7 @@
   "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "STHeiti" 12 14 13 16))
   "ps" #'lx/find-or-create-projectile-snippet-file
   "ad" #'(lambda () (interactive) (call-interactively 'dired))
-  "tl" #'copy-org-links-at-point
+  "col" #'copy-org-links-at-point
   "xa#" #'spacemacs/align-repeat-hash
   "wxj" #'(lambda () (interactive) (let ((wind (windmove-find-other-window 'down))) (when (and wind (not (minibufferp (window-buffer wind)))) (delete-window wind))))
   "wxk" #'(lambda () (interactive) (let ((wind (windmove-find-other-window 'up))) (when (and wind (not (minibufferp (window-buffer wind)))) (delete-window wind))))
