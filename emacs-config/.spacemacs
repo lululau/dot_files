@@ -516,6 +516,7 @@ layers configuration."
      ("yarv" . "irb1.9 -r irb/completion")
      ("macruby" . "macirb -r irb/completion")
      ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.3.0/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.3.0/bin/pry"))))
+ '(jiralib-url "http://jira.kaitongamc.com")
  '(magit-blame-heading-format "%-20a %A %s")
  '(magit-diff-use-overlays nil)
  '(markdown-command "/Users/liuxiang/bin/markdown")
