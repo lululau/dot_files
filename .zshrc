@@ -19,6 +19,7 @@ alias tree="tree -AC"
 alias s="screen -e^jj"
 alias odx='od -Ad -tx1'
 alias odc='od -Ad -tc'
+alias rvmdefault='rvm use default'
 export CLICOLOR=1
 # export LSCOLORS=ExFxCxDxBxegedabagacad
 export LANG=zh_CN.UTF-8
