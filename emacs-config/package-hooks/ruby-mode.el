@@ -1,3 +1,5 @@
+(add-hook 'ruby-mode-hook #'(lambda () (setq-local indent-line-function 'ruby-indent-line)))
+
 (with-eval-after-load 'ruby-mode
   (define-key ruby-mode-map (kbd "s-r b") 'ruby-toggle-block)
   (define-key ruby-mode-map (kbd "M-s-b") #'toggle-pry-breakpoint)
