@@ -1,5 +1,5 @@
 (with-eval-after-load 'inf-ruby
-  (define-key inf-ruby-mode-map (kbd "C-L") 'comint-clear-buffer)
+  (define-key inf-ruby-mode-map (kbd "C-S-l") 'comint-clear-buffer)
   (define-key inf-ruby-mode-map (kbd "s-W") '(lambda () (interactive) (unwind-protect (comint-send-eof)) (kill-this-buffer) (delete-window)))
   (define-key inf-ruby-mode-map (kbd "<s-left>") #'(lambda () (interactive) (comint-send-string (inf-ruby-proc) "frame\n")))
   (define-key inf-ruby-mode-map (kbd "<s-up>") #'(lambda () (interactive) (comint-send-string (inf-ruby-proc) "up\n")))
