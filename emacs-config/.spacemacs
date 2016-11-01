@@ -211,6 +211,7 @@ before layers configuration."
    dotspacemacs-default-package-repository nil
    dotspacemacs-helm-use-fuzzy 'always
    dotspacemacs-swith-to-buffer-prefers-purpose nil
+   dotspacemacs-folding-method 'origami
    )
   ;; User initialization goes here
 
