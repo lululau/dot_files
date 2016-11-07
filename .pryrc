@@ -7,6 +7,8 @@ unless $USER_PRYRC_LOADED
   if defined?(Rails) && Rails.root.to_s =~ /^#{ENV["HOME"]}\/kt\/(baton|notab)/
     BA = BaseAsset
     VA = VirtualAsset
+    VC = VirtualAssetDailyCounter
+    RC = RoundDailyCounter
     RP = RegisteredProduct
     AU = AssetUnit
     PS = PackageStrategy
@@ -119,6 +121,37 @@ unless $USER_PRYRC_LOADED
 
   def with_out_arr(&block)
     with_out_str(&block).split("\n")
+  end
+
+  def tt(data)
+    lib_path = File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/unicode-display_width-1.1.1/lib")
+    $: << lib_path unless $:.include?(lib_path)
+    lib_path = File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/terminal-table-1.7.3/lib")
+    $: << lib_path unless $:.include?(lib_path)
+    require 'terminal-table'
+    puts Terminal::Table.new rows: data, style: {all_separators: true}
+  end
+
+  class Array
+    def tt
+      lib_path = File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/unicode-display_width-1.1.1/lib")
+      $: << lib_path unless $:.include?(lib_path)
+      lib_path = File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/terminal-table-1.7.3/lib")
+      $: << lib_path unless $:.include?(lib_path)
+      require 'terminal-table'
+      puts Terminal::Table.new rows: self, style: {all_separators: true}
+    end
+  end
+
+  class Hash
+    def tt
+      lib_path = File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/unicode-display_width-1.1.1/lib")
+      $: << lib_path unless $:.include?(lib_path)
+      lib_path = File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/terminal-table-1.7.3/lib")
+      $: << lib_path unless $:.include?(lib_path)
+      require 'terminal-table'
+      puts Terminal::Table.new rows: self, style: {all_separators: true}
+    end
   end
 
   class Pry::Command::Ls::LocalVars
