@@ -492,6 +492,21 @@ layers configuration."
    (quote
     (("github" :url "https://api.github.com" :remote-regexp "^\\(?:git@github\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?")
      ("kaitong" :url "https://github.ktjr.com/api/v3" :remote-regexp "^\\(?:git@github\\.ktjr\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.ktjr\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?"))))
+ '(gist-list-format
+   (quote
+    ((id "Id" 10 nil identity)
+     (created "Created" 20 nil "%D %R")
+     (visibility "Visibility" 10 nil
+                 (lambda
+                   (public)
+                   (or
+                    (and public "public")
+                    "private")))
+     (description "Description" 30 nil identity)
+     (files "Files" 0 nil
+            (lambda
+              (files)
+              (s-join ", " files))))))
  '(golden-ratio-extra-commands
    (quote
     (select-window-9 select-window-8 select-window-7 select-window-6 select-window-5 select-window-4 select-window-3 select-window-2 select-window-1 select-window-0 quit-window evil-window-move-very-bottom evil-window-move-far-right evil-window-move-far-left evil-window-move-very-top evil-window-rotate-downwards evil-window-rotate-upwards evil-window-vnew evil-window-new evil-window-prev evil-window-next evil-window-mru evil-window-top-left evil-window-bottom-right evil-window-down evil-window-up evil-window-right evil-window-left evil-window-vsplit evil-window-split evil-window-delete evil-avy-goto-line evil-avy-goto-word-or-subword-1 buf-move-down buf-move-up buf-move-right buf-move-left avy-pop-mark ace-maximize-window ace-swap-window ace-select-window ace-delete-window ace-window windmove-left windmove-right windmove-down windmove-up lx/window-up-fallback-to-switch-frame lx/window-down-fallback-to-switch-frame)))
@@ -502,7 +517,7 @@ layers configuration."
  '(helm-buffers-fuzzy-matching t)
  '(helm-completion-in-region-fuzzy-match t)
  '(helm-dash-browser-func (quote lx/browse-url-in-safari))
- '(helm-gtags-fuzzy-match t t)
+ '(helm-gtags-fuzzy-match t)
  '(helm-gtags-preselect t)
  '(helm-imenu-fuzzy-match t)
  '(helm-locate-fuzzy-match t)
