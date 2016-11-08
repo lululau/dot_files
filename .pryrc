@@ -124,33 +124,40 @@ unless $USER_PRYRC_LOADED
   end
 
   def tt(data)
-    lib_path = File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/unicode-display_width-1.1.1/lib")
-    $: << lib_path unless $:.include?(lib_path)
-    lib_path = File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/terminal-table-1.7.3/lib")
-    $: << lib_path unless $:.include?(lib_path)
-    require 'terminal-table'
-    puts Terminal::Table.new rows: data, style: {all_separators: true}
+    data.tt
+  end
+
+  def ttl(data)
+    data.ttl
   end
 
   class Array
     def tt
-      lib_path = File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/unicode-display_width-1.1.1/lib")
-      $: << lib_path unless $:.include?(lib_path)
-      lib_path = File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/terminal-table-1.7.3/lib")
-      $: << lib_path unless $:.include?(lib_path)
-      require 'terminal-table'
-      puts Terminal::Table.new rows: self, style: {all_separators: true}
+      unless defined? Terminal::Table
+        $:.concat(["unicode-display_width-1.1.1", "terminal-table-1.7.3"].map { |e| File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/#{e}/lib") })
+        require 'terminal-table'
+      end
+      if Array === first
+        puts Terminal::Table.new rows: self, style: {all_separators: true}
+      elsif Hash === first
+        puts Terminal::Table.new rows: map { |e| e.values }, style: {all_separators: true}, headings: first.keys
+      else
+        puts Terminal::Table.new rows: [self], style: {all_separators: true}
+      end
+    end
+
+    def ttl
+      map { |e| [e] }.tt
     end
   end
 
   class Hash
     def tt
-      lib_path = File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/unicode-display_width-1.1.1/lib")
-      $: << lib_path unless $:.include?(lib_path)
-      lib_path = File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/terminal-table-1.7.3/lib")
-      $: << lib_path unless $:.include?(lib_path)
-      require 'terminal-table'
-      puts Terminal::Table.new rows: self, style: {all_separators: true}
+      [self].tt
+    end
+
+    def ttl
+      xh.to_a.tt
     end
   end
 
