@@ -32,7 +32,7 @@
      git
      github
      gtags
-     markdown
+     (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
      (org :variables
           org-enable-github-support t
