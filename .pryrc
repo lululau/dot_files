@@ -137,12 +137,13 @@ unless $USER_PRYRC_LOADED
         $:.concat(["unicode-display_width-1.1.1", "terminal-table-1.7.3"].map { |e| File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/#{e}/lib") })
         require 'terminal-table'
       end
+      puts
       if Array === first
-        puts Terminal::Table.new rows: self, style: {all_separators: true}
+        puts Terminal::Table.new rows: self
       elsif Hash === first
-        puts Terminal::Table.new rows: map { |e| e.values }, style: {all_separators: true}, headings: first.keys
+        puts Terminal::Table.new rows: map { |e| e.values }, headings: first.keys
       else
-        puts Terminal::Table.new rows: [self], style: {all_separators: true}
+        puts Terminal::Table.new rows: [self]
       end
     end
 
