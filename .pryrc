@@ -5,18 +5,21 @@ unless $USER_PRYRC_LOADED
   end
 
   if defined?(Rails) && Rails.root.to_s =~ /^#{ENV["HOME"]}\/kt\/(baton|notab)/
-    BA = BaseAsset
-    VA = VirtualAsset
-    VC = VirtualAssetDailyCounter
-    RC = RoundDailyCounter
-    RP = RegisteredProduct
-    AU = AssetUnit
-    PS = PackageStrategy
-    PCR = ProductCodeRange
-    CI = ConsigneeInterest
-    AF = AttachFile
-    INS = Institution
-    TR = Transaction
+    begin
+      BA = BaseAsset
+      VA = VirtualAsset
+      VC = VirtualAssetDailyCounter
+      RC = RoundDailyCounter
+      RP = RegisteredProduct
+      AU = AssetUnit
+      PS = PackageStrategy
+      PCR = ProductCodeRange
+      CI = ConsigneeInterest
+      AF = AttachFile
+      INS = Institution
+      TR = Transaction
+    rescue NameError
+    end
   end
 
   Pry.config.editor = "vim"
