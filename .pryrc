@@ -165,6 +165,17 @@ unless $USER_PRYRC_LOADED
     end
   end
 
+  module Mongoid
+    module Document
+      def tt(*fields)
+        if fields.size == 1 && fields[0].is_a?(Regexp)
+          fields = attributes.keys.grep(fields[0])
+        end
+        fields.map { |f| [f.to_s, send(f.to_s)]}.tt
+      end
+    end
+  end
+
   class Pry::Command::Ls::LocalVars
     def colorized_assignment_style(lhs, rhs, desired_width = 7)
       colorized_lhs = color(:local_var, lhs)
