@@ -14,7 +14,7 @@
 (global-set-key (kbd "s-p") 'helm-projectile-switch-project)
 (global-set-key (kbd "s-P") 'spacemacs/helm-persp-switch-project)
 (global-set-key (kbd "s-L") 'spacemacs/helm-perspectives)
-(global-set-key (kbd "s-;") '(lambda() (interactive) (if (and (boundp 'inf-ruby-buffer) (equal inf-ruby-buffer (buffer-name))) (delete-window) (if (or (not (boundp 'inf-ruby-buffer)) (not (comint-check-proc inf-ruby-buffer)))  (rvm-use-default)) (call-interactively 'inf-ruby))))
+(global-set-key (kbd "s-;") '(lambda() (interactive) (if (and (inf-ruby-buffer) (equal (inf-ruby-buffer) (current-buffer))) (delete-window) (if (or (not (inf-ruby-buffer)) (not (comint-check-proc (inf-ruby-buffer))))  (rvm-use-default)) (call-interactively 'inf-ruby))))
 (global-set-key (kbd "s-[") 'previous-buffer)
 (global-set-key (kbd "s-]") 'next-buffer)
 (global-set-key (kbd "s-/") 'evilnc-comment-or-uncomment-lines)

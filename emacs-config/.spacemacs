@@ -238,6 +238,14 @@ layers configuration."
 
   (which-key-mode -1)  ;; Disable whick-key-mode by default
 
+  (setq inf-ruby-console-patterns-alist
+        '((".zeus.sock" . zeus)
+          (inf-ruby-console-rails-p . rails)
+          ("*.gemspec" . gem)
+          (inf-ruby-console-racksh-p . racksh)
+          ("Gemfile" . default)
+          ((lambda () (string= (expand-file-name "~/") (expand-file-name default-directory))) . default)))
+
   (setq-default
    ;; js2-mode
    js2-basic-offset 2

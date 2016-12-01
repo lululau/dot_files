@@ -54,18 +54,32 @@ https://github.com/abo-abo/swiper")))
   (setq command (or command (cdr (assoc inf-ruby-default-implementation
                                         inf-ruby-implementations))))
   (setq name (or name "ruby"))
-
-  (if (not (comint-check-proc (or check-buf (if (string-match-p "\\(railsconsole\\|railsserver\\|bundleconsole\\)\\*\\*$" (or inf-ruby-buffer "")) nil inf-ruby-buffer))))
+  ;; (if (not (comint-check-proc (or check-buf (if (string-match-p "\\(railsconsole\\|railsserver\\|bundleconsole\\)\\*\\*$" (if (inf-ruby-buffer) (buffer-name (inf-ruby-buffer)) "")) nil (inf-ruby-buffer)))))
+  (if (not (comint-check-proc (if (string= "pry" name) (get-buffer "*pry*") (inf-ruby-buffer))))
       (let ((commandlist (split-string-and-unquote command))
             (buffer (current-buffer))
             (process-environment process-environment))
         ;; http://debbugs.gnu.org/15775
         (setenv "PAGER" (executable-find "cat"))
-        (set-buffer (apply 'make-comint name (car commandlist)
+        (set-buffer (apply 'make-comint-in-buffer
+                           name
+                           (generate-new-buffer-name (format "*%s*" name))
+                           (car commandlist)
                            nil (cdr commandlist)))
         (inf-ruby-mode)
-        (ruby-remember-ruby-buffer buffer)))
-  (pop-to-buffer (setq inf-ruby-buffer (format "*%s*" name)))))
+        (ruby-remember-ruby-buffer buffer)
+        (when (string= "pry" name) (setq-local default-directory (expand-file-name "~/")))
+        (push (current-buffer) inf-ruby-buffers)
+        (setq inf-ruby-buffer-impl-name name
+              inf-ruby-buffer-command command)))
+
+  (let ((buffer (if (string= "pry" name) (get-buffer "*pry*") (inf-ruby-buffer))))
+    (with-current-buffer buffer
+      (if (and (string= inf-ruby-buffer-impl-name name)
+               (string= inf-ruby-buffer-command command))
+          (pop-to-buffer (setq inf-ruby-buffer buffer))
+        (error "Found inf-ruby buffer for directory %s but it was run with different COMMAND and/or NAME."
+               (expand-file-name default-directory)))))))
 
 (advice-add 'projectile-rails-server :override #'(lambda (port)
       (interactive "P")
@@ -73,12 +87,12 @@ https://github.com/abo-abo/swiper")))
       (if (not port) (setq port 3000))
       (projectile-rails-with-root
        (progn
-         (if (not (comint-check-proc inf-ruby-buffer)) (rvm-activate-corresponding-ruby))
+         (if (not (comint-check-proc (inf-ruby-buffer))) (rvm-activate-corresponding-ruby))
          (with-current-buffer (run-ruby
                                (projectile-rails-with-preloader
                                 :spring "bundle exec spring rails server"
                                 :zeus "zeus server"
-                                :vanilla (format "bundle exec rails server -p %d" port)) (concat "*" (projectile-project-name)  "railsserver*") (concat "*" (projectile-project-name)  "railsserver*"))
+                                :vanilla (format "bundle exec rails server -p %d" port)) (concat "*" (projectile-project-name)  "railsserver*") (concat "**" (projectile-project-name)  "railsserver**"))
            (projectile-rails-mode +1)
            (add-hook 'comint-output-filter-functions 'binding-pry-filter nil t))))))
 
@@ -87,12 +101,12 @@ https://github.com/abo-abo/swiper")))
       (require 'inf-ruby)
       (projectile-rails-with-root
        (progn
-         (if (not (comint-check-proc inf-ruby-buffer)) (rvm-activate-corresponding-ruby))
+         (if (not (comint-check-proc (inf-ruby-buffer))) (rvm-activate-corresponding-ruby))
          (with-current-buffer (run-ruby
                                (projectile-rails-with-preloader
                                 :spring "spring rails console"
                                 :zeus "zeus console"
-                                :vanilla "bundle exec rails console") (concat "*" (projectile-project-name)  "railsconsole*") (concat "*" (projectile-project-name)  "railsconsole*"))
+                                :vanilla "bundle exec rails console") (concat "*" (projectile-project-name)  "railsconsole*") (concat "**" (projectile-project-name)  "railsconsole**"))
            (projectile-rails-mode +1))))))
 
 (advice-add
