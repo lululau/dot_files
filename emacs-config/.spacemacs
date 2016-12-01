@@ -216,6 +216,11 @@ before layers configuration."
    )
   ;; User initialization goes here
 
+  (setq configuration-layer--elpa-archives
+        '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
+          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
+          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+
   (load-file "~/.config/emacs-config/init.el")
 
   (setq-default ruby-version-manager 'rvm)
