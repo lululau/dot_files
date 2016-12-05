@@ -1,6 +1,6 @@
 typeset -U path
 # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
-path+=(/usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin)
+path+=(/usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin $HOME/liuxiang/bin $HOME/liuxiang/local/bin $HOME/.local/bin)
 # export PATH=$PATH:$HOME/cascode/github.com/xiki/bin:/usr/local/sbin
 path+=($HOME/cascode/github.com/xiki/bin /usr/local/sbin)
 # export PATH="$PATH:$HOME/.fzf/bin"
@@ -11,7 +11,7 @@ export GOROOT=/usr/local/opt/go/libexec/
 export GOPATH=$HOME/.go
 export MANPATH="$MANPATH:$HOME/.fzf/man:$HOME/.linux-man"
 export FPATH="$FPATH:/usr/local/share/zsh/site-functions"
-export PYTHONPATH=/Users/liuxiang/Library/Python/2.7/lib/python/site-packages
+export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages
 export XAPIAN_CJK_NGRAM=1
 export SDKMAN_DIR="$HOME/.sdkman"
 export HOMEBREW_CASK_OPTS=--caskroom=/opt/homebrew-cask/Caskroom

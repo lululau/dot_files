@@ -146,7 +146,7 @@ function omz_termsupport_preexec () {
 
 
 function jj() {
-  cd "$({dirs -pl; j -s | gsed -n '/^_______/!p; /^_______/q'  | cut -d$'\t' -f2; } | fzf)"
+  cd "$({dirs -pl; j -s | sed -n '/^_______/!p; /^_______/q'  | cut -d$'\t' -f2; } | fzf)"
 }
 
 export LSCOLORS=exfxcxdxcxegedabagacad
