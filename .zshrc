@@ -7,6 +7,7 @@ alias -- +x='chmod +x '
 alias -- '--=git checkout -'
 alias l1='ls -1'
 alias cdg='cd ~liuxiang/git-umeng'
+alias e='emacsclient'
 alias guse='rvm gemset use'
 alias gemls='rvm gemset list'
 alias ls="ls -G"
@@ -103,11 +104,6 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 compdef _ack2_completion ack
-
-function emacs() {
-  /usr/local/bin/emacs "$@"
-  echo $'\033]50;CursorShape=0\007'
-}
 
 function powerline_precmd() {
   export PS1="$(~/.powerline-shell.py $? --shell zsh 2> /dev/null)"

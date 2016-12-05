@@ -1,6 +1,6 @@
 typeset -U path
 # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
-path+=(/usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin $HOME/liuxiang/bin $HOME/liuxiang/local/bin $HOME/.local/bin)
+path+=(/usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin)
 # export PATH=$PATH:$HOME/cascode/github.com/xiki/bin:/usr/local/sbin
 path+=($HOME/cascode/github.com/xiki/bin /usr/local/sbin)
 # export PATH="$PATH:$HOME/.fzf/bin"
@@ -16,6 +16,7 @@ export XAPIAN_CJK_NGRAM=1
 export SDKMAN_DIR="$HOME/.sdkman"
 export HOMEBREW_CASK_OPTS=--caskroom=/opt/homebrew-cask/Caskroom
 export SCREENRC=$HOME/liuxiang/.screenrc
+export ZDOTDIR=$HOME/liuxiang
 # source $HOME/.config/private/homebrew_github_api_token.sh
 
-[ -n "$EMACS" ] && source $HOME/.zprofile
+[ -n "$EMACS" ] && source $HOME/liuxiang/.zprofile

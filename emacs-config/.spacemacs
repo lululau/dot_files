@@ -1,7 +1,6 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
-(setenv "PATH" "")
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
   (setq-default
@@ -11,7 +10,7 @@
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '("~/cascode/github.com/spacemacs-layers")
+   dotspacemacs-configuration-layer-path '("~/liuxiang/spacemacs-layers")
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
@@ -26,14 +25,13 @@
                       auto-completion-tab-key-behavior 'complete
                       auto-completion-show-snippets-in-popup t
                       auto-completion-enable-snippets-in-popup t
-                      auto-completion-private-snippets-directory "~/.config/emacs-config/snippets")
+                      auto-completion-private-snippets-directory "~/liuxiang/.config/emacs-config/snippets")
      better-defaults
      emacs-lisp
      git
      github
      gtags
      (markdown :variables markdown-live-preview-engine 'vmd)
-     pandoc
      (org :variables
           org-enable-github-support t
           org-enable-bootstrap-support t
@@ -43,7 +41,7 @@
             shell-default-height 38
             shell-default-position 'bottom
             shell-default-shell 'ansi-term
-            shell-default-term-shell "/bin/zsh")
+            shell-default-term-shell "/home/deploy/liuxiang/local/bin/zsh")
      syntax-checking
      (version-control :variables
                       version-control-diff-tool 'diff-hl
@@ -57,7 +55,6 @@
      projectile-bundler-robe
      elixir
      shell-scripts
-     dash
      clojure
      haskell
      emacs-lisp
@@ -72,30 +69,23 @@
      restclient
      rust
      scala
-     chrome
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)
      search-engine
-     gnus
      chinese
      selectric
      ; evil-easymotion
-     (elfeed :variables
-             rmh-elfeed-org-files (list "~/.config/emacs-config/elfeeds.org"))
-     pdf-tools
      csv
      sql
      plantuml
      nginx
      vimscript
-     (mu4e :variables mu4e-enable-notifications t mu4e-enable-mode-line t)
      confluence-lx
      ragtag
      org-yank-image
      imenu-list
      rebox
      systemd
-     org-jira
      lorem-ipsum-zh
      )
    ;; List of additional packages that will be installed wihout being
@@ -128,14 +118,14 @@ before layers configuration."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed.
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner '000
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
    dotspacemacs-startup-lists '(recents projects)
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-light spacemacs-dark)
+   dotspacemacs-themes '(spacemacs-dark solarized-light)
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -221,7 +211,7 @@ before layers configuration."
           ("org-cn"   . "http://elpa.zilongshanren.com/org/")
           ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
 
-  (load-file "~/.config/emacs-config/init.el")
+  (load-file "~/liuxiang/.config/emacs-config/init.el")
 
   (setq-default ruby-version-manager 'rvm)
   (setq-default ruby-enable-ruby-on-rails-support t)
@@ -235,8 +225,8 @@ before layers configuration."
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
 
-  (load-file "~/.config/emacs-config/text-objects/init.el")
-  (load-file "~/.config/emacs-config/key-bindings/init.el")
+  (load-file "~/liuxiang/.config/emacs-config/text-objects/init.el")
+  (load-file "~/liuxiang/.config/emacs-config/key-bindings/init.el")
   ;; (load-file "~/.config/emacs-config/doom-themes.el")
 
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
@@ -286,7 +276,6 @@ layers configuration."
                                    (if (string-match (concat "^" (getenv "HOME")) (buffer-file-name))
                                        (concat "~" (substring (buffer-file-name) (length (getenv "HOME"))))
                                      (buffer-file-name)) (buffer-name)))))
-  (load-file "~/.config/secrets/paradox-github-token.el")
   (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
 
   (setq edit-server-new-frame nil)
