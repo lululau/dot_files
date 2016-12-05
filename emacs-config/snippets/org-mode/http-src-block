@@ -1,6 +1,6 @@
 #group: source block
 # key: shttp
 # --
-#+BEGIN_SRC sh :results output
-http --pretty format GET $0
+#+BEGIN_SRC http :pretty
+$0
 #+END_SRC

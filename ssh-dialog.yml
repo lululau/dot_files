@@ -4,7 +4,9 @@ defaults:
   username: deploy
 
 groups:
-  work-servers:
+  pro-servers:
+    hosts:
+  test-servers:
     hosts:
       dev01:
         hostname: dev01.kaitongamc.com
@@ -23,7 +25,25 @@ groups:
         hostname: 10.132.1.246
         username: deploy
         port: 22
+      dev05:
+        hostname: 10.132.1.235
+        username: deploy
+        port: 22
+      dev005:
+        hostname: 124.65.107.154
+        username: deploy
+        port: 3022
       github:
         hostname: 10.132.1.247
         username: deploy
+        port: 22
+  vagrants:
+    hosts:
+      default:
+        hostname: 127.0.0.1
+        username: vagrant
+        port: 2222
+      centos:
+        hostname: 172.28.128.3
+        username: vagrant
         port: 22

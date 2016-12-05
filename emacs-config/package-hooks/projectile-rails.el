@@ -71,7 +71,7 @@
   (define-key projectile-rails-mode-map (kbd "s-r s-c") 'helm-projectile-switch-to-rails-controllers-buffer)
   (define-key projectile-rails-mode-map (kbd "s-r s-a") 'helm-projectile-switch-to-rails-apis-buffer)
   (define-key projectile-rails-mode-map (kbd "s-r j") 'helm-projectile-switch-to-rails-jobs-buffer)
-  (dolist (mode '(ruby-mode enh-ruby-mode))
+  (dolist (mode '(ruby-mode))
     (spacemacs/set-leader-keys-for-major-mode mode
       "rfA" 'projectile-rails-find-api
       "rfJ" 'projectile-rails-find-job))

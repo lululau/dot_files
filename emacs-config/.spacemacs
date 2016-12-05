@@ -5,6 +5,10 @@
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
   (setq-default
+   ;; Base distribution to use. This is a layer contained in the directory
+   ;; `+distribution'. For now available distributions are `spacemacs-base'
+   ;; or `spacemacs'. (default 'spacemacs)
+   dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '("~/cascode/github.com/spacemacs-layers")
@@ -28,10 +32,11 @@
      git
      github
      gtags
-     markdown
+     (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
      (org :variables
           org-enable-github-support t
+          org-enable-bootstrap-support t
           org-enable-reveal-js-support t
           org-projectile-file "~/Documents/org/projects.org")
      (shell :variables
@@ -45,7 +50,7 @@
                       version-control-global-margin t)
      (ruby :variables
            ruby-test-runner 'rspec
-           ruby-enable-enh-ruby-mode t)
+           ruby-enable-enh-ruby-mode nil)
      yaml
      ruby-on-rails
      projectile-bundler
@@ -64,7 +69,7 @@
      c-c++
      javascript
      (python :variables python-test-runner '(nose))
-     (restclient :variables restclient-use-org t)
+     restclient
      rust
      scala
      chrome
@@ -82,27 +87,30 @@
      sql
      plantuml
      nginx
-     (mu4e :variables mu4e-enable-notifications t mu4e-enable-mode-line)
-     confluence
+     vimscript
+     (mu4e :variables mu4e-enable-notifications t mu4e-enable-mode-line t)
+     confluence-lx
      ragtag
      org-yank-image
      imenu-list
      rebox
      systemd
+     org-jira
+     lorem-ipsum-zh
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(calfw ox-twbs browse-at-remote ranger helm-mu)
+   dotspacemacs-additional-packages '(calfw browse-at-remote ranger helm-mu jq-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim pangu-spacing)
+   dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
    dotspacemacs-delete-orphan-packages t))
 
-(defun dotspacemacs/init ()
+(defun dotspacemacs/user-init ()
   "Initialization function.
 This function is called at the very startup of Spacemacs initialization
 before layers configuration."
@@ -132,7 +140,7 @@ before layers configuration."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Monaco"
+   dotspacemacs-default-font '("Source Code Pro"
                                :size 12
                                :weight normal
                                :width normal
@@ -202,8 +210,16 @@ before layers configuration."
    ;; specified with an installed package.
    ;; Not used for now.
    dotspacemacs-default-package-repository nil
+   dotspacemacs-helm-use-fuzzy 'always
+   dotspacemacs-swith-to-buffer-prefers-purpose nil
+   dotspacemacs-folding-method 'origami
    )
   ;; User initialization goes here
+
+  (setq configuration-layer--elpa-archives
+        '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
+          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
+          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
 
   (load-file "~/.config/emacs-config/init.el")
 
@@ -221,8 +237,19 @@ layers configuration."
 
   (load-file "~/.config/emacs-config/text-objects/init.el")
   (load-file "~/.config/emacs-config/key-bindings/init.el")
+  ;; (load-file "~/.config/emacs-config/doom-themes.el")
 
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
+
+  (which-key-mode -1)  ;; Disable whick-key-mode by default
+
+  (setq inf-ruby-console-patterns-alist
+        '((".zeus.sock" . zeus)
+          (inf-ruby-console-rails-p . rails)
+          ("*.gemspec" . gem)
+          (inf-ruby-console-racksh-p . racksh)
+          ("Gemfile" . default)
+          ((lambda () (string= (expand-file-name "~/") (expand-file-name default-directory))) . default)))
 
   (setq-default
    ;; js2-mode
@@ -264,14 +291,14 @@ layers configuration."
 
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
-        '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
+        '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) ("jira\\.kaitongamc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
   (setq org-directory "/Users/liuxiang/Documents/org")
-  (setq org-agenda-files (append (file-expand-wildcards "~/Documents/org/**/*.org") (file-expand-wildcards  "~/Documents/org/*.org")))
+  ;; (setq org-agenda-files (append (file-expand-wildcards "~/Documents/org/**/*.org") (file-expand-wildcards  "~/Documents/org/*.org")))
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
   (setq org-mobile-inbox-for-pull "/Users/liuxiang/Documents/org/flagged.org")
   (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
-  (setq org-bullets-bullet-list '("𝌆" "𝌇" "𝌎" "𝌓" "𝌮"))
+  ;; (setq org-bullets-bullet-list '("𝌆" "𝌇" "𝌎" "𝌓" "𝌮"))
   (setq org-link-search-must-match-exact-headline nil)
 
   (setq org-projectile:capture-template "* TODO %? %a\n")
@@ -330,9 +357,9 @@ layers configuration."
   (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
   (add-to-list 'search-engine-alist '(ip138 :name "ip138" :url "http://ip138.com/ips138.asp?ip=%s&action=2") t)
 
-  (setq auto-mode-alist (cons '("\\.apib\\'" . markdown-mode) auto-mode-alist))
+  (setq auto-mode-alist (append '(("\\.pryrc\\'" . ruby-mode) ("\\.apib\\'" . markdown-mode)) auto-mode-alist))
 
-  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/8046/plantuml.8046.jar")
+  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/8048/plantuml.8048.jar")
 
   (add-hook 'term-mode-hook #'(lambda () (interactive)
                                 (define-key term-raw-map (kbd "<M-backspace>") #'term-send-raw-meta)
@@ -366,8 +393,7 @@ layers configuration."
   (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt) ;; update appt list on agenda view
 
   ;; set up the call to terminal-notifier
-  (defvar my-notifier-path
-    "/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier")
+  (defvar my-notifier-path "/usr/local/bin/terminal-notifier")
   (defun my-appt-send-notification (title msg)
     (shell-command (concat my-notifier-path " -message " msg " -title " title " -sender org.gnu.Emacs -appIcon /Users/liuxiang/.emacs.d/private/org.png")))
 
@@ -377,6 +403,7 @@ layers configuration."
      (format "'%s 分钟之后'" min-to-app)    ;; passed to -title in terminal-notifier call
      (format "'%s'" msg)))                                ;; passed to -message in terminal-notifier call
   (setq appt-disp-window-function (function my-appt-display))
+
   (setq eclim-eclipse-dirs "~/Applications/Eclipse.app" eclim-executable "~/Applications/Eclipse.app/Contents/Eclipse/eclim")
 
   (spacemacs|define-custom-layout "@Mail"
@@ -396,18 +423,22 @@ layers configuration."
 ;; (desktop-save-mode 1)
 (defadvice split-window-right (after split-window-right-and-balance activate) (balance-windows))
 
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ahs-case-fold-search nil t)
- '(ahs-default-range (quote ahs-range-whole-buffer) t)
- '(ahs-idle-interval 0.25 t)
+ '(Man-notify-method (quote aggressive))
+ '(ahs-case-fold-search nil)
+ '(ahs-default-range (quote ahs-range-whole-buffer))
+ '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
- '(ahs-inhibit-face-list nil t)
+ '(ahs-inhibit-face-list nil)
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(avy-keys (quote (97 115 100 106 107 108 119 111 112)))
@@ -417,6 +448,10 @@ layers configuration."
      ("github.com" . "github")
      ("github.ktjr.com" . "github"))))
  '(cfw:display-calendar-holidays nil)
+ '(company-search-regexp-function (quote company-search-flex-regexp))
+ '(custom-safe-themes
+   (quote
+    ("398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" default)))
  '(dash-at-point-mode-alist
    (quote
     ((actionscript-mode . "actionscript")
@@ -469,20 +504,43 @@ layers configuration."
  '(diff-hl-draw-borders nil)
  '(diff-hl-margin-mode nil)
  '(enh-ruby-add-encoding-comment-on-save nil)
- '(flycheck-disabled-checkers (quote (ruby-rubocop ruby-rubylint)))
+ '(flycheck-disabled-checkers (quote (ruby-rubylint)))
  '(gh-profile-alist
    (quote
     (("github" :url "https://api.github.com" :remote-regexp "^\\(?:git@github\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?")
      ("kaitong" :url "https://github.ktjr.com/api/v3" :remote-regexp "^\\(?:git@github\\.ktjr\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.ktjr\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?"))))
+ '(gist-list-format
+   (quote
+    ((id "Id" 10 nil identity)
+     (created "Created" 20 nil "%D %R")
+     (visibility "Visibility" 10 nil
+                 (lambda
+                   (public)
+                   (or
+                    (and public "public")
+                    "private")))
+     (description "Description" 30 nil identity)
+     (files "Files" 0 nil
+            (lambda
+              (files)
+              (s-join ", " files))))))
+ '(golden-ratio-extra-commands
+   (quote
+    (select-window-9 select-window-8 select-window-7 select-window-6 select-window-5 select-window-4 select-window-3 select-window-2 select-window-1 select-window-0 quit-window evil-window-move-very-bottom evil-window-move-far-right evil-window-move-far-left evil-window-move-very-top evil-window-rotate-downwards evil-window-rotate-upwards evil-window-vnew evil-window-new evil-window-prev evil-window-next evil-window-mru evil-window-top-left evil-window-bottom-right evil-window-down evil-window-up evil-window-right evil-window-left evil-window-vsplit evil-window-split evil-window-delete evil-avy-goto-line evil-avy-goto-word-or-subword-1 buf-move-down buf-move-up buf-move-right buf-move-left avy-pop-mark ace-maximize-window ace-swap-window ace-select-window ace-delete-window ace-window windmove-left windmove-right windmove-down windmove-up lx/window-up-fallback-to-switch-frame lx/window-down-fallback-to-switch-frame)))
+ '(helm-M-x-fuzzy-match t)
  '(helm-ag-command-option "-U")
  '(helm-ag-ignore-patterns (quote (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "log")))
  '(helm-ag-use-agignore t)
+ '(helm-buffers-fuzzy-matching t)
+ '(helm-completion-in-region-fuzzy-match t)
  '(helm-dash-browser-func (quote lx/browse-url-in-safari))
- '(helm-gtags-fuzzy-match t)
+ '(helm-gtags-fuzzy-match t t)
  '(helm-gtags-preselect t)
  '(helm-imenu-fuzzy-match t)
+ '(helm-locate-fuzzy-match t)
  '(helm-mu-default-search-string "(m:/INBOX or m:/\"Sent Messages\" or m:/Archive)")
  '(helm-mu-gnu-sed-program "gsed")
+ '(helm-recentf-fuzzy-match t)
  '(inf-ruby-implementations
    (quote
     (("ruby" . "irb --prompt default --noreadline -r irb/completion")
@@ -490,9 +548,11 @@ layers configuration."
      ("rubinius" . "rbx -r irb/completion")
      ("yarv" . "irb1.9 -r irb/completion")
      ("macruby" . "macirb -r irb/completion")
-     ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.3.0/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.3.0/bin/pry"))))
+     ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.3.2/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.3.2/bin/pry"))))
+ '(jiralib-url "http://jira.kaitongamc.com")
  '(magit-blame-heading-format "%-20a %A %s")
  '(magit-diff-use-overlays nil)
+ '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
  '(markdown-command "/Users/liuxiang/bin/markdown")
  '(mu4e-attachment-dir "/Users/liuxiang/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
@@ -506,6 +566,8 @@ layers configuration."
  '(mu4e-headers-time-format "%H:%M")
  '(neo-theme (quote uni))
  '(ns-pop-up-frames nil)
+ '(org-agenda-files "~/.agenda_files")
+ '(org-bullets-bullet-list (quote ("" "◎" "❍" "⦿" "★" "☆" "✪" "❑" "⎈" "❖" "✦" "✧")))
  '(org-capture-templates
    (quote
     (("t" "Todo" entry
@@ -518,17 +580,27 @@ layers configuration."
       "* TODO %?
   %u"))))
  '(org-confirm-babel-evaluate nil)
+ '(org-pandoc-options-for-latex-pdf
+   (quote
+    ((latex-engine . "xelatex")
+     (template . "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/pandoc-latex-templates/Heiti/default.latex"))))
  '(package-selected-packages
    (quote
-    (undo-tree s elixir-mode iedit clojure-snippets clj-refactor edn paredit peg cider-eval-sexp-fu cider queue clojure-mode intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode clang-format ht simple-httpd rake osx-dictionary elfeed js2-mode anaconda-mode hydra alert auto-complete company yapfify request py-isort dumb-jump git-commit dash projectile evil rust-mode tern cargo anzu f sbt-mode smartparens scala-mode with-editor helm-core markdown-mode org avy flycheck helm magit yasnippet magit-popup evil-unimpaired pcache yaml-mode xterm-color ws-butler wolfram-mode window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org thrift tagedit stan-mode sql-indent spacemacs-theme spaceline solarized-theme smeargle slim-mode shell-pop selectric-mode scss-mode scad-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restclient restart-emacs rbenv ranger rainbow-delimiters racer quelpa qml-mode pyvenv pytest pyenv-mode py-yapf puml-mode projectile-rails pip-requirements persp-mode pdf-tools pbcopy paradox pangu-spacing pandoc-mode ox-twbs ox-reveal ox-pandoc ox-gfm osx-trash orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file ob-http nginx-mode neotree mwim multi-term mu4e-maildirs-extension mu4e-alert move-text mmm-mode matlab-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode launchctl julia-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mu helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gmail-message-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md ggtags flycheck-rust flycheck-pos-tip flycheck-mix flx-ido fish-mode find-by-pinyin-dired fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help ensime enh-ruby-mode engine-mode emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies edit-server diff-hl define-word dash-at-point cython-mode csv-mode company-web company-tern company-statistics company-shell company-quickhelp company-anaconda column-enforce-mode coffee-mode clean-aindent-mode chruby calfw bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile arduino-mode alchemist aggressive-indent adaptive-wrap ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell)))
- '(projectile-completion-system (quote helm) t)
+    (skewer-mode powerline google-maps pcre2el vimrc-mode dactyl-mode seq spinner vmd-mode restclient-helm ob-restclient company-restclient know-your-http-well highlight gh origami ox-jira org-jira geeknote jq-mode multiple-cursors inf-ruby helm-purpose insert-shebang hide-comnt window-purpose inflections plantuml-mode doom-themes all-the-icons font-lock+ doom-one-theme minitest async zonokai-theme zenburn-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stekene-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme pastels-on-dark-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme firebelly-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme colorsarenice-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme systemd rebox2 imenu-list pug-mode cmake-mode undo-tree s elixir-mode iedit clojure-snippets clj-refactor edn paredit peg cider-eval-sexp-fu cider queue clojure-mode intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode clang-format ht simple-httpd rake osx-dictionary elfeed js2-mode anaconda-mode hydra alert auto-complete company yapfify request py-isort dumb-jump git-commit dash projectile evil rust-mode tern cargo anzu f sbt-mode smartparens scala-mode with-editor helm-core markdown-mode org avy flycheck helm magit yasnippet magit-popup evil-unimpaired pcache yaml-mode xterm-color ws-butler wolfram-mode window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org thrift tagedit stan-mode sql-indent spacemacs-theme spaceline solarized-theme smeargle slim-mode shell-pop selectric-mode scss-mode scad-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restclient restart-emacs rbenv ranger rainbow-delimiters racer quelpa qml-mode pyvenv pytest pyenv-mode py-yapf puml-mode projectile-rails pip-requirements persp-mode pdf-tools pbcopy paradox pangu-spacing pandoc-mode ox-twbs ox-reveal ox-pandoc ox-gfm osx-trash orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file ob-http nginx-mode neotree mwim multi-term mu4e-maildirs-extension mu4e-alert move-text mmm-mode matlab-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode launchctl julia-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mu helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gmail-message-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md ggtags flycheck-rust flycheck-pos-tip flycheck-mix flx-ido fish-mode find-by-pinyin-dired fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help ensime enh-ruby-mode engine-mode emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies edit-server diff-hl define-word dash-at-point cython-mode csv-mode company-web company-tern company-statistics company-shell company-quickhelp company-anaconda column-enforce-mode coffee-mode clean-aindent-mode chruby calfw bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile arduino-mode alchemist aggressive-indent adaptive-wrap ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell)))
+ '(plantuml-jar-path "/usr/local/Cellar/plantuml/8048/plantuml.8048.jar")
+ '(projectile-completion-system (quote helm))
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
- '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8046/plantuml.8046.jar")
  '(rake-completion-system (quote helm))
  '(ring-bell-function (quote ignore))
  '(rspec-primary-source-dirs (quote ("app" "lib" "src")))
- '(safe-local-variable-values (quote ((org-html-head))))
+ '(ruby-insert-encoding-magic-comment nil)
+ '(safe-local-variable-values
+   (quote
+    ((encoding . utf-8)
+     (elixir-enable-compilation-checking . t)
+     (elixir-enable-compilation-checking)
+     (org-html-head))))
  '(sp-highlight-pair-overlay nil)
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
  '(sql-connection-alist
@@ -545,6 +617,6 @@ layers configuration."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
- '(org-level-1 ((t (:inherit variable-pitch :foreground "#cb4b16" :height 1.3 :family "Optima")))))
+ '(org-level-1 ((t (:inherit variable-pitch :foreground "#cb4b16" :height 1.3 :family "PingFang SC"))))
+ '(org-level-2 ((t (:inherit variable-pitch :foreground "#859900" :height 1.2 :family "PingFang SC"))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#268bd2" :height 1.15 :family "PingFang SC"))))))

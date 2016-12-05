@@ -1,4 +1,9 @@
 (with-eval-after-load 'inf-ruby
+
+  (defun lx/last-pry-proc ()
+    (or (get-buffer-process (--first (-contains? '(inf-ruby-mode term-mode) (with-current-buffer it major-mode)) (buffer-list)))
+        (error "No current process.")))
+
   (defun ruby-send-region (start end &optional print)
     "Send the current region to the inferior Ruby process."
     (interactive "r\nP")
@@ -46,7 +51,7 @@
     (interactive)
     (lx/ruby-send-paragraph)
     (ruby-switch-to-inf t))
-  (spacemacs/set-leader-keys-for-major-mode 'enh-ruby-mode
+  (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
     "sl" 'lx/ruby-send-line
     "sL" 'lx/ruby-send-line-and-go
     "sp" 'lx/ruby-send-paragraph

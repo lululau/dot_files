@@ -1,7 +1,7 @@
 (spacemacs|use-package-add-hook org
   :post-config
   (progn
-    (defun org-babel-execute:puml (body params)
+    (defun org-babel-execute:plantuml (body params)
       "Execute a block of plantuml code with org-babel.
 This function is called by `org-babel-execute-src-block'."
       (let* ((result-params (split-string (or (cdr (assoc :results params)) "")))
@@ -29,6 +29,6 @@ This function is called by `org-babel-execute-src-block'."
         (message "%s" cmd) (org-babel-eval cmd "")
         nil)) ;; signal that output has already been written to file
 
-    (defun org-babel-prep-session:puml (session params)
+    (defun org-babel-prep-session:plantuml (session params)
       "Return an error because plantuml does not support sessions."
       (error "Plantuml does not support sessions"))))

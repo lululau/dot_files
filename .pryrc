@@ -1,7 +1,25 @@
 unless $USER_PRYRC_LOADED
 
   if defined?(Rails) && Rails.const_defined?("ConsoleMethods") && Rails.env
-    extend Rails::ConsoleMethods 
+    extend Rails::ConsoleMethods
+  end
+
+  if defined?(Rails) && Rails.root.to_s =~ /^#{ENV["HOME"]}\/kt\/(baton|notab)/
+    begin
+      BA = BaseAsset
+      VA = VirtualAsset
+      VC = VirtualAssetDailyCounter
+      RC = RoundDailyCounter
+      RP = RegisteredProduct
+      AU = AssetUnit
+      PS = PackageStrategy
+      PCR = ProductCodeRange
+      CI = ConsigneeInterest
+      AF = AttachFile
+      INS = Institution
+      TR = Transaction
+    rescue NameError
+    end
   end
 
   Pry.config.editor = "vim"
@@ -12,7 +30,7 @@ unless $USER_PRYRC_LOADED
   #   Pry.commands.rename_command 'n', 'next'
   # end
 
-  # if defined?(PryDebugger) || defined? (PryByebug) 
+  # if defined?(PryDebugger) || defined? (PryByebug)
   #   Pry.commands.rename_command 'b', 'break'
   #   Pry.commands.rename_command 'c', 'continue'
   #   Pry.commands.rename_command 's', 'step'
@@ -26,6 +44,7 @@ unless $USER_PRYRC_LOADED
   Pry.commands.rename_command 'n', 'next' if Pry.commands.valid_command?('next')
   Pry.commands.rename_command 'f', 'finish' if Pry.commands.valid_command?('finish')
 
+  Pry.commands.alias_command 'rc', 'reload-code'
   Pry.commands.alias_command 'ed', 'edit'
   Pry.commands.alias_command 'w', 'whereami'
   Pry.commands.alias_command 'pwd', 'nesting'
@@ -51,11 +70,19 @@ unless $USER_PRYRC_LOADED
 
   Pry.commands.alias_command 'load-factories', 'require-factories'
 
-  Pry.commands.block_command 'enable-mongoid-query-log' do
+  Pry.commands.block_command 'toggle-mongoid-query-log' do
     if Object.const_defined?(:Moped)
-      Moped.logger = Logger.new(STDOUT, :debug)
+      if $pry_previous_mongo_logger
+        $pry_previous_mongo_logger, Moped.logger = Moped.logger, $pry_previous_mongo_logger
+      else
+        $pry_previous_mongo_logger, Moped.logger = Moped.logger, Logger.new(STDOUT, :debug)
+      end
     else
-      Mongo::Logger.logger = Logger.new(STDOUT, :debug)
+      if $pry_previous_mongo_logger
+        $pry_previous_mongo_logger, Mongo::Logger.logger = Mongo::Logger.logger, $pry_previous_mongo_logger
+      else
+        $pry_previous_mongo_logger, Mongo::Logger.logger = Mongo::Logger.logger, Logger.new(STDOUT, :debug)
+      end
     end
   end
 
@@ -75,12 +102,12 @@ unless $USER_PRYRC_LOADED
   end
 
   def pbp_str
-    `pbpaste` 
+    `pbpaste`
   end
 
   def pc(contents)
     p = IO.popen("pbcopy", "w")
-    p.write(contents)
+    p.puts(contents)
     p.close
   end
 
@@ -99,6 +126,56 @@ unless $USER_PRYRC_LOADED
     with_out_str(&block).split("\n")
   end
 
+  def tt(data)
+    data.tt
+  end
+
+  def ttl(data)
+    data.ttl
+  end
+
+  class Array
+    def tt
+      unless defined? Terminal::Table
+        $:.concat(["unicode-display_width-1.1.1", "terminal-table-1.7.3"].map { |e| File.expand_path("~/.rvm/gems/ruby-#{RUBY_VERSION}/gems/#{e}/lib") })
+        require 'terminal-table'
+      end
+      puts
+      if Array === first
+        puts Terminal::Table.new rows: self
+      elsif Hash === first
+        puts Terminal::Table.new rows: map { |e| e.values }, headings: first.keys
+      else
+        puts Terminal::Table.new rows: [self]
+      end
+    end
+
+    def ttl
+      map { |e| [e] }.tt
+    end
+  end
+
+  class Hash
+    def tt
+      [self].tt
+    end
+
+    def ttl
+      xh.to_a.tt
+    end
+  end
+
+  module Mongoid
+    module Document
+      def tt(*fields)
+        if fields.size == 1 && fields[0].is_a?(Regexp)
+          fields = attributes.keys.grep(fields[0])
+        end
+        fields.map { |f| [f.to_s, send(f.to_s)]}.tt
+      end
+    end
+  end
+
   class Pry::Command::Ls::LocalVars
     def colorized_assignment_style(lhs, rhs, desired_width = 7)
       colorized_lhs = color(:local_var, lhs)
@@ -114,6 +191,6 @@ unless $USER_PRYRC_LOADED
     IRB.conf[:USE_READLINE] = false
     Pry.config.pager = false
     Pry.config.correct_indent = false
-    Pry.config.editor = "emacsclient"
+    Pry.config.editor = "emacs-other-window"
   end
 end

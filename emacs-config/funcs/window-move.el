@@ -41,3 +41,19 @@
           (neo-global--open)
           (select-window win)))
     (call-interactively 'evil-window-move-far-right)))
+
+(defmacro lx/def-window-frame-switch-function (direct-arg)
+  (let ((direct (eval direct-arg)))
+    `(defun ,(intern (format "lx/window-%s-fallback-to-switch-frame" direct)) ()
+       (interactive)
+       (condition-case
+           err
+           (call-interactively ',(intern (format "evil-window-%s" direct)))
+         (user-error (let ((message  (error-message-string err)))
+                       (if (and (= 2 (length (frame-list)))
+                                (string-match "Minibuffer is inactive\\|No Window \\w+ from selected window" message))
+                           (other-frame 1)
+                         (signal (car err) (cdr err)))))))))
+
+(lx/def-window-frame-switch-function 'up)
+(lx/def-window-frame-switch-function 'down)

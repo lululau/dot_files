@@ -114,4 +114,9 @@
   "oio" #'lx/open-org-info
   "oim" #'lx/open-mu4e-info
   "oig" #'lx/open-magit-info
-  "oiv" #'lx/open-evil-info)
+  "oiv" #'lx/open-evil-info
+
+  ;; project tmp files
+  "ops" #'lx/find-or-create-projectile-snippet-file
+  "oph" #'lx/find-or-create-projectile-request-file
+  )

@@ -48,7 +48,7 @@
 	cmd = /Volumes/SourceTree/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [user]
-	name = liuxiang
+	name = Liu Xiang
 	email = liuxiang@ktjr.com
 [github]
 	user = lululau
