@@ -21,8 +21,8 @@ Bundle 'toyamarinyon/vim-swift'
 
 " original repos on GitHub
 Bundle 'larrylv/ShowMarks'
-Bundle 'wincent/command-t'
-" Bundle 'kien/ctrlp.vim'
+" Bundle 'wincent/Command-T'
+Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-ragtag'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
@@ -158,7 +158,7 @@ set hlsearch
 set incsearch
 set ignorecase
 
-let g:fugitive_github_domains = ['http://github.umeng.com', 'http://gitlab.alibaba-inc.com']
+let g:fugitive_github_domains = ['http://github.ktjr.com']
 
 
 " vim-powerline configurations
@@ -333,9 +333,9 @@ let g:bufExplorerShowRelativePath=1 " BufExplorer: show relative paths
 
 
 " rails.vim configurations
-noremap <leader>c :Rcontroller<cr>
-noremap <leader>v :Rview<cr>
-noremap <leader>m :Rmodel<cr>
+noremap <leader>c :Econtroller<cr>
+noremap <leader>v :Eview<cr>
+noremap <leader>m :Emodel<cr>
 " map <leader>h :Rhelper<cr>
 
 " gist-vim configurations
@@ -346,12 +346,15 @@ let g:gist_detect_filetype = 1
 
 " vim-easymotion configurations
 " let g:EasyMotion_leader_key = '\\'
-let g:EasyMotion_mapping_f = 't'
-let g:EasyMotion_mapping_F = 'T'
-let g:EasyMotion_mapping_j = '<leader>j'
-let g:EasyMotion_mapping_k = '<leader>k'
-let g:EasyMotion_mapping_n = '<leader>n'
-let g:EasyMotion_mapping_N = '<leader>N'
+" let g:EasyMotion_mapping_f = 't'
+" let g:EasyMotion_mapping_F = 'T'
+" let g:EasyMotion_mapping_j = '<leader>j'
+" let g:EasyMotion_mapping_k = '<leader>k'
+" let g:EasyMotion_mapping_n = '<leader>n'
+" let g:EasyMotion_mapping_N = '<leader>N'
+let g:EasyMotion_smartcase = 1
+map <Leader>l <Plug>(easymotion-bd-jk)
+nmap <Leader>o <Plug>(easymotion-s2)
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -684,12 +687,18 @@ snoremap <c-x><c-s> <c-o>:w<CR>
 noremap <c-x><c-k> :bw!<CR>
 inoremap <c-x><c-k> <ESC>:bw!<CR>
 
-noremap <c-x><c-b> <ESC>:CommandTBuffer<CR>
-inoremap <c-x><c-b> <ESC>:CommandTBuffer<CR>
-noremap <c-x>b <ESC>:CommandTMRU<CR>
-inoremap <c-x>b <ESC>:CommandTMRU<CR>
-noremap <c-x><c-f> <ESC>:CommandT<CR>
-inoremap <c-x><c-f> <ESC>:CommandT<CR>
+" noremap <c-x><c-b> <ESC>:CommandTBuffer<CR>
+" inoremap <c-x><c-b> <ESC>:CommandTBuffer<CR>
+" noremap <c-x>b <ESC>:CommandTMRU<CR>
+" inoremap <c-x>b <ESC>:CommandTMRU<CR>
+" noremap <c-x><c-f> <ESC>:CommandT<CR>
+" inoremap <c-x><c-f> <ESC>:CommandT<CR>
+noremap <c-x><c-b> <ESC>:CtrlPBuffer<CR>
+inoremap <c-x><c-b> <ESC>:CtrlPBuffer<CR>
+noremap <c-x>b <ESC>:CtrlPMRU<CR>
+inoremap <c-x>b <ESC>:CtrlPMRU<CR>
+noremap <c-x><c-f> <ESC>:CtrlP<CR>
+inoremap <c-x><c-f> <ESC>:CtrlP<CR>
 noremap <esc><cr> o<ESC>
 cnoremap <c-p> <up>
 cnoremap <c-n> <down>

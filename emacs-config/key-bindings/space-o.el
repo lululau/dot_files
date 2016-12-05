@@ -5,55 +5,63 @@
 
 (defun lx/open-bookmarks.org ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/bookmarks.org"))
+  (find-file "~/Documents/org/bookmarks.org"))
 
 (defun lx/open-notes.org ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org"))
+  (find-file "~/Documents/org/notes.org"))
 
 (defun lx/open-rails-guides.org ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/rails-guides-org/rails-guides-index.org"))
+  (find-file "~/Documents/org/rails-guides-org/rails-guides-index.org"))
 
 (defun lx/open-http-demo ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.http"))
+  (find-file "~/Documents/org/demo/demo.http"))
 
 (defun lx/open-ruby-demo ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.rb"))
+  (find-file "~/Documents/org/demo/demo.rb"))
 
 (defun lx/open-perl-demo ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.pl"))
+  (find-file "~/Documents/org/demo/demo.pl"))
 
 (defun lx/open-python-demo ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.py"))
+  (find-file "~/Documents/org/demo/demo.py"))
 
 (defun lx/open-java-demo ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/Demo.java"))
+  (find-file "~/Documents/org/demo/Demo.java"))
 
 (defun lx/open-shell-demo ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.sh"))
+  (find-file "~/Documents/org/demo/demo.sh"))
 
 (defun lx/open-elisp-demo ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.el"))
+  (find-file "~/Documents/org/demo/demo.el"))
 
 (defun lx/open-org-demo ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.org"))
+  (find-file "~/Documents/org/demo/demo.org"))
 
 (defun lx/open-coffee-demo ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.coffee"))
+  (find-file "~/Documents/org/demo/demo.coffee"))
 
 (defun lx/open-yaml-demo ()
   (interactive)
-  (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/demo/demo.yaml"))
+  (find-file "~/Documents/org/demo/demo.yaml"))
+
+(defun lx/open-c-demo ()
+  (interactive)
+  (find-file "~/tmp/demo.c"))
+
+(defun lx/open-html-demo ()
+  (interactive)
+  (find-file "~/Documents/org/demo/demo.html"))
 
 (defun lx/open-emacs-info ()
   (interactive)
@@ -97,6 +105,8 @@
   "oeo" #'lx/open-org-demo
   "oec" #'lx/open-coffee-demo
   "oey" #'lx/open-yaml-demo
+  "oeH" #'lx/open-html-demo
+  "oeC" #'lx/open-c-demo
 
   ;; Info bookmarks
   "oie" #'lx/open-emacs-info

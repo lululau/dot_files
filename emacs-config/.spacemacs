@@ -1,7 +1,7 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
-
+(setenv "PATH" "")
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
   (setq-default
@@ -33,7 +33,7 @@
      (org :variables
           org-enable-github-support t
           org-enable-reveal-js-support t
-          org-projectile-file "~/Library/Mobile Documents/com~apple~CloudDocs/org/projects.org")
+          org-projectile-file "~/Documents/org/projects.org")
      (shell :variables
             shell-default-height 38
             shell-default-position 'bottom
@@ -53,12 +53,15 @@
      elixir
      shell-scripts
      dash
+     clojure
+     haskell
      emacs-lisp
      ;; evernote
      evil-commentary
      extra-langs
      html
      ;; java
+     c-c++
      javascript
      (python :variables python-test-runner '(nose))
      (restclient :variables restclient-use-org t)
@@ -83,6 +86,9 @@
      confluence
      ragtag
      org-yank-image
+     imenu-list
+     rebox
+     systemd
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
@@ -90,7 +96,7 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(calfw ox-twbs browse-at-remote ranger helm-mu)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim)
+   dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim pangu-spacing)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -191,7 +197,7 @@ before layers configuration."
    dotspacemacs-persistent-server nil
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
-   dotspacemacs-search-tools '("ack" "ag" "pt" "grep")
+   dotspacemacs-search-tools '("ag" "ack" "pt" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now.
@@ -218,6 +224,15 @@ layers configuration."
 
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
+  (setq-default
+   ;; js2-mode
+   js2-basic-offset 2
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
   (setq neo-vc-integration nil)
   (setq diff-hl-side 'left)
   (spacemacs/set-state-faces)
@@ -250,21 +265,22 @@ layers configuration."
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
         '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
-  (setq org-directory "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org")
-  (setq org-agenda-files (append (file-expand-wildcards "~/Library/Mobile Documents/com~apple~CloudDocs/org/**/*.org") (file-expand-wildcards  "~/Library/Mobile Documents/com~apple~CloudDocs/org/*.org")))
+  (setq org-directory "/Users/liuxiang/Documents/org")
+  (setq org-agenda-files (append (file-expand-wildcards "~/Documents/org/**/*.org") (file-expand-wildcards  "~/Documents/org/*.org")))
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
-  (setq org-mobile-inbox-for-pull "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/flagged.org")
+  (setq org-mobile-inbox-for-pull "/Users/liuxiang/Documents/org/flagged.org")
   (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
   (setq org-bullets-bullet-list '("𝌆" "𝌇" "𝌎" "𝌓" "𝌮"))
   (setq org-link-search-must-match-exact-headline nil)
 
+  (setq org-projectile:capture-template "* TODO %? %a\n")
   (add-hook 'org-capture-after-finalize-hook #'lx/delete-global-org-capture-frame)
 
   (setq comint-input-ring-file-name "~/.pry_history")
   (setq comint-input-ring-size 100000)
   (remove-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)
-  (add-hook 'enh-ruby-mode-hook 'projectile-bundler-on)
+  (add-hook 'after-change-major-mode-hook 'projectile-rails-on)
   (add-hook 'inf-ruby-mode-hook #'(lambda ()
                                     (interactive)
                                     (comint-read-input-ring)
@@ -281,9 +297,32 @@ layers configuration."
   (setq inf-ruby-eval-binding "Pry.toplevel_binding")
   (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
   (setq company-minimum-prefix-length 1)
-
-  (setq org-default-notes-file "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/org/notes.org")
+  (setq spacemacs-space-doc-modificators
+        '(spacemacs//space-doc-org-indent-mode
+          spacemacs//space-doc-view-mode
+          spacemacs//space-doc-hide-line-numbers
+          spacemacs//space-doc-emphasis-overlays
+          spacemacs//space-doc-meta-tags-overlays
+          spacemacs//space-doc-link-protocol
+          spacemacs//space-doc-org-block-line-face-remap
+          spacemacs//space-doc-org-kbd-face-remap
+          spacemacs//space-doc-resize-inline-images
+          spacemacs//space-doc-advice-org-do-emphasis-faces))
+  (setq org-default-notes-file "/Users/liuxiang/Documents/org/notes.org")
   (setq org-html-doctype "html5")
+  (setq git-link-remote-alist
+        '(("github.ktjr.com"    git-link-github)
+          ("github.com"    git-link-github)
+          ("bitbucket.org" git-link-bitbucket)
+          ("gitorious.org" git-link-gitorious)
+          ("gitlab.com"    git-link-gitlab)))
+
+  (setq git-link-commit-remote-alist
+    '(("github.ktjr.com" git-link-commit-github)
+      ("github.com"    git-link-commit-github)
+      ("bitbucket.org" git-link-commit-bitbucket)
+      ("gitorious.org" git-link-commit-gitorious)
+      ("gitlab.com"    git-link-commit-github)))
 
   ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://orgmode.org/worg/style/worg.css\" type=\"text/css\" />")
   (setq org-html-head "<link rel=\"stylesheet\" href=\"http://dakrone.github.io/org.css\" type=\"text/css\" />")
@@ -293,7 +332,7 @@ layers configuration."
 
   (setq auto-mode-alist (cons '("\\.apib\\'" . markdown-mode) auto-mode-alist))
 
-  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")
+  (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/8046/plantuml.8046.jar")
 
   (add-hook 'term-mode-hook #'(lambda () (interactive)
                                 (define-key term-raw-map (kbd "<M-backspace>") #'term-send-raw-meta)
@@ -364,15 +403,15 @@ layers configuration."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ahs-case-fold-search nil)
- '(ahs-default-range (quote ahs-range-whole-buffer))
- '(ahs-idle-interval 0.25)
+ '(ahs-case-fold-search nil t)
+ '(ahs-default-range (quote ahs-range-whole-buffer) t)
+ '(ahs-idle-interval 0.25 t)
  '(ahs-idle-timer 0 t)
- '(ahs-inhibit-face-list nil)
+ '(ahs-inhibit-face-list nil t)
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(avy-keys (quote (97 115 100 106 107 108 119 111 112)))
- '(browse-at-remote/remote-type-domains
+ '(browse-at-remote-remote-type-domains
    (quote
     (("bitbucket.org" . "bitbucket")
      ("github.com" . "github")
@@ -431,11 +470,18 @@ layers configuration."
  '(diff-hl-margin-mode nil)
  '(enh-ruby-add-encoding-comment-on-save nil)
  '(flycheck-disabled-checkers (quote (ruby-rubocop ruby-rubylint)))
+ '(gh-profile-alist
+   (quote
+    (("github" :url "https://api.github.com" :remote-regexp "^\\(?:git@github\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?")
+     ("kaitong" :url "https://github.ktjr.com/api/v3" :remote-regexp "^\\(?:git@github\\.ktjr\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.ktjr\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?"))))
+ '(helm-ag-command-option "-U")
+ '(helm-ag-ignore-patterns (quote (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "log")))
+ '(helm-ag-use-agignore t)
  '(helm-dash-browser-func (quote lx/browse-url-in-safari))
  '(helm-gtags-fuzzy-match t)
  '(helm-gtags-preselect t)
  '(helm-imenu-fuzzy-match t)
- '(helm-mu-default-search-string "(maildir:/INBOX OR maildir:/\"Sent Messages\")")
+ '(helm-mu-default-search-string "(m:/INBOX or m:/\"Sent Messages\" or m:/Archive)")
  '(helm-mu-gnu-sed-program "gsed")
  '(inf-ruby-implementations
    (quote
@@ -472,19 +518,18 @@ layers configuration."
       "* TODO %?
   %u"))))
  '(org-confirm-babel-evaluate nil)
- '(package-archives
+ '(package-selected-packages
    (quote
-    (("melpa" . "https://elpa.zilongshanren.com/melpa/")
-     ("org" . "https://elpa.zilongshanren.com/org/")
-     ("gnu" . "https://elpa.zilongshanren.com/gnu/"))))
- '(projectile-completion-system (quote helm))
+    (undo-tree s elixir-mode iedit clojure-snippets clj-refactor edn paredit peg cider-eval-sexp-fu cider queue clojure-mode intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode clang-format ht simple-httpd rake osx-dictionary elfeed js2-mode anaconda-mode hydra alert auto-complete company yapfify request py-isort dumb-jump git-commit dash projectile evil rust-mode tern cargo anzu f sbt-mode smartparens scala-mode with-editor helm-core markdown-mode org avy flycheck helm magit yasnippet magit-popup evil-unimpaired pcache yaml-mode xterm-color ws-butler wolfram-mode window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org thrift tagedit stan-mode sql-indent spacemacs-theme spaceline solarized-theme smeargle slim-mode shell-pop selectric-mode scss-mode scad-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restclient restart-emacs rbenv ranger rainbow-delimiters racer quelpa qml-mode pyvenv pytest pyenv-mode py-yapf puml-mode projectile-rails pip-requirements persp-mode pdf-tools pbcopy paradox pangu-spacing pandoc-mode ox-twbs ox-reveal ox-pandoc ox-gfm osx-trash orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file ob-http nginx-mode neotree mwim multi-term mu4e-maildirs-extension mu4e-alert move-text mmm-mode matlab-mode markdown-toc magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode launchctl julia-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mu helm-mode-manager helm-make helm-gtags helm-gitignore helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gmail-message-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh-md ggtags flycheck-rust flycheck-pos-tip flycheck-mix flx-ido fish-mode find-by-pinyin-dired fill-column-indicator feature-mode fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help ensime enh-ruby-mode engine-mode emmet-mode elisp-slime-nav elfeed-web elfeed-org elfeed-goodies edit-server diff-hl define-word dash-at-point cython-mode csv-mode company-web company-tern company-statistics company-shell company-quickhelp company-anaconda column-enforce-mode coffee-mode clean-aindent-mode chruby calfw bundler browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile arduino-mode alchemist aggressive-indent adaptive-wrap ace-window ace-pinyin ace-link ace-jump-helm-line ac-ispell)))
+ '(projectile-completion-system (quote helm) t)
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
- '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8041/plantuml.8041.jar")
+ '(puml-plantuml-jar-path "/usr/local/Cellar/plantuml/8046/plantuml.8046.jar")
  '(rake-completion-system (quote helm))
- '(ring-bell-function (quote ignore) t)
+ '(ring-bell-function (quote ignore))
  '(rspec-primary-source-dirs (quote ("app" "lib" "src")))
  '(safe-local-variable-values (quote ((org-html-head))))
+ '(sp-highlight-pair-overlay nil)
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
  '(sql-connection-alist
    (quote

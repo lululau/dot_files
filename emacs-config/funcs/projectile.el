@@ -25,3 +25,7 @@
                  (buf (cadr (projectile-project-buffers))))
             (switch-to-buffer buf)))
       (call-interactively #'spacemacs/alternate-buffer-in-persp))))
+
+(defun lx/find-or-create-projectile-snippet-file ()
+  (interactive)
+  (find-file (format "%s/tmp/snippets.rb" (projectile-project-root))))

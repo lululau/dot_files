@@ -6,7 +6,24 @@ defaults:
 groups:
   work-servers:
     hosts:
-      dev1:
+      dev01:
         hostname: dev01.kaitongamc.com
+        username: deploy
+        port: 22
+        command: 'PATH=$PATH:/home/deploy/liuxiang/local/bin ZDOTDIR=/home/deploy/liuxiang/ exec /home/deploy/liuxiang/local/bin/zsh --login'
+      dev02:
+        hostname: dev02.kaitongamc.com
+        username: deploy
+        port: 22
+      dev03:
+        hostname: 10.132.1.233
+        username: deploy
+        port: 22
+      dev04:
+        hostname: 10.132.1.246
+        username: deploy
+        port: 22
+      github:
+        hostname: 10.132.1.247
         username: deploy
         port: 22

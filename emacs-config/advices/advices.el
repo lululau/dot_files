@@ -90,10 +90,30 @@ https://github.com/abo-abo/swiper")))
          (if (not (comint-check-proc inf-ruby-buffer)) (rvm-activate-corresponding-ruby))
          (with-current-buffer (run-ruby
                                (projectile-rails-with-preloader
-                                :spring "bundle exec spring rails console"
+                                :spring "spring rails console"
                                 :zeus "zeus console"
                                 :vanilla "bundle exec rails console") (concat "*" (projectile-project-name)  "railsconsole*") (concat "*" (projectile-project-name)  "railsconsole*"))
            (projectile-rails-mode +1))))))
+
+(advice-add
+ 'projectile-rails-spring-p
+ :override
+ #'(lambda ()
+     (let ((root (directory-file-name (projectile-rails-root))))
+       (or
+        ;; Older versions
+        (file-exists-p (format "%s/tmp/spring/spring.pid" root))
+        ;; 0.9.2+
+        (file-exists-p (format "%s/spring/%s.pid" temporary-file-directory (md5 root)))
+        ;; 1.2.0+
+        (let* ((path (or (getenv "XDG_RUNTIME_DIR") temporary-file-directory))
+               (ruby-version (shell-command-to-string "ruby -e 'print RUBY_VERSION'"))
+               (application-id (md5 (concat ruby-version root))))
+          (or
+           (file-exists-p (format "%s/spring/%s.pid" path application-id))
+           ;; 1.5.0+
+           (file-exists-p (format "%s/spring-%s/%s.pid" path (user-real-uid) application-id))))))
+     ))
 
 (advice-add 'evil-refresh-cursor :override #'(lambda (&optional state buffer)
   "Refresh the cursor for STATE in BUFFER.
@@ -124,3 +144,22 @@ BUFFER defaults to the current buffer."
                                              (setq avy-last-goto-entity (cons 'ace-pinyin-jump-char-2 args))))
 
 (global-set-key (kbd "s-.") #'(lambda () (interactive) (eval avy-last-goto-entity)))
+
+(advice-add
+ 'ggtags-eldoc-function
+ :after-until
+ #'(lambda (&rest args)
+     (let* ((current-symbol (eldoc-current-symbol))
+            (current-fnsym  (eldoc-fnsym-in-current-sexp))
+            (doc (cond
+                  ((null current-fnsym)
+                   nil)
+                  ((eq current-symbol (car current-fnsym))
+                   (or (apply 'eldoc-get-fnsym-args-string
+                              current-fnsym)
+                       (eldoc-get-var-docstring current-symbol)))
+                  (t
+                   (or (eldoc-get-var-docstring current-symbol)
+                       (apply 'eldoc-get-fnsym-args-string
+                              current-fnsym))))))
+       doc)))

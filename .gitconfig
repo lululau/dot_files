@@ -30,6 +30,9 @@
 	l = log
 	d = diff
 	dd = diff --cached
+  rb = rebase
+  rbi = rebase -i
+  rbc = rebase --continue
 [filter "media"]
 	required = true
 	clean = git media clean %f
@@ -61,3 +64,7 @@
 	cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
 [merge]
 	tool = Kaleidoscope
+[github "kaitong"]
+	user = liuxiang
+[pull]
+	rebase = true

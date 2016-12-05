@@ -4,13 +4,14 @@ ZSH=$HOME/liuxiang/.oh-my-zsh
 export AUTOJUMP_KEEP_SYMLINKS=1
 
 alias -- +x='chmod +x '
+alias -- '--=git checkout -'
 alias l1='ls -1'
 alias cdg='cd ~liuxiang/git-umeng'
 alias e='emacsclient -n'
 alias guse='rvm gemset use'
 alias gls='rvm gemset list'
 alias ls="ls -G"
-alias go="open"
+# alias go="open"
 alias grep="grep --color=auto"
 alias ggrep="ggrep --color=auto"
 export GREP_COLOR=$'\e[43;30'
@@ -23,10 +24,9 @@ export CLICOLOR=1
 # export LSCOLORS=ExFxCxDxBxegedabagacad
 export LANG=zh_CN.UTF-8
 export MAGICK_HOME=/opt/local
-export GOROOT=$HOME/go
-export GOOS=darwin
-export GOARCH=amd64
-export GOBIN=$HOME/gobin
+# export GOOS=darwin
+# export GOARCH=amd64
+# export GOBIN=$HOME/gobin
 export GROOVY_HOME=/usr/lib/groovy
 export TERM2NARROW=false
 

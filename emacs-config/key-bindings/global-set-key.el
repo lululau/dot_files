@@ -4,7 +4,9 @@
 (global-set-key (kbd "s-t") 'split-window-right-and-focus)
 (global-set-key (kbd "s-T") 'split-window-below-and-focus)
 (global-set-key (kbd "s-o") 'helm-projectile-find-file)
+(global-set-key (kbd "s-O") 'helm-projectile-find-file-dwim)
 (global-set-key (kbd "s-f") 'spacemacs/helm-find-files)
+(global-set-key (kbd "M-s-f") 'helm-find)
 (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
 (global-set-key (kbd "s-F") 'helm-locate)
 (global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (progn (setq saved-ido-make-buffer-list-hook ido-make-buffer-list-hook) (setq ido-make-buffer-list-hook nil) (helm-mini) (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook)) (error (progn (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook) (helm-keyboard-quit))))))
@@ -13,8 +15,8 @@
 (global-set-key (kbd "s-P") 'spacemacs/helm-persp-switch-project)
 (global-set-key (kbd "s-L") 'spacemacs/helm-perspectives)
 (global-set-key (kbd "s-;") '(lambda() (interactive) (if (and (boundp 'inf-ruby-buffer) (equal inf-ruby-buffer (buffer-name))) (delete-window) (if (or (not (boundp 'inf-ruby-buffer)) (not (comint-check-proc inf-ruby-buffer)))  (rvm-use-default)) (call-interactively 'inf-ruby))))
-(global-set-key (kbd "s-[") 'spacemacs/previous-useful-buffer)
-(global-set-key (kbd "s-]") 'spacemacs/next-useful-buffer)
+(global-set-key (kbd "s-[") 'previous-buffer)
+(global-set-key (kbd "s-]") 'next-buffer)
 (global-set-key (kbd "s-/") 'evilnc-comment-or-uncomment-lines)
 (global-set-key (kbd "s-\\") 'lx/switch-to-previous-perp)
 (global-set-key (kbd "s-M-'") #'(lambda () (interactive) (call-interactively 'split-window-right-and-focus) (ansi-term "/bin/zsh")))
@@ -32,6 +34,7 @@
 (global-set-key (kbd "s-r s") 'projectile-rails-server)
 (global-set-key (kbd "s-r s-r") 'rvm-activate-corresponding-ruby)
 (global-set-key (kbd "s-u") 'universal-argument)
+(define-key universal-argument-map (kbd "s-u") 'universal-argument-more)
 (global-set-key [M-s-tab] #'spacemacs/alternate-buffer-in-persp)
 (global-set-key [M-S-tab] #'projectile-project-switch-to-alternate-buffer)
 
@@ -51,10 +54,10 @@
 (global-set-key (kbd "M-k") #'evil-window-up)
 (global-set-key (kbd "M-l") #'evil-window-right)
 
-(global-set-key (kbd "M-H") #'evil-window-move-far-left)
-(global-set-key (kbd "M-J") #'evil-window-move-very-bottom)
-(global-set-key (kbd "M-K") #'evil-window-move-very-top)
-(global-set-key (kbd "M-L") #'evil-window-move-far-right)
+(global-set-key (kbd "M-H") #'lx/window-move-far-left)
+(global-set-key (kbd "M-J") #'lx/window-move-very-bottom)
+(global-set-key (kbd "M-K") #'lx/window-move-very-top)
+(global-set-key (kbd "M-L") #'lx/window-move-far-right)
 
 (global-set-key (kbd "s-M") #'helm-mu)
 
