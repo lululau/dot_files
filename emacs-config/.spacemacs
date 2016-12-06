@@ -411,12 +411,6 @@ layers configuration."
 
 ;; (desktop-save-mode 1)
 (defadvice split-window-right (after split-window-right-and-balance activate) (balance-windows))
-
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -601,6 +595,7 @@ This function is called at the very end of Spacemacs initialization."
       (sql-database "test")
       (sql-server "")))))
  '(vc-follow-symlinks t))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -608,4 +603,12 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(org-level-1 ((t (:inherit variable-pitch :foreground "#cb4b16" :height 1.3 :family "PingFang SC"))))
  '(org-level-2 ((t (:inherit variable-pitch :foreground "#859900" :height 1.2 :family "PingFang SC"))))
- '(org-level-3 ((t (:inherit variable-pitch :foreground "#268bd2" :height 1.15 :family "PingFang SC"))))))
+ '(org-level-3 ((t (:inherit variable-pitch :foreground "#268bd2" :height 1.15 :family "PingFang SC")))))
+
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+
+)
