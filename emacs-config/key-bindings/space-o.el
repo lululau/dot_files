@@ -59,6 +59,10 @@
   (interactive)
   (find-file "~/tmp/demo.c"))
 
+(defun lx/open-txt-demo ()
+  (interactive)
+  (find-file "~/tmp/demo.txt"))
+
 (defun lx/open-html-demo ()
   (interactive)
   (find-file "~/Documents/org/demo/demo.html"))
@@ -107,6 +111,7 @@
   "oey" #'lx/open-yaml-demo
   "oeH" #'lx/open-html-demo
   "oeC" #'lx/open-c-demo
+  "oet" #'lx/open-txt-demo
 
   ;; Info bookmarks
   "oie" #'lx/open-emacs-info
