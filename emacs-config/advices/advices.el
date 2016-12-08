@@ -81,6 +81,20 @@ https://github.com/abo-abo/swiper")))
         (error "Found inf-ruby buffer for directory %s but it was run with different COMMAND and/or NAME."
                (expand-file-name default-directory)))))))
 
+(advice-add 'run-ruby-or-pop-to-buffer :override #'(lambda (command &optional name buffer)
+  (if (not (and buffer
+                (comint-check-proc buffer)
+                (string= inf-ruby-buffer-impl-name name)
+                (string= inf-ruby-buffer-command command)))
+      (run-ruby command name)
+    (pop-to-buffer buffer)
+    (unless (and (string= inf-ruby-buffer-impl-name name)
+                 (string= inf-ruby-buffer-command command))
+      (error (concat "Found inf-ruby buffer, but it was created using "
+                     "a different NAME-COMMAND combination: %s, `%s'")
+             inf-ruby-buffer-impl-name
+             inf-ruby-buffer-command)))))
+
 (advice-add 'projectile-rails-server :override #'(lambda (port)
       (interactive "P")
       (require 'inf-ruby)
