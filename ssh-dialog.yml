@@ -1,42 +1,39 @@
 # ~/.config/ssh-dialog.yml
 
 defaults:
-  username: deploy
 
 groups:
   pro-servers:
     hosts:
+      kt01:
+        hostname: kt01
+        # command: 'PATH=$PATH:/home/deploy/liuxiang/local/bin ZDOTDIR=/home/deploy/liuxiang/ exec /home/deploy/liuxiang/local/bin/zsh --login'
+        command: lxzsh
+      kt02:
+        hostname: kt02
+      kt03:
+        hostname: kt03
+        command: lxzsh
+      kt04:
+        hostname: kt04
   test-servers:
     hosts:
       dev01:
-        hostname: dev01.kaitongamc.com
-        username: deploy
-        port: 22
-        command: 'PATH=$PATH:/home/deploy/liuxiang/local/bin ZDOTDIR=/home/deploy/liuxiang/ exec /home/deploy/liuxiang/local/bin/zsh --login'
+        hostname: dev01
+        command: lxzsh
       dev02:
-        hostname: dev02.kaitongamc.com
-        username: deploy
-        port: 22
+        hostname: dev02
       dev03:
-        hostname: 10.132.1.233
-        username: deploy
-        port: 22
+        hostname: dev03
       dev04:
-        hostname: 10.132.1.246
-        username: deploy
-        port: 22
+        hostname: dev04
       dev05:
-        hostname: 10.132.1.235
-        username: deploy
-        port: 22
+        hostname: dev05
       dev005:
-        hostname: 124.65.107.154
-        username: deploy
+        hostname: dev005
         port: 3022
       github:
-        hostname: 10.132.1.247
-        username: deploy
-        port: 22
+        hostname: gh
   vagrants:
     hosts:
       default:
@@ -46,4 +43,3 @@ groups:
       centos:
         hostname: 172.28.128.3
         username: vagrant
-        port: 22
