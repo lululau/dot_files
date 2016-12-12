@@ -104,7 +104,7 @@ plugins=(git autojump colorize colored-man command-not-found compleat cp
          cpanm encode64 gem github gnu-utils go golang history jruby
          mvn node npm osx perl pip python rails rake rsync ruby
          rvm safe-paste scala screen svn terminalapp terminitor themes
-         bundler httpie ack2 funcfind gemcd alibas vagrant tmux)
+         bundler httpie ack2 funcfind gemcd alibas vagrant tmux tmuxinator)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -231,6 +231,6 @@ export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # source ~/.xsh
 
-source /Users/liuxiang/.iterm2_shell_integration.zsh
+source ~/.iterm2_shell_integration.zsh
 
 # source ~/.profile
