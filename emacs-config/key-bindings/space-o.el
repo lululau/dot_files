@@ -2,6 +2,8 @@
 (spacemacs/declare-prefix "oo" "open org files")
 (spacemacs/declare-prefix "oi" "open info nodes")
 (spacemacs/declare-prefix "oe" "open demo files")
+(spacemacs/declare-prefix "op" "open project files")
+(spacemacs/declare-prefix "oc" "open config files")
 
 (defun lx/open-bookmarks.org ()
   (interactive)
@@ -91,6 +93,34 @@
   (interactive)
   (org-open-link-from-string "info:evil#Top"))
 
+(defun lx/edit-etc-hosts ()
+  (interactive)
+  (find-file "/sudo:root@localhost:/etc/hosts"))
+
+(defun lx/edit-zshrc ()
+  (interactive)
+  (find-file "~/.zshrc"))
+
+(defun lx/edit-pryrc ()
+  (interactive)
+  (find-file "~/.pryrc"))
+
+(defun lx/edit-ssh-dialog-config ()
+  (interactive)
+  (find-file "~/.config/ssh-dialog.yml"))
+
+(defun lx/edit-ssh-config ()
+  (interactive)
+  (find-file "~/.ssh/config"))
+
+(defun lx/edit-tmux-config ()
+  (interactive)
+  (find-file "~/.tmux.conf"))
+
+(defun lx/edit-vimrc ()
+  (interactive)
+  (find-file "~/.vimrc"))
+
 (spacemacs/set-leader-keys
 
   ;; Org
@@ -124,4 +154,13 @@
   ;; project tmp files
   "ops" #'lx/find-or-create-projectile-snippet-file
   "oph" #'lx/find-or-create-projectile-request-file
+
+  ;; Config files
+  "och" #'lx/edit-etc-hosts
+  "ocp" #'lx/edit-pryrc
+  "ocz" #'lx/edit-zshrc
+  "ocd" #'lx/edit-ssh-dialog-config
+  "ocs" #'lx/edit-ssh-config
+  "oct" #'lx/edit-tmux-config
+  "ocv" #'lx/edit-vim-config
   )
