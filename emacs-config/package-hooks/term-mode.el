@@ -1,12 +1,12 @@
 (with-eval-after-load 'term
   (define-key term-raw-map
-    (kbd "<S-return>") #'(lambda ()
+    (kbd (if (display-graphic-p) "<S-return>" "S-RET")) #'(lambda ()
                            (interactive)
                            (shell-pop--cd-to-cwd
                             (with-current-buffer (get-buffer shell-pop-last-buffer) (projectile-project-root)))))
 
   (define-key term-raw-map
-    (kbd "<s-return>") #'(lambda ()
+    (kbd (if (display-graphic-p) "<s-return>" "s-RET")) #'(lambda ()
                            (interactive)
                            (shell-pop--cd-to-cwd
                             (file-name-directory
