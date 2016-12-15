@@ -22,6 +22,8 @@
         ("date:today..now" "Today's messages" ?t)
         ("date:7d..now" "Last 7 days" ?w)
         ("mime:image/*" "Messages with images" ?p)
+        ("subject:本周上线计划" "本周上线计划" ?s)
+        ("subject:JIRA" "JIRA" ?j)
         (,(mapconcat 'identity
                      (mapcar
                       (lambda (maildir)
