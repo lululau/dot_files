@@ -36,7 +36,9 @@ Session.vim
 .netrwhist
 *~
 
-secrets
+/secrets/*
+!/secrets/*.secret
+
 /mpv
 /private
 /imap_inotify/config.json
