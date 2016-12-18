@@ -112,6 +112,8 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
+bindkey '^Xk' autosuggest-clear
+
 compdef _ack2_completion ack
 
 function emacs() {
