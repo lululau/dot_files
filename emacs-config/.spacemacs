@@ -1,7 +1,35 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
-(setenv "PATH" "")
+
+(defun lx/system-is-linux()
+  (eq system-type 'gnu/linux))
+
+(defun lx/system-is-mac()
+  (eq system-type 'darwin))
+
+(if (lx/system-is-mac) (setenv "PATH" ""))
+
+(if (and (lx/system-is-linux) (file-exists-p "~/liuxiang"))
+    (progn
+      (setq lx/conf-layer-path "~/liuxiang/spacemacs-layers"
+            lx/snippets-path  "~/liuxiang/.config/emacs-config/snippets"
+            lx/default-shell "~/liuxiang/local/bin/zsh"
+            lx/spacemacs-banner '000
+            lx/spacemacs-themes '(spacemacs-dark)
+            lx/emacs-config-init-el "~/liuxiang/.config/emacs-config/init.el"
+            lx/emacs-text-objects-init-el "~/liuxiang/.config/emacs-config/text-objects/init.el"
+            lx/emacs-key-bindings-init-el "~/liuxiang/.config/emacs-config/key-bindings/init.el"))
+  (setq lx/conf-layer-path "~/cascode/github.com/spacemacs-layers"
+        lx/snippets-path  "~/.config/emacs-config/snippets"
+        lx/default-shell "/bin/zsh"
+        lx/spacemacs-banner 'official
+        lx/spacemacs-themes '(solarized-light spacemacs-dark)
+        lx/emacs-config-init-el "~/.config/emacs-config/init.el"
+        lx/emacs-text-objects-init-el "~/.config/emacs-config/text-objects/init.el"
+        lx/emacs-key-bindings-init-el "~/.config/emacs-config/key-bindings/init.el"))
+
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
   (setq-default
@@ -11,11 +39,11 @@
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '("~/cascode/github.com/spacemacs-layers")
+   dotspacemacs-configuration-layer-path (list lx/conf-layer-path)
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
-   '(
+   `(
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -26,7 +54,7 @@
                       auto-completion-tab-key-behavior 'complete
                       auto-completion-show-snippets-in-popup t
                       auto-completion-enable-snippets-in-popup t
-                      auto-completion-private-snippets-directory "~/.config/emacs-config/snippets")
+                      auto-completion-private-snippets-directory ,lx/snippets-path)
      better-defaults
      emacs-lisp
      git
@@ -43,7 +71,7 @@
             shell-default-height 38
             shell-default-position 'bottom
             shell-default-shell 'ansi-term
-            shell-default-term-shell "/bin/zsh")
+            shell-default-term-shell ,lx/default-shell)
      syntax-checking
      (version-control :variables
                       version-control-diff-tool 'diff-hl
@@ -108,7 +136,24 @@
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
-   dotspacemacs-delete-orphan-packages t))
+   dotspacemacs-delete-orphan-packages t)
+
+  (if (lx/system-is-linux)
+      (let ((lx/conf-layers '()))
+        (mapc (lambda (it)
+                (unless (or (eq it 'pandoc)
+                        (eq it 'dash)
+                        (eq it 'chrome)
+                        (eq it 'gnus)
+                        (eq it 'pdf-tools)
+                        (eq it 'org-jira)
+                        (eq it 'osx)
+                        (eq (car-safe it) 'mu4e)
+                        (eq (car-safe it) 'elfeed)
+                        (eq it 'dash))
+                  (add-to-list 'lx/conf-layers it)
+                    )) dotspacemacs-configuration-layers)
+        (setq-default dotspacemacs-configuration-layers lx/conf-layers))))
 
 (defun dotspacemacs/user-init ()
   "Initialization function.
@@ -128,14 +173,14 @@ before layers configuration."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed.
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner lx/spacemacs-banner
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
    dotspacemacs-startup-lists '(recents projects)
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(solarized-light spacemacs-dark)
+   dotspacemacs-themes lx/spacemacs-themes
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -221,7 +266,7 @@ before layers configuration."
           ("org-cn"   . "http://elpa.zilongshanren.com/org/")
           ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
 
-  (load-file "~/.config/emacs-config/init.el")
+  (load-file lx/emacs-config-init-el)
 
   (setq-default ruby-version-manager 'rvm)
   (setq-default ruby-enable-ruby-on-rails-support t)
@@ -235,8 +280,8 @@ before layers configuration."
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
 
-  (load-file "~/.config/emacs-config/text-objects/init.el")
-  (load-file "~/.config/emacs-config/key-bindings/init.el")
+  (load-file lx/emacs-text-objects-init-el)
+  (load-file lx/emacs-key-bindings-init-el)
   ;; (load-file "~/.config/emacs-config/doom-themes.el")
 
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
@@ -286,7 +331,7 @@ layers configuration."
                                    (if (string-match (concat "^" (getenv "HOME")) (buffer-file-name))
                                        (concat "~" (substring (buffer-file-name) (length (getenv "HOME"))))
                                      (buffer-file-name)) (buffer-name)))))
-  (load-file "~/.config/secrets/paradox-github-token.el")
+  (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
   (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
 
   (setq edit-server-new-frame nil)

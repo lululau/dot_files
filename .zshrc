@@ -1,5 +1,26 @@
 # Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
+    ZSH=$HOME/liuxiang/.oh-my-zsh
+else
+    ZSH=$HOME/.oh-my-zsh
+fi
+
+# Linux Specific Config
+if uname | grep -q Linux; then
+    if [ -e $HOME/liuxiang ]; then
+        export SHELL=/home/deploy/liuxiang/local/bin/zsh
+        alias tmux='tmux -L liuxiang -f /home/deploy/liuxiang/.tmux.conf'
+    fi
+    alias ta='tmux attach -t'
+    alias tad='tmux attach -d -t'
+    alias ts='tmux new-session -s'
+    alias tl='tmux list-sessions'
+    alias tksv='tmux kill-server'
+    alias tkss='tmux kill-session -t'
+    alias e='emacsclient -t'
+    alias vim="vim -u ~/liuxiang/.vimrc"
+    export SCREENRC=$HOME/liuxiang/.screenrc
+fi
 
 export AUTOJUMP_KEEP_SYMLINKS=1
 
@@ -62,6 +83,7 @@ alias aaaaaaaa='cd ../../../../../../../../'
 alias aaaaaaaaa='cd ../../../../../../../../../'
 alias rspec='rspec -I. -fd --color'
 alias vih="sudo vim /etc/hosts"
+
 export PAGER='less -R'
 export RI='-f ansi'
 
@@ -102,12 +124,22 @@ autoload -U zmv
 #          mvn mysql-macports node npm osx perl pip python rails rake rsync ruby
 #          rvm safe-paste scala screen svn terminalapp terminitor textmate themes
 #          bundler httpie ack2 funcfind gemcd alibas vagrant tmux)
-plugins=(git autojump colorize colored-man command-not-found compleat cp
-         cpanm encode64 gem github gnu-utils go golang history jruby bd tmux-pane-words
-         mvn node npm osx perl pip python rails rake rsync ruby zsh-autosuggestions
-         rvm safe-paste scala screen svn terminalapp terminitor themes autopair
-         brew zsh-brew-services
-         bundler httpie ack2 funcfind gemcd alibas vagrant tmux tmuxinator)
+
+if uname | grep -q Linux; then
+    plugins=(git autojump colorize colored-man command-not-found compleat cp
+            cpanm encode64 gem github gnu-utils go golang history jruby bd tmux-pane-words
+            mvn node npm osx perl pip python rails rake rsync ruby zsh-autosuggestions
+            rvm safe-paste scala screen svn terminalapp terminitor themes autopair
+            brew zsh-brew-services
+            bundler httpie ack2 funcfind gemcd alibas vagrant tmuxinator)
+else
+    plugins=(git autojump colorize colored-man command-not-found compleat cp
+            cpanm encode64 gem github gnu-utils go golang history jruby bd tmux-pane-words
+            mvn node npm osx perl pip python rails rake rsync ruby zsh-autosuggestions
+            rvm safe-paste scala screen svn terminalapp terminitor themes autopair
+            brew zsh-brew-services
+            bundler httpie ack2 funcfind gemcd alibas vagrant tmux tmuxinator)
+fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -117,11 +149,6 @@ bindkey '^Xk' autosuggest-clear
 bindkey "^X^X" vi-cmd-mode
 
 compdef _ack2_completion ack
-
-function emacs() {
-  /usr/local/bin/emacs "$@"
-  echo $'\033]50;CursorShape=0\007'
-}
 
 function powerline_precmd() {
   export PS1="$(~/.powerline-shell.py $? --shell zsh 2> /dev/null)"
@@ -160,7 +187,7 @@ function omz_termsupport_preexec () {
 
 
 function jj() {
-  cd "$({dirs -pl; j -s | gsed -n '/^_______/!p; /^_______/q'  | cut -d$'\t' -f2; } | fzf)"
+  cd "$({dirs -pl; j -s | sed -n '/^_______/!p; /^_______/q'  | cut -d$'\t' -f2; } | fzf)"
 }
 
 export LSCOLORS=exfxcxdxcxegedabagacad
@@ -237,6 +264,10 @@ export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # source ~/.xsh
 
-source ~/.iterm2_shell_integration.zsh
+if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
+    source $HOME/liuxiang/.iterm2_shell_integration.zsh
+else
+    source ~/.iterm2_shell_integration.zsh
+fi
 
 # source ~/.profile

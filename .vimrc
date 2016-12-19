@@ -5,13 +5,24 @@
 
 filetype off " required by vundle
 
-set runtimepath+=~/.vim/bundle/vundle/
-" set runtimepath+=$GOROOT/misc/vim
 
-let $GEM_HOME = '/Users/liuxiang/.rvm/gems/ruby-2.3.2'
-let $GEM_PATH = '/Users/liuxiang/.rvm/gems/ruby-2.3.2:/Users/liuxiang/.rvm/gems/ruby-2.3.2@global'
+let s:uname = substitute(system('uname'), "\n", "", "")
 
-call vundle#rc()
+if s:uname == 'Linux'
+   set nocp
+endif
+
+if s:uname == 'Linux' && !empty(glob('~/liuxiang/'))
+  set runtimepath+=~/liuxiang/.vim,~/liuxiang/.vim/bundle/vundle/
+  let $GEM_HOME = '/home/deploy/.rvm/gems/ruby-2.2.2'
+  let $GEM_PATH = '/home/deploy/.rvm/gems/ruby-2.2.2:/home/deploy/.rvm/gems/ruby-2.2.2@global'
+  call vundle#rc('~/liuxiang/.vim/bundle')
+else
+  let $GEM_HOME = '/Users/liuxiang/.rvm/gems/ruby-2.3.2'
+  let $GEM_PATH = '/Users/liuxiang/.rvm/gems/ruby-2.3.2:/Users/liuxiang/.rvm/gems/ruby-2.3.2@global'
+  set runtimepath+=~/.vim/bundle/vundle/
+  call vundle#rc()
+endif
 
 " vim-scripts repos
 Bundle 'bufexplorer.zip'
