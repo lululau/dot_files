@@ -114,6 +114,7 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 bindkey '^Xk' autosuggest-clear
+bindkey "^X^X" vi-cmd-mode
 
 compdef _ack2_completion ack
 
