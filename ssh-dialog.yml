@@ -43,3 +43,9 @@ groups:
       centos:
         hostname: 172.28.128.3
         username: vagrant
+  macs:
+    hosts:
+      17inch:
+        hostname: liuxiangdeMacBook-Pro.local
+      LiuXiangRMBP:
+        hostname: LiuXiangRMBP.local
