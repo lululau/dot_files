@@ -113,6 +113,10 @@
   (interactive)
   (find-file "~/.ssh/config"))
 
+(defun lx/edit-authorized-keys ()
+  (interactive)
+  (find-file "~/.ssh/authorized_keys"))
+
 (defun lx/edit-tmux-config ()
   (interactive)
   (find-file "~/.tmux.conf"))
@@ -161,6 +165,7 @@
   "ocz" #'lx/edit-zshrc
   "ocd" #'lx/edit-ssh-dialog-config
   "ocs" #'lx/edit-ssh-config
+  "ocA" #'lx/edit-authorized-keys
   "oct" #'lx/edit-tmux-config
   "ocv" #'lx/edit-vim-config
   )
