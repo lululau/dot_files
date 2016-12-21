@@ -264,10 +264,12 @@ export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # source ~/.xsh
 
-if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
+if [ -z "$EMACS" ]; then
+  if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
     source $HOME/liuxiang/.iterm2_shell_integration.zsh
-else
+  else
     source ~/.iterm2_shell_integration.zsh
+  fi
 fi
 
 # source ~/.profile
