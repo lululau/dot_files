@@ -619,6 +619,7 @@ layers configuration."
       "* TODO %?
   %u"))))
  '(org-confirm-babel-evaluate nil)
+ '(org-export-with-sub-superscripts (quote {}))
  '(org-pandoc-options-for-latex-pdf
    (quote
     ((latex-engine . "xelatex")
