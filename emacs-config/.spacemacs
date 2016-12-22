@@ -89,7 +89,7 @@
      clojure
      haskell
      emacs-lisp
-     ;; evernote
+     evernote
      evil-commentary
      extra-langs
      html
