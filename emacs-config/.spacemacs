@@ -577,6 +577,7 @@ layers configuration."
  '(helm-gtags-preselect t)
  '(helm-imenu-fuzzy-match t)
  '(helm-locate-fuzzy-match t)
+ '(helm-man-format-switches "%s")
  '(helm-mu-default-search-string "(m:/INBOX or m:/\"Sent Messages\" or m:/Archive)")
  '(helm-mu-gnu-sed-program "gsed")
  '(helm-recentf-fuzzy-match t)
