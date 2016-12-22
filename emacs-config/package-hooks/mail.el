@@ -73,7 +73,9 @@ current query will be used to initialize the search.  Otherwise
             :buffer "*helm mu*"
             :keymap helm-mu-map
             :input input
-            :candidate-number-limit 500))))
+            :candidate-number-limit 500)))
+
+  (define-key helm-mu-map (kbd "s-<return>") '(lambda () (interactive) (open-message-with-mail-app) (helm-keyboard-quit))))
 
 (defun mu4e-toggle-org-mode ()
   (interactive)
