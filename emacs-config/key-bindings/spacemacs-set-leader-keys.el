@@ -23,6 +23,7 @@
   "ad" #'(lambda () (interactive) (call-interactively 'dired))
   "col" #'copy-org-links-at-point
   "xa#" #'spacemacs/align-repeat-hash
+  "w|"  #'split-window-right-and-focus
   "wxj" #'(lambda () (interactive) (let ((wind (windmove-find-other-window 'down))) (when (and wind (not (minibufferp (window-buffer wind)))) (delete-window wind))))
   "wxk" #'(lambda () (interactive) (let ((wind (windmove-find-other-window 'up))) (when (and wind (not (minibufferp (window-buffer wind)))) (delete-window wind))))
   "wxh" #'(lambda () (interactive) (let ((wind (windmove-find-other-window 'left))) (when (and wind (not (minibufferp (window-buffer wind)))) (delete-window wind))))
