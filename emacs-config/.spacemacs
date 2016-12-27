@@ -10,21 +10,25 @@
 
 (if (lx/system-is-mac) (setenv "PATH" ""))
 
+(if (display-graphic-p)
+    (progn
+      (setq lx/spacemacs-themes '(solarized-light spacemacs-dark))
+      (setq lx/spacemacs-banner 'official)
+      )
+  (setq lx/spacemacs-themes '(spacemacs-dark))
+  (setq lx/spacemacs-banner '000))
+
 (if (and (lx/system-is-linux) (file-exists-p "~/liuxiang"))
     (progn
       (setq lx/conf-layer-path "~/liuxiang/spacemacs-layers"
             lx/snippets-path  "~/liuxiang/.config/emacs-config/snippets"
             lx/default-shell "~/liuxiang/local/bin/zsh"
-            lx/spacemacs-banner '000
-            lx/spacemacs-themes '(spacemacs-dark)
             lx/emacs-config-init-el "~/liuxiang/.config/emacs-config/init.el"
             lx/emacs-text-objects-init-el "~/liuxiang/.config/emacs-config/text-objects/init.el"
             lx/emacs-key-bindings-init-el "~/liuxiang/.config/emacs-config/key-bindings/init.el"))
   (setq lx/conf-layer-path "~/cascode/github.com/spacemacs-layers"
         lx/snippets-path  "~/.config/emacs-config/snippets"
         lx/default-shell "/bin/zsh"
-        lx/spacemacs-banner 'official
-        lx/spacemacs-themes '(solarized-light spacemacs-dark)
         lx/emacs-config-init-el "~/.config/emacs-config/init.el"
         lx/emacs-text-objects-init-el "~/.config/emacs-config/text-objects/init.el"
         lx/emacs-key-bindings-init-el "~/.config/emacs-config/key-bindings/init.el"))
