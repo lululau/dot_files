@@ -640,6 +640,7 @@ layers configuration."
  '(ring-bell-function (quote ignore))
  '(rspec-primary-source-dirs (quote ("app" "lib" "src")))
  '(ruby-insert-encoding-magic-comment nil)
+ '(imenu-max-item-length nil)
  '(safe-local-variable-values
    (quote
     ((encoding . utf-8)
