@@ -91,11 +91,46 @@ current query will be used to initialize the search.  Otherwise
          (temp (make-temp-file "mu4e-message-" nil ".eml")))
     (shell-command-to-string (format "cp '%s' '%s'; open '%s' -a Mail; /bin/rm '%s'" msg-path temp temp temp))))
 
+(defun mail-message-paths-on-region ()
+  (let ((beg (region-beginning))
+        (end (region-end))
+        (paths '()))
+    (save-excursion
+      (goto-char beg)
+      (save-restriction
+        (narrow-to-region beg end)
+        (add-to-list 'paths (mu4e-message-field-at-point :path) t)
+        (while (zerop (forward-line))
+          (if (< (point) end)
+              (add-to-list 'paths (mu4e-message-field-at-point :path) t)))))
+    paths))
+
+(defun get-selected-message-contents ()
+  (--map
+   (let* ((shell-output (shell-command-to-string (format "mu view -o sexp '%s' 2>/dev/null" it)))
+          (message-obj (read shell-output))
+          (body-txt (plist-get message-obj :body-txt))
+          (body-html (plist-get message-obj :body-html)))
+     (s-replace "\r" "" (or body-txt
+                            (shell-command-to-string (format "cat <<'EOF' | html2text\n%s\nEOF" body-html)))))
+   (mail-message-paths-on-region)))
+
+(defun yank-selected-message-contents ()
+  (interactive)
+  (message "Copying messages...")
+  (kill-new (s-join "\n" (get-selected-message-contents)))
+  (message "Messages copied!"))
+
 (with-eval-after-load 'mu4e-headers
+  (define-key mu4e-headers-mode-map (kbd "y") 'evil-yank)
+  (define-key mu4e-headers-mode-map (kbd "Y") 'yank-to-end-of-line)
+  (define-key mu4e-headers-mode-map (kbd "c") 'yank-selected-message-contents)
   (spacemacs/set-leader-keys-for-major-mode 'mu4e-headers-mode
     "fo" 'open-message-with-mail-app))
 
 (with-eval-after-load 'mu4e-view
+  (define-key mu4e-view-mode-map (kbd "y") 'evil-yank)
+  (define-key mu4e-view-mode-map (kbd "Y") 'yank-to-end-of-line)
   (spacemacs/set-leader-keys-for-major-mode 'mu4e-view-mode
     "to" 'mu4e-toggle-org-mode
     "fo" 'open-message-with-mail-app))
@@ -106,6 +141,8 @@ current query will be used to initialize the search.  Otherwise
     "fo" 'open-message-with-mail-app))
 
 (with-eval-after-load 'mu4e-compose
+  (define-key mu4e-compose-mode-map (kbd "y") 'evil-yank)
+  (define-key mu4e-compose-mode-map (kbd "Y") 'yank-to-end-of-line)
   (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode "a" 'mml-attach-file)
   (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode "to" 'mu4e-toggle-org-mode))
 
