@@ -98,4 +98,15 @@
 (global-set-key (kbd "s-{") 'persp-prev)
 (global-set-key (kbd "s-}") 'persp-next)
 
+(global-set-key (kbd "M-0") 'winum-select-window-0)
+(global-set-key (kbd "M-1") 'winum-select-window-1)
+(global-set-key (kbd "M-2") 'winum-select-window-2)
+(global-set-key (kbd "M-3") 'winum-select-window-3)
+(global-set-key (kbd "M-4") 'winum-select-window-4)
+(global-set-key (kbd "M-5") 'winum-select-window-5)
+(global-set-key (kbd "M-6") 'winum-select-window-6)
+(global-set-key (kbd "M-7") 'winum-select-window-7)
+(global-set-key (kbd "M-8") 'winum-select-window-8)
+(global-set-key (kbd "M-9") 'winum-select-window-9)
+
 (global-set-key (kbd "<f12>") #'lx/open-mail-custom-layout-or-mu4e-main)
