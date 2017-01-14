@@ -69,8 +69,8 @@
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "s-m") 'set-mark-command)
 (global-set-key (kbd "C-x s-m") 'pop-global-mark)
-(global-set-key (kbd "<f1>") #'(lambda () (interactive) (condition-case nil (neotree-find-project-root) (error (neotree-toggle))) (window-numbering-update)))
-(global-set-key (kbd "<S-f1>") #'(lambda () (interactive) (neotree-toggle) (window-numbering-update)))
+(global-set-key (kbd "<f1>") #'(lambda () (interactive) (condition-case nil (neotree-find-project-root) (error (neotree-toggle)))))
+(global-set-key (kbd "<S-f1>") #'(lambda () (interactive) (neotree-toggle)))
 (global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 1)))
 (global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 1)))
 
