@@ -406,7 +406,7 @@ layers configuration."
   (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
   (add-to-list 'search-engine-alist '(ip138 :name "ip138" :url "http://ip138.com/ips138.asp?ip=%s&action=2") t)
 
-  (setq auto-mode-alist (append '(("\\.pryrc\\'" . ruby-mode) ("\\.apib\\'" . markdown-mode)) auto-mode-alist))
+  (setq auto-mode-alist (append '(("\\.pryrc\\'" . ruby-mode) ("\\.apib\\'" . markdown-mode) ("\\.sc" . scala-mode)) auto-mode-alist))
 
   (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/8048/plantuml.8048.jar")
 
