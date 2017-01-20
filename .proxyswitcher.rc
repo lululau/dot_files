@@ -1,0 +1,27 @@
+# AutoDiscoveryProxy:
+AutoProxy:
+  URL: "http://lululau.gitcafe.io/cp.pac"
+  # URL: "http://localhost:8080/ap.pac"
+SocksProxy:
+  Host: 127.0.0.1
+  Port: 1080
+#   Auth: true
+#   Username: hello
+#   Password: 123123
+HTTPProxy:
+#  Host: 10.32.26.230
+#  Port: 3128
+   Host: 127.0.0.1
+   Port: 8080
+HTTPSProxy:
+   Host: 127.0.0.1
+   Port: 8080
+# FTPProxy:
+#   Host: 127.0.0.1
+#   Port: 8080
+# RTSPProxy:
+#   Host: 127.0.0.1
+#   Port: 8080
+# GopherProxy:
+#   Host: 127.0.0.1
+#   Port: 8080

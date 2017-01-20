@@ -1,0 +1,60 @@
+#!/bin/bash
+
+URL=$1
+
+function open_url() {
+  BROWSER=$1
+  open "$URL" -a "$BROWSER"
+}
+
+SAFARI_PATTERNS=('^https\?://mail\.alibaba-inc\.com')
+
+CHROME_PATTERNS=(
+'^https\?://www\.umeng\.com'
+'^https\?://github\.umeng\.co'
+'^https\?://localhost'
+'^https\?://[^/]*\.umeng\.us'
+'^https\?://[^/]*docs\.google\.com'
+'^https\?://[^/]*\.alibaba-inc\.com'
+'^https\?://[^/]*\.ktjr\.com'
+'^https\?://[^/]*\.kaitongamc\.com'
+)
+
+FIREFOX_PATTERNS=()
+
+if echo "$URL" | grep -q '^https\?://mailsso.mxhichina.com'; then
+    open "https://webmail.alibaba-inc.com/alimail/" -a "Google Chrome"
+    exit
+fi
+
+for pa in "${SAFARI_PATTERNS[@]}"
+do
+  if echo "$URL" | grep -q "$pa"
+  then
+    open_url "Safari"
+    exit
+  fi
+done
+
+for pa in "${CHROME_PATTERNS[@]}"
+do
+  if echo "$URL" | grep -q "$pa"
+  then
+    open_url "Google Chrome"
+    exit
+  fi
+done
+
+for pa in "${FIREFOX_PATTERNS[@]}"
+do
+  if echo "$URL" | grep -q "$pa"
+  then
+    open_url "Firefox"
+    exit
+  fi
+done
+
+
+
+open_url "Safari"
+

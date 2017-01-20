@@ -1,0 +1,4 @@
+{
+  'app/models/concerns/virtual_asset/executable.rb' => 'spec/models/concerns/virtual_asset/asset_management_task_able_spec.rb',
+  'app/models/concerns/virtual_asset/updatable.rb' => 'spec/models/concerns/virtual_asset/asset_management_task_able_spec.rb',
+}

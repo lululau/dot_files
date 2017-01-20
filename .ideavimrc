@@ -1,0 +1,7 @@
+set surround
+inoremap <c-a> <c-o>^
+inoremap <c-f> <Right>
+inoremap <c-b> <Left>
+inoremap <c-n> <Down>
+inoremap <c-p> <Up>
+inoremap <c-d> <Del>

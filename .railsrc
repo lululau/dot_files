@@ -1,0 +1,1 @@
+-B --skip-spring -m ~/.rails.template

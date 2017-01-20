@@ -1,0 +1,14 @@
+shell -$SHELL
+  
+## 解决无法滚动  
+termcapinfo xterm|xterms|xs ti@:te=\E[2J  
+   
+# 屏幕缓冲区行数  
+defscrollback 10000  
+   
+# 下标签设置  
+hardstatus on  
+caption always "%{= kw}%-w%{= kG}%{+b}[%n %t]%{-b}%{= kw}%+w %=%d %M %0c %{g}%H%{-}"  
+   
+#关闭闪屏  
+vbell off  

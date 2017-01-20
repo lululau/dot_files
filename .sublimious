@@ -1,0 +1,70 @@
+# This file is read by sublimious. Feel free to put your stuff here.
+
+"""
+Change the following line to True to activate sublimious
+By changing it to true, you are aware that this will wipe your configuration.
+Please make sure that you have a backup in place! (eg backup User/)
+
+I mean, seriously. This will delete ALL your sublime setting files
+"""
+nuke_everything = True
+
+# Layer configuration. These layers will get installed upon reload
+# Check sublimious/layers for all available layers
+layers = [
+    'core',
+
+    'osx',
+    'git',
+    'python',
+    # 'javascript',
+    'markdown',
+    # 'coffee',
+    # 'php',
+    # 'elixir',
+    # 'clojure'
+]
+
+"""
+Everything that is not part of a layer.
+These packages will be installed through package control
+"""
+additional_packages = [
+
+]
+
+"""
+Put your own config in here or override defaults
+"""
+user_config = {
+    # Sublimious general
+    # How long should sublimious wait before showing you the overlay?
+    # "shortcut_overlay_timeout": 1
+    # "show_shortcut_overlay": True
+
+    # Style!
+    # Uncomment the following lines to overwrite the basic appearance and color
+    "color_scheme": "Packages/Materialize/schemes/Material One Dark.tmTheme",
+    "theme": "Material Brogrammer.sublime-theme",
+    "font_face": "Ubuntu Mono derivative Powerline for Powerline",
+    "font_size": 15,
+
+    # These lines are responsible for editor appearance
+    "line_numbers": True,
+    # "draw_white_space": "selection",
+    # "word_wrap": True,
+
+    # How should sublime text deal with spaces and encodings?
+    "translate_tabs_to_spaces": True,
+    # "ensure_newline_at_eof_on_save": True,
+    "trim_trailing_white_space_on_save": True,
+
+    # Sublimious comes pre-configured with a lot of good settings
+    # But if you are not happy with them, overwrite them here
+    # Take the package name from the <Preferences> -> <Package Settings> menu
+    "package_settings": {
+        # "SomePackages": {
+        #     "some_config": "something else",
+        # }
+    }
+}

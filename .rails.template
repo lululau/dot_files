@@ -1,0 +1,6 @@
+gsub_file "Gemfile", "https://rubygems.org", "https://gems.ruby-china.org"
+
+copy_file "~/.rails.gitignore", ".gitignore"
+git :init
+git add: '.'
+git commit: "-a -m 'Initial commit'"
