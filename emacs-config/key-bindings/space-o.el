@@ -4,6 +4,7 @@
 (spacemacs/declare-prefix "oe" "open demo files")
 (spacemacs/declare-prefix "op" "open project files")
 (spacemacs/declare-prefix "oc" "open config files")
+(spacemacs/declare-prefix "ol" "load libraries")
 
 (defun lx/open-bookmarks.org ()
   (interactive)
@@ -125,6 +126,18 @@
   (interactive)
   (find-file "~/.vimrc"))
 
+(defun lx/load-ox-gfm ()
+  (interactive)
+  (load-library "ox-gfm"))
+
+(defun lx/load-ox-reveal ()
+  (interactive)
+  (load-library "ox-reveal"))
+
+(defun lx/load-ox-twbs ()
+  (interactive)
+  (load-library "ox-twbs"))
+
 (spacemacs/set-leader-keys
 
   ;; Org
@@ -168,4 +181,10 @@
   "ocA" #'lx/edit-authorized-keys
   "oct" #'lx/edit-tmux-config
   "ocv" #'lx/edit-vim-config
+
+  ;; load libraries
+  "oll" #'load-library
+  "olg" #'lx/load-ox-gfm
+  "olr" #'lx/load-ox-reveal
+  "olb" #'lx/load-ox-twbs
   )
