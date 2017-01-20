@@ -422,7 +422,6 @@ layers configuration."
                                (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                                (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
 
-  (setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
   (setq mu4e-hide-index-messages t)
 
   ;; org-mode and appointment notifications on Mac OS 10.8+
@@ -628,7 +627,7 @@ layers configuration."
  '(org-pandoc-options-for-latex-pdf
    (quote
     ((latex-engine . "xelatex")
-     (template . "/Users/liuxiang/Library/Mobile Documents/com~apple~CloudDocs/pandoc-latex-templates/Heiti/default.latex"))))
+     (template . "/Users/liuxiang/Documents/org/pandoc-latex-templates/Heiti/default.latex"))))
  '(org-reveal-root "./reveal.js/")
  '(org-reveal-theme "blood")
  '(package-selected-packages
