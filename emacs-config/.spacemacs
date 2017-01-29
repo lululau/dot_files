@@ -12,7 +12,7 @@
 
 (if (display-graphic-p)
     (progn
-      (setq lx/spacemacs-themes '(solarized-light spacemacs-dark))
+      (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
       (setq lx/spacemacs-banner 'official)
       )
   (setq lx/spacemacs-themes '(spacemacs-dark))
@@ -584,6 +584,21 @@ layers configuration."
  '(helm-mu-default-search-string "(m:/INBOX or m:/\"Sent Messages\" or m:/Archive)")
  '(helm-mu-gnu-sed-program "gsed")
  '(helm-recentf-fuzzy-match t)
+ '(helm-source-projectile-projects-actions
+   (quote
+    (("Switch to project" .
+      #[257 "\301\302!)\207"
+            [projectile-completion-system helm projectile-switch-project-by-name]
+            3 "
+
+(fn PROJECT)"])
+     ("Open Dired in project's directory `C-d'" . dired)
+     ("Open project root in vc-dir or magit `M-g'" . helm-projectile-vc)
+     ("Switch to Eshell `M-e'" . helm-projectile-switch-to-eshell)
+     ("Grep in projects `C-s'" . helm-projectile-grep)
+     ("Compile project `M-c'. With C-u, new compile command" . helm-projectile-compile-project)
+     ("Remove project(s) from project list `M-D'" . helm-projectile-remove-known-project)
+     ("Switch to last visited buffer in project `<s-return>'" . projectile-switch-to-project-last-buffer))))
  '(inf-ruby-implementations
    (quote
     (("ruby" . "irb --prompt default --noreadline -r irb/completion")

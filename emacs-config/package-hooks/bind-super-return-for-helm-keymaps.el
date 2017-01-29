@@ -24,4 +24,4 @@
   (define-key helm-ag-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'helm-ag--run-other-window-action))
 
 (with-eval-after-load 'helm-projectile
-  (define-key (nth 3 helm-source-projectile-directories-list) (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'helm-projectile-dired-find-dir-other-window))
+  (define-key (nth 2 helm-source-projectile-directories-list) (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'helm-projectile-dired-find-dir-other-window))
