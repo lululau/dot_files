@@ -614,6 +614,7 @@ layers configuration."
  '(markdown-command "/Users/liuxiang/bin/markdown")
  '(mu4e-attachment-dir "/Users/liuxiang/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
+ '(spacemacs-theme-comment-bg nil)
  '(mu4e-headers-fields
    (quote
     ((:human-date . 12)
