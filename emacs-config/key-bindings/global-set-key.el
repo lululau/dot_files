@@ -63,7 +63,7 @@
 (global-set-key [M-s-tab] #'spacemacs/alternate-buffer-in-persp)
 (global-set-key [M-S-tab] #'projectile-project-switch-to-alternate-buffer)
 
-(global-set-key (kbd "C-g") '(lambda () (interactive) (evil-search-highlight-persist-remove-all) (keyboard-quit)))
+(global-set-key (kbd "C-g") '(lambda () (interactive) (spacemacs/evil-search-clear-highlight) (keyboard-quit)))
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
 (global-set-key (kbd "<f5>") #'(lambda () (interactive) (unless (boundp 'ggtags-mode) (ggtags-mode)) (projectile-regenerate-tags)))
 (global-set-key (kbd "M-@") 'set-mark-command)
