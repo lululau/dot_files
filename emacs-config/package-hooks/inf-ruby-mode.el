@@ -9,5 +9,7 @@
   (define-key inf-ruby-mode-map (kbd "<f8>") #'(lambda () (interactive) (comint-send-string (inf-ruby-proc) "c\n")))
   (define-key inf-ruby-mode-map (kbd "<f9>") #'(lambda () (interactive) (comint-send-string (inf-ruby-proc) "n\n")))
   (define-key inf-ruby-mode-map (kbd "M-D") #'(lambda () (interactive) (comint-send-string (inf-ruby-proc) "exit-program\n")))
+  (define-key inf-ruby-mode-map (kbd "C-p") #'comint-previous-input)
+  (define-key inf-ruby-mode-map (kbd "C-n") #'comint-next-input)
   (define-key inf-ruby-mode-map (kbd "s-, tl") #'(lambda () (interactive) (with-selected-window (cadr (window-list)) (call-interactively 'rspec-run-last-failed))))
   (define-key inf-ruby-mode-map (kbd "s-, tr") #'(lambda () (interactive) (with-selected-window (cadr (window-list)) (call-interactively 'rspec-rerun)))))
