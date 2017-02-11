@@ -101,11 +101,6 @@ else
   export PS1='\[[01;32m\]\u@MacBookPro: \w $ \[[00m\]'
 fi
 
-
-. ~/bin/baby/baby.sh
-
-
-
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 if [ -f /opt/local/etc/bash_completion ]
 then
