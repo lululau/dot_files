@@ -1,0 +1,6 @@
+#group: source block
+# key: sjava
+# --
+#+BEGIN_SRC java
+$0
+#+END_SRC

@@ -94,12 +94,14 @@ function _update_ps1()
      echo -ne "\033]0;${PWD/$HOME/~}\007"
 }
 
-if [ $TERM = xterm-256color ]
-then
-  export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} _update_ps1"
-else
-  export PS1='\[[01;32m\]\u@MacBookPro: \w $ \[[00m\]'
-fi
+# if [ $TERM = xterm-256color ]
+# then
+#   export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} _update_ps1"
+# else
+#   export PS1='\[[01;32m\]\u@MacBookPro: \w $ \[[00m\]'
+# fi
+
+export PS1=$'\e[01;32m'"➜  $(rvm-prompt | gsed 's/ruby-//')"$'\e[0m \e[01;31m'"\\w"$'\e[0m '
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 if [ -f /opt/local/etc/bash_completion ]

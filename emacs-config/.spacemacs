@@ -136,7 +136,7 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(calfw browse-at-remote ranger helm-mu jq-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim)
+   dotspacemacs-excluded-packages '(magithub git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -608,7 +608,7 @@ layers configuration."
      ("macruby" . "macirb -r irb/completion")
      ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.4.0/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.4.0/bin/pry"))))
  '(jiralib-url "http://jira.kaitongamc.com")
- '(magit-blame-heading-format "%-20a %A %s")
+ '(magit-blame-heading-format "%-20a %A %s %H")
  '(magit-diff-use-overlays nil)
  '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
  '(markdown-command "/Users/liuxiang/bin/markdown")
