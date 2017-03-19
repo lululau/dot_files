@@ -168,7 +168,7 @@ before layers configuration."
   (setq-default
    ;; Either `vim' or `emacs'. Evil is always enabled but if the variable
    ;; is `emacs' then the `holy-mode' is enabled at startup.
-   dotspacemacs-editing-style 'vim
+   dotspacemacs-editing-style 'hybrid
    ;; If non nil output loading progress in `*Messages*' buffer.
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -322,7 +322,7 @@ layers configuration."
   (setq helm-mode-fuzzy-match t)
   (setq helm-gtags-fuzzy-match t)
   (setq rvm--gemset-default "default")
-  (defalias 'evil-insert-state 'evil-emacs-state)
+  ;; (defalias 'evil-insert-state 'evil-emacs-state)
   (setq mac-option-modifier 'meta)
   (setq frame-title-format '(:eval
                              (if (projectile-project-p)
