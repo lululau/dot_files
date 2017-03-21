@@ -63,7 +63,8 @@
 (global-set-key (kbd "s-u") 'universal-argument)
 (define-key universal-argument-map (kbd "s-u") 'universal-argument-more)
 (global-set-key [M-s-tab] #'spacemacs/alternate-buffer-in-persp)
-(global-set-key [M-S-tab] #'projectile-project-switch-to-alternate-buffer)
+;; (global-set-key [M-S-tab] #'projectile-project-switch-to-alternate-buffer)
+(global-set-key [M-S-tab] #'(lambda () (interactive) (switch-to-buffer (nth 2 (projectile-project-buffers)))))
 
 (global-set-key (kbd "C-g") '(lambda () (interactive) (spacemacs/evil-search-clear-highlight) (keyboard-quit)))
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
