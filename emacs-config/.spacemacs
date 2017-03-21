@@ -97,7 +97,7 @@
      evil-commentary
      extra-langs
      html
-     ;; java
+     (java :variables java-backend 'ensime)
      c-c++
      javascript
      (python :variables python-test-runner '(nose))
