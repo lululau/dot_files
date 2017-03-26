@@ -104,6 +104,7 @@
      restclient
      rust
      scala
+     swift
      chrome
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)
