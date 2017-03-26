@@ -37,6 +37,11 @@
     (lx/ruby-send-line)
     (ruby-switch-to-inf t))
 
+  (defun lx/ruby-send-reload ()
+    (interactive)
+    (comint-send-string (inf-ruby-proc) "reload!\n")
+    (ruby-switch-to-inf t))
+
   (defun lx/ruby-send-paragraph ()
     (interactive)
     (let ((start (save-excursion
@@ -52,6 +57,7 @@
     (lx/ruby-send-paragraph)
     (ruby-switch-to-inf t))
   (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
+    "sa" 'lx/ruby-send-reload
     "sl" 'lx/ruby-send-line
     "sL" 'lx/ruby-send-line-and-go
     "sp" 'lx/ruby-send-paragraph
