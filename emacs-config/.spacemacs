@@ -126,7 +126,7 @@
      ragtag
      org-yank-image
      imenu-list
-     rebox
+     ;; rebox  ; comment out due to auto-fill-mode auto-enable of rebox
      systemd
      org-jira
      lorem-ipsum-zh
