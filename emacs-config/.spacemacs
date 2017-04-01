@@ -330,8 +330,8 @@ layers configuration."
                                  (concat
                                   (projectile-project-name)
                                   (if (buffer-file-name)
-                                      (concat " ✈ " (substring (buffer-file-name) (length (projectile-project-root))))
-                                    (concat " ✈ "(buffer-name))))
+                                      (concat "  ✈  " (substring (buffer-file-name) (length (projectile-project-root))))
+                                    (concat "  ✈  "(buffer-name))))
                                (if (buffer-file-name)
                                    (if (string-match (concat "^" (getenv "HOME")) (buffer-file-name))
                                        (concat "~" (substring (buffer-file-name) (length (getenv "HOME"))))

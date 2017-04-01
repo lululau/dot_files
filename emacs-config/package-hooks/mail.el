@@ -23,6 +23,8 @@
         ("date:7d..now" "Last 7 days" ?w)
         ("mime:image/*" "Messages with images" ?p)
         ("subject:本周上线计划" "本周上线计划" ?s)
+        ("活期" "活期" ?h)
+        ("试算" "试算" ?S)
         ("subject:JIRA" "JIRA" ?j)
         (,(mapconcat 'identity
                      (mapcar
