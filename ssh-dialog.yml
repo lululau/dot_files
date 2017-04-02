@@ -45,7 +45,10 @@ groups:
         username: vagrant
   macs:
     hosts:
-      17inch:
-        hostname: liuxiangdeMacBook-Pro.local
       LiuXiangRMBP:
         hostname: LiuXiangRMBP.local
+      XYM-MBP:
+        hostname: XYM-MBP.local
+        username: xieyanmei
+      17inch:
+        hostname: liuxiangdeMacBook-Pro.local
