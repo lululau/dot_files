@@ -388,14 +388,14 @@ layers configuration."
   (setq org-default-notes-file "/Users/liuxiang/Documents/org/notes.org")
   (setq org-html-doctype "html5")
   (setq git-link-remote-alist
-        '(("github.ktjr.com"    git-link-github)
+        '(("gitlab.ktjr.com"    git-link-gitlab)
           ("github.com"    git-link-github)
           ("bitbucket.org" git-link-bitbucket)
           ("gitorious.org" git-link-gitorious)
           ("gitlab.com"    git-link-gitlab)))
 
   (setq git-link-commit-remote-alist
-    '(("github.ktjr.com" git-link-commit-github)
+    '(("gitlab.ktjr.com" git-link-commit-github)
       ("github.com"    git-link-commit-github)
       ("bitbucket.org" git-link-commit-bitbucket)
       ("gitorious.org" git-link-commit-gitorious)
@@ -493,7 +493,7 @@ layers configuration."
    (quote
     (("bitbucket.org" . "bitbucket")
      ("github.com" . "github")
-     ("github.ktjr.com" . "github"))))
+     ("gitlab.ktjr.com" . "gitlab"))))
  '(cfw:display-calendar-holidays nil)
  '(company-search-regexp-function (quote company-search-flex-regexp))
  '(custom-safe-themes
