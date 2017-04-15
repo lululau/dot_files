@@ -325,17 +325,7 @@ layers configuration."
   (setq rvm--gemset-default "default")
   ;; (defalias 'evil-insert-state 'evil-emacs-state)
   (setq mac-option-modifier 'meta)
-  (setq frame-title-format '(:eval
-                             (if (projectile-project-p)
-                                 (concat
-                                  (projectile-project-name)
-                                  (if (buffer-file-name)
-                                      (concat "  ✈  " (substring (buffer-file-name) (length (projectile-project-root))))
-                                    (concat "  ✈  "(buffer-name))))
-                               (if (buffer-file-name)
-                                   (if (string-match (concat "^" (getenv "HOME")) (buffer-file-name))
-                                       (concat "~" (substring (buffer-file-name) (length (getenv "HOME"))))
-                                     (buffer-file-name)) (buffer-name)))))
+  (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
   (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
   (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
 
