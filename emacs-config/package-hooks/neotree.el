@@ -12,6 +12,7 @@ it suitable for terminal.
     :type '(choice (const classic)
                    (const ascii)
                    (const arrow)
+                   (const icons)
                    (const nerd)
                    (const uni)))
 
