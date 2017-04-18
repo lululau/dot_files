@@ -36,7 +36,6 @@ alias grep="grep --color=auto"
 alias ggrep="ggrep --color=auto"
 export GREP_COLOR=$'\e[43;30'
 alias tomcat="/usr/lib/tomcat/bin/catalina.sh run"
-alias tree="tree -AC"
 alias s="screen -e^jj"
 alias odx='od -Ad -tx1'
 alias odc='od -Ad -tc'
