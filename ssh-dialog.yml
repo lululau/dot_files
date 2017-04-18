@@ -21,6 +21,9 @@ groups:
       dev01:
         hostname: dev01
         command: lxzsh
+      dev01.kt:
+        hostname: dev01.kt
+        command: lxzsh
       dev02:
         hostname: dev02
       dev03:
