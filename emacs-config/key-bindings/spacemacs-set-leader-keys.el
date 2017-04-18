@@ -32,4 +32,7 @@
   "wpl" #'(lambda () (interactive) (popwin:pop-to-buffer (get-buffer "*rspec-compilation*")) (delete-window (get-buffer-window " *popwin-dummy*")) (select-window (get-buffer-window "*rspec-compilation*")))
   "ael" #'geeknote-notebook-list
   "tt" #'lx/toggle-title-format
+  "DD" #'find-dired
+  "DF" #'find-name-dired
+  "DG" #'find-grep-dired
 )
