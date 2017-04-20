@@ -25,6 +25,9 @@
 (define-key evil-hybrid-state-map (kbd "<s-mouse-1>") #'(lambda (event) (interactive "e") (mouse-set-point event) (jump-to-definition-of-symbol-at-point)))
 (define-key evil-hybrid-state-map (kbd "<s-mouse-3>") #'evil-jumper/backward)
 (define-key evil-hybrid-state-map (kbd "s-q") #'evil-exit-hybrid-state)
+(define-key evil-motion-state-map (kbd "C-z") #'evil-hybrid-state)
+(define-key evil-lisp-state-map (kbd "C-z") #'evil-hybrid-state)
+(define-key evil-hybrid-state-map (kbd "C-z") #'evil-exit-hybrid-state)
 
 (define-key evil-normal-state-map (kbd "Y") #'yank-to-end-of-line)
 (define-key evil-motion-state-map (kbd "Y") #'yank-to-end-of-line)
