@@ -49,9 +49,8 @@ groups:
   macs:
     hosts:
       LiuXiangRMBP:
-        hostname: LiuXiangRMBP.local
+        hostname: lx
       XYM-MBP:
-        hostname: XYM-MBP.local
-        username: xieyanmei
+        hostname: xym
       17inch:
-        hostname: liuxiangdeMacBook-Pro.local
+        hostname: lx17
