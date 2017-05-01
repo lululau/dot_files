@@ -126,14 +126,14 @@ autoload -U zmv
 
 if uname | grep -q Linux; then
     plugins=(git autojump colorize colored-man command-not-found compleat cp
-            cpanm encode64 gem github gnu-utils go golang history jruby bd tmux-pane-words
+            cpanm encode64 gem github go golang history jruby bd tmux-pane-words
             mvn node npm osx perl pip python rails rake rsync ruby zsh-autosuggestions
             rvm safe-paste scala screen svn terminalapp terminitor themes autopair
             brew zsh-brew-services
             bundler httpie ack2 funcfind gemcd alibas vagrant tmuxinator)
 else
     plugins=(git autojump colorize colored-man command-not-found compleat cp
-            cpanm encode64 gem github gnu-utils go golang history jruby bd tmux-pane-words
+            cpanm encode64 gem github go golang history jruby bd tmux-pane-words
             mvn node npm osx perl pip python rails rake rsync ruby zsh-autosuggestions
             rvm safe-paste scala screen svn terminalapp terminitor themes autopair
             brew zsh-brew-services
