@@ -3,7 +3,7 @@
 defaults:
 
 groups:
-  pro-servers:
+  ProServers:
     hosts:
       kt01:
         hostname: kt01
@@ -16,7 +16,7 @@ groups:
         command: lxzsh
       kt04:
         hostname: kt04
-  test-servers:
+  TestServers:
     hosts:
       dev01:
         hostname: dev01
@@ -37,7 +37,7 @@ groups:
         port: 3022
       github:
         hostname: gh
-  vagrants:
+  Vagrants:
     hosts:
       default:
         hostname: 127.0.0.1
@@ -46,7 +46,7 @@ groups:
       centos:
         hostname: 172.28.128.3
         username: vagrant
-  macs:
+  Macs:
     hosts:
       LiuXiangRMBP:
         hostname: lx
@@ -54,3 +54,7 @@ groups:
         hostname: xym
       17inch:
         hostname: lx17
+  Google:
+    hosts:
+      instance_1:
+        hostname: gce
