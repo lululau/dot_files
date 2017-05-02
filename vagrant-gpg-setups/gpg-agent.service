@@ -1,0 +1,12 @@
+[Unit]
+Description=gpg-agent Daemon
+
+[Service]
+Type=forking
+User=vagrant
+ExecStart=/usr/local/bin/gpg-agent-daemon.sh
+Restart=on-success
+
+[Install]
+WantedBy=default.target
+

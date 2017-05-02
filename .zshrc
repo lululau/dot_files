@@ -7,9 +7,11 @@ fi
 
 # Linux Specific Config
 if uname | grep -q Linux; then
-    if [ -e $HOME/liuxiang ]; then
+    if [ -e $HOME/liuxiang/.zshrc ]; then
         export SHELL=/home/deploy/liuxiang/local/bin/zsh
         alias tmux='tmux -L liuxiang -f /home/deploy/liuxiang/.tmux.conf'
+        alias vim="vim -u ~/liuxiang/.vimrc"
+        export SCREENRC=$HOME/liuxiang/.screenrc
     fi
     alias ta='tmux attach -t'
     alias tad='tmux attach -d -t'
@@ -18,8 +20,6 @@ if uname | grep -q Linux; then
     alias tksv='tmux kill-server'
     alias tkss='tmux kill-session -t'
     alias e='emacsclient -t'
-    alias vim="vim -u ~/liuxiang/.vimrc"
-    export SCREENRC=$HOME/liuxiang/.screenrc
 fi
 
 export AUTOJUMP_KEEP_SYMLINKS=1
