@@ -8,7 +8,8 @@
          (caption (concat (number-to-string (if (eq 9 pos) 0 (1+ pos)))
                           ". " string-name)))
     (if current
-        (propertize (concat "❰❰ " caption " ❱❱") 'face 'warning)
+        ;; (propertize (concat "❰❰ " caption " ❱❱") 'face 'warning)
+        (propertize (concat "🎾 " caption) 'face 'warning)
       caption)))
 
 
