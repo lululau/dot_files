@@ -161,7 +161,7 @@ unless $USER_PRYRC_LOADED
     end
 
     def ttl
-      xh.to_a.tt
+      to_a.tt
     end
   end
 
