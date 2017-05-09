@@ -7,10 +7,13 @@
 
   (define-key term-raw-map
     (kbd (if (display-graphic-p) "<s-return>" "s-RET")) #'(lambda ()
-                           (interactive)
-                           (shell-pop--cd-to-cwd
-                            (file-name-directory
-                             (buffer-file-name (get-buffer shell-pop-last-buffer))))))
+                                                            (interactive)
+                                                            (let* ((buffer (get-buffer shell-pop-last-buffer))
+                                                                   (buffer-file-name (buffer-file-name buffer)))
+                                                              (if (and (not buffer-file-name) (eq 'dired-mode (with-current-buffer buffer major-mode)))
+                                                                  (setq buffer-file-directory (with-current-buffer buffer dired-directory))
+                                                                (setq buffer-file-directory (file-name-directory buffer-file-name)))
+                                                              (shell-pop--cd-to-cwd buffer-file-directory))))
 
   (define-key term-raw-map (kbd "<s-left>") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "frame\n")))
   (define-key term-raw-map (kbd "<s-up>") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "up\n")))
