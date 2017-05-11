@@ -9,7 +9,7 @@
                           ". " string-name)))
     (if current
         ;; (propertize (concat "❰❰ " caption " ❱❱") 'face 'warning)
-        (propertize (concat "🎾 " caption) 'face 'warning)
+        (propertize (concat "★ " caption) 'face 'warning)
       caption)))
 
 
@@ -22,8 +22,16 @@
                   (mapconcat (lambda (persp)
                                (lx/layout-format-name
                                 persp (position persp persp-list)))
-                             persp-list "          "))))
-    formatted-persp-list))
+                             persp-list "          ")))
+         (file (if (projectile-project-p)
+                    (if (buffer-file-name)
+                        (substring (buffer-file-name) (length (projectile-project-root)))
+                      (buffer-name))
+                 (if (buffer-file-name)
+                     (if (string-match (concat "^" (getenv "HOME")) (buffer-file-name))
+                         (concat "~" (substring (buffer-file-name) (length (getenv "HOME"))))
+                       (buffer-file-name)) (buffer-name)))))
+    (concat file "     -     " formatted-persp-list)))
 
 (defun lx/default-title-bar ()
   (if (projectile-project-p)
