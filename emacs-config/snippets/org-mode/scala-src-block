@@ -1,0 +1,6 @@
+#group: source block
+# key: sscala
+# --
+#+BEGIN_SRC scala
+$0
+#+END_SRC

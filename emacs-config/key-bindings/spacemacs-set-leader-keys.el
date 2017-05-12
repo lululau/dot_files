@@ -3,7 +3,6 @@
 (spacemacs/set-leader-keys
   "bk" #'(lambda () (interactive) (call-interactively 'kill-buffer))
   "gC" 'magit-commit
-  "gc" 'magit-checkout
   "gc" #'(lambda (arg) (interactive "P") (call-interactively (if arg 'magit-branch-and-checkout 'magit-checkout)))
   "gS" 'magit-status
   "gs" #'(lambda () (interactive) (magit-run-git-async "status") (magit-process-buffer))
@@ -20,7 +19,7 @@
   "to" #'org-toggle-link-display
   "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "STHeiti" 12 14 13 16))
   "ps" #'lx/find-or-create-projectile-snippet-file
-  "ad" #'(lambda () (interactive) (call-interactively 'dired))
+  "aC" #'calendar
   "col" #'copy-org-links-at-point
   "xa#" #'spacemacs/align-repeat-hash
   "w|"  #'split-window-right-and-focus
