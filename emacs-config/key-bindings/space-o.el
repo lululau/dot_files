@@ -6,6 +6,8 @@
 (spacemacs/declare-prefix "oc" "open config files")
 (spacemacs/declare-prefix "ol" "load libraries")
 
+(spacemacs/declare-prefix "ob" "Set ibuffer group")
+
 (defun lx/open-bookmarks.org ()
   (interactive)
   (find-file "~/Documents/org/bookmarks.org"))
@@ -187,4 +189,10 @@
   "olg" #'lx/load-ox-gfm
   "olr" #'lx/load-ox-reveal
   "olb" #'lx/load-ox-twbs
+
+  ;; Set ibuffer group
+
+  "obp" #'(lambda () (interactive) (setq ibuffer-group-buffers-by 'projects))
+  "obm" #'(lambda () (interactive) (setq ibuffer-group-buffers-by 'modes))
+  "obn" #'(lambda () (interactive) (setq ibuffer-group-buffers-by nil))
   )
