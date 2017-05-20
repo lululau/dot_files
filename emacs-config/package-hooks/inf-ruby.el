@@ -56,10 +56,24 @@
     (interactive)
     (lx/ruby-send-paragraph)
     (ruby-switch-to-inf t))
+
+  (defun lx/ruby-send-babel-block ()
+    (interactive)
+    (comint-send-string (inf-ruby-proc) (concat (lx/get-babel-src) "\n")))
+
+  (defun lx/ruby-send-babel-block-and-go ()
+    (interactive)
+    (lx/ruby-send-babel-block)
+    (ruby-switch-to-inf t))
+
   (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
     "sa" 'lx/ruby-send-reload
     "sl" 'lx/ruby-send-line
     "sL" 'lx/ruby-send-line-and-go
     "sp" 'lx/ruby-send-paragraph
     "sP" 'lx/ruby-send-paragraph-and-go)
+
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode
+    "sp" 'lx/ruby-send-babel-block
+    "sP" 'lx/ruby-send-babel-block-and-go)
   )

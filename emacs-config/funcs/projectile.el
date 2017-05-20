@@ -33,3 +33,7 @@
 (defun lx/find-or-create-projectile-request-file ()
   (interactive)
   (find-file (format "%s/tmp/requests.http" (projectile-project-root))))
+
+(defun lx/find-or-create-projectile-snippet-org ()
+  (interactive)
+  (find-file (format "%s/tmp/snippets.org" (projectile-project-root))))

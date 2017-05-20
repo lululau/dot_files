@@ -173,6 +173,7 @@
   ;; project tmp files
   "ops" #'lx/find-or-create-projectile-snippet-file
   "oph" #'lx/find-or-create-projectile-request-file
+  "opo" #'lx/find-or-create-projectile-snippet-org
 
   ;; Config files
   "och" #'lx/edit-etc-hosts
