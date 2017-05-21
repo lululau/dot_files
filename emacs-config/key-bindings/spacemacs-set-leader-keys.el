@@ -35,4 +35,5 @@
   "DF" #'find-name-dired
   "DG" #'find-grep-dired
   "d TAB" #'(lambda () (interactive) (switch-to-buffer (--find (eq 'dired-mode (with-current-buffer it major-mode)) (buffer-list))))
+  "p L" #'lx/helm-persp-replace-project
 )
