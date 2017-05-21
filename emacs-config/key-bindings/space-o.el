@@ -20,6 +20,10 @@
   (interactive)
   (find-file "~/Documents/org/rails-guides-org/rails-guides-index.org"))
 
+(defun lx/open-artist-demo ()
+  (interactive)
+  (find-file "~/Documents/org/demo/demo.art"))
+
 (defun lx/open-http-demo ()
   (interactive)
   (find-file "~/Documents/org/demo/demo.http"))
@@ -148,6 +152,7 @@
   "oor" #'lx/open-rails-guides.org
 
   ;; Demo files
+  "oea" #'lx/open-artist-demo
   "oeh" #'lx/open-http-demo
   "oel" #'lx/open-elisp-demo
   "oer" #'lx/open-ruby-demo
