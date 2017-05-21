@@ -1,0 +1,6 @@
+#group: source block
+# key: sditaa
+# --
+#+BEGIN_SRC ditaa :exports result :file $0.png
+$1
+#+END_SRC

@@ -1,0 +1,6 @@
+#group: source block
+# key: sdot
+# --
+#+BEGIN_SRC dot :exports results :file $0.png
+$1
+#+END_SRC
