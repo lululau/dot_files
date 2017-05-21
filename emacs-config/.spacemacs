@@ -450,7 +450,7 @@ layers configuration."
   (setq appt-disp-window-function (function my-appt-display))
 
   (setq eclim-eclipse-dirs "~/Applications/Eclipse.app" eclim-executable "~/Applications/Eclipse.app/Contents/Eclipse/eclim")
-
+  (global-pangu-spacing-mode -1)
   ;; (spacemacs|define-custom-layout "@Mail"
   ;;   :binding "m"
   ;;   :body
