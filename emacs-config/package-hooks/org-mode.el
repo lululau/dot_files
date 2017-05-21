@@ -24,4 +24,7 @@
         (org-table-calc-current-TBLFM)
         (forward-line))))
 
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "tR" #'lx/org-table-recalculate-multi-formulas))
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "tR" #'lx/org-table-recalculate-multi-formulas)
+
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "os" #'org-babel-execute-subtree)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ob" #'org-babel-execute-buffer))
