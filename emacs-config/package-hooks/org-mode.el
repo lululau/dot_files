@@ -14,4 +14,14 @@
                 (replace-regexp-in-string
                  (org-src-coderef-regexp coderef) "" expand nil nil 1)))))
       (org-babel-expand-body:generic
-       body params (funcall (intern (format "org-babel-variable-assignments:%s" lang)) params)))))
+       body params (funcall (intern (format "org-babel-variable-assignments:%s" lang)) params))))
+
+  (defun lx/org-table-recalculate-multi-formulas ()
+    (interactive)
+    (save-excursion
+      (goto-char (org-table-end))
+      (while (string-match "^[[:blank:]]*#\\+TBLFM:" (thing-at-point 'line t))
+        (org-table-calc-current-TBLFM)
+        (forward-line))))
+
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "tR" #'lx/org-table-recalculate-multi-formulas))
