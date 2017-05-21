@@ -112,4 +112,15 @@
 (global-set-key (kbd "M-8") 'winum-select-window-8)
 (global-set-key (kbd "M-9") 'winum-select-window-9)
 
+(global-set-key (kbd "C-M-s-)") 'winum-select-window-0)
+(global-set-key (kbd "C-M-s-!") 'winum-select-window-1)
+(global-set-key (kbd "C-M-s-@") 'winum-select-window-2)
+(global-set-key (kbd "C-M-s-#") 'winum-select-window-3)
+(global-set-key (kbd "C-M-s-$") 'winum-select-window-4)
+(global-set-key (kbd "C-M-s-%") 'winum-select-window-5)
+(global-set-key (kbd "C-M-s-^") 'winum-select-window-6)
+(global-set-key (kbd "C-M-s-&") 'winum-select-window-7)
+(global-set-key (kbd "C-M-s-*") 'winum-select-window-8)
+(global-set-key (kbd "C-M-s-(") 'winum-select-window-9)
+
 (global-set-key (kbd "<f12>") #'lx/open-mail-custom-layout-or-mu4e-main)
