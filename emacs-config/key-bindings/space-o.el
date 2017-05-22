@@ -76,6 +76,16 @@
   (interactive)
   (find-file "~/Documents/org/demo/demo.html"))
 
+#'lx/open-emacs-regexp-cheatsheet
+
+(defun lx/open-emacs-regexp-cheatsheet ()
+  (interactive)
+  (find-file "~/Documents/org/cheatsheets/emacs-regexp-cheatsheets.org"))
+
+(defun lx/open-org-mode-cheatsheet()
+  (interactive)
+  (find-file "~/Documents/org/cheatsheets/org-mode-cheatsheets.org"))
+
 (defun lx/open-emacs-info ()
   (interactive)
   (org-open-link-from-string "info:emacs#Top"))
@@ -167,6 +177,10 @@
   "oeC" #'lx/open-c-demo
   "oet" #'lx/open-txt-demo
 
+  ;; Open Cheatsheets
+  "osr" #'lx/open-emacs-regexp-cheatsheet
+  "oso" #'lx/open-org-mode-cheatsheet
+
   ;; Info bookmarks
   "oie" #'lx/open-emacs-info
   "oil" #'lx/open-elisp-info
@@ -197,7 +211,6 @@
   "olb" #'lx/load-ox-twbs
 
   ;; Set ibuffer group
-
   "obp" #'(lambda () (interactive) (setq ibuffer-group-buffers-by 'projects))
   "obm" #'(lambda () (interactive) (setq ibuffer-group-buffers-by 'modes))
   "obn" #'(lambda () (interactive) (setq ibuffer-group-buffers-by nil))

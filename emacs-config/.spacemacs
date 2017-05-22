@@ -325,7 +325,6 @@ layers configuration."
   (setq helm-mode-fuzzy-match t)
   (setq helm-gtags-fuzzy-match t)
   (setq rvm--gemset-default "default")
-  ;; (defalias 'evil-insert-state 'evil-emacs-state)
   (setq mac-option-modifier 'meta)
   (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
   (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
