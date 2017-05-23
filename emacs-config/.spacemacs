@@ -489,11 +489,11 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Man-notify-method (quote aggressive))
- '(ahs-case-fold-search nil t)
- '(ahs-default-range (quote ahs-range-whole-buffer) t)
- '(ahs-idle-interval 0.25 t)
+ '(ahs-case-fold-search nil)
+ '(ahs-default-range (quote ahs-range-whole-buffer))
+ '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
- '(ahs-inhibit-face-list nil t)
+ '(ahs-inhibit-face-list nil)
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(avy-keys (quote (97 115 100 106 107 108 119 111 112)))
@@ -652,6 +652,7 @@ This function is called at the very end of Spacemacs initialization."
    "* TODO %?
   %u"))))
  '(org-confirm-babel-evaluate nil)
+ '(org-ditaa-jar-path "/usr/local/libexec/ditaa.jar")
  '(org-export-with-sub-superscripts (quote {}))
 '(org-pandoc-options-for-latex-pdf
 (quote

@@ -117,6 +117,14 @@
   (interactive)
   (load-library "ox-twbs"))
 
+(defun lx/load-ob-ditaa ()
+  (interactive)
+  (load-library "ob-ditaa"))
+
+(defun lx/load-ob-calc ()
+  (interactive)
+  (load-library "ob-calc"))
+
 (spacemacs/set-leader-keys
 
   ;; Info bookmarks
@@ -137,6 +145,8 @@
   "olg" #'lx/load-ox-gfm
   "olr" #'lx/load-ox-reveal
   "olb" #'lx/load-ox-twbs
+  "old" #'lx/load-ob-ditaa
+  "olc" #'lx/load-ob-calc
 
   ;; Set ibuffer group
   "obp" #'(lambda () (interactive) (setq ibuffer-group-buffers-by 'projects))
