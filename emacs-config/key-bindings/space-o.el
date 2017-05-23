@@ -5,86 +5,81 @@
 (spacemacs/declare-prefix "op" "open project files")
 (spacemacs/declare-prefix "oc" "open config files")
 (spacemacs/declare-prefix "ol" "load libraries")
-
+(spacemacs/declare-prefix "od" "open most used directories")
 (spacemacs/declare-prefix "ob" "Set ibuffer group")
 
-(defun lx/open-bookmarks.org ()
-  (interactive)
-  (find-file "~/Documents/org/bookmarks.org"))
+;; Common used directories
+(setq lx/dirs '(("oda" applications-dir "/Applications/")
+                ("odb" bin-dir "~/bin/")
+                ("odc" cafe-dir "~/Cafe/")
+                ("odC" cascode-dir "~/cascode/")
+                ("odd" downloads-dir "~/Downloads/")
+                ("odD" documents-dir "~/Documents/")
+                ("odg" github-dir "~/cascode/github.com/")
+                ("odu" user-dir "~/")
+                ("odh" home-dir "/home/")
+                ("odi" images-dir "~/Library/Mobile Documents/com~apple~CloudDocs/images/")
+                ("odk" kt-dir "~/kt/")
+                ("odm" movies-dir "~/Movies/")
+                ("ods" snips-dir "~/snips/")
+                ("odt" tmp-dir "~/tmp/")))
+;; Demo files
+(setq lx/demo-files
+      '(("oea" artist-demo  "~/Documents/org/demo/demo.art")
+        ("oeh" http-demo    "~/Documents/org/demo/demo.http")
+        ("oel" elisp-demo   "~/Documents/org/demo/demo.rb")
+        ("oer" ruby-demo    "~/Documents/org/demo/demo.rb")
+        ("oeP" python-demo  "~/Documents/org/demo/demo.py")
+        ("oeJ" java-demo    "~/Documents/org/demo/Demo.java")
+        ("oej" js-demo      "~/Documents/org/demo/demo.js")
+        ("oes" shell-demo   "~/Documents/org/demo/demo.sh")
+        ("oeS" swift-demo   "~/Documents/org/demo/demo.swift")
+        ("oep" perl-demo    "~/Documents/org/demo/demo.pl")
+        ("oeo" org-demo     "~/Documents/org/demo/demo.org")
+        ("oeC" coffee-demo  "~/Documents/org/demo/demo.coffee")
+        ("oey" yaml-demo    "~/Documents/org/demo/demo.yaml")
+        ("oeH" html-demo    "~/Documents/org/demo/demo.html")
+        ("oec" c-demo       "~/Documents/org/demo/demo.c")
+        ("oeg" go-demo      "~/Documents/org/demo/demo.go")
+        ("oet" txt-demo     "~/Documents/org/demo/demo.txt")))
 
-(defun lx/open-notes.org ()
-  (interactive)
-  (find-file "~/Documents/org/notes.org"))
+;; Config files
+(setq lx/config-files
+      '(("och" hosts-config "/sudo:root@localhost:/etc/hosts")
+        ("ocz" zshrc "~/.zshrc")
+        ("ocp" pryrc "~/.pryrc")
+        ("ocd" ssh-dialog-config "~/.config/ssh-dialog.yml")
+        ("ocs" ssh-config "~/.ssh/config")
+        ("ocA" authorized_keys "~/.ssh/authorized_keys")
+        ("oct" tmux-conf "~/.tmux.conf")
+        ("ocv" vimrc "~/.vimrc")))
 
-(defun lx/open-rails-guides.org ()
-  (interactive)
-  (find-file "~/Documents/org/rails-guides-org/rails-guides-index.org"))
+;; Org files
+(setq lx/org-files
+      '(("oob" bookmarks-org "~/Documents/org/bookmarks.org")
+        ("oon" notes-org "~/Documents/org/notes.org")
+        ("oop" projects-org "~/Documents/org/projects.org")
+        ("oor" rails-guides-org "~/Documents/org/rails-guides-org/rails-guides-index.org")))
 
-(defun lx/open-artist-demo ()
-  (interactive)
-  (find-file "~/Documents/org/demo/demo.art"))
+;; Cheat Sheets
+(setq lx/cheatsheets
+      '(("osr" emacs-regexp-cheatsheet "~/Documents/org/cheatsheets/emacs-regexp-cheatsheets.org")
+        ("oso" org-mode-cheatsheet     "~/Documents/org/cheatsheets/org-mode-cheatsheets.org")))
 
-(defun lx/open-http-demo ()
-  (interactive)
-  (find-file "~/Documents/org/demo/demo.http"))
+(defmacro lx/make-open-file-function (name dir)
+  `(defun ,(intern (format "lx/open-file-%s" name)) ()
+     (interactive)
+     (find-file ,dir)))
 
-(defun lx/open-ruby-demo ()
-  (interactive)
-  (find-file "~/Documents/org/demo/demo.rb"))
-
-(defun lx/open-perl-demo ()
-  (interactive)
-  (find-file "~/Documents/org/demo/demo.pl"))
-
-(defun lx/open-python-demo ()
-  (interactive)
-  (find-file "~/Documents/org/demo/demo.py"))
-
-(defun lx/open-java-demo ()
-  (interactive)
-  (find-file "~/Documents/org/demo/Demo.java"))
-
-(defun lx/open-shell-demo ()
-  (interactive)
-  (find-file "~/Documents/org/demo/demo.sh"))
-
-(defun lx/open-elisp-demo ()
-  (interactive)
-  (find-file "~/Documents/org/demo/demo.el"))
-
-(defun lx/open-org-demo ()
-  (interactive)
-  (find-file "~/Documents/org/demo/demo.org"))
-
-(defun lx/open-coffee-demo ()
-  (interactive)
-  (find-file "~/Documents/org/demo/demo.coffee"))
-
-(defun lx/open-yaml-demo ()
-  (interactive)
-  (find-file "~/Documents/org/demo/demo.yaml"))
-
-(defun lx/open-c-demo ()
-  (interactive)
-  (find-file "~/tmp/demo.c"))
-
-(defun lx/open-txt-demo ()
-  (interactive)
-  (find-file "~/tmp/demo.txt"))
-
-(defun lx/open-html-demo ()
-  (interactive)
-  (find-file "~/Documents/org/demo/demo.html"))
-
-#'lx/open-emacs-regexp-cheatsheet
-
-(defun lx/open-emacs-regexp-cheatsheet ()
-  (interactive)
-  (find-file "~/Documents/org/cheatsheets/emacs-regexp-cheatsheets.org"))
-
-(defun lx/open-org-mode-cheatsheet()
-  (interactive)
-  (find-file "~/Documents/org/cheatsheets/org-mode-cheatsheets.org"))
+(let ((result '()))
+  (dolist (elem (append lx/dirs lx/demo-files lx/config-files lx/org-files lx/cheatsheets) result)
+    (let ((kbd (nth 0 elem))
+          (func-name (nth 1 elem))
+          (dir (nth 2 elem)))
+      (eval `(lx/make-open-file-function ,func-name ,dir))
+      (add-to-list 'result kbd t)
+      (add-to-list 'result (intern (format "lx/open-file-%s" func-name)) t)))
+  (apply 'spacemacs/set-leader-keys result))
 
 (defun lx/open-emacs-info ()
   (interactive)
@@ -110,38 +105,6 @@
   (interactive)
   (org-open-link-from-string "info:evil#Top"))
 
-(defun lx/edit-etc-hosts ()
-  (interactive)
-  (find-file "/sudo:root@localhost:/etc/hosts"))
-
-(defun lx/edit-zshrc ()
-  (interactive)
-  (find-file "~/.zshrc"))
-
-(defun lx/edit-pryrc ()
-  (interactive)
-  (find-file "~/.pryrc"))
-
-(defun lx/edit-ssh-dialog-config ()
-  (interactive)
-  (find-file "~/.config/ssh-dialog.yml"))
-
-(defun lx/edit-ssh-config ()
-  (interactive)
-  (find-file "~/.ssh/config"))
-
-(defun lx/edit-authorized-keys ()
-  (interactive)
-  (find-file "~/.ssh/authorized_keys"))
-
-(defun lx/edit-tmux-config ()
-  (interactive)
-  (find-file "~/.tmux.conf"))
-
-(defun lx/edit-vimrc ()
-  (interactive)
-  (find-file "~/.vimrc"))
-
 (defun lx/load-ox-gfm ()
   (interactive)
   (load-library "ox-gfm"))
@@ -156,31 +119,6 @@
 
 (spacemacs/set-leader-keys
 
-  ;; Org
-  "oob" #'lx/open-bookmarks.org
-  "oon" #'lx/open-notes.org
-  "oor" #'lx/open-rails-guides.org
-
-  ;; Demo files
-  "oea" #'lx/open-artist-demo
-  "oeh" #'lx/open-http-demo
-  "oel" #'lx/open-elisp-demo
-  "oer" #'lx/open-ruby-demo
-  "oeP" #'lx/open-python-demo
-  "oej" #'lx/open-java-demo
-  "oes" #'lx/open-shell-demo
-  "oep" #'lx/open-perl-demo
-  "oeo" #'lx/open-org-demo
-  "oec" #'lx/open-coffee-demo
-  "oey" #'lx/open-yaml-demo
-  "oeH" #'lx/open-html-demo
-  "oeC" #'lx/open-c-demo
-  "oet" #'lx/open-txt-demo
-
-  ;; Open Cheatsheets
-  "osr" #'lx/open-emacs-regexp-cheatsheet
-  "oso" #'lx/open-org-mode-cheatsheet
-
   ;; Info bookmarks
   "oie" #'lx/open-emacs-info
   "oil" #'lx/open-elisp-info
@@ -193,16 +131,6 @@
   "ops" #'lx/find-or-create-projectile-snippet-file
   "oph" #'lx/find-or-create-projectile-request-file
   "opo" #'lx/find-or-create-projectile-snippet-org
-
-  ;; Config files
-  "och" #'lx/edit-etc-hosts
-  "ocp" #'lx/edit-pryrc
-  "ocz" #'lx/edit-zshrc
-  "ocd" #'lx/edit-ssh-dialog-config
-  "ocs" #'lx/edit-ssh-config
-  "ocA" #'lx/edit-authorized-keys
-  "oct" #'lx/edit-tmux-config
-  "ocv" #'lx/edit-vim-config
 
   ;; load libraries
   "oll" #'load-library
