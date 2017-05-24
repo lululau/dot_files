@@ -44,3 +44,13 @@
     (delete-pry-breakpoints)
     (unless buf-changed (save-buffer))
     (call-interactively (intern (concat "evil-" (symbol-name saved-evil-state) "-state")))))
+
+(defun lx/jump-to-code-at-point ()
+  (interactive)
+  (let((str (ffap-string-at-point)) path line)
+    (if (string-match "^\\(.+\\):\\([0-9]+\\).*$" str)
+        (progn (setq path (match-string 1 str))
+               (setq line (string-to-number (match-string 2 str))))
+      (setq path str)
+      (setq line 0))
+    (org-open-file path t line)))

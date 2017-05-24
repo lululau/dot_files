@@ -12,4 +12,5 @@
   (define-key inf-ruby-mode-map (kbd "C-p") #'comint-previous-input)
   (define-key inf-ruby-mode-map (kbd "C-n") #'comint-next-input)
   (define-key inf-ruby-mode-map (kbd "s-, tl") #'(lambda () (interactive) (with-selected-window (cadr (window-list)) (call-interactively 'rspec-run-last-failed))))
-  (define-key inf-ruby-mode-map (kbd "s-, tr") #'(lambda () (interactive) (with-selected-window (cadr (window-list)) (call-interactively 'rspec-rerun)))))
+  (define-key inf-ruby-mode-map (kbd "s-, tr") #'(lambda () (interactive) (with-selected-window (cadr (window-list)) (call-interactively 'rspec-rerun))))
+  (define-key inf-ruby-mode-map (kbd "C-]") #'lx/jump-to-code-at-point))

@@ -23,6 +23,7 @@
                 ("odm" movies-dir "~/Movies/")
                 ("ods" snips-dir "~/snips/")
                 ("odt" tmp-dir "~/tmp/")))
+
 ;; Demo files
 (setq lx/demo-files
       '(("oea" artist-demo  "~/Documents/org/demo/demo.art")
@@ -40,7 +41,7 @@
         ("oey" yaml-demo    "~/Documents/org/demo/demo.yaml")
         ("oeH" html-demo    "~/Documents/org/demo/demo.html")
         ("oec" c-demo       "~/Documents/org/demo/demo.c")
-        ("oeg" go-demo      "~/Documents/org/demo/demo.go")
+        ("oeg" go-demo      "~/.go/src/demo/demo.go")
         ("oet" txt-demo     "~/Documents/org/demo/demo.txt")))
 
 ;; Config files
