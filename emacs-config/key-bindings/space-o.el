@@ -27,7 +27,7 @@
 (setq lx/demo-files
       '(("oea" artist-demo  "~/Documents/org/demo/demo.art")
         ("oeh" http-demo    "~/Documents/org/demo/demo.http")
-        ("oel" elisp-demo   "~/Documents/org/demo/demo.rb")
+        ("oel" elisp-demo   "~/Documents/org/demo/demo.el")
         ("oer" ruby-demo    "~/Documents/org/demo/demo.rb")
         ("oeP" python-demo  "~/Documents/org/demo/demo.py")
         ("oeJ" java-demo    "~/Documents/org/demo/Demo.java")
