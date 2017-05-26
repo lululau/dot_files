@@ -22,6 +22,7 @@
                 ("odk" kt-dir "~/kt/")
                 ("odm" movies-dir "~/Movies/")
                 ("ods" snips-dir "~/snips/")
+                ("ode" emacs-dir "~/.emacs.d/")
                 ("odt" tmp-dir "~/tmp/")))
 
 ;; Demo files
