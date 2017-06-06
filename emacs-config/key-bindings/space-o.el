@@ -28,6 +28,7 @@
 ;; Demo files
 (setq lx/demo-files
       '(("oea" artist-demo  "~/Documents/org/demo/demo.art")
+        ("oeA" scala-demo   "~/cascode/github.com/prog-scala/src/main/scala/progscala2/demo.scala")
         ("oeh" http-demo    "~/Documents/org/demo/demo.http")
         ("oel" elisp-demo   "~/Documents/org/demo/demo.el")
         ("oer" ruby-demo    "~/Documents/org/demo/demo.rb")
