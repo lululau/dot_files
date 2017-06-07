@@ -590,6 +590,7 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-buffers-fuzzy-matching t)
  '(helm-completion-in-region-fuzzy-match t)
  '(helm-dash-browser-func (quote lx/browse-url-in-safari))
+ '(helm-external-programs-associations (quote (("ics" . "open"))))
  '(helm-gtags-fuzzy-match t t)
  '(helm-gtags-preselect t)
  '(helm-imenu-fuzzy-match t)

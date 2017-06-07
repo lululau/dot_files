@@ -4,6 +4,7 @@
   (define-key dired-mode-map (kbd "G") nil)
   (define-key dired-mode-map (kbd "?") nil)
   (define-key dired-mode-map (kbd ")") 'dired-up-directory)
+  (define-key dired-mode-map (kbd "-") 'dired-up-directory)
   (unless (or (display-graphic-p) (lx/system-is-linux))
       (defun dired-delete-file (file &optional recursive trash)
         (call-process "trash" nil nil nil file))))
