@@ -22,6 +22,7 @@
   (define-key term-raw-map (kbd "<f7>") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "f\n")))
   (define-key term-raw-map (kbd "<f8>") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "c\n")))
   (define-key term-raw-map (kbd "<f9>") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "n\n")))
+  (define-key term-raw-map (kbd "M-DEL") #'term-send-raw-meta)
   (define-key term-raw-map (kbd "M-D") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "exit-program\n")))
 
   (let ((map (lookup-key term-raw-map "\e")))
