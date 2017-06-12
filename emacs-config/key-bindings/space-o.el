@@ -11,8 +11,8 @@
 ;; Common used directories
 (setq lx/dirs '(("oda" applications-dir "/Applications/")
                 ("odb" bin-dir "~/bin/")
-                ("odc" cafe-dir "~/Cafe/")
-                ("odC" cascode-dir "~/cascode/")
+                ("odC" cafe-dir "~/Cafe/")
+                ("odc" cascode-dir "~/cascode/")
                 ("odd" downloads-dir "~/Downloads/")
                 ("odD" documents-dir "~/Documents/")
                 ("odg" github-dir "~/cascode/github.com/")
