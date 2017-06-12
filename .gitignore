@@ -42,3 +42,4 @@ Session.vim
 /mpv
 /private
 /imap_inotify/config.json
+/configstore/update-notifier-npm.json

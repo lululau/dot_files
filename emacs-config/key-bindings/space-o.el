@@ -21,7 +21,8 @@
                 ("odi" images-dir "~/Library/Mobile Documents/com~apple~CloudDocs/images/")
                 ("odk" kt-dir "~/kt/")
                 ("odm" movies-dir "~/Movies/")
-                ("ods" snips-dir "~/snips/")
+                ("ods" scratch-dir "~/Documents/scratches/")
+                ("odS" snips-dir "~/snips/")
                 ("ode" emacs-dir "~/.emacs.d/")
                 ("odt" tmp-dir "~/tmp/")))
 
