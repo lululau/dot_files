@@ -474,6 +474,8 @@ layers configuration."
     (require 'helm-dired-history)
     (define-key (cdr ido-minor-mode-map-entry) [remap dired] nil))
 
+  (global-subword-mode)
+
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
   ) ;;; End of config.
