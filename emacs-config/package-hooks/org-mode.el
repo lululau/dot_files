@@ -16,6 +16,10 @@
       (org-babel-expand-body:generic
        body params (funcall (intern (format "org-babel-variable-assignments:%s" lang)) params))))
 
+  (defun lx/yank-babel-src ()
+    (interactive)
+    (kill-new (lx/get-babel-src)))
+
   (defun lx/org-table-recalculate-multi-formulas ()
     (interactive)
     (save-excursion
@@ -26,5 +30,6 @@
 
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "tR" #'lx/org-table-recalculate-multi-formulas)
 
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "oy" #'lx/yank-babel-src)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "os" #'org-babel-execute-subtree)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ob" #'org-babel-execute-buffer))
