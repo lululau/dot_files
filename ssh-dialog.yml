@@ -37,6 +37,13 @@ groups:
         port: 3022
       github:
         hostname: gh
+      db01:
+        hostname: db01
+        command: lxzsh
+      db02:
+        hostname: db02
+      db03:
+        hostname: db03
   Vagrants:
     hosts:
       default:
