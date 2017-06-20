@@ -137,7 +137,7 @@ else
             mvn node npm osx perl pip python rails rake rsync ruby zsh-autosuggestions
             rvm safe-paste scala screen svn terminalapp terminitor themes autopair
             brew zsh-brew-services virtualenv
-            bundler httpie ack2 funcfind gemcd alibas vagrant tmux tmuxinator)
+            bundler httpie ack2 funcfind gemcd alibas vagrant tmux tmuxinator tig)
 fi
 
 source $ZSH/oh-my-zsh.sh
