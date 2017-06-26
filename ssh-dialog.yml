@@ -5,45 +5,57 @@ defaults:
 groups:
   ProServers:
     hosts:
-      kt01:
+      1.kt01:
         hostname: kt01
         # command: 'PATH=$PATH:/home/deploy/liuxiang/local/bin ZDOTDIR=/home/deploy/liuxiang/ exec /home/deploy/liuxiang/local/bin/zsh --login'
         command: lxzsh
-      kt02:
+      2.kt02:
         hostname: kt02
-      kt03:
+        command: lxzsh
+      3.kt03:
         hostname: kt03
         command: lxzsh
-      kt04:
+      4.kt04:
         hostname: kt04
+        command: lxzsh
   TestServers:
     hosts:
-      dev01:
+      1.dev01:
         hostname: dev01
         command: lxzsh
-      dev01.kt:
+      k.dev01.kt:
         hostname: dev01.kt
         command: lxzsh
-      dev02:
+      2.dev02:
         hostname: dev02
-      dev03:
+        command: lxzsh
+      3.dev03:
         hostname: dev03
-      dev04:
+        command: lxzsh
+      4.dev04:
         hostname: dev04
-      dev05:
+        command: lxzsh
+      5.dev05:
         hostname: dev05
-      dev005:
+        command: lxzsh
+      0.dev005:
         hostname: dev005
         port: 3022
-      github:
+        command: lxzsh
+      6.dev06:
+        hostname: dev06
+        command: lxzsh
+      g.github:
         hostname: gh
-      db01:
+      a.db01:
         hostname: db01
         command: lxzsh
-      db02:
+      b.db02:
         hostname: db02
-      db03:
+        command: lxzsh
+      c.db03:
         hostname: db03
+        command: lxzsh
   Vagrants:
     hosts:
       default:
