@@ -3,7 +3,7 @@
 defaults:
 
 groups:
-  ProServers:
+  1.ProServers:
     hosts:
       1.kt01:
         hostname: kt01
@@ -18,7 +18,7 @@ groups:
       4.kt04:
         hostname: kt04
         command: lxzsh
-  TestServers:
+  2.TestServers:
     hosts:
       1.dev01:
         hostname: dev01
@@ -56,7 +56,7 @@ groups:
       c.db03:
         hostname: db03
         command: lxzsh
-  Vagrants:
+  3.Vagrants:
     hosts:
       default:
         hostname: 127.0.0.1
@@ -65,7 +65,7 @@ groups:
       centos:
         hostname: 172.28.128.3
         username: vagrant
-  Macs:
+  4.Macs:
     hosts:
       LiuXiangRMBP:
         hostname: lx
@@ -73,7 +73,7 @@ groups:
         hostname: xym
       17inch:
         hostname: lx17
-  Google:
+  5.Google:
     hosts:
       instance_1:
         hostname: gce
