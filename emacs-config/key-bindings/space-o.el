@@ -34,7 +34,7 @@
         ("oel" elisp-demo   "~/Documents/org/demo/demo.el")
         ("oer" ruby-demo    "~/Documents/org/demo/demo.rb")
         ("oeP" python-demo  "~/Documents/org/demo/demo.py")
-        ("oeJ" java-demo    "~/Documents/org/demo/Demo.java")
+        ("oeJ" java-demo    "~/cascode/java/maven/simple/src/main/java/org/sonatype/mavenbook/App.java")
         ("oej" js-demo      "~/Documents/org/demo/demo.js")
         ("oes" shell-demo   "~/Documents/org/demo/demo.sh")
         ("oeS" swift-demo   "~/Documents/org/demo/demo.swift")
