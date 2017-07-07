@@ -499,11 +499,11 @@ This function is called at the very end of Spacemacs initialization."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Man-notify-method (quote aggressive))
- '(ahs-case-fold-search nil t)
- '(ahs-default-range (quote ahs-range-whole-buffer) t)
- '(ahs-idle-interval 0.25 t)
+ '(ahs-case-fold-search nil)
+ '(ahs-default-range (quote ahs-range-whole-buffer))
+ '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
- '(ahs-inhibit-face-list nil t)
+ '(ahs-inhibit-face-list nil)
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(avy-keys (quote (97 115 100 106 107 108 119 111 112)))
@@ -569,6 +569,7 @@ This function is called at the very end of Spacemacs initialization."
  '(diff-hl-draw-borders nil)
  '(diff-hl-margin-mode nil)
  '(enh-ruby-add-encoding-comment-on-save nil)
+ '(evil-want-Y-yank-to-eol nil)
  '(flycheck-disabled-checkers (quote (ruby-rubylint)))
  '(gh-profile-alist
    (quote
@@ -600,7 +601,7 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-completion-in-region-fuzzy-match t)
  '(helm-dash-browser-func (quote lx/browse-url-in-safari))
  '(helm-external-programs-associations (quote (("ics" . "open"))))
- '(helm-gtags-fuzzy-match t t)
+ '(helm-gtags-fuzzy-match t)
  '(helm-gtags-preselect t)
  '(helm-imenu-fuzzy-match t)
  '(helm-locate-fuzzy-match t)
@@ -756,7 +757,8 @@ This function is called at the very end of Spacemacs initialization."
  '(ruby-insert-encoding-magic-comment nil)
 '(safe-local-variable-values
 (quote
- ((eval org-babel-result-hide-all)
+ ((eval flycheck-mode -1 1)
+  (eval org-babel-result-hide-all)
   (encoding . utf-8)
   (elixir-enable-compilation-checking . t)
   (elixir-enable-compilation-checking)
