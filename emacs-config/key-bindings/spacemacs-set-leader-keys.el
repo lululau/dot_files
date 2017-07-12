@@ -34,7 +34,7 @@
   "DF" #'find-name-dired
   "DG" #'find-grep-dired
   "d TAB" #'(lambda () (interactive) (switch-to-buffer (--find (eq 'dired-mode (with-current-buffer it major-mode)) (buffer-list))))
-  "p L" #'lx/helm-persp-replace-project
-  "j w" #'evil-avy-goto-word-0
-  "j a" #'evil-avy-goto-char-in-line
+  "pL" #'lx/helm-persp-replace-project
+  "jw" #'evil-avy-goto-word-0
+  "ja" #'evil-avy-goto-char-in-line
 )
