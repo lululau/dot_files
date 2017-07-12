@@ -478,6 +478,8 @@ layers configuration."
 
   (global-subword-mode)
 
+  (setq spaceline-minor-modes-p nil)
+
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
   ) ;;; End of config.
