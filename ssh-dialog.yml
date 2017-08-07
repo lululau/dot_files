@@ -73,6 +73,8 @@ groups:
         hostname: xym
       17inch:
         hostname: lx17
+      17inch_remote:
+        hostname: lx17r
   5.Google:
     hosts:
       instance_1:

@@ -25,7 +25,7 @@
                              persp-list "          ")))
          (file (if (projectile-project-p)
                     (if (buffer-file-name)
-                        (substring (buffer-file-name) (length (projectile-project-root)))
+                        (s-replace (projectile-project-root) (format "【%s】" (projectile-project-name)) (buffer-file-name))
                       (buffer-name))
                  (if (buffer-file-name)
                      (if (string-match (concat "^" (getenv "HOME")) (buffer-file-name))
