@@ -17,12 +17,15 @@
   "Return a one liner string containing all the layout names."
   (let* ((persp-list (or (persp-names-current-frame-fast-ordered)
                          (list persp-nil-name)))
+         (spaces (if (< (display-pixel-width) 1300)
+                     "    "
+                   "          "))
          (formatted-persp-list
           (concat " "
                   (mapconcat (lambda (persp)
                                (lx/layout-format-name
                                 persp (position persp persp-list)))
-                             persp-list "          ")))
+                             persp-list spaces)))
          (file (if (projectile-project-p)
                     (if (buffer-file-name)
                         (s-replace (projectile-project-root) (format "【%s】" (projectile-project-name)) (buffer-file-name))

@@ -635,7 +635,7 @@ This function is called at the very end of Spacemacs initialization."
   ("rubinius" . "rbx -r irb/completion")
   ("yarv" . "irb1.9 -r irb/completion")
   ("macruby" . "macirb -r irb/completion")
-  ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.4.0/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.4.0/bin/pry"))))
+  ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.4.1/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.4.1/bin/pry"))))
  '(jiralib-url "http://jira.kaitongamc.com")
  '(magit-blame-heading-format "%-20a %A %s %H")
  '(magit-diff-use-overlays nil)
