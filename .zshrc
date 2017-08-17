@@ -22,6 +22,7 @@ if uname | grep -q Linux; then
     alias e='emacsclient -t'
 fi
 
+export GREP_COLOR=$'\e[43;30'
 export AUTOJUMP_KEEP_SYMLINKS=1
 
 alias -- +x='chmod +x '
@@ -34,11 +35,12 @@ alias ls="ls -G"
 # alias go="open"
 alias grep="grep --color=auto"
 alias ggrep="ggrep --color=auto"
-export GREP_COLOR=$'\e[43;30'
 alias tomcat="/usr/lib/tomcat/bin/catalina.sh run"
 alias s="screen -e^jj"
-alias odx='od -Ad -tx1'
-alias odc='od -Ad -tc'
+alias -g ODX='| od -Ad -tx1'
+alias -g ODC='| od -Ad -tc'
+alias -s tgz='tar -zxf'
+alias -s tar.gz='tar -zxf'
 alias rvmdefault='rvm use default'
 export CLICOLOR=1
 # export LSCOLORS=ExFxCxDxBxegedabagacad
@@ -50,8 +52,6 @@ export MAGICK_HOME=/opt/local
 export GROOVY_HOME=/usr/lib/groovy
 export TERM2NARROW=false
 
-
-
 export LESS_TERMCAP_mb=$'\E[05;34m'       # begin blinking
 export LESS_TERMCAP_md=$'\E[01;34m'       # begin bold
 export LESS_TERMCAP_me=$'\E[0m'           # end mode
@@ -59,8 +59,6 @@ export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
 export LESS_TERMCAP_so=$'\E[44;33m'       # begin standout-mode
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;33m'       # begin underline
-
-
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -124,22 +122,28 @@ autoload -U zmv
 #          rvm safe-paste scala screen svn terminalapp terminitor textmate themes
 #          bundler httpie ack2 funcfind gemcd alibas vagrant tmux)
 
-if uname | grep -q Linux; then
-    plugins=(git autojump colorize colored-man command-not-found compleat cp
-            cpanm encode64 gem github go golang history jruby bd tmux-pane-words
-            mvn node npm osx perl pip python rails rake rsync ruby zsh-autosuggestions
-            rvm safe-paste scala screen svn terminalapp terminitor themes autopair
-            brew zsh-brew-services virtualenv
-            bundler httpie ack2 funcfind gemcd alibas vagrant tmuxinator)
-else
-    plugins=(git autojump colorize colored-man command-not-found compleat cp
-            cpanm encode64 gem github go golang history jruby bd tmux-pane-words
-            mvn node npm osx perl pip python rails rake rsync ruby zsh-autosuggestions
-            rvm safe-paste scala screen svn terminalapp terminitor themes autopair
-            brew zsh-brew-services virtualenv
-            bundler httpie ack2 funcfind gemcd alibas vagrant tmux tmuxinator tig
-            docker docker-compose)
-fi
+plugins=(ack2 alibas autojump autopair
+         bd brew bundler bgnotify
+         colored-man colorize command-not-found compleat cp cpanm common-aliases copybuffer
+         docker docker-compose
+         encode64 emoji extract
+         funcfind
+         gem gemcd git github go golang gradle
+         history httpie
+         jruby
+         lein
+         mvn
+         node npm
+         osx
+         perl pip python
+         rails rake rsync ruby rvm
+         safe-paste sbt scala screen svn systemadmin systemd
+         terminalapp terminitor themes tig tmux-pane-words tmuxinator
+         ubuntu
+         vagrant virtualenv
+         xcode
+         yum
+         zsh-autosuggestions zsh-brew-services zsh_reload)
 
 source $ZSH/oh-my-zsh.sh
 
