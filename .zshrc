@@ -126,7 +126,7 @@ plugins=(ack2 alibas autojump autopair
          bd brew bundler bgnotify
          colored-man colorize command-not-found compleat cp cpanm common-aliases copybuffer
          docker docker-compose
-         encode64 emoji extract
+         encode64 emoji
          funcfind
          gem gemcd git github go golang gradle
          history httpie
@@ -139,7 +139,6 @@ plugins=(ack2 alibas autojump autopair
          rails rake rsync ruby rvm
          safe-paste sbt scala screen svn systemadmin systemd
          terminalapp terminitor themes tig tmux-pane-words tmuxinator
-         ubuntu
          vagrant virtualenv
          xcode
          yum
