@@ -123,7 +123,7 @@ autoload -U zmv
 #          bundler httpie ack2 funcfind gemcd alibas vagrant tmux)
 
 plugins=(ack2 alibas autojump autopair
-         bd brew bundler bgnotify
+         bd brew bundler
          colored-man colorize command-not-found compleat cp cpanm common-aliases copybuffer
          docker docker-compose
          encode64 emoji
@@ -138,7 +138,7 @@ plugins=(ack2 alibas autojump autopair
          perl pip python
          rails rake rsync ruby rvm
          safe-paste sbt scala screen svn systemadmin systemd
-         terminalapp terminitor themes tig tmux-pane-words tmuxinator
+         terminalapp terminitor themes tig tmux tmux-pane-words tmuxinator
          vagrant virtualenv
          xcode
          yum
