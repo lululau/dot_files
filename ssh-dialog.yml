@@ -18,6 +18,9 @@ groups:
       4.kt04:
         hostname: kt04
         command: lxzsh
+      5.kt05:
+        hostname: kt05
+        command: lxzsh
   2.TestServers:
     hosts:
       1.dev01:
