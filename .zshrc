@@ -66,9 +66,9 @@ export LESS_TERMCAP_us=$'\E[04;33m'       # begin underline
 # time that oh-my-zsh is loaded.
 ZSH_THEME="liuxiang"
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias gls='gls --color --quoting-style=literal '
+alias lf='gls --color --quoting-style=literal -ldU '
+alias pn='print -l'
 alias a='cd ..'
 alias aa='cd ../../'
 alias aaa='cd ../../../'
@@ -88,7 +88,7 @@ export RI='-f ansi'
 #CASE_SENSITIVE="true"
 
 # Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment to change how often before auto-updates occur? (in days)
 # export UPDATE_ZSH_DAYS=13
@@ -113,7 +113,6 @@ export RI='-f ansi'
 # Which plugins would you like to load? (plugins can be found in
 # ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
 autoload -U compinit; compinit
 autoload -U zmv
 # plugins=(git autojump battery colorize colored-man command-not-found compleat cp
@@ -195,6 +194,7 @@ function jj() {
 }
 
 export LSCOLORS=exfxcxdxcxegedabagacad
+export LS_COLORS='di=01;36'
 
 PERL_MB_OPT="--install_base \"/Users/liuxiang/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/liuxiang/perl5"; export PERL_MM_OPT;
