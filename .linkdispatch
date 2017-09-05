@@ -18,6 +18,7 @@ CHROME_PATTERNS=(
 '^https\?://[^/]*\.alibaba-inc\.com'
 '^https\?://[^/]*\.ktjr\.com'
 '^https\?://[^/]*\.kaitongamc\.com'
+'^https\?://[^/]*\.creditcloud\.com'
 '^https\?://[^/]*localhost'
 '^https\?://[^/]*127\.0\.0\.1'
 )
