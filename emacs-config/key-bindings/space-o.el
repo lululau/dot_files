@@ -130,6 +130,15 @@
   (interactive)
   (load-library "ob-calc"))
 
+(defun lx/set-ibuffer-group-buffers-by-projects ()
+  (setq ibuffer-group-buffers-by 'projects))
+
+(defun lx/set-ibuffer-group-buffers-by-modes ()
+  (setq ibuffer-group-buffers-by 'modes))
+
+(defun lx/set-ibuffer-group-buffers-by-nil ()
+  (setq ibuffer-group-buffers-by nil))
+
 (spacemacs/set-leader-keys
 
   ;; Info bookmarks
@@ -153,8 +162,8 @@
   "old" #'lx/load-ob-ditaa
   "olc" #'lx/load-ob-calc
 
-  ;; Set ibuffer group
-  "obp" #'(lambda () (interactive) (setq ibuffer-group-buffers-by 'projects))
-  "obm" #'(lambda () (interactive) (setq ibuffer-group-buffers-by 'modes))
-  "obn" #'(lambda () (interactive) (setq ibuffer-group-buffers-by nil))
+  ;; Set ibuffer group by
+  "obp" #'lx/set-ibuffer-group-buffers-by-projects
+  "obm" #'lx/set-ibuffer-group-buffers-by-modes
+  "obn" #'lx/set-ibuffer-group-buffers-by-nil
   )
