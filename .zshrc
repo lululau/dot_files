@@ -81,6 +81,7 @@ alias aaaaaaaaa='cd ../../../../../../../../../'
 alias rspec='rspec -I. -fd --color'
 alias vih="sudo vim /etc/hosts"
 alias lv=lnav
+alias bsl='brew services list'
 
 export PAGER='less -R'
 export RI='-f ansi'
