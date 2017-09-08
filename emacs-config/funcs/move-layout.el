@@ -21,6 +21,7 @@
   (interactive)
   (let* ((current (lx/current-layout-index))
          (next (lx/next-list-index (persp-names-current-frame-fast-ordered) current)))
+    (lx/swap-list-elem persp-names-cache current next)
     (lx/swap-list-elem (cdr (cdddr persp-minor-mode-menu)) current next))
   (spacemacs/layouts-transient-state/body))
 
@@ -28,7 +29,8 @@
   (interactive)
   (let* ((current (lx/current-layout-index))
          (previous (lx/previous-list-index (persp-names-current-frame-fast-ordered) current)))
-    (lx/swap-list-elem (cdr (cdddr persp-minor-mode-menu)) current previous))
+    (lx/swap-list-elem (cdr (cdddr persp-minor-mode-menu)) current previous)
+    (lx/swap-list-elem persp-names-cache current previous))
   (spacemacs/layouts-transient-state/body))
 
 (defun lx/helm-persp-replace-project (arg)
