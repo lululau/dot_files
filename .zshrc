@@ -80,6 +80,7 @@ alias aaaaaaaa='cd ../../../../../../../../'
 alias aaaaaaaaa='cd ../../../../../../../../../'
 alias rspec='rspec -I. -fd --color'
 alias vih="sudo vim /etc/hosts"
+alias lv=lnav
 
 export PAGER='less -R'
 export RI='-f ansi'
