@@ -22,9 +22,6 @@ if uname | grep -q Linux; then
     alias e='emacsclient -t'
 fi
 
-export GREP_COLOR=$'\e[43;30'
-export AUTOJUMP_KEEP_SYMLINKS=1
-
 alias -- +x='chmod +x '
 alias -- '--=git checkout -'
 alias l1='ls -1'
@@ -42,23 +39,6 @@ alias -g ODC='| od -Ad -tc'
 alias -s tgz='tar -zxf'
 alias -s tar.gz='tar -zxf'
 alias rvmdefault='rvm use default'
-export CLICOLOR=1
-# export LSCOLORS=ExFxCxDxBxegedabagacad
-export LANG=zh_CN.UTF-8
-export MAGICK_HOME=/opt/local
-# export GOOS=darwin
-# export GOARCH=amd64
-# export GOBIN=$HOME/gobin
-export GROOVY_HOME=/usr/lib/groovy
-export TERM2NARROW=false
-
-export LESS_TERMCAP_mb=$'\E[05;34m'       # begin blinking
-export LESS_TERMCAP_md=$'\E[01;34m'       # begin bold
-export LESS_TERMCAP_me=$'\E[0m'           # end mode
-export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
-export LESS_TERMCAP_so=$'\E[44;33m'       # begin standout-mode
-export LESS_TERMCAP_ue=$'\E[0m'           # end underline
-export LESS_TERMCAP_us=$'\E[04;33m'       # begin underline
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -82,9 +62,6 @@ alias rspec='rspec -I. -fd --color'
 alias vih="sudo vim /etc/hosts"
 alias lv=lnav
 alias bsl='brew services list'
-
-export PAGER='less -R'
-export RI='-f ansi'
 
 # Set to this to use case-sensitive completion
 #CASE_SENSITIVE="true"
@@ -195,13 +172,6 @@ function jj() {
   cd "$({dirs -pl; j -s | sed -n '/^_______/!p; /^_______/q'  | cut -d$'\t' -f2; } | fzf)"
 }
 
-export LSCOLORS=exfxcxdxcxegedabagacad
-export LS_COLORS='di=01;36'
-
-PERL_MB_OPT="--install_base \"/Users/liuxiang/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/liuxiang/perl5"; export PERL_MM_OPT;
-export PERL5LIB=/Users/liuxiang/perl5/lib/perl5/
-
 # function rm() {
 #   echo '~~~~ Use mm instead in interactvie shell!  ~~~~'
 #   echo
@@ -209,10 +179,8 @@ export PERL5LIB=/Users/liuxiang/perl5/lib/perl5/
 # }
 
 set -o interactivecomments
-export NULLCMD=:
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_OPTS='-x -m'
 
 function command_not_found_handler() {
   if echo -n "$1" | grep -q '^-[0-9]\{1,2\}$'; then
@@ -265,8 +233,6 @@ then
   print -P "\033AnSiTc %d"
   source $HOME/.zlogin
 fi
-
-export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 
 # source ~/.xsh
 
