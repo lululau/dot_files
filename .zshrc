@@ -39,6 +39,7 @@ alias -g ODC='| od -Ad -tc'
 alias -s tgz='tar -zxf'
 alias -s tar.gz='tar -zxf'
 alias rvmdefault='rvm use default'
+alias kl='kill'
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
