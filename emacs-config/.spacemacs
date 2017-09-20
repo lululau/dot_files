@@ -317,7 +317,11 @@ layers configuration."
    web-mode-markup-indent-offset 2
    web-mode-css-indent-offset 2
    web-mode-code-indent-offset 2
-   web-mode-attr-indent-offset 2)
+   web-mode-attr-indent-offset 2
+   javascript-indent-level 2
+   js-indent-level 2
+   json-reformat:indent-width 2
+   coffee-tab-width 2)
   (setq neo-vc-integration nil)
   (setq diff-hl-side 'left)
   (spacemacs/set-state-faces)
