@@ -9,3 +9,4 @@ GPATH
 *.min.js
 *.min.css
 /coverage/
+/node_modules/
