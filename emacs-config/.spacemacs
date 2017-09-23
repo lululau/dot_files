@@ -101,7 +101,7 @@
      html
      (java :variables java-backend 'meghanada)
      c-c++
-     javascript
+     (javascript  :variables javascript-disable-tern-port-files nil)
      (python :variables python-test-runner '(pytest))
      restclient
      rust
