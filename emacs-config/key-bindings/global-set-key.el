@@ -124,3 +124,6 @@
 (global-set-key (kbd "C-M-s-(") 'winum-select-window-9)
 
 (global-set-key (kbd "<f12>") #'lx/open-mail-custom-layout-or-mu4e-main)
+
+(global-set-key (kbd (if (display-graphic-p) "<C-return>" "C-RET")) #'spacemacs/jump-to-definition)
+(global-set-key (kbd (if (display-graphic-p) "<s-return>" "s-RET")) #'spacemacs/jump-to-definition-other-window)
