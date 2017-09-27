@@ -16,6 +16,7 @@ CHROME_PATTERNS=(
 '^https\?://[^/]*\.umeng\.us'
 '^https\?://[^/]*docs\.google\.com'
 '^https\?://[^/]*\.alibaba-inc\.com'
+'^https\?://[^/]*\.quip\.com'
 '^https\?://[^/]*\.ktjr\.com'
 '^https\?://[^/]*\.kaitongamc\.com'
 '^https\?://[^/]*\.creditcloud\.com'
