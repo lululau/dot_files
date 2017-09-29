@@ -164,7 +164,7 @@
                         (eq (car-safe it) 'mu4e)
                         (eq (car-safe it) 'elfeed)
                         (eq it 'dash))
-                  (add-to-list 'lx/conf-layers it)
+                  (add-to-list 'lx/conf-layers it t)
                     )) dotspacemacs-configuration-layers)
         (setq-default dotspacemacs-configuration-layers lx/conf-layers))))
 
