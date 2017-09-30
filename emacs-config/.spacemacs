@@ -26,13 +26,15 @@
             lx/default-shell "~/liuxiang/local/bin/zsh"
             lx/emacs-config-init-el "~/liuxiang/.config/emacs-config/init.el"
             lx/emacs-text-objects-init-el "~/liuxiang/.config/emacs-config/text-objects/init.el"
-            lx/emacs-key-bindings-init-el "~/liuxiang/.config/emacs-config/key-bindings/init.el"))
+            lx/emacs-key-bindings-init-el "~/liuxiang/.config/emacs-config/key-bindings/init.el"
+            lx/org-project-file nil))
   (setq lx/conf-layer-path "~/cascode/github.com/spacemacs-layers"
         lx/snippets-path  "~/.config/emacs-config/snippets"
         lx/default-shell "/bin/zsh"
         lx/emacs-config-init-el "~/.config/emacs-config/init.el"
         lx/emacs-text-objects-init-el "~/.config/emacs-config/text-objects/init.el"
-        lx/emacs-key-bindings-init-el "~/.config/emacs-config/key-bindings/init.el"))
+        lx/emacs-key-bindings-init-el "~/.config/emacs-config/key-bindings/init.el"
+        lx/org-project-file "~/Documents/org/projects.org"))
 
 
 (defun dotspacemacs/layers ()
@@ -72,7 +74,7 @@
           org-enable-github-support t
           org-enable-bootstrap-support t
           org-enable-reveal-js-support t
-          org-projectile-file "~/Documents/org/projects.org")
+          org-projectile-file ,lx/org-project-file)
      (shell :variables
             shell-default-height 38
             shell-default-position 'bottom
