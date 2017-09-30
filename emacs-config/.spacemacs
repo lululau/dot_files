@@ -347,7 +347,9 @@ layers configuration."
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
         '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) ("jira\\.kaitongamc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
-  (setq org-directory "/Users/liuxiang/Documents/org")
+  (if (lx/system-is-mac)
+      (setq org-directory "~/Documents/org")
+    (setq org-directory "~/liuxiang/org"))
   ;; (setq org-agenda-files (append (file-expand-wildcards "~/Documents/org/**/*.org") (file-expand-wildcards  "~/Documents/org/*.org")))
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
@@ -383,6 +385,9 @@ layers configuration."
           spacemacs//space-doc-resize-inline-images
           spacemacs//space-doc-advice-org-do-emphasis-faces))
   (setq org-default-notes-file "/Users/liuxiang/Documents/org/notes.org")
+  (if (lx/system-is-mac)
+      (setq org-default-notes-file "~/Documents/org/notes.org")
+    (setq org-default-notes-file "~/liuxiang/org/notes.org"))
   (setq org-html-doctype "html5")
   (setq git-link-remote-alist
         '(("gitlab.ktjr.com"    git-link-gitlab)
