@@ -5,23 +5,6 @@ else
     ZSH=$HOME/.oh-my-zsh
 fi
 
-# Linux Specific Config
-if uname | grep -q Linux; then
-    if [ -e $HOME/liuxiang/.zshrc ]; then
-        export SHELL=/home/deploy/liuxiang/local/bin/zsh
-        alias tmux='tmux -L liuxiang -f /home/deploy/liuxiang/.tmux.conf'
-        alias vim="vim -u ~/liuxiang/.vimrc"
-        export SCREENRC=$HOME/liuxiang/.screenrc
-    fi
-    alias ta='tmux attach -t'
-    alias tad='tmux attach -d -t'
-    alias ts='tmux new-session -s'
-    alias tl='tmux list-sessions'
-    alias tksv='tmux kill-server'
-    alias tkss='tmux kill-session -t'
-    alias e='emacsclient -t'
-fi
-
 alias -- +x='chmod +x '
 alias -- '--=git checkout -'
 alias l1='ls -1'
@@ -127,6 +110,23 @@ plugins=(ack2 alibas autojump autopair
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+
+# Linux Specific Config
+if uname | grep -q Linux; then
+    if [ -e $HOME/liuxiang/.zshrc ]; then
+        export SHELL=/home/deploy/liuxiang/local/bin/zsh
+        alias tmux='tmux -L liuxiang -f /home/deploy/liuxiang/.tmux.conf'
+        alias vim="vim -u ~/liuxiang/.vimrc"
+        export SCREENRC=$HOME/liuxiang/.screenrc
+    fi
+    alias ta='tmux attach -t'
+    alias tad='tmux attach -d -t'
+    alias ts='tmux new-session -s'
+    alias tl='tmux list-sessions'
+    alias tksv='tmux kill-server'
+    alias tkss='tmux kill-session -t'
+    alias e='emacsclient -t'
+fi
 
 bindkey '^Xk' autosuggest-clear
 bindkey '^X^k' autosuggest-clear
