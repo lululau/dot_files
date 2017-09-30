@@ -14,9 +14,10 @@
     (progn
       (setq lx/spacemacs-themes '(solarized-light spacemacs-dark))
       (setq lx/spacemacs-banner 'official)
-      )
+      (setq neo-theme 'icons))
   (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
-  (setq lx/spacemacs-banner '000))
+  (setq lx/spacemacs-banner '000)
+  (setq neo-theme 'ascii))
 
 (if (and (lx/system-is-linux) (file-exists-p "~/liuxiang"))
     (progn
@@ -657,7 +658,6 @@ This function is called at the very end of Spacemacs initialization."
   (:from-or-to . 22)
   (:subject))))
  '(mu4e-headers-time-format "%H:%M")
- '(neo-theme (quote icons))
  '(ns-pop-up-frames nil)
  '(org-agenda-files "~/.agenda_files")
  '(org-bullets-bullet-list (quote ("" "★" "☆" "⦿" "✪" "✬" "❖" "✦" "✧")))

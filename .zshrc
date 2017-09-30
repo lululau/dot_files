@@ -63,6 +63,7 @@ alias rspec='rspec -I. -fd --color'
 alias vih="sudo vim /etc/hosts"
 alias lv=lnav
 alias bsl='brew services list'
+alias vg=vagrant
 
 # Set to this to use case-sensitive completion
 #CASE_SENSITIVE="true"
