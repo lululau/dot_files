@@ -1,5 +1,5 @@
 #group: source block
-# key: ssh
+# key: sshell
 # --
 #+BEGIN_SRC sh
 $0

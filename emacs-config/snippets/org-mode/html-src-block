@@ -1,0 +1,6 @@
+#group: source block
+# key: shtml
+# --
+#+BEGIN_SRC html
+$0
+#+END_SRC

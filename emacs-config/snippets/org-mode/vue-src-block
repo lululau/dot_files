@@ -1,0 +1,6 @@
+#group: source block
+# key: svue
+# --
+#+BEGIN_SRC vue
+$0
+#+END_SRC
