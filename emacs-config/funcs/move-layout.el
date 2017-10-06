@@ -42,4 +42,12 @@
       (lx/move-layout-backward))
     (keyboard-quit)))
 
-
+(defun lx/persp-swith-to-buffer-project ()
+  (interactive)
+  (save-window-excursion
+    (let ((current-index (lx/current-layout-index)))
+      (spacemacs/layouts-ts-close)
+      (persp-switch (projectile-project-root))
+      (while (not (eq current-index (lx/current-layout-index)))
+        (lx/move-layout-backward))
+      (keyboard-quit))))
