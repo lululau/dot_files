@@ -106,6 +106,7 @@
      (java :variables java-backend 'meghanada)
      c-c++
      (javascript  :variables javascript-disable-tern-port-files nil)
+     react
      (python :variables python-test-runner '(pytest))
      restclient
      rust
@@ -415,6 +416,8 @@ layers configuration."
                                   ("\\.m\\'" . objc-mode)
                                   ("\\.mm\\'" . objc-mode)
                                   ("\\.sc" . scala-mode)) auto-mode-alist))
+
+  (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . react-mode))
 
   (setq org-plantuml-jar-path "/usr/local/libexec/plantuml.jar")
 
