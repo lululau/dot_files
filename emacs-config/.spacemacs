@@ -654,6 +654,9 @@ This function is called at the very end of Spacemacs initialization."
   ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.4.2/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.4.2/bin/pry"))))
  '(jiralib-url "http://jira.kaitongamc.com")
  '(js2-strict-missing-semi-warning nil)
+'(launchctl-search-path
+(quote
+ ("~/Library/LaunchAgents/" "/Library/LaunchAgents/" "/Library/LaunchDaemons/" "/System/Library/LaunchAgents/" "/System/Library/LaunchDaemons/")))
  '(magit-blame-heading-format "%-20a %A %s %H")
  '(magit-diff-use-overlays nil)
  '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
