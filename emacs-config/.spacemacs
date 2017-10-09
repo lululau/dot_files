@@ -57,6 +57,7 @@
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      ivy helm
+     neotree
      (osx :variables osx-command-as 'super)
      (auto-completion :variables
                       auto-completion-tab-key-behavior 'complete
