@@ -22,6 +22,10 @@ unless $USER_PRYRC_LOADED
     end
   end
 
+  if defined?(Rails) && Rails.application
+    def Rails.app; Rails.application; end
+  end
+
   Pry.config.editor = "vim"
 
   # if defined?(PryNav)
