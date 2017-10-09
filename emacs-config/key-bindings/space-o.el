@@ -62,6 +62,7 @@
 ;; Org files
 (setq lx/org-files
       '(("oob" bookmarks-org "~/Documents/org/bookmarks.org")
+        ("ood" tech-diary-org "~/Documents/notes/tech_diary.org")
         ("oon" notes-org "~/Documents/org/notes.org")
         ("oop" projects-org "~/Documents/org/projects.org")
         ("oor" rails-guides-org "~/Documents/org/rails-guides-org/rails-guides-index.org")))
