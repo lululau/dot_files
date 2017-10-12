@@ -56,5 +56,4 @@ export PERL_MB_OPT="--install_base \"/Users/liuxiang/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=/Users/liuxiang/perl5"
 export PERL5LIB=$HOME/perl5/lib/perl5
 export NULLCMD=:
-export FZF_DEFAULT_OPTS='-x -m'
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
