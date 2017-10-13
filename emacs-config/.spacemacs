@@ -486,12 +486,17 @@ layers configuration."
   ;; (spaceline-all-the-icons--setup-paradox)         ;; Enable Paradox mode line
   ;; (spaceline-all-the-icons--setup-neotree)         ;; Enable Neotree mode line
 
+  (require 'savehist)
+  (add-to-list 'savehist-additional-variables 'helm-dired-history-variable)
+  (savehist-mode 1)
+
   (with-eval-after-load 'dired
-    (require 'savehist)
-    (add-to-list 'savehist-additional-variables 'helm-dired-history-variable)
-    (savehist-mode 1)
-    (require 'helm-dired-history)
-    (define-key (cdr ido-minor-mode-map-entry) [remap dired] nil))
+    (require 'helm-dired-history))
+
+  (add-hook 'ido-setup-hook #'(lambda () (define-key (cdr ido-minor-mode-map-entry) [remap dired] nil)))
+
+  (defalias 'fuck-ido-dired 'dired)
+  (spacemacs/set-leader-keys "ad" 'fuck-ido-dired)
 
   (global-subword-mode)
 
