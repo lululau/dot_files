@@ -199,7 +199,7 @@ bindkey -a ds delete-surround
 bindkey -a ys add-surround
 bindkey -M visual S add-surround
 
-# ALT-a - cd into the selected directory
+# ALT-a - cd into the parent directory
 cd-parent-widget() {
     cd ".."
     local ret=$?
@@ -209,6 +209,17 @@ cd-parent-widget() {
 }
 zle     -N    cd-parent-widget
 bindkey '\ea' cd-parent-widget
+
+# ALT-p - cd into the previous directory
+popd-widget() {
+    popd -q
+    local ret=$?
+    zle reset-prompt
+    typeset -f zle-line-init >/dev/null && zle zle-line-init
+    return $ret
+}
+zle     -N    popd-widget
+bindkey '\ep' popd-widget
 
 export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=40%
