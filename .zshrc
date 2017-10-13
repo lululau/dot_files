@@ -210,6 +210,17 @@ cd-parent-widget() {
 zle     -N    cd-parent-widget
 bindkey '\ea' cd-parent-widget
 
+# ALT-h - cd home directory
+cd-home-widget() {
+    cd ~
+    local ret=$?
+    zle reset-prompt
+    typeset -f zle-line-init >/dev/null && zle zle-line-init
+    return $ret
+}
+zle     -N    cd-home-widget
+bindkey '\eh' cd-home-widget
+
 # ALT-p - cd into the previous directory
 popd-widget() {
     popd -q
