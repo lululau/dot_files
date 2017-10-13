@@ -189,6 +189,16 @@ bindkey -s '\eLr' 'l -tr\n'
 bindkey -s '\eLa' 'la\n'
 bindkey -s '\es' 'ss\n'
 
+bindkey '^z' vi-cmd-mode
+bindkey -a '^z' vi-insert
+
+bindkey -s '\egs' 'git status\n'
+bindkey -s '\egd' 'git diff\n'
+bindkey -s '\egl' 'git log\n'
+bindkey -s '\egp' 'git log -p\n'
+bindkey -s '\eg-' 'git checkout -\n'
+bindkey -s '\eg\eg' 'magit\n'
+
 ZSH_AUTOSUGGEST_IGNORE_WIDGETS+=(vi-change vi-delete)
 autoload -Uz surround
 zle -N delete-surround surround
@@ -257,9 +267,6 @@ source $ZSH/functions/zce.zsh
 export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=40%
 export FZF_DEFAULT_OPTS="-x -m --history=$HOME/.fzf_history --history-size=10000 --bind 'ctrl-n:down,ctrl-p:up,alt-n:next-history,alt-p:previous-history,ctrl-l:jump,alt-a:select-all,ctrl-alt-j:half-page-down,ctrl-alt-k:half-page-up,alt-j:page-down,alt-k:page-up',ctrl-t:top"
-
-bindkey '^z' vi-cmd-mode
-bindkey -a '^z' vi-insert
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
