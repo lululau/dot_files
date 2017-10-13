@@ -22,7 +22,7 @@ alias -g ODC='| od -Ad -tc'
 alias -s tgz='tar -zxf'
 alias -s tar.gz='tar -zxf'
 alias rvmdefault='rvm use default'
-alias kl='kill'
+alias k='kill'
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -220,6 +220,8 @@ popd-widget() {
 }
 zle     -N    popd-widget
 bindkey '\ep' popd-widget
+
+source $ZSH/functions/zce.zsh
 
 export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=40%
