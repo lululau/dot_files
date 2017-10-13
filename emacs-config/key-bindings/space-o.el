@@ -132,12 +132,15 @@
   (load-library "ob-calc"))
 
 (defun lx/set-ibuffer-group-buffers-by-projects ()
+  (interactive)
   (setq ibuffer-group-buffers-by 'projects))
 
 (defun lx/set-ibuffer-group-buffers-by-modes ()
+  (interactive)
   (setq ibuffer-group-buffers-by 'modes))
 
 (defun lx/set-ibuffer-group-buffers-by-nil ()
+  (interactive)
   (setq ibuffer-group-buffers-by nil))
 
 (spacemacs/set-leader-keys
