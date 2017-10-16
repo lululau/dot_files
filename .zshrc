@@ -319,6 +319,7 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 if [ -n "$EMACS" ]
 then
   export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
+  alias ag='ag --color-match=33'
   chpwd() { print -P "\033AnSiTc %d" }
   print -P "\033AnSiTu %n"
   print -P "\033AnSiTc %d"
