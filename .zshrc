@@ -184,10 +184,11 @@ function jj() {
 set -o interactivecomments
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
-bindkey -s '\eL' 'l\n'
-bindkey -s '\eL\eL' 'l\n'
-bindkey -s '\eLr' 'l -tr\n'
-bindkey -s '\eLa' 'la\n'
+bindkey -s '\eL' 'ls\n'
+bindkey -s '\el\el' 'l\n'
+bindkey -s '\elr' 'l -tr\n'
+bindkey -s '\el\er' 'la -tr\n'
+bindkey -s '\ela' 'la\n'
 bindkey -s '\es' 'ss\n'
 
 bindkey '^z' vi-cmd-mode
