@@ -47,7 +47,6 @@ alias vih="sudo vim /etc/hosts"
 alias lv=lnav
 alias bsl='brew services list'
 alias vg=vagrant
-alias sb=/usr/local/bin/spring
 
 # Set to this to use case-sensitive completion
 #CASE_SENSITIVE="true"
@@ -106,7 +105,7 @@ plugins=(ack2 alibas autojump autopair
          vagrant virtualenv
          xcode
          yum
-         zsh-autosuggestions zsh-brew-services zsh_reload)
+         zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
 

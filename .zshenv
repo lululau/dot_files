@@ -12,7 +12,7 @@ path+=($HOME/perl5/bin)
 if uname | grep -q Linux ; then
     export EDITOR='emacsclient -t'
 else
-    export EDITOR='emacsclient -n'
+    export EDITOR='emacsclient'
 fi
 export GOROOT=/usr/local/opt/go/libexec/
 export GOPATH=$HOME/.go
