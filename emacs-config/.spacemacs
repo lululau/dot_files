@@ -791,6 +791,7 @@ This function is called at the very end of Spacemacs initialization."
   (elixir-enable-compilation-checking . t)
   (elixir-enable-compilation-checking)
   (org-html-head))))
+ '(sh-indentation 2)
  '(sp-highlight-pair-overlay nil)
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
  '(spacemacs-theme-comment-bg nil t)
