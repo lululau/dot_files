@@ -1,0 +1,115 @@
+# Recent settings file for Wireshark 2.4.2.
+#
+# This file is regenerated each time Wireshark is quit.
+# So be careful, if you want to make manual changes here.
+
+######## Recent capture files (latest last), cannot be altered through command line ########
+
+
+######## Recent capture filters (latest last), cannot be altered through command line ########
+
+
+######## Recent display filters (latest last), cannot be altered through command line ########
+
+
+# Main window geometry.
+# Decimal numbers.
+gui.geometry_main_x: 0
+gui.geometry_main_y: 23
+gui.gtk.geometry_main_x: 20
+gui.gtk.geometry_main_y: 20
+gui.geometry_main_width: 1440
+gui.geometry_main_height: 855
+
+# Main window maximized.
+# TRUE or FALSE (case-insensitive).
+gui.geometry_main_maximized: FALSE
+
+# Statusbar left pane size.
+# Decimal number.
+gui.geometry_status_pane: 250
+
+# Statusbar middle pane size.
+# Decimal number.
+gui.geometry_status_pane_right: 250
+
+# Last used Configuration Profile.
+gui.last_used_profile: Default
+
+# WLAN statistics upper pane size.
+# Decimal number.
+gui.geometry_status_wlan_stats_pane: 200
+
+# Warn if running with elevated permissions (e.g. as root).
+# TRUE or FALSE (case-insensitive).
+privs.warn_if_elevated: TRUE
+
+# Warn if npf.sys isn't loaded on Windows >= 6.0.
+# TRUE or FALSE (case-insensitive).
+privs.warn_if_no_npf: TRUE
+
+# Geometry and maximized state of http window.
+# Decimal integers.
+gui.geom.http.x: 320
+gui.geom.http.y: 221
+gui.geom.http.width: 800
+gui.geom.http.height: 459
+# TRUE or FALSE (case-insensitive).
+gui.geom.http.maximized: FALSE
+
+# Geometry and maximized state of PreferencesDialog window.
+# Decimal integers.
+gui.geom.PreferencesDialog.x: 380
+gui.geom.PreferencesDialog.y: 213
+gui.geom.PreferencesDialog.width: 809
+gui.geom.PreferencesDialog.height: 475
+# TRUE or FALSE (case-insensitive).
+gui.geom.PreferencesDialog.maximized: FALSE
+
+# Geometry and maximized state of http_srv window.
+# Decimal integers.
+gui.geom.http_srv.x: 320
+gui.geom.http_srv.y: 221
+gui.geom.http_srv.width: 800
+gui.geom.http_srv.height: 459
+# TRUE or FALSE (case-insensitive).
+gui.geom.http_srv.maximized: FALSE
+
+# Geometry and maximized state of ip_hosts window.
+# Decimal integers.
+gui.geom.ip_hosts.x: 320
+gui.geom.ip_hosts.y: 221
+gui.geom.ip_hosts.width: 800
+gui.geom.ip_hosts.height: 459
+# TRUE or FALSE (case-insensitive).
+gui.geom.ip_hosts.maximized: FALSE
+
+# Geometry and maximized state of http2 window.
+# Decimal integers.
+gui.geom.http2.x: 320
+gui.geom.http2.y: 221
+gui.geom.http2.width: 800
+gui.geom.http2.height: 459
+# TRUE or FALSE (case-insensitive).
+gui.geom.http2.maximized: FALSE
+
+# Geometry and maximized state of http_req window.
+# Decimal integers.
+gui.geom.http_req.x: 320
+gui.geom.http_req.y: 221
+gui.geom.http_req.width: 800
+gui.geom.http_req.height: 459
+# TRUE or FALSE (case-insensitive).
+gui.geom.http_req.maximized: FALSE
+
+# Custom colors.
+# List of custom colors selected in Qt color picker.
+gui.custom_colors: 
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff",
+	"ffffffff", "ffffffff"
