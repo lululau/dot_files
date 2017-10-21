@@ -21,6 +21,8 @@ groups:
       5.kt05:
         hostname: kt05
         command: lxzsh
+      6.sss:
+        hostname: sss
   2.TestServers:
     hosts:
       1.dev01:
@@ -78,6 +80,8 @@ groups:
         hostname: lx17
       17inch_remote:
         hostname: lx17r
+      dallas:
+        hostname: dallas
   5.Google:
     hosts:
       instance_1:
