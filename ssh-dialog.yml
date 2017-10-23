@@ -72,15 +72,19 @@ groups:
         username: vagrant
   4.Macs:
     hosts:
-      LiuXiangRMBP:
+      1.LiuXiangRMBP:
         hostname: lx
-      XYM-MBP:
+      2.LiuXiangRMBP.0:
+        hostname: lx0
+      3.XYM-MBP:
         hostname: xym
-      17inch:
+      4.17inch:
         hostname: lx17
-      17inch_remote:
+      5.17inch.0:
+        hostname: lx170
+      6.17inch_remote:
         hostname: lx17r
-      dallas:
+      7.dallas:
         hostname: dallas
   5.Google:
     hosts:
