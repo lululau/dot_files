@@ -26,7 +26,7 @@
           ("subject:本周上线计划" "本周上线计划" ?s)
           ("活期" "活期" ?h)
           ("试算" "试算" ?S)
-          ("subject:JIRA" "JIRA" ?j)
+          ("subject:万达" "万达" ?d)
           (,(mapconcat 'identity
                       (mapcar
                         (lambda (maildir)
