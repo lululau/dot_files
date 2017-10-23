@@ -1,0 +1,11 @@
+{
+  "libs": [
+    "browser",
+    "jquery"
+  ],
+  "loadEagerly": [
+    "./app/javascript/packs/*.js"
+  ],
+  "plugins": {
+  }
+}
