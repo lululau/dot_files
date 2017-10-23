@@ -74,17 +74,13 @@ groups:
     hosts:
       1.LiuXiangRMBP:
         hostname: lx
-      2.LiuXiangRMBP.0:
-        hostname: lx0
-      3.XYM-MBP:
+      2.XYM-MBP:
         hostname: xym
-      4.17inch:
+      3.17inch:
         hostname: lx17
-      5.17inch.0:
-        hostname: lx170
-      6.17inch_remote:
+      4.17inch_remote:
         hostname: lx17r
-      7.dallas:
+      5.dallas:
         hostname: dallas
   5.Google:
     hosts:
