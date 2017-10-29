@@ -111,6 +111,8 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
+unalias ping
+
 # Linux Specific Config
 if uname | grep -q Linux; then
     if [ -e $HOME/liuxiang/.zshrc ]; then
