@@ -43,3 +43,4 @@ Session.vim
 /private
 /imap_inotify/config.json
 /configstore/update-notifier-npm.json
+/pgcli/log
