@@ -170,4 +170,6 @@
   "obp" #'lx/set-ibuffer-group-buffers-by-projects
   "obm" #'lx/set-ibuffer-group-buffers-by-modes
   "obn" #'lx/set-ibuffer-group-buffers-by-nil
+
+  "om" #'lx/toggle-global-evil-mc-mode
   )
