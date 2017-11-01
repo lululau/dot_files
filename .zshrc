@@ -128,6 +128,8 @@ if uname | grep -q Linux; then
     alias tksv='tmux kill-server'
     alias tkss='tmux kill-session -t'
     alias e='emacsclient -t'
+    alias gls=ls
+    alias gsed=sed
 fi
 
 bindkey '^Xk' autosuggest-clear
