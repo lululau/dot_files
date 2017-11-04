@@ -45,7 +45,13 @@ alias aaaaaaaaa='cd ../../../../../../../../../'
 alias rspec='rspec -I. -fd --color'
 alias vih="sudo vim /etc/hosts"
 alias lv=lnav
-alias bsl='brew services list'
+alias bslist='brew services list'
+alias bsstart='brew services start'
+alias bsstop='brew services stop'
+alias blist='brew list'
+alias bsearch='brew search'
+alias binstall='brew install'
+alias binfo='brew info'
 alias vg=vagrant
 
 # Set to this to use case-sensitive completion
