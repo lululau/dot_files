@@ -13,7 +13,7 @@ rvm_remote_server_url=https://rvm_io.global.ssl.fastly.net/binaries
 # RubyGems
 #
 gem_gem-empty_version=>=1.1.2
-gem_gem-wrappers_version=>=1.3.2
+gem_gem-wrappers_version=>=1.4.0
 gem_rdoc_version=>=4.1.1
 gem_rvm_version=>=1.11.3.9
 rubygems_repo_url=https://github.com/rubygems/rubygems.git
@@ -104,10 +104,10 @@ rbx_1.2.1_patch_level=20110215
 rbx_1.2.2_patch_level=20110222
 rbx_1.2.3_patch_level=20110315
 rbx_1.2.4_patch_level=20110705
-rbx_2.0.0_url=https://s3.amazonaws.com/releases.rubini.us
 rbx_repo_url=https://github.com/rubinius/rubinius.git
 rbx_url=https://s3.amazonaws.com/asset.rubini.us
-rbx_version=3.84
+rbx_url_2.0_and_newer=https://rubinius-releases-rubinius-com.s3.amazonaws.com
+rbx_version=3.86
 #
 # MRuby
 #
@@ -120,7 +120,7 @@ mruby_version=1.3.0
 jruby_repo_url=https://github.com/jruby/jruby.git
 jruby_url=https://s3.amazonaws.com/jruby.org/downloads
 jruby_version=9.1.13.0
-maven_version=3.3.3
+maven_version=3.5.0
 #
 # MacRuby
 #
