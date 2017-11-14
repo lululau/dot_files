@@ -277,6 +277,7 @@ before layers configuration."
    dotspacemacs-swith-to-buffer-prefers-purpose nil
    dotspacemacs-folding-method 'origami
    dotspacemacs-pretty-docs t
+   dotspacemacs-use-spacelpa nil
    )
   ;; User initialization goes here
 
