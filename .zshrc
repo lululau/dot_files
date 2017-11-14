@@ -314,6 +314,34 @@ export FZF_DEFAULT_OPTS="-x -m --history=$HOME/.fzf_history --history-size=10000
 #   fi
 # }
 
+emacsclient-func() {
+    if [ "$(uname)" = Darwin ]; then
+        emacsclient -s term "$@"
+    else
+        emacsclient "$@"
+    fi
+}
+
+# ALT-x - dired-mode as CLI directory navigator
+dired-mode-widget() {
+    setopt localoptions pipefail 2> /dev/null
+    emacsclient-func -t .
+    local dir
+    dir=$(emacsclient-func -e '(when (bound-and-true-p last-dir-for-cli-dir-nav) (print last-dir-for-cli-dir-nav))')
+    emacsclient-func -e '(when (bound-and-true-p last-dir-for-cli-dir-nav) (setq last-dir-for-cli-dir-nav nil))'
+    dir=${(Q)dir}
+    if [ -e ${~dir} ]; then
+        cd ${~dir}
+    fi
+    zle redisplay
+    local ret=$?
+    zle reset-prompt
+    typeset -f zle-line-init >/dev/null && zle zle-line-init
+    return $ret
+}
+zle     -N    dired-mode-widget
+bindkey '\ex' dired-mode-widget
+
 if [[ "$TERM" == "dumb" ]]
 then
     unsetopt zle
