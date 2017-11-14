@@ -392,9 +392,8 @@ layers configuration."
           spacemacs//space-doc-org-kbd-face-remap
           spacemacs//space-doc-resize-inline-images
           spacemacs//space-doc-advice-org-do-emphasis-faces))
-  (setq org-default-notes-file "/Users/liuxiang/Documents/org/notes.org")
   (if (lx/system-is-mac)
-      (setq org-default-notes-file "~/Documents/org/notes.org")
+      (setq org-default-notes-file "~/Dropbox/org/refile-beorg.org")
     (setq org-default-notes-file "~/liuxiang/org/notes.org"))
   (setq org-html-doctype "html5")
   (setq git-link-remote-alist
