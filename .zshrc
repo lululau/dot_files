@@ -111,6 +111,7 @@ plugins=(ack2 alibas autojump autopair
          vagrant virtualenv
          xcode
          yum
+         project-root
          zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
