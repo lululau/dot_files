@@ -88,8 +88,6 @@
 
 (global-set-key (kbd "s-M") #'helm-mu)
 
-(global-set-key (kbd "M-X") #'lx/set-last-dir-and-quit)
-
 (global-set-key (kbd "s-0") 'spacemacs/persp-switch-to-0)
 (global-set-key (kbd "s-1") 'spacemacs/persp-switch-to-1)
 (global-set-key (kbd "s-2") 'spacemacs/persp-switch-to-2)

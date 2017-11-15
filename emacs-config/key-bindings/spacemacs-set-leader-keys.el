@@ -38,4 +38,5 @@
   "bL" #'lx/persp-swith-to-buffer-project
   "jw" #'evil-avy-goto-word-0
   "ja" #'evil-avy-goto-char-in-line
+  "xx" #'lx/set-last-dir-and-quit
 )
