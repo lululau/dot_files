@@ -672,6 +672,7 @@ This function is called at the very end of Spacemacs initialization."
  '(magit-blame-heading-format "%-20a %A %s %H")
  '(magit-diff-use-overlays nil)
  '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
+ '(magit-revision-show-gravatars nil)
  '(markdown-command "/Users/liuxiang/bin/markdown")
  '(mu4e-attachment-dir "/Users/liuxiang/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
@@ -800,7 +801,7 @@ This function is called at the very end of Spacemacs initialization."
  '(sh-indentation 2)
  '(sp-highlight-pair-overlay nil)
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
- '(spacemacs-theme-comment-bg nil t)
+ '(spacemacs-theme-comment-bg nil)
 '(sql-connection-alist
 (quote
  (("localhost-test"
