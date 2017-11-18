@@ -343,6 +343,39 @@ dired-mode-widget() {
 zle     -N    dired-mode-widget
 bindkey '\ex' dired-mode-widget
 
+emacs-capture-widget() {
+    setopt localoptions pipefail 2> /dev/null
+    if [ -n "$TMUX" ]; then
+      local capture_cmd='tmux capture-pane -pS -'
+    elif [ $(uname) = Darwin ]; then
+      local contents=$(osascript -e "tell app \"iTerm\" to get contents of current session of current tab of current window")
+      local capture_cmd='echo "$contents"'
+    else
+        local capture_cmd='echo'
+    fi
+
+    local tmpfile=$(mktemp)
+    basename=$(basename "$tmpfile")
+    eval "$capture_cmd" | perl -00 -pe 1 > "$tmpfile"
+    if [ "$(uname)" = Darwin ]; then
+      emacsclient-func -t -e "(progn (find-file \"$tmpfile\") (linum-mode) (end-of-buffer))"
+      emacsclient-func -n -e "(kill-buffer \"$basename\")"
+    else
+        emacsclient-func -t -e "(progn (find-file \"$tmpfile\") (linum-mode) (end-of-buffer))"
+        emacsclient-func -n -e "(kill-buffer \"$basename\")"
+    fi
+
+    rm "$tmpfile"
+
+    zle redisplay
+    local ret=$?
+    zle reset-prompt
+    typeset -f zle-line-init >/dev/null && zle zle-line-init
+    return $ret
+}
+zle     -N    emacs-capture-widget
+bindkey '\eO' emacs-capture-widget
+
 if [[ "$TERM" == "dumb" ]]
 then
     unsetopt zle
