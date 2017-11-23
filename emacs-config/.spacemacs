@@ -686,7 +686,6 @@ This function is called at the very end of Spacemacs initialization."
  '(mu4e-headers-time-format "%H:%M")
  '(ns-pop-up-frames nil)
  '(org-agenda-files "~/.agenda_files")
- '(org-bullets-bullet-list (quote ("" "★" "☆" "⦿" "✪" "✬" "❖" "✦" "✧")))
 '(org-capture-templates
 (quote
  (("t" "Todo" entry
