@@ -689,12 +689,12 @@ This function is called at the very end of Spacemacs initialization."
 '(org-capture-templates
 (quote
  (("t" "Todo" entry
-   (file+headline "" "Tasks")
+   (file "")
    "* TODO %?
   %u
   %a")
   ("g" "Todo" entry
-   (file+headline "" "Tasks")
+   (file "")
    "* TODO %?
   %u"))))
  '(org-confirm-babel-evaluate nil)
