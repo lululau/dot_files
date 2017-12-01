@@ -46,6 +46,7 @@
         ("oeH" html-demo    "~/Documents/org/demo/demo.html")
         ("oec" c-demo       "~/Documents/org/demo/demo.c")
         ("oeg" go-demo      "~/.go/src/demo/demo.go")
+        ("oee" elixir-demo  "~/Documents/org/demo/demo.exs")
         ("oet" txt-demo     "~/Documents/org/demo/demo.txt")))
 
 ;; Config files
