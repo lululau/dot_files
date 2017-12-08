@@ -87,6 +87,7 @@ exuberant-ctags|plugin-example|setting to use Exuberant Ctags plug-in parser:\
 	:langmap=Python\:.py.pyx.pxd.pxi.scons:\
 	:langmap=REXX\:.cmd.rexx.rx:\
 	:langmap=Ruby\:.rb.ruby.rake:\
+	:langmap=Scala\:.sc.scala:\
 	:langmap=Scheme\:.SCM.SM.sch.scheme.scm.sm:\
 	:langmap=Sh\:.sh.SH.bsh.bash.ksh.zsh:\
 	:langmap=SLang\:.sl:\
