@@ -104,6 +104,7 @@
      evil-commentary
      major-modes
      html
+     groovy
      (java :variables java-backend 'meghanada)
      c-c++
      (javascript  :variables javascript-disable-tern-port-files nil)
