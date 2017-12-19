@@ -6,3 +6,4 @@ inoremap <c-n> <Down>
 inoremap <c-p> <Up>
 inoremap <c-d> <Del>
 nnoremap <c-c> i
+nmap <Space> :action AceAction<CR>
