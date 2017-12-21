@@ -12,7 +12,7 @@
 
 (if (display-graphic-p)
     (progn
-      (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
+      (setq lx/spacemacs-themes '(solarized-light spacemacs-dark))
       (setq lx/spacemacs-banner 'official)
       (setq neo-theme 'icons))
   (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
