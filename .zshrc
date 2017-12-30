@@ -94,7 +94,7 @@ autoload -U zmv
 plugins=(ack2 alibas autojump autopair
          bd brew bundler
          colored-man colorize command-not-found compleat cp cpanm common-aliases copybuffer
-         docker docker-compose
+         docker docker-compose docker-machine
          encode64 emoji
          funcfind
          gem gemcd git github go golang gradle
