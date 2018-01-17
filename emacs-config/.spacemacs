@@ -110,6 +110,7 @@
      (javascript  :variables javascript-disable-tern-port-files nil)
      react
      (python :variables python-test-runner '(pytest))
+     php
      restclient
      rust
      scala
