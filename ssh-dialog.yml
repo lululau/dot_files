@@ -88,6 +88,8 @@ groups:
         hostname: lx17r
       5.dallas:
         hostname: dallas
+      6.tokyo2:
+        hostname: tokyo2
   5.Google:
     hosts:
       instance_1:
