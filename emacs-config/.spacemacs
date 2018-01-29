@@ -134,7 +134,7 @@
      plantuml
      nginx
      vimscript
-     (mu4e :variables mu4e-enable-notifications t mu4e-enable-mode-line t)
+     (mu4e :variables mu4e-enable-notifications t mu4e-enable-mode-line t mu4e-use-maildirs-extension t)
      confluence-lx
      ragtag
      org-yank-image
