@@ -1,0 +1,89 @@
+# You can edit this file by hand, but it's recommended not to do that.
+
+# Marks:
+'H
+	/Users/liuxiang/
+	..
+1517906678
+'b
+	/Users/liuxiang/bin/
+	..
+1517906678
+'h
+	/Users/liuxiang/
+	..
+1517906678
+'z
+	/Users/liuxiang/.config/vifm
+	..
+1517906678
+
+# Bookmarks:
+
+# TUI:
+al
+q0
+v2
+ov
+m-1
+l2
+r2
+
+# Left window history (oldest to newest):
+d/Users/liuxiang
+	Cafe
+3
+d/Users/liuxiang/Cafe
+	BC
+5
+d/Users/liuxiang/Cafe/BC
+	bitcoin.pdf
+1
+d/Users/liuxiang/Cafe
+	BC
+5
+d/Users/liuxiang
+	tmp
+26
+d/Users/liuxiang/tmp
+	haha
+20
+d/Users/liuxiang/tmp/haha
+	hello
+2
+d/Users/liuxiang/tmp/haha/hello
+	main.js
+11
+d
+
+# Right window history (oldest to newest):
+D/Users/liuxiang
+	..
+0
+D
+
+# Command line history (oldest to newest):
+:q
+
+# Search history (oldest to newest):
+
+# Prompt history (oldest to newest):
+
+# Local filter history (oldest to newest):
+
+# Registers:
+
+# Directory stack (oldest to newest):
+
+# Trash content:
+
+# State:
+f
+i1
+[.1
+[F
+F
+I1
+].1
+]F
+s0
