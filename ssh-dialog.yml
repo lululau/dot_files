@@ -90,7 +90,7 @@ groups:
         hostname: dallas
       6.tokyo2:
         hostname: tokyo2
-      6.CA:
+      7.CA:
         hostname: ca
   5.Google:
     hosts:
