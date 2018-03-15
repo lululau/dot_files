@@ -92,6 +92,10 @@ groups:
         hostname: tokyo2
       7.CA:
         hostname: ca
+      8.r6300:
+        hostname: r6300
+      9.r6300.r:
+        hostname: r6300.r
   5.Google:
     hosts:
       instance_1:
