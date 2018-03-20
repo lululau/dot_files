@@ -472,6 +472,10 @@ layers configuration."
      (format "'%s'" msg)))                                ;; passed to -message in terminal-notifier call
   (setq appt-disp-window-function (function my-appt-display))
 
+  (define-coding-system-alias 'UTF-8 'utf-8)
+  (define-coding-system-alias 'UTF8 'utf-8)
+  (define-coding-system-alias 'utf8 'utf-8)
+
   (setq eclim-eclipse-dirs "~/Applications/Eclipse.app" eclim-executable "~/Applications/Eclipse.app/Contents/Eclipse/eclim")
   (global-pangu-spacing-mode -1)
   (global-vi-tilde-fringe-mode -1)
