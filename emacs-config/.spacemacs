@@ -105,7 +105,7 @@
      major-modes
      html
      groovy
-     (java :variables java-backend 'meghanada)
+     (java :variables java-backend 'ensime)
      c-c++
      (javascript  :variables javascript-disable-tern-port-files nil)
      react
