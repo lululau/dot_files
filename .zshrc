@@ -389,33 +389,33 @@ zle     -N    emacs-capture-widget
 bindkey '\eO' emacs-capture-widget
 
 
-export NNN_TMPFILE="/tmp/nnn"
-export NNN_USE_EDITOR=1
-export NNN_COPIER=$HOME/bin/copier_for_nnn.sh
-# export NNN_DE_FILE_MANAGER=open
-# export NNN_NOWAIT=1
+# export NNN_TMPFILE="/tmp/nnn"
+# export NNN_USE_EDITOR=1
+# export NNN_COPIER=$HOME/bin/copier_for_nnn.sh
+# # export NNN_DE_FILE_MANAGER=open
+# # export NNN_NOWAIT=1
 
-function n() {
-    nnn -i -c 1 "$@"
+# function n() {
+#     nnn -i -c 1 "$@"
 
-    if [ -f $NNN_TMPFILE ]; then
-      . $NNN_TMPFILE
-      rm -f $NNN_TMPFILE
-    fi
-}
+#     if [ -f $NNN_TMPFILE ]; then
+#       . $NNN_TMPFILE
+#       rm -f $NNN_TMPFILE
+#     fi
+# }
 
-# ALT-n nnn
-nnn-widget() {
-    setopt localoptions pipefail 2> /dev/null
-    n <>/dev/tty
-    zle redisplay
-    local ret=$?
-    zle reset-prompt
-    typeset -f zle-line-init >/dev/null && zle zle-line-init
-    return $ret
-}
-zle     -N    nnn-widget
-bindkey '\en' nnn-widget
+# # ALT-n nnn
+# nnn-widget() {
+#     setopt localoptions pipefail 2> /dev/null
+#     n <>/dev/tty
+#     zle redisplay
+#     local ret=$?
+#     zle reset-prompt
+#     typeset -f zle-line-init >/dev/null && zle zle-line-init
+#     return $ret
+# }
+# zle     -N    nnn-widget
+# bindkey '\en' nnn-widget
 
 
 if [[ "$TERM" == "dumb" ]]
