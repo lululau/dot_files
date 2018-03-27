@@ -264,6 +264,17 @@ cd-home-widget() {
 zle     -N    cd-home-widget
 bindkey '\eh' cd-home-widget
 
+# ALT-/ - cd root directory
+cd-root-widget() {
+    cd /
+    local ret=$?
+    zle reset-prompt
+    typeset -f zle-line-init >/dev/null && zle zle-line-init
+    return $ret
+}
+zle     -N    cd-root-widget
+bindkey '\e/' cd-root-widget
+
 # ALT-p - cd into the previous directory
 popd-widget() {
     popd -q
