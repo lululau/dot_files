@@ -5,7 +5,7 @@
   "gC" 'magit-commit
   "gc" #'(lambda (arg) (interactive "P") (call-interactively (if arg 'magit-branch-and-checkout 'magit-checkout)))
   "gS" #'(lambda () (interactive) (magit-run-git-async "status") (magit-process-buffer))
-  "gu" #'(lambda () (interactive) (magit-checkout-file (magit-get-current-branch) (buffer-file-name)))
+  "gu" #'(lambda () (interactive) (magit-file-checkout (magit-get-current-branch) (buffer-file-name)))
   "gr" 'diff-hl-revert-hunk
   "gd" 'magit-diff-buffer-file
   "gp" #'(lambda () (interactive) (call-interactively 'magit-pull-from-upstream) (magit-process-buffer))
