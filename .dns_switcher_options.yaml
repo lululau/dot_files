@@ -1,7 +1,15 @@
 use_sudo: true
 options:
+  - name: R6300
+    servers: 192.168.4.1
   - name: Google
     servers: 8.8.8.8 8.8.4.4
+  - name: CloudFlare
+    servers: 1.1.1.1
+  - name: DNSPod
+    servers: 119.29.29.29
+  - name: ChinaUnicom
+    servers: 202.106.195.68 202.106.46.151
   - name: 114
     servers: 114.114.114.114 114.114.115.115
   - name: V2EX
@@ -14,5 +22,3 @@ options:
     servers: 208.67.222.222 208.67.220.220
   - name: ISP Default
     servers: empty
-  - name: ChinaUnicom
-    servers: 202.106.195.68 202.106.46.151
