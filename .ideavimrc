@@ -17,6 +17,9 @@ set formatoptions+=mM
 set ambiwidth=double
 set noshowmode
 
+let mapleader = " "
+noremap <leader>feR :source ~/.ideavimrc<cr>
+
 inoremap <c-a> <c-o>^
 inoremap <c-f> <Right>
 inoremap <c-b> <Left>
@@ -24,4 +27,13 @@ inoremap <c-n> <Down>
 inoremap <c-p> <Up>
 inoremap <c-d> <Del>
 nnoremap <c-c> i
-nmap <Space> :action AceAction<CR>
+nnoremap <c-a> ^
+
+
+nnoremap <leader><leader> :action AceAction<cr>
+nnoremap <leader>dd :action QuickJavaDoc<cr>
+nnoremap <leader>ds :action QuickImplementations<cr>
+nnoremap <leader>pt :action ActivateProjectToolWindow<cr>
+nnoremap <leader>fo :action Tool_External Tools_Open in Emacs<cr>
+nnoremap <leader>ss :action FindInPath<cr>
+vnoremap <leader>ss y:<bs><bs><bs><bs><bs>action FindInPath<cr>
