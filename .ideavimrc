@@ -5,9 +5,9 @@ set incsearch
 set ignorecase
 
 set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set autoindent
 set cindent
 set encoding=utf-8
@@ -18,8 +18,9 @@ set ambiwidth=double
 set noshowmode
 
 let mapleader = " "
-noremap <leader>feR :source ~/.ideavimrc<cr>
 
+" System/Global
+nnoremap <leader>qq :action Exit<cr>
 inoremap <c-a> <c-o>^
 inoremap <c-f> <Right>
 inoremap <c-b> <Left>
@@ -28,12 +29,87 @@ inoremap <c-p> <Up>
 inoremap <c-d> <Del>
 nnoremap <c-c> i
 nnoremap <c-a> ^
+nnoremap <cr> :action EditorStartNewLine<cr>
 
-
+" Motion/Jump
 nnoremap <leader><leader> :action AceAction<cr>
-nnoremap <leader>dd :action QuickJavaDoc<cr>
-nnoremap <leader>ds :action QuickImplementations<cr>
+noremap <c-cr> :action GotoImplementation<cr>
+noremap <m-cr> :action VimWindowSplitVertical<cr>:action GotoImplementation<cr>
+
+" Getting Help
+noremap <leader>hd :action QuickJavaDoc<cr>
+noremap <leader>hs :action QuickImplementations<cr>
+noremap <leader>dd :action SmartSearchAction<cr>
+noremap <leader>dD :action SearchAction<cr>
+
+" Projects
 nnoremap <leader>pt :action ActivateProjectToolWindow<cr>
+
+" Files
+noremap <leader>feR :source ~/.ideavimrc<cr>
 nnoremap <leader>fo :action Tool_External Tools_Open in Emacs<cr>
-nnoremap <leader>ss :action FindInPath<cr>
-vnoremap <leader>ss y:<bs><bs><bs><bs><bs>action FindInPath<cr>
+
+" Search
+nnoremap <leader>/ :action FindInPath<cr>
+vnoremap <leader>/ <c-c>:action FindInPath<cr>
+nnoremap <leader>* viw:action FindInPath<cr>
+vnoremap <leader>* :action FindInPath<cr>
+noremap <leader>su :action ShowUsages<cr>
+noremap <leader>sU :action FindUsages<cr>
+nnoremap <leader>sr :action ReplaceInPath<cr>
+vnoremap <leader>sr <c-c>:action ReplaceInPath<cr>
+nnoremap <leader>sR viw:action ReplaceInPath<cr>
+vnoremap <leader>sR :action ReplaceInPath<cr>
+
+" Toggles
+noremap <leader>tn :action EditorToggleShowLineNumbers<cr>
+noremap <leader>tl :action EditorToggleUseSoftWraps<cr>
+noremap <leader>tw :action EditorToggleShowWhitespaces<cr>
+noremap <leader>tc :action EditorToggleColumnMode<cr>
+noremap <leader>ti :action EditorToggleShowIndentLines<cr>
+noremap <leader>tb :action EditorToggleShowBreadcrumbs<cr>
+noremap <leader>tg :action EditorToggleShowGutterIcons<cr>
+noremap <leader>ts :action ChangeInspectionProfile<cr>
+
+" Maven/Gradle/Other Build-related Actions
+noremap <leader>bf :action Compile<cr>
+noremap <leader>bm :action MakeModule<cr>
+noremap <leader>bp :action CompileDirty<cr>
+noremap <leader>bP :action CompileProject<cr>
+noremap <leader>mi :action Maven.Reimport<cr>
+noremap <leader>me :action Maven.ShowEffectivePom<cr>
+noremap <leader>mp :action Tool_External Tools_Open Module POM<cr>
+noremap <leader>mP :action Tool_External Tools_Open Project POM<cr>
+
+" Tool Windows
+noremap <leader>av :action ActivateBeanValidationToolWindow<cr>
+noremap <leader>ac :action ActivateCheckStyleToolWindow<cr>
+noremap <leader>aD :action ActivateDatabaseToolWindow<cr>
+noremap <leader>ad :action ActivateDebugToolWindow<cr>
+noremap <leader>ae :action ActivateEventLogToolWindow<cr>
+noremap <leader>aF :action ActivateFavoritesToolWindow<cr>
+noremap <leader>af :action ActivateFindToolWindow<cr>
+noremap <leader>aE :action ActivateJavaEnterpriseToolWindow<cr>
+noremap <leader>ajc :action ActivateJRebelConsoleToolWindow<cr>
+noremap <leader>aje :action ActivateJRebelExecutorToolWindow<cr>
+noremap <leader>ajt :action ActivateJRebelToolWindow<cr>
+noremap <leader>aM :action ActivateMavenProjectsToolWindow<cr>
+noremap <leader>am :action ActivateMessagesToolWindow<cr>
+noremap <leader>an :action ActivateNavBar<cr>
+noremap <leader>ap :action ActivatePaletteToolWindow<cr>
+noremap <leader>ar :action ActivateRunToolWindow<cr>
+noremap <leader>as :action ActivateSpringToolWindow<cr>
+noremap <leader>aS :action ActivateStructureToolWindow<cr>
+noremap <leader>' :action ActivateTerminalToolWindow<cr>
+noremap <leader>at :action ActivateTODOToolWindow<cr>
+noremap <leader>ag :action ActivateVersionControlToolWindow<cr>
+noremap <leader>aw :action ActivateWebToolWindow<cr>
+noremap <leader>aT :action ActiveToolwindowGroup<cr>
+
+" Window Management
+nnoremap <A-h> :action VimWindowLeft<cr>
+nnoremap <A-j> :action VimWindowDown<cr>
+nnoremap <A-k> :action VimWindowUp<cr>
+nnoremap <A-l> :action VimWindowRight<cr>
+nnoremap <M-t> :action VimWindowSplitVertical<cr>
+nnoremap <M-S-t> :action VimWindowSplitHorizontal<cr>
