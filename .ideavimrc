@@ -48,6 +48,7 @@ nnoremap <leader>pt :action ActivateProjectToolWindow<cr>
 " Files
 noremap <leader>feR :source ~/.ideavimrc<cr>
 nnoremap <leader>fo :action Tool_External Tools_Open in Emacs<cr>
+noremap <a-tab> :action TabSwitchPlugin.SwitchTab<cr>
 
 " Search
 nnoremap <leader>/ :action FindInPath<cr>
