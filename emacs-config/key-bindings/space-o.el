@@ -58,6 +58,8 @@
         ("ocs" ssh-config "~/.ssh/config")
         ("ocA" authorized_keys "~/.ssh/authorized_keys")
         ("oct" tmux-conf "~/.tmux.conf")
+        ("ocJ" ideavim_actions "~/.ideavim_actions.txt")
+        ("ocj" ideavimrc "~/.ideavimrc")
         ("ocv" vimrc "~/.vimrc")))
 
 ;; Org files
