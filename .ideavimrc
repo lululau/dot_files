@@ -132,3 +132,4 @@ nnoremap <A-k> :action VimWindowUp<cr>
 nnoremap <A-l> :action VimWindowRight<cr>
 nnoremap <M-t> :action VimWindowSplitVertical<cr>
 nnoremap <M-S-t> :action VimWindowSplitHorizontal<cr>
+nnoremap <M-S-w> :action Unsplit<cr>
