@@ -56,6 +56,8 @@ noremap <leader>fR :action RefactoringMenuRenameFile<cr>
 noremap <a-tab> :action TabSwitchPlugin.SwitchTab<cr>
 noremap <leader>fnc :action NewClass<cr>
 noremap <leader>fnf :action NewFile<cr>
+noremap <m-n> :action NewFile<cr>
+noremap <m-s-n> :action NewClass<cr>
 
 " Nav
 noremap <leader>ni :action SelectInProjectView<cr>
