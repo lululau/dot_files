@@ -35,6 +35,8 @@ nnoremap <cr> :action EditorStartNewLine<cr>
 nnoremap <leader><leader> :action AceAction<cr>
 noremap <c-cr> :action GotoImplementation<cr>
 noremap <m-cr> :action VimWindowSplitVertical<cr>:action GotoImplementation<cr>
+noremap <c-o> :action Back<cr>
+noremap <c-i> :action Forward<cr>
 
 " Getting Help
 noremap <leader>hd :action QuickJavaDoc<cr>
@@ -44,11 +46,20 @@ noremap <leader>dD :action SearchAction<cr>
 
 " Projects
 nnoremap <leader>pt :action ActivateProjectToolWindow<cr>
+nnoremap <leader>ps :action ShowProjectStructureSettings<cr>
 
 " Files
 noremap <leader>feR :source ~/.ideavimrc<cr>
 nnoremap <leader>fo :action Tool_External Tools_Open in Emacs<cr>
+noremap <leader>fD :action Tool_External Tools_Delete Current File<cr>
+noremap <leader>fR :action RefactoringMenuRenameFile<cr>
 noremap <a-tab> :action TabSwitchPlugin.SwitchTab<cr>
+noremap <leader>fnc :action NewClass<cr>
+noremap <leader>fnf :action NewFile<cr>
+
+" Nav
+noremap <leader>ni :action SelectInProjectView<cr>
+noremap <leader>nI :action SelectIn<cr>
 
 " Search
 nnoremap <leader>/ :action FindInPath<cr>
@@ -63,6 +74,7 @@ nnoremap <leader>sR viw:action ReplaceInPath<cr>
 vnoremap <leader>sR :action ReplaceInPath<cr>
 
 " Toggles
+noremap <leader>tN :action ViewNavigationBar<cr>
 noremap <leader>tn :action EditorToggleShowLineNumbers<cr>
 noremap <leader>tl :action EditorToggleUseSoftWraps<cr>
 noremap <leader>tw :action EditorToggleShowWhitespaces<cr>
