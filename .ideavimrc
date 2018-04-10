@@ -30,6 +30,17 @@ inoremap <c-d> <Del>
 nnoremap <c-c> i
 nnoremap <c-a> ^
 nnoremap <cr> :action EditorStartNewLine<cr>
+noremap <m-m> :action ToggleBookmark<cr>
+
+nnoremap [[ :action MethodUp<cr>
+nnoremap ]] :action MethodDown<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
+nnoremap [b :action GotoPreviousBookmark<cr>
+nnoremap ]b :action GotoNextBookmark<cr>
+
+noremap <leader>ep :action GotoPreviousError<cr>
+noremap <leader>en :action GotoNextError<cr>
 
 " Motion/Jump
 nnoremap <leader><leader> :action AceAction<cr>
@@ -56,6 +67,7 @@ noremap <leader>fR :action RefactoringMenuRenameFile<cr>
 noremap <a-tab> :action TabSwitchPlugin.SwitchTab<cr>
 noremap <leader>fnc :action NewClass<cr>
 noremap <leader>fnf :action NewFile<cr>
+noremap <leader>fb :action ShowBookmarks<cr>
 noremap <m-n> :action NewFile<cr>
 noremap <m-s-n> :action NewClass<cr>
 
@@ -133,3 +145,6 @@ nnoremap <A-l> :action VimWindowRight<cr>
 nnoremap <M-t> :action VimWindowSplitVertical<cr>
 nnoremap <M-S-t> :action VimWindowSplitHorizontal<cr>
 nnoremap <M-S-w> :action Unsplit<cr>
+
+" Git
+noremap <leader>gb :action Annotate<cr>
