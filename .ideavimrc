@@ -73,6 +73,10 @@ noremap <leader>tg :action EditorToggleShowGutterIcons<cr>
 noremap <leader>ts :action ChangeInspectionProfile<cr>
 
 " Maven/Gradle/Other Build-related Actions
+noremap <leader>rr :action Run<cr>
+noremap <leader>rd :action Debug<cr>
+noremap <leader>jr :action JRebel Executor<cr>
+noremap <leader>jd :action JRebel Debug<cr>
 noremap <leader>bf :action Compile<cr>
 noremap <leader>bm :action MakeModule<cr>
 noremap <leader>bp :action CompileDirty<cr>
