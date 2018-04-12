@@ -1,5 +1,8 @@
-(advice-add 'magit-blame-format-time-string :override #'(lambda (format time tz)
-                                                          (format-time-string format (seconds-to-time time))))
+(advice-add 'magit-blame-format-time-string :override #'(lambda (time tz)
+                                                          (setq time (string-to-number time))
+                                                          (format-time-string
+                                                           magit-blame-time-format
+                                                           (seconds-to-time time))))
 
 (advice-add 'helm-gtags--exec-global-command :override #'(lambda (type input &optional detail)
   (let ((args (helm-gtags--construct-command type input)))
