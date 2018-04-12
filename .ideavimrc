@@ -31,6 +31,7 @@ nnoremap <c-c> i
 nnoremap <c-a> ^
 nnoremap <cr> :action EditorStartNewLine<cr>
 noremap <m-m> :action ToggleBookmark<cr>
+noremap <m-a-b> :action ToggleLineBreakpoint<cr>
 
 nnoremap [[ :action MethodUp<cr>
 nnoremap ]] :action MethodDown<cr>
