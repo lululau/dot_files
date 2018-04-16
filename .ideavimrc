@@ -62,6 +62,8 @@ nnoremap <leader>ps :action ShowProjectStructureSettings<cr>
 
 " Files
 noremap <leader>feR :source ~/.ideavimrc<cr>
+noremap <leader>fed :e ~/.ideavimrc<cr>
+noremap <leader>feD :e ~/.ideavim_actions.txt<cr>
 nnoremap <leader>fo :action Tool_External Tools_Open in Emacs<cr>
 noremap <leader>fD :action Tool_External Tools_Delete Current File<cr>
 noremap <leader>fR :action RefactoringMenuRenameFile<cr>
