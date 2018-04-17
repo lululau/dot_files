@@ -74,9 +74,14 @@ noremap <leader>fb :action ShowBookmarks<cr>
 noremap <m-n> :action NewFile<cr>
 noremap <m-s-n> :action NewClass<cr>
 
+" Code
+noremap <leader>cf :action ReformatCode<cr>
+noremap <leader>cis :action ConvertIndentsToSpaces<cr>
+
 " Nav
 noremap <leader>ni :action SelectInProjectView<cr>
 noremap <leader>nI :action SelectIn<cr>
+noremap <leader>ji :action GotoSymbol<cr>
 
 " Search
 nnoremap <leader>/ :action FindInPath<cr>
