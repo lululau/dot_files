@@ -1,0 +1,6 @@
+#group: source block
+# key: sxml
+# --
+#+BEGIN_SRC xml
+$0
+#+END_SRC
