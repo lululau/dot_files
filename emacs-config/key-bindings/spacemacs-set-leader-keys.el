@@ -40,4 +40,5 @@
   "ja" #'evil-avy-goto-char-in-line
   "aj" #'jq-interactively
   "xx" #'lx/set-last-dir-and-quit
+  "it" #'lx/insert-timestamp
 )
