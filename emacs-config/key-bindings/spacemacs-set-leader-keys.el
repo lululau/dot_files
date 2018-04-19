@@ -41,4 +41,5 @@
   "aj" #'jq-interactively
   "xx" #'lx/set-last-dir-and-quit
   "it" #'lx/insert-timestamp
+  "fi" 'lx/open-with-idea
 )
