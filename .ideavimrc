@@ -3,7 +3,8 @@ set smartcase
 set hlsearch
 set incsearch
 set ignorecase
-
+" 共享系统粘贴板
+set clipboard=unnamed
 set expandtab
 set tabstop=4
 set shiftwidth=4
@@ -64,8 +65,8 @@ nnoremap <leader>ps :action ShowProjectStructureSettings<cr>
 noremap <leader>feR :source ~/.ideavimrc<cr>
 noremap <leader>fed :e ~/.ideavimrc<cr>
 noremap <leader>feD :e ~/.ideavim_actions.txt<cr>
-nnoremap <leader>fo :action Tool_External Tools_Open in Emacs<cr>
-noremap <leader>fD :action Tool_External Tools_Delete Current File<cr>
+nnoremap <leader>fo :action Tool_Files_OpenWithEmacs<cr>
+noremap <leader>fD :action Tool_Files_DeleteCurrentFile<cr>
 noremap <leader>fR :action RefactoringMenuRenameFile<cr>
 noremap <a-tab> :action TabSwitchPlugin.SwitchTab<cr>
 noremap <leader>fnc :action NewClass<cr>
@@ -117,8 +118,8 @@ noremap <leader>bp :action CompileDirty<cr>
 noremap <leader>bP :action CompileProject<cr>
 noremap <leader>mi :action Maven.Reimport<cr>
 noremap <leader>me :action Maven.ShowEffectivePom<cr>
-noremap <leader>mp :action Tool_External Tools_Open Module POM<cr>
-noremap <leader>mP :action Tool_External Tools_Open Project POM<cr>
+noremap <leader>mp :action Tool_Files_OpenProjectPom<cr>
+noremap <leader>mP :action Tool_Files_OpenModulePom<cr>
 
 " Tool Windows
 noremap <leader>av :action ActivateBeanValidationToolWindow<cr>
@@ -155,4 +156,7 @@ nnoremap <M-S-t> :action VimWindowSplitHorizontal<cr>
 nnoremap <M-S-w> :action Unsplit<cr>
 
 " Git
-noremap <leader>gb :action Annotate<cr>
+noremap <leader>gs :action Tool_Git_MagitStatus<cr>
+noremap <leader>gd :action Tool_Git_DiffCurrentFile<cr>
+noremap <leader>gb :action Tool_Git_BlameCurrentFile<cr>
+noremap <leader>gu :action Tool_Git_RevertCurrentFile<cr>

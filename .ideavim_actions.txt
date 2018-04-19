@@ -32,6 +32,7 @@ ActivateMavenProjectsToolWindow
 ActivateNavBar                                    
 ActivatePalette	ToolWindow                        
 ActivatePaletteToolWindow                         
+ActivateProblemsToolWindow                        
 ActivateProjectToolWindow                          <F1> <A-1>
 ActivateRunToolWindow                              <A-4>
 ActivateSpringToolWindow                          
@@ -1608,6 +1609,7 @@ OpenPersistenceERDiagramAction
 OpenProjectGroup                                  
 OpenProjectWindows                                
 OptimizeImports                                    <A-C-O>
+org.intellij.ideaplugins.tabswitch.action.NextTabAction
 org.intellij.plugins.markdown.ui.actions.editorLayout.CyclicSplitLayoutChangeAction <A-S-P>
 org.intellij.plugins.markdown.ui.actions.editorLayout.EditorAndPreviewLayoutChangeAction
 org.intellij.plugins.markdown.ui.actions.editorLayout.EditorOnlyLayoutChangeAction
@@ -2026,6 +2028,17 @@ SurroundWith                                       <A-C-T>
 SurroundWithEmmet                                 
 SurroundWithLiveTemplate                           <A-C-J>
 Svn.Show.Working.Copies                           
+Switch To Last Tab                                 <A-.>
+Switch To Tab #1                                   <A-1>
+Switch To Tab #10                                  <A-0>
+Switch To Tab #2                                   <A-2>
+Switch To Tab #3                                   <A-3>
+Switch To Tab #4                                   <A-4>
+Switch To Tab #5                                   <A-5>
+Switch To Tab #6                                   <A-6>
+Switch To Tab #7                                   <A-7>
+Switch To Tab #8                                   <A-8>
+Switch To Tab #9                                   <A-9>
 SwitchBootJdk                                     
 SwitchCoverage                                     <A-C-F6>
 Switcher                                           <C-X> <M-S-B>
@@ -2045,6 +2058,8 @@ TabsPlacementLeft
 TabsPlacementNone                                 
 TabsPlacementRight                                
 TabsPlacementTop                                  
+TabSwitchPlugin.NextVcsChangeAction               
+TabSwitchPlugin.SwitchTab                         
 TalkToFdb.Flex.Debug                              
 task.actions                                      
 tasks.analyze.stacktrace                          
@@ -2103,6 +2118,7 @@ ToggleSideMode
 ToggleTemporaryLineBreakpoint                      <A-C-S-F8>
 ToggleWindowedMode                                
 Tool_External Tools_Open in Emacs                  <M-0>
+Tool_Files_DeleteCurrentFile                      
 ToolbarFindGroup                                  
 ToolbarMakeGroup                                  
 ToolbarRunGroup                                   
