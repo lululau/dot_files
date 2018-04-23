@@ -45,7 +45,7 @@ noremap <leader>ep :action GotoPreviousError<cr>
 noremap <leader>en :action GotoNextError<cr>
 
 " Motion/Jump
-nnoremap <leader><leader> :action AceAction<cr>
+nnoremap <leader><leader> :action AceWordAction<cr>
 noremap <c-cr> :action GotoImplementation<cr>
 noremap <m-cr> :action VimWindowSplitVertical<cr>:action GotoImplementation<cr>
 noremap <c-o> :action Back<cr>
