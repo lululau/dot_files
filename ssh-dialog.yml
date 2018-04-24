@@ -100,3 +100,7 @@ groups:
     hosts:
       instance_1:
         hostname: gce
+  6.CC:
+    hosts:
+      1.ktam.uat:
+        hostname: ktam.uat
