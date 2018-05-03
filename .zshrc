@@ -275,6 +275,46 @@ cd-root-widget() {
 zle     -N    cd-root-widget
 bindkey '\e/' cd-root-widget
 
+# C-x d  - cd Downlods directory
+cd-downloads-widget() {
+    cd ~/Downloads
+    local ret=$?
+    zle reset-prompt
+    typeset -f zle-line-init >/dev/null && zle zle-line-init
+    return $ret
+}
+zle     -N    cd-downloads-widget
+bindkey '^Xd' cd-downloads-widget
+
+# C-x t  - cd tmp directory
+cd-tmp-widget() {
+    cd ~/tmp
+    local ret=$?
+    zle reset-prompt
+    typeset -f zle-line-init >/dev/null && zle zle-line-init
+    return $ret
+}
+zle     -N    cd-tmp-widget
+bindkey '^Xt' cd-tmp-widget
+
+# C-x m  - cd Movies directory
+cd-movies-widget() {
+    cd ~/Movies
+    local ret=$?
+    zle reset-prompt
+    typeset -f zle-line-init >/dev/null && zle zle-line-init
+    return $ret
+}
+zle     -N    cd-movies-widget
+bindkey '^Xm' cd-movies-widget
+
+# C-x a  - Browse in alfred
+browse-in-alfred() {
+    osascript -e "tell app \"Alfred 3\" to browse \"$PWD/\""
+}
+zle     -N    browse-in-alfred
+bindkey '^Xa' browse-in-alfred
+
 # ALT-p - cd into the previous directory
 popd-widget() {
     popd -q
