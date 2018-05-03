@@ -42,4 +42,5 @@
   "xx" #'lx/set-last-dir-and-quit
   "it" #'lx/insert-timestamp
   "fi" 'lx/open-with-idea
+  "fa" 'lx/browse-file-or-directory-in-alfred
 )
