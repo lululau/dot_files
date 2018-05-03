@@ -104,5 +104,7 @@ groups:
     hosts:
       1.ktam.uat:
         hostname: ktam.uat
-      2.ddhc.uat:
+      2.ddhc.crawler:
+        hostname: ddhc.crawler
+      3.ddhc.uat:
         hostname: ddhc.uat
