@@ -24,6 +24,8 @@
                 ("ods" scratch-dir "~/Documents/scratches/")
                 ("odS" snips-dir "~/snips/")
                 ("ode" emacs-dir "~/.emacs.d/")
+                ("od/" root-dir "/")
+                ("odv" volumes-dir "/Volumes")
                 ("odt" tmp-dir "~/tmp/")))
 
 ;; Demo files
