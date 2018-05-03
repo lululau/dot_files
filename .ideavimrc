@@ -67,6 +67,7 @@ noremap <leader>fed :e ~/.ideavimrc<cr>
 noremap <leader>feD :e ~/.ideavim_actions.txt<cr>
 nnoremap <leader>fo :action Tool_Files_OpenWithEmacs<cr>
 noremap <leader>fD :action Tool_Files_DeleteCurrentFile<cr>
+noremap <leader>fa :action Tool_Files_BrowseInAlfred<cr>
 noremap <leader>fR :action RefactoringMenuRenameFile<cr>
 noremap <a-tab> :action TabSwitchPlugin.SwitchTab<cr>
 noremap <leader>fnc :action NewClass<cr>
