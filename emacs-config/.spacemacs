@@ -793,6 +793,7 @@ This function is called at the very end of Spacemacs initialization."
  '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
  '(rake-completion-system (quote helm))
+ '(realgud:nodejs-command-name "node inspect")
  '(ring-bell-function (quote ignore))
  '(rspec-primary-source-dirs (quote ("app" "lib" "src")))
  '(ruby-insert-encoding-magic-comment nil)
