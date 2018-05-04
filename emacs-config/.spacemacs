@@ -608,6 +608,7 @@ This function is called at the very end of Spacemacs initialization."
  '(enh-ruby-add-encoding-comment-on-save nil)
  '(evil-want-Y-yank-to-eol nil)
  '(flycheck-disabled-checkers (quote (ruby-rubylint)))
+ '(fringe-mode 4 nil (fringe))
  '(gh-profile-alist
    (quote
     (("github" :url "https://api.github.com" :remote-regexp "^\\(?:git@github\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?")
