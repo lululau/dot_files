@@ -248,6 +248,7 @@ cd-parent-widget() {
     local ret=$?
     zle reset-prompt
     typeset -f zle-line-init >/dev/null && zle zle-line-init
+    omz_termsupport_precmd
     return $ret
 }
 zle     -N    cd-parent-widget
@@ -259,6 +260,7 @@ cd-home-widget() {
     local ret=$?
     zle reset-prompt
     typeset -f zle-line-init >/dev/null && zle zle-line-init
+    omz_termsupport_precmd
     return $ret
 }
 zle     -N    cd-home-widget
@@ -270,6 +272,7 @@ cd-root-widget() {
     local ret=$?
     zle reset-prompt
     typeset -f zle-line-init >/dev/null && zle zle-line-init
+    omz_termsupport_precmd
     return $ret
 }
 zle     -N    cd-root-widget
@@ -281,6 +284,7 @@ cd-downloads-widget() {
     local ret=$?
     zle reset-prompt
     typeset -f zle-line-init >/dev/null && zle zle-line-init
+    omz_termsupport_precmd
     return $ret
 }
 zle     -N    cd-downloads-widget
@@ -292,6 +296,7 @@ cd-tmp-widget() {
     local ret=$?
     zle reset-prompt
     typeset -f zle-line-init >/dev/null && zle zle-line-init
+    omz_termsupport_precmd
     return $ret
 }
 zle     -N    cd-tmp-widget
@@ -303,6 +308,7 @@ cd-movies-widget() {
     local ret=$?
     zle reset-prompt
     typeset -f zle-line-init >/dev/null && zle zle-line-init
+    omz_termsupport_precmd
     return $ret
 }
 zle     -N    cd-movies-widget
@@ -321,6 +327,7 @@ popd-widget() {
     local ret=$?
     zle reset-prompt
     typeset -f zle-line-init >/dev/null && zle zle-line-init
+    omz_termsupport_precmd
     return $ret
 }
 zle     -N    popd-widget
@@ -390,6 +397,7 @@ dired-mode-widget() {
     local ret=$?
     zle reset-prompt
     typeset -f zle-line-init >/dev/null && zle zle-line-init
+    omz_termsupport_precmd
     return $ret
 }
 zle     -N    dired-mode-widget
@@ -468,6 +476,8 @@ then
     PS1='$ '
 fi
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+export ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #20 char left truncated PWD
+
 # for shell-pop
 if [ -n "$EMACS" ]
 then
