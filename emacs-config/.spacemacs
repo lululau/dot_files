@@ -424,6 +424,7 @@ layers configuration."
                                   ("\\.apib\\'" . markdown-mode)
                                   ("\\.m\\'" . objc-mode)
                                   ("\\.mm\\'" . objc-mode)
+                                  ("^/tmp/zsh[a-zA-Z0-9]\{6\}$" . sh-mode)
                                   ("\\.sc" . scala-mode)) auto-mode-alist))
 
   (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . react-mode))
