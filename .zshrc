@@ -1,59 +1,19 @@
 # Path to your oh-my-zsh configuration.
 if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
     ZSH=$HOME/liuxiang/.oh-my-zsh
+    export CONFIGDIR=$HOME/liuxiang/.config
 else
     ZSH=$HOME/.oh-my-zsh
+    export CONFIGDIR=$HOME/.config
 fi
 
-alias -- +x='chmod +x '
-alias -- '--=git checkout -'
-alias l1='ls -1'
-alias cdg='cd ~liuxiang/git-umeng'
-alias guse='rvm gemset use'
-alias gemls='rvm gemset list'
-alias ls="ls -G"
-# alias go="open"
-alias grep="grep --color=auto"
-alias ggrep="ggrep --color=auto"
-alias tomcat="/usr/lib/tomcat/bin/catalina.sh run"
-alias s="screen -e^jj"
-alias -g ODX='| od -Ad -tx1'
-alias -g ODC='| od -Ad -tc'
-alias -s tgz='tar -zxf'
-alias -s tar.gz='tar -zxf'
-alias rvmdefault='rvm use default'
-alias k='kill'
+source $CONFIGDIR/.zsh-aliases.zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="liuxiang"
-
-alias gls='gls --color --quoting-style=literal '
-alias lf='gls --color --quoting-style=literal -ldU '
-alias pn='print -l'
-alias a='cd ..'
-alias aa='cd ../../'
-alias aaa='cd ../../../'
-alias aaaa='cd ../../../../'
-alias aaaaa='cd ../../../../../'
-alias aaaaaa='cd ../../../../../../'
-alias aaaaaaa='cd ../../../../../../../'
-alias aaaaaaaa='cd ../../../../../../../../'
-alias aaaaaaaaa='cd ../../../../../../../../../'
-alias rspec='rspec -I. -fd --color'
-alias vih="sudo vim /etc/hosts"
-alias lv=lnav
-alias bslist='brew services list'
-alias bsstart='brew services start'
-alias bsstop='brew services stop'
-alias blist='brew list'
-alias bag='brew list | ag '
-alias bsearch='brew search'
-alias binstall='brew install'
-alias binfo='brew info'
-alias vg=vagrant
 
 # Set to this to use case-sensitive completion
 #CASE_SENSITIVE="true"
@@ -169,7 +129,6 @@ function zz() {
 
 # install_powerline_precmd
 
-alias pc='pc.sh'
 stty -ixon -ixoff
 
 
@@ -242,96 +201,7 @@ autoload -U perl-subs
 zle -N perl-subs
 bindkey '^xs' perl-subs
 
-# ALT-a - cd into the parent directory
-cd-parent-widget() {
-    cd ".."
-    local ret=$?
-    zle reset-prompt
-    typeset -f zle-line-init >/dev/null && zle zle-line-init
-    omz_termsupport_precmd
-    return $ret
-}
-zle     -N    cd-parent-widget
-bindkey '\ea' cd-parent-widget
-
-# ALT-h - cd home directory
-cd-home-widget() {
-    cd ~
-    local ret=$?
-    zle reset-prompt
-    typeset -f zle-line-init >/dev/null && zle zle-line-init
-    omz_termsupport_precmd
-    return $ret
-}
-zle     -N    cd-home-widget
-bindkey '\eh' cd-home-widget
-
-# ALT-/ - cd root directory
-cd-root-widget() {
-    cd /
-    local ret=$?
-    zle reset-prompt
-    typeset -f zle-line-init >/dev/null && zle zle-line-init
-    omz_termsupport_precmd
-    return $ret
-}
-zle     -N    cd-root-widget
-bindkey '\e/' cd-root-widget
-
-# C-x d  - cd Downlods directory
-cd-downloads-widget() {
-    cd ~/Downloads
-    local ret=$?
-    zle reset-prompt
-    typeset -f zle-line-init >/dev/null && zle zle-line-init
-    omz_termsupport_precmd
-    return $ret
-}
-zle     -N    cd-downloads-widget
-bindkey '^Xd' cd-downloads-widget
-
-# C-x t  - cd tmp directory
-cd-tmp-widget() {
-    cd ~/tmp
-    local ret=$?
-    zle reset-prompt
-    typeset -f zle-line-init >/dev/null && zle zle-line-init
-    omz_termsupport_precmd
-    return $ret
-}
-zle     -N    cd-tmp-widget
-bindkey '^Xt' cd-tmp-widget
-
-# C-x m  - cd Movies directory
-cd-movies-widget() {
-    cd ~/Movies
-    local ret=$?
-    zle reset-prompt
-    typeset -f zle-line-init >/dev/null && zle zle-line-init
-    omz_termsupport_precmd
-    return $ret
-}
-zle     -N    cd-movies-widget
-bindkey '^Xm' cd-movies-widget
-
-# C-x a  - Browse in alfred
-browse-in-alfred() {
-    osascript -e "tell app \"Alfred 3\" to browse \"$PWD/\""
-}
-zle     -N    browse-in-alfred
-bindkey '^Xa' browse-in-alfred
-
-# ALT-p - cd into the previous directory
-popd-widget() {
-    popd -q
-    local ret=$?
-    zle reset-prompt
-    typeset -f zle-line-init >/dev/null && zle zle-line-init
-    omz_termsupport_precmd
-    return $ret
-}
-zle     -N    popd-widget
-bindkey '\ep' popd-widget
+source $HOME/.space.zsh
 
 source $ZSH/functions/zce.zsh
 
@@ -373,98 +243,6 @@ export FZF_DEFAULT_OPTS="-x -m --history=$HOME/.fzf_history --history-size=10000
 #     return 127
 #   fi
 # }
-
-emacsclient-func() {
-    if [ "$(uname)" = Darwin ]; then
-        emacsclient -s term "$@"
-    else
-        emacsclient "$@"
-    fi
-}
-
-# ALT-x - dired-mode as CLI directory navigator
-dired-mode-widget() {
-    setopt localoptions pipefail 2> /dev/null
-    emacsclient-func -t .
-    local dir
-    dir=$(emacsclient-func -e '(when (bound-and-true-p last-dir-for-cli-dir-nav) (print last-dir-for-cli-dir-nav))')
-    emacsclient-func -e '(when (bound-and-true-p last-dir-for-cli-dir-nav) (setq last-dir-for-cli-dir-nav nil))'
-    dir=${(Q)dir}
-    if [ -e ${~dir} ]; then
-        cd ${~dir}
-    fi
-    zle redisplay
-    local ret=$?
-    zle reset-prompt
-    typeset -f zle-line-init >/dev/null && zle zle-line-init
-    omz_termsupport_precmd
-    return $ret
-}
-zle     -N    dired-mode-widget
-bindkey '\ex' dired-mode-widget
-
-emacs-capture-widget() {
-    setopt localoptions pipefail 2> /dev/null
-    if [ -n "$TMUX" ]; then
-      local capture_cmd='tmux capture-pane -pS -'
-    elif [ $(uname) = Darwin ]; then
-      local contents=$(osascript -e "tell app \"iTerm\" to get contents of current session of current tab of current window")
-      local capture_cmd='echo "$contents"'
-    else
-        local capture_cmd='echo'
-    fi
-
-    local tmpfile=$(mktemp)
-    basename=$(basename "$tmpfile")
-    eval "$capture_cmd" | perl -00 -pe 1 > "$tmpfile"
-    if [ "$(uname)" = Darwin ]; then
-      emacsclient-func -t -e "(progn (find-file \"$tmpfile\") (linum-mode) (end-of-buffer))"
-      emacsclient-func -n -e "(kill-buffer \"$basename\")"
-    else
-        emacsclient-func -t -e "(progn (find-file \"$tmpfile\") (linum-mode) (end-of-buffer))"
-        emacsclient-func -n -e "(kill-buffer \"$basename\")"
-    fi
-
-    rm "$tmpfile"
-
-    zle redisplay
-    local ret=$?
-    zle reset-prompt
-    typeset -f zle-line-init >/dev/null && zle zle-line-init
-    return $ret
-}
-zle     -N    emacs-capture-widget
-bindkey '\eO' emacs-capture-widget
-
-
-# export NNN_TMPFILE="/tmp/nnn"
-# export NNN_USE_EDITOR=1
-# export NNN_COPIER=$HOME/bin/copier_for_nnn.sh
-# # export NNN_DE_FILE_MANAGER=open
-# # export NNN_NOWAIT=1
-
-# function n() {
-#     nnn -i -c 1 "$@"
-
-#     if [ -f $NNN_TMPFILE ]; then
-#       . $NNN_TMPFILE
-#       rm -f $NNN_TMPFILE
-#     fi
-# }
-
-# # ALT-n nnn
-# nnn-widget() {
-#     setopt localoptions pipefail 2> /dev/null
-#     n <>/dev/tty
-#     zle redisplay
-#     local ret=$?
-#     zle reset-prompt
-#     typeset -f zle-line-init >/dev/null && zle zle-line-init
-#     return $ret
-# }
-# zle     -N    nnn-widget
-# bindkey '\en' nnn-widget
-
 
 if [[ "$TERM" == "dumb" ]]
 then
