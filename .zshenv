@@ -31,7 +31,7 @@ else
 fi
 export XAPIAN_CJK_NGRAM=1
 export SDKMAN_DIR="$HOME/.sdkman"
-export HOMEBREW_CASK_OPTS=--caskroom=/opt/homebrew-cask/Caskroom
+# export HOMEBREW_CASK_OPTS=--caskroom=/opt/homebrew-cask/Caskroom
 path+=($GOROOT/bin $HOME/.go/bin)
 export FZF_TMUX=0
 export PYSPARK_DRIVER_PYTHON=ipython
