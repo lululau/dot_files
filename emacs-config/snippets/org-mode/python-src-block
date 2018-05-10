@@ -1,0 +1,6 @@
+#group: source block
+# key: spython
+# --
+#+BEGIN_SRC python
+$0
+#+END_SRC
