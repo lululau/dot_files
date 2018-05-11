@@ -12,5 +12,6 @@
     (delete-frame lx/global-org-capture-frame)
     (setq lx/global-org-capture-frame nil))
   (when (bound-and-true-p lx/global-org-capture-system-process)
-    (shell-command-to-string (format "echo 'tell app \"System Events\" to activate app \"%s\"' | osascript" lx/global-org-capture-system-process))
+    (if (not (string= lx/global-org-capture-system-process "Emacs"))
+        (shell-command-to-string (format "echo 'tell app \"System Events\" to activate app \"%s\"' | osascript" lx/global-org-capture-system-process)))
     (setq lx/global-org-capture-frame nil)))
