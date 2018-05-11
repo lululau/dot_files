@@ -2,3 +2,5 @@ GPATH
 GTAGS
 GRTAGS
 .DS_Store
+.tern-port
+.tern_port
