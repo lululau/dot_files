@@ -79,6 +79,7 @@ noremap <m-s-n> :action NewClass<cr>
 " Code
 noremap <leader>cf :action ReformatCode<cr>
 noremap <leader>cis :action ConvertIndentsToSpaces<cr>
+noremap <leader>coi :action OptimizeImports<cr>
 
 " Nav
 noremap <leader>ni :action SelectInProjectView<cr>
