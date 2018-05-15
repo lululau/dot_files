@@ -69,6 +69,7 @@
         ("oct" tmux-conf "~/.tmux.conf")
         ("ocJ" ideavim_actions "~/.ideavim_actions.txt")
         ("ocj" ideavimrc "~/.ideavimrc")
+        ("ocn" nginx "/usr/local/etc/nginx")
         ("ocv" vimrc "~/.vimrc")))
 
 ;; Org files
