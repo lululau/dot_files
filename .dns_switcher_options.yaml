@@ -4,6 +4,10 @@ options:
     servers: 192.168.4.1
   - name: Google
     servers: 8.8.8.8 8.8.4.4
+  - name: PODMO
+    servers: 101.132.183.99 193.112.15.186
+  - name: SDNS
+    servers: 1.2.4.8 210.2.4.8
   - name: CloudFlare
     servers: 1.1.1.1
   - name: DNSPod
