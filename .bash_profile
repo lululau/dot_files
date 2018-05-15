@@ -82,3 +82,5 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/liuxiang/.sdkman"
 [[ -s "/Users/liuxiang/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/liuxiang/.sdkman/bin/sdkman-init.sh"
+
+export EA_EDITOR='/usr/local/bin/emacsclient -a "" -c'
