@@ -108,6 +108,7 @@
      (java :variables java-backend 'ensime)
      c-c++
      (javascript  :variables javascript-disable-tern-port-files nil)
+     coffeescript
      react
      (python :variables python-test-runner '(pytest))
      php
