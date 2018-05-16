@@ -75,7 +75,7 @@
 ;; Org files
 (setq lx/org-files
       '(("oob" bookmarks-org "~/Dropbox/org/bookmarks.org")
-        ("ood" tech-diary-org "~/Documents/notes/tech_diary.org")
+        ("ood" tech-diary-org "~/Dropbox/org/tech_diary.org")
         ("ooh" homebrews-org "~/Dropbox/org/homebrews.org")
         ("oop" projects-org "~/Dropbox/org/projects.org")
         ("ool" learnings-org "~/Dropbox/org/learnings.org")
