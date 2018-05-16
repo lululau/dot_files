@@ -34,7 +34,7 @@
         lx/emacs-config-init-el "~/.config/emacs-config/init.el"
         lx/emacs-text-objects-init-el "~/.config/emacs-config/text-objects/init.el"
         lx/emacs-key-bindings-init-el "~/.config/emacs-config/key-bindings/init.el"
-        lx/org-project-file "~/Documents/org/projects.org"))
+        lx/org-project-file "~/Dropbox/org/projects.org"))
 
 
 (defun dotspacemacs/layers ()
@@ -360,12 +360,12 @@ layers configuration."
   (setq edit-server-url-major-mode-alist
         '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) ("jira\\.kaitongamc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
   (if (lx/system-is-mac)
-      (setq org-directory "~/Documents/org")
+      (setq org-directory "~/Dropbox/org")
     (setq org-directory "~/liuxiang/org"))
-  ;; (setq org-agenda-files (append (file-expand-wildcards "~/Documents/org/**/*.org") (file-expand-wildcards  "~/Documents/org/*.org")))
+  ;; (setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/**/*.org") (file-expand-wildcards  "~/Dropbox/org/*.org")))
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
-  (setq org-mobile-inbox-for-pull "/Users/liuxiang/Documents/org/flagged.org")
+  (setq org-mobile-inbox-for-pull "/Users/liuxiang/Dropbox/org/flagged.org")
   (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
   ;; (setq org-bullets-bullet-list '("𝌆" "𝌇" "𝌎" "𝌓" "𝌮"))
   (setq org-link-search-must-match-exact-headline nil)
@@ -713,7 +713,7 @@ This function is called at the very end of Spacemacs initialization."
 '(org-pandoc-options-for-latex-pdf
 (quote
  ((latex-engine . "xelatex")
-  (template . "/Users/liuxiang/Documents/org/pandoc-latex-templates/Heiti/default.latex"))))
+  (template . "/Users/liuxiang/Dropbox/org/pandoc-latex-templates/Heiti/default.latex"))))
  '(org-reveal-root "./reveal.js/")
  '(org-reveal-theme "blood")
 '(org-src-lang-modes

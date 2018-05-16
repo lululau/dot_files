@@ -36,27 +36,27 @@
 
 ;; Demo files
 (setq lx/demo-files
-      '(("oea" artist-demo  "~/Documents/org/demo/demo.art")
+      '(("oea" artist-demo  "~/Dropbox/org/demo/demo.art")
         ("oeA" scala-demo   "~/cascode/github.com/prog-scala/src/main/scala/lx/demo.scala")
-        ("oeb" bigtxt-demo    "~/Documents/org/demo/big.txt")
-        ("oeB" spring-boot-init-list    "~/Documents/org/demo/spring-boot-init-list.org")
-        ("oeh" http-demo    "~/Documents/org/demo/demo-http.org")
-        ("oel" elisp-demo   "~/Documents/org/demo/demo.el")
-        ("oer" ruby-demo    "~/Documents/org/demo/demo.rb")
-        ("oeP" python-demo  "~/Documents/org/demo/demo.py")
+        ("oeb" bigtxt-demo    "~/Dropbox/org/demo/big.txt")
+        ("oeB" spring-boot-init-list    "~/Dropbox/org/demo/spring-boot-init-list.org")
+        ("oeh" http-demo    "~/Dropbox/org/demo/demo-http.org")
+        ("oel" elisp-demo   "~/Dropbox/org/demo/demo.el")
+        ("oer" ruby-demo    "~/Dropbox/org/demo/demo.rb")
+        ("oeP" python-demo  "~/Dropbox/org/demo/demo.py")
         ("oeJ" java-demo    "~/cascode/java/maven/simple/src/main/java/org/sonatype/mavenbook/App.java")
-        ("oej" js-demo      "~/Documents/org/demo/demo.js")
-        ("oes" shell-demo   "~/Documents/org/demo/demo.sh")
-        ("oeS" swift-demo   "~/Documents/org/demo/demo.swift")
-        ("oep" perl-demo    "~/Documents/org/demo/demo.pl")
-        ("oeo" org-demo     "~/Documents/org/demo/demo.org")
-        ("oeC" coffee-demo  "~/Documents/org/demo/demo.coffee")
-        ("oey" yaml-demo    "~/Documents/org/demo/demo.yaml")
-        ("oeH" html-demo    "~/Documents/org/demo/demo.html")
-        ("oec" c-demo       "~/Documents/org/demo/demo.c")
+        ("oej" js-demo      "~/Dropbox/org/demo/demo.js")
+        ("oes" shell-demo   "~/Dropbox/org/demo/demo.sh")
+        ("oeS" swift-demo   "~/Dropbox/org/demo/demo.swift")
+        ("oep" perl-demo    "~/Dropbox/org/demo/demo.pl")
+        ("oeo" org-demo     "~/Dropbox/org/demo/demo.org")
+        ("oeC" coffee-demo  "~/Dropbox/org/demo/demo.coffee")
+        ("oey" yaml-demo    "~/Dropbox/org/demo/demo.yaml")
+        ("oeH" html-demo    "~/Dropbox/org/demo/demo.html")
+        ("oec" c-demo       "~/Dropbox/org/demo/demo.c")
         ("oeg" go-demo      "~/cascode/go/src/demo/demo.go")
-        ("oee" elixir-demo  "~/Documents/org/demo/demo.exs")
-        ("oet" txt-demo     "~/Documents/org/demo/demo.txt")))
+        ("oee" elixir-demo  "~/Dropbox/org/demo/demo.exs")
+        ("oet" txt-demo     "~/Dropbox/org/demo/demo.txt")))
 
 ;; Config files
 (setq lx/config-files
@@ -74,16 +74,20 @@
 
 ;; Org files
 (setq lx/org-files
-      '(("oob" bookmarks-org "~/Documents/org/bookmarks.org")
+      '(("oob" bookmarks-org "~/Dropbox/org/bookmarks.org")
         ("ood" tech-diary-org "~/Documents/notes/tech_diary.org")
-        ("oon" notes-org "~/Documents/org/notes.org")
-        ("oop" projects-org "~/Documents/org/projects.org")
-        ("oor" rails-guides-org "~/Documents/org/rails-guides-org/rails-guides-index.org")))
+        ("ooh" homebrews-org "~/Dropbox/org/homebrews.org")
+        ("oop" projects-org "~/Dropbox/org/projects.org")
+        ("ool" learnings-org "~/Dropbox/org/learnings.org")
+        ("oof" life-org "~/Dropbox/org/life.org")
+        ("ooc" capture-org "~/Dropbox/org/capture.org")
+        ("oot" team-tasks-org "~/Dropbox/org/team-tasks.org")
+        ("oor" rails-guides-org "~/Dropbox/org/rails-guides-org/rails-guides-index.org")))
 
 ;; Cheat Sheets
 (setq lx/cheatsheets
-      '(("osr" emacs-regexp-cheatsheet "~/Documents/org/cheatsheets/emacs-regexp-cheatsheets.org")
-        ("oso" org-mode-cheatsheet     "~/Documents/org/cheatsheets/org-mode-cheatsheets.org")))
+      '(("osr" emacs-regexp-cheatsheet "~/Dropbox/org/cheatsheets/emacs-regexp-cheatsheets.org")
+        ("oso" org-mode-cheatsheet     "~/Dropbox/org/cheatsheets/org-mode-cheatsheets.org")))
 
 (defmacro lx/make-open-file-function (name dir)
   `(defun ,(intern (format "lx/open-file-%s" name)) ()
