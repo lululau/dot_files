@@ -27,6 +27,7 @@
             lx/emacs-config-init-el "~/liuxiang/.config/emacs-config/init.el"
             lx/emacs-text-objects-init-el "~/liuxiang/.config/emacs-config/text-objects/init.el"
             lx/emacs-key-bindings-init-el "~/liuxiang/.config/emacs-config/key-bindings/init.el"
+            lx/emacs-vendor-init-el "~/liuxiang/.config/emacs-config/vendor/init.el"
             lx/org-project-file nil))
   (setq lx/conf-layer-path "~/cascode/github.com/spacemacs-layers"
         lx/snippets-path  "~/.config/emacs-config/snippets"
@@ -34,6 +35,7 @@
         lx/emacs-config-init-el "~/.config/emacs-config/init.el"
         lx/emacs-text-objects-init-el "~/.config/emacs-config/text-objects/init.el"
         lx/emacs-key-bindings-init-el "~/.config/emacs-config/key-bindings/init.el"
+        lx/emacs-vendor-init-el "~/.config/emacs-config/vendor/init.el"
         lx/org-project-file "~/Dropbox/org/projects.org"))
 
 
@@ -311,6 +313,7 @@ layers configuration."
   (setq powerline-default-separator 'slant)
   (load-file lx/emacs-text-objects-init-el)
   (load-file lx/emacs-key-bindings-init-el)
+  (load-file lx/emacs-vendor-init-el)
   ;; (load-file "~/.config/emacs-config/doom-themes.el")
 
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
@@ -706,7 +709,10 @@ This function is called at the very end of Spacemacs initialization."
   ("g" "Todo" entry
    (file "")
    "* TODO %?
-  %u"))))
+  %u")
+  ("w" "Web site" entry
+   (file "")
+    "* %a :website:\n\n%U %?\n\n%:initial"))))
  '(org-confirm-babel-evaluate nil)
  '(org-ditaa-jar-path "/usr/local/libexec/ditaa.jar")
  '(org-export-with-sub-superscripts (quote {}))
