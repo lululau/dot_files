@@ -718,7 +718,7 @@ This function is called at the very end of Spacemacs initialization."
  '(org-export-with-sub-superscripts (quote {}))
 '(org-pandoc-options-for-latex-pdf
 (quote
- ((latex-engine . "xelatex")
+ ((pdf-engine . "xelatex")
   (template . "/Users/liuxiang/Dropbox/org/pandoc-latex-templates/Heiti/default.latex"))))
  '(org-reveal-root "./reveal.js/")
  '(org-reveal-theme "blood")
