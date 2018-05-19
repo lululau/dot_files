@@ -30,6 +30,8 @@
                 ("odz" spacezsh-dir "~/.spacezsh/")
                 ("odZ" ohmyzsh-dir "~/.oh-my-zsh/")
                 ("od/" root-dir "/")
+                ("odn" notes-dir "~/Documents/notes")
+                ("odw" webclips-dir "~/Documents/notes/webclips")
                 ("odv" volumes-dir "/Volumes")
                 ("odT" tmux-dir "~/.tmux")
                 ("odt" tmp-dir "~/tmp/")))

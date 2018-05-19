@@ -7,66 +7,65 @@ groups:
     hosts:
       1.kt01:
         hostname: kt01
-        # command: 'PATH=$PATH:/home/deploy/liuxiang/local/bin ZDOTDIR=/home/deploy/liuxiang/ exec /home/deploy/liuxiang/local/bin/zsh --login'
-        command: lxzsh
+        command: "iterm2_hostname=kt01 lxzsh"
       2.kt02:
         hostname: kt02
-        command: lxzsh
+        command: "iterm2_hostname=kt02 lxzsh"
       3.kt03:
         hostname: kt03
-        command: lxzsh
+        command: "iterm2_hostname=kt03 lxzsh"
       4.kt04:
         hostname: kt04
-        command: lxzsh
+        command: "iterm2_hostname=kt04 lxzsh"
       5.kt05:
         hostname: kt05
-        command: lxzsh
+        command: "iterm2_hostname=kt05 lxzsh"
       6.kt05:
         hostname: kt06
-        command: lxzsh
+        command: "iterm2_hostname=kt06 lxzsh"
       7.kt05:
         hostname: kt07
-        command: lxzsh
+        command: "iterm2_hostname=kt07 lxzsh"
       8.sss:
         hostname: sss
   2.TestServers:
     hosts:
       1.dev01:
         hostname: dev01
-        command: lxzsh
+        command: "iterm2_hostname=dev01 lxzsh"
       k.dev01.kt:
         hostname: dev01.kt
-        command: lxzsh
+        command: "iterm2_hostname=dev01.kt lxzsh"
       2.dev02:
         hostname: dev02
-        command: lxzsh
+        command: "iterm2_hostname=dev02 lxzsh"
       3.dev03:
         hostname: dev03
-        command: lxzsh
+        command: "iterm2_hostname=dev03 lxzsh"
       4.dev04:
         hostname: dev04
-        command: lxzsh
+        command: "iterm2_hostname=dev04 lxzsh"
       5.dev05:
         hostname: dev05
-        command: lxzsh
+        command: "iterm2_hostname=dev05 lxzsh"
       0.dev005:
         hostname: dev005
         port: 3022
-        command: lxzsh
+        command: "iterm2_hostname=3022 lxzsh"
       6.dev06:
         hostname: dev06
-        command: lxzsh
+        command: "iterm2_hostname=dev06 lxzsh"
       g.github:
         hostname: gh
       a.db01:
         hostname: db01
-        command: lxzsh
+        command: "iterm2_hostname=db01 lxzsh"
       b.db02:
         hostname: db02
-        command: lxzsh
+        command: "iterm2_hostname=db02 lxzsh"
       c.db03:
         hostname: db03
-        command: lxzsh
+        command: "iterm2_hostname=db03 lxzsh"
   3.Vagrants:
     hosts:
       default:
