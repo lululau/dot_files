@@ -1,4 +1,4 @@
-(spacemacs|use-package-add-hook magit
+(spacemacs|use-package-add-hook magit-status
   :post-config
   (defun magit-refresh-vc-mode-line (rev)
     "Update the information displayed by `vc-mode' in the mode-line.
@@ -29,9 +29,12 @@ Like `vc-mode-line' but simpler, more efficient, and less buggy."
           (with-current-buffer buffer
             (magit-refresh-vc-mode-line rev))
           ))))
-
-  (advice-add 'magit-checkout :after #'(lambda (&rest args) (run-hooks 'magit-post-checkout-hooks)))
-  (add-hook 'magit-post-checkout-hooks 'magit-refresh-projectile-buffers-vc-mode-line)
-  (define-key magit-mode-map [S-tab] 'magit-section-cycle-global)
   (global-set-key (kbd "s-G") 'magit-refresh-projectile-buffers-vc-mode-line))
 
+(spacemacs|use-package-add-hook magit-branch
+  (advice-add 'magit-checkout :after #'(lambda (&rest args) (run-hooks 'magit-post-checkout-hooks)))
+  (add-hook 'magit-post-checkout-hooks 'magit-refresh-projectile-buffers-vc-mode-line))
+
+(with-eval-after-load 'magit-mode
+  (define-key magit-mode-map [S-tab] 'magit-section-cycle-global)
+  (define-key magit-mode-map [remap org-store-link] 'orgit-store-link))
