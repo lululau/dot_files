@@ -418,7 +418,8 @@ layers configuration."
       ("gitlab.com"    git-link-commit-github)))
 
   ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"https://liuxiang.coding.me/liuxiang/style/org/worg/worg.css\" type=\"text/css\" />")
-  (setq org-html-head "<link rel=\"stylesheet\" href=\"https://liuxiang.coding.me/liuxiang/style/org/dakrone/org.css\" type=\"text/css\" />")
+  ;; (setq org-html-head "<link rel=\"stylesheet\" href=\"https://liuxiang.coding.me/liuxiang/style/org/dakrone/org.css\" type=\"text/css\" />")
+  (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://liuxiang.coding.me/liuxiang/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"https://liuxiang.coding.me/liuxiang/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"https://liuxiang.coding.me/liuxiang/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"https://liuxiang.coding.me/liuxiang/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"https://liuxiang.coding.me/liuxiang/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"https://liuxiang.coding.me/liuxiang/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
 
   (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
   (add-to-list 'search-engine-alist '(ip138 :name "ip138" :url "http://ip138.com/ips138.asp?ip=%s&action=2") t)
@@ -720,8 +721,8 @@ This function is called at the very end of Spacemacs initialization."
 (quote
  ((pdf-engine . "xelatex")
   (template . "/Users/liuxiang/Dropbox/org/pandoc-latex-templates/Heiti/default.latex"))))
- '(org-reveal-root "./reveal.js/")
- '(org-reveal-theme "blood")
+ '(org-reveal-root "/Users/liuxiang/cascode/github.com/reveal.js/")
+ '(org-reveal-theme "solarized")
 '(org-src-lang-modes
 (quote
  (("http" . "ob-http")
