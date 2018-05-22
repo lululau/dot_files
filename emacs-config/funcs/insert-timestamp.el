@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/insert-timestamp ()
   "Read a timestamp from the user and insert it at point."
   (interactive)

@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/toggle-global-evil-mc-mode ()
   (interactive)
   (if (bound-and-true-p global-evil-mc-mode)

@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/set-last-dir-and-quit ()
   (interactive)
   (let ((dir (lx/current-directory)))

@@ -1,3 +1,4 @@
+;;;###autoload
 (defun get-current-persp-project ()
   (let ((persp (get-current-persp))
         persp-name)
@@ -6,6 +7,7 @@
       (when (-contains? (projectile-open-projects) persp-name)
         persp-name))))
 
+;;;###autoload
 (defun projectile-project-alternate-buffer ()
   (car
    (--remove
@@ -14,6 +16,7 @@
      (s-matches? "^[* ]" (buffer-name it)))
     (projectile-project-buffers))))
 
+;;;###autoload
 (defun projectile-project-switch-to-alternate-buffer ()
   (interactive)
   (let ((project (get-current-persp-project)))
@@ -26,14 +29,17 @@
             (switch-to-buffer buf)))
       (call-interactively #'spacemacs/alternate-buffer-in-persp))))
 
+;;;###autoload
 (defun lx/find-or-create-projectile-snippet-file ()
   (interactive)
   (find-file (format "%s/tmp/snippets.rb" (projectile-project-root))))
 
+;;;###autoload
 (defun lx/find-or-create-projectile-request-file ()
   (interactive)
   (find-file (format "%s/tmp/requests.http" (projectile-project-root))))
 
+;;;###autoload
 (defun lx/find-or-create-projectile-snippet-org ()
   (interactive)
   (find-file (format "%s/tmp/snippets.org" (projectile-project-root))))

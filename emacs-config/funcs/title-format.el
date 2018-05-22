@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/layout-format-name (name pos)
   "Format the layout name given by NAME for display in mode-line."
   (let* ((layout-name (if (file-directory-p name)
@@ -13,6 +14,7 @@
       caption)))
 
 
+;;;###autoload
 (defun lx/layouts-for-title-bar ()
   "Return a one liner string containing all the layout names."
   (let* ((persp-list (or (persp-names-current-frame-fast-ordered)
@@ -36,6 +38,7 @@
                        (buffer-file-name)) (buffer-name)))))
     (concat file "     -     " formatted-persp-list)))
 
+;;;###autoload
 (defun lx/default-title-bar ()
   (if (projectile-project-p)
       (concat
@@ -48,6 +51,7 @@
             (concat "~" (substring (buffer-file-name) (length (getenv "HOME"))))
           (buffer-file-name)) (buffer-name))))
 
+;;;###autoload
 (defun lx/toggle-title-format()
   (interactive)
   (if (equal frame-title-format '(:eval (lx/layouts-for-title-bar)))

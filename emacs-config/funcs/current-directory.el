@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/current-directory()
   (let* ((buffer (current-buffer))
          (buffer-file-name (buffer-file-name buffer)))

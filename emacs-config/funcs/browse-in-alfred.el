@@ -1,6 +1,8 @@
+;;;###autoload
 (defun lx/browse-in-alfred (path)
   (shell-command-to-string (format "osascript -e 'tell app \"Alfred 3\" to browse \"%s\"'" path)))
 
+;;;###autoload
 (defun lx/browse-file-or-directory-in-alfred (arg)
   "Open current file in external application.
 If the universal prefix argument is used then open the folder

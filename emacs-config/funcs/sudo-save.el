@@ -1,3 +1,4 @@
+;;;###autoload
 (defun sudo-save ()
   (interactive)
   (if (not buffer-file-name)

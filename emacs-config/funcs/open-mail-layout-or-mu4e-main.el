@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/open-mail-custom-layout-or-mu4e-main()
   (interactive)
   (if (string= "@Mu4e" (spacemacs//current-layout-name))

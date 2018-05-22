@@ -1,6 +1,8 @@
+;;;###autoload
 (defun binding-pry-filter (text)
   (if (string-match "^ => [0-9]+:" text) (pop-to-buffer (current-buffer))))
 
+;;;###autoload
 (defun enh-ruby-toggle-block ()
   (interactive)
   (let ((start (point)) beg end)
@@ -18,15 +20,19 @@
               (ruby-do-end-to-brace beg end)))
       (goto-char start))))
 
+
+;;;###autoload
 (defun current-line-has-pry-breakpoint-p ()
   (string-match-p "binding\\.pry" (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
 
+;;;###autoload
 (defun delete-pry-breakpoints ()
   (save-excursion
     (goto-char (point-min))
     (while (/= (point) (point-max))
       (if (current-line-has-pry-breakpoint-p) (kill-whole-line) (forward-line)))))
 
+;;;###autoload
 (defun toggle-pry-breakpoint ()
   (interactive)
   (let ((buf-changed (buffer-modified-p)) (saved-evil-state evil-state))
@@ -38,6 +44,7 @@
     (unless buf-changed (save-buffer))
     (call-interactively (intern (concat "evil-" (symbol-name saved-evil-state) "-state")))))
 
+;;;###autoload
 (defun cleanup-pry-breakpoints ()
   (interactive)
   (let ((buf-changed (buffer-modified-p)) (saved-evil-state evil-state))
@@ -45,6 +52,7 @@
     (unless buf-changed (save-buffer))
     (call-interactively (intern (concat "evil-" (symbol-name saved-evil-state) "-state")))))
 
+;;;###autoload
 (defun lx/jump-to-code-at-point ()
   (interactive)
   (let((str (ffap-string-at-point)) path line)

@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/make-global-org-capture (system-porcess)
   (setq lx/global-org-capture-system-process system-porcess)
   (setq lx/global-org-capture-frame
@@ -7,6 +8,7 @@
   (org-capture-string "" "g")
   (delete-other-windows))
 
+;;;###autoload
 (defun lx/delete-global-org-capture-frame ()
   (when (and (bound-and-true-p lx/global-org-capture-frame) (eq (selected-frame) lx/global-org-capture-frame))
     (delete-frame lx/global-org-capture-frame)

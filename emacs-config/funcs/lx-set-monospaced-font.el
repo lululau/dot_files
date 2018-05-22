@@ -1,4 +1,5 @@
 ;; Set the monospaced font size when mixed Chinese and English words, and if you use a computer with a retina display and a external display.
+;;;###autoload
 (defun lx/set-monospaced-font (english chinese english-retina-size chinese-retina-size english-normal-size chinese-normal-size)
   (when window-system
     (dolist (monitor-attrs (display-monitor-attributes-list))

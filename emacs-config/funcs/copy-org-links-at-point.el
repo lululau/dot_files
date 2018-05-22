@@ -1,3 +1,4 @@
+;;;###autoload
 (defun get-git-link (remote start end)
   (interactive (let* ((remote (if current-prefix-arg
                                   (git-link--read-remote)
@@ -27,6 +28,7 @@
 		     start
 		     end)))))
 
+;;;###autoload
 (defun get-local-file-link ()
   (let (cpltxt txt link)
     (buffer-file-name (buffer-base-buffer))
@@ -42,6 +44,7 @@
             desc "NONE"))
     cpltxt))
 
+;;;###autoload
 (defun copy-org-links-at-point ()
   (interactive)
   (require 'git-link)

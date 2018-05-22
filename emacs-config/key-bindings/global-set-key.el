@@ -1,5 +1,6 @@
 (global-unset-key (kbd "s-q"))
 (global-set-key (kbd "s-l") 'evil-avy-goto-line)
+(global-set-key (kbd "s-.") #'(lambda () (interactive) (eval avy-last-goto-entity)))
 (global-set-key (kbd "<s-S-return>") 'spacemacs/toggle-maximize-buffer)
 (global-set-key (kbd "s-t") 'split-window-right-and-focus)
 (global-set-key (kbd "s-T") 'split-window-below-and-focus)

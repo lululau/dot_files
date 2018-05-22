@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/window-move-very-top ()
   (interactive)
   (if (neo-global--window-exists-p)
@@ -9,6 +10,7 @@
           (select-window win)))
     (call-interactively 'evil-window-move-very-top)))
 
+;;;###autoload
 (defun lx/window-move-very-bottom ()
   (interactive)
   (if (neo-global--window-exists-p)
@@ -20,6 +22,7 @@
           (select-window win)))
     (call-interactively 'evil-window-move-very-bottom)))
 
+;;;###autoload
 (defun lx/window-move-far-left ()
   (interactive)
   (if (neo-global--window-exists-p)
@@ -31,6 +34,7 @@
           (select-window win)))
     (call-interactively 'evil-window-move-far-left)))
 
+;;;###autoload
 (defun lx/window-move-far-right ()
   (interactive)
   (if (neo-global--window-exists-p)
@@ -42,6 +46,7 @@
           (select-window win)))
     (call-interactively 'evil-window-move-far-right)))
 
+;;;###autoload
 (defmacro lx/def-window-frame-switch-function (direct-arg)
   (let ((direct (eval direct-arg)))
     `(defun ,(intern (format "lx/window-%s-fallback-to-switch-frame" direct)) ()
@@ -54,6 +59,3 @@
                                 (string-match "Minibuffer is inactive\\|No Window \\w+ from selected window" message))
                            (other-frame 1)
                          (signal (car err) (cdr err)))))))))
-
-(lx/def-window-frame-switch-function 'up)
-(lx/def-window-frame-switch-function 'down)
