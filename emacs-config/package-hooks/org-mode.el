@@ -40,3 +40,9 @@
                               :follow   'orgit-status-open
                               :export   'orgit-status-export
                               :complete 'orgit-status-complete-link))
+(with-eval-after-load 'org-protocol
+  (add-to-list 'org-protocol-protocol-alist
+               '("capture-html"
+                 :protocol "capture-html"
+                 :function org-protocol-capture-html--with-pandoc
+                 :kill-client t)))

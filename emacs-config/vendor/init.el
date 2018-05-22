@@ -1,3 +1,2 @@
-(dolist (el (directory-files (file-name-directory load-file-name) t "\.el$"))
-  (unless (string-match-p "init\.el$" el)
-      (load el)))
+(let ((dir (file-name-directory load-file-name)))
+  (autoload 'org-protocol-capture-html--with-pandoc (format "%sorg-protocol-capture-html.el" dir)))
