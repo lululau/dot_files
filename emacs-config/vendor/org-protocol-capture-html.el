@@ -115,7 +115,7 @@ Pandoc, converting HTML to Org-mode."
       (insert content)
       (if (not (zerop (call-process-region
                        (point-min) (point-max)
-                       "pandoc" t t nil "-f" "html" "-t" "org" org-protocol-capture-html-pandoc-no-wrap-option)))
+                       "~/bin/html2org" t t nil)))
           (message "Pandoc failed: %s" (buffer-string))
         (progn
           ;; Pandoc succeeded
@@ -128,11 +128,11 @@ Pandoc, converting HTML to Org-mode."
     (org-protocol-capture-html--do-capture)
     nil))
 
-(add-to-list 'org-protocol-protocol-alist
-             '("capture-html"
-               :protocol "capture-html"
-               :function org-protocol-capture-html--with-pandoc
-               :kill-client t))
+;; (add-to-list 'org-protocol-protocol-alist
+;;              '("capture-html"
+;;                :protocol "capture-html"
+;;                :function org-protocol-capture-html--with-pandoc
+;;                :kill-client t))
 
 ;;;; eww-readable
 
