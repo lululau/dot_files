@@ -30,6 +30,7 @@
                 ("odz" spacezsh-dir "~/.spacezsh/")
                 ("odZ" ohmyzsh-dir "~/.oh-my-zsh/")
                 ("od/" root-dir "/")
+                ("odo" irg-dir "~/Dropbox/org")
                 ("odn" notes-dir "~/Documents/notes")
                 ("odw" webclips-dir "~/Documents/notes/webclips")
                 ("odv" volumes-dir "/Volumes")
