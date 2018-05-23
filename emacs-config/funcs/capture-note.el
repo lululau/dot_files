@@ -17,19 +17,24 @@
   (let* ((filename (format "~/Documents/notes/webclips/%s.org" (lx/refine-filename title)))
          (refined-title (lx/refine-web-string title))
          (refined-link (lx/refine-web-string link))
-        (buffer (find-file filename)))
+         (buffer (find-file filename)))
     (with-current-buffer buffer
       (insert (lx/refine-web-string body))
-      (if (not (zerop (call-process-region
-                       (point-min) (point-max)
-                       "~/bin/html2org" t t nil refined-title refined-link)))
-        (progn
-          ;; Pandoc succeeded
-          (org-mode)
-          (outline-show-all)
-          (spacemacs/indent-region-or-buffer)
-          (mark-whole-buffer)
-          (call-interactively 'org-fill-paragraph)
-          (deactivate-mark)
-          (save-buffer)
-          t)))))
+      (call-process-region
+       (point-min) (point-max)
+       "~/bin/html2org" t t nil refined-title refined-link)
+      (org-mode)
+      (outline-show-all)
+      (spacemacs/indent-region-or-buffer)
+      (mark-whole-buffer)
+      (call-interactively 'org-fill-paragraph)
+      (deactivate-mark)
+      (save-buffer)
+      t)))
+
+(defun lx/download-org-images ()
+  (interactive)
+  (with-current-buffer (current-buffer)
+    (call-process-region (point-min) (point-max)
+                         "~/bin/download-org-images" t t nil (buffer-file-name))
+    (org-toggle-inline-images)))
