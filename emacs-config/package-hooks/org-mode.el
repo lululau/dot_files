@@ -28,6 +28,7 @@
         (org-table-calc-current-TBLFM)
         (forward-line))))
 
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "DI" #'lx/download-org-images)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "tR" #'lx/org-table-recalculate-multi-formulas)
 
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "oy" #'lx/yank-babel-src)
