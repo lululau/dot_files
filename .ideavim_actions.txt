@@ -24,6 +24,8 @@ ActivateDebugToolWindow                            <A-5>
 ActivateDesignerToolWindow                        
 ActivateEventLogToolWindow                        
 ActivateFavoritesToolWindow                        <A-2>
+ActivateFindToolWindow                             <A-3>
+ActivateInspectionResultsToolWindow               
 ActivateJavaEnterpriseToolWindow                  
 ActivateJRebelConsoleToolWindow                   
 ActivateJRebelExecutorToolWindow                  
@@ -32,7 +34,6 @@ ActivateMavenProjectsToolWindow
 ActivateNavBar                                    
 ActivatePalette	ToolWindow                        
 ActivatePaletteToolWindow                         
-ActivateProblemsToolWindow                        
 ActivateProjectToolWindow                          <F1> <A-1>
 ActivateRunToolWindow                              <A-4>
 ActivateSpringToolWindow                          
@@ -70,6 +71,7 @@ AddToFavoritesPopup                                <A-S-F>
 AddToISuite                                       
 AJ.NewAspect                                      
 AJ.PushIn                                         
+AliP3CInspectionAction                             <A-C-S-J>
 AnalyzeActions                                    
 AnalyzeJavaMenu                                   
 AnalyzeMenu                                       
@@ -231,6 +233,8 @@ CollapseSelection                                  <C-.>
 CollapseTreeNode                                   <m>
 CollectSettings                                   
 CollectZippedLogs                                 
+com.alibaba.p3c.analytics.action_group            
+com.alibaba.p3c.idea.action.SwitchLanguageAction  
 com.chrisrm.idea.actions.accents.MTAcidLimeAccentAction
 com.chrisrm.idea.actions.accents.MTAmethystAccentAction
 com.chrisrm.idea.actions.accents.MTAquamarineAccentAction
@@ -1710,6 +1714,7 @@ QuickList.Deployment
 QUnitGenerateNewTestAction                        
 QUnitGenerateSetupAction                          
 QUnitGenerateTearDownAction                       
+ReactivePostOpenProjectActionsAction              
 RearrangeCode                                     
 RecentChangedFiles                                 <C-S-E>
 RecentChanges                                      <A-S-C>
@@ -2113,12 +2118,22 @@ TogglePinnedMode
 TogglePopupHints                                  
 TogglePowerSave                                   
 TogglePresentationMode                            
+ToggleProjectInspectionAction                     
 ToggleReadOnlyAttribute                           
 ToggleSideMode                                    
 ToggleTemporaryLineBreakpoint                      <A-C-S-F8>
 ToggleWindowedMode                                
-Tool_External Tools_Open in Emacs                  <M-0>
+Tool_Files_BrowseInAlfred                         
 Tool_Files_DeleteCurrentFile                      
+Tool_Files_OpenModulePom                          
+Tool_Files_OpenProjectPom                         
+Tool_Files_OpenWithEmacs                           <M-0>
+Tool_Git_BlameCurrentFile                         
+Tool_Git_DiffCurrentFile                          
+Tool_Git_MagitStatus                               <M-G>
+Tool_Git_RevertCurrentFile                        
+Tool_Run_Rerun                                    
+Tool_Run_Stop                                     
 ToolbarFindGroup                                  
 ToolbarMakeGroup                                  
 ToolbarRunGroup                                   

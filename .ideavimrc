@@ -99,6 +99,7 @@ nnoremap <leader>sR viw:action ReplaceInPath<cr>
 vnoremap <leader>sR :action ReplaceInPath<cr>
 
 " Toggles
+noremap <leader>tp :action TogglePowerSave<cr>
 noremap <leader>tN :action ViewNavigationBar<cr>
 noremap <leader>tn :action EditorToggleShowLineNumbers<cr>
 noremap <leader>tl :action EditorToggleUseSoftWraps<cr>
@@ -164,3 +165,6 @@ noremap <leader>gs :action Tool_Git_MagitStatus<cr>
 noremap <leader>gd :action Tool_Git_DiffCurrentFile<cr>
 noremap <leader>gb :action Tool_Git_BlameCurrentFile<cr>
 noremap <leader>gu :action Tool_Git_RevertCurrentFile<cr>
+
+" AliP3C Inspection
+noremap <leader>ai :action AliP3CInspectionAction<cr>
