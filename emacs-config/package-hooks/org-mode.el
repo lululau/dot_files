@@ -47,3 +47,6 @@
                  :protocol "capture-html"
                  :function org-protocol-capture-html--with-pandoc
                  :kill-client t)))
+
+(with-eval-after-load 'evil-org
+  (evil-define-key 'motion evil-org-mode-map (kbd "C-i") 'org-cycle))
