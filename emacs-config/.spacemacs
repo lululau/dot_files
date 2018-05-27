@@ -159,7 +159,8 @@
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
-   dotspacemacs-delete-orphan-packages t)
+   dotspacemacs-delete-orphan-packages t
+   dotspacemacs-enable-server t)
 
   (if (lx/system-is-linux)
       (let ((lx/conf-layers '()))
