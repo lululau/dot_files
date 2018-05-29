@@ -1,4 +1,5 @@
 set surround
+set argtextobj
 set smartcase
 set hlsearch
 set incsearch
