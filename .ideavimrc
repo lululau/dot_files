@@ -22,6 +22,7 @@ set noshowmode
 let mapleader = " "
 
 " System/Global
+nnoremap s s<tab>
 nnoremap <leader>qq :action Exit<cr>
 inoremap <c-a> <c-o>^
 inoremap <c-f> <Right>
