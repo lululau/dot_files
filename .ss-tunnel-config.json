@@ -1,0 +1,9 @@
+{
+  "method" : "chacha20-ietf-poly1305",
+  "server" : "173.255.213.76",
+  "server_port" : 12938,
+  "local_address" : "127.0.0.1",
+  "local_port" : 53,
+  "password" : "fuckChink==21",
+  "timeout" : 60
+}

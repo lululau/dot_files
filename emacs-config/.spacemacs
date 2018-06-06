@@ -135,7 +135,7 @@
      ; evil-easymotion
      ;; (elfeed :variables
      ;;         rmh-elfeed-org-files (list "~/.config/emacs-config/elfeeds.org"))
-     pdf-tools
+     pdf
      csv
      sql
      plantuml
