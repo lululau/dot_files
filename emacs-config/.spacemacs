@@ -351,7 +351,7 @@ layers configuration."
   (spacemacs/set-state-faces)
   (setenv "LANG" "zh_CN.UTF-8")
   (setenv "PKG_CONFIG_PATH" "/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig")
-  (add-hook 'prog-mode-hook 'linum-mode)
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
   (setq magit-push-always-verify nil)
   (add-hook 'smartparens-enabled-hook #'turn-off-sp-on-large-file)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh t)
