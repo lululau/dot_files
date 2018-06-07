@@ -54,6 +54,7 @@
         ("oeS" swift-demo   "~/Dropbox/org/demo/demo.swift")
         ("oep" perl-demo    "~/Dropbox/org/demo/demo.pl")
         ("oeo" org-demo     "~/Dropbox/org/demo/demo.org")
+        ("oem" markdown-demo     "~/Dropbox/org/demo/demo.md")
         ("oeC" coffee-demo  "~/Dropbox/org/demo/demo.coffee")
         ("oey" yaml-demo    "~/Dropbox/org/demo/demo.yaml")
         ("oeH" html-demo    "~/Dropbox/org/demo/demo.html")

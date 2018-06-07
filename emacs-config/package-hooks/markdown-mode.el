@@ -1,4 +1,7 @@
 (with-eval-after-load 'markdown-mode
+  (evil-define-key 'motion markdown-mode-map (kbd "C-i") 'markdown-cycle)
+  (evil-define-key 'normal markdown-mode-map (kbd "C-i") 'markdown-cycle)
+  (define-key markdown-mode-map (kbd "C-i") 'markdown-cycle)
   (define-key markdown-mode-map (kbd "M-h") nil)
   (define-key markdown-mode-map (kbd "M-j") nil)
   (define-key markdown-mode-map (kbd "M-k") nil)
