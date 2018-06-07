@@ -49,7 +49,7 @@ noremap <leader>en :action GotoNextError<cr>
 " Motion/Jump
 nnoremap <leader><leader> :action AceWordAction<cr>
 noremap <c-cr> :action GotoImplementation<cr>
-noremap <m-cr> :action VimWindowSplitVertical<cr>:action GotoImplementation<cr>
+noremap <m-cr> :action GotoDeclaration<cr>
 noremap <c-o> :action Back<cr>
 noremap <c-i> :action Forward<cr>
 
@@ -69,6 +69,8 @@ noremap <leader>fed :e ~/.ideavimrc<cr>
 noremap <leader>feD :e ~/.ideavim_actions.txt<cr>
 nnoremap <leader>fo :action Tool_Files_OpenWithEmacs<cr>
 noremap <leader>fD :action Tool_Files_DeleteCurrentFile<cr>
+noremap <leader>fy :action Tool_Files_CopyCurrentFilePath<cr>
+noremap <leader>fY :action Tool_Files_CopyAndShowCurrentFilePath<cr>
 noremap <leader>fa :action Tool_Files_BrowseInAlfred<cr>
 noremap <leader>fR :action RefactoringMenuRenameFile<cr>
 noremap <a-tab> :action TabSwitchPlugin.SwitchTab<cr>
