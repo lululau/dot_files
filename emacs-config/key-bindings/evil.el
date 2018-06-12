@@ -19,14 +19,12 @@
 
 ;; Use Hybrid style instead of original emacs-state
 (define-key evil-motion-state-map (kbd "s-q") #'evil-hybrid-state)
-(define-key evil-lisp-state-map (kbd "s-q") #'evil-hybrid-state)
 ;; (define-key evil-hybrid-state-map (kbd "C-]") #'jump-to-definition-of-symbol-at-point)
 ;; (define-key evil-hybrid-state-map (kbd (if (display-graphic-p) "<C-return>" "C-RET")) #'(lambda () (interactive) (call-interactively (if (eq major-mode 'org-mode) 'org-insert-heading-respect-content 'jump-to-definition-of-symbol-at-point))))
 ;; (define-key evil-hybrid-state-map (kbd "<s-mouse-1>") #'(lambda (event) (interactive "e") (mouse-set-point event) (jump-to-definition-of-symbol-at-point)))
 (define-key evil-hybrid-state-map (kbd "<s-mouse-3>") #'evil-jumper/backward)
 (define-key evil-hybrid-state-map (kbd "s-q") #'evil-exit-hybrid-state)
 (define-key evil-motion-state-map (kbd "C-z") #'evil-hybrid-state)
-(define-key evil-lisp-state-map (kbd "C-z") #'evil-hybrid-state)
 (define-key evil-hybrid-state-map (kbd "C-z") #'evil-exit-hybrid-state)
 
 (define-key evil-normal-state-map (kbd "Y") #'yank-to-end-of-line)
@@ -48,3 +46,7 @@
 (define-key evil-normal-state-map (kbd "RET") #'(lambda () (interactive) (evil-insert-newline-below)))
 (define-key evil-motion-state-map (kbd "RET") #'(lambda () (interactive) (evil-insert-newline-below)))
 (evil-leader/set-key "SPC" 'avy-goto-char-2)
+
+(with-eval-after-load 'evil-lisp-state
+  (define-key evil-lisp-state-map (kbd "C-z") #'evil-hybrid-state)
+  (define-key evil-lisp-state-map (kbd "s-q") #'evil-hybrid-state))
