@@ -8,7 +8,7 @@
 (defun lx/system-is-mac()
   (eq system-type 'darwin))
 
-(if (lx/system-is-mac) (setenv "PATH" ""))
+;; (if (lx/system-is-mac) (setenv "PATH" ""))
 
 (if (display-graphic-p)
     (progn
@@ -90,6 +90,7 @@
      syntax-checking
      (version-control :variables
                       version-control-diff-tool 'diff-hl
+                      version-control-diff-side 'left
                       version-control-global-margin t)
      (ruby :variables
            ruby-test-runner 'rspec
@@ -347,7 +348,6 @@ layers configuration."
    json-reformat:indent-width 2
    coffee-tab-width 2)
   (setq neo-vc-integration nil)
-  (setq diff-hl-side 'left)
   (spacemacs/set-state-faces)
   (setenv "LANG" "zh_CN.UTF-8")
   (setenv "PKG_CONFIG_PATH" "/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig")
@@ -523,8 +523,6 @@ layers configuration."
   (spacemacs/set-leader-keys "ad" 'fuck-ido-dired)
 
   (global-subword-mode)
-
-  (setq spaceline-minor-modes-p nil)
 
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
