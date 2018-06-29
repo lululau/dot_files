@@ -101,9 +101,15 @@ groups:
         hostname: gce
   6.CC:
     hosts:
-      1.ktam.uat:
+      1.jenkins:
+        hostname: jenkins
+      2.ktam.uat:
         hostname: ktam.uat
-      2.ddhc.crawler:
-        hostname: ddhc.crawler
       3.ddhc.uat:
         hostname: ddhc.uat
+      4.ddhc.crawler:
+        hostname: crawler.uat
+      5.ddhc.dev:
+        hostname: ddhc.dev
+      6.ddhc.pro:
+        hostname: ddhc.pro
