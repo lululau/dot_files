@@ -7,8 +7,22 @@
   (define-key dired-mode-map (kbd "-") 'dired-up-directory)
   (define-key dired-mode-map (kbd "S-SPC") nil)
   (unless (or (display-graphic-p) (lx/system-is-linux))
-      (defun dired-delete-file (file &optional recursive trash)
-        (call-process "trash" nil nil nil file))))
+    (defun dired-delete-file (file &optional recursive trash)
+      (call-process "trash" nil nil nil file)))
+
+  (defun dired-dotfiles-toggle ()
+    "Show/hide dot-files"
+    (interactive)
+    (when (equal major-mode 'dired-mode)
+      (if (or (not (boundp 'dired-dotfiles-show-p)) dired-dotfiles-show-p) ; if currently showing
+          (progn
+            (set (make-local-variable 'dired-dotfiles-show-p) nil)
+            (message "h")
+            (dired-mark-files-regexp "^\\\.")
+            (dired-do-kill-lines))
+        (progn (revert-buffer) ; otherwise just revert to re-show
+               (set (make-local-variable 'dired-dotfiles-show-p) t)))))
+  (spacemacs/set-leader-keys-for-major-mode 'dired-mode "h" 'dired-dotfiles-toggle))
 
 (with-eval-after-load 'dired-x
   (define-key dired-mode-map (kbd "N") nil))
