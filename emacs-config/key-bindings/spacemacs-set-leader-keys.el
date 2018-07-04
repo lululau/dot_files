@@ -44,3 +44,5 @@
   "fi" 'lx/open-with-idea
   "fa" 'lx/browse-file-or-directory-in-alfred
 )
+
+(spacemacs/set-leader-keys-for-major-mode 'dired-mode "h" 'dired-dotfiles-toggle)

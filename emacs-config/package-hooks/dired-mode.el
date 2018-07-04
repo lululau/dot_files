@@ -21,8 +21,7 @@
             (dired-mark-files-regexp "^\\\.")
             (dired-do-kill-lines))
         (progn (revert-buffer) ; otherwise just revert to re-show
-               (set (make-local-variable 'dired-dotfiles-show-p) t)))))
-  (spacemacs/set-leader-keys-for-major-mode 'dired-mode "h" 'dired-dotfiles-toggle))
+               (set (make-local-variable 'dired-dotfiles-show-p) t))))))
 
 (with-eval-after-load 'dired-x
   (define-key dired-mode-map (kbd "N") nil))
