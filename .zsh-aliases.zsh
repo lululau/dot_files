@@ -42,3 +42,4 @@ alias binfo='brew info'
 alias vg=vagrant
 alias pc='pc.sh'
 alias kc=kubectl
+alias mk=minikube
