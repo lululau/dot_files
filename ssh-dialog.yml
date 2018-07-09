@@ -113,3 +113,20 @@ groups:
         hostname: ddhc.dev
       6.ddhc.pro:
         hostname: ddhc.pro
+  7.BC:
+    hosts:
+      1.BC01:
+        hostname: BC01
+      2.BC02:
+        hostname: BC02
+      3.BC03:
+        hostname: BC03
+      4.BC04:
+        hostname: BC04
+      5.yiche.task:
+        hostname: yiche.task
+      6.yiche.web1:
+        hostname: yiche.web1
+      7.yiche.web2:
+        hostname: yiche.web2
+
