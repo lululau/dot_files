@@ -8,6 +8,10 @@ path+=($HOME/.fzf/bin)
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 path+=($HOME/.rvm/bin) # Add RVM to PATH for scripting
 path+=($HOME/perl5/bin)
+path+=($HOME/.local/bin)
+path+=($HOME/.stack/snapshots/x86_64-osx/lts-12.0/8.4.3/bin)
+path+=($HOME/.stack/compiler-tools/x86_64-osx/ghc-8.4.3/bin)
+path+=($HOME/.stack/programs/x86_64-osx/ghc-8.4.3/bin)
 path+=($HOME/.cargo/bin)
 
 if uname | grep -q Linux ; then

@@ -105,7 +105,7 @@
      shell-scripts
      dash
      clojure
-     haskell
+     (haskell :variables haskell-enable-hindent t)
      emacs-lisp
      evernote
      evil-commentary
