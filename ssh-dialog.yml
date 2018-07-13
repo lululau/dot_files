@@ -129,4 +129,12 @@ groups:
         hostname: yiche.web1
       7.yiche.web2:
         hostname: yiche.web2
+  8.PhysicalHosts:
+    hosts:
+      1.R720:
+        hostname: BR720
+      2.R730:
+        hostname: BR730
+      3.kt.ftp:
+        hostname: kt.ftp
 
