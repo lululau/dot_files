@@ -410,6 +410,7 @@ layers configuration."
   (setq org-html-doctype "html5")
   (setq git-link-remote-alist
         '(("gitlab.ktjr.com"    git-link-gitlab)
+          ("gitlab.creditcloud.com"    git-link-gitlab)
           ("github.com"    git-link-github)
           ("bitbucket.org" git-link-bitbucket)
           ("gitorious.org" git-link-gitorious)
@@ -417,6 +418,7 @@ layers configuration."
 
   (setq git-link-commit-remote-alist
     '(("gitlab.ktjr.com" git-link-commit-github)
+      ("gitlab.creditcloud.com" git-link-commit-github)
       ("github.com"    git-link-commit-github)
       ("bitbucket.org" git-link-commit-bitbucket)
       ("gitorious.org" git-link-commit-gitorious)
@@ -557,7 +559,8 @@ This function is called at the very end of Spacemacs initialization."
    (quote
     (("bitbucket.org" . "bitbucket")
      ("github.com" . "github")
-     ("gitlab.ktjr.com" . "gitlab"))))
+     ("gitlab.ktjr.com" . "gitlab")
+     ("gitlab.creditcloud.com" . "gitlab"))))
  '(cfw:display-calendar-holidays nil)
  '(company-search-regexp-function (quote company-search-flex-regexp))
  '(custom-safe-themes
