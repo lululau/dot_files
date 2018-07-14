@@ -132,9 +132,9 @@ groups:
   8.PhysicalHosts:
     hosts:
       1.R720:
-        hostname: BR720
+        hostname: R720
       2.R730:
-        hostname: BR730
+        hostname: R730
       3.kt.ftp:
         hostname: kt.ftp
 
