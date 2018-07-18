@@ -165,6 +165,14 @@
   (interactive)
   (setq ibuffer-group-buffers-by nil))
 
+(defun lx/toggle-maigt-log-date-format ()
+  (interactive)
+  (let* ((current-value (nth 1 magit-log-margin)))
+    (setf (nth 1 magit-log-margin)
+          (if (eq current-value 'age)
+              "%F %T"
+            'age))))
+
 (spacemacs/set-leader-keys
 
   ;; Info bookmarks
@@ -194,4 +202,6 @@
   "obn" #'lx/set-ibuffer-group-buffers-by-nil
 
   "om" #'lx/toggle-global-evil-mc-mode
+
+  "ogt" #'lx/toggle-maigt-log-date-format
   )
