@@ -167,11 +167,12 @@
 
 (defun lx/toggle-maigt-log-date-format ()
   (interactive)
-  (let* ((current-value (nth 1 magit-log-margin)))
-    (setf (nth 1 magit-log-margin)
-          (if (eq current-value 'age)
-              "%F %T"
-            'age))))
+  (let* ((current-value (nth 1 magit-log-margin))
+         (new-value (if (eq current-value 'age)
+                        "%F %T"
+                      'age)))
+    (setf (nth 1 magit-log-margin) new-value)
+    (message "Set magit-log-date-format to `%s'" new-value)))
 
 (spacemacs/set-leader-keys
 
