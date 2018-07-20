@@ -64,3 +64,4 @@ export PERL5LIB=$HOME/perl5/lib/perl5
 export NULLCMD=:
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 export VISUAL=${ZDOTDIR:-$HOME}/bin/emacsclient-for-visual
+source $HOME/.secretenv
