@@ -309,6 +309,7 @@ before layers configuration."
   (setq-default ruby-enable-ruby-on-rails-support t)
   (setq evil-want-C-i-jump t)
   (add-hook 'spacemacs-buffer-mode-hook #'(lambda () (define-key spacemacs-buffer-mode-map (kbd "s-r") #'configuration-layer/update-packages)))
+  (setq projectile-keymap-prefix (kbd "C-c p"))
 
   )
 
