@@ -36,7 +36,7 @@
         lx/emacs-text-objects-init-el "~/.config/emacs-config/text-objects/init.el"
         lx/emacs-key-bindings-init-el "~/.config/emacs-config/key-bindings/init.el"
         lx/emacs-vendor-init-el "~/.config/emacs-config/vendor/init.el"
-        lx/org-project-file "~/Dropbox/org/projects.org"))
+        lx/org-project-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/projects.org"))
 
 
 (defun dotspacemacs/layers ()
@@ -78,7 +78,7 @@
           org-enable-bootstrap-support t
           org-enable-reveal-js-support t
           org-enable-org-journal-support t
-          org-journal-dir "~/Dropbox/org/journal/"
+          org-journal-dir "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/journal/"
           org-journal-file-format "%Y-%m-%d"
           org-journal-date-format "%Y-%m-%d"
           org-projectile-file ,lx/org-project-file)
@@ -369,13 +369,13 @@ layers configuration."
   (setq edit-server-url-major-mode-alist
         '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) ("jira\\.kaitongamc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
   (if (lx/system-is-mac)
-      (setq org-directory "~/Dropbox/org")
+      (setq org-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org")
     (setq org-directory "~/liuxiang/org"))
-  ;; (setq org-agenda-files (append (file-expand-wildcards "~/Dropbox/org/**/*.org") (file-expand-wildcards  "~/Dropbox/org/*.org")))
+  ;; (setq org-agenda-files (append (file-expand-wildcards "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/**/*.org") (file-expand-wildcards  "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/*.org")))
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
-  (setq org-mobile-inbox-for-pull "/Users/liuxiang/Dropbox/org/flagged.org")
-  (setq org-mobile-directory "/Users/liuxiang/Dropbox/应用/MobileOrg")
+  (setq org-mobile-inbox-for-pull "/Users/liuxiang/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/flagged.org")
+  (setq org-mobile-directory "/Users/liuxiang/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/应用/MobileOrg")
   ;; (setq org-bullets-bullet-list '("𝌆" "𝌇" "𝌎" "𝌓" "𝌮"))
   (setq org-link-search-must-match-exact-headline nil)
 
@@ -406,7 +406,7 @@ layers configuration."
           spacemacs//space-doc-resize-inline-images
           spacemacs//space-doc-advice-org-do-emphasis-faces))
   (if (lx/system-is-mac)
-      (setq org-default-notes-file "~/Dropbox/org/capture.org")
+      (setq org-default-notes-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/capture.org")
     (setq org-default-notes-file "~/liuxiang/org/notes.org"))
   (setq org-html-doctype "html5")
   (setq git-link-remote-alist
@@ -730,7 +730,7 @@ This function is called at the very end of Spacemacs initialization."
 '(org-pandoc-options-for-latex-pdf
 (quote
  ((pdf-engine . "xelatex")
-  (template . "/Users/liuxiang/Dropbox/org/pandoc-latex-templates/Heiti/default.latex"))))
+  (template . "/Users/liuxiang/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/pandoc-latex-templates/Heiti/default.latex"))))
  '(org-reveal-root "/Users/liuxiang/cascode/github.com/reveal.js/")
  '(org-reveal-theme "solarized")
 '(org-src-lang-modes
