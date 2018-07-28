@@ -20,10 +20,10 @@ groups:
       5.kt05:
         hostname: kt05
         command: "iterm2_hostname=kt05 lxzsh"
-      6.kt05:
+      6.kt06:
         hostname: kt06
         command: "iterm2_hostname=kt06 lxzsh"
-      7.kt05:
+      7.kt07:
         hostname: kt07
         command: "iterm2_hostname=kt07 lxzsh"
       8.sss:
