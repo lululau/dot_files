@@ -618,6 +618,8 @@ This function is called at the very end of Spacemacs initialization."
      (yaml-mode . "chef,ansible"))))
  '(diff-hl-draw-borders nil)
  '(diff-hl-margin-mode nil)
+ '(dired-subtree-ignored-regexp
+   "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
  '(enh-ruby-add-encoding-comment-on-save nil)
  '(evil-emacs-state-modes
    (quote
