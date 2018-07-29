@@ -24,7 +24,7 @@
                 ("odl" las-dir "~/Library/Application Support/")
                 ("odL" lp-dir "~/Library/Preferences/")
                 ("odm" movies-dir "~/Movies/")
-                ("ods" scratch-dir "~/Documents/scratches/")
+                ("ods" scratch-dir "/Users/liuxiang/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/scratches/")
                 ("odS" snips-dir "~/snips/")
                 ("ode" emacs-dir "~/.emacs.d/")
                 ("odz" spacezsh-dir "~/.spacezsh/")
@@ -205,4 +205,6 @@
   "om" #'lx/toggle-global-evil-mc-mode
 
   "ogt" #'lx/toggle-maigt-log-date-format
+
+  "oss" #'lx/save-scratch
   )
