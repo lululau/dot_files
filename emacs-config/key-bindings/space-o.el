@@ -207,4 +207,6 @@
   "ogt" #'lx/toggle-maigt-log-date-format
 
   "oss" #'lx/save-scratch
+
+  "oac" #'carbon-now-sh
   )
