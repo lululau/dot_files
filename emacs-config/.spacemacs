@@ -831,6 +831,7 @@ This function is called at the very end of Spacemacs initialization."
  '(sh-indentation 2)
  '(sp-highlight-pair-overlay nil)
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
+ '(split-height-threshold 100)
  '(spacemacs-theme-comment-bg nil)
 '(sql-connection-alist
 (quote
