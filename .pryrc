@@ -74,6 +74,16 @@ unless $USER_PRYRC_LOADED
 
   Pry.commands.alias_command 'load-factories', 'require-factories'
 
+  Pry.commands.block_command 'toggle-sql-log' do
+      if $pry_previous_sql_logger
+        ActiveRecord::Base.logger = $pry_previous_sql_logger
+        $pry_previous_sql_logger = nil
+      else
+        $pry_previous_sql_logger = ActiveRecord::Base.logger
+        ActiveRecord::Base.logger = nil
+      end
+  end
+
   Pry.commands.block_command 'toggle-mongoid-query-log' do
     if Object.const_defined?(:Moped)
       if $pry_previous_mongo_logger
