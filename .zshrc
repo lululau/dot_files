@@ -201,6 +201,10 @@ export FZF_DEFAULT_OPTS="-x -m --history=$HOME/.fzf_history --history-size=10000
 #   fi
 # }
 
+precmd() {
+  pwd > /tmp/iterm2_pwd
+}
+
 if [[ "$TERM" == "dumb" ]]
 then
     unsetopt zle
