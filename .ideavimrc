@@ -42,6 +42,10 @@ nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
 nnoremap [b :action GotoPreviousBookmark<cr>
 nnoremap ]b :action GotoNextBookmark<cr>
+noremap [e :action GotoPreviousError<cr>
+noremap ]e :action GotoNextError<cr>
+nnoremap ]f :action Tool_Files_OpenNextFile<cr>
+nnoremap [f :action Tool_Files_OpenPreviousFile<cr>
 
 noremap <leader>ep :action GotoPreviousError<cr>
 noremap <leader>en :action GotoNextError<cr>
@@ -79,6 +83,7 @@ noremap <leader>fnf :action NewFile<cr>
 noremap <leader>fb :action ShowBookmarks<cr>
 noremap <m-n> :action NewFile<cr>
 noremap <m-s-n> :action NewClass<cr>
+nnoremap <leader>jd :action Tool_Files_OpenPWDWithEmacs<cr>
 
 " Code
 noremap <leader>cf :action ReformatCode<cr>
@@ -120,7 +125,6 @@ noremap <leader>jX :action Tool_Run_Rerun<cr>
 noremap <leader>rr :action Run<cr>
 noremap <leader>rd :action Debug<cr>
 noremap <leader>jr :action JRebel Executor<cr>
-noremap <leader>jd :action JRebel Debug<cr>
 noremap <leader>bf :action Compile<cr>
 noremap <leader>bm :action MakeModule<cr>
 noremap <leader>bp :action CompileDirty<cr>
