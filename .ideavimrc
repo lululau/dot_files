@@ -131,8 +131,8 @@ noremap <leader>bp :action CompileDirty<cr>
 noremap <leader>bP :action CompileProject<cr>
 noremap <leader>mi :action Maven.Reimport<cr>
 noremap <leader>me :action Maven.ShowEffectivePom<cr>
-noremap <leader>mp :action Tool_Files_OpenProjectPom<cr>
-noremap <leader>mP :action Tool_Files_OpenModulePom<cr>
+noremap <leader>mP :action Tool_Files_OpenProjectPom<cr>
+noremap <leader>mp :action Tool_Files_OpenModulePom<cr>
 
 " Tool Windows
 noremap <leader>av :action ActivateBeanValidationToolWindow<cr>
