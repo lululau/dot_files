@@ -10,12 +10,24 @@
 
   (define-key ruby-mode-map (kbd (if (display-graphic-p) "<C-return>" "C-RET")) 'jump-to-definition-of-symbol-at-point)
   (define-key ruby-mode-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'jump-to-definition-of-symbol-at-point-other-window)
-  (dolist (mode '(ruby-mode))
-    (spacemacs/set-leader-keys-for-major-mode mode "TAB" 'rspec-toggle-spec-and-target)))
+  )
+
+(spacemacs|use-package-add-hook robe
+  :post-config
+  (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
+    "sa" 'lx/ruby-send-reload
+    "sl" 'lx/ruby-send-line
+    "sL" 'lx/ruby-send-line-and-go
+    "sp" 'lx/ruby-send-paragraph
+    "sP" 'lx/ruby-send-paragraph-and-go
+    "sp" 'lx/ruby-send-babel-block
+    "sP" 'lx/ruby-send-babel-block-and-go))
 
 (spacemacs|use-package-add-hook ruby-mode
   :post-init
   (progn
+    (dolist (mode '(ruby-mode))
+      (spacemacs/set-leader-keys-for-major-mode mode "TAB" 'rspec-toggle-spec-and-target))
     (add-hook
      'ruby-mode-hook
      #'(lambda ()
@@ -29,14 +41,3 @@
   (remove-hook
    'ruby-mode-hook
    'rvm-activate-corresponding-ruby))
-
-(spacemacs/set-leader-keys-for-major-mode 'ruby-mode
-  "sa" 'lx/ruby-send-reload
-  "sl" 'lx/ruby-send-line
-  "sL" 'lx/ruby-send-line-and-go
-  "sp" 'lx/ruby-send-paragraph
-  "sP" 'lx/ruby-send-paragraph-and-go)
-
-(spacemacs/set-leader-keys-for-major-mode 'org-mode
-  "sp" 'lx/ruby-send-babel-block
-  "sP" 'lx/ruby-send-babel-block-and-go)
