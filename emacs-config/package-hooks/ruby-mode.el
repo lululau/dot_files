@@ -1,6 +1,7 @@
 (add-hook 'ruby-mode-hook #'(lambda () (setq-local indent-line-function 'ruby-indent-line)))
 
 (with-eval-after-load 'ruby-mode
+  (define-key ruby-mode-map (kbd "C-j") 'lx/ruby-send-line)
   (define-key ruby-mode-map (kbd "s-r b") 'ruby-toggle-block)
   (define-key ruby-mode-map (kbd "M-s-b") #'toggle-pry-breakpoint)
   (define-key ruby-mode-map (kbd "M-s-c") #'cleanup-pry-breakpoints)
@@ -28,3 +29,14 @@
   (remove-hook
    'ruby-mode-hook
    'rvm-activate-corresponding-ruby))
+
+(spacemacs/set-leader-keys-for-major-mode 'ruby-mode
+  "sa" 'lx/ruby-send-reload
+  "sl" 'lx/ruby-send-line
+  "sL" 'lx/ruby-send-line-and-go
+  "sp" 'lx/ruby-send-paragraph
+  "sP" 'lx/ruby-send-paragraph-and-go)
+
+(spacemacs/set-leader-keys-for-major-mode 'org-mode
+  "sp" 'lx/ruby-send-babel-block
+  "sP" 'lx/ruby-send-babel-block-and-go)
