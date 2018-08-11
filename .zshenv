@@ -65,3 +65,4 @@ export NULLCMD=:
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 export VISUAL=${ZDOTDIR:-$HOME}/bin/emacsclient-for-visual
 source $HOME/.secretenv
+export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
