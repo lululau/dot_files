@@ -123,6 +123,8 @@
      rust
      scala
      swift
+     kotlin
+     groovy
      (go :variables go-tab-width 4)
      vagrant
      docker
