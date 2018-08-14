@@ -1,0 +1,6 @@
+#group: source block
+# key: shaskell
+# --
+#+BEGIN_SRC haskell
+$0
+#+END_SRC

@@ -61,6 +61,7 @@
         ("oec" c-demo       "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/demo/demo.c")
         ("oeg" go-demo      "~/cascode/go/src/demo/demo.go")
         ("oee" elixir-demo  "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/demo/demo.exs")
+        ("oek" haskell-demo  "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/demo/demo.hs")
         ("oet" txt-demo     "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/demo/demo.txt")))
 
 ;; Config files
