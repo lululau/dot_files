@@ -33,6 +33,7 @@
                 ("odo" org-dir "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org")
                 ("odj" org-journal-dir "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/journal")
                 ("odn" notes-dir "~/Documents/notes")
+                ("odN" evernotes-dir "~/Documents/notes/evernotes")
                 ("odw" webclips-dir "~/Documents/notes/webclips")
                 ("odv" volumes-dir "/Volumes")
                 ("odT" tmux-dir "~/.tmux")
