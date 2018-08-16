@@ -80,6 +80,7 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 unalias ping
+unalias rb
 
 # Linux Specific Config
 if uname | grep -q Linux; then
