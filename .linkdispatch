@@ -20,6 +20,7 @@ CHROME_PATTERNS=(
 '^https\?://[^/]*\.ktjr\.com'
 '^https\?://[^/]*\.kaitongamc\.com'
 '^https\?://[^/]*\.creditcloud\.com'
+'^https\?://[^/]*\.duoduohaoche\.com'
 '^https\?://[^/]*localhost'
 '^https\?://[^/]*127\.0\.0\.1'
 )
