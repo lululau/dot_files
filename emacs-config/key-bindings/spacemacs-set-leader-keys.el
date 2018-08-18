@@ -43,6 +43,7 @@
   "it" #'lx/insert-timestamp
   "fi" 'lx/open-with-idea
   "fa" 'lx/browse-file-or-directory-in-alfred
+  "fei" #'(lambda () (interactive) (find-file (format "%sinit.el" user-emacs-directory)))
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode "h" 'dired-dotfiles-toggle)
