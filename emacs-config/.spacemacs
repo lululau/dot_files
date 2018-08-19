@@ -305,6 +305,7 @@ before layers configuration."
   ;;         ("org"      . "orgmode.org/elpa/")
   ;;         ("gnu"      . "elpa.gnu.org/packages/")))
 
+  (add-to-list 'load-path "~/.config/emacs-config/vendor/")
   (load-file lx/emacs-config-init-el)
 
   (setq-default ruby-version-manager 'rvm)
