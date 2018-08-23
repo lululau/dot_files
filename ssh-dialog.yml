@@ -107,12 +107,14 @@ groups:
         hostname: ktam.uat
       3.ddhc.uat:
         hostname: ddhc.uat
-      4.ddhc.crawler:
+      4.ddhc.crawler.uat:
         hostname: crawler.uat
       5.ddhc.dev:
         hostname: ddhc.dev
       6.ddhc.pro:
         hostname: ddhc.pro
+      7.ddhc.crawler.pro:
+        hostname: crawler.pro
   7.BC:
     hosts:
       1.BC01:
