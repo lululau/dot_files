@@ -118,6 +118,7 @@ noremap <leader>ti :action EditorToggleShowIndentLines<cr>
 noremap <leader>tb :action EditorToggleShowBreadcrumbs<cr>
 noremap <leader>tg :action EditorToggleShowGutterIcons<cr>
 noremap <leader>ts :action ChangeInspectionProfile<cr>
+noremap <leader>th :action ToggleInlineHintsAction<cr>
 
 " Maven/Gradle/Other Build-related Actions
 noremap <leader>jx :action Tool_Run_Stop<cr>
