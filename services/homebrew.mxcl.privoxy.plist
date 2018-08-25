@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>KeepAlive</key>
+  <true/>
+  <key>Label</key>
+  <string>homebrew.mxcl.privoxy</string>
+  <key>WorkingDirectory</key>
+  <string>/usr/local/var</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/local/Cellar/privoxy/3.0.26/sbin/privoxy</string>
+    <string>--no-daemon</string>
+    <string>/usr/local/etc/privoxy/config</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+</dict>
+</plist>
