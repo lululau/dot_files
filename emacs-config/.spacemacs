@@ -696,6 +696,7 @@ This function is called at the very end of Spacemacs initialization."
  '(jiralib-url "http://jira.kaitongamc.com")
  '(js2-strict-missing-semi-warning nil)
  '(launchctl-search-path (quote ("~/.config/services/")))
+ '(launchctl-filter-regex "homebrew")
  '(magit-blame-heading-format "%-20a %A %s %H")
  '(magit-diff-use-overlays nil)
  '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
