@@ -94,7 +94,6 @@ Plugin 'tpope/vim-endwise'
 Plugin 'vim-perl/vim-perl'
 Plugin 'justinmk/vim-ipmotion'
 Plugin 'chrisbra/csv.vim'
-Plugin 'jceb/vim-orgmode'
 
 set hidden
 
