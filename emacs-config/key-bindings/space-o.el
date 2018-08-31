@@ -91,6 +91,7 @@
         ("oof" life-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/life.org")
         ("ooc" capture-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/capture.org")
         ("oot" team-tasks-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/team-tasks.org")
+        ("ook" kbd-macros-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/kbd-macros.org")
         ("oor" rails-guides-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org")))
 
 ;; Cheat Sheets
