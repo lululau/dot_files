@@ -126,6 +126,7 @@
      kotlin
      groovy
      (go :variables go-tab-width 4)
+     lua
      vagrant
      docker
      chrome
