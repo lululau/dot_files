@@ -1,0 +1,387 @@
+{
+  "title": "Open Websites",
+  "rules": [
+    {
+      "description": "Open Websites",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "g",
+            "modifiers": {
+              "mandatory": [
+                "shift"
+              ]
+            }
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "g_mode",
+                "value": 1
+              }
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "g"
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "g_mode",
+                "value": 0
+              }
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "u",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open https://www.google.com"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "b",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open https://www.bing.com"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "m",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open https://www.gaode.com"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "y",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open https://youtube.com"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "v",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open https://www.v2ex.com"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open https://ruby-china.org/topics"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open https://emacs-china.org"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open https://github.com"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open https://www.instapaper.com/u"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "t",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open https://twitter.com"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "0",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open http://192.168.0.1"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "1",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open http://192.168.1.1"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "4",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open http://192.168.4.1"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "8",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open http://192.168.8.1"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open https://www.jd.com"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "g_mode",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

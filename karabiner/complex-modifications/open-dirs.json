@@ -1,50 +1,45 @@
 {
-  "title": "SpaceFN",
+  "title": "Open Directories",
   "rules": [
     {
-      "description": "SpaceFN: Space enables SpaceFN mode",
+      "description": "Open Directories",
       "manipulators": [
         {
           "type": "basic",
           "from": {
-            "key_code": "spacebar",
+            "key_code": "f",
             "modifiers": {
-              "optional": [
-                "any"
+              "mandatory": [
+                "shift"
               ]
             }
           },
           "to": [
             {
               "set_variable": {
-                "name": "spacefn_mode",
+                "name": "f_mode",
                 "value": 1
               }
             }
           ],
           "to_if_alone": [
             {
-              "key_code": "spacebar"
+              "key_code": "f"
             }
           ],
           "to_after_key_up": [
             {
               "set_variable": {
-                "name": "spacefn_mode",
+                "name": "f_mode",
                 "value": 0
               }
             }
           ]
-        }
-      ]
-    },
-    {
-      "description": "SpaceFN: Space+b to Space (hold to repeat)",
-      "manipulators": [
+        },
         {
           "type": "basic",
           "from": {
-            "key_code": "b",
+            "key_code": "d",
             "modifiers": {
               "optional": [
                 "any"
@@ -53,22 +48,40 @@
           },
           "to": [
             {
-              "key_code": "spacebar"
+              "shell_command": "open $HOME'/Downloads'"
             }
           ],
           "conditions": [
             {
               "type": "variable_if",
-              "name": "spacefn_mode",
+              "name": "f_mode",
               "value": 1
             }
           ]
-        }
-      ]
-    },
-    {
-      "description": "SpaceFN: Open Applications",
-      "manipulators": [
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "v",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open $HOME'/vagrant'"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "f_mode",
+              "value": 1
+            }
+          ]
+        },
         {
           "type": "basic",
           "from": {
@@ -81,13 +94,13 @@
           },
           "to": [
             {
-              "shell_command": "open '/Applications/iTerm.app'"
+              "shell_command": "open /Applications"
             }
           ],
           "conditions": [
             {
               "type": "variable_if",
-              "name": "spacefn_mode",
+              "name": "f_mode",
               "value": 1
             }
           ]
@@ -104,36 +117,13 @@
           },
           "to": [
             {
-              "shell_command": "open '/Applications/Google Chrome.app'"
+              "shell_command": "open $HOME'/Cafe'"
             }
           ],
           "conditions": [
             {
               "type": "variable_if",
-              "name": "spacefn_mode",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "e",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "open '/Applications/Emacs.app'"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "spacefn_mode",
+              "name": "f_mode",
               "value": 1
             }
           ]
@@ -150,82 +140,13 @@
           },
           "to": [
             {
-              "shell_command": "open '/Applications/1Password.app'"
+              "shell_command": "open $HOME"
             }
           ],
           "conditions": [
             {
               "type": "variable_if",
-              "name": "spacefn_mode",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "i",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "open '/Applications/Messages.app'"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "spacefn_mode",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "j",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "open '/Applications/IntelliJ IDEA.app'"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "spacefn_mode",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "k",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "open '/Applications/Kindle.app'"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "spacefn_mode",
+              "name": "f_mode",
               "value": 1
             }
           ]
@@ -242,13 +163,13 @@
           },
           "to": [
             {
-              "shell_command": "open '/Applications/NeteaseMusic.app'"
+              "shell_command": "open $HOME'/Movies'"
             }
           ],
           "conditions": [
             {
               "type": "variable_if",
-              "name": "spacefn_mode",
+              "name": "f_mode",
               "value": 1
             }
           ]
@@ -256,7 +177,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "n",
+            "key_code": "i",
             "modifiers": {
               "optional": [
                 "any"
@@ -265,13 +186,13 @@
           },
           "to": [
             {
-              "shell_command": "open '/Applications/印象笔记.app'"
+              "shell_command": "open $HOME'/Library/Mobile Documents/com~apple~CloudDocs/images'"
             }
           ],
           "conditions": [
             {
               "type": "variable_if",
-              "name": "spacefn_mode",
+              "name": "f_mode",
               "value": 1
             }
           ]
@@ -279,7 +200,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "p",
+            "key_code": "t",
             "modifiers": {
               "optional": [
                 "any"
@@ -288,59 +209,13 @@
           },
           "to": [
             {
-              "shell_command": "open '/Applications/PDF Expert.app'"
+              "shell_command": "open $HOME'/tmp'"
             }
           ],
           "conditions": [
             {
               "type": "variable_if",
-              "name": "spacefn_mode",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "q",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "open '/Applications/Sequel Pro.app'"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "spacefn_mode",
-              "value": 1
-            }
-          ]
-        },
-        {
-          "type": "basic",
-          "from": {
-            "key_code": "r",
-            "modifiers": {
-              "optional": [
-                "any"
-              ]
-            }
-          },
-          "to": [
-            {
-              "shell_command": "open '/Applications/Reeder.app'"
-            }
-          ],
-          "conditions": [
-            {
-              "type": "variable_if",
-              "name": "spacefn_mode",
+              "name": "f_mode",
               "value": 1
             }
           ]
@@ -357,13 +232,13 @@
           },
           "to": [
             {
-              "shell_command": "open '/Applications/Safari.app'"
+              "shell_command": "open $HOME'/snips'"
             }
           ],
           "conditions": [
             {
               "type": "variable_if",
-              "name": "spacefn_mode",
+              "name": "f_mode",
               "value": 1
             }
           ]
@@ -371,7 +246,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "w",
+            "key_code": "3",
             "modifiers": {
               "optional": [
                 "any"
@@ -380,13 +255,13 @@
           },
           "to": [
             {
-              "shell_command": "open '/Applications/WeChat.app'"
+              "shell_command": "open /Volumes/T3"
             }
           ],
           "conditions": [
             {
               "type": "variable_if",
-              "name": "spacefn_mode",
+              "name": "f_mode",
               "value": 1
             }
           ]
@@ -394,7 +269,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "x",
+            "key_code": "b",
             "modifiers": {
               "optional": [
                 "any"
@@ -403,13 +278,220 @@
           },
           "to": [
             {
-              "shell_command": "open '/Applications/Xcode.app'"
+              "shell_command": "open $HOME'/bin'"
             }
           ],
           "conditions": [
             {
               "type": "variable_if",
-              "name": "spacefn_mode",
+              "name": "f_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "o",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open $HOME'/Documents'"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "f_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "8",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open /Volumes/CZ80"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "f_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open $HOME'/.emacs.d'"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "f_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "0",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open /System/Library/CoreServices/Finder.app"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "f_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "g",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open $HOME'/cascode/github.com'"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "f_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open $HOME'/cascode/spring/demo'"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "f_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open $HOME'/kt'"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "f_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open $HOME'/Library/Application Support'"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "f_mode",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "p",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "open $HOME'/Library/Preferences'"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "f_mode",
               "value": 1
             }
           ]
