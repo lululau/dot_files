@@ -63,7 +63,7 @@ plugins=(ack2 alibas autojump autopair
          jruby
          lein
          mvn
-         node npm
+         node npm nvm
          osx
          perl pip python
          rails rake rsync ruby rvm
