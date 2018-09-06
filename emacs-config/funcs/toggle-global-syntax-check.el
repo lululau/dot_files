@@ -1,0 +1,8 @@
+(defun lx/toggle-global-syntax-check ()
+  (interactive)
+  (if (bound-and-true-p flycheck-global-modes)
+      (progn (setq flycheck-global-modes-saved flycheck-global-modes)
+             (setq flycheck-global-modes nil)
+             (message "syntax-check disabled globally."))
+    (setq flycheck-global-modes flycheck-global-modes-saved)
+    (message "syntax-check enabled globally.")))

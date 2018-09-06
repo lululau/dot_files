@@ -45,6 +45,7 @@
   "fa" 'lx/browse-file-or-directory-in-alfred
   "fei" #'(lambda () (interactive) (find-file (format "%sinit.el" user-emacs-directory)))
   "te" #'toggle-company-english-helper
+  "t C-s" #'lx/toggle-global-syntax-check
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode "h" 'dired-dotfiles-toggle)
