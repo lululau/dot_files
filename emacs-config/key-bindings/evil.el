@@ -19,6 +19,7 @@
 
 ;; Use Hybrid style instead of original emacs-state
 (define-key evil-motion-state-map (kbd "s-q") #'evil-hybrid-state)
+(define-key evil-visual-state-map (kbd "s-q") #'evil-normal-state)
 ;; (define-key evil-hybrid-state-map (kbd "C-]") #'jump-to-definition-of-symbol-at-point)
 ;; (define-key evil-hybrid-state-map (kbd (if (display-graphic-p) "<C-return>" "C-RET")) #'(lambda () (interactive) (call-interactively (if (eq major-mode 'org-mode) 'org-insert-heading-respect-content 'jump-to-definition-of-symbol-at-point))))
 ;; (define-key evil-hybrid-state-map (kbd "<s-mouse-1>") #'(lambda (event) (interactive "e") (mouse-set-point event) (jump-to-definition-of-symbol-at-point)))
