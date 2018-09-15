@@ -1,4 +1,4 @@
-gsub_file "Gemfile", "https://rubygems.org", "https://gems.ruby-china.org"
+gsub_file "Gemfile", "https://rubygems.org", "https://gems.ruby-china.com"
 
 copy_file "~/.rails.gitignore", ".gitignore"
 git :init
