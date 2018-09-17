@@ -115,6 +115,8 @@ groups:
         hostname: ddhc.pro
       7.ddhc.crawler.pro:
         hostname: crawler.pro
+      8.elk:
+        hostname: elk
   7.BC:
     hosts:
       1.BC01:

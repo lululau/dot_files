@@ -24,6 +24,7 @@ CHROME_PATTERNS=(
 '^https\?://[^/]*\.kaitongamc\.com'
 '^https\?://[^/]*\.creditcloud\.com'
 '^https\?://[^/]*\.duoduohaoche\.com'
+'^https\?://[^/]*\.mockplus\.cn'
 '^https\?://[^/]*localhost'
 '^https\?://[^/]*127\.0\.0\.1'
 )
