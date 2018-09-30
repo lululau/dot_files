@@ -65,7 +65,7 @@ plugins=(ack2 alibas autojump autopair
          mvn
          node npm nvm
          osx
-         perl pip python
+         perl pip python pyenv
          rails rake rsync ruby rvm
          safe-paste sbt scala screen svn systemadmin systemd
          terminalapp terminitor themes tig tmux tmux-pane-words tmuxinator

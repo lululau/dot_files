@@ -8,7 +8,7 @@ if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
         fi
     done
 else
-    _new_path=($HOME/bin $HOME/Library/Python/2.7/bin/)
+  _new_path=($HOME/bin $HOME/Library/Python/2.7/bin $HOME/Library/Python/3.7/bin)
     for i in "${path[@]}"
     do
         if [ $HOME/bin != "$i" -a $HOME/Library/Python/2.7/bin != "$i" ]; then
@@ -34,8 +34,4 @@ if [ "$USER" = vagrant ]; then
             export GPG_AGENT_INFO
         fi
     fi
-fi
-
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
 fi
