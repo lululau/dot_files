@@ -18,8 +18,8 @@ gui.geometry_main_x: 0
 gui.geometry_main_y: 23
 gui.gtk.geometry_main_x: 20
 gui.gtk.geometry_main_y: 20
-gui.geometry_main_width: 1440
-gui.geometry_main_height: 855
+gui.geometry_main_width: 2560
+gui.geometry_main_height: 1395
 
 # Main window maximized.
 # TRUE or FALSE (case-insensitive).
@@ -61,8 +61,8 @@ gui.geom.http.maximized: FALSE
 # Decimal integers.
 gui.geom.PreferencesDialog.x: 380
 gui.geom.PreferencesDialog.y: 213
-gui.geom.PreferencesDialog.width: 809
-gui.geom.PreferencesDialog.height: 475
+gui.geom.PreferencesDialog.width: 1681
+gui.geom.PreferencesDialog.height: 919
 # TRUE or FALSE (case-insensitive).
 gui.geom.PreferencesDialog.maximized: FALSE
 
