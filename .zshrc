@@ -73,7 +73,7 @@ plugins=(ack2 alibas autojump autopair
          xcode
          yum
          project-root
-         zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions)
+         zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions ports)
 
 source $ZSH/oh-my-zsh.sh
 
