@@ -44,7 +44,6 @@ export GREP_COLOR=$'\e[43;30'
 export AUTOJUMP_KEEP_SYMLINKS=1
 export CLICOLOR=1
 export LANG=zh_CN.UTF-8
-export LC_ALL=zh_CN.UTF-8
 export MAGICK_HOME=/opt/local
 export GROOVY_HOME=/usr/lib/groovy
 export TERM2NARROW=false
