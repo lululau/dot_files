@@ -107,10 +107,12 @@ groups:
         hostname: ktam.uat
       3.ddhc.uat:
         hostname: ddhc.uat
+        command: "iterm2_hostname=ddhc.uat exec zsh --login"
       4.ddhc.crawler.uat:
         hostname: crawler.uat
       5.ddhc.dev:
         hostname: ddhc.dev
+        command: "iterm2_hostname=ddhc.dev exec zsh --login"
       6.ddhc.pro:
         hostname: ddhc.pro
       7.ddhc.crawler.pro:
