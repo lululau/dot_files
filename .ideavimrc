@@ -24,6 +24,7 @@ let mapleader = " "
 " System/Global
 nnoremap s s<tab>
 nnoremap <leader>qq :action Exit<cr>
+nnoremap ,qq :action Exit<cr>
 inoremap <c-a> <c-o>^
 inoremap <c-f> <Right>
 inoremap <c-b> <Left>
@@ -50,8 +51,12 @@ nnoremap [f :action Tool_Files_OpenPreviousFile<cr>
 noremap <leader>ep :action GotoPreviousError<cr>
 noremap <leader>en :action GotoNextError<cr>
 
+noremap ,ep :action GotoPreviousError<cr>
+noremap ,en :action GotoNextError<cr>
+
 " Motion/Jump
 nnoremap <leader><leader> :action AceWordAction<cr>
+nnoremap ,, :action AceWordAction<cr>
 noremap <c-cr> :action GotoImplementation<cr>
 noremap <m-cr> :action GotoDeclaration<cr>
 noremap <c-o> :action Back<cr>
@@ -62,10 +67,17 @@ noremap <leader>hd :action QuickJavaDoc<cr>
 noremap <leader>hs :action QuickImplementations<cr>
 noremap <leader>dd :action SmartSearchAction<cr>
 noremap <leader>dD :action SearchAction<cr>
+noremap ,hd :action QuickJavaDoc<cr>
+noremap ,hs :action QuickImplementations<cr>
+noremap ,dd :action SmartSearchAction<cr>
+noremap ,dD :action SearchAction<cr>
+
 
 " Projects
 nnoremap <leader>pt :action ActivateProjectToolWindow<cr>
 nnoremap <leader>ps :action ShowProjectStructureSettings<cr>
+nnoremap ,pt :action ActivateProjectToolWindow<cr>
+nnoremap ,ps :action ShowProjectStructureSettings<cr>
 
 " Files
 noremap <leader>feR :source ~/.ideavimrc<cr>
@@ -77,23 +89,42 @@ noremap <leader>fy :action Tool_Files_CopyCurrentFilePath<cr>
 noremap <leader>fY :action Tool_Files_CopyAndShowCurrentFilePath<cr>
 noremap <leader>fa :action Tool_Files_BrowseInAlfred<cr>
 noremap <leader>fR :action RefactoringMenuRenameFile<cr>
+noremap ,feR :source ~/.ideavimrc<cr>
+noremap ,fed :e ~/.ideavimrc<cr>
+noremap ,feD :e ~/.ideavim_actions.txt<cr>
+nnoremap ,fo :action Tool_Files_OpenWithEmacs<cr>
+noremap ,fD :action Tool_Files_DeleteCurrentFile<cr>
+noremap ,fy :action Tool_Files_CopyCurrentFilePath<cr>
+noremap ,fY :action Tool_Files_CopyAndShowCurrentFilePath<cr>
+noremap ,fa :action Tool_Files_BrowseInAlfred<cr>
+noremap ,fR :action RefactoringMenuRenameFile<cr>
 noremap <a-tab> :action TabSwitchPlugin.SwitchTab<cr>
 noremap <leader>fnc :action NewClass<cr>
 noremap <leader>fnf :action NewFile<cr>
 noremap <leader>fb :action ShowBookmarks<cr>
+noremap ,fnc :action NewClass<cr>
+noremap ,fnf :action NewFile<cr>
+noremap ,fb :action ShowBookmarks<cr>
 noremap <m-n> :action NewFile<cr>
 noremap <m-s-n> :action NewClass<cr>
 nnoremap <leader>jd :action Tool_Files_OpenPWDWithEmacs<cr>
+nnoremap ,jd :action Tool_Files_OpenPWDWithEmacs<cr>
 
 " Code
 noremap <leader>cf :action ReformatCode<cr>
 noremap <leader>cis :action ConvertIndentsToSpaces<cr>
 noremap <leader>coi :action OptimizeImports<cr>
+noremap ,cf :action ReformatCode<cr>
+noremap ,cis :action ConvertIndentsToSpaces<cr>
+noremap ,coi :action OptimizeImports<cr>
 
 " Nav
 noremap <leader>ni :action SelectInProjectView<cr>
 noremap <leader>nI :action SelectIn<cr>
 noremap <leader>ji :action GotoSymbol<cr>
+noremap ,ni :action SelectInProjectView<cr>
+noremap ,nI :action SelectIn<cr>
+noremap ,ji :action GotoSymbol<cr>
 
 " Search
 nnoremap <leader>/ :action FindInPath<cr>
@@ -106,6 +137,17 @@ nnoremap <leader>sr :action ReplaceInPath<cr>
 vnoremap <leader>sr <c-c>:action ReplaceInPath<cr>
 nnoremap <leader>sR viw:action ReplaceInPath<cr>
 vnoremap <leader>sR :action ReplaceInPath<cr>
+nnoremap ,/ :action FindInPath<cr>
+vnoremap ,/ <c-c>:action FindInPath<cr>
+nnoremap ,* viw:action FindInPath<cr>
+vnoremap ,* :action FindInPath<cr>
+noremap ,su :action ShowUsages<cr>
+noremap ,sU :action FindUsages<cr>
+nnoremap ,sr :action ReplaceInPath<cr>
+vnoremap ,sr <c-c>:action ReplaceInPath<cr>
+nnoremap ,sR viw:action ReplaceInPath<cr>
+vnoremap ,sR :action ReplaceInPath<cr>
+
 
 " Toggles
 noremap <leader>tp :action TogglePowerSave<cr>
@@ -119,6 +161,18 @@ noremap <leader>tb :action EditorToggleShowBreadcrumbs<cr>
 noremap <leader>tg :action EditorToggleShowGutterIcons<cr>
 noremap <leader>ts :action ChangeInspectionProfile<cr>
 noremap <leader>th :action ToggleInlineHintsAction<cr>
+noremap ,tp :action TogglePowerSave<cr>
+noremap ,tN :action ViewNavigationBar<cr>
+noremap ,tn :action EditorToggleShowLineNumbers<cr>
+noremap ,tl :action EditorToggleUseSoftWraps<cr>
+noremap ,tw :action EditorToggleShowWhitespaces<cr>
+noremap ,tc :action EditorToggleColumnMode<cr>
+noremap ,ti :action EditorToggleShowIndentLines<cr>
+noremap ,tb :action EditorToggleShowBreadcrumbs<cr>
+noremap ,tg :action EditorToggleShowGutterIcons<cr>
+noremap ,ts :action ChangeInspectionProfile<cr>
+noremap ,th :action ToggleInlineHintsAction<cr>
+
 
 " Maven/Gradle/Other Build-related Actions
 noremap <leader>jx :action Tool_Run_Stop<cr>
@@ -134,6 +188,22 @@ noremap <leader>mi :action Maven.Reimport<cr>
 noremap <leader>me :action Maven.ShowEffectivePom<cr>
 noremap <leader>mP :action Tool_Files_OpenProjectPom<cr>
 noremap <leader>mp :action Tool_Files_OpenModulePom<cr>
+noremap ,jx :action Tool_Run_Stop<cr>
+noremap ,jX :action Tool_Run_Rerun<cr>
+noremap ,rr :action Run<cr>
+noremap ,rd :action Debug<cr>
+noremap ,jr :action JRebel Executor<cr>
+noremap ,bf :action Compile<cr>
+noremap ,bm :action MakeModule<cr>
+noremap ,bp :action CompileDirty<cr>
+noremap ,bP :action CompileProject<cr>
+noremap ,mi :action Maven.Reimport<cr>
+noremap ,me :action Maven.ShowEffectivePom<cr>
+noremap ,mP :action Tool_Files_OpenProjectPom<cr>
+noremap ,mp :action Tool_Files_OpenModulePom<cr>
+
+
+
 
 " Tool Windows
 noremap <leader>av :action ActivateBeanValidationToolWindow<cr>
@@ -159,6 +229,30 @@ noremap <leader>at :action ActivateTODOToolWindow<cr>
 noremap <leader>ag :action ActivateVersionControlToolWindow<cr>
 noremap <leader>aw :action ActivateWebToolWindow<cr>
 noremap <leader>aT :action ActiveToolwindowGroup<cr>
+noremap ,av :action ActivateBeanValidationToolWindow<cr>
+noremap ,ac :action ActivateCheckStyleToolWindow<cr>
+noremap ,aD :action ActivateDatabaseToolWindow<cr>
+noremap ,ad :action ActivateDebugToolWindow<cr>
+noremap ,ae :action ActivateEventLogToolWindow<cr>
+noremap ,aF :action ActivateFavoritesToolWindow<cr>
+noremap ,af :action ActivateFindToolWindow<cr>
+noremap ,aE :action ActivateJavaEnterpriseToolWindow<cr>
+noremap ,ajc :action ActivateJRebelConsoleToolWindow<cr>
+noremap ,aje :action ActivateJRebelExecutorToolWindow<cr>
+noremap ,ajt :action ActivateJRebelToolWindow<cr>
+noremap ,aM :action ActivateMavenProjectsToolWindow<cr>
+noremap ,am :action ActivateMessagesToolWindow<cr>
+noremap ,an :action ActivateNavBar<cr>
+noremap ,ap :action ActivatePaletteToolWindow<cr>
+noremap ,ar :action ActivateRunToolWindow<cr>
+noremap ,as :action ActivateSpringToolWindow<cr>
+noremap ,aS :action ActivateStructureToolWindow<cr>
+noremap ,' :action ActivateTerminalToolWindow<cr>
+noremap ,at :action ActivateTODOToolWindow<cr>
+noremap ,ag :action ActivateVersionControlToolWindow<cr>
+noremap ,aw :action ActivateWebToolWindow<cr>
+noremap ,aT :action ActiveToolwindowGroup<cr>
+
 
 " Window Management
 nnoremap <A-h> :action VimWindowLeft<cr>
@@ -174,6 +268,12 @@ noremap <leader>gs :action Tool_Git_MagitStatus<cr>
 noremap <leader>gd :action Tool_Git_DiffCurrentFile<cr>
 noremap <leader>gb :action Tool_Git_BlameCurrentFile<cr>
 noremap <leader>gu :action Tool_Git_RevertCurrentFile<cr>
+noremap ,gs :action Tool_Git_MagitStatus<cr>
+noremap ,gd :action Tool_Git_DiffCurrentFile<cr>
+noremap ,gb :action Tool_Git_BlameCurrentFile<cr>
+noremap ,gu :action Tool_Git_RevertCurrentFile<cr>
+
 
 " AliP3C Inspection
 noremap <leader>ai :action AliP3CInspectionAction<cr>
+noremap ,ai :action AliP3CInspectionAction<cr>
