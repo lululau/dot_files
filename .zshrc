@@ -240,4 +240,15 @@ if [ -z "$EMACS" ]; then
   fi
 fi
 
+function sat() {
+  lines=$[$(tput lines) - 4]
+  cat $@ | head -n $lines
+}
+
+function hat() {
+  lines=$[$(tput lines)/2 - 2]
+  cat $@ | head -n $lines
+}
+
+
 # source ~/.profile
