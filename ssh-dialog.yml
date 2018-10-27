@@ -115,9 +115,11 @@ groups:
         command: "iterm2_hostname=ddhc.dev exec zsh --login"
       6.ddhc.pro:
         hostname: ddhc.pro
-      7.ddhc.crawler.pro:
+      7.ddhc.pro2:
+        hostname: ddhc.pro2
+      8.ddhc.crawler.pro:
         hostname: crawler.pro
-      8.elk:
+      9.elk:
         hostname: elk
   7.BC:
     hosts:
