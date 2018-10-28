@@ -67,6 +67,7 @@
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-private-snippets-directory ,lx/snippets-path)
      better-defaults
+     (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      emacs-lisp
      git
      github
