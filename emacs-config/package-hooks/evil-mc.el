@@ -20,3 +20,8 @@
 
   (setq evil-mc-custom-known-commands '((evil-org-delete-char . ((:default . evil-mc-execute-default-evil-delete)))
                                         (evil-org-delete . ((:default . evil-mc-execute-default-evil-delete))))))
+
+
+(spacemacs|use-package-add-hook  evil-mc
+  :post-config
+  (global-evil-mc-mode -1))
