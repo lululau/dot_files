@@ -250,5 +250,16 @@ function hat() {
   cat $@ | head -n $lines
 }
 
+function px() {
+  if [ "$1" = on ]; then
+    export http_proxy=http://127.0.0.1:1087;export https_proxy=http://127.0.0.1:1087;
+    echo "http_proxy=$http_proxy\nhttps_proxy=$https_proxy"
+  elif [ "$1" = off ]; then
+    unset http_proxy; unset https_proxy
+    echo "http_proxy=$http_proxy\nhttps_proxy=$https_proxy"
+  else
+    echo "http_proxy=$http_proxy\nhttps_proxy=$https_proxy"
+  fi
+}
 
 # source ~/.profile
