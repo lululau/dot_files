@@ -842,7 +842,8 @@ This function is called at the very end of Spacemacs initialization."
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
 '(safe-local-variable-values
 (quote
- ((eval text-scale-increase 3)
+ ((vc-follow-symlinks)
+  (eval text-scale-increase 3)
   (eval flycheck-mode -1 1)
   (eval org-babel-result-hide-all)
   (encoding . utf-8)
