@@ -101,23 +101,23 @@ groups:
         hostname: gce
   6.CC:
     hosts:
-      1.jenkins:
+      j.jenkins:
         hostname: jenkins
       2.ktam.uat:
         hostname: ktam.uat
-      u.ddhc.uat:
-        hostname: ddhc.uat
-        command: "iterm2_hostname=ddhc.uat exec zsh --login"
-      4.ddhc.crawler.uat:
-        hostname: crawler.uat
       d.ddhc.dev:
         hostname: ddhc.dev
         command: "iterm2_hostname=ddhc.dev exec zsh --login"
+      u.ddhc.uat:
+        hostname: ddhc.uat
+        command: "iterm2_hostname=ddhc.uat exec zsh --login"
       p.ddhc.pro:
         hostname: ddhc.pro
       p.ddhc.pro2:
         hostname: ddhc.pro2
-      8.ddhc.crawler.pro:
+      c.ddhc.crawler.uat:
+        hostname: crawler.uat
+      c.ddhc.crawler.pro:
         hostname: crawler.pro
       e.elk:
         hostname: elk
