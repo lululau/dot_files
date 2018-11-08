@@ -77,23 +77,23 @@ groups:
         username: vagrant
   4.Macs:
     hosts:
-      1.LiuXiangRMBP:
+      l.LiuXiangRMBP:
         hostname: lx
-      2.XYM-MBP:
+      x.XYM-MBP:
         hostname: xym
-      3.17inch:
+      7.17inch:
         hostname: lx17
-      4.17inch_remote:
+      7.17inch_remote:
         hostname: lx17r
-      5.dallas:
+      d.dallas:
         hostname: dallas
-      6.tokyo2:
+      t.tokyo2:
         hostname: tokyo2
-      7.CA:
+      c.CA:
         hostname: ca
-      8.r6300:
+      6.r6300:
         hostname: r6300
-      9.r6300.r:
+      6.r6300.r:
         hostname: r6300.r
   5.Google:
     hosts:
