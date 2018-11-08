@@ -105,22 +105,24 @@ groups:
         hostname: jenkins
       2.ktam.uat:
         hostname: ktam.uat
-      3.ddhc.uat:
+      u.ddhc.uat:
         hostname: ddhc.uat
         command: "iterm2_hostname=ddhc.uat exec zsh --login"
       4.ddhc.crawler.uat:
         hostname: crawler.uat
-      5.ddhc.dev:
+      d.ddhc.dev:
         hostname: ddhc.dev
         command: "iterm2_hostname=ddhc.dev exec zsh --login"
-      6.ddhc.pro:
+      p.ddhc.pro:
         hostname: ddhc.pro
-      7.ddhc.pro2:
+      p.ddhc.pro2:
         hostname: ddhc.pro2
       8.ddhc.crawler.pro:
         hostname: crawler.pro
-      9.elk:
+      e.elk:
         hostname: elk
+      g.gitlab.zabbix:
+        hostname: gitlab.zabbix
   7.BC:
     hosts:
       1.BC01:
