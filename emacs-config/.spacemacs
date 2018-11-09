@@ -67,7 +67,7 @@
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-private-snippets-directory ,lx/snippets-path)
      better-defaults
-     (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
+     ;; (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      emacs-lisp
      git
      github
@@ -162,7 +162,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu jq-mode helm-dired-history vue-mode go-dlv realgud-byebug dired-subtree carbon-now-sh sx daemons)
+   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu jq-mode helm-dired-history vue-mode go-dlv realgud-byebug dired-subtree carbon-now-sh sx daemons evil-mc)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim ebuild-mode hoon-mode logcat ido)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
