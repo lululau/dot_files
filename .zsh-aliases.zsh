@@ -44,3 +44,4 @@ alias pc='pc.sh'
 alias kc=kubectl
 alias mk=minikube
 alias f=fd
+alias shu=tree
