@@ -262,4 +262,31 @@ function px() {
   fi
 }
 
+source $HOME/.oh-my-zsh/custom/plugins/zsh-histdb/sqlite-history.zsh
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd histdb-update-outcome
+# source $HOME/.oh-my-zsh/custom/plugins/zsh-histdb/histdb-interactive.zsh
+# bindkey '^r' _histdb-isearch
+
+_zsh_autosuggest_strategy_histdb_top() {
+  local query="select commands.argv from
+history left join commands on history.command_id = commands.rowid
+left join places on history.place_id = places.rowid
+where commands.argv LIKE '$(sql_escape $1)%'
+group by commands.argv
+order by places.dir != '$(sql_escape $PWD)', count(*) desc limit 1"
+  suggestion=$(_histdb_query "$query")
+}
+
+_zsh_autosuggest_strategy_histdb_recent() {
+  local query="select commands.argv from
+history left join commands on history.command_id = commands.rowid
+left join places on history.place_id = places.rowid
+where commands.argv LIKE '$(sql_escape $1)%'
+order by history.start_time desc limit 1"
+  suggestion=$(_histdb_query "$query")
+}
+
+ZSH_AUTOSUGGEST_STRATEGY=histdb_recent
+
 # source ~/.profile
