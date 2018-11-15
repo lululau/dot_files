@@ -92,7 +92,7 @@
         ("ooc" capture-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/capture.org")
         ("oot" team-tasks-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/team-tasks.org")
         ("ook" kbd-macros-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/kbd-macros.org")
-        ("ooj" ddhc-jira-org "/Users/liuxiang/.org-jira/多多好车.org")
+        ("ooj" ddhc-jira-org "/Users/liuxiang/.org-jira/DDHC.org")
         ("oor" rails-guides-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org")))
 
 ;; Cheat Sheets
