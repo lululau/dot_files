@@ -153,7 +153,7 @@
      imenu-list
      ;; rebox  ; comment out due to auto-fill-mode auto-enable of rebox
      systemd
-     ;; org-jira
+     org-jira
      lorem-ipsum-zh
      ob-rails
      bm
@@ -372,7 +372,7 @@ layers configuration."
 
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
-        '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) ("jira\\.kaitongamc\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
+        '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) ("jira\\.creditcloud\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
   (if (lx/system-is-mac)
       (setq org-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org")
     (setq org-directory "~/liuxiang/org"))
@@ -695,7 +695,7 @@ This function is called at the very end of Spacemacs initialization."
   ("yarv" . "irb1.9 -r irb/completion")
   ("macruby" . "macirb -r irb/completion")
   ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.5.3/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.5.3/bin/pry"))))
- '(jiralib-url "http://jira.kaitongamc.com")
+ '(jiralib-url "http://jira.creditcloud.com")
  '(js2-strict-missing-semi-warning nil)
  '(launchctl-search-path (quote ("~/.config/services/")))
  '(launchctl-filter-regex "homebrew")
