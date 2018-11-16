@@ -257,6 +257,12 @@ function px() {
   elif [ "$1" = off ]; then
     unset http_proxy; unset https_proxy
     echo "http_proxy=$http_proxy\nhttps_proxy=$https_proxy"
+  elif [ "$1" =~ '^[0-9]+$' ]; then
+    export http_proxy=http://127.0.0.1:$1;export https_proxy=http://127.0.0.1:$1;
+    echo "http_proxy=$http_proxy\nhttps_proxy=$https_proxy"
+  elif [ "$2" =~ '^[0-9]+$' ]; then
+    export http_proxy=http://$1:$2;export https_proxy=http://$1:$2;
+    echo "http_proxy=$http_proxy\nhttps_proxy=$https_proxy"
   else
     echo "http_proxy=$http_proxy\nhttps_proxy=$https_proxy"
   fi
