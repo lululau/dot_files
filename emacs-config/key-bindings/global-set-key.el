@@ -128,3 +128,6 @@
 
 (global-set-key (kbd (if (display-graphic-p) "<C-return>" "C-RET")) #'spacemacs/jump-to-definition)
 (global-set-key (kbd (if (display-graphic-p) "<s-return>" "s-RET")) #'spacemacs/jump-to-definition-other-window)
+
+;; s-i
+(global-set-key (kbd "s-i s-o") 'lx/find-or-create-projectile-snippet-org)
