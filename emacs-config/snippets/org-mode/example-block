@@ -1,0 +1,6 @@
+#group: example block
+# key: sexample
+# --
+#+BEGIN_EXAMPLE
+$0
+#+END_SRC
