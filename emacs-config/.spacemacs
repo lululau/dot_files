@@ -162,7 +162,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu jq-mode helm-dired-history vue-mode go-dlv realgud-byebug dired-subtree carbon-now-sh sx daemons evil-mc proxy-mode)
+   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu jq-mode helm-dired-history vue-mode go-dlv realgud-byebug dired-subtree carbon-now-sh sx daemons evil-mc proxy-mode org-super-agenda)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim ebuild-mode hoon-mode logcat ido)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -554,6 +554,12 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(org-jira-done-states '("Done" "已解决" "关闭"))
  '(org-jira-users '(("lijiajia" . "lijiajia") ("qining" . "齐宁") ("baibing" . "baibing") ("caozhen" . "caozhen") ("chengzhiyuan" . "chengzhiyuan") ("guohang" . "guohang") ("liujun" . "liujun") ("liumeina" . "liumeina") ("liuxiang" . "liuxiang") ("liuyan" . "liuyan") ("niumengluo" . "niumengluo") ("wuhaojie" . "wuhaojie") ("xueqiang" . "xueqiang") ("wangtao" . "wangtao") ("wangzhen" . "wangzhen") ("wangzhen1" . "wangzhen1") ("yinyingzi" . "yinyingzi") ("zhangyu" . "zhangyu")))
+ '(org-super-agenda-groups
+   (quote
+    ((:name "IMPOARTANT" :priority "A")
+     (:name "DDHC JIRA" :category "DDHC")
+     (:name "NORMAL" :not (:tag "POSTPONED"))
+     (:name "POSTPONED" :tag "POSTPONED"))))
  '(Man-notify-method (quote aggressive))
  '(ahs-case-fold-search nil)
  '(ahs-default-range (quote ahs-range-whole-buffer))
