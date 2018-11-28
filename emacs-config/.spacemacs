@@ -162,7 +162,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu jq-mode helm-dired-history vue-mode go-dlv realgud-byebug dired-subtree carbon-now-sh sx daemons evil-mc)
+   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu jq-mode helm-dired-history vue-mode go-dlv realgud-byebug dired-subtree carbon-now-sh sx daemons evil-mc proxy-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim ebuild-mode hoon-mode logcat ido)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -569,6 +569,9 @@ This function is called at the very end of Spacemacs initialization."
      ("github.com" . "github")
      ("gitlab.ktjr.com" . "gitlab")
      ("gitlab.creditcloud.com" . "gitlab"))))
+ '(proxy-mode-http-proxy "http://127.0.0.1:1087")
+ '(proxy-mode-socks-proxy
+   (quote ("Default Server" "127.0.0.1" 1086 5x5-crack)))
  '(cfw:display-calendar-holidays nil)
  '(company-search-regexp-function (quote company-search-flex-regexp))
  '(custom-safe-themes
