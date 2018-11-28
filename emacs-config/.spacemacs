@@ -558,8 +558,8 @@ This function is called at the very end of Spacemacs initialization."
    (quote
     ((:name "IMPOARTANT" :priority "A")
      (:name "DDHC JIRA" :category "DDHC")
-     (:name "NOW" :not (:tag "POSTPONED"))
-     (:name "POSTPONED" :tag "POSTPONED"))))
+     (:name "NOW" :not (:tag "BACKLOG"))
+     (:name "BACKLOG" :tag "BACKLOG"))))
  '(Man-notify-method (quote aggressive))
  '(ahs-case-fold-search nil)
  '(ahs-default-range (quote ahs-range-whole-buffer))
