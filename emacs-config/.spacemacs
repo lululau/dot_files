@@ -556,9 +556,9 @@ This function is called at the very end of Spacemacs initialization."
  '(org-jira-users '(("lijiajia" . "lijiajia") ("qining" . "齐宁") ("baibing" . "baibing") ("caozhen" . "caozhen") ("chengzhiyuan" . "chengzhiyuan") ("guohang" . "guohang") ("liujun" . "liujun") ("liumeina" . "liumeina") ("liuxiang" . "liuxiang") ("liuyan" . "liuyan") ("niumengluo" . "niumengluo") ("wuhaojie" . "wuhaojie") ("xueqiang" . "xueqiang") ("wangtao" . "wangtao") ("wangzhen" . "wangzhen") ("wangzhen1" . "wangzhen1") ("yinyingzi" . "yinyingzi") ("zhangyu" . "zhangyu")))
  '(org-super-agenda-groups
    (quote
-    ((:name "IMPOARTANT" :priority "A")
+    ((:name "IMPOARTANT !!!" :priority>= "C")
      (:name "DDHC JIRA" :category "DDHC")
-     (:name "NOW" :not (:tag "BACKLOG" :tag "LEARNINGS"))
+     (:name "NOW !" :not (:tag "BACKLOG" :tag "LEARNINGS"))
      (:name "BACKLOG" :tag "BACKLOG")
      (:name "LEARNINGS" :tag "LEARNINGS"))))
  '(Man-notify-method (quote aggressive))
