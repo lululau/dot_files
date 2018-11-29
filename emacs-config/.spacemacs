@@ -716,6 +716,7 @@ This function is called at the very end of Spacemacs initialization."
  '(magit-diff-use-overlays nil)
  '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
  '(magit-revision-show-gravatars nil)
+ '(magit-section-visibility-indicator nil)
  '(markdown-command "/Users/liuxiang/bin/markdown")
  '(mu4e-attachment-dir "/Users/liuxiang/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
