@@ -131,3 +131,4 @@
 
 ;; s-i
 (global-set-key (kbd "s-i s-o") 'lx/find-or-create-projectile-snippet-org)
+(global-set-key (kbd "s-i s-m") 'lx/toggle-global-evil-mc-mode)
