@@ -1,0 +1,6 @@
+#group: source block
+# key: srust
+# --
+#+BEGIN_SRC rust
+$0
+#+END_SRC
