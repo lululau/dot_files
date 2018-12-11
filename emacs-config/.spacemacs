@@ -534,6 +534,8 @@ layers configuration."
 
   (global-subword-mode)
 
+  (add-to-list 'org-babel-load-languages '(elasticsearch . t))
+
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
   ) ;;; End of config.

@@ -47,6 +47,7 @@
   "te" #'toggle-company-english-helper
   "t C-s" #'lx/toggle-global-syntax-check
   "tP" #'proxy-mode
+  "aE" #'es-command-center
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode "h" 'dired-dotfiles-toggle)

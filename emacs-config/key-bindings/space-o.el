@@ -62,7 +62,8 @@
         ("oec" c-demo       "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/demo/demo.c")
         ("oeg" go-demo      "~/cascode/go/src/demo/demo.go")
         ("oeq" sql-demo       "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/demo/demo.sql")
-        ("oee" elixir-demo  "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/demo/demo.exs")
+        ("oeE" elixir-demo  "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/demo/demo.exs")
+        ("oee" es-demo  "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/demo/demo.es")
         ("oek" haskell-demo  "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/demo/demo.hs")
         ("oet" txt-demo     "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/demo/demo.txt")))
 
