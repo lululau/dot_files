@@ -163,7 +163,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu jq-mode helm-dired-history vue-mode go-dlv realgud-byebug dired-subtree carbon-now-sh sx daemons evil-mc proxy-mode org-super-agenda)
+   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu jq-mode helm-dired-history vue-mode go-dlv realgud-byebug dired-subtree carbon-now-sh sx daemons evil-mc proxy-mode org-super-agenda es-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim ebuild-mode hoon-mode logcat ido)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -444,6 +444,7 @@ layers configuration."
                                   ("\\.m\\'" . objc-mode)
                                   ("\\.mm\\'" . objc-mode)
                                   ("^/tmp/zsh[a-zA-Z0-9]\\{6\\}$" . sh-mode)
+                                  ("\\.es$" . es-mode)
                                   ("\\.sc" . scala-mode)) auto-mode-alist))
 
   (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . react-mode))
