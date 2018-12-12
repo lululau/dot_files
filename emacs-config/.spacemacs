@@ -585,6 +585,7 @@ This function is called at the very end of Spacemacs initialization."
    (quote ("Default Server" "127.0.0.1" 1086 5x5-crack)))
  '(cfw:display-calendar-holidays nil)
  '(company-search-regexp-function (quote company-search-flex-regexp))
+ '(es-always-pretty-print t)
  '(custom-safe-themes
    (quote
     ("398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" default)))
