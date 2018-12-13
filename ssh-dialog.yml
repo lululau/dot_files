@@ -75,6 +75,9 @@ groups:
       d.ddhc.dev:
         hostname: ddhc.dev
         command: "iterm2_hostname=ddhc.dev exec zsh --login"
+      d.ddhc.devb:
+        hostname: ddhc.devb
+        command: "iterm2_hostname=ddhc.devb exec zsh --login"
       u.ddhc.uat:
         hostname: ddhc.uat
         command: "iterm2_hostname=ddhc.uat exec zsh --login"
