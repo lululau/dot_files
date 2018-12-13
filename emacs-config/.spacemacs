@@ -38,6 +38,7 @@
         lx/emacs-vendor-init-el "~/.config/emacs-config/vendor/init.el"
         lx/org-project-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/projects.org"))
 
+(setq spacemacs-theme-comment-bg nil)
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
