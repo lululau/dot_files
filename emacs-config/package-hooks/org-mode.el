@@ -35,6 +35,8 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "os" #'org-babel-execute-subtree)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ob" #'org-babel-execute-buffer)
 
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ttt" #'org-table-transpose-table-at-point)
+
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ic" 'org-cycle-list-bullet)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ik" 'org-move-item-up)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ij" 'org-move-item-down))
