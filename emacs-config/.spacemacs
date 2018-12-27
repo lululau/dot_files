@@ -713,7 +713,7 @@ This function is called at the very end of Spacemacs initialization."
   ("rubinius" . "rbx -r irb/completion")
   ("yarv" . "irb1.9 -r irb/completion")
   ("macruby" . "macirb -r irb/completion")
-  ("pry" . "/Users/liuxiang/.rvm/rubies/ruby-2.5.3/bin/ruby /Users/liuxiang/.rvm/gems/ruby-2.5.3/bin/pry"))))
+  ("pry" . "/Users/liuxiang/.rvm/rubies/default/bin/ruby /Users/liuxiang/.rvm/gems/default/bin/pry"))))
  '(jiralib-url "http://jira.creditcloud.com")
  '(org-jira-default-jql "(assignee = currentUser() or watcher in (currentUser())) and resolution = unresolved ORDER BY priority DESC, created ASC")
  '(js2-strict-missing-semi-warning nil)
