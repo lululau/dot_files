@@ -852,6 +852,7 @@ This function is called at the very end of Spacemacs initialization."
     (102 . evil-surround-function)
     (115 "​" . "​"))))
 '(projectile-completion-system (quote helm))
+'(projectile-indexing-method 'hybrid)
 '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
  '(rake-completion-system (quote helm))
