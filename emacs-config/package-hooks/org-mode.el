@@ -1,4 +1,5 @@
 (with-eval-after-load 'org
+  (define-key org-mode-map [M-tab] 'spacemacs/alternate-buffer)
   (evil-define-key 'normal org-mode-map (kbd "RET") #'(lambda () (interactive) (condition-case nil (call-interactively 'org-open-at-point) (error (evil-insert-newline-below)))))
   (defun lx/get-babel-src ()
     (let* ((info (org-babel-get-src-block-info nil (org-element-context)))
