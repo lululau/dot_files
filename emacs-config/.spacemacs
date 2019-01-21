@@ -2,6 +2,8 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+(setq recentf-save-file (format "~/.emacs.d/.cache/recentf.%s" server-name))
+
 (defun lx/system-is-linux()
   (eq system-type 'gnu/linux))
 
