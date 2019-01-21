@@ -91,6 +91,8 @@ groups:
         hostname: crawler.pro
       e.elk:
         hostname: elk
+      e.elk.pro:
+        hostname: elk.pro
       g.gitlab.zabbix:
         hostname: gitlab.zabbix
   4.Macs:
