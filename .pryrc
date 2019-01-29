@@ -1,3 +1,17 @@
+# Awesome Pry Plugins:
+# pry-doc
+# pry-rails
+# pry-byebug
+# pry-coolline
+# pry-remote
+# pry-rescue  !!! Conflict with pry-byebug !!!
+# pry-vterm_aliases  !!! buggy!!!
+# pry-syntax-hacks  !!! buggy !!!
+# pry-toys
+# pry-macro
+# pry-inline
+
+
 unless $USER_PRYRC_LOADED
 
   if defined?(Rails) && Rails.const_defined?("ConsoleMethods") && Rails.env
