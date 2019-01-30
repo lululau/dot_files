@@ -24,7 +24,7 @@
                 ("odl" las-dir "~/Library/Application Support/")
                 ("odL" lp-dir "~/Library/Preferences/")
                 ("odm" movies-dir "~/Movies/")
-                ("ods" scratch-dir "/Users/liuxiang/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/scratches/")
+                ("ods" scratch-dir "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/scratches/")
                 ("odS" snips-dir "~/snips/")
                 ("ode" emacs-dir "~/.emacs.d/")
                 ("odz" spacezsh-dir "~/.spacezsh/")
@@ -93,7 +93,7 @@
         ("ooc" capture-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/capture.org")
         ("oot" team-tasks-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/team-tasks.org")
         ("ook" kbd-macros-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/kbd-macros.org")
-        ("ooj" ddhc-jira-org "/Users/liuxiang/.org-jira/DDHC.org")
+        ("ooj" ddhc-jira-org "~/.org-jira/DDHC.org")
         ("oor" rails-guides-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org")))
 
 ;; Cheat Sheets
