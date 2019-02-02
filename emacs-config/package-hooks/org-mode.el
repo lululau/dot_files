@@ -38,6 +38,8 @@
 
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "sy" #'org-copy-subtree)
 
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "bk" #'org-babel-remove-result-one-or-many)
+
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ttt" #'org-table-transpose-table-at-point)
 
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ic" 'org-cycle-list-bullet)
