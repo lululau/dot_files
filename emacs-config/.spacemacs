@@ -658,7 +658,8 @@ This function is called at the very end of Spacemacs initialization."
  '(gh-profile-alist
    (quote
     (("github" :url "https://api.github.com" :remote-regexp "^\\(?:git@github\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?")
-     ("kaitong" :url "https://github.ktjr.com/api/v3" :remote-regexp "^\\(?:git@github\\.ktjr\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.ktjr\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?"))))
+     ;; ("kaitong" :url "https://github.ktjr.com/api/v3" :remote-regexp "^\\(?:git@github\\.ktjr\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.ktjr\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?")
+     )))
  '(gist-list-format
    (quote
     ((id "Id" 10 nil identity)
