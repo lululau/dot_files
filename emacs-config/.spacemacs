@@ -2,8 +2,6 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
-;; (setq recentf-save-file (format "~/.emacs.d/.cache/recentf.%s" server-name))
-
 (defun lx/system-is-linux()
   (eq system-type 'gnu/linux))
 
@@ -333,6 +331,8 @@ layers configuration."
   (load-file lx/emacs-key-bindings-init-el)
   (load-file lx/emacs-vendor-init-el)
   ;; (load-file "~/.config/emacs-config/doom-themes.el")
+
+  (setq recentf-save-file (format "~/.emacs.d/.cache/recentf.%s" server-name))
 
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
