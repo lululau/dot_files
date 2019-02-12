@@ -31,7 +31,7 @@
             lx/org-project-file nil))
   (setq lx/conf-layer-path "~/cascode/github.com/spacemacs-layers"
         lx/snippets-path  "~/.config/emacs-config/snippets"
-        lx/default-shell "/bin/zsh"
+        lx/default-shell "/usr/local/bin/zsh"
         lx/emacs-config-init-el "~/.config/emacs-config/init.el"
         lx/emacs-text-objects-init-el "~/.config/emacs-config/text-objects/init.el"
         lx/emacs-key-bindings-init-el "~/.config/emacs-config/key-bindings/init.el"
