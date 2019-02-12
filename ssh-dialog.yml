@@ -99,6 +99,8 @@ groups:
     hosts:
       l.LiuXiangRMBP:
         hostname: lx
+      l.LiuXiangRMBP.kt:
+        hostname: lx.kt
       x.XYM-MBP:
         hostname: xym
       7.17inch:
