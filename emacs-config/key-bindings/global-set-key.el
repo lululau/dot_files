@@ -131,6 +131,9 @@
 (global-set-key (kbd (if (display-graphic-p) "<C-return>" "C-RET")) #'spacemacs/jump-to-definition)
 (global-set-key (kbd (if (display-graphic-p) "<s-return>" "s-RET")) #'spacemacs/jump-to-definition-other-window)
 
+(global-set-key (kbd "s-j") #'(lambda () (interactive) (evil-next-line 10)))
+(global-set-key (kbd "s-k") #'(lambda () (interactive) (evil-previous-line 10)))
+
 ;; s-i
 (global-set-key (kbd "s-i s-o") 'lx/find-or-create-projectile-snippet-org)
 (global-set-key (kbd "s-i s-p") 'lx/find-or-create-projectile-request-org)
