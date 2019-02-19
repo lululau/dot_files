@@ -121,7 +121,7 @@ noremap ,coi :action OptimizeImports<cr>
 " Nav
 noremap <leader>ni :action SelectInProjectView<cr>
 noremap <leader>nI :action SelectIn<cr>
-noremap <leader>ji :action GotoSymbol<cr>
+noremap <leader>ji :action FileStructurePopup<cr>
 noremap ,ni :action SelectInProjectView<cr>
 noremap ,nI :action SelectIn<cr>
 noremap ,ji :action GotoSymbol<cr>
