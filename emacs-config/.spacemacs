@@ -5,11 +5,6 @@
 (defun lx/system-is-linux()
   (eq system-type 'gnu/linux))
 
-(defun lx/system-is-mac()
-  (eq system-type 'darwin))
-
-;; (if (lx/system-is-mac) (setenv "PATH" ""))
-
 (if (display-graphic-p)
     (progn
       (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
@@ -19,24 +14,14 @@
   (setq lx/spacemacs-banner '000)
   (setq neo-theme 'ascii))
 
-(if (and (lx/system-is-linux) (file-exists-p "~/liuxiang"))
-    (progn
-      (setq lx/conf-layer-path "~/liuxiang/spacemacs-layers"
-            lx/snippets-path  "~/liuxiang/.config/emacs-config/snippets"
-            lx/default-shell "~/liuxiang/local/bin/zsh"
-            lx/emacs-config-init-el "~/liuxiang/.config/emacs-config/init.el"
-            lx/emacs-text-objects-init-el "~/liuxiang/.config/emacs-config/text-objects/init.el"
-            lx/emacs-key-bindings-init-el "~/liuxiang/.config/emacs-config/key-bindings/init.el"
-            lx/emacs-vendor-init-el "~/liuxiang/.config/emacs-config/vendor/init.el"
-            lx/org-project-file nil))
-  (setq lx/conf-layer-path "~/cascode/github.com/spacemacs-layers"
-        lx/snippets-path  "~/.config/emacs-config/snippets"
-        lx/default-shell "/usr/local/bin/zsh"
-        lx/emacs-config-init-el "~/.config/emacs-config/init.el"
-        lx/emacs-text-objects-init-el "~/.config/emacs-config/text-objects/init.el"
-        lx/emacs-key-bindings-init-el "~/.config/emacs-config/key-bindings/init.el"
-        lx/emacs-vendor-init-el "~/.config/emacs-config/vendor/init.el"
-        lx/org-project-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/projects.org"))
+(setq lx/conf-layer-path "~/.spacemacs-layers"
+      lx/snippets-path  "~/.config/emacs-config/snippets"
+      lx/default-shell "/bin/zsh"
+      lx/emacs-config-init-el "~/.config/emacs-config/init.el"
+      lx/emacs-text-objects-init-el "~/.config/emacs-config/text-objects/init.el"
+      lx/emacs-key-bindings-init-el "~/.config/emacs-config/key-bindings/init.el"
+      lx/emacs-vendor-init-el "~/.config/emacs-config/vendor/init.el"
+      lx/org-project-file "~/Documents/org/projects.org")
 
 (setq spacemacs-theme-comment-bg nil)
 
@@ -81,7 +66,7 @@
           org-enable-bootstrap-support t
           org-enable-reveal-js-support t
           org-enable-org-journal-support t
-          org-journal-dir "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/journal/"
+          org-journal-dir "~/Documents/org/journal/"
           org-journal-file-format "%Y-%m-%d"
           org-journal-date-format "%Y-%m-%d"
           org-projectile-file ,lx/org-project-file)
@@ -179,15 +164,12 @@
       (let ((lx/conf-layers '()))
         (mapc (lambda (it)
                 (unless (or (eq it 'pandoc)
-                        (eq it 'dash)
                         (eq it 'chrome)
                         (eq it 'gnus)
                         (eq it 'pdf-tools)
                         (eq it 'org-jira)
-                        (eq it 'osx)
                         (eq (car-safe it) 'mu4e)
-                        (eq (car-safe it) 'elfeed)
-                        (eq it 'dash))
+                        (eq (car-safe it) 'elfeed))
                   (add-to-list 'lx/conf-layers it t)
                     )) dotspacemacs-configuration-layers)
         (setq-default dotspacemacs-configuration-layers lx/conf-layers))))
@@ -373,21 +355,14 @@ layers configuration."
   (setq rvm--gemset-default "default")
   (setq mac-option-modifier 'meta)
   (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
-  (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
-  (setq helm-locate-command "/Users/liuxiang/bin/mfd %s %s")
+  (setq helm-locate-command "~/bin/mfd %s %s")
 
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
         '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) ("jira\\.creditcloud\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
-  (if (lx/system-is-mac)
-      (setq org-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org")
-    (setq org-directory "~/liuxiang/org"))
-  ;; (setq org-agenda-files (append (file-expand-wildcards "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/**/*.org") (file-expand-wildcards  "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/*.org")))
+  (setq org-directory "~/Documents/org")
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
-  (setq org-mobile-inbox-for-pull "/Users/liuxiang/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/flagged.org")
-  (setq org-mobile-directory "/Users/liuxiang/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/应用/MobileOrg")
-  ;; (setq org-bullets-bullet-list '("𝌆" "𝌇" "𝌎" "𝌓" "𝌮"))
   (setq org-link-search-must-match-exact-headline nil)
 
   (setq org-projectile-capture-template "* TODO %? %a\n")
@@ -416,9 +391,9 @@ layers configuration."
           spacemacs//space-doc-org-kbd-face-remap
           spacemacs//space-doc-resize-inline-images
           spacemacs//space-doc-advice-org-do-emphasis-faces))
-  (if (lx/system-is-mac)
-      (setq org-default-notes-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/capture.org")
-    (setq org-default-notes-file "~/liuxiang/org/notes.org"))
+
+  ;; (setq org-default-notes-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/capture.org")
+  (setq org-default-notes-file "~/Documents/org/capture.org")
   (setq org-html-doctype "html5")
   (setq git-link-remote-alist
         '(("gitlab.ktjr.com"    git-link-gitlab)
@@ -489,7 +464,7 @@ layers configuration."
   ;; set up the call to terminal-notifier
   (defvar my-notifier-path "/usr/local/bin/terminal-notifier")
   (defun my-appt-send-notification (title msg)
-    (shell-command (concat my-notifier-path " -message " msg " -title " title " -sender org.gnu.Emacs -appIcon /Users/liuxiang/.emacs.d/private/org.png")))
+    (shell-command (concat my-notifier-path " -message " msg " -title " title " -sender org.gnu.Emacs")))
 
   ;; designate the window function for my-appt-send-notification
   (defun my-appt-display (min-to-app new-time msg)
@@ -563,7 +538,6 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(persp-kill-foreign-buffer-behaviour (quote kill))
  '(org-jira-done-states '("Done" "已解决" "关闭"))
- '(org-jira-users '(("lijiajia" . "lijiajia") ("qining" . "齐宁") ("baibing" . "baibing") ("caozhen" . "caozhen") ("chengzhiyuan" . "chengzhiyuan") ("guohang" . "guohang") ("liujun" . "liujun") ("liumeina" . "liumeina") ("liuxiang" . "liuxiang") ("liuyan" . "liuyan") ("niumengluo" . "niumengluo") ("wuhaojie" . "wuhaojie") ("xueqiang" . "xueqiang") ("wangtao" . "wangtao") ("wangzhen" . "wangzhen") ("wangzhen1" . "wangzhen1") ("yinyingzi" . "yinyingzi") ("zhangyu" . "zhangyu")))
  '(org-super-agenda-groups
    (quote
     ((:name "IMPOARTANT !!!" :priority>= "C")
@@ -719,7 +693,7 @@ This function is called at the very end of Spacemacs initialization."
   ("rubinius" . "rbx -r irb/completion")
   ("yarv" . "irb1.9 -r irb/completion")
   ("macruby" . "macirb -r irb/completion")
-  ("pry" . "/Users/liuxiang/.rvm/rubies/default/bin/ruby /Users/liuxiang/.rvm/gems/default/bin/pry"))))
+  ("pry" . "/usr/bin/ruby /usr/local/bin/pry"))))
  '(jiralib-url "http://jira.creditcloud.com")
  '(org-jira-default-jql "(assignee = currentUser() or watcher in (currentUser())) and resolution = unresolved ORDER BY priority DESC, created ASC")
  '(js2-strict-missing-semi-warning nil)
@@ -730,8 +704,8 @@ This function is called at the very end of Spacemacs initialization."
  '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
  '(magit-revision-show-gravatars nil)
  '(magit-section-visibility-indicator nil)
- '(markdown-command "/Users/liuxiang/bin/markdown")
- '(mu4e-attachment-dir "/Users/liuxiang/Downloads/")
+ '(markdown-command "~/bin/markdown")
+ '(mu4e-attachment-dir "~/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
 '(mu4e-headers-fields
 (quote
@@ -763,8 +737,8 @@ This function is called at the very end of Spacemacs initialization."
 '(org-pandoc-options-for-latex-pdf
 (quote
  ((pdf-engine . "xelatex")
-  (template . "/Users/liuxiang/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/pandoc-latex-templates/Heiti/default.latex"))))
- '(org-reveal-root "/Users/liuxiang/cascode/github.com/reveal.js/")
+  (template . "~/Documents/org/pandoc-latex-templates/Heiti/default.latex"))))
+ '(org-reveal-root "~/Documents/org/reveal.js/")
  '(org-reveal-theme "solarized")
 '(org-src-lang-modes
 (quote
