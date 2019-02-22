@@ -48,6 +48,7 @@
   "t C-s" #'lx/toggle-global-syntax-check
   "tP" #'proxy-mode
   "aE" #'es-command-center
+  "f." #'lx/open-current-bufffer-dir-in-finder
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode "h" 'dired-dotfiles-toggle)
