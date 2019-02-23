@@ -5,6 +5,9 @@
 (defun lx/system-is-linux()
   (eq system-type 'gnu/linux))
 
+(defun lx/system-is-mac()
+  (eq system-type 'darwin))
+
 (if (display-graphic-p)
     (progn
       (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
