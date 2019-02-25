@@ -45,3 +45,5 @@ alias kc=kubectl
 alias mk=minikube
 alias f=fd
 alias shu=tree
+alias rm=trash
+alias mm=trash
