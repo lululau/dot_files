@@ -51,3 +51,19 @@
 (with-eval-after-load 'evil-lisp-state
   (define-key evil-lisp-state-map (kbd "C-z") #'evil-hybrid-state)
   (define-key evil-lisp-state-map (kbd "s-q") #'evil-hybrid-state))
+
+
+(evil-define-motion evil-previous-ten-line (count)
+  "Move the cursor 10 lines up."
+  :type line
+  (let (line-move-visual)
+    (evil-line-move (- (or count 10)))))
+
+(evil-define-motion evil-next-ten-line (count)
+  "Move the cursor 10 lines down."
+  :type line
+  (let (line-move-visual)
+    (evil-line-move (or count 10))))
+
+(define-key evil-motion-state-map (kbd "s-k") #'evil-previous-ten-line)
+(define-key evil-motion-state-map (kbd "s-j") #'evil-next-ten-line)
