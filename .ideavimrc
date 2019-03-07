@@ -18,6 +18,7 @@ set fileencodings=utf-8,ucs-bom,chinese
 set formatoptions+=mM
 set ambiwidth=double
 set noshowmode
+set multiple-cursors
 
 let mapleader = " "
 
@@ -36,6 +37,10 @@ nnoremap <c-a> ^
 nnoremap <cr> :action EditorStartNewLine<cr>
 noremap <m-m> :action ToggleBookmark<cr>
 noremap <m-a-b> :action ToggleLineBreakpoint<cr>
+noremap <m-j> 10j
+noremap <m-k> 10k
+inoremap <m-j> <c-o>10j
+inoremap <m-k> <c-o>10k
 
 nnoremap [[ :action MethodUp<cr>
 nnoremap ]] :action MethodDown<cr>
