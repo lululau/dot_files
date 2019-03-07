@@ -13,6 +13,7 @@
       (follow-redirect . :any)
       (path-prefix . :any)
       (max-time . :any)
+      (h . :any)
       (authorization . :any)
       (content-type . :any)))
 
@@ -29,6 +30,7 @@
          (cookie (cdr (assoc :cookie params)))
          (curl (cdr (assoc :curl params)))
          (select (cdr (assoc :select params)))
+         (h (cdr (assoc :h params)))
          (content-type (cdr (assoc :content-type params)))
          (authorization (cdr (assoc :authorization params)))
          (resolve (cdr (assoc :resolve params)))
@@ -40,6 +42,7 @@
                      (let ((method (ob-http-request-method request)))
                        (if (string= "HEAD" method) "-I" `("-X" ,method)))
                      (when follow-redirect "-L")
+                     (when h `("-H" ,(replace-regexp-in-string ":" ": " h)))
                      (when content-type `("-H" ,(format "Content-Type: %s" content-type)))
                      (when authorization `("-H" ,(format "Authorization: %s" authorization)))
                      (when (and (assoc :username params) (assoc :password params))
