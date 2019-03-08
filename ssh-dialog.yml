@@ -98,6 +98,8 @@ groups:
         hostname: crawler.pro
       e.elk:
         hostname: elk
+        # command: "iterm2_hostname=elk exec /root/.local/bin/zsh --login"
+        command: "iterm2_hostname=elk exec tmux attach -t lx"
       e.elk.pro:
         hostname: elk.pro
       g.gitlab.zabbix:
