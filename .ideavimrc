@@ -65,7 +65,7 @@ noremap <a-S> :action ForceStepOver<cr>
 noremap <a-i> :action StepInto<cr>
 noremap <m-i> :action StepInto<cr>
 noremap <a-I> :action ForceStepInto<cr>
-noremap <m-s> :action SmartStepInto<cr>
+noremap <m-S> :action SmartStepInto<cr>
 noremap <a-f> :action StepOut<cr>
 noremap <a-H> :action ForceRunToCursor<cr>
 noremap <a-c> :action Resume<cr>
