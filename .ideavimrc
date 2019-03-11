@@ -18,6 +18,7 @@ set fileencodings=utf-8,ucs-bom,chinese
 set formatoptions+=mM
 set ambiwidth=double
 set noshowmode
+set multiple-cursors
 
 let mapleader = " "
 
@@ -36,6 +37,10 @@ nnoremap <c-a> ^
 nnoremap <cr> :action EditorStartNewLine<cr>
 noremap <m-m> :action ToggleBookmark<cr>
 noremap <m-a-b> :action ToggleLineBreakpoint<cr>
+noremap <m-j> 10j
+noremap <m-k> 10k
+inoremap <m-j> <c-o>10j
+inoremap <m-k> <c-o>10k
 
 nnoremap [[ :action MethodUp<cr>
 nnoremap ]] :action MethodDown<cr>
@@ -53,6 +58,19 @@ noremap <leader>en :action GotoNextError<cr>
 
 noremap ,ep :action GotoPreviousError<cr>
 noremap ,en :action GotoNextError<cr>
+
+" debugging
+noremap <a-s> :action StepOver<cr>
+noremap <a-S> :action ForceStepOver<cr>
+noremap <a-i> :action StepInto<cr>
+noremap <m-i> :action StepInto<cr>
+noremap <a-I> :action ForceStepInto<cr>
+noremap <m-S> :action SmartStepInto<cr>
+noremap <a-f> :action StepOut<cr>
+noremap <a-H> :action ForceRunToCursor<cr>
+noremap <a-c> :action Resume<cr>
+noremap <a-e> :action EvaluateExpression<cr>
+noremap <m-e> ^v$:action EvaluateExpression<cr>
 
 " Motion/Jump
 nnoremap <leader><leader> :action AceWordAction<cr>
