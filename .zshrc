@@ -1,3 +1,6 @@
+ulimit -n 200000
+ulimit -u 2128
+
 # Path to your oh-my-zsh configuration.
 if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
     ZSH=$HOME/liuxiang/.oh-my-zsh

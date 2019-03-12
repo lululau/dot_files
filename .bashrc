@@ -1,5 +1,9 @@
 #!/bin/bash
 
+ulimit -n 200000
+ulimit -u 2128
+
+
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
 fi
