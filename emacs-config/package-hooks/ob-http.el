@@ -87,3 +87,7 @@
           "")))))
 
   )
+
+(with-eval-after-load 'ob-http-mode
+  (define-derived-mode ob-http-mode json-mode "ob http"
+    (set (make-local-variable 'font-lock-defaults) '(ob-http-mode-keywords))))
