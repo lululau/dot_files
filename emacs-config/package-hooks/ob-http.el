@@ -5,6 +5,7 @@
       (noproxy . :any)
       (curl . :any)
       (cookie . :any)
+      (cookie-jar . :any)
       (schema . :any)
       (host . :any)
       (port . :any)
