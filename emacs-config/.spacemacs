@@ -441,11 +441,19 @@ layers configuration."
       ("gitlab.com"    git-link-commit-github)))
 
 
-  ;; org-html-head for Mu4e org-mode email composition
+  ;; --------- Worg HTML Theme for Mu4e ---------
+  ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/worg/worg.css\" type=\"text/css\" />")
+
+  ;; --------- ReadTheOrg HTML Theme for Mu4e ---------
   ;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
 
+  ;; --------- Worg HTML Theme for Org-Mode Export ---------
   ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"https://liuxiang.coding.me/liuxiang/style/org/worg/worg.css\" type=\"text/css\" />")
+
+  ;; --------- Dakrone HTML Theme for Org-Mode Export ---------
   ;; (setq org-html-head "<link rel=\"stylesheet\" href=\"https://liuxiang.coding.me/liuxiang/style/org/dakrone/org.css\" type=\"text/css\" />")
+
+  ;; --------- ReadTheOrg HTML Theme for Org-Mode Export ---------
   (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://liuxiang.coding.me/liuxiang/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"https://liuxiang.coding.me/liuxiang/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"https://liuxiang.coding.me/liuxiang/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"https://liuxiang.coding.me/liuxiang/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"https://liuxiang.coding.me/liuxiang/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"https://liuxiang.coding.me/liuxiang/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
 
   (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
