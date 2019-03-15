@@ -29,6 +29,11 @@
         (org-table-calc-current-TBLFM)
         (forward-line))))
 
+  (defun org-refresh-inline-images (&optional include-linked)
+    (interactive "P")
+    (org-remove-inline-images)
+    (org-display-inline-images include-linked))
+
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "DI" #'lx/download-org-images)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "tR" #'lx/org-table-recalculate-multi-formulas)
 
@@ -45,6 +50,8 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ic" 'org-cycle-list-bullet)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ik" 'org-move-item-up)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ij" 'org-move-item-down))
+
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ti" #'org-refresh-inline-images)
 
 (eval-after-load "org"
   '(orgit-link-set-parameters "orgit"
