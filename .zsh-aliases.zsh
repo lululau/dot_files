@@ -7,7 +7,9 @@ alias gemls='rvm gemset list'
 alias ls="ls -G"
 alias grep="grep --color=auto"
 alias ggrep="ggrep --color=auto"
-alias tomcat="/usr/lib/tomcat/bin/catalina.sh run"
+alias tomcat="/usr/local/opt/tomcat@7/bin/catalina run"
+alias tomcat7="/usr/local/opt/tomcat@7/bin/catalina run"
+alias tomcat8="/usr/local/opt/tomcat@8/bin/catalina run"
 alias s="screen -e^jj"
 alias -g ODX='| od -Ad -tx1'
 alias -g ODC='| od -Ad -tc'
