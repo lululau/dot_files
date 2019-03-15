@@ -18,6 +18,9 @@
       (bin . :any)
       (authorization . :any)
       (x-auth-token . :any)
+      (json . :any)
+      (form . :any)
+      (file . :any)
       (content-type . :any)))
 
   (defun ob-http-expand-var-in-header (value params)
