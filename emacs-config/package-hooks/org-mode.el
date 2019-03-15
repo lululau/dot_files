@@ -47,11 +47,11 @@
 
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ttt" #'org-table-transpose-table-at-point)
 
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ti" #'org-refresh-inline-images)
+
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ic" 'org-cycle-list-bullet)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ik" 'org-move-item-up)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ij" 'org-move-item-down))
-
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ti" #'org-refresh-inline-images)
 
 (eval-after-load "org"
   '(orgit-link-set-parameters "orgit"
