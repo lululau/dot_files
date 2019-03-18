@@ -34,16 +34,17 @@
       (replace-regexp-in-string "\\${[^}]+}" rep-func value)))
 
   (defun ob-http-guest-body-type (request-body)
-    (let* ((json (condition-case err (json-read-from-string request-body)
-                   (error 'error))))
-      (if (not (eq 'error json))
-          'json
-        (if (string-match-p "^\\([^=]+=[^=]+
+    (if request-body
+        (let* ((json (condition-case err (json-read-from-string request-body)
+                       (error 'error))))
+          (if (not (eq 'error json))
+              'json
+            (if (string-match-p "^\\([^=]+=[^=]+
 \\)+$" request-body)
-            (if (string-match-p "^[^=]=@[^=]+$" request-body)
-                'upload
-              'form)
-          'other))))
+                (if (string-match-p "^[^=]=@[^=]+$" request-body)
+                    'upload
+                  'form)
+              'other)))))
 
   (defun ob-http-get-form-args (request-body)
     (--map (list "-F" it) (split-string request-body "\n" t)))
