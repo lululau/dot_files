@@ -502,7 +502,7 @@ layers configuration."
   ;; set up the call to terminal-notifier
   (defvar my-notifier-path "/usr/local/bin/terminal-notifier")
   (defun my-appt-send-notification (title msg)
-    (shell-command (concat my-notifier-path " -message " msg " -title " title " -sender org.gnu.Emacs -appIcon /Users/liuxiang/.emacs.d/private/org.png")))
+    (shell-command (concat my-notifier-path " -message " msg " -title " title " -sender org.gnu.Emacs -appIcon ~/.emacs.d/private/org.png")))
 
   ;; designate the window function for my-appt-send-notification
   (defun my-appt-display (min-to-app new-time msg)
@@ -729,13 +729,12 @@ This function is called at the very end of Spacemacs initialization."
  '(ido-mode nil nil (ido))
  '(imenu-max-item-length nil)
  '(inf-ruby-implementations
-(quote
- (("ruby" . "irb --prompt default --noreadline -r irb/completion")
+ `(("ruby" . "irb --prompt default --noreadline -r irb/completion")
   ("jruby" . "jruby -S irb --prompt default --noreadline -r irb/completion")
   ("rubinius" . "rbx -r irb/completion")
   ("yarv" . "irb1.9 -r irb/completion")
   ("macruby" . "macirb -r irb/completion")
-  ("pry" . "/Users/liuxiang/.rvm/rubies/default/bin/ruby /Users/liuxiang/.rvm/gems/default/bin/pry"))))
+  ("pry" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/pry" user-home-directory user-home-directory))))
  '(jiralib-url "http://jira.creditcloud.com")
  '(org-jira-default-jql "(assignee = currentUser() or watcher in (currentUser())) and resolution = unresolved ORDER BY priority DESC, created ASC")
  '(js2-strict-missing-semi-warning nil)
@@ -746,8 +745,8 @@ This function is called at the very end of Spacemacs initialization."
  '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
  '(magit-revision-show-gravatars nil)
  '(magit-section-visibility-indicator nil)
- '(markdown-command "/Users/liuxiang/bin/markdown")
- '(mu4e-attachment-dir "/Users/liuxiang/Downloads/")
+ '(markdown-command "~/bin/markdown")
+ '(mu4e-attachment-dir "~/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
 '(mu4e-headers-fields
 (quote
@@ -779,8 +778,8 @@ This function is called at the very end of Spacemacs initialization."
 '(org-pandoc-options-for-latex-pdf
 (quote
  ((pdf-engine . "xelatex")
-  (template . "/Users/liuxiang/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/pandoc-latex-templates/Heiti/default.latex"))))
- '(org-reveal-root "/Users/liuxiang/cascode/github.com/reveal.js/")
+  (template . "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/pandoc-latex-templates/Heiti/default.latex"))))
+ '(org-reveal-root "~/cascode/github.com/reveal.js/")
  '(org-reveal-theme "solarized")
 '(org-src-lang-modes
 (quote
