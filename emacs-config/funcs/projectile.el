@@ -41,3 +41,7 @@
 (defun lx/find-or-create-projectile-request-org ()
   (interactive)
   (find-file (format "%s/tmp/requests.org" (projectile-project-root))))
+
+(defun lx/find-or-create-projectile-sql-org ()
+  (interactive)
+  (find-file (format "%s/tmp/sql.org" (projectile-project-root))))
