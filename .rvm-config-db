@@ -79,7 +79,7 @@ ruby_unmaintained_date=2017-04-01
 ruby_unmaintained_version=2.1.0
 ruby_url=https://cache.ruby-lang.org/pub/ruby
 ruby_url_fallback_1=https://ftp.ruby-lang.org/pub/ruby
-ruby_version=2.6.0
+ruby_version=2.6.2
 #
 # REE
 #
@@ -121,13 +121,13 @@ mruby_version=2.0.0
 #
 jruby_repo_url=https://github.com/jruby/jruby.git
 jruby_url=https://repo1.maven.org/maven2/org/jruby/jruby-dist
-jruby_version=9.2.5.0
+jruby_version=9.2.6.0
 maven_version=3.5.0
 #
 # TruffleRuby
 #
 truffleruby_url=https://github.com/oracle/truffleruby/releases/download
-truffleruby_version=1.0.0-rc11
+truffleruby_version=1.0.0-rc14
 #
 # MacRuby
 #
