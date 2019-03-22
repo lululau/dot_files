@@ -140,3 +140,5 @@
 (global-set-key (kbd "s-i s-q") 'lx/find-or-create-projectile-sql-org)
 (global-set-key (kbd "s-i s-m") 'lx/toggle-global-evil-mc-mode)
 (global-set-key (kbd "s-i s-t") 'insert-translated-name-replace)
+
+(global-set-key (kbd "s-<backspace>") 'evil-change-whole-line)
