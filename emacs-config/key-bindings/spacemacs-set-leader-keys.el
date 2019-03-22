@@ -49,6 +49,7 @@
   "tP" #'proxy-mode
   "aE" #'es-command-center
   "f." #'lx/open-current-bufffer-dir-in-finder
+  "xle" #'lx/remove-empty-lines
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode "h" 'dired-dotfiles-toggle)
