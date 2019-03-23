@@ -165,6 +165,7 @@
      ob-rails
      bm
      translator
+     k8s
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
