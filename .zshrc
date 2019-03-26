@@ -10,8 +10,6 @@ else
     export CONFIGDIR=$HOME/.config
 fi
 
-source $CONFIGDIR/.zsh-aliases.zsh
-
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -76,12 +74,15 @@ plugins=(ack2 alibas autojump autopair
          xcode
          yum
          project-root
+         kubectl
+         minikube
          zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions ports)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
+source $CONFIGDIR/.zsh-aliases.zsh
 unalias ping
 unalias fd
 unalias rb
