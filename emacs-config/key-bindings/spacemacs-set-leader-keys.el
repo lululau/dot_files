@@ -50,8 +50,8 @@
   "aE" #'es-command-center
   "f." #'lx/open-current-bufffer-dir-in-finder
   "xle" #'lx/remove-empty-lines
-  "xlbe" #'base64-encode-region
-  "xlbd" #'base64-decode-region
+  "xlbe" #'base64-encode-utf8-region
+  "xlbd" #'base64-decode-utf8-region
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode "h" 'dired-dotfiles-toggle)
