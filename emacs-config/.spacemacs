@@ -155,12 +155,13 @@
      bm
      translator
      k8s
+     spotify
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu jq-mode helm-dired-history vue-mode go-dlv realgud-byebug dired-subtree carbon-now-sh sx daemons evil-mc proxy-mode org-super-agenda es-mode ob-mermaid)
+   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu jq-mode helm-dired-history vue-mode go-dlv realgud-byebug dired-subtree carbon-now-sh sx daemons evil-mc proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome ob-tmux)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim ebuild-mode hoon-mode logcat ido evil-escape)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -177,6 +178,8 @@
                         (eq it 'gnus)
                         (eq it 'pdf-tools)
                         (eq it 'org-jira)
+                        (eq it 'osx)
+                        (eq it 'spotify)
                         (eq (car-safe it) 'mu4e)
                         (eq (car-safe it) 'elfeed))
                   (add-to-list 'lx/conf-layers it t)
@@ -828,7 +831,9 @@ This function is called at the very end of Spacemacs initialization."
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
  '(split-height-threshold 100)
  '(spacemacs-theme-comment-bg nil)
-'(sql-connection-alist
+ '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+ '(org-babel-tmux-session-prefix "")
+ '(sql-connection-alist
 (quote
  (("localhost-test"
    (sql-product

@@ -24,6 +24,16 @@
       (file . :any)
       (content-type . :any)))
 
+  (defun ob-http-json-to-table (str)
+    (let* ((json (json-read-from-string str))
+           (first-row (elt json 0)))
+      (when first-row
+        (if (vectorp first-row)
+            (mapcar (lambda (e) (mapcar 'identity e)) json)
+          (append (list (mapcar 'car first-row)
+                'hline
+                ) (mapcar (lambda (e) (mapcar 'cdr e)) json))))))
+
   (defun ob-http-expand-var-in-header (value params)
     (let ((rep-func (lambda (match)
                       (let* ((var-name (substring match 2 -1))
@@ -62,6 +72,7 @@
          (cookie (cdr (assoc :cookie params)))
          (curl (cdr (assoc :curl params)))
          (select (cdr (assoc :select params)))
+         (table (cdr (assoc :table params)))
          (h (cdr (assoc :h params)))
          (content-type (cdr (assoc :content-type params)))
          (authorization (cdr (assoc :authorization params)))
@@ -120,6 +131,7 @@
             (when ob-http:remove-cr (ob-http-remove-carriage-return response))
             (cond (get-header (ob-http-get-response-header response get-header))
                   (select (ob-http-select response select))
+                  (table (ob-http-json-to-table (ob-http-select response table)))
                   (prettify (ob-http-response-body response))
                   (file (ob-http-file response (cdr file)))
                   (t (s-join "\n\n" (list (ob-http-response-headers response) (ob-http-response-body response))))))
