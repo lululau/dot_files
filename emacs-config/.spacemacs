@@ -851,6 +851,7 @@ This function is called at the very end of Spacemacs initialization."
  '(split-height-threshold 100)
  '(spacemacs-theme-comment-bg nil)
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
+ '(org-babel-tmux-session-prefix "")
  '(sql-connection-alist
 (quote
  (("localhost-test"
