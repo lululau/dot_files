@@ -1,6 +1,8 @@
 alias -- +x='chmod +x '
 alias -- '--=git checkout -'
 alias l1='ls -1'
+alias lA='ls -la'
+alias LA='ls -la'
 alias cdg='cd ~liuxiang/git-umeng'
 alias guse='rvm gemset use'
 alias gemls='rvm gemset list'
