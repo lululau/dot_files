@@ -1,0 +1,6 @@
+#group: source block
+# key: stmux
+# --
+#+BEGIN_SRC tmux :session $1
+$2
+#+END_SRC
