@@ -46,6 +46,10 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "bk" #'org-babel-remove-result-one-or-many)
 
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ttt" #'org-table-transpose-table-at-point)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "TS" #'org-tree-slide-mode)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode ">" #'org-tree-slide-move-next-tree)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "." #'org-tree-slide-move-next-tree)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "<" #'org-tree-slide-move-previous-tree)
 
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ti" #'org-refresh-inline-images)
 
