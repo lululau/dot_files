@@ -1,0 +1,6 @@
+#group: source block
+# key: schrome
+# --
+#+BEGIN_SRC html-chrome :scale 1
+$0
+#+END_SRC
