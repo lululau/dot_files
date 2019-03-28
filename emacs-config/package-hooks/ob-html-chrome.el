@@ -14,12 +14,18 @@
           (nth 4 (org-babel-get-src-block-info)) ; #+NAME of block
           (s-dashed-words (nth 4 (org-heading-components))))) ; Heading
     (flags (cdr (assoc :flags processed-params)))
+    (_size (cdr (assoc :size processed-params)))
+    (size (and _size (format "--window-size=%s" _size)))
+    (_scale (cdr (assoc :scale processed-params)))
+    (scale (and _scale (format "--force-device-scale-factor=%s" _scale)))
     (cmd (s-join
           " "
           `(,(shell-quote-argument
         org-babel-html-chrome-chrome-executable)
       ,@'("--headless" "--disable-gpu" "--enable-logging")
       ,flags
+      ,size
+      ,scale
       ,(format "--screenshot=%s"
           (org-babel-process-file-name out-file))
       ,url))))
