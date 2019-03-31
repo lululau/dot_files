@@ -14,9 +14,9 @@
 (with-eval-after-load 'helm-locate
   (define-key helm-generic-files-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'helm-ff-run-switch-other-window))
 
-(with-eval-after-load 'helm-regexp
-  (define-key helm-moccur-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'helm-moccur-goto-line-ow))
-
+; (with-eval-after-load 'helm-regexp
+;   (define-key helm-moccur-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'helm-moccur-goto-line-ow))
+;
 (with-eval-after-load 'helm-tags
   (define-key helm-etags-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'helm-etags-run-switch-other-window))
 

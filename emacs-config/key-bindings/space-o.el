@@ -80,6 +80,7 @@
         ("ocJ" ideavim_actions "~/.ideavim_actions.txt")
         ("ocj" ideavimrc "~/.ideavimrc")
         ("ocn" nginx "/usr/local/etc/nginx")
+        ("ock" kubectl "~/.kube/config")
         ("ocv" vimrc "~/.vimrc")))
 
 ;; Org files
