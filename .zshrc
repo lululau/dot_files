@@ -55,7 +55,7 @@ autoload -U zmv
 
 plugins=(ack2 alibas autojump autopair
          bd brew bundler
-         colored-man colorize compleat cp cpanm common-aliases copybuffer
+         colored-man-pages colorize compleat cp cpanm common-aliases copybuffer
          docker docker-compose docker-machine
          encode64 emoji
          funcfind
@@ -76,7 +76,7 @@ plugins=(ack2 alibas autojump autopair
          project-root
          kubectl
          minikube
-         zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions ports)
+         zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
 
