@@ -7,7 +7,7 @@
     "aa" 'tda/rsync-multiple-mark-file
     "ae" 'tda/rsync-multiple-empty-list
     "ad" 'tda/rsync-multiple-remove-item
-    "av" 'tda/multiple
+    "av" 'tda/rsync-multiple
     "as" 'tmtxt/dired-async-get-files-size
     "aq" 'tda/download-to-current-dir
     "al" 'tda/download-clipboard-link-to-current-dir)
