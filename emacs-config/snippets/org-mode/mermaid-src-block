@@ -1,0 +1,6 @@
+#group: source block
+# key: smermaid
+# --
+#+BEGIN_SRC mermaid :exports result :file $1.png
+$2
+#+END_SRC

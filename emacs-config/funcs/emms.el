@@ -1,0 +1,12 @@
+(defun lx/load-emms-libs ()
+  (require 'emms-setup)
+  (emms-standard)
+  (emms-default-players)
+  (setq lx/emms-libs-loaded t))
+
+(defun lx/load-or-switch-to-emms ()
+  (interactive)
+  (unless (bound-and-true-p lx/emms-libs-loaded)
+    (lx/load-emms-libs))
+  (emms)
+  (emms-mode-line-disable))

@@ -161,7 +161,11 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu jq-mode helm-dired-history vue-mode go-dlv realgud-byebug dired-subtree carbon-now-sh sx daemons evil-mc proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome ob-tmux org-tree-slide helm-tramp kubernetes-tramp)
+   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu
+                                            jq-mode helm-dired-history vue-mode go-dlv realgud-byebug
+                                            dired-subtree carbon-now-sh sx daemons evil-mc
+                                            proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
+                                            ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim ebuild-mode hoon-mode logcat ido evil-escape)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -327,6 +331,8 @@ layers configuration."
   ;; (load-file "~/.config/emacs-config/doom-themes.el")
 
   (setq recentf-save-file (format "~/.emacs.d/.cache/recentf.%s" server-name))
+
+  (setq tat/window-close-delay "100000000")
 
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 

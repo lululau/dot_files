@@ -1,4 +1,16 @@
 (with-eval-after-load 'dired
+  (spacemacs/set-leader-keys-for-major-mode 'dired-mode
+    "ar" 'tda/rsync
+    "aR" 'tda/rsync-delete
+    "az" 'tda/zip
+    "au" 'tda/unzip
+    "aa" 'tda/rsync-multiple-mark-file
+    "ae" 'tda/rsync-multiple-empty-list
+    "ad" 'tda/rsync-multiple-remove-item
+    "av" 'tda/multiple
+    "as" 'tmtxt/dired-async-get-files-size
+    "aq" 'tda/download-to-current-dir
+    "al" 'tda/download-clipboard-link-to-current-dir)
   (define-key dired-mode-map (kbd "n") nil)
   (define-key dired-mode-map (kbd "g") nil)
   (define-key dired-mode-map (kbd "G") nil)
