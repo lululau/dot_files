@@ -70,4 +70,5 @@
   "av" 'tda/rsync-multiple
   "as" 'tmtxt/dired-async-get-files-size
   "aq" 'tda/download-to-current-dir
-  "al" 'tda/download-clipboard-link-to-current-dir)
+  "al" 'tda/download-clipboard-link-to-current-dir
+  "ax" 'tda/execute-command-in-current-dir)

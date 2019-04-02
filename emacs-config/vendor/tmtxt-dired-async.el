@@ -265,4 +265,10 @@
   (interactive)
   (tda/download-to-current-dir (x-get-clipboard)))
 
+
+(defun tda/execute-command-in-current-dir (command)
+  "Read the link and download the file to current directory"
+  (interactive (list (read-from-minibuffer "Shell Command: ")))
+    (tat/execute-async command "Shell-Command"))
+
 (provide 'tmtxt-dired-async)
