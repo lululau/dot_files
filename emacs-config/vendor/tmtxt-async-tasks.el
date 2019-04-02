@@ -54,7 +54,7 @@
 		 (concat "*" command-name "*" " at " (current-time-string))))
 
 	;; make a new window
-	(select-window (tat/create-window))
+	;; (select-window (tat/create-window))
 	;; not allow popup
 	(add-to-list 'same-window-buffer-names output-buffer)
 	;; run async command

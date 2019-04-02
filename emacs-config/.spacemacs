@@ -346,6 +346,8 @@ layers configuration."
 
   (setq recentf-save-file (format "~/.emacs.d/.cache/recentf.%s" server-name))
 
+  (setq tat/window-close-delay "100000000")
+
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
   (which-key-mode -1)  ;; Disable whick-key-mode by default
