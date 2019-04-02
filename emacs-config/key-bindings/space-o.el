@@ -97,6 +97,13 @@
         ("ooj" ddhc-jira-org "~/.org-jira/DDHC.org")
         ("oor" rails-guides-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org")))
 
+(setq lx/server-files
+      '(("os1" ddhc-dev-a "/scp:ddhc.dev:/server/app")
+      ("os2" ddhc-dev-b "/scp:ddhc.devb:/server/app")
+      ("os3" ddhc-uat "/scp:ddhc.uat:/server/app")
+      ("os4" ddhc-pro "/scp:ddhc.pro:/server/app")
+      ("os5" ddhc-pro-2 "/scp:ddhc.pro2:/server/app")))
+
 ;; Cheat Sheets
 (setq lx/cheatsheets
       '(("osr" emacs-regexp-cheatsheet "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/cheatsheets/emacs-regexp-cheatsheets.org")
@@ -108,7 +115,7 @@
      (find-file ,dir)))
 
 (let ((result '()))
-  (dolist (elem (append lx/dirs lx/demo-files lx/config-files lx/org-files lx/cheatsheets) result)
+  (dolist (elem (append lx/dirs lx/demo-files lx/config-files lx/org-files lx/cheatsheets lx/server-files) result)
     (let ((kbd (nth 0 elem))
           (func-name (nth 1 elem))
           (dir (nth 2 elem)))
