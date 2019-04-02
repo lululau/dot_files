@@ -13,4 +13,5 @@
   (autoload 'tmtxt/dired-async-get-files-size (format "%stmtxt-dired-async.el" dir))
   (autoload 'tda/download-to-current-dir (format "%stmtxt-dired-async.el" dir))
   (autoload 'tda/download-clipboard-link-to-current-dir (format "%stmtxt-dired-async.el" dir))
+  (autoload 'tda/execute-command-in-current-dir (format "%stmtxt-dired-async.el" dir))
   (autoload 'toggle-company-english-helper (format "%scompany-english-helper.el" dir)))
