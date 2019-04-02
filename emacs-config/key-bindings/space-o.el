@@ -102,7 +102,8 @@
       ("os2" ddhc-dev-b "/scp:ddhc.devb:/server/app")
       ("os3" ddhc-uat "/scp:ddhc.uat:/server/app")
       ("os4" ddhc-pro "/scp:ddhc.pro:/server/app")
-      ("os5" ddhc-pro-2 "/scp:ddhc.pro2:/server/app")))
+      ("os5" ddhc-pro-2 "/scp:ddhc.pro2:/server/app")
+      ("os0" lx-kt "/scp:lx.kt:~/")))
 
 ;; Cheat Sheets
 (setq lx/cheatsheets
