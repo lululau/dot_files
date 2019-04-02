@@ -55,6 +55,19 @@
   "aojo" #'org-journal-find-today-entry
   "at" #'helm-tramp
   "amm" #'lx/load-or-switch-to-emms
+  "asn" #'ssh-tunnels
 )
 
-(spacemacs/set-leader-keys-for-major-mode 'dired-mode "h" 'dired-dotfiles-toggle)
+(spacemacs/set-leader-keys-for-major-mode 'dired-mode
+  "h" 'dired-dotfiles-toggle
+  "ar" 'tda/rsync
+  "aR" 'tda/rsync-delete
+  "az" 'tda/zip
+  "au" 'tda/unzip
+  "aa" 'tda/rsync-multiple-mark-file
+  "ae" 'tda/rsync-multiple-empty-list
+  "ad" 'tda/rsync-multiple-remove-item
+  "av" 'tda/rsync-multiple
+  "as" 'tmtxt/dired-async-get-files-size
+  "aq" 'tda/download-to-current-dir
+  "al" 'tda/download-clipboard-link-to-current-dir)
