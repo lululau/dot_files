@@ -55,10 +55,11 @@
   "aojo" #'org-journal-find-today-entry
   "at" #'helm-tramp
   "amm" #'lx/load-or-switch-to-emms
+  "asn" #'ssh-tunnels
 )
 
-(spacemacs/set-leader-keys-for-major-mode 'dired-mode "h" 'dired-dotfiles-toggle)
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
+  "h" 'dired-dotfiles-toggle
   "ar" 'tda/rsync
   "aR" 'tda/rsync-delete
   "az" 'tda/zip
