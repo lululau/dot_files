@@ -859,7 +859,7 @@ This function is called at the very end of Spacemacs initialization."
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
  '(ssh-tunnels-configurations
-   ((:name "k8s-api@221"
+   (quote ((:name "k8s-api@221"
            :local-port 7443
            :remote-port 6433
            :host "10.132.1.221"
@@ -873,7 +873,7 @@ This function is called at the very end of Spacemacs initialization."
            :local-port 3000
            :remote-port 30010
            :host "10.132.1.221"
-           :login "dev01.kt")))
+           :login "dev01.kt"))))
  '(sql-connection-alist
 (quote
  (("localhost-test"
