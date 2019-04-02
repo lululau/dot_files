@@ -54,6 +54,7 @@
   "xlbd" #'base64-decode-utf8-region
   "aojo" #'org-journal-find-today-entry
   "at" #'helm-tramp
+  "amm" #'lx/load-or-switch-to-emms
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode "h" 'dired-dotfiles-toggle)
