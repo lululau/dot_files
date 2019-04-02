@@ -9,7 +9,7 @@
   (autoload 'tda/rsync-multiple-mark-file (format "%stmtxt-dired-async.el" dir))
   (autoload 'tda/rsync-multiple-empty-list (format "%stmtxt-dired-async.el" dir))
   (autoload 'tda/rsync-multiple-remove-item (format "%stmtxt-dired-async.el" dir))
-  (autoload 'tda/multiple (format "%stmtxt-dired-async.el" dir))
+  (autoload 'tda/rsync-multiple (format "%stmtxt-dired-async.el" dir))
   (autoload 'tmtxt/dired-async-get-files-size (format "%stmtxt-dired-async.el" dir))
   (autoload 'tda/download-to-current-dir (format "%stmtxt-dired-async.el" dir))
   (autoload 'tda/download-clipboard-link-to-current-dir (format "%stmtxt-dired-async.el" dir))
