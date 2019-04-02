@@ -858,6 +858,7 @@ This function is called at the very end of Spacemacs initialization."
  '(spacemacs-theme-comment-bg nil)
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
+ '(tramp-terminal-type "tramp")
  '(ssh-tunnels-configurations
    (quote ((:name "k8s-api@221"
            :local-port 7443
