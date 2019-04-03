@@ -71,4 +71,17 @@
   "as" 'tmtxt/dired-async-get-files-size
   "aq" 'tda/download-to-current-dir
   "al" 'tda/download-clipboard-link-to-current-dir
-  "ax" 'tda/execute-command-in-current-dir)
+  "ax" 'tda/execute-command-in-current-dir
+  "f" dired-filter-map
+  "ra" 'dired-ranger-copy
+  "rv" 'dired-ranger-paste
+  "re" 'dired-ranger-move
+  "lf" 'dired-list-find-file
+  "ln" 'dired-list-find-name
+  "lg" 'dired-list-git-ls-files
+  "lG" 'dired-list-grep
+  "lk" 'dired-list-kill-process
+  "ll" 'dired-list-locate
+  "nn" 'dired-narrow
+  "nr" 'dired-narrow-regexp
+  "nf" 'dired-narrow-fuzzy)

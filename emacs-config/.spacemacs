@@ -165,7 +165,8 @@
                                             jq-mode helm-dired-history vue-mode go-dlv realgud-byebug
                                             dired-subtree carbon-now-sh sx daemons evil-mc
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
-                                            ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms ssh-tunnels)
+                                            ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
+                                            ssh-tunnels dired-filter dired-ranger dired-narrow)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim ebuild-mode hoon-mode logcat ido evil-escape)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
