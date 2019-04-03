@@ -40,8 +40,26 @@
 (defvar tda/rsync-arguments "-avz --progress"
   "The arguments for passing into the rsync command")
 
+(defun tda/remove-scp-prefix (file)
+  (replace-regexp-in-string "^/scp:" "" file))
+
+(defun tda/remove-scp-host-prefix (file)
+  (replace-regexp-in-string "^/scp[^/~]*:\\([/~]\\)" "\\1" file))
+
+(defun tda/remove-src-scp-prefix (src dest)
+  (if (string-match-p "^/scp:" src)
+      (tda/remove-scp-host-prefix src)
+    src))
+
+(defun tda/remove-dest-scp-prefix (src dest)
+  (if (string-match-p "^/scp:" dest)
+      (if (string-match-p "^/scp:" src)
+          (tda/remove-scp-host-prefix dest)
+        (tda/remove-scp-prefix dest))
+    dest))
+
 (defun tda/read-rsync-file-name ()
-   (replace-regexp-in-string "^/scp:" "" (expand-file-name (read-file-name "Rsync to:" "/scp:"))))
+  (expand-file-name (read-file-name "Rsync to:" "/scp:")))
 
 (defun tda/rsync (dest)
   "Asynchronously copy file using Rsync for dired.
@@ -56,9 +74,9 @@
 		  (concat tda/rsync-command-name " " tda/rsync-arguments " "))
 	;; add all selected file names as arguments to the rsync command
 	(dolist (file files)
-	  (setq command (concat command (shell-quote-argument file) " ")))
+	  (setq command (concat command (shell-quote-argument (tda/remove-src-scp-prefix file dest)) " ")))
 	;; append the destination to the rsync command
-	(setq command (concat command (shell-quote-argument dest)))
+	(setq command (concat command (shell-quote-argument (tda/remove-dest-scp-prefix (car files) dest))))
 	;; execute the command asynchronously
 	(tat/execute-async command "rsync")))
 
@@ -75,9 +93,9 @@
 		  (concat "sudo " tda/rsync-command-name " " tda/rsync-arguments " "))
 	;; add all selected file names as arguments to the rsync command
 	(dolist (file files)
-	  (setq command (concat command (shell-quote-argument file) " ")))
+	  (setq command (concat command (shell-quote-argument (tda/remove-src-scp-prefix file dest)) " ")))
 	;; append the destination to the rsync command
-	(setq command (concat command (shell-quote-argument dest)))
+	(setq command (concat command (shell-quote-argument (tda/remove-dest-scp-prefix (car files) dest))))
 	;; execute the command asynchronously
 	(tat/execute-async command "rsync")))
 
@@ -94,7 +112,7 @@
 		  (concat tda/rsync-command-name " " tda/rsync-arguments " --delete "))
 	;; add all selected file names as arguments to the rsync command
 	(dolist (file files)
-	  (setq command (concat command (shell-quote-argument file) " ")))
+	  (setq command (concat command (shell-quote-argument (tda/remove-scp-prefix file)) " ")))
 	;; append the destination to the rsync command
 	(setq command (concat command (shell-quote-argument dest)))
 	;; execute the command asynchronously
@@ -113,9 +131,9 @@
 		  (concat "sudo " tda/rsync-command-name " " tda/rsync-arguments " --delete "))
 	;; add all selected file names as arguments to the rsync command
 	(dolist (file files)
-	  (setq command (concat command (shell-quote-argument file) " ")))
+	  (setq command (concat command (shell-quote-argument (tda/remove-src-scp-prefix file)) " ")))
 	;; append the destination to the rsync command
-	(setq command (concat command (shell-quote-argument dest)))
+	(setq command (concat command (shell-quote-argument (tda/remove-dest-scp-prefix (car files) dest))))
 	;; execute the command asynchronously
 	(tat/execute-async command "rsync")))
 
@@ -139,13 +157,13 @@
 		  (concat tda/zip-command " " tda/zip-arguments " "))
 	;; append the output file
 	(setq command
-		  (concat command (shell-quote-argument output) " "))
+		  (concat command (shell-quote-argument (tda/remove-dest-scp-prefix (car files) output)) " "))
 	;; add all selected files as argument
 	(dolist (file files)
 	  (setq command
 			(concat command
 					(shell-quote-argument
-					 (file-name-nondirectory file)) " ")))
+					 (file-name-nondirectory (tda/remove-src-scp-prefix file output))) " ")))
 	(message command)
 	;; execute the command asynchronously
 	(tat/execute-async command "zip")))
@@ -176,11 +194,11 @@
 	;; append the file name
 	(setq command
 		  (concat command
-				  (shell-quote-argument file) " "))
+				  (shell-quote-argument (tda/remove-src-scp-prefix file output-directory)) " "))
 	;; append the output directory name
 	(setq command
 		  (concat command "-d "
-				  (shell-quote-argument output-directory)))
+				  (shell-quote-argument (tda/remove-dest-scp-prefix file output-directory))))
 
 	;; execute the command asynchronously
 	(tat/execute-async command "unzip")))
@@ -235,11 +253,11 @@
 		;; add all selected file names as arguments to the rsync command
 		(dolist (file tda/rsync-multiple-file-list)
 		  (setq command
-				(concat command (shell-quote-argument file) " ")))
+				(concat command (shell-quote-argument (tda/remove-scp-prefix file)) " ")))
 		;; append the destination to the rsync command
 		(setq command
 			  (concat command
-					  (shell-quote-argument (expand-file-name default-directory))))
+					  (shell-quote-argument (tda/remove-scp-prefix (expand-file-name default-directory)))))
 		;; execute the command asynchronously
 		(tat/execute-async command "rsync")
 		;; empty the waiting list
