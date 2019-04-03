@@ -81,4 +81,7 @@
   "lg" 'dired-list-git-ls-files
   "lG" 'dired-list-grep
   "lk" 'dired-list-kill-process
-  "ll" 'dired-list-locate)
+  "ll" 'dired-list-locate
+  "nn" 'dired-narrow
+  "nr" 'dired-narrow-regexp
+  "nf" 'dired-narrow-fuzzy)
