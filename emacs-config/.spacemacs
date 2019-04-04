@@ -32,6 +32,7 @@
             lx/emacs-text-objects-init-el "~/liuxiang/.config/emacs-config/text-objects/init.el"
             lx/emacs-key-bindings-init-el "~/liuxiang/.config/emacs-config/key-bindings/init.el"
             lx/emacs-vendor-init-el "~/liuxiang/.config/emacs-config/vendor/init.el"
+            lx/emacs-crafts-init-el "~/liuxiang/.config/emacs-config/crafts/init.el"
             lx/org-project-file nil))
   (setq lx/conf-layer-path "~/cascode/github.com/spacemacs-layers"
         lx/snippets-path  "~/.config/emacs-config/snippets"
@@ -40,6 +41,7 @@
         lx/emacs-text-objects-init-el "~/.config/emacs-config/text-objects/init.el"
         lx/emacs-key-bindings-init-el "~/.config/emacs-config/key-bindings/init.el"
         lx/emacs-vendor-init-el "~/.config/emacs-config/vendor/init.el"
+        lx/emacs-crafts-init-el "~/.config/emacs-config/crafts/init.el"
         lx/org-project-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/projects.org"))
 
 (setq spacemacs-theme-comment-bg nil)
@@ -345,6 +347,7 @@ layers configuration."
   (load-file lx/emacs-text-objects-init-el)
   (load-file lx/emacs-key-bindings-init-el)
   (load-file lx/emacs-vendor-init-el)
+  (load-file lx/emacs-crafts-init-el)
   ;; (load-file "~/.config/emacs-config/doom-themes.el")
 
   (setq recentf-save-file (format "~/.emacs.d/.cache/recentf.%s" server-name))
