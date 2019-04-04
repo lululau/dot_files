@@ -77,7 +77,7 @@
         ("ocs" ssh-config "~/.ssh/config")
         ("ocA" authorized_keys "~/.ssh/authorized_keys")
         ("oct" tmux-conf "~/.tmux.conf")
-        ("ocJ" ideavim_actions "~/.ideavim_actions.txt")
+        ("ocJ" jenkins-builder "~/.jenkins-builder.yaml")
         ("ocj" ideavimrc "~/.ideavimrc")
         ("ocn" nginx "/usr/local/etc/nginx")
         ("ock" kubectl "~/.kube/config")
