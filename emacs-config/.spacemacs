@@ -44,6 +44,8 @@
 
 (setq spacemacs-theme-comment-bg nil)
 
+(setq helm-mm-default-match-functions '(helm-mm-exact-match helm-mm-match helm-mm-pinyin-match))
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
   (setq-default
