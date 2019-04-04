@@ -838,6 +838,7 @@ This function is called at the very end of Spacemacs initialization."
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
  '(split-height-threshold 100)
  '(spacemacs-theme-comment-bg nil)
+ '(dired-filter-prefix ",f")
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
  '(tramp-terminal-type "tramp")
