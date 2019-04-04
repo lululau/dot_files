@@ -28,6 +28,7 @@
       lx/emacs-text-objects-init-el "~/.config/emacs-config/text-objects/init.el"
       lx/emacs-key-bindings-init-el "~/.config/emacs-config/key-bindings/init.el"
       lx/emacs-vendor-init-el "~/.config/emacs-config/vendor/init.el"
+      lx/emacs-crafts-init-el "~/.config/emacs-config/crafts/init.el"
       lx/org-project-file "~/Documents/org/projects.org")
 
 (setq spacemacs-theme-comment-bg nil)
@@ -312,7 +313,6 @@ before layers configuration."
   ;;         ("org"      . "orgmode.org/elpa/")
   ;;         ("gnu"      . "elpa.gnu.org/packages/")))
 
-  (add-to-list 'load-path "~/.config/emacs-config/vendor/")
   (load-file lx/emacs-config-init-el)
 
   (setq-default ruby-version-manager 'rvm)
@@ -331,6 +331,7 @@ layers configuration."
   (load-file lx/emacs-text-objects-init-el)
   (load-file lx/emacs-key-bindings-init-el)
   (load-file lx/emacs-vendor-init-el)
+  (load-file lx/emacs-crafts-init-el)
   ;; (load-file "~/.config/emacs-config/doom-themes.el")
 
   (setq recentf-save-file (format "~/.emacs.d/.cache/recentf.%s" server-name))
