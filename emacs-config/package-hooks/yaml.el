@@ -13,7 +13,7 @@
                 (catch 'while
                   (while t
                     (setq line (thing-at-point 'line t))
-                    (when (or (null leading-spaces) (< (lx/yaml-leading-spaces line) leading-spaces))
+                    (when (and (not (string-match-p "^\\s-*#" line)) (or (null leading-spaces) (< (lx/yaml-leading-spaces line) leading-spaces)))
                       (setq leading-spaces (lx/yaml-leading-spaces line))
                       (push (lx/yaml-get-key line) result))
                     (if (= (line-number-at-pos) 1) (throw 'while result))
