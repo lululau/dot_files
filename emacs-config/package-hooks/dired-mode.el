@@ -3,6 +3,8 @@
   (define-key dired-mode-map (kbd "g") nil)
   (define-key dired-mode-map (kbd "G") nil)
   (define-key dired-mode-map (kbd "?") nil)
+  (define-key dired-mode-map (kbd "f") 'spacemacs/helm-find-files)
+  (define-key dired-mode-map (kbd "F") 'spacemacs/helm-find-files-recursively)
   (define-key dired-mode-map (kbd ")") 'dired-up-directory)
   (define-key dired-mode-map (kbd "-") 'dired-up-directory)
   (define-key dired-mode-map (kbd "S-SPC") nil)
