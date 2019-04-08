@@ -82,6 +82,7 @@
   "lG" 'dired-list-grep
   "lk" 'dired-list-kill-process
   "ll" 'dired-list-locate
+  "lv" 'lx/open-file-in-lnav
   "nn" 'dired-narrow
   "nr" 'dired-narrow-regexp
   "nf" 'dired-narrow-fuzzy)
