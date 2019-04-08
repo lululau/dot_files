@@ -182,7 +182,7 @@
                                             dired-subtree carbon-now-sh sx daemons evil-mc
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
-                                            ssh-tunnels dired-filter dired-ranger dired-narrow)
+                                            ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+ chinese-pyim chinese-wbim ebuild-mode hoon-mode logcat ido evil-escape)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -478,6 +478,7 @@ layers configuration."
                                   ("\\.mm\\'" . objc-mode)
                                   ("^/tmp/zsh[a-zA-Z0-9]\\{6\\}$" . sh-mode)
                                   ("\\.es$" . es-mode)
+                                  ("\\.class" . jdecomp-mode)
                                   ("\\.sc" . scala-mode)) auto-mode-alist))
 
   (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . react-mode))
@@ -865,6 +866,8 @@ This function is called at the very end of Spacemacs initialization."
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
  '(tramp-terminal-type "tramp")
+ '(jdecomp-decompiler-type 'fernflower)
+ '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(ssh-tunnels-configurations
    (quote ((:name "k8s-api@221"
            :local-port 7443
