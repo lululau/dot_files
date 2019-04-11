@@ -57,6 +57,7 @@
   "s*" #'spacemacs/helm-swoop-region-or-symbol
   "amm" #'lx/load-or-switch-to-emms
   "asn" #'ssh-tunnels
+  "cv" #'customize-variable
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
