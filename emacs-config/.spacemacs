@@ -341,6 +341,8 @@ layers configuration."
 
   (setq tat/window-close-delay "100000000")
 
+  (setq tramp-terminal-type "tramp")
+
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
   (which-key-mode -1)  ;; Disable whick-key-mode by default
@@ -848,7 +850,6 @@ This function is called at the very end of Spacemacs initialization."
  '(dired-filter-prefix ",f")
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
- '(tramp-terminal-type "tramp")
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(ssh-tunnels-configurations
