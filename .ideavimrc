@@ -131,10 +131,10 @@ nnoremap ,jd :action Tool_Files_OpenPWDWithEmacs<cr>
 " Code
 noremap <leader>cf :action ReformatCode<cr>
 noremap <leader>cis :action ConvertIndentsToSpaces<cr>
-noremap <leader>coi :action OptimizeImports<cr>
+noremap <leader>co :action OptimizeImports<cr>
 noremap ,cf :action ReformatCode<cr>
 noremap ,cis :action ConvertIndentsToSpaces<cr>
-noremap ,coi :action OptimizeImports<cr>
+noremap ,co :action OptimizeImports<cr>
 
 " Nav
 noremap <leader>ni :action SelectInProjectView<cr>
