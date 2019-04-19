@@ -69,6 +69,7 @@
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      lsp
+     dap
      ivy helm
      neotree
      (osx :variables osx-command-as 'super)
