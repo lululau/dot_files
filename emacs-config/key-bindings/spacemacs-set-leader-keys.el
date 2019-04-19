@@ -91,3 +91,6 @@
   "nn" 'dired-narrow
   "nr" 'dired-narrow-regexp
   "nf" 'dired-narrow-fuzzy)
+
+(spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
+   "cb" #'byte-compile-current-buffer-file)
