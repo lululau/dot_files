@@ -14,6 +14,9 @@
 
 ;; (if (lx/system-is-mac) (setenv "PATH" ""))
 
+(if (file-exists-p "~/.config/secrets/secret-emacs-config.el")
+    (load-file "~/.config/secrets/secret-emacs-config.el"))
+
 (if (display-graphic-p)
     (progn
       (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
@@ -873,22 +876,6 @@ This function is called at the very end of Spacemacs initialization."
  '(org-babel-tmux-session-prefix "")
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
- '(ssh-tunnels-configurations
-   (quote ((:name "k8s-api@221"
-           :local-port 7443
-           :remote-port 6433
-           :host "10.132.1.221"
-           :login "dev01.kt")
-    (:name "k8s-dashboard@221"
-           :local-port 1443
-           :remote-port 30001
-           :host "10.132.1.221"
-           :login "dev01.kt")
-    (:name "k8s-rails-demo@221"
-           :local-port 3000
-           :remote-port 30010
-           :host "10.132.1.221"
-           :login "dev01.kt"))))
  '(sql-connection-alist
 (quote
  (("localhost-test"
