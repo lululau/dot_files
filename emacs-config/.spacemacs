@@ -131,7 +131,9 @@
      (java :variables java-backend 'ensime)
      c-c++
      (javascript  :variables javascript-disable-tern-port-files nil javascript-backend 'lsp)
-     vue
+     typescript
+     (node :variable node-add-modules-path)
+     (vue :variables vue-backend 'lsp)
      coffeescript
      react
      (python :variables python-test-runner '(pytest))
@@ -183,7 +185,7 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '((helm-swoop :location (recipe :fetcher github :repo "ashiklom/helm-swoop"))
                                       calfw calfw-org browse-at-remote ranger helm-mu
-                                            jq-mode helm-dired-history vue-mode go-dlv realgud-byebug
+                                            jq-mode helm-dired-history go-dlv realgud-byebug
                                             dired-subtree carbon-now-sh sx daemons evil-mc
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
