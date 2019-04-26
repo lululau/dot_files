@@ -12,6 +12,11 @@
 (defun lx/system-is-mac()
   (eq system-type 'darwin))
 
+;; (if (lx/system-is-mac) (setenv "PATH" ""))
+
+(if (file-exists-p "~/.config/secrets/secret-emacs-config.el")
+    (load-file "~/.config/secrets/secret-emacs-config.el"))
+
 (if (display-graphic-p)
     (progn
       (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
@@ -56,6 +61,7 @@
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      lsp
+     dap
      ivy helm
      neotree
      (osx :variables osx-command-as 'super)
@@ -114,7 +120,9 @@
      (java :variables java-backend 'ensime)
      c-c++
      (javascript  :variables javascript-disable-tern-port-files nil javascript-backend 'lsp)
-     vue
+     typescript
+     (node :variable node-add-modules-path)
+     (vue :variables vue-backend 'lsp)
      coffeescript
      react
      (python :variables python-test-runner '(pytest))
@@ -166,7 +174,7 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '((helm-swoop :location (recipe :fetcher github :repo "ashiklom/helm-swoop"))
                                       calfw calfw-org browse-at-remote ranger helm-mu
-                                            jq-mode helm-dired-history vue-mode go-dlv realgud-byebug
+                                            jq-mode helm-dired-history go-dlv realgud-byebug
                                             dired-subtree carbon-now-sh sx daemons evil-mc
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
@@ -852,22 +860,6 @@ This function is called at the very end of Spacemacs initialization."
  '(org-babel-tmux-session-prefix "")
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
- '(ssh-tunnels-configurations
-   (quote ((:name "k8s-api@221"
-           :local-port 7443
-           :remote-port 6433
-           :host "10.132.1.221"
-           :login "dev01.kt")
-    (:name "k8s-dashboard@221"
-           :local-port 1443
-           :remote-port 30001
-           :host "10.132.1.221"
-           :login "dev01.kt")
-    (:name "k8s-rails-demo@221"
-           :local-port 3000
-           :remote-port 30010
-           :host "10.132.1.221"
-           :login "dev01.kt"))))
  '(sql-connection-alist
 (quote
  (("localhost-test"

@@ -40,7 +40,7 @@ unless $USER_PRYRC_LOADED
     def Rails.app; Rails.application; end
   end
 
-  Pry.config.editor = "vim"
+  # Pry.config.editor = ""
 
   # if defined?(PryNav)
   #   Pry.commands.rename_command 'c', 'continue'
