@@ -61,6 +61,8 @@
   "amm" #'lx/load-or-switch-to-emms
   "asn" #'ssh-tunnels
   "cv" #'customize-variable
+  "aas" #'code-archive-save-code
+  "aai" #'code-archive-insert-org-block
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
