@@ -171,7 +171,7 @@
      imenu-list
      ;; rebox  ; comment out due to auto-fill-mode auto-enable of rebox
      systemd
-     org-jira
+     ;; org-jira
      lorem-ipsum-zh
      ob-rails
      bm
