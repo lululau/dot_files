@@ -160,7 +160,7 @@
      imenu-list
      ;; rebox  ; comment out due to auto-fill-mode auto-enable of rebox
      systemd
-     org-jira
+     ;; org-jira
      lorem-ipsum-zh
      ob-rails
      bm
@@ -178,7 +178,8 @@
                                             dired-subtree carbon-now-sh sx daemons evil-mc
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
-                                            ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp)
+                                            ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
+                                            code-archive)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -315,9 +316,14 @@ before layers configuration."
   ;; User initialization goes here
 
   (setq configuration-layer-elpa-archives
-        '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
-          ("org-cn"   . "http://elpa.emacs-china.org/org/")
-          ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
+        '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+          ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+          ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+
+  ;; (setq configuration-layer-elpa-archives
+  ;;       '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+  ;;         ("org-cn"   . "http://elpa.emacs-china.org/org/")
+  ;;         ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 
   ;; (setq configuration-layer--elpa-archives
   ;;       '(("melpa"    . "melpa.org/packages/")
@@ -350,6 +356,8 @@ layers configuration."
   (setq tat/window-close-delay "100000000")
 
   (setq tramp-terminal-type "tramp")
+
+  (setq code-archive-dir "~/Documents/.code-archive")
 
   (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 

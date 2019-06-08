@@ -1,5 +1,6 @@
 (with-eval-after-load 'org
   (define-key org-mode-map [M-tab] 'spacemacs/alternate-buffer)
+  (define-key org-mode-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'code-archive-goto-src)
   (evil-define-key 'normal org-mode-map (kbd "RET") #'(lambda () (interactive) (condition-case nil (call-interactively 'org-open-at-point) (error (evil-insert-newline-below)))))
 
   (defun org-display-inline-images (&optional include-linked refresh beg end)

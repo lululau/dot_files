@@ -31,7 +31,7 @@ else
     export FPATH="$FPATH:/usr/local/share/zsh/site-functions"
     [ -n "$EMACS" ] && source $HOME/.zprofile
     source $HOME/.config/private/homebrew_github_api_token.sh
-    export JAVA_HOME=/Library/Java/JavaVirtualMachines/CurrentJDK/Contents/Home
+    # export JAVA_HOME=/Library/Java/JavaVirtualMachines/CurrentJDK/Contents/Home
 fi
 export XAPIAN_CJK_NGRAM=1
 export SDKMAN_DIR="$HOME/.sdkman"

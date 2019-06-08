@@ -33,6 +33,8 @@ groups:
       1.dev01:
         hostname: dev01
         command: "iterm2_hostname=dev01 lxzsh"
+      k.dev42.kt:
+        hostname: dev42.kt
       k.dev01.kt:
         hostname: dev01.kt
         command: "iterm2_hostname=dev01.kt lxzsh"

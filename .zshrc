@@ -317,3 +317,5 @@ order by history.start_time desc limit 1"
 ZSH_AUTOSUGGEST_STRATEGY=histdb_recent
 
 # source ~/.profile
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
