@@ -6,7 +6,11 @@ alias LA='ls -la'
 alias cdg='cd ~liuxiang/git-umeng'
 alias guse='rvm gemset use'
 alias gemls='rvm gemset list'
-alias ls="ls -G"
+if [ "$(uname)" = Darwin ]; then
+  alias ls="ls -G"
+else
+  alias ls="ls --color"
+fi
 alias grep="grep --color=auto"
 alias ggrep="ggrep --color=auto"
 alias tomcat="/usr/local/opt/tomcat@7/bin/catalina run"
