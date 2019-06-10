@@ -47,8 +47,6 @@ DISABLE_AUTO_UPDATE="true"
 # Which plugins would you like to load? (plugins can be found in
 # ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-autoload -U compinit; compinit
-autoload -U zmv
 # plugins=(git autojump battery colorize colored-man command-not-found compleat cp
 #          cpanm encode64 gem github gnu-utils go golang history jruby macports
 #          mvn mysql-macports node npm osx perl pip python rails rake rsync ruby
@@ -78,9 +76,13 @@ plugins=(ack2 alibas autojump autopair
          project-root
          kubectl
          minikube
+         rust cargo
          zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
+
+autoload -U compinit; compinit
+autoload -U zmv
 
 # Customize to your needs...
 
