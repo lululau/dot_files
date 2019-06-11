@@ -47,6 +47,8 @@
         lx/emacs-crafts-init-el "~/.config/emacs-config/crafts/init.el"
         lx/org-project-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/projects.org"))
 
+(if (lx/system-is-mac) (setq lx/default-shell "/usr/local/bin/zsh"))
+
 (setq spacemacs-theme-comment-bg nil)
 
 (setq helm-mm-default-match-functions '(helm-mm-exact-match helm-mm-match helm-mm-pinyin-match))
