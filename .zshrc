@@ -1,4 +1,4 @@
-ulimit -n 200000
+[[ `uname` == Darwin ]] && ulimit -n 200000
 ulimit -u 2128
 
 [[ $TERM == "tramp" ]] && unsetopt zle && PS1='$ ' && return
@@ -319,5 +319,7 @@ order by history.start_time desc limit 1"
 ZSH_AUTOSUGGEST_STRATEGY=histdb_recent
 
 # source ~/.profile
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+if [ -e ~/.jenv/bin ]; then
+  export PATH="$HOME/.jenv/bin:$PATH"
+  eval "$(jenv init -)"
+fi
