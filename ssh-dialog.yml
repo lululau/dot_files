@@ -44,6 +44,8 @@ groups:
       3.dev03:
         hostname: dev03
         command: "iterm2_hostname=dev03 lxzsh"
+      4.dev42:
+        hostname: dev42
       4.dev04:
         hostname: dev04
         command: "iterm2_hostname=dev04 lxzsh"
@@ -70,6 +72,8 @@ groups:
         command: "iterm2_hostname=db03 lxzsh"
   3.CC:
     hosts:
+      t.ddhc.tb:
+        hostname: ddhc.tb
       j.jenkins:
         hostname: jenkins
       2.ktam.uat:
