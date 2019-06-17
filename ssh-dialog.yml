@@ -32,24 +32,26 @@ groups:
     hosts:
       1.dev01:
         hostname: dev01
-        command: "iterm2_hostname=dev01 lxzsh"
+        # command: "iterm2_hostname=dev01 lxzsh"
       k.dev42.kt:
         hostname: dev42.kt
       k.dev01.kt:
         hostname: dev01.kt
-        command: "iterm2_hostname=dev01.kt lxzsh"
+        # command: "iterm2_hostname=dev01.kt lxzsh"
       2.dev02:
         hostname: dev02
-        command: "iterm2_hostname=dev02 lxzsh"
+        # command: "iterm2_hostname=dev02 lxzsh"
       3.dev03:
         hostname: dev03
-        command: "iterm2_hostname=dev03 lxzsh"
+        # command: "iterm2_hostname=dev03 lxzsh"
+      4.dev42:
+        hostname: dev42
       4.dev04:
         hostname: dev04
-        command: "iterm2_hostname=dev04 lxzsh"
+        # command: "iterm2_hostname=dev04 lxzsh"
       5.dev05:
         hostname: dev05
-        command: "iterm2_hostname=dev05 lxzsh"
+        # command: "iterm2_hostname=dev05 lxzsh"
       0.dev005:
         hostname: dev005
         port: 3022
@@ -70,6 +72,8 @@ groups:
         command: "iterm2_hostname=db03 lxzsh"
   3.CC:
     hosts:
+      t.ddhc.tb:
+        hostname: ddhc.tb
       j.jenkins:
         hostname: jenkins
       2.ktam.uat:
