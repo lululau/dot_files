@@ -1,6 +1,8 @@
 [[ `uname` == Darwin ]] && ulimit -n 200000
 ulimit -u 2128
 
+setopt +o nomatch
+
 [[ $TERM == "tramp" ]] && unsetopt zle && PS1='$ ' && return
 
 # Path to your oh-my-zsh configuration.
