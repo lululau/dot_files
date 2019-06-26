@@ -160,6 +160,7 @@ vnoremap ,/ <c-c>:action FindInPath<cr>
 nnoremap ,* viw:action FindInPath<cr>
 vnoremap ,* :action FindInPath<cr>
 noremap ,su :action ShowUsages<cr>
+noremap <S-return> :action ShowUsages<cr>
 noremap ,sU :action FindUsages<cr>
 nnoremap ,sr :action ReplaceInPath<cr>
 vnoremap ,sr <c-c>:action ReplaceInPath<cr>
