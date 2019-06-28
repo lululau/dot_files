@@ -69,3 +69,4 @@ export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 export BAT_CONFIG_PATH=$HOME/.config/.batrc
+export RUST_SRC_PATH=/usr/local/Cellar/rust/1.35.0/share/rust/rust_src
