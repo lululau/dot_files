@@ -706,6 +706,22 @@ This function is called at the very end of Spacemacs initialization."
     (org-brain-visualize-mode 5x5-mode bbdb-mode biblio-selection-mode blackbox-mode bookmark-bmenu-mode bookmark-edit-annotation-mode browse-kill-ring-mode bubbles-mode bzr-annotate-mode calc-mode cfw:calendar-mode completion-list-mode Custom-mode custom-theme-choose-mode debugger-mode delicious-search-mode desktop-menu-blist-mode desktop-menu-mode dun-mode dvc-bookmarks-mode dvc-diff-mode dvc-info-buffer-mode dvc-log-buffer-mode dvc-revlist-mode dvc-revlog-mode dvc-status-mode dvc-tips-mode ediff-mode ediff-meta-mode efs-mode Electric-buffer-menu-mode emms-browser-mode emms-mark-mode emms-metaplaylist-mode emms-playlist-mode ess-help-mode etags-select-mode fj-mode gc-issues-mode gdb-breakpoints-mode gdb-disassembly-mode gdb-frames-mode gdb-locals-mode gdb-memory-mode gdb-registers-mode gdb-threads-mode gist-list-mode gomoku-mode google-maps-static-mode jde-javadoc-checker-report-mode magit-popup-mode magit-popup-sequence-mode magit-branch-manager-mode magit-commit-mode magit-key-mode magit-rebase-mode magit-wazzup-mode mh-folder-mode monky-mode mpuz-mode notmuch-hello-mode notmuch-search-mode notmuch-show-mode notmuch-tree-mode pdf-outline-buffer-mode pdf-view-mode rcirc-mode rebase-mode recentf-dialog-mode reftex-select-bib-mode reftex-select-label-mode reftex-toc-mode sldb-mode slime-inspector-mode slime-thread-control-mode slime-xref-mode snake-mode solitaire-mode sr-buttons-mode sr-mode sr-tree-mode sr-virtual-mode tar-mode tetris-mode tla-annotate-mode tla-archive-list-mode tla-bconfig-mode tla-bookmarks-mode tla-branch-list-mode tla-browse-mode tla-category-list-mode tla-changelog-mode tla-follow-symlinks-mode tla-inventory-file-mode tla-inventory-mode tla-lint-mode tla-logs-mode tla-revision-list-mode tla-revlog-mode tla-tree-lint-mode tla-version-list-mode twittering-mode urlview-mode vm-mode vm-summary-mode w3m-mode wab-compilation-mode xgit-annotate-mode xgit-changelog-mode xgit-diff-mode xgit-revlog-mode xhg-annotate-mode xhg-log-mode xhg-mode xhg-mq-mode xhg-mq-sub-mode xhg-status-extra-mode)))
  '(evil-want-Y-yank-to-eol nil)
  '(flycheck-disabled-checkers (quote (ruby-rubylint)))
+ '(forge-alist
+   (quote
+    (("gitlab.creditcloud.com:10022" "gitlab.creditcloud.com/api/v3" "gitlab.creditcloud.com" forge-gitlab-repository)
+     ("gitlab.ktjr.com" "gitlab.ktjr.com/api/v3" "gitlab.ktjr.com" forge-gitlab-repository)
+     ("github.com" "api.github.com" "github.com" forge-github-repository)
+     ("gitlab.com" "gitlab.com/api/v4" "gitlab.com" forge-gitlab-repository)
+     ("salsa.debian.org" "salsa.debian.org/api/v4" "salsa.debian.org" forge-gitlab-repository)
+     ("framagit.org" "framagit.org/api/v4" "framagit.org" forge-gitlab-repository)
+     ("codeberg.org" "codeberg.org/api/v1" "codeberg.org" forge-gitea-repository)
+     ("code.orgmode.org" "code.orgmode.org/api/v1" "code.orgmode.org" forge-gogs-repository)
+     ("bitbucket.org" "api.bitbucket.org/2.0" "bitbucket.org" forge-bitbucket-repository)
+     ("git.savannah.gnu.org" nil "git.savannah.gnu.org" forge-cgit*-repository)
+     ("git.kernel.org" nil "git.kernel.org" forge-cgit-repository)
+     ("repo.or.cz" nil "repo.or.cz" forge-repoorcz-repository)
+     ("git.suckless.org" nil "git.suckless.org" forge-stagit-repository)
+     ("git.sr.ht" nil "git.sr.ht" forge-srht-repository))))
  '(fringe-mode 4 nil (fringe))
  '(writeroom-width 140)
  '(gh-profile-alist
