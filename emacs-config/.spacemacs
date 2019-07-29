@@ -190,7 +190,7 @@
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
-                                            code-archive)
+                                            code-archive company-tabnine)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -643,6 +643,8 @@ This function is called at the very end of Spacemacs initialization."
    (quote ("Default Server" "127.0.0.1" 1086 5x5-crack)))
  '(cfw:display-calendar-holidays nil)
  '(company-search-regexp-function (quote company-search-flex-regexp))
+ '(company-show-numbers t)
+ '(company-idle-delay 0)
  '(es-always-pretty-print t)
  '(custom-safe-themes
    (quote
