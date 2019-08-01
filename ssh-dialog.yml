@@ -55,7 +55,7 @@ groups:
       0.dev005:
         hostname: dev005
         port: 3022
-        command: "iterm2_hostname=3022 lxzsh"
+        command: "iterm2_hostname=dev005 lxzsh"
       6.dev06:
         hostname: dev06
         command: "iterm2_hostname=dev06 lxzsh"
@@ -84,20 +84,20 @@ groups:
         command: "iterm2_hostname=ddhc.dev exec tmux attach -t lx"
       d.ddhc.devb:
         hostname: ddhc.devb
-        # command: "iterm2_hostname=ddhc.dev exec /root/.local/bin/zsh --login"
-        command: "iterm2_hostname=ddhc.dev exec tmux attach -t lx"
+        # command: "iterm2_hostname=ddhc.devb exec /root/.local/bin/zsh --login"
+        command: "iterm2_hostname=ddhc.devb exec tmux attach -t lx"
       u.ddhc.uat:
         hostname: ddhc.uat
-        # command: "iterm2_hostname=ddhc.dev exec /root/.local/bin/zsh --login"
-        command: "iterm2_hostname=ddhc.dev exec tmux attach -t lx"
+        # command: "iterm2_hostname=ddhc.uat exec /root/.local/bin/zsh --login"
+        command: "iterm2_hostname=ddhc.uat exec tmux attach -t lx"
       p.ddhc.pro:
         hostname: ddhc.pro
-        # command: "iterm2_hostname=ddhc.dev exec /root/.local/bin/zsh --login"
-        command: "iterm2_hostname=ddhc.dev exec tmux attach -t lx"
+        # command: "iterm2_hostname=ddhc.pro exec /root/.local/bin/zsh --login"
+        command: "iterm2_hostname=ddhc.pro exec tmux attach -t lx"
       p.ddhc.pro2:
         hostname: ddhc.pro2
-        # command: "iterm2_hostname=ddhc.dev exec /root/.local/bin/zsh --login"
-        command: "iterm2_hostname=ddhc.dev exec tmux attach -t lx"
+        # command: "iterm2_hostname=ddhc.pro2 exec /root/.local/bin/zsh --login"
+        command: "iterm2_hostname=ddhc.pro2 exec tmux attach -t lx"
       c.ddhc.crawler.uat:
         hostname: crawler.uat
       c.ddhc.crawler.pro:
