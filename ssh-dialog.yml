@@ -7,25 +7,25 @@ groups:
     hosts:
       1.kt01:
         hostname: kt01
-        command: "iterm2_hostname=kt01 lxzsh"
+        # command: "iterm2_hostname=kt01 lxzsh"
       2.kt02:
         hostname: kt02
-        command: "iterm2_hostname=kt02 lxzsh"
+        # command: "iterm2_hostname=kt02 lxzsh"
       3.kt03:
         hostname: kt03
-        command: "iterm2_hostname=kt03 lxzsh"
+        # command: "iterm2_hostname=kt03 lxzsh"
       4.kt04:
         hostname: kt04
-        command: "iterm2_hostname=kt04 lxzsh"
+        # command: "iterm2_hostname=kt04 lxzsh"
       5.kt05:
         hostname: kt05
-        command: "iterm2_hostname=kt05 lxzsh"
+        # command: "iterm2_hostname=kt05 lxzsh"
       6.kt06:
         hostname: kt06
-        command: "iterm2_hostname=kt06 lxzsh"
+        # command: "iterm2_hostname=kt06 lxzsh"
       7.kt07:
         hostname: kt07
-        command: "iterm2_hostname=kt07 lxzsh"
+        # command: "iterm2_hostname=kt07 lxzsh"
       8.sss:
         hostname: sss
   2.TestServers:
@@ -55,21 +55,21 @@ groups:
       0.dev005:
         hostname: dev005
         port: 3022
-        command: "iterm2_hostname=3022 lxzsh"
+        # command: "iterm2_hostname=dev005 lxzsh"
       6.dev06:
         hostname: dev06
-        command: "iterm2_hostname=dev06 lxzsh"
+        # command: "iterm2_hostname=dev06 lxzsh"
       g.github:
         hostname: gh
       a.db01:
         hostname: db01
-        command: "iterm2_hostname=db01 lxzsh"
+        # command: "iterm2_hostname=db01 lxzsh"
       b.db02:
         hostname: db02
-        command: "iterm2_hostname=db02 lxzsh"
+        # command: "iterm2_hostname=db02 lxzsh"
       c.db03:
         hostname: db03
-        command: "iterm2_hostname=db03 lxzsh"
+        # command: "iterm2_hostname=db03 lxzsh"
   3.CC:
     hosts:
       t.ddhc.tb:
@@ -81,23 +81,23 @@ groups:
       d.ddhc.dev:
         hostname: ddhc.dev
         # command: "iterm2_hostname=ddhc.dev exec /root/.local/bin/zsh --login"
-        command: "iterm2_hostname=ddhc.dev exec tmux attach -t lx"
+        # command: "iterm2_hostname=ddhc.dev exec tmux attach -t lx"
       d.ddhc.devb:
         hostname: ddhc.devb
-        # command: "iterm2_hostname=ddhc.dev exec /root/.local/bin/zsh --login"
-        command: "iterm2_hostname=ddhc.dev exec tmux attach -t lx"
+        # command: "iterm2_hostname=ddhc.devb exec /root/.local/bin/zsh --login"
+        # command: "iterm2_hostname=ddhc.devb exec tmux attach -t lx"
       u.ddhc.uat:
         hostname: ddhc.uat
-        # command: "iterm2_hostname=ddhc.dev exec /root/.local/bin/zsh --login"
-        command: "iterm2_hostname=ddhc.dev exec tmux attach -t lx"
+        # command: "iterm2_hostname=ddhc.uat exec /root/.local/bin/zsh --login"
+        # command: "iterm2_hostname=ddhc.uat exec tmux attach -t lx"
       p.ddhc.pro:
         hostname: ddhc.pro
-        # command: "iterm2_hostname=ddhc.dev exec /root/.local/bin/zsh --login"
-        command: "iterm2_hostname=ddhc.dev exec tmux attach -t lx"
+        # command: "iterm2_hostname=ddhc.pro exec /root/.local/bin/zsh --login"
+        # command: "iterm2_hostname=ddhc.pro exec tmux attach -t lx"
       p.ddhc.pro2:
         hostname: ddhc.pro2
-        # command: "iterm2_hostname=ddhc.dev exec /root/.local/bin/zsh --login"
-        command: "iterm2_hostname=ddhc.dev exec tmux attach -t lx"
+        # command: "iterm2_hostname=ddhc.pro2 exec /root/.local/bin/zsh --login"
+        # command: "iterm2_hostname=ddhc.pro2 exec tmux attach -t lx"
       c.ddhc.crawler.uat:
         hostname: crawler.uat
       c.ddhc.crawler.pro:
@@ -105,7 +105,7 @@ groups:
       e.elk:
         hostname: elk
         # command: "iterm2_hostname=elk exec /root/.local/bin/zsh --login"
-        command: "iterm2_hostname=elk exec tmux attach -t lx"
+        # command: "iterm2_hostname=elk exec tmux attach -t lx"
       e.elk.pro:
         hostname: elk.pro
       g.gitlab.zabbix:
