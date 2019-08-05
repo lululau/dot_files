@@ -498,7 +498,7 @@ layers configuration."
                                   ("^/tmp/zsh[a-zA-Z0-9]\\{6\\}$" . sh-mode)
                                   ("\\.es$" . es-mode)
                                   ("\\.class" . jdecomp-mode)
-                                  ("\\.d" . dtrace-script-mode)
+                                  ("\\.d$" . dtrace-script-mode)
                                   ("\\.sc" . scala-mode)) auto-mode-alist))
 
   (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . react-mode))
