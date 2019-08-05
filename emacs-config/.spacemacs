@@ -190,7 +190,7 @@
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
-                                            code-archive company-tabnine)
+                                            code-archive company-tabnine dtrace-script-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -498,6 +498,7 @@ layers configuration."
                                   ("^/tmp/zsh[a-zA-Z0-9]\\{6\\}$" . sh-mode)
                                   ("\\.es$" . es-mode)
                                   ("\\.class" . jdecomp-mode)
+                                  ("\\.d" . dtrace-script-mode)
                                   ("\\.sc" . scala-mode)) auto-mode-alist))
 
   (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . react-mode))
