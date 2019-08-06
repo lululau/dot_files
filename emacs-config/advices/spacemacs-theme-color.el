@@ -1,6 +1,6 @@
 (advice-add 'create-spacemacs-theme :override
             (lambda (variant theme-name)
-              (dyn-let ((class '((class color) (min-colors 89))) ;;              ~~ Dark ~~                              ~~ Light ~~
+              (let ((class '((class color) (min-colors 89))) ;;              ~~ Dark ~~                              ~~ Light ~~
                         ;;                                                          GUI       TER                           GUI       TER
                         ;; generic
                         (act1          (if (eq variant 'dark) (if (true-color-p) "#222226" "#121212") (if (true-color-p) "#e7e5eb" "#d7dfff")))
@@ -63,7 +63,10 @@
                         (yellow-bg     (if (eq variant 'dark) (if (true-color-p) "#32322c" "#303030") (if (true-color-p) "#f6f1e1" "#ffffff")))
                         )
 
-                       custom-colors-override
+                       ;; custom-colors-override
+
+                (cl-loop for (var . val) in spacemacs-theme-custom-colors
+                         do (set var val))
 
                        (custom-theme-set-faces
                         theme-name
