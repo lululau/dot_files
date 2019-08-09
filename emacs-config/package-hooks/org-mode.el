@@ -153,8 +153,10 @@
               (if (not coderef) expand
                 (replace-regexp-in-string
                  (org-src-coderef-regexp coderef) "" expand nil nil 1)))))
-      (org-babel-expand-body:generic
-       body params (funcall (intern (format "org-babel-variable-assignments:%s" lang)) params))))
+      (if (symbol-function (intern (format "org-babel-expand-body:%s" lang)))
+          (funcall (intern (format "org-babel-expand-body:%s" lang)) body params)
+        (org-babel-expand-body:generic
+         body params (funcall (intern (format "org-babel-variable-assignments:%s" lang)) params)))))
 
   (defun lx/yank-babel-src ()
     (interactive)
