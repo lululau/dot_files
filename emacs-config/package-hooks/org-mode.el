@@ -192,7 +192,7 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "." #'org-tree-slide-move-next-tree)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "<" #'org-tree-slide-move-previous-tree)
 
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ti" #'org-refresh-inline-images)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "TI" #'org-refresh-inline-images)
 
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ic" 'org-cycle-list-bullet)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ik" 'org-move-item-up)
