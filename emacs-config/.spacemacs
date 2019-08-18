@@ -880,6 +880,7 @@ This function is called at the very end of Spacemacs initialization."
 '(projectile-indexing-method 'hybrid)
 '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
+ '(projectile-generic-command "find . -type f -print0")
  '(rake-completion-system (quote helm))
  '(realgud:nodejs-command-name "node inspect")
  '(ring-bell-function (quote ignore))
