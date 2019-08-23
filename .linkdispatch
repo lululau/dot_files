@@ -32,6 +32,7 @@ CHROME_PATTERNS=(
 '^https\?://[^/]*127\.0\.0\.1'
 '^http://123.56.85.83/'
 '^http://123.57.61.34/'
+'^https://.*.axshare.com/'
 )
 
 FIREFOX_PATTERNS=()
