@@ -75,8 +75,6 @@ noremap <m-e> ^v$:action EvaluateExpression<cr>
 " Motion/Jump
 nnoremap <leader><leader> :action AceWordAction<cr>
 nnoremap ,, :action AceWordAction<cr>
-noremap <c-cr> :action GotoImplementation<cr>
-noremap <m-cr> :action GotoDeclaration<cr>
 noremap <c-o> :action Back<cr>
 noremap <c-i> :action Forward<cr>
 
@@ -160,7 +158,6 @@ vnoremap ,/ <c-c>:action FindInPath<cr>
 nnoremap ,* viw:action FindInPath<cr>
 vnoremap ,* :action FindInPath<cr>
 noremap ,su :action ShowUsages<cr>
-noremap <S-return> :action ShowUsages<cr>
 noremap ,sU :action FindUsages<cr>
 nnoremap ,sr :action ReplaceInPath<cr>
 vnoremap ,sr <c-c>:action ReplaceInPath<cr>
