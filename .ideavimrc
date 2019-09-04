@@ -271,13 +271,13 @@ noremap ,aT :action ActiveToolwindowGroup<cr>
 
 
 " Window Management
-nnoremap <A-h> :action VimWindowLeft<cr>
-nnoremap <A-j> :action VimWindowDown<cr>
-nnoremap <A-k> :action VimWindowUp<cr>
-nnoremap <A-l> :action VimWindowRight<cr>
-nnoremap <M-t> :action VimWindowSplitVertical<cr>
-nnoremap <M-S-t> :action VimWindowSplitHorizontal<cr>
-nnoremap <M-S-w> :action Unsplit<cr>
+" nnoremap <A-h> :action VimWindowLeft<cr>
+" nnoremap <A-j> :action VimWindowDown<cr>
+" nnoremap <A-k> :action VimWindowUp<cr>
+" nnoremap <A-l> :action VimWindowRight<cr>
+" nnoremap <M-t> :action VimWindowSplitVertical<cr>
+" nnoremap <M-S-t> :action VimWindowSplitHorizontal<cr>
+" nnoremap <M-S-w> :action Unsplit<cr>
 
 " Git
 noremap <leader>gs :action Tool_Git_MagitStatus<cr>

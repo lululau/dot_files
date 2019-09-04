@@ -33,6 +33,7 @@ CHROME_PATTERNS=(
 '^http://123.56.85.83/'
 '^http://123.57.61.34/'
 '^https://.*.axshare.com/'
+'^https://lanhuapp.com/'
 )
 
 FIREFOX_PATTERNS=()
