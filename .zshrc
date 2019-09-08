@@ -18,7 +18,8 @@ fi
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="liuxiang"
+# ZSH_THEME="liuxiang"
+# ZSH_THEME="spaceship"
 
 # Set to this to use case-sensitive completion
 #CASE_SENSITIVE="true"
@@ -325,3 +326,5 @@ if [ -e ~/.jenv/bin ]; then
   export PATH="$HOME/.jenv/bin:$PATH"
   eval "$(jenv init -)"
 fi
+
+eval "$(starship init zsh)"
