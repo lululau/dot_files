@@ -20,7 +20,7 @@
 (if (display-graphic-p)
     (progn
       (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
-      (setq lx/spacemacs-banner 'official)
+      (setq lx/spacemacs-banner "~/Documents/emacs-banners/ross.png")
       (setq neo-theme 'icons))
   (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
   (setq lx/spacemacs-banner '000)
@@ -458,6 +458,7 @@ layers configuration."
   (setq git-link-remote-alist
         '(("gitlab.ktjr.com"    git-link-gitlab)
           ("gitlab.creditcloud.com"    git-link-gitlab)
+          ("gitlab.tiaoyin100.com"    git-link-gitlab-no-https)
           ("github.com"    git-link-github)
           ("bitbucket.org" git-link-bitbucket)
           ("gitorious.org" git-link-gitorious)
@@ -466,6 +467,7 @@ layers configuration."
   (setq git-link-commit-remote-alist
     '(("gitlab.ktjr.com" git-link-commit-github)
       ("gitlab.creditcloud.com" git-link-commit-github)
+      ("gitlab.tiaoyin100.com" git-link-commit-github)
       ("github.com"    git-link-commit-github)
       ("bitbucket.org" git-link-commit-bitbucket)
       ("gitorious.org" git-link-commit-gitorious)
@@ -638,6 +640,7 @@ This function is called at the very end of Spacemacs initialization."
     (("bitbucket.org" . "bitbucket")
      ("github.com" . "github")
      ("gitlab.ktjr.com" . "gitlab")
+     ("gitlab.tiaoyin100.com" . "gitlab")
      ("gitlab.creditcloud.com" . "gitlab"))))
  '(proxy-mode-http-proxy "http://127.0.0.1:1087")
  '(proxy-mode-socks-proxy
@@ -713,6 +716,7 @@ This function is called at the very end of Spacemacs initialization."
    (quote
     (("gitlab.creditcloud.com:10022" "gitlab.creditcloud.com/api/v3" "gitlab.creditcloud.com" forge-gitlab-repository)
      ("gitlab.ktjr.com" "gitlab.ktjr.com/api/v3" "gitlab.ktjr.com" forge-gitlab-repository)
+     ("gitlab.tiaoyin100.com" "gitlab.tiaoyin100.com/api/v3" "gitlab.tiaoyin100.com" forge-gitlab-repository)
      ("github.com" "api.github.com" "github.com" forge-github-repository)
      ("gitlab.com" "gitlab.com/api/v4" "gitlab.com" forge-gitlab-repository)
      ("salsa.debian.org" "salsa.debian.org/api/v4" "salsa.debian.org" forge-gitlab-repository)
