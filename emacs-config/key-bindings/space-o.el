@@ -78,6 +78,7 @@
         ("ocd" ssh-dialog-config "~/.config/ssh-dialog.yml")
         ("ocs" ssh-config "~/.ssh/config")
         ("ocA" authorized_keys "~/.ssh/authorized_keys")
+        ("oca" ansible-conf-dir "/etc/ansible")
         ("oct" tmux-conf "~/.tmux.conf")
         ("ocJ" jenkins-builder "~/.jenkins-builder.yaml")
         ("ocj" ideavimrc "~/.ideavimrc")
