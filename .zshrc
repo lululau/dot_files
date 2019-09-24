@@ -301,7 +301,7 @@ add-zsh-hook precmd histdb-update-outcome
 # bindkey '^r' _histdb-isearch
 
 _zsh_autosuggest_strategy_histdb_top() {
-  local query="select commands.argv from
+  local query="PRAGMA case_sensitive_like = 1; select commands.argv from
 history left join commands on history.command_id = commands.rowid
 left join places on history.place_id = places.rowid
 where commands.argv LIKE '$(sql_escape $1)%'
@@ -311,7 +311,7 @@ order by places.dir != '$(sql_escape $PWD)', count(*) desc limit 1"
 }
 
 _zsh_autosuggest_strategy_histdb_recent() {
-  local query="select commands.argv from
+  local query="PRAGMA case_sensitive_like = 1; select commands.argv from
 history left join commands on history.command_id = commands.rowid
 left join places on history.place_id = places.rowid
 where commands.argv LIKE '$(sql_escape $1)%'
