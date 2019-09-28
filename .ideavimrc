@@ -245,6 +245,7 @@ noremap <leader>at :action ActivateTODOToolWindow<cr>
 noremap <leader>ag :action ActivateVersionControlToolWindow<cr>
 noremap <leader>aw :action ActivateWebToolWindow<cr>
 noremap <leader>aT :action ActiveToolwindowGroup<cr>
+noremap <leader>ax :action HideSideWindows<cr>
 noremap ,av :action ActivateBeanValidationToolWindow<cr>
 noremap ,ac :action ActivateCheckStyleToolWindow<cr>
 noremap ,aD :action ActivateDatabaseToolWindow<cr>
@@ -268,16 +269,17 @@ noremap ,at :action ActivateTODOToolWindow<cr>
 noremap ,ag :action ActivateVersionControlToolWindow<cr>
 noremap ,aw :action ActivateWebToolWindow<cr>
 noremap ,aT :action ActiveToolwindowGroup<cr>
+noremap ,ax :action HideSideWindows<cr>
 
 
 " Window Management
-nnoremap <A-h> :action VimWindowLeft<cr>
-nnoremap <A-j> :action VimWindowDown<cr>
-nnoremap <A-k> :action VimWindowUp<cr>
-nnoremap <A-l> :action VimWindowRight<cr>
-nnoremap <M-t> :action VimWindowSplitVertical<cr>
-nnoremap <M-S-t> :action VimWindowSplitHorizontal<cr>
-nnoremap <M-S-w> :action Unsplit<cr>
+" nnoremap <A-h> :action VimWindowLeft<cr>
+" nnoremap <A-j> :action VimWindowDown<cr>
+" nnoremap <A-k> :action VimWindowUp<cr>
+" nnoremap <A-l> :action VimWindowRight<cr>
+" nnoremap <M-t> :action VimWindowSplitVertical<cr>
+" nnoremap <M-S-t> :action VimWindowSplitHorizontal<cr>
+" nnoremap <M-S-w> :action Unsplit<cr>
 
 " Git
 noremap <leader>gs :action Tool_Git_MagitStatus<cr>
