@@ -125,7 +125,7 @@ set ruler
 set nobackup
 set bs=2
 set backspace=indent,eol,start   " Allow backspacing over everything in insert mode
-set diffopt+=iwhite              " Ignore whitespaces with vimdiff
+" set diffopt+=iwhite              " Ignore whitespaces with vimdiff
 set nojoinspaces                 " Prevents inserting two spaces after punctuation on a join (J)
 set autoread                     " Reload files changed outside automatically
 set scrolloff=3                  " Always shows 5 lines above/below the cursor
