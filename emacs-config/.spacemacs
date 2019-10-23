@@ -141,7 +141,7 @@
      (python :variables python-test-runner '(pytest))
      php
      restclient
-     rust
+     (rust :variables rust-backend 'racer)
      scala
      swift
      kotlin
