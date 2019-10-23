@@ -139,7 +139,7 @@
      (python :variables python-test-runner '(pytest))
      php
      restclient
-     rust
+     (rust :variables rust-backend 'racer)
      scala
      swift
      kotlin
@@ -910,7 +910,7 @@ This function is called at the very end of Spacemacs initialization."
  '(dired-filter-prefix ",f")
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
- '(racer-rust-src-path "/usr/local/Cellar/rust/1.36.0/share/rust/rust_src")
+ '(racer-rust-src-path "/usr/local/Cellar/rust/1.38.0/share/rust/rust_src")
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(sql-connection-alist
