@@ -83,6 +83,7 @@
                       auto-completion-show-snippets-in-popup t
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-private-snippets-directory ,lx/snippets-path)
+     tabnine
      better-defaults
      ;; (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      emacs-lisp
@@ -115,6 +116,7 @@
            ruby-enable-enh-ruby-mode nil)
      perl5
      perl6
+     json
      yaml
      ruby-on-rails
      projectile-bundler
@@ -192,7 +194,7 @@
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
-                                            code-archive company-tabnine dtrace-script-mode)
+                                            code-archive dtrace-script-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
