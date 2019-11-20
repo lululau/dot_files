@@ -70,6 +70,7 @@
                       auto-completion-show-snippets-in-popup t
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-private-snippets-directory ,lx/snippets-path)
+     tabnine
      better-defaults
      ;; (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      emacs-lisp
@@ -102,6 +103,7 @@
            ruby-enable-enh-ruby-mode nil)
      perl5
      perl6
+     json
      yaml
      ruby-on-rails
      projectile-bundler
@@ -179,7 +181,7 @@
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
-                                            code-archive company-tabnine dtrace-script-mode)
+                                            code-archive dtrace-script-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -889,7 +891,7 @@ This function is called at the very end of Spacemacs initialization."
  '(dired-filter-prefix ",f")
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
- '(racer-rust-src-path "/usr/local/Cellar/rust/1.38.0/share/rust/rust_src")
+ '(racer-rust-src-path "/usr/local/Cellar/rust/1.39.0/share/rust/rust_src")
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(sql-connection-alist
