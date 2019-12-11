@@ -133,6 +133,7 @@ noremap <leader>co :action OptimizeImports<cr>
 noremap ,cf :action ReformatCode<cr>
 noremap ,cis :action ConvertIndentsToSpaces<cr>
 noremap ,co :action OptimizeImports<cr>
+noremap ,ca :action Tool_Files_CodeArchiveSave<cr>
 
 " Nav
 noremap <leader>ni :action SelectInProjectView<cr>

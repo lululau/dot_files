@@ -8,7 +8,7 @@
   (replace-regexp-in-string "^_" "" (replace-regexp-in-string "[[:punct:] \t]\+" "_" filename)))
 
 (defun lx/refine-web-string (str)
-  (lx/nbsp-to-space (string-trim (org-link-unescape str))))
+  (lx/nbsp-to-space (string-trim (org-link-decode str))))
 
 (defun lx/refine-filename (filename)
   (lx/conform-filename (lx/refine-web-string filename)))
