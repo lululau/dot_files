@@ -1,4 +1,4 @@
-(global-set-key (kbd "s-O") 'spacemacs/helm-find-files-recursively)
+;; (global-set-key (kbd "s-O") 'spacemacs/helm-find-files-recursively)
 
 (defvar helm-ff--directory-files-recursively-hash (make-hash-table :test 'equal))
 (setq helm-source-find-files-recursively nil)
