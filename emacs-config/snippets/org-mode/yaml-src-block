@@ -1,0 +1,6 @@
+#group: source block
+# key: syaml
+# --
+#+BEGIN_SRC yaml
+$0
+#+END_SRC
