@@ -123,7 +123,7 @@
      shell-scripts
      dash
      clojure
-     (haskell :variables haskell-enable-hindent t haskell-completion-backend 'intero)
+     (haskell :variables haskell-enable-hindent t haskell-completion-backend 'dante)
      emacs-lisp
      evernote
      evil-commentary
@@ -756,6 +756,7 @@ This function is called at the very end of Spacemacs initialization."
  '(golden-ratio-extra-commands
    (quote
     (select-window-9 select-window-8 select-window-7 select-window-6 select-window-5 select-window-4 select-window-3 select-window-2 select-window-1 select-window-0 quit-window evil-window-move-very-bottom evil-window-move-far-right evil-window-move-far-left evil-window-move-very-top evil-window-rotate-downwards evil-window-rotate-upwards evil-window-vnew evil-window-new evil-window-prev evil-window-next evil-window-mru evil-window-top-left evil-window-bottom-right evil-window-down evil-window-up evil-window-right evil-window-left evil-window-vsplit evil-window-split evil-window-delete evil-avy-goto-line evil-avy-goto-word-or-subword-1 buf-move-down buf-move-up buf-move-right buf-move-left avy-pop-mark ace-maximize-window ace-swap-window ace-select-window ace-delete-window ace-window windmove-left windmove-right windmove-down windmove-up lx/window-up-fallback-to-switch-frame lx/window-down-fallback-to-switch-frame)))
+ '(dante-methods (quote (stack bare-ghci bare-cabal styx snack new-impure-nix new-nix nix impure-nix new-build nix-ghci mafia)))
  '(helm-M-x-fuzzy-match t)
  '(helm-ag-command-option "-U")
  '(helm-ag-ignore-patterns (quote (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "log")))
