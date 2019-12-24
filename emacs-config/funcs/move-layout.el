@@ -51,3 +51,8 @@
       (while (not (eq current-index (lx/current-layout-index)))
         (lx/move-layout-backward))
       (keyboard-quit))))
+
+(defun lx/kill-all-non-default-layouts ()
+  (interactive)
+  (mapc (lambda (persp-name) (persp-kill-without-buffers persp-name))
+        (-filter (lambda (pn) (not (string= pn "Default"))) (persp-names))))
