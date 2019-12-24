@@ -125,7 +125,7 @@
      shell-scripts
      dash
      clojure
-     (haskell :variables haskell-enable-hindent t haskell-completion-backend 'intero)
+     (haskell :variables haskell-enable-hindent t haskell-completion-backend 'dante)
      emacs-lisp
      evernote
      evil-commentary
@@ -485,13 +485,13 @@ layers configuration."
   ;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
 
   ;; --------- Worg HTML Theme for Org-Mode Export ---------
-  ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"https://liuxiang.coding.me/liuxiang/style/org/worg/worg.css\" type=\"text/css\" />")
+  ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://assets.hackit.fun/style/org/worg/worg.css\" type=\"text/css\" />")
 
   ;; --------- Dakrone HTML Theme for Org-Mode Export ---------
-  ;; (setq org-html-head "<link rel=\"stylesheet\" href=\"https://liuxiang.coding.me/liuxiang/style/org/dakrone/org.css\" type=\"text/css\" />")
+  ;; (setq org-html-head "<link rel=\"stylesheet\" href=\"http://assets.hackit.fun/style/org/dakrone/org.css\" type=\"text/css\" />")
 
   ;; --------- ReadTheOrg HTML Theme for Org-Mode Export ---------
-  (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://liuxiang.coding.me/liuxiang/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"https://liuxiang.coding.me/liuxiang/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"https://liuxiang.coding.me/liuxiang/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"https://liuxiang.coding.me/liuxiang/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"https://liuxiang.coding.me/liuxiang/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"https://liuxiang.coding.me/liuxiang/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
+  (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://assets.hackit.fun/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"http://assets.hackit.fun/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"http://assets.hackit.fun/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"http://assets.hackit.fun/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://assets.hackit.fun/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://assets.hackit.fun/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
 
   (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
   (add-to-list 'search-engine-alist '(ip138 :name "ip138" :url "http://ip138.com/ips138.asp?ip=%s&action=2") t)
@@ -758,6 +758,7 @@ This function is called at the very end of Spacemacs initialization."
  '(golden-ratio-extra-commands
    (quote
     (select-window-9 select-window-8 select-window-7 select-window-6 select-window-5 select-window-4 select-window-3 select-window-2 select-window-1 select-window-0 quit-window evil-window-move-very-bottom evil-window-move-far-right evil-window-move-far-left evil-window-move-very-top evil-window-rotate-downwards evil-window-rotate-upwards evil-window-vnew evil-window-new evil-window-prev evil-window-next evil-window-mru evil-window-top-left evil-window-bottom-right evil-window-down evil-window-up evil-window-right evil-window-left evil-window-vsplit evil-window-split evil-window-delete evil-avy-goto-line evil-avy-goto-word-or-subword-1 buf-move-down buf-move-up buf-move-right buf-move-left avy-pop-mark ace-maximize-window ace-swap-window ace-select-window ace-delete-window ace-window windmove-left windmove-right windmove-down windmove-up lx/window-up-fallback-to-switch-frame lx/window-down-fallback-to-switch-frame)))
+ '(dante-methods (quote (stack bare-ghci bare-cabal styx snack new-impure-nix new-nix nix impure-nix new-build nix-ghci mafia)))
  '(helm-M-x-fuzzy-match t)
  '(helm-ag-command-option "-U")
  '(helm-ag-ignore-patterns (quote (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "log")))
