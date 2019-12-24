@@ -1,9 +1,7 @@
 typeset -U path
 # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 path+=($HOME/.local/bin)
-path+=($HOME/.stack/snapshots/x86_64-osx/lts-12.0/8.4.3/bin)
-path+=($HOME/.stack/compiler-tools/x86_64-osx/ghc-8.4.3/bin)
-path+=($HOME/.stack/programs/x86_64-osx/ghc-8.4.3/bin)
+path+=($HOME/.stack/programs/x86_64-osx/ghc-8.6.5/bin)
 path+=($HOME/.cargo/bin)
 path+=(/usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin)
 # export PATH=$PATH:$HOME/cascode/github.com/xiki/bin:/usr/local/sbin

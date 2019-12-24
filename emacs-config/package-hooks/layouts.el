@@ -17,6 +17,7 @@
   [_N_/_p_/_C-h_] prev layout                  [_x_]^^   kill current w/buffers
   [_o_]^^^^       custom layout                [_X_]^^   kill other w/buffers
   [_<_]^^^^       move layout backword         [_>_]^^   move layout forward
+                                               [_k_]^^   kill all non-default layouts
   [_w_]^^^^       workspaces transient state   [_?_]^^   toggle help\n")
 
      (spacemacs|define-transient-state layouts
@@ -71,4 +72,5 @@
        ("x" spacemacs/layouts-ts-kill)
        ("X" spacemacs/layouts-ts-kill-other :exit t)
        (">" lx/move-layout-forward)
-       ("<" lx/move-layout-backward))))
+       ("<" lx/move-layout-backward)
+       ("k" lx/kill-all-non-default-layouts))))
