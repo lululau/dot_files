@@ -164,8 +164,8 @@ nnoremap ,sr :action ReplaceInPath<cr>
 vnoremap ,sr <c-c>:action ReplaceInPath<cr>
 nnoremap ,sR viw:action ReplaceInPath<cr>
 vnoremap ,sR :action ReplaceInPath<cr>
-nnoremap <leader>\ :action GoToRequestMapping<cr>
-vnoremap <leader>\ :action GoToRequestMapping<cr>
+nnoremap <leader>\ :action Toolkit.GotoService<cr>
+vnoremap <leader>\ :action Toolkit.GotoService<cr>
 nnoremap ,\ :action GoToRequestMapping<cr>
 vnoremap ,\ :action GoToRequestMapping<cr>
 
