@@ -883,6 +883,7 @@ This function is called at the very end of Spacemacs initialization."
     (60 . evil-surround-read-tag)
     (102 . evil-surround-function)
     (115 "​" . "​"))))
+'(fill-column 120)
 '(projectile-completion-system (quote helm))
 '(projectile-indexing-method 'hybrid)
 '(projectile-git-command "git ls-files -zco")
