@@ -1,6 +1,28 @@
  (spacemacs|use-package-add-hook persp-mode
    :pre-init
    (progn
+
+    (defun* lx/kill-and-load-from-file
+        (&optional (fname persp-auto-save-fname) (phash *persp-hash*)
+                  names-regexp set-persp-file)
+      (interactive (list (read-file-name "Load perspectives from a file: "
+                                        persp-save-dir)))
+      (when fname
+        (let ((p-save-file (concat (or (file-name-directory fname)
+                                      (expand-file-name persp-save-dir))
+                                  (file-name-nondirectory fname))))
+          (if (not (file-exists-p p-save-file))
+              (progn (message "[persp-mode] Error: No such file -- %S." p-save-file)
+                    nil)
+            (lx/kill-all-non-default-layouts)
+            (let ((readed-list
+                  (with-temp-buffer
+                    (buffer-disable-undo)
+                    (insert-file-contents p-save-file nil nil nil t)
+                    (goto-char (point-min))
+                    (read (current-buffer)))))
+              (persps-from-savelist
+              readed-list phash p-save-file set-persp-file names-regexp))))))
      (spacemacs|transient-state-format-hint layouts
        spacemacs--layouts-ts-full-hint
        "\n\n
@@ -58,7 +80,7 @@
        ("D" spacemacs/layouts-ts-close-other :exit t)
        ("h" spacemacs/layout-goto-default :exit t)
        ("l" spacemacs/helm-perspectives :exit t)
-       ("L" persp-load-state-from-file :exit t)
+       ("L" lx/kill-and-load-from-file :exit t)
        ("n" persp-next)
        ("N" persp-prev)
        ("o" spacemacs/select-custom-layout :exit t)
