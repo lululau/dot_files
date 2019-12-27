@@ -10,7 +10,8 @@
 
 ;; Common used directories
 (setq lx/dirs '(("odA" applications-dir "/Applications/")
-                ("odb" bin-dir "~/bin/")
+                ("odb" blog-dir "~/blog/")
+                ("odB" bin-dir "~/bin/")
                 ("odC" cafe-dir "~/Cafe/")
                 ("odc" config-dir "~/.config/")
                 ("od C-c" cascode-dir "~/cascode/")
