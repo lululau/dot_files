@@ -7,7 +7,9 @@
             (find-variable (variable-at-point)))
         (if (bound-and-true-p robe-mode)
             (call-interactively 'robe-jump)
+          (evil--jumps-push)
           (call-interactively 'helm-gtags-find-tag)))
+    (evil--jumps-push)
     (call-interactively 'helm-gtags-find-tag)))
 
 (defun jump-to-definition-of-symbol-at-point-other-window ()
@@ -19,7 +21,9 @@
             (call-interactively 'find-variable-at-point))
         (if (bound-and-true-p robe-mode)
             (call-interactively 'robe-jump-other-window)
+          (evil--jumps-push)
           (call-interactively 'helm-gtags-find-tag-other-window)))
+    (evil--jumps-push)
     (call-interactively 'helm-gtags-find-tag-other-window)))
 
 (defun robe-jump-other-window (arg)
