@@ -133,7 +133,7 @@
      major-modes
      html
      groovy
-     (java :variables java-backend 'meghanada)
+     java
      c-c++
      (javascript  :variables javascript-disable-tern-port-files nil javascript-backend 'lsp)
      typescript
