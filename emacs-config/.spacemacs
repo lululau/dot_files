@@ -97,6 +97,7 @@
           org-enable-bootstrap-support t
           org-enable-reveal-js-support t
           org-enable-org-journal-support t
+          org-enable-jira-support t
           org-journal-dir "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/journal/"
           org-journal-file-format "%Y-%m-%d"
           org-journal-date-format "%Y-%m-%d"
@@ -420,7 +421,7 @@ layers configuration."
 
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
-        '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) ("jira\\.creditcloud\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
+        '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) ("jira\\.creditcloud\\.com" . confluence-edit-mode) ("jira\\.ktjr\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
   (if (lx/system-is-mac)
       (setq org-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org")
     (setq org-directory "~/liuxiang/org"))
@@ -799,7 +800,7 @@ This function is called at the very end of Spacemacs initialization."
   ("yarv" . "irb1.9 -r irb/completion")
   ("macruby" . "macirb -r irb/completion")
   ("pry" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/pry" user-home-directory user-home-directory))))
- '(jiralib-url "http://jira.creditcloud.com")
+ '(jiralib-url "http://jira.ktjr.com")
  '(org-jira-default-jql "(assignee = currentUser() or watcher in (currentUser())) and resolution = unresolved ORDER BY priority DESC, created ASC")
  '(js2-strict-missing-semi-warning nil)
  '(launchctl-search-path (quote ("~/.config/services/")))
