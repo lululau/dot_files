@@ -82,6 +82,7 @@
                       auto-completion-tab-key-behavior 'complete
                       auto-completion-show-snippets-in-popup t
                       auto-completion-enable-snippets-in-popup t
+                      auto-completion-use-company-box nil
                       auto-completion-private-snippets-directory ,lx/snippets-path)
      tabnine
      better-defaults

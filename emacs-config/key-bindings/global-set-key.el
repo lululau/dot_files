@@ -1,4 +1,5 @@
 (global-unset-key (kbd "s-q"))
+(global-unset-key (kbd "<f10>"))
 (global-set-key (kbd "s-l") 'evil-avy-goto-line)
 (global-set-key (kbd "<s-S-return>") 'spacemacs/toggle-maximize-buffer)
 (global-set-key (kbd "s-t") 'split-window-right-and-focus)
@@ -70,7 +71,7 @@
 
 (global-set-key (kbd "C-g") '(lambda () (interactive) (spacemacs/evil-search-clear-highlight) (keyboard-quit)))
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
-(global-set-key (kbd "C-M-i") 'spacemacs/alternate-buffer)
+(unless (display-graphic-p) (global-set-key (kbd "C-M-i") 'spacemacs/alternate-buffer) (global-set-key (kbd "<f10>") 'spacemacs/alternate-buffer))
 (global-set-key (kbd "<f5>") #'(lambda () (interactive) (unless (boundp 'ggtags-mode) (ggtags-mode)) (projectile-regenerate-tags)))
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "s-m") 'set-mark-command)
