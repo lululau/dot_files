@@ -751,6 +751,8 @@ imap <Nul> <Nop>
 inoremap <c-^> <ESC><c-^>
 noremap <ESC><TAB> <c-^>
 inoremap <ESC><TAB> <ESC><c-^>
+noremap <F10> <c-^>
+inoremap <F10> <ESC><c-^>
 noremap <ESC>1 :call GotoBuffer(1)<CR>
 noremap <ESC>2 :call GotoBuffer(2)<CR>
 noremap <ESC>3 :call GotoBuffer(3)<CR>
