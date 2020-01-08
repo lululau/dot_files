@@ -69,6 +69,7 @@
                       auto-completion-tab-key-behavior 'complete
                       auto-completion-show-snippets-in-popup t
                       auto-completion-enable-snippets-in-popup t
+                      auto-completion-use-company-box nil
                       auto-completion-private-snippets-directory ,lx/snippets-path)
      tabnine
      better-defaults
@@ -893,7 +894,7 @@ This function is called at the very end of Spacemacs initialization."
  '(dired-filter-prefix ",f")
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
- '(racer-rust-src-path "/usr/local/Cellar/rust/1.39.0/share/rust/rust_src")
+ '(racer-rust-src-path "/usr/local/Cellar/rust/1.40.0/share/rust/rust_src")
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(sql-connection-alist
