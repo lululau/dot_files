@@ -590,6 +590,14 @@ map <leader>gs :CommandTFlush<cr>\|:CommandT spec<cr>
 " map <leader>gp :CtrlP public<cr>
 " map <leader>gs :CtrlP spec<cr>
 
+" Keymaps
+let g:ctrlp_prompt_mappings = {
+	\ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
+	\ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
+	\ 'PrtHistory(-1)':       ['<c-j>'],
+	\ 'PrtHistory(1)':        ['<c-k>'],
+	\ }
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim-Ruby-Refactoring CONFIGURATIONS
