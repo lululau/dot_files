@@ -139,9 +139,11 @@ noremap ,ca :action Tool_Files_CodeArchiveSave<cr>
 noremap <leader>ni :action SelectInProjectView<cr>
 noremap <leader>nI :action SelectIn<cr>
 noremap <leader>ji :action FileStructurePopup<cr>
+noremap <leader>jI :action GotoSymbol<cr>
 noremap ,ni :action SelectInProjectView<cr>
 noremap ,nI :action SelectIn<cr>
 noremap ,ji :action FileStructurePopup<cr>
+noremap ,jI :action GotoSymbol<cr>
 
 " Search
 nnoremap <leader>/ :action FindInPath<cr>
