@@ -328,3 +328,7 @@ if [ -e ~/.jenv/bin ]; then
 fi
 
 eval "$(starship init zsh)"
+
+[ -e "$HOME/Library/Preferences/org.dystroy.broot/launcher/bash/br" ] && source $HOME/Library/Preferences/org.dystroy.broot/launcher/bash/br
+
+[ -n "$SSH_CLIENT" ] && eval `ssh-agent` &> /dev/null
