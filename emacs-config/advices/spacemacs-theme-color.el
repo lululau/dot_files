@@ -42,6 +42,8 @@
                         (ttip          (if (eq variant 'dark) (if (true-color-p) "#9a9aba" "#888888") (if (true-color-p) "#8c799f" "#5f5f87")))
                         (ttip-sl       (if (eq variant 'dark) (if (true-color-p) "#5e5079" "#333333") (if (true-color-p) "#c8c6dd" "#afafff")))
                         (ttip-bg       (if (eq variant 'dark) (if (true-color-p) "#34323e" "#444444") (if (true-color-p) "#e2e0ea" "#dfdfff")))
+                        (ttip-sl-tui   (if (eq variant 'dark) (if (true-color-p) "#5e5079" "#444444") (if (true-color-p) "#c8c6dd" "#afafff")))
+                        (ttip-bg-tui   (if (eq variant 'dark) (if (true-color-p) "#34323e" "#333333") (if (true-color-p) "#e2e0ea" "#dfdfff")))
                         (type          (if (eq variant 'dark) (if (true-color-p) "#ce537a" "#df005f") (if (true-color-p) "#ba2f59" "#af005f")))
                         (var           (if (eq variant 'dark) (if (true-color-p) "#7590db" "#8787d7") (if (true-color-p) "#715ab1" "#af5fd7")))
                         (war           (if (eq variant 'dark) (if (true-color-p) "#dc752f" "#dc752f") (if (true-color-p) "#dc752f" "#dc752f")))
@@ -139,19 +141,19 @@
 
 ;;;;; company
                         `(company-echo-common ((,class (:background ,base :foreground ,bg1))))
-                        `(company-preview ((,class (:background ,ttip-bg :foreground ,ttip))))
-                        `(company-preview-common ((,class (:background ,ttip-bg :foreground ,base))))
+                        `(company-preview ((,class (:background ,ttip-bg-tui :foreground ,ttip))))
+                        `(company-preview-common ((,class (:background ,ttip-bg-tui :foreground ,base))))
                         `(company-preview-search ((,class (:inherit match))))
                         `(company-scrollbar-bg ((,class (:background ,bg2))))
                         `(company-scrollbar-fg ((,class (:background ,act2))))
                         `(company-template-field ((,class (:inherit region))))
-                        `(company-tooltip ((,class (:background ,ttip-bg :foreground ,ttip))))
+                        `(company-tooltip ((,class (:background ,ttip-bg-tui :foreground ,ttip))))
                         `(company-tooltip-annotation ((,class (:foreground ,keyword))))
-                        `(company-tooltip-common ((,class (:background ,ttip-bg :foreground ,base))))
+                        `(company-tooltip-common ((,class (:background ,ttip-bg-tui :foreground ,base))))
                         `(company-tooltip-common-selection ((,class (:foreground ,base))))
                         `(company-tooltip-mouse ((,class (:inherit highlight))))
                         `(company-tooltip-search ((,class (:inherit match))))
-                        `(company-tooltip-selection ((,class (:background ,ttip-sl :foreground ,base))))
+                        `(company-tooltip-selection ((,class (:background ,ttip-sl-tui :foreground ,base))))
 
 ;;;;; diff
                         `(diff-added             ((,class :background nil :foreground ,green)))
