@@ -919,6 +919,7 @@ This function is called at the very end of Spacemacs initialization."
  '(racer-rust-src-path "~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src")
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
+ '(cargo-process--enable-rust-backtrace t)
  '(sql-connection-alist
 (quote
  (("localhost-test"
