@@ -79,7 +79,7 @@ plugins=(ack2 alibas autojump autopair
          project-root
          kubectl
          minikube
-         rust cargo
+         rust rustup cargo
          zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
