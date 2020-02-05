@@ -72,7 +72,7 @@ plugins=(ack2 alibas autojump autopair
          perl pip python pyenv
          rails rake rsync ruby rvm
          safe-paste sbt scala screen svn systemadmin systemd
-         terminalapp terminitor themes tig tmux tmux-pane-words tmuxinator
+         terminitor themes tig tmux tmux-pane-words tmuxinator
          vagrant virtualenv
          xcode
          yum
