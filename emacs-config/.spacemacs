@@ -73,7 +73,9 @@
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+
      lsp
+     ;; (lsp :variables lsp-rust-server 'rust-analyzer)
      dap
      ivy helm
      neotree
@@ -921,6 +923,7 @@ This function is called at the very end of Spacemacs initialization."
  '(racer-rust-src-path "~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
+ '(cargo-process--enable-rust-backtrace t)
  '(sql-connection-alist
 (quote
  (("localhost-test"
