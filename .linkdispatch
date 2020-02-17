@@ -30,6 +30,7 @@ CHROME_PATTERNS=(
 '^https\?://[^/]*\.mockplus\.cn'
 '^https\?://[^/]*localhost'
 '^https\?://[^/]*127\.0\.0\.1'
+'^https\?://[^/]*rrdbg.com'
 '^http://123.56.85.83/'
 '^http://123.57.61.34/'
 '^https://.*.axshare.com/'

@@ -105,6 +105,7 @@ noremap <leader>fy :action Tool_Files_CopyCurrentFilePath<cr>
 noremap <leader>fY :action Tool_Files_CopyAndShowCurrentFilePath<cr>
 noremap <leader>fa :action Tool_Files_BrowseInAlfred<cr>
 noremap <leader>fR :action RefactoringMenuRenameFile<cr>
+noremap <leader>fc :action CopyReference<cr>
 noremap ,feR :source ~/.ideavimrc<cr>
 noremap ,fed :e ~/.ideavimrc<cr>
 noremap ,feD :e ~/.ideavim_actions.txt<cr>
@@ -114,6 +115,7 @@ noremap ,fy :action Tool_Files_CopyCurrentFilePath<cr>
 noremap ,fY :action Tool_Files_CopyAndShowCurrentFilePath<cr>
 noremap ,fa :action Tool_Files_BrowseInAlfred<cr>
 noremap ,fR :action RefactoringMenuRenameFile<cr>
+noremap ,fc :action CopyReference<cr>
 noremap <a-tab> :action TabSwitchPlugin.SwitchTab<cr>
 noremap <leader>fnc :action NewClass<cr>
 noremap <leader>fnf :action NewFile<cr>
