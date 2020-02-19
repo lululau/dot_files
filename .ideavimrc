@@ -41,6 +41,7 @@ noremap <m-j> 10j
 noremap <m-k> 10k
 inoremap <m-j> <c-o>10j
 inoremap <m-k> <c-o>10k
+nnoremap Y y$
 
 nnoremap [[ :action MethodUp<cr>
 nnoremap ]] :action MethodDown<cr>
