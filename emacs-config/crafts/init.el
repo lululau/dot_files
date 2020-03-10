@@ -5,3 +5,5 @@
 (autoload 'mfd-dired "mfd-dired")
 (autoload 'mfd-name-dired "mfd-dired")
 (autoload 'mfd-grep-dired "mfd-dired")
+
+(load-file (format "%s/%s" (file-name-directory load-file-name) "spacemacs-override.el"))
