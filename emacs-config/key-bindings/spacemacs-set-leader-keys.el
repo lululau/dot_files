@@ -30,12 +30,12 @@
   "wpl" #'(lambda () (interactive) (popwin:pop-to-buffer (get-buffer "*rspec-compilation*")) (delete-window (get-buffer-window " *popwin-dummy*")) (select-window (get-buffer-window "*rspec-compilation*")))
   "ael" #'geeknote-notebook-list
   "tt" #'lx/toggle-title-format
-  "Df" #'find-dired
-  "Dn" #'find-name-dired
-  "Dg" #'find-grep-dired
-  "DF" #'mfd-dired
-  "DN" #'mfd-name-dired
-  "DG" #'mfd-grep-dired
+  "df" #'find-dired
+  "dn" #'find-name-dired
+  "dg" #'find-grep-dired
+  "dF" #'mfd-dired
+  "dN" #'mfd-name-dired
+  "dG" #'mfd-grep-dired
   "d TAB" #'(lambda () (interactive) (switch-to-buffer (--find (eq 'dired-mode (with-current-buffer it major-mode)) (buffer-list))))
   "pL" #'lx/helm-persp-replace-project
   "bL" #'lx/persp-swith-to-buffer-project
