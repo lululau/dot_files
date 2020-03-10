@@ -30,14 +30,19 @@ CHROME_PATTERNS=(
 '^https\?://[^/]*\.mockplus\.cn'
 '^https\?://[^/]*localhost'
 '^https\?://[^/]*127\.0\.0\.1'
+'^https\?://[^/]*rrdbg.com'
+'^https\?://[^/]*youxin.com'
 '^http://123.56.85.83/'
 '^http://123.57.61.34/'
 '^https://.*.axshare.com/'
 '^https://lanhuapp.com/'
 'tiaoyin100'
+'^file:///'
 )
 
 FIREFOX_PATTERNS=()
+
+# echo "$URL" >> ~/tmp/link_dispatch.log
 
 if echo "$URL" | grep -q '^https\?://mailsso.mxhichina.com'; then
     open "https://webmail.alibaba-inc.com/alimail/" -a "Google Chrome"
