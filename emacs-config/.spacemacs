@@ -134,7 +134,7 @@
      php
      restclient
      (rust :variables rust-backend 'racer)
-     scala
+     (scala :variables scala-backend 'scala-metals)
      swift
      kotlin
      groovy
