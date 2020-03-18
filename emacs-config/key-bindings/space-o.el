@@ -102,8 +102,8 @@
         ("oor" rails-guides-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org")))
 
 (setq lx/server-files
-      '(("os1" ddhc-dev-a "/scp:ddhc.dev:/server/app")
-      ("os2" ddhc-dev-b "/scp:ddhc.devb:/server/app")
+      '(("os1" ddhc-dev-a "/scp:lcl.dev:/server/app")
+      ("os2" ddhc-dev-b "/scp:lcl.pro:/server/app")
       ("os3" ddhc-uat "/scp:ddhc.uat:/server/app")
       ("os4" ddhc-pro "/scp:ddhc.pro:/server/app")
       ("os5" ddhc-pro-2 "/scp:ddhc.pro2:/server/app")
