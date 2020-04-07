@@ -129,7 +129,7 @@
      clojure
      (haskell :variables haskell-enable-hindent t haskell-completion-backend 'dante)
      emacs-lisp
-     evernote
+     ;; evernote
      evil-commentary
      major-modes
      html
