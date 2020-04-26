@@ -49,8 +49,7 @@
                        (error 'error))))
           (if (not (eq 'error json))
               'json
-            (if (string-match-p "^\\([^=]+=[^=]+
-\\)+$" request-body)
+            (if (string-match-p "^\\([^=]+=[^=]+\\)+$" request-body)
                 (if (string-match-p "^[^=]=@[^=]+$" request-body)
                     'upload
                   'form)
