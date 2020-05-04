@@ -131,7 +131,7 @@
      clojure
      (haskell :variables haskell-enable-hindent t haskell-completion-backend 'dante)
      emacs-lisp
-     evernote
+     ;; evernote
      evil-commentary
      major-modes
      html
@@ -358,7 +358,7 @@ before layers configuration."
   (setq evil-want-C-i-jump t)
   (add-hook 'spacemacs-buffer-mode-hook #'(lambda () (define-key spacemacs-buffer-mode-map (kbd "s-r") #'configuration-layer/update-packages)))
   (setq projectile-keymap-prefix (kbd "C-c p"))
-
+  (load-library "autoinsert")
   )
 
 (defun dotspacemacs/user-config ()

@@ -63,6 +63,7 @@
   "cv" #'customize-variable
   "aas" #'code-archive-save-code
   "aai" #'code-archive-insert-org-block
+  "qw" #'spacemacs/frame-killer
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
