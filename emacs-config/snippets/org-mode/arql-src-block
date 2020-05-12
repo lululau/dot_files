@@ -1,0 +1,6 @@
+#group: source block
+# key: sarql
+# --
+#+BEGIN_SRC arql
+$0
+#+END_SRC

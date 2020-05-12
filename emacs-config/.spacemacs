@@ -180,6 +180,7 @@
      ;; org-jira
      lorem-ipsum-zh
      ob-rails
+     ob-arql
      bm
      translator
      k8s
@@ -500,6 +501,7 @@ layers configuration."
 
   (setq auto-mode-alist (append '(("\\.pryrc\\'" . ruby-mode)
                                   ("\\.rails\\'" . ruby-mode)
+                                  ("\\.arql\\'" . ruby-mode)
                                   ("\\.apib\\'" . markdown-mode)
                                   ("\\.m\\'" . objc-mode)
                                   ("\\.mm\\'" . objc-mode)
@@ -863,6 +865,7 @@ This function is called at the very end of Spacemacs initialization."
   ("screen" . shell-script)
   ("shell" . sh)
   ("bash" . sh)
+  ("arql" . ruby)
   ("rails" . ruby))))
 '(package-selected-packages
 (quote
