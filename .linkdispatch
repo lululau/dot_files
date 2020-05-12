@@ -37,6 +37,7 @@ CHROME_PATTERNS=(
 '^https://.*.axshare.com/'
 '^https://lanhuapp.com/'
 'tiaoyin100'
+'bestsign.info'
 '^file:///'
 )
 
