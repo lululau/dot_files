@@ -62,6 +62,10 @@
 (global-set-key (kbd "s-r s") 'projectile-rails-server)
 (global-set-key (kbd "s-r s-r") 'rvm-activate-corresponding-ruby)
 (global-set-key (kbd "s-r /" ) 'lx/helm-ag-search-pry-breakpoints)
+(global-set-key (kbd "s-r a") #'(lambda (arg) (interactive "P") (let ((console (get-buffer (format "*%s-arql*" (projectile-project-name)))))
+                                                           (if console
+                                                               (pop-to-buffer console)
+                                                             (message "Buffer `%s' not found." console)))))
 
 (global-set-key (kbd "s-u") 'universal-argument)
 (define-key universal-argument-map (kbd "s-u") 'universal-argument-more)
