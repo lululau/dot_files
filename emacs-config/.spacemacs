@@ -802,6 +802,7 @@ This function is called at the very end of Spacemacs initialization."
   ("rubinius" . "rbx -r irb/completion")
   ("yarv" . "irb1.9 -r irb/completion")
   ("macruby" . "macirb -r irb/completion")
+  ("arql" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/arql" user-home-directory user-home-directory))
   ("pry" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/pry" user-home-directory user-home-directory))))
  '(jiralib-url "http://jira.ktjr.com")
  '(org-jira-default-jql "(assignee = currentUser() or watcher in (currentUser())) and resolution = unresolved ORDER BY priority DESC, created ASC")
