@@ -13,8 +13,6 @@
 (global-set-key (kbd "s-F") 'helm-locate)
 (global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (progn (setq saved-ido-make-buffer-list-hook ido-make-buffer-list-hook) (setq ido-make-buffer-list-hook nil) (helm-mini) (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook)) (error (progn (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook) (helm-keyboard-quit))))))
 (global-set-key (kbd "s-b") 'helm-projectile-switch-to-buffer)
-(global-set-key (kbd "s-p") 'helm-projectile-switch-project)
-(global-set-key (kbd "s-P") 'spacemacs/helm-persp-switch-project)
 (global-set-key (kbd "s-L") 'spacemacs/helm-perspectives)
 (global-set-key (kbd "s-;") '(lambda() (interactive) (if (and (inf-ruby-buffer) (equal (inf-ruby-buffer) (current-buffer))) (delete-window) (if (or (not (inf-ruby-buffer)) (not (comint-check-proc (inf-ruby-buffer))))  (rvm-use-default)) (call-interactively 'inf-ruby))))
 (global-set-key (kbd "s-:") 'spacemacs/python-start-or-switch-repl)
@@ -147,5 +145,14 @@
 (global-set-key (kbd "s-i s-q") 'lx/find-or-create-projectile-sql-org)
 (global-set-key (kbd "s-i s-m") 'lx/toggle-global-evil-mc-mode)
 (global-set-key (kbd "s-i s-t") 'insert-translated-name-replace)
+
+;; s-p
+(global-set-key (kbd "s-p s-p") 'helm-projectile-switch-project)
+(global-set-key (kbd "s-p s-r") 'projectile-dired)
+(global-set-key (kbd "s-p s-s") 'lx/helm-persp-replace-project)
+(global-set-key (kbd "s-p s-a") 'spacemacs/helm-persp-switch-project)
+(global-set-key (kbd "s-p s-o") 'lx/helm-projectile-open-projects)
+(global-set-key (kbd "s-p s-u") 'lx/helm-projectile-other-open-projects)
+(global-set-key (kbd "s-p s-l") 'spacemacs/helm-perspectives)
 
 (global-set-key (kbd "s-<backspace>") 'evil-change-whole-line)
