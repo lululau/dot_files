@@ -84,7 +84,7 @@
          (request-body (ob-http-request-body request))
          (error-output (org-babel-temp-file "curl-error"))
          (body-type (ob-http-guest-body-type request-body))
-         (args (append ob-http:curl-custom-arguments (list "-i"
+         (args (append ob-http:curl-custom-arguments (list "-i" "--suppress-connect-headers"
                      (when (and proxy (not noproxy)) `("-x" ,proxy))
                      (when noproxy '("--noproxy" "*"))
                      (let ((method (ob-http-request-method request)))
