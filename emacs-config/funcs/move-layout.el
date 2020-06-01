@@ -35,12 +35,8 @@
 
 (defun lx/helm-persp-replace-project (arg)
   (interactive "P")
-  (let ((current-index (lx/current-layout-index)))
-    (spacemacs/layouts-ts-close)
-    (call-interactively 'spacemacs/helm-persp-switch-project)
-    (while (not (eq current-index (lx/current-layout-index)))
-      (lx/move-layout-backward))
-    (keyboard-quit)))
+  (call-interactively 'helm-projectile-switch-project)
+  (lx/persp-swith-to-buffer-project))
 
 (defun lx/persp-swith-to-buffer-project ()
   (interactive)

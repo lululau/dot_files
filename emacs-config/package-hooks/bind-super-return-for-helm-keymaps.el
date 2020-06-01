@@ -2,7 +2,7 @@
   (define-key helm-bookmark-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'helm-bookmark-run-jump-other-window))
 
 (with-eval-after-load 'helm-buffers
-  (define-key helm-buffers-ido-virtual-map (kbd (if (display-graphic-p) "<s-return>" "s-RET"))   'helm-ff-run-switch-other-window)
+;  (define-key helm-buffers-ido-virtual-map (kbd (if (display-graphic-p) "<s-return>" "s-RET"))   'helm-ff-run-switch-other-window)
   (define-key helm-buffer-map (kbd (if (display-graphic-p) "<s-return>" "s-RET"))     'helm-buffer-switch-other-window))
 
 (with-eval-after-load 'helm-grep

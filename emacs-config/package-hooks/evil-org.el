@@ -13,4 +13,11 @@
               (kbd "M-J") nil
               ))
           '(normal insert))
-    (define-key org-mode-map (kbd "M-h") nil)))
+    (define-key org-mode-map (kbd "M-h") nil)
+    (unless (display-graphic-p)
+      (evil-define-key 'normal evil-org-mode-map
+        (kbd "C-RET") (evil-org-define-eol-command
+                       org-insert-heading-respect-content)
+        (kbd "M-S-RET") (evil-org-define-eol-command
+                       org-insert-todo-heading)))
+    ))

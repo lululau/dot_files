@@ -64,6 +64,8 @@
   "aas" #'code-archive-save-code
   "aai" #'code-archive-insert-org-block
   "qw" #'spacemacs/frame-killer
+  "\\" #'lx/switch-to-previous-perp
+  "p." #'projectile-find-file-in-pwd
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
