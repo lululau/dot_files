@@ -45,3 +45,7 @@
 (defun lx/find-or-create-projectile-sql-org ()
   (interactive)
   (find-file (format "%s/tmp/sql.org" (projectile-project-root))))
+
+(defun projectile-find-file-in-pwd ()
+  (interactive)
+  (projectile-find-file-in-directory default-directory))

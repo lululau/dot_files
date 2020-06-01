@@ -34,7 +34,8 @@
          (setq evil-shift-width 2)
          (modify-syntax-entry ?: ".")
          (modify-syntax-entry ?! "_")
-         (modify-syntax-entry ?? "_")))))
+         (modify-syntax-entry ?? "_")
+         (unless (bound-and-true-p rvm--current-ruby) (rvm-activate-corresponding-ruby))))))
 
 (spacemacs|use-package-add-hook rvm
   :post-init
