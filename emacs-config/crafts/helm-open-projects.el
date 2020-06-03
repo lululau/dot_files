@@ -7,7 +7,7 @@
 
 (defun lx/projectile-open-projects-other-candidates ()
   (mapcar (lambda (dir)  (cons (projectile-project-name dir) dir))
-          (-difference (projectile-open-projects) (persp-names-current-frame-fast-ordered))))
+          (-difference (mapcar 'expand-file-name (projectile-open-projects)) (mapcar 'expand-file-name (persp-names-current-frame-fast-ordered)))))
 
 (defclass lx/projectile-open-projects-all-source-type (helm-source-sync)
   ((candidates :initform 'lx/projectile-open-projects-all-candidates)
