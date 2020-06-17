@@ -59,7 +59,7 @@ DISABLE_AUTO_UPDATE="true"
 plugins=(ack2 alibas autojump autopair
          bd brew bundler
          colored-man-pages colorize compleat cp cpanm common-aliases copybuffer
-         docker docker-compose docker-machine
+         docker docker-compose docker-machine zsh-docker-aliases
          encode64 emoji
          funcfind
          gem gemcd git github go golang gradle

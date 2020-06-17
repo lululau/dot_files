@@ -53,6 +53,8 @@
 
 (setq helm-mm-default-match-functions '(helm-mm-exact-match helm-mm-match helm-mm-pinyin-match))
 
+(setq use-package-inject-hooks t)
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration."
   (setq-default
