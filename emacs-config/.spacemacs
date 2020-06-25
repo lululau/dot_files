@@ -428,7 +428,7 @@ layers configuration."
         '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) ("jira\\.creditcloud\\.com" . confluence-edit-mode) ("jira\\.ktjr\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
   (if (lx/system-is-mac)
       (setq org-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org")
-    (setq org-directory "~/liuxiang/org"))
+    (setq org-directory "~/.org"))
   ;; (setq org-agenda-files (append (file-expand-wildcards "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/**/*.org") (file-expand-wildcards  "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/*.org")))
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
@@ -462,7 +462,7 @@ layers configuration."
           spacemacs//space-doc-advice-org-do-emphasis-faces))
   (if (lx/system-is-mac)
       (setq org-default-notes-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/capture.org")
-    (setq org-default-notes-file "~/liuxiang/org/notes.org"))
+    (setq org-default-notes-file "~/.org/notes.org"))
   (setq org-html-doctype "html5")
   (setq git-link-remote-alist
         '(("gitlab.ktjr.com"    git-link-gitlab)
