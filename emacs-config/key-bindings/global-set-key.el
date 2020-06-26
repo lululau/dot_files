@@ -156,3 +156,8 @@
 (global-set-key (kbd "s-p s-l") 'spacemacs/helm-perspectives)
 
 (global-set-key (kbd "s-<backspace>") 'evil-change-whole-line)
+
+(global-set-key (kbd "s-s")
+                (lambda ()
+                  (interactive)
+                  (call-interactively (key-binding "\C-x\C-s"))))
