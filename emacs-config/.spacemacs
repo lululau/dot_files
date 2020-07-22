@@ -54,6 +54,7 @@
 (setq use-package-inject-hooks t)
 
 (defun dotspacemacs/layers ()
+
   "Configuration Layers declaration."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
@@ -73,7 +74,8 @@
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-
+     (spacemacs-layouts :variables
+                        spacemacs-layouts-restrict-spc-tab t)
      lsp
      ;; (lsp :variables lsp-rust-server 'rust-analyzer)
      dap

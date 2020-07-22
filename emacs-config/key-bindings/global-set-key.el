@@ -11,7 +11,7 @@
 (global-set-key (kbd "M-s-f") 'helm-find)
 (global-set-key (kbd "C-x C-f") 'spacemacs/helm-find-files)
 (global-set-key (kbd "s-F") 'helm-locate)
-(global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (progn (setq saved-ido-make-buffer-list-hook ido-make-buffer-list-hook) (setq ido-make-buffer-list-hook nil) (helm-mini) (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook)) (error (progn (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook) (helm-keyboard-quit))))))
+(global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (progn (setq saved-ido-make-buffer-list-hook ido-make-buffer-list-hook) (setq ido-make-buffer-list-hook nil) (spacemacs-layouts/non-restricted-buffer-list-helm) (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook)) (error (progn (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook) (helm-keyboard-quit))))))
 (global-set-key (kbd "s-b") 'helm-projectile-switch-to-buffer)
 (global-set-key (kbd "s-L") 'spacemacs/helm-perspectives)
 (global-set-key (kbd "s-;") '(lambda() (interactive) (if (and (inf-ruby-buffer) (equal (inf-ruby-buffer) (current-buffer))) (delete-window) (if (or (not (inf-ruby-buffer)) (not (comint-check-proc (inf-ruby-buffer))))  (rvm-use-default)) (call-interactively 'inf-ruby))))
