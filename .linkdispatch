@@ -79,7 +79,4 @@ do
   fi
 done
 
-
-
-open_url "Safari"
-
+open_url "Safari" "$URL"
