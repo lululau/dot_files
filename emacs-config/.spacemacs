@@ -728,7 +728,7 @@ This function is called at the very end of Spacemacs initialization."
  '(forge-alist
    (quote
     (("gitlab.creditcloud.com:10022" "gitlab.creditcloud.com/api/v3" "gitlab.creditcloud.com" forge-gitlab-repository)
-     ("gitlab.ktjr.com" "gitlab.ktjr.com/api/v3" "gitlab.ktjr.com" forge-gitlab-repository)
+     ("gitlab.ktjr.com:10022" "gitlab.ktjr.com/api/v4" "gitlab.ktjr.com" forge-gitlab-repository)
      ("gitlab.tiaoyin100.com" "gitlab.tiaoyin100.com/api/v3" "gitlab.tiaoyin100.com" forge-gitlab-repository)
      ("github.com" "api.github.com" "github.com" forge-github-repository)
      ("gitlab.com" "gitlab.com/api/v4" "gitlab.com" forge-gitlab-repository)

@@ -4,7 +4,8 @@ URL=$1
 
 function open_url() {
   BROWSER=$1
-  open "$URL" -a "$BROWSER"
+  local url=$2
+  open "$url" -a "$BROWSER"
 }
 
 SAFARI_PATTERNS=(
@@ -54,7 +55,7 @@ for pa in "${SAFARI_PATTERNS[@]}"
 do
   if echo "$URL" | grep -q "$pa"
   then
-    open_url "Safari"
+    open_url "Safari" "$URL"
     exit
   fi
 done
@@ -63,7 +64,8 @@ for pa in "${CHROME_PATTERNS[@]}"
 do
   if echo "$URL" | grep -q "$pa"
   then
-    open_url "Google Chrome"
+    url=$(echo "$URL" | perl -pe 's#^https://gitlab.ktjr.com:10022/#https://gitlab.ktjr.com/#')
+    open_url "Google Chrome" "$url"
     exit
   fi
 done
@@ -72,7 +74,7 @@ for pa in "${FIREFOX_PATTERNS[@]}"
 do
   if echo "$URL" | grep -q "$pa"
   then
-    open_url "Firefox"
+    open_url "Firefox" "$URL"
     exit
   fi
 done
