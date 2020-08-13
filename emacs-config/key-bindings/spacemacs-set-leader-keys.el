@@ -56,7 +56,7 @@
   "xlbe" #'base64-encode-utf8-region
   "xlbd" #'base64-decode-utf8-region
   "aojo" #'org-journal-find-today-entry
-  "at" #'helm-tramp
+  "aht" #'helm-tramp
   "s*" #'spacemacs/helm-swoop-region-or-symbol
   "amm" #'lx/load-or-switch-to-emms
   "asn" #'ssh-tunnels
