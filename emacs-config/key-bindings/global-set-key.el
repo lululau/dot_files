@@ -162,3 +162,5 @@
                 (lambda ()
                   (interactive)
                   (call-interactively (key-binding "\C-x\C-s"))))
+
+(global-set-key (kbd "M-s-b") 'helm-cwd-buffers)

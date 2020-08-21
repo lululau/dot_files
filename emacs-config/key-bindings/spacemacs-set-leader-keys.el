@@ -66,6 +66,7 @@
   "qw" #'spacemacs/frame-killer
   "\\" #'lx/switch-to-previous-perp
   "p." #'projectile-find-file-in-pwd
+  "bc" 'helm-cwd-buffers
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

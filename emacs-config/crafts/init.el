@@ -7,5 +7,6 @@
 (autoload 'mfd-grep-dired "mfd-dired")
 (autoload 'lx/helm-projectile-open-projects "helm-open-projects")
 (autoload 'lx/helm-projectile-other-open-projects "helm-open-projects")
+(autoload 'helm-cwd-buffers "helm-cwd-buffers")
 
 (load-file (format "%s/%s" (file-name-directory load-file-name) "spacemacs-override.el"))
