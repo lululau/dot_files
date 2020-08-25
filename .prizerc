@@ -1,3 +1,5 @@
+# -*- mode: ruby; -*-
+
 def find_auth_token(id)
   index_name = 'spring:session:index:org.springframework.session.FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME:%s' % id
   result = smembers(index_name).map do |quoted_token|
@@ -14,6 +16,17 @@ def find_auth_token(id)
   end.compact.sort_by { |e| e[2] }.reverse.each do |e|
     puts '%s Auth Token: %s, Created: %s, Last Access: %s, Interval: %ds, Expire: %s, Expired: %s' % e
   end;
+end
+
+def active_users
+  keys.grep(/spring:session:index:org.springframework.session.FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME/).map { |e| e.split('PRINCIPAL_NAME_INDEX_NAME:')[1]}
+end
+
+def list_active_users
+  active_users.each do |user|
+    puts("\n#{user}:")
+    fat(user)
+  end
 end
 
 def fat(id)
