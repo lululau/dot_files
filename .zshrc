@@ -56,6 +56,8 @@ DISABLE_AUTO_UPDATE="true"
 #          rvm safe-paste scala screen svn terminalapp terminitor textmate themes
 #          bundler httpie ack2 funcfind gemcd alibas vagrant tmux)
 
+UNBUNDLED_COMMANDS=(rubocop)
+
 plugins=(ack2 alibas autojump autopair
          bd brew bundler
          colored-man-pages colorize compleat cp cpanm common-aliases copybuffer

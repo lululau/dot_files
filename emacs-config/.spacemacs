@@ -907,6 +907,8 @@ This function is called at the very end of Spacemacs initialization."
  '(ring-bell-function (quote ignore))
  '(rspec-primary-source-dirs (quote ("app" "lib" "src")))
  '(ruby-insert-encoding-magic-comment nil)
+ '(rubocop-prefer-system-executable t)
+ '(rubocop-check-command  "~/bin/rubocop --format emacs")
  '(neo-window-fixed-size nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
 '(safe-local-variable-values
