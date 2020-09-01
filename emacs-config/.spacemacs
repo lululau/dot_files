@@ -110,7 +110,7 @@
      (shell :variables
             shell-default-height 38
             shell-default-position 'bottom
-            shell-default-shell 'ansi-term
+            shell-default-shell 'vterm
             shell-default-term-shell ,lx/default-shell)
      syntax-checking
      (version-control :variables
