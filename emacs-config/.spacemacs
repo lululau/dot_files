@@ -909,6 +909,7 @@ This function is called at the very end of Spacemacs initialization."
  '(ruby-insert-encoding-magic-comment nil)
  '(rubocop-prefer-system-executable t)
  '(rubocop-check-command  "~/bin/rubocop --format emacs")
+ '(rubocop-autocorrect-command  "~/bin/rubocop -a --format emacs")
  '(neo-window-fixed-size nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
 '(safe-local-variable-values
