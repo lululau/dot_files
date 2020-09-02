@@ -14,8 +14,8 @@
 (global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (progn (setq saved-ido-make-buffer-list-hook ido-make-buffer-list-hook) (setq ido-make-buffer-list-hook nil) (spacemacs-layouts/non-restricted-buffer-list-helm) (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook)) (error (progn (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook) (helm-keyboard-quit))))))
 (global-set-key (kbd "s-b") 'helm-projectile-switch-to-buffer)
 (global-set-key (kbd "s-L") 'spacemacs/helm-perspectives)
-(global-set-key (kbd "s-;") '(lambda() (interactive) (if (and (inf-ruby-buffer) (equal (inf-ruby-buffer) (current-buffer))) (delete-window) (if (or (not (inf-ruby-buffer)) (not (comint-check-proc (inf-ruby-buffer))))  (rvm-use-default)) (call-interactively 'inf-ruby))))
 (global-set-key (kbd "s-:") 'spacemacs/python-start-or-switch-repl)
+(global-set-key (kbd "s-;") #'(lambda () (interactive) (lx/run-in-vterm (cdr (assoc "pry" inf-ruby-implementations)) "*pry*")))
 (global-set-key (kbd "s-[") 'previous-buffer)
 (global-set-key (kbd "s-]") 'next-buffer)
 (global-set-key (kbd "s-/") 'evilnc-comment-or-uncomment-lines)
@@ -60,6 +60,9 @@
                                                            (if console
                                                                (pop-to-buffer console)
                                                              (message "Buffer `%s' not found." console)))))
+(global-set-key (kbd "s-r p") #'(lambda () (interactive) (lx/run-in-vterm (cdr (assoc "pry" inf-ruby-implementations)) "*pry*")))
+(global-set-key (kbd "s-r q") #'(lambda () (interactive) (lx/run-in-vterm "/Users/liuxiang/.rvm/gems/ruby-2.7.0/bin/arql -e lcldevb" "*arql*")))
+(global-set-key (kbd "s-r j") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/zsh" "*jenkins*")))
 
 (global-set-key (kbd "s-u") 'universal-argument)
 (define-key universal-argument-map (kbd "s-u") 'universal-argument-more)

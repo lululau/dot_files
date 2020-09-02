@@ -1,0 +1,11 @@
+(defun lx/run-in-vterm (command buffer-name &optional directory)
+  (interactive)
+  (let* ((buffer (get-buffer buffer-name)))
+    (if buffer
+        (if  (equal buffer (current-buffer))
+            (delete-window)
+          (pop-to-buffer buffer 'display-buffer-pop-up-window))
+      (let* ((default-directory (or directory user-home-directory))
+             (vterm-shell command))
+        (split-window-right-and-focus)
+        (vterm buffer-name)))))
