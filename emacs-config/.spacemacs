@@ -934,6 +934,7 @@ This function is called at the very end of Spacemacs initialization."
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(cargo-process--enable-rust-backtrace t)
+ '(vterm-max-scrollback 10000)
  '(sql-connection-alist
 (quote
  (("localhost-test"
