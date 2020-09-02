@@ -23,11 +23,11 @@ if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
     export ZDOTDIR=$HOME/liuxiang
     # export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages
     export FPATH="$FPATH:$HOME/liuxiang/local/share/zsh/site-functions"
-    [ -n "$EMACS" ] && source $HOME/liuxiang/.zprofile
+    [ -n "$INSIDE_EMACS" ] && source $HOME/liuxiang/.zprofile
 else
     # export PYTHONPATH=$HOME/Library/Python/2.7/lib/python/site-packages
     export FPATH="$FPATH:/usr/local/share/zsh/site-functions"
-    [ -n "$EMACS" ] && source $HOME/.zprofile
+    [ -n "$INSIDE_EMACS" ] && source $HOME/.zprofile
     source $HOME/.config/private/homebrew_github_api_token.sh
     # export JAVA_HOME=/Library/Java/JavaVirtualMachines/CurrentJDK/Contents/Home
 fi

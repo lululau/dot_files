@@ -233,19 +233,19 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 export ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #20 char left truncated PWD
 
 # for shell-pop
-if [ -n "$EMACS" ]
+if [ -n "$INSIDE_EMACS" ]
 then
-  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
-  alias ag='ag --color-match=33'
-  chpwd() { print -P "\033AnSiTc %d" }
-  print -P "\033AnSiTu %n"
-  print -P "\033AnSiTc %d"
+  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=101'
+  # alias ag='ag --color-match=33'
+  # chpwd() { print -P "\033AnSiTc %d" }
+  # print -P "\033AnSiTu %n"
+  # print -P "\033AnSiTc %d"
   source $HOME/.zlogin
 fi
 
 # source ~/.xsh
 
-if [ -z "$EMACS" ]; then
+if [ -z "$INSIDE_EMACS" ]; then
   if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
     source $HOME/liuxiang/.iterm2_shell_integration.zsh
   else
