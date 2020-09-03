@@ -936,6 +936,7 @@ This function is called at the very end of Spacemacs initialization."
  '(cargo-process--enable-rust-backtrace t)
  '(vterm-max-scrollback 10000)
  '(xwwp-follow-link-completion-system 'helm)
+ '(helm-buffer-max-length 40)
  '(sql-connection-alist
 (quote
  (("localhost-test"
