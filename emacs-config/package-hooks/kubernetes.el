@@ -3,7 +3,7 @@
 ;;          (err-buf (generate-new-buffer " kubectl-err"))
 ;;          (subcommand (first args))
 ;;          (flags (kubernetes-kubectl--flags-from-state state))
-;;          (flags (if (-contains? '("config" "exec") subcommand) (-remove-item "--all-namespaces" flags) flags))
+;;          (flags (if (-contains? '("config" "exec" "describe") subcommand) (-remove-item "--all-namespaces" flags) flags))
 ;;          (command (append (list kubernetes-kubectl-executable) args flags))
 ;;          ;; `default-directory' must exist, otherwise `make-process' raises an
 ;;          ;; error.
