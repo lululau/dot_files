@@ -82,7 +82,9 @@ plugins=(ack2 alibas autojump autopair
          kubectl
          minikube
          rust rustup cargo
-         zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions fast-syntax-highlighting)
+         zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions)
+
+[ -z "$INSIDE_EMACS" ] && plugins+=(fast-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
