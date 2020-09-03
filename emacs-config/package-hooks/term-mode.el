@@ -26,6 +26,8 @@
   (define-key vterm-mode-map (kbd "<f8>") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "c\n")))
   (define-key vterm-mode-map (kbd "<f9>") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "n\n")))
   (define-key vterm-mode-map (kbd "M-DEL") #'term-send-raw-meta)
+  (define-key vterm-mode-map (kbd "C-S-l") #'vterm-clear)
+  (define-key vterm-mode-map (kbd "C-l") #'recenter-top-bottom)
   (define-key vterm-mode-map (kbd "M-D") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "exit-program\n")))
 
   (let ((map (lookup-key vterm-mode-map "\e")))
