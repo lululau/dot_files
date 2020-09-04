@@ -56,13 +56,15 @@
 (global-set-key (kbd "s-r s") 'projectile-rails-server)
 (global-set-key (kbd "s-r s-r") 'rvm-activate-corresponding-ruby)
 (global-set-key (kbd "s-r /" ) 'lx/helm-ag-search-pry-breakpoints)
-(global-set-key (kbd "s-r a") #'(lambda (arg) (interactive "P") (let ((console (get-buffer (format "*%s-arql*" (projectile-project-name)))))
+(global-set-key (kbd "s-r s-a") #'(lambda (arg) (interactive "P") (let ((console (get-buffer (format "*%s-arql*" (projectile-project-name)))))
                                                            (if console
                                                                (pop-to-buffer console)
                                                              (message "Buffer `%s' not found." console)))))
 (global-set-key (kbd "s-r p") #'(lambda () (interactive) (lx/run-in-vterm (cdr (assoc "pry" inf-ruby-implementations)) "*pry*")))
-(global-set-key (kbd "s-r q") #'(lambda () (interactive) (lx/run-in-vterm "/Users/liuxiang/.rvm/gems/ruby-2.7.0/bin/arql -e lcldevb" "*arql*")))
-(global-set-key (kbd "s-r j") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/zsh" "*jenkins*")))
+(global-set-key (kbd "s-r q") #'(lambda () (interactive) (lx/run-in-vterm "~/.rvm/gems/ruby-2.7.0/bin/arql -e lcldevb" "*arql*")))
+(global-set-key (kbd "s-r j") #'(lambda () (interactive) (lx/run-in-vterm "/usr/bin/jshell" "*jshell*")))
+(global-set-key (kbd "s-r a") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/as.sh" "*arthas*")))
+(global-set-key (kbd "s-r s-j") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/zsh" "*jenkins*")))
 
 (global-set-key (kbd "s-u") 'universal-argument)
 (define-key universal-argument-map (kbd "s-u") 'universal-argument-more)
