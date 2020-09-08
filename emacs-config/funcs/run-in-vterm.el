@@ -2,8 +2,10 @@
   (interactive)
   (let* ((buffer (get-buffer buffer-name)))
     (if buffer
-        (if  (equal buffer (current-buffer))
-            (delete-window)
+        (if (equal buffer (current-buffer))
+            (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
+                (bury-buffer)
+              (delete-window))
           (pop-to-buffer buffer 'display-buffer-pop-up-window))
       (let* ((default-directory (or directory user-home-directory))
              (vterm-shell command))
