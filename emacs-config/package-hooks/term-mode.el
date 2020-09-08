@@ -30,6 +30,7 @@
   (define-key vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
   (evil-define-key 'hybrid vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
   (define-key vterm-mode-map (kbd "C-l") #'recenter-top-bottom)
+  (define-key vterm-mode-map (kbd "s-<backspace>") #'vterm-send-C-u)
   (define-key vterm-mode-map (kbd "M-D") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "exit-program\n")))
 
   (let ((map (lookup-key vterm-mode-map "\e")))
