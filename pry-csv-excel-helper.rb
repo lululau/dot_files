@@ -1,7 +1,7 @@
 require 'csv'
 require 'caxlsx'
 require 'roo'
-require 'active_support/core_ext/hash'
+require 'active_support/all'
 
 CSV_BOM = "\xef\xbb\xbf"
 
