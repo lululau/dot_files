@@ -26,7 +26,7 @@
                                 (interactive "P")
                                 (if prefix
                                     (switch-to-buffer (get-buffer "*vterm-0*"))
-                                  (if (string= "vterm-mode" major-mode)
+                                  (if (string= "*vterm-0*" (buffer-name))
                                       (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
                                           (bury-buffer)
                                         (shell-pop-out))
