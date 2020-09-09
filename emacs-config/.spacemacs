@@ -4,7 +4,7 @@
 
 ;; Add these two lines for transparent-titlebar in emacs-plus
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist '(ns-appearance . light))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
 
 (defun lx/system-is-linux()
   (eq system-type 'gnu/linux))
@@ -19,7 +19,7 @@
 
 (if (display-graphic-p)
     (progn
-      (setq lx/spacemacs-themes '(solarized-light spacemacs-dark))
+      (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
       (setq lx/spacemacs-banner "~/Documents/emacs-banners/ross.png")
       (setq neo-theme 'icons))
   (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
