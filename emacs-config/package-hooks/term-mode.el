@@ -30,6 +30,8 @@
   (define-key vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
   (define-key vterm-mode-map (kbd "M-p") #'vterm-send-M-p)
   (evil-define-key 'hybrid vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
+  ;; (evil-define-key 'hybrid vterm-mode-map (kbd "C-z") #'(lambda () (interactive) (setq cursor-type 'box) (set-cursor-color "#00ff00") (vterm-send-C-z)))
+  (evil-define-key 'hybrid vterm-mode-map (kbd "<escape>") #'vterm-send-escape)
   (define-key vterm-mode-map (kbd "C-l") #'recenter-top-bottom)
   (define-key vterm-mode-map (kbd "s-<backspace>") #'vterm-send-C-u)
   (define-key vterm-mode-map (kbd "M-D") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "exit-program\n")))

@@ -70,6 +70,8 @@
 (global-set-key (kbd "s-r j") #'(lambda () (interactive) (lx/run-in-vterm "/usr/bin/jshell" "*jshell*")))
 (global-set-key (kbd "s-r a") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/as.sh" "*arthas*")))
 (global-set-key (kbd "s-r s-j") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/zsh" "*jenkins*")))
+(global-set-key (kbd "s-r k") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/k9s" "*k9s*" nil t)))
+(global-set-key (kbd "s-r t") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/htop" "*htop*" nil t)))
 
 (global-set-key (kbd "s-u") 'universal-argument)
 (define-key universal-argument-map (kbd "s-u") 'universal-argument-more)

@@ -1,4 +1,4 @@
-(defun lx/run-in-vterm (command buffer-name &optional directory)
+(defun lx/run-in-vterm (command buffer-name &optional directory exclusive-window)
   (interactive)
   (let* ((buffer (get-buffer buffer-name)))
     (if buffer
@@ -6,8 +6,10 @@
             (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
                 (bury-buffer)
               (delete-window))
-          (pop-to-buffer buffer 'display-buffer-pop-up-window))
+          (if exclusive-window
+              (switch-to-buffer buffer)
+            (pop-to-buffer buffer 'display-buffer-pop-up-window)))
       (let* ((default-directory (or directory user-home-directory))
              (vterm-shell command))
-        (split-window-right-and-focus)
+        (unless exclusive-window (split-window-right-and-focus))
         (vterm buffer-name)))))
