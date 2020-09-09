@@ -28,6 +28,7 @@
   (define-key vterm-mode-map (kbd "M-DEL") #'term-send-raw-meta)
   (define-key vterm-mode-map (kbd "C-S-l") #'vterm-clear)
   (define-key vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
+  (define-key vterm-mode-map (kbd "M-p") #'vterm-send-M-p)
   (evil-define-key 'hybrid vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
   (define-key vterm-mode-map (kbd "C-l") #'recenter-top-bottom)
   (define-key vterm-mode-map (kbd "s-<backspace>") #'vterm-send-C-u)
