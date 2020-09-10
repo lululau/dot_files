@@ -10,5 +10,7 @@
 (autoload 'helm-cwd-buffers "helm-cwd-buffers")
 (autoload 'helm-vterm-buffers "run-in-vterm")
 (autoload 'lx/run-in-vterm "run-in-vterm")
+(autoload 'lx/run-in-vterm/set-green-box-cursor "run-in-vterm")
+(autoload 'lx/run-in-vterm/set-blue-bar-cursor "run-in-vterm")
 
 (load-file (format "%s/%s" (file-name-directory load-file-name) "spacemacs-override.el"))

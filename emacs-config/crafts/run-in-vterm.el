@@ -14,6 +14,16 @@
         (unless exclusive-window (split-window-right-and-focus))
         (vterm buffer-name)))))
 
+(defun lx/run-in-vterm/set-green-box-cursor ()
+  (interactive)
+  (setq cursor-type 'box)
+  (set-cursor-color "#00ff00"))
+
+(defun lx/run-in-vterm/set-blue-bar-cursor ()
+  (interactive)
+  (setq cursor-type 'bar)
+  (set-cursor-color "#6db2e9"))
+
 (defun helm-vterm-buffers-list--init ()
   (require 'dired)
   (helm-attrset 'candidates (funcall (helm-attr 'buffer-list)))

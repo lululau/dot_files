@@ -939,6 +939,7 @@ This function is called at the very end of Spacemacs initialization."
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(cargo-process--enable-rust-backtrace t)
  '(vterm-max-scrollback 10000)
+ '(vterm-eval-cmds (quote (("find-file" find-file) ("message" message) ("vterm-clear-scrollback" vterm-clear-scrollback) ("lx/run-in-vterm/set-green-box-cursor" lx/run-in-vterm/set-green-box-cursor) ("lx/run-in-vterm/set-blue-bar-cursor" lx/run-in-vterm/set-blue-bar-cursor))))
  '(xwwp-follow-link-completion-system 'helm)
  '(helm-buffer-max-length 40)
  '(sql-connection-alist

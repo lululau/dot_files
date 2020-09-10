@@ -336,3 +336,14 @@ eval "$(starship init zsh)"
 [ -e "$HOME/Library/Preferences/org.dystroy.broot/launcher/bash/br" ] && source $HOME/Library/Preferences/org.dystroy.broot/launcher/bash/br
 
 [ -n "$SSH_CLIENT" ] && eval `ssh-agent` &> /dev/null
+
+if [ -n "$INSIDE_EMACS" ]; then
+  zle-keymap-select () {
+    starship_render
+    zle reset-prompt
+    case $KEYMAP in
+      vicmd) printf "\e]51;Elx/run-in-vterm/set-green-box-cursor\e\\";;
+      viins|main) printf "\e]51;Elx/run-in-vterm/set-blue-bar-cursor\e\\";;
+    esac
+  }
+fi
