@@ -72,6 +72,12 @@
 (global-set-key (kbd "s-r s-j") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/zsh" "*jenkins*")))
 (global-set-key (kbd "s-r k") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/k9s" "*k9s*" nil t)))
 (global-set-key (kbd "s-r t") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/htop" "*htop*" nil t)))
+(global-set-key (kbd "s-r 0") #'(lambda () (interactive) (let ((process-environment '("SSH_INTERACTIVE=1"))) (lx/run-in-vterm "ssh lx.kt" "*vterm-ssh-lx-kt*" nil t))))
+(global-set-key (kbd "s-r 1") #'(lambda () (interactive) (let ((process-environment '("SSH_INTERACTIVE=1"))) (lx/run-in-vterm "ssh lcl.devb" "*vterm-ssh-lcl-devb*" nil t))))
+(global-set-key (kbd "s-r 2") #'(lambda () (interactive) (let ((process-environment '("SSH_INTERACTIVE=1"))) (lx/run-in-vterm "ssh ceres.devb2" "*vterm-ssh-ceres-devb2*" nil t))))
+(global-set-key (kbd "s-r 3") #'(lambda () (interactive) (let ((process-environment '("SSH_INTERACTIVE=1"))) (lx/run-in-vterm "ssh lcl.pro1" "*vterm-ssh-lcl-pro1*" nil t))))
+(global-set-key (kbd "s-r 4") #'(lambda () (interactive) (let ((process-environment '("SSH_INTERACTIVE=1"))) (lx/run-in-vterm "ssh lcl.pro2" "*vterm-ssh-lcl-pro2*" nil t))))
+(global-set-key (kbd "s-r 5") #'(lambda () (interactive) (let ((process-environment '("SSH_INTERACTIVE=1"))) (lx/run-in-vterm "ssh lcl.pro3" "*vterm-ssh-lcl-pro3*" nil t))))
 (global-set-key (kbd "s-r b") #'helm-vterm-buffers)
 
 (global-set-key (kbd "s-u") 'universal-argument)
