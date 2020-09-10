@@ -8,5 +8,7 @@
 (autoload 'lx/helm-projectile-open-projects "helm-open-projects")
 (autoload 'lx/helm-projectile-other-open-projects "helm-open-projects")
 (autoload 'helm-cwd-buffers "helm-cwd-buffers")
+(autoload 'helm-vterm-buffers "run-in-vterm")
+(autoload 'lx/run-in-vterm "run-in-vterm")
 
 (load-file (format "%s/%s" (file-name-directory load-file-name) "spacemacs-override.el"))
