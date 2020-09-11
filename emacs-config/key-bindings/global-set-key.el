@@ -62,7 +62,6 @@
                                                            (if console
                                                                (pop-to-buffer console)
                                                              (message "Buffer `%s' not found." console)))))
-(global-set-key (kbd "s-r p") #'(lambda () (interactive) (lx/run-in-vterm (cdr (assoc "pry" inf-ruby-implementations)) "*pry*")))
 (global-set-key (kbd "s-r q") #'(lambda () (interactive)
                                   (if (bound-and-true-p arql-env)
                                       (lx/run-in-vterm (format "~/.rvm/gems/ruby-2.7.0/bin/arql -e %s" arql-env) (format "*arql-%s*" arql-env))
@@ -88,6 +87,8 @@
 (global-set-key (kbd "s-r s-l 3") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/vrl lcl-pro1" "*vterm-vrl-lcl-pro1*" nil t)))
 (global-set-key (kbd "s-r s-l 4") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/vrl lcl-pro2" "*vterm-vrl-lcl-pro2*" nil t)))
 (global-set-key (kbd "s-r s-l 5") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/vrl lcl-pro3" "*vterm-vrl-lcl-pro3*" nil t)))
+(global-set-key (kbd "s-r p 1") #'(lambda () (interactive) (lx/run-in-vterm "~/.rvm/gems/ruby-2.7.0/bin/prize -h 39.97.213.239 -d 0" "*vterm-prize-lcl-devb*" nil t)))
+(global-set-key (kbd "s-r p 2") #'(lambda () (interactive) (lx/run-in-vterm "~/.rvm/gems/ruby-2.7.0/bin/prize -h 39.97.213.239 -d 1" "*vterm-prize-md-dev*" nil t)))
 (global-set-key (kbd "s-r b") #'helm-vterm-buffers)
 
 (global-set-key (kbd "s-u") 'universal-argument)
