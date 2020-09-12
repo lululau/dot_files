@@ -29,6 +29,7 @@
   (define-key vterm-mode-map (kbd "C-S-l") #'vterm-send-C-l)
   (define-key vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
   (define-key vterm-mode-map (kbd "M-p") #'vterm-send-M-p)
+  (define-key vterm-mode-map (kbd "s-r r") #'lx/run-in-vterm/rerun)
   (evil-define-key 'hybrid vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
   (evil-define-key 'hybrid vterm-mode-map (kbd "<escape>") #'vterm-send-escape)
   (define-key vterm-mode-map (kbd "C-l") #'recenter-top-bottom)
@@ -44,3 +45,7 @@
     (define-key map "J" #'evil-window-move-very-bottom)
     (define-key map "K" #'evil-window-move-very-top)
     (define-key map "L" #'evil-window-move-far-right)))
+
+(spacemacs|use-package-add-hook vterm
+  :post-config
+  (define-key vterm-mode-map (kbd "M-p") #'vterm-send-M-p))
