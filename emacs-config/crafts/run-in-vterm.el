@@ -660,7 +660,7 @@
    (action :initform 'helm-vterm-jenkins-run)))
 
 (setq helm-vterm-jenkins-options-list
-      (helm-make-source "JENKINS Artifacts" 'helm-vterm-jenkins-options-source))
+      (helm-make-source "JENKINS Aliases" 'helm-vterm-jenkins-options-source))
 
 (setq helm-vterm-jenkins-buffers-list
       (helm-make-source "JENKINS Buffers" 'helm-vterm-jenkins-buffers-source))
