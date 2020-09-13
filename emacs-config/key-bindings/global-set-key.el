@@ -40,7 +40,7 @@
 (global-set-key (kbd "s-W") '(lambda () (interactive) (kill-this-buffer) (delete-window)))
 (global-set-key (kbd "M-s-n") '(lambda () (interactive) (make-frame-command)))
 (global-set-key (kbd "M-s-w") 'delete-frame)
-(global-set-key (kbd "s-C") 'bzg-big-fringe-mode)
+;; (global-set-key (kbd "s-C") 'bzg-big-fringe-mode)
 (global-set-key (kbd "s-g") #'(lambda (arg)
                                 (interactive "P")
                                 (if arg
