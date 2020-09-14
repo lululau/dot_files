@@ -346,13 +346,13 @@
 (defvar helm-vterm-vrl-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map helm-map)
-    (define-key map (kbd "M-RET") 'helm-vterm-vrl-run-auto)
+    (define-key map (kbd "M-RET") 'helm-vterm-vrl-run)
     map))
 
 (defclass helm-vterm-vrl-options-source (helm-source-sync)
   ((candidates :initform 'helm-vterm-vrl-option-list)
-   (action :initform (helm-make-actions "vrl" 'helm-vterm-vrl-run
-                                        "vrl auto" 'helm-vterm-vrl-run-auto-function))
+   (action :initform (helm-make-actions "vrl auto" 'helm-vterm-vrl-run-auto-function
+                                        "vrl" 'helm-vterm-vrl-run))
    (keymap :initform 'helm-vterm-vrl-map)))
 
 (setq helm-vterm-vrl-options-list
