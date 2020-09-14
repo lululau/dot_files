@@ -328,15 +328,15 @@
   (mapcar (lambda (host) (cons host host))
           (s-split "\n" (shell-command-to-string "perl -ne 'unless (/^default/) { if (/^\\S/) {s/:$//; print;}}' ~/.vrl.yml") t)))
 
-(defun helm-vterm-vrl-run (env)
+(defun helm-vterm-vrl-run-function (env)
   (let ((cmd  (format "~/bin/vrl %s" env))
         (buffer-name (format "*vterm-vrl-%s*" env)))
     (lx/run-in-vterm cmd buffer-name nil t)))
 
-(defun helm-vterm-vrl-run-auto ()
+(defun helm-vterm-vrl-run ()
   (interactive)
   (with-helm-alive-p
-    (helm-exit-and-execute-action 'helm-vterm-vrl-run-auto-function)))
+    (helm-exit-and-execute-action 'helm-vterm-vrl-run-function)))
 
 (defun helm-vterm-vrl-run-auto-function (env)
   (let ((cmd  (format "~/bin/vrl %s -a" env))
@@ -346,13 +346,13 @@
 (defvar helm-vterm-vrl-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map helm-map)
-    (define-key map (kbd "M-RET") 'helm-vterm-vrl-run)
+    (define-key map (kbd "M-RET") 'helm-vterm-vrl-run-function)
     map))
 
 (defclass helm-vterm-vrl-options-source (helm-source-sync)
   ((candidates :initform 'helm-vterm-vrl-option-list)
    (action :initform (helm-make-actions "vrl auto" 'helm-vterm-vrl-run-auto-function
-                                        "vrl" 'helm-vterm-vrl-run))
+                                        "vrl" 'helm-vterm-vrl-run-function))
    (keymap :initform 'helm-vterm-vrl-map)))
 
 (setq helm-vterm-vrl-options-list
