@@ -35,6 +35,8 @@
   (define-key vterm-mode-map (kbd "C-l") #'recenter-top-bottom)
   (define-key vterm-mode-map (kbd "s-<backspace>") #'vterm-send-C-u)
   (define-key vterm-mode-map (kbd "M-D") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "exit-program\n")))
+  (define-key vterm-mode-map (kbd "s-w") #'delete-window-or-bury-buffer)
+  (define-key vterm-mode-map (kbd "<f12>") nil)
 
   (let ((map (lookup-key vterm-mode-map "\e")))
     ;; (define-key map "h" #'evil-window-left)
