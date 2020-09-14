@@ -85,7 +85,6 @@
 (global-set-key (kbd "s-r p 1") #'(lambda () (interactive) (lx/run-in-vterm "~/.rvm/gems/ruby-2.7.0/bin/prize -h 39.97.213.239 -d 0" "*vterm-prize-lcl-devb*" nil t)))
 (global-set-key (kbd "s-r p 2") #'(lambda () (interactive) (lx/run-in-vterm "~/.rvm/gems/ruby-2.7.0/bin/prize -h 39.97.213.239 -d 1" "*vterm-prize-md-dev*" nil t)))
 (global-set-key (kbd "s-r s-p") #'(lambda () (interactive) (lx/run-in-vterm "~/Library/Python/3.8/bin/ptpython" "*ptpython*")))
-(global-set-key (kbd "s-r s-c bU") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "brew upgrade && brew cleanup" "*vterm-cmd-brew-upgrade-cleanup*" nil t))))
 (global-set-key (kbd "s-r s-r") #'helm-vterm-ssh)
 (global-set-key (kbd "s-r s-q") #'helm-vterm-arql)
 (global-set-key (kbd "s-r s-l") #'helm-vterm-vrl)
@@ -97,6 +96,10 @@
 (global-set-key (kbd "s-r m a r") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "~/bin/mar" "*vterm-cmd-mar*" nil t))))
 (global-set-key (kbd "s-r m a d") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "~/bin/mad" "*vterm-cmd-mad*" nil t))))
 (global-set-key (kbd "s-r s-j") #'helm-vterm-jenkins)
+(global-set-key (kbd "s-r s-c bU") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "brew upgrade && brew cleanup" "*vterm-cmd-brew-upgrade-cleanup*" nil t))))
+(global-set-key (kbd "s-r s-c gs") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "git multi-status" "*vterm-cmd-git-multi-status*" (projectile-project-root) t))))
+(global-set-key (kbd "s-r s-c gb") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "git multi-branch" "*vterm-cmd-git-multi-branch*" (projectile-project-root) t))))
+(global-set-key (kbd "s-r s-c gl") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "git multi-pull" "*vterm-cmd-git-multi-pull*" (projectile-project-root) t))))
 (global-set-key (kbd "s-r b") #'helm-vterm-buffers)
 
 (global-set-key (kbd "s-u") 'universal-argument)
