@@ -920,6 +920,8 @@ This function is called at the very end of Spacemacs initialization."
   (arql-env . "mddev")
   (arql-env . "ermasprorw")
   (arql-env . "ddhcpro")
+  (maven-trigger . "b")
+  (maven-trigger . "uat")
   (vc-follow-symlinks)
   (eval text-scale-increase 3)
   (eval flycheck-mode -1 1)
