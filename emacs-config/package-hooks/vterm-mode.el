@@ -28,7 +28,7 @@
   (define-key vterm-mode-map (kbd "M-DEL") #'term-send-raw-meta)
   ;; (define-key vterm-mode-map (kbd "C-S-l") #'vterm-send-C-l)
   ;; (define-key vterm-mode-map (kbd "C-l") #'recenter-top-bottom)
-  (define-key vterm-mode-map (kbd "C-l") #'vterm-send-C-l)
+  (define-key vterm-mode-map (kbd "C-l") #'(lambda () (interactive) (let ((inhibit-read-only t)) (insert (s-repeat (count-screen-lines (window-start) (point)) "\n")) (vterm-send-C-l))))
   (define-key vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
   (define-key vterm-mode-map (kbd "M-p") #'vterm-send-M-p)
   (define-key vterm-mode-map (kbd "s-r r") #'lx/run-in-vterm/rerun)
