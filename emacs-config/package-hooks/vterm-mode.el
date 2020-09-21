@@ -1,9 +1,9 @@
 (with-eval-after-load 'vterm
   (define-key vterm-mode-map
     (kbd (if (display-graphic-p) "<S-return>" "S-RET")) #'(lambda ()
-                           (interactive)
-                           (shell-pop--cd-to-cwd
-                            (with-current-buffer (get-buffer shell-pop-last-buffer) (projectile-project-root)))))
+                                                            (interactive)
+                                                            (shell-pop--cd-to-cwd
+                                                             (with-current-buffer (get-buffer shell-pop-last-buffer) (projectile-project-root)))))
 
   (define-key vterm-mode-map
     (kbd (if (display-graphic-p) "<s-return>" "s-RET")) #'(lambda ()
@@ -47,7 +47,45 @@
     (define-key map "H" #'evil-window-move-far-left)
     (define-key map "J" #'evil-window-move-very-bottom)
     (define-key map "K" #'evil-window-move-very-top)
-    (define-key map "L" #'evil-window-move-far-right)))
+    (define-key map "L" #'evil-window-move-far-right))
+
+  (defun vterm-dnd-copy-path (uri)
+    (let* ((uri (url-unhex-string uri))
+           (uri (string-as-multibyte uri))
+           (parsed (url-generic-parse-url uri))
+           (path (car (url-path-and-query parsed)))
+           (path (concat "'" path "'")))
+      (vterm-send-string path)))
+
+  (defun vterm-dnd-fallback (uri action)
+    (let ((dnd-protocol-alist
+           (rassq-delete-all
+            'vterm-dnd
+            (copy-alist dnd-protocol-alist))))
+      (dnd-handle-one-url nil action uri)))
+
+  (defun vterm-dnd (uri action)
+    (cond ((eq 'vterm-mode major-mode)
+           (condition-case nil
+               (vterm-dnd-copy-path uri)
+             (error
+              (vterm-dnd-fallback uri action))))
+          ;; redirect to someone else
+          (t
+           (vterm-dnd-fallback uri action))))
+
+  (defun vterm-dnd-enable ()
+    (unless (eq (cdr (assoc "^file:///" dnd-protocol-alist))
+                'vterm-dnd)
+      (setq dnd-protocol-alist
+            `(("^file:///" . vterm-dnd)
+              ,@dnd-protocol-alist))))
+
+  (defun vterm-dnd-disable ()
+    "Disable vterm-dnd."
+    (rassq-delete-all 'vterm-dnd dnd-protocol-alist))
+
+  (vterm-dnd-enable))
 
 (spacemacs|use-package-add-hook vterm
   :post-config
