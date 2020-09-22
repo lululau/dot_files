@@ -97,7 +97,7 @@
         ("ool" learnings-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/learnings.org")
         ("oof" life-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/life.org")
         ("ooc" capture-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/capture.org")
-        ("ooC" cheatsheet-org "~/Documents/notes/cheat-sheets.org")
+        ("ooC" cheatsheet-org "~/Documents/materials/notes/cheat-sheets.org")
         ("oot" team-tasks-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/team-tasks.org")
         ("ook" kbd-macros-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/kbd-macros.org")
         ("ooj" ddhc-jira-org "~/.org-jira/DDHC.org")
