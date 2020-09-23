@@ -86,6 +86,7 @@
         ("ocj" ideavimrc "~/.ideavimrc")
         ("ocn" nginx "/usr/local/etc/nginx")
         ("ock" kubectl "~/.kube/config")
+        ("ocq" arql "~/.arql.d")
         ("ocv" vimrc "~/.vimrc")))
 
 ;; Org files
