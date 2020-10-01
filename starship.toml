@@ -1,53 +1,98 @@
-prompt_order = [
-    "custom.nnn_level",
-    "username",
-    "hostname",
-    "kubernetes",
-    "directory",
-    "git_branch",
-    "git_commit",
-    "git_state",
-    "git_status",
-    "hg_branch",
-    "docker_context",
-    "package",
-    "dotnet",
-    "elixir",
-    "elm",
-    "erlang",
-    "golang",
-    "java",
-    "julia",
-    "nim",
-    "nodejs",
-    "ocaml",
-    "php",
-    "purescript",
-    "python",
-    "ruby",
-    "rust",
-    "terraform",
-    "zig",
-    "nix_shell",
-    "conda",
-    "memory_usage",
-    "aws",
-    "env_var",
-    "crystal",
-    "cmd_duration",
-    "custom",
-    "line_break",
-    "jobs",
-    "battery",
-    "time",
-    "character",
-]
+# prompt_order = [
+#     "custom.nnn_level",
+#     "username",
+#     "hostname",
+#     "kubernetes",
+#     "directory",
+#     "git_branch",
+#     "git_commit",
+#     "git_state",
+#     "git_status",
+#     "hg_branch",
+#     "docker_context",
+#     "package",
+#     "dotnet",
+#     "elixir",
+#     "elm",
+#     "erlang",
+#     "golang",
+#     "java",
+#     "julia",
+#     "nim",
+#     "nodejs",
+#     "ocaml",
+#     "php",
+#     "purescript",
+#     "python",
+#     "ruby",
+#     "rust",
+#     "terraform",
+#     "zig",
+#     "nix_shell",
+#     "conda",
+#     "memory_usage",
+#     "aws",
+#     "env_var",
+#     "crystal",
+#     "cmd_duration",
+#     "custom",
+#     "line_break",
+#     "jobs",
+#     "battery",
+#     "time",
+#     "character",
+# ]
+
+format = """\
+    $nnn_level\  
+    $username\
+    $hostname\
+    $kubernetes\
+    $directory\
+    $git_branch\
+    $git_commit\
+    $git_state\
+    $git_status\
+    $hg_branch\
+    $docker_context\
+    $package\
+    $dotnet\
+    $elixir\
+    $elm\
+    $erlang\
+    $golang\
+    $java\
+    $julia\
+    $nim\
+    $nodejs\
+    $ocaml\
+    $php\
+    $purescript\
+    $python\
+    $ruby\
+    $rust\
+    $terraform\
+    $zig\
+    $nix_shell\
+    $conda\
+    $memory_usage\
+    $aws\
+    $env_var\
+    $crystal\
+    $cmd_duration\
+    $custom\
+    $line_break\
+    $jobs\
+    $battery\
+    $time\
+    $character\
+"""
 
 [directory]
 
 truncation_length = 8
 truncate_to_repo = false
 
-[custom.nnn_level]
+[nnn_level]
 command = "echo 【N$NNNLVL】"  # shows output of command
 when = """ test -n "$NNNLVL" """
