@@ -1,4 +1,41 @@
 (with-eval-after-load 'vterm
+  (defvar-local vterm--undecoded-bytes nil)
+  (defun vterm--filter (process input)
+    "I/O Event.  Feeds PROCESS's INPUT to the virtual terminal.
+Then triggers a redraw from the module."
+    (let ((inhibit-redisplay t)
+          (inhibit-read-only t)
+          (buf (process-buffer process))
+          (decoded-str))
+      (when (buffer-live-p buf)
+        (with-current-buffer buf
+          ;; Borrowed from term.el
+          ;;
+          ;; Avoid garbling of certain multibyte characters by decoding the string
+          ;; before counting characters.  See,
+          ;; https://github.com/akermu/emacs-libvterm/issues/394, and the
+          ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=1006 (for term.el).
+          (when vterm--undecoded-bytes
+            (setq input (concat vterm--undecoded-bytes input))
+            (setq vterm--undecoded-bytes nil))
+          (setq decoded-str
+                (decode-coding-string input locale-coding-system t))
+          (let ((partial 0)
+                (count (length decoded-str)))
+            (while (and (< partial count)
+                        (eq (char-charset (aref decoded-str
+                                                (- count 1 partial)))
+                            'eight-bit))
+              (cl-incf partial))
+            (when (> count partial 0)
+              (setq vterm--undecoded-bytes
+                    (substring decoded-str (- partial)))
+              (setq decoded-str
+                    (substring decoded-str 0 (- partial)))))
+
+          (vterm--write-input vterm--term decoded-str)
+          (vterm--update vterm--term)))))
+
   (define-key vterm-mode-map
     (kbd (if (display-graphic-p) "<S-return>" "S-RET")) #'(lambda ()
                                                             (interactive)
