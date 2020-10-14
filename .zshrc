@@ -347,3 +347,5 @@ if [ -n "$INSIDE_EMACS" ]; then
     esac
   }
 fi
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/bitcomplete bit

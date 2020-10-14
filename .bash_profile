@@ -84,3 +84,4 @@ export SDKMAN_DIR="/Users/liuxiang/.sdkman"
 [[ -s "/Users/liuxiang/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/liuxiang/.sdkman/bin/sdkman-init.sh"
 
 export EA_EDITOR='/usr/local/bin/emacsclient -a "" -c'
+complete -C /usr/local/bin/bitcomplete bit
