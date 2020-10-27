@@ -23,7 +23,8 @@
   (let ((directory (expand-file-name default-directory)))
     (mapcar 'buffer-name
             (seq-filter (lambda (b)
-                          (string-prefix-p directory (buffer-file-name b)))
+                          (or (string-prefix-p directory (buffer-file-name b))
+                              (string-prefix-p default-directory (with-current-buffer b dired-directory))))
                         (buffer-list)))))
 
 (defclass helm-cwd-buffers-source (helm-source-sync helm-type-buffer)
