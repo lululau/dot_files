@@ -18,7 +18,8 @@ else
     export EDITOR='emacsclient'
 fi
 export GOROOT=/usr/local/opt/go/libexec/
-export GOPATH=$HOME/.go:$HOME/cascode/go
+export GOPATH=$HOME/.go
+export GO111MODULE=auto
 if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
     export ZDOTDIR=$HOME/liuxiang
     # export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages
