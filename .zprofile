@@ -8,7 +8,7 @@ if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
         fi
     done
 else
-  _new_path=($HOME/bin $HOME/Library/Python/2.7/bin $HOME/Library/Python/3.8/bin)
+  _new_path=($HOME/bin $HOME/Library/Python/3.9/bin $HOME/Library/Python/2.7/bin)
     for i in "${path[@]}"
     do
         if [ $HOME/bin != "$i" -a $HOME/Library/Python/2.7/bin != "$i" ]; then

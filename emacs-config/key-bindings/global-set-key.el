@@ -84,7 +84,7 @@
 (global-set-key (kbd "s-r p 0") #'(lambda () (interactive) (lx/run-in-vterm "~/.rvm/gems/ruby-2.7.0/bin/prize -h 127.0.0.1 -d 0" "*vterm-prize-localhost*" nil t)))
 (global-set-key (kbd "s-r p 1") #'(lambda () (interactive) (lx/run-in-vterm "~/.rvm/gems/ruby-2.7.0/bin/prize -h 39.97.213.239 -d 0" "*vterm-prize-lcl-devb*" nil t)))
 (global-set-key (kbd "s-r p 2") #'(lambda () (interactive) (lx/run-in-vterm "~/.rvm/gems/ruby-2.7.0/bin/prize -h 39.97.213.239 -d 1" "*vterm-prize-md-dev*" nil t)))
-(global-set-key (kbd "s-r s-p") #'(lambda () (interactive) (lx/run-in-vterm "~/Library/Python/3.8/bin/ptpython" "*ptpython*")))
+(global-set-key (kbd "s-r s-p") #'(lambda () (interactive) (lx/run-in-vterm "~/Library/Python/3.9/bin/ptpython" "*ptpython*")))
 (global-set-key (kbd "s-r s-r") #'helm-vterm-ssh)
 (global-set-key (kbd "s-r s-q") #'helm-vterm-arql)
 (global-set-key (kbd "s-r s-l") #'helm-vterm-vrl)
