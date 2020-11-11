@@ -1,7 +1,7 @@
 typeset -U path
 # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 path+=($HOME/.local/bin)
-path+=$(echo ~/.stack/programs/*/*/bin(On[1]))
+path+=$(echo ~/.stack/programs/*/*/bin(NOn[1]))
 path+=($HOME/.cargo/bin)
 path+=(/usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin)
 # export PATH=$PATH:$HOME/cascode/github.com/xiki/bin:/usr/local/sbin
