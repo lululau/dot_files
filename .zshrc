@@ -1,4 +1,4 @@
-[[ `uname` == Darwin ]] && ulimit -n 200000
+# [[ `uname` == Darwin ]] && ulimit -n 200000
 ulimit -u 2128
 
 setopt +o nomatch
@@ -57,7 +57,7 @@ DISABLE_AUTO_UPDATE="true"
 #          bundler httpie ack2 funcfind gemcd alibas vagrant tmux)
 
 plugins=(ack2 alibas autojump autopair
-         bd brew bundler
+         brew bundler
          colored-man-pages colorize compleat cp cpanm common-aliases copybuffer
          docker docker-compose docker-machine
          encode64 emoji
@@ -72,14 +72,14 @@ plugins=(ack2 alibas autojump autopair
          perl pip python pyenv
          rails rake rsync ruby rvm
          safe-paste sbt scala screen svn systemadmin systemd
-         terminitor themes tig tmux tmux-pane-words tmuxinator
+         terminitor themes tig tmux tmuxinator
          vagrant virtualenv
          xcode
          yum
          project-root
          kubectl
          minikube
-         rust rustup cargo
+         rust cargo
          zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions)
 
 source $ZSH/oh-my-zsh.sh

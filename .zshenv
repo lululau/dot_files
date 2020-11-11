@@ -1,7 +1,7 @@
 typeset -U path
 # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 path+=($HOME/.local/bin)
-path+=$(echo ~/.stack/programs/*/*/bin(On[1]))
+path+=$(echo ~/.stack/programs/*/*/bin(NOn[1]))
 path+=($HOME/.cargo/bin)
 path+=(/usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin)
 # export PATH=$PATH:$HOME/cascode/github.com/xiki/bin:/usr/local/sbin
@@ -28,7 +28,7 @@ else
     # export PYTHONPATH=$HOME/Library/Python/2.7/lib/python/site-packages
     export FPATH="$FPATH:/usr/local/share/zsh/site-functions"
     [ -n "$EMACS" ] && source $HOME/.zprofile
-    source $HOME/.config/private/homebrew_github_api_token.sh
+    [ -e $HOME/.config/private/homebrew_github_api_token.sh ] && source $HOME/.config/private/homebrew_github_api_token.sh
     # export JAVA_HOME=/Library/Java/JavaVirtualMachines/CurrentJDK/Contents/Home
 fi
 export XAPIAN_CJK_NGRAM=1
