@@ -837,15 +837,20 @@ This function is called at the very end of Spacemacs initialization."
  '(org-agenda-files "~/.agenda_files")
 '(org-capture-templates
 (quote
- (("t" "Todo" entry
+ (("t" "Todo (with link to current buffer prosition)" entry
    (file "")
    "* TODO %?
-  %u
+  %U
   %a")
-  ("g" "Todo" entry
+  ("c" "Todo" entry
    (file "")
    "* TODO %?
-  %u")
+  SCHEDULED: %T
+  %U")
+  ("g" "Todo (global capture for SPC+T)" entry
+   (file "")
+   "* TODO %?
+  %U")
   ("w" "Web site" entry
    (file "")
     "* %a :website:\n\n%U %?\n\n%:initial"))))
