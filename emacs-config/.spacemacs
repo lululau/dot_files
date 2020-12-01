@@ -850,6 +850,7 @@ This function is called at the very end of Spacemacs initialization."
   ("g" "Todo (global capture for SPC+T)" entry
    (file "")
    "* TODO %?
+  SCHEDULED: %T
   %U")
   ("w" "Web site" entry
    (file "")
