@@ -496,13 +496,13 @@ layers configuration."
   ;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
 
   ;; --------- Worg HTML Theme for Org-Mode Export ---------
-  ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://assets.hackit.fun/style/org/worg/worg.css\" type=\"text/css\" />")
+  ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://www.hackit.fun/org-assets/css/worg/worg.css\" type=\"text/css\" />")
 
   ;; --------- Dakrone HTML Theme for Org-Mode Export ---------
-  ;; (setq org-html-head "<link rel=\"stylesheet\" href=\"http://assets.hackit.fun/style/org/dakrone/org.css\" type=\"text/css\" />")
+  ;; (setq org-html-head "<link rel=\"stylesheet\" href=\"http://www.hackit.fun/org-assets/css/dakrone/org.css\" type=\"text/css\" />")
 
   ;; --------- ReadTheOrg HTML Theme for Org-Mode Export ---------
-  (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://assets.hackit.fun/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"http://assets.hackit.fun/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"http://assets.hackit.fun/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"http://assets.hackit.fun/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://assets.hackit.fun/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://assets.hackit.fun/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
+  (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.hackit.fun/org-assets/css/spacemacs-wide/htmlize.css\"/>\n <script src=\"http://www.hackit.fun/org-assets/js/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"http://www.hackit.fun/org-assets/js/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"http://www.hackit.fun/org-assets/js/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.hackit.fun/org-assets/css/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.hackit.fun/org-assets/css/spacemacs-wide/font-awesome.min.css\"/>\n")
 
   (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
   (add-to-list 'search-engine-alist '(ip138 :name "ip138" :url "http://ip138.com/ips138.asp?ip=%s&action=2") t)
