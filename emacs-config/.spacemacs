@@ -845,10 +845,15 @@ This function is called at the very end of Spacemacs initialization."
    "* TODO %?
   %U
   %a")
-  ("c" "Todo" entry
+  ("c" "Todo (scheduled from right now)" entry
    (file "")
    "* TODO %?
   SCHEDULED: %T
+  %U")
+  ("m" "Todo (scheduled from tomorrow morning)" entry
+   (file "")
+   "* TODO %?
+  SCHEDULED: %(org-insert-time-stamp (org-read-date t t \"+1d 10:00\") t)
   %U")
   ("g" "Todo (global capture for SPC+T)" entry
    (file "")
