@@ -255,7 +255,7 @@
 
 (defun helm-vterm-arql-option-list ()
   (mapcar (lambda (host) (cons host host))
-          (s-split "\n" (shell-command-to-string "perl -ne 'unless (/^default/) { if (/^\\S/) {s/:$//; print;}}' ~/.arql.d/init.yml") t)))
+          (s-split "\n" (shell-command-to-string "perl -ne 'unless (/^default/) { if (/^\\w/) {s/:$//; print;}}' ~/.arql.d/init.yml") t)))
 
 (defun helm-vterm-arql-run (env)
   (let ((cmd  (format "~/.rvm/gems/ruby-2.7.0/bin/arql -e %s" env))
