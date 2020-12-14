@@ -638,7 +638,7 @@ This function is called at the very end of Spacemacs initialization."
  '(persp-kill-foreign-buffer-behaviour (quote kill))
  '(org-hide-leading-stars t)
  '(org-jira-done-states '("Done" "已解决" "关闭"))
- '(org-jira-users '(("lijiajia" . "lijiajia") ("qining" . "齐宁") ("baibing" . "baibing") ("caozhen" . "caozhen") ("chengzhiyuan" . "chengzhiyuan") ("guohang" . "guohang") ("liujun" . "liujun") ("liumeina" . "liumeina") ("liuxiang" . "liuxiang") ("liuyan" . "liuyan") ("niumengluo" . "niumengluo") ("wuhaojie" . "wuhaojie") ("xueqiang" . "xueqiang") ("wangtao" . "wangtao") ("wangzhen" . "wangzhen") ("wangzhen1" . "wangzhen1") ("yinyingzi" . "yinyingzi") ("zhangyu" . "zhangyu")))
+ '(org-jira-users '(("lijiajia" . "lijiajia") ("liujun" . "liujun") ("liumeina" . "liumeina") ("liuxiang" . "liuxiang") ("liuyan" . "liuyan") ("niumengluo" . "niumengluo") ("wuhaojie" . "wuhaojie") ("zhangyu" . "zhangyu")))
  '(org-super-agenda-groups
    (quote
     ((:name "IMPOARTANT !!!" :priority>= "C")
