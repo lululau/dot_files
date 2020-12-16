@@ -503,6 +503,9 @@ layers configuration."
   ;; --------- Dakrone HTML Theme for Org-Mode Export ---------
   ;; (setq org-html-head "<link rel=\"stylesheet\" href=\"http://www.hackit.fun/org-assets/css/dakrone/org.css\" type=\"text/css\" />")
 
+  ;; --------- OrgCSS HTML Theme for Org-Mode Export ---------
+  ;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://gongzhitaao.org/orgcss/org.css\"/>")
+
   ;; --------- ReadTheOrg HTML Theme for Org-Mode Export ---------
   (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.hackit.fun/org-assets/css/spacemacs-wide/htmlize.css\"/>\n <script src=\"http://www.hackit.fun/org-assets/js/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"http://www.hackit.fun/org-assets/js/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"http://www.hackit.fun/org-assets/js/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.hackit.fun/org-assets/css/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.hackit.fun/org-assets/css/spacemacs-wide/font-awesome.min.css\"/>\n")
 
