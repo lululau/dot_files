@@ -2,7 +2,8 @@
 (defun lx/set-monospaced-font (english chinese english-retina-size chinese-retina-size english-normal-size chinese-normal-size)
   (when window-system
     (dolist (monitor-attrs (display-monitor-attributes-list))
-      (let* ((scale-factor (cdr (assoc 'backing-scale-factor monitor-attrs)))
+      ;; (let* ((scale-factor (cdr (assoc 'backing-scale-factor monitor-attrs)))
+      (let* ((scale-factor 2)
              (english-size (if (> scale-factor 1) english-retina-size english-normal-size))
              (chinese-size (if (> scale-factor 1) chinese-retina-size chinese-normal-size))
             (frames (cdr (assoc 'frames monitor-attrs))))

@@ -76,6 +76,10 @@ unless $USER_PRYRC_LOADED
   Pry.commands.alias_command 'aaaaaaaa', 'cd ../../../../../../../..'
   Pry.commands.alias_command 'aaaaaaaaa', 'cd ../../../../../../../../..'
 
+  Pry.commands.block_command 'csv-excel-helper' do
+    require File.expand_path('~/.pry-csv-excel-helper.rb')
+  end
+
   Pry.commands.block_command 'require-active-support' do
     require "active_support/all"
   end

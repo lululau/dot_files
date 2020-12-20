@@ -146,7 +146,8 @@
     :bindings
     (kbd "y") 'evil-yank
     (kbd "Y") 'yank-to-end-of-line)
-
+  (add-to-list 'mu4e-view-actions
+               '("xViewXWidget" . my-mu4e-action-view-with-xwidget) t)
   (spacemacs/set-leader-keys-for-major-mode 'mu4e-view-mode
     "to" 'mu4e-toggle-org-mode
     "fo" 'open-message-with-mail-app))

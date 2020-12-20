@@ -3,6 +3,7 @@
 (autoload 'org-babel-execute:html-chrome "ob-html-chrome")
 (autoload 'org-babel-execute:tmux "ob-tmux")
 (autoload 'org-protocol-capture-html--with-pandoc  "org-protocol-capture-html.el")
+(autoload 'org-protocol-capture-html--with-pandoc-patch  "org-protocol-capture-html-patch.el")
 (autoload 'dired-ranger-copy       "dired-list.el")
 (autoload 'dired-ranger-paste      "dired-list.el")
 (autoload 'dired-ranger-move       "dired-list.el")

@@ -12,6 +12,7 @@
   (define-key dired-mode-map (kbd "-") 'dired-up-directory)
   (define-key dired-mode-map (kbd "S-SPC") nil)
   (define-key dired-mode-map (kbd "TAB") 'dired-subtree-cycle)
+  (define-key dired-mode-map (kbd "gr") #'spacemacs/safe-revert-buffer)
   (unless (or (display-graphic-p) (lx/system-is-linux))
     (defun dired-delete-file (file &optional recursive trash)
       (call-process "trash" nil nil nil file)))
@@ -31,3 +32,40 @@
 
 (with-eval-after-load 'dired-x
   (define-key dired-mode-map (kbd "N") nil))
+
+(with-eval-after-load 'dired-aux
+  (setq dired-compress-file-suffixes
+        '(
+          ;; "tar -zxf" isn't used because it's not available on the
+          ;; Solaris10 version of tar. Solaris10 becomes obsolete in 2021.
+          ;; Same thing on AIX 7.1.
+          ("\\.rar\\'" "" "rar x %i")
+          ("\\.tar\\.gz\\'" "" "gzip -dc %i | tar -xf -")
+          ("\\.tgz\\'" "" "gzip -dc %i | tar -xf -")
+          ("\\.gz\\'" "" "gunzip")
+          ("\\.lz\\'" "" "lzip -d")
+          ("\\.Z\\'" "" "uncompress")
+          ;; For .z, try gunzip.  It might be an old gzip file,
+          ;; or it might be from compact? pack? (which?) but gunzip handles both.
+          ("\\.z\\'" "" "gunzip")
+          ("\\.dz\\'" "" "dictunzip")
+          ("\\.tbz\\'" ".tar" "bunzip2")
+          ("\\.bz2\\'" "" "bunzip2")
+          ("\\.xz\\'" "" "unxz")
+          ("\\.zip\\'" "" "unzip -o -d %o %i")
+          ("\\.tar\\.zst\\'" "" "unzstd -c %i | tar -xf -")
+          ("\\.tzst\\'" "" "unzstd -c %i | tar -xf -")
+          ("\\.zst\\'" "" "unzstd --rm")
+          ("\\.7z\\'" "" "7z x -aoa -o%o %i")
+          ;; This item controls naming for compression.
+          ("\\.tar\\'" ".tgz" nil)
+          ;; This item controls the compression of directories.  Its REGEXP
+          ;; element should never match any valid file name.
+          ("\000" ".tar.gz" "tar -cf - %i | gzip -c9 > %o")))
+  (setq dired-compress-files-alist
+        '(("\\.tar\\.gz\\'" . "tar -cf - %i | gzip -c9 > %o")
+          ("\\.tar\\.bz2\\'" . "tar -cf - %i | bzip2 -c9 > %o")
+          ("\\.tar\\.xz\\'" . "tar -cf - %i | xz -c9 > %o")
+          ("\\.tar\\.zst\\'" . "tar -cf - %i | zstd -19 -o %o")
+          ("\\.rar\\'" . "rar a %o %i")
+          ("\\.zip\\'" . "zip %o -r --filesync %i"))))

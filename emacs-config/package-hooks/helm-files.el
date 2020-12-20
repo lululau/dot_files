@@ -30,7 +30,8 @@
     (format "sort -n -r %s | cut -f2 | sed 's/$/\\//'" autojump-db-file))
 
   (defun helm-autojump-candidates ()
-    (s-split "\n" (shell-command-to-string helm-autojump-command)))
+    (--map (cons it it)
+           (s-split "\n" (shell-command-to-string helm-autojump-command))))
 
   (defvar helm-autojump-map (let ((map (make-sparse-keymap)))
                               (set-keymap-parent map helm-find-files-map)

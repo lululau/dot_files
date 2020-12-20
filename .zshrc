@@ -56,6 +56,8 @@ DISABLE_AUTO_UPDATE="true"
 #          rvm safe-paste scala screen svn terminalapp terminitor textmate themes
 #          bundler httpie ack2 funcfind gemcd alibas vagrant tmux)
 
+UNBUNDLED_COMMANDS=(rubocop)
+
 plugins=(ack2 alibas autojump autopair
          bd brew bundler
          colored-man-pages colorize compleat cp cpanm common-aliases copybuffer
@@ -80,7 +82,9 @@ plugins=(ack2 alibas autojump autopair
          kubectl
          minikube
          rust rustup cargo
-         zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions fast-syntax-highlighting)
+         zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions)
+
+[ -z "$INSIDE_EMACS" ] && plugins+=(fast-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -231,19 +235,19 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 export ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #20 char left truncated PWD
 
 # for shell-pop
-if [ -n "$EMACS" ]
+if [ -n "$INSIDE_EMACS" ]
 then
-  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
-  alias ag='ag --color-match=33'
-  chpwd() { print -P "\033AnSiTc %d" }
-  print -P "\033AnSiTu %n"
-  print -P "\033AnSiTc %d"
+  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=101'
+  # alias ag='ag --color-match=33'
+  # chpwd() { print -P "\033AnSiTc %d" }
+  # print -P "\033AnSiTu %n"
+  # print -P "\033AnSiTc %d"
   source $HOME/.zlogin
 fi
 
 # source ~/.xsh
 
-if [ -z "$EMACS" ]; then
+if [ -z "$INSIDE_EMACS" ]; then
   if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
     source $HOME/liuxiang/.iterm2_shell_integration.zsh
   else
@@ -332,3 +336,16 @@ eval "$(starship init zsh)"
 [ -e "$HOME/Library/Preferences/org.dystroy.broot/launcher/bash/br" ] && source $HOME/Library/Preferences/org.dystroy.broot/launcher/bash/br
 
 [ -n "$SSH_CLIENT" ] && eval `ssh-agent` &> /dev/null
+
+if [ -n "$INSIDE_EMACS" ]; then
+  zle-keymap-select () {
+    starship_render
+    zle reset-prompt
+    case $KEYMAP in
+      vicmd) printf "\e]51;Elx/run-in-vterm/set-green-box-cursor\e\\";;
+      viins|main) printf "\e]51;Elx/run-in-vterm/set-blue-bar-cursor\e\\";;
+    esac
+  }
+fi
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/bitcomplete bit

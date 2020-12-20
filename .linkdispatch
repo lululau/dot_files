@@ -4,7 +4,8 @@ URL=$1
 
 function open_url() {
   BROWSER=$1
-  open "$URL" -a "$BROWSER"
+  local url=$2
+  open "$url" -a "$BROWSER"
 }
 
 SAFARI_PATTERNS=(
@@ -32,6 +33,7 @@ CHROME_PATTERNS=(
 '^https\?://[^/]*127\.0\.0\.1'
 '^https\?://[^/]*rrdbg.com'
 '^https\?://[^/]*youxin.com'
+'^https\?://[^/]*10.132.1.*'
 '^http://123.56.85.83/'
 '^http://123.57.61.34/'
 '^https://.*.axshare.com/'
@@ -39,6 +41,7 @@ CHROME_PATTERNS=(
 'tiaoyin100'
 'bestsign.info'
 '^file:///'
+':15672'
 )
 
 FIREFOX_PATTERNS=()
@@ -54,7 +57,7 @@ for pa in "${SAFARI_PATTERNS[@]}"
 do
   if echo "$URL" | grep -q "$pa"
   then
-    open_url "Safari"
+    open_url "Safari" "$URL"
     exit
   fi
 done
@@ -63,7 +66,8 @@ for pa in "${CHROME_PATTERNS[@]}"
 do
   if echo "$URL" | grep -q "$pa"
   then
-    open_url "Google Chrome"
+    url=$(echo "$URL" | perl -pe 's#^https://gitlab.ktjr.com:10022/#https://gitlab.ktjr.com/#')
+    open_url "Google Chrome" "$url"
     exit
   fi
 done
@@ -72,12 +76,9 @@ for pa in "${FIREFOX_PATTERNS[@]}"
 do
   if echo "$URL" | grep -q "$pa"
   then
-    open_url "Firefox"
+    open_url "Firefox" "$URL"
     exit
   fi
 done
 
-
-
-open_url "Safari"
-
+open_url "Safari" "$URL"
