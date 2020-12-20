@@ -93,7 +93,7 @@ autoload -U zmv
 
 # Customize to your needs...
 
-source $CONFIGDIR/.zsh-aliases.zsh
+[ -e $CONFIGDIR/.zsh-aliases.zsh ] && source $CONFIGDIR/.zsh-aliases.zsh || source $HOME/.zsh-aliases.zsh
 unalias ping
 unalias fd
 unalias rb
