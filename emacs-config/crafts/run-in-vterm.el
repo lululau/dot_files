@@ -690,7 +690,7 @@
 (defun helm-vterm-jenkins-option-list ()
   (let ((project-root-dir (projectile-project-root)))
     (mapcar (lambda (alias) (cons alias (replace-regexp-in-string ":.*" "" alias)))
-            (s-split "\n" (shell-command-to-string "yq r ~/.jenkins-builder.yaml 'aliases.*' -ppv | sed 's/aliases.//'") t))))
+            (s-split "\n" (shell-command-to-string "yq e .aliases ~/.jenkins-builder.yaml | grep 'build'") t))))
 
 (defclass helm-vterm-jenkins-options-source (helm-source-sync)
   ((candidates :initform 'helm-vterm-jenkins-option-list)
