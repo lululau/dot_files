@@ -43,6 +43,7 @@ CHROME_PATTERNS=(
 '^file:///'
 ':15672'
 '^https\?://[^/]\+:[0-9]\+/'
+'qc.rsvp.ai'
 )
 
 FIREFOX_PATTERNS=()
