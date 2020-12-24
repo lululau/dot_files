@@ -42,6 +42,7 @@ CHROME_PATTERNS=(
 'bestsign.info'
 '^file:///'
 ':15672'
+'^https\?://[^/]\+:[0-9]\+/'
 )
 
 FIREFOX_PATTERNS=()
