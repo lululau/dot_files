@@ -122,7 +122,9 @@ Then triggers a redraw from the module."
     "Disable vterm-dnd."
     (rassq-delete-all 'vterm-dnd dnd-protocol-alist))
 
-  (vterm-dnd-enable))
+  (vterm-dnd-enable)
+
+  (rvm-activate-corresponding-ruby))
 
 (spacemacs|use-package-add-hook vterm
   :post-config
