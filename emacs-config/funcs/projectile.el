@@ -3,7 +3,7 @@
         persp-name)
     (when persp
       (setq persp-name (persp-name persp))
-      (when (-contains? (projectile-open-projects) persp-name)
+      (when (-contains? (projectile-open-projects) (replace-regexp-in-string "^/[^/]*/[^/]*/" "~/" persp-name))
         persp-name))))
 
 (defun projectile-project-alternate-buffer ()

@@ -941,6 +941,8 @@ This function is called at the very end of Spacemacs initialization."
   (arql-env . "ermasprorw")
   (arql-env . "ddhcpro")
   (arql-env . "lldevb")
+  (arql-env . "insdevb")
+  (arql-env . "ins247")
   (maven-trigger . "b")
   (maven-trigger . "uat")
   (vc-follow-symlinks)
