@@ -16,7 +16,7 @@
   "aob" 'org-iswitchb
   "gho" #'browse-at-remote
   "to" #'org-toggle-link-display
-  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 12 14 13 14))
+  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 12 14 12 14))
   "ps" #'lx/find-or-create-projectile-snippet-file
   "aC" #'calendar
   "col" #'copy-org-links-at-point
