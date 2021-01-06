@@ -258,7 +258,7 @@
           (s-split "\n" (shell-command-to-string "perl -ne 'unless (/^default/) { if (/^\\w/) {s/:$//; print;}}' ~/.arql.d/init.yml") t)))
 
 (defun helm-vterm-arql-run (env)
-  (let ((cmd  (format "~/.rvm/gems/ruby-2.7.2/bin/arql -e %s" env))
+  (let ((cmd  (format "~/.rvm/gems/ruby-3.0.0/bin/arql -e %s" env))
         (buffer-name (format "*arql-%s*" env)))
     (lx/run-in-vterm cmd buffer-name nil t)))
 
