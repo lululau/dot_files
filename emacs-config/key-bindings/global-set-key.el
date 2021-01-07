@@ -209,6 +209,8 @@
 (global-set-key (kbd "s-p s-l") 'spacemacs/helm-perspectives)
 (global-set-key (kbd "s-p s-t") '(lambda () (interactive) (let ((current-persp-project (get-current-persp-project)))
                                                             (when current-persp-project (find-file current-persp-project)))))
+(global-set-key (kbd "s-e") '(lambda () (interactive) (let ((current-persp-project (get-current-persp-project)))
+                                                            (when current-persp-project (find-file current-persp-project)))))
 
 (global-set-key (kbd "s-<backspace>") 'evil-change-whole-line)
 

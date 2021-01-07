@@ -874,8 +874,8 @@ This function is called at the very end of Spacemacs initialization."
 (quote
  ((pdf-engine . "xelatex")
   (template . "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/pandoc-latex-templates/Heiti/default.latex"))))
- '(org-reveal-root "~/cascode/github.com/reveal.js/")
- '(org-reveal-theme "solarized")
+ '(org-re-reveal-root "/Users/liuxiang/cascode/github.com/reveal.js/")
+ '(org-re-reveal-theme "solarized")
 '(org-src-lang-modes
 (quote
  (("http" . "ob-http")
