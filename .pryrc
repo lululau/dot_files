@@ -56,25 +56,16 @@ unless $USER_PRYRC_LOADED
   #   Pry.commands.rename_command 'f', 'finish'
   # end
 
-  Pry.commands.rename_command 'b', 'break' if Pry.commands.valid_command?('break')
-  Pry.commands.rename_command 'c', 'continue' if Pry.commands.valid_command?('continue')
-  Pry.commands.rename_command 's', 'step' if Pry.commands.valid_command?('step')
-  Pry.commands.rename_command 'n', 'next' if Pry.commands.valid_command?('next')
-  Pry.commands.rename_command 'f', 'finish' if Pry.commands.valid_command?('finish')
+  Pry.commands.rename_command 'bb', 'break' if Pry.commands.valid_command?('break')
+  Pry.commands.rename_command 'cc', 'continue' if Pry.commands.valid_command?('continue')
+  Pry.commands.rename_command 'ss', 'step' if Pry.commands.valid_command?('step')
+  Pry.commands.rename_command 'nn', 'next' if Pry.commands.valid_command?('next')
+  Pry.commands.rename_command 'ff', 'finish' if Pry.commands.valid_command?('finish')
 
   Pry.commands.alias_command 'rc', 'reload-code'
   Pry.commands.alias_command 'ed', 'edit'
-  Pry.commands.alias_command 'w', 'whereami'
+  Pry.commands.alias_command 'ww', 'whereami'
   Pry.commands.alias_command 'pwd', 'nesting'
-  Pry.commands.alias_command 'a', 'cd ..'
-  Pry.commands.alias_command 'aa', 'cd ../..'
-  Pry.commands.alias_command 'aaa', 'cd ../../..'
-  Pry.commands.alias_command 'aaaa', 'cd ../../../..'
-  Pry.commands.alias_command 'aaaaa', 'cd ../../../../..'
-  Pry.commands.alias_command 'aaaaaa', 'cd ../../../../../..'
-  Pry.commands.alias_command 'aaaaaaa', 'cd ../../../../../../..'
-  Pry.commands.alias_command 'aaaaaaaa', 'cd ../../../../../../../..'
-  Pry.commands.alias_command 'aaaaaaaaa', 'cd ../../../../../../../../..'
 
   Pry.commands.block_command 'csv-excel-helper' do
     require File.expand_path('~/.pry-csv-excel-helper.rb')
@@ -120,10 +111,6 @@ unless $USER_PRYRC_LOADED
 
   def rm(const)
     Object.send :remove_const, const
-  end
-
-  def umeng_signin(email="admin@umeng.com", password=111111)
-    app.post '/people/sign_in', "person[email]=#{email}&person[password]=#{password}"
   end
 
   def pbp

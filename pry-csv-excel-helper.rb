@@ -49,16 +49,57 @@ module Kernel
 end
 
 class Array
-  def write_csv(filename, **options)
+  def write_csv(filename, *fields, **options)
     generate_csv(filename, **options) do |csv|
-      each { |row| csv << row }
+      if size > 0 && first.is_a?(ActiveRecord::Base)
+        if fields.empty?
+          fields = first.attributes.keys
+        else
+          fields = fields.map(&:to_s)
+        end
+        csv << fields
+      end
+      if size > 0 && first.is_a?(Hash)
+        if fields.empty?
+          fields = first.keys
+        end
+        csv << fields
+      end
+      each do |row|
+        if row.is_a?(Array)
+          csv << row.map(&:to_s)
+        else
+          csv << row.slice(*fields).values.map(&:to_s)
+        end
+      end
     end
   end
 
-  def write_excel(filename, sheet_name = 'Sheet1')
+  def write_excel(filename, *fields, **options)
+    sheet_name = options[:sheet_name] || 'Sheet1'
     generate_excel(filename) do |workbook|
       workbook.add_worksheet(name: sheet_name) do |sheet|
-        each { |row| sheet.add_row(row, types: [:string] * row.size) }
+        if size > 0 && first.is_a?(ActiveRecord::Base)
+          if fields.empty?
+            fields = first.attributes.keys
+          else
+            fields = fields.map(&:to_s)
+          end
+          sheet.add_row(fields, types: [:string] * fields.size)
+        end
+        if size > 0 && first.is_a?(Hash)
+          if fields.empty?
+            fields = first.keys
+          end
+          sheet.add_row(fields, types: [:string] * fields.size)
+        end
+        each do |row|
+          if row.is_a?(Array)
+            sheet.add_row(row.map(&:to_s), types: [:string] * row.size)
+          else
+            sheet.add_row(row.slice(*fields).values.map(&:to_s), types: [:string] * fields.size)
+          end
+        end
       end
     end
   end
@@ -69,7 +110,37 @@ class Hash
     generate_excel(filename) do |workbook|
       each do |sheet_name, sheet_data|
         workbook.add_worksheet(name: sheet_name) do |sheet|
-          sheet_data.each { |row| sheet.add_row(row, types: [:string] * row.size) }
+          if sheet_data.is_a?(Hash)
+            fields = sheet_data[:fields].map(&:to_s)
+            sheet.add_row(fields, types: [:string] * fields.size)
+            sheet_data[:data].each do |row|
+              sheet.add_row(row.slice(*fields).values.map(&:to_s), types: [:string] * fields.size)
+            end
+          end
+
+          if sheet_data.is_a?(Array)
+            if sheet_data.size > 0 && sheet_data.first.is_a?(ActiveModel::Base)
+              fields = sheet_data.first.attributes.keys
+              sheet.add_row(fields, types: [:string] * fields.size)
+              sheet_data.each do |row|
+                sheet.add_row(row.slice(*fields).values.map(&:to_s), types: [:string] * fields.size)
+              end
+            end
+
+            if sheet_data.size > 0 && sheet_data.first.is_a?(Hash)
+              fields = sheet_data.first.keys
+              sheet.add_row(fields, types: [:string] * fields.size)
+              sheet_data.each do |row|
+                sheet.add_row(row.slice(*fields).values.map(&:to_s), types: [:string] * fields.size)
+              end
+            end
+
+            if sheet_data.size > 0 && sheet_data.first.is_a?(Array)
+              sheet_data.each do |row|
+                sheet.add_row(row.map(&:to_s), types: [:string] * fields.size)
+              end
+            end
+          end
         end
       end
     end
