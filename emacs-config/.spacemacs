@@ -513,6 +513,7 @@ layers configuration."
   (add-to-list 'search-engine-alist '(ip138 :name "ip138" :url "http://ip138.com/ips138.asp?ip=%s&action=2") t)
 
   (setq auto-mode-alist (append '(("\\.pryrc\\'" . ruby-mode)
+                                  ("\\.rexerc\\'" . ruby-mode)
                                   ("\\.rails\\'" . ruby-mode)
                                   ("\\.arql\\'" . ruby-mode)
                                   ("\\.apib\\'" . markdown-mode)
