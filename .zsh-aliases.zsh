@@ -56,3 +56,4 @@ alias shu=tree
 alias rm=trash
 alias mm=trash
 alias sleep-wake-log="pmset -g log | grep -e ' Sleep  ' -e ' Wake  ' | ag --passthru ' Wake  '"
+alias re=rexe
