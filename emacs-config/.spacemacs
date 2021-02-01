@@ -160,6 +160,7 @@
      lua
      vagrant
      docker
+     protobuf
      chrome
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)

@@ -1,3 +1,4 @@
+set NERDTree
 set surround
 set argtextobj
 set smartcase
