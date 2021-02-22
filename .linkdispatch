@@ -14,6 +14,8 @@ SAFARI_PATTERNS=(
 )
 
 CHROME_PATTERNS=(
+'^https\?://[^/]*\.bilibili\.com'
+'^https\?://youtube\.com'
 '^https\?://www\.umeng\.com'
 '^https\?://github\.umeng\.co'
 '^https\?://localhost'
