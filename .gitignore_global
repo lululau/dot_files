@@ -5,3 +5,7 @@ GRTAGS
 .tern-port
 .tern_port
 *-dev.yml
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store

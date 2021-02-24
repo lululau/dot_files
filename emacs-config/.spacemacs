@@ -526,7 +526,7 @@ layers configuration."
                                   ("\\.d$" . dtrace-script-mode)
                                   ("\\.sc" . scala-mode)) auto-mode-alist))
 
-  (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . react-mode))
+  ;; (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . rjsx-mode))
 
   (setq org-plantuml-jar-path "/usr/local/libexec/plantuml.jar")
 
