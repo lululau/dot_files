@@ -1,5 +1,6 @@
 (defun org-journal-find-today-entry ()
   (interactive)
   (require 'org-journal)
-  (org-journal--dir-check-or-create)
+  (org-journal--sanity-checks)
+  (org-journal--create-journal-dir)
   (funcall org-journal-find-file (org-journal--get-entry-path nil)))

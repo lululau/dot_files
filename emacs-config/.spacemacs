@@ -53,6 +53,8 @@
 
 (setq use-package-inject-hooks t)
 
+(setq company-shell--cache '(""))
+
 ;; (setq dired-quick-sort-group-directories-last ?y)
 
 (defun dotspacemacs/layers ()
