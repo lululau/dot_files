@@ -36,7 +36,7 @@ inoremap <c-d> <Del>
 nnoremap <c-c> i
 nnoremap <c-a> ^
 nnoremap <cr> :action EditorStartNewLine<cr>
-noremap <m-m> :action ToggleBookmark<cr>
+" noremap <m-m> :action ToggleBookmark<cr>
 noremap <m-a-b> :action ToggleLineBreakpoint<cr>
 noremap <m-j> 10j
 noremap <m-k> 10k
