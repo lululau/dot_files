@@ -17,8 +17,7 @@
     (evil-define-key 'normal dired-mode-map (kbd "f") 'spacemacs/helm-find-files)
     (evil-define-key 'normal dired-mode-map (kbd "F") 'spacemacs/helm-find-files-recursively)
     (evil-define-key 'normal dired-mode-map (kbd "s") 'dired-sort-toggle-or-edit)
-    (evil-define-key 'normal dired-mode-map (kbd "S") 'hydra-dired-quick-sort/body)
-    (evil-define-key 'normal dired-mode-map (kbd "TAB") 'dired-subtree-cycle))
+    (evil-define-key 'normal dired-mode-map (kbd "S") 'hydra-dired-quick-sort/body))
 
   (unless (or (display-graphic-p) (lx/system-is-linux))
     (defun dired-delete-file (file &optional recursive trash)
