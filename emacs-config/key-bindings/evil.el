@@ -45,6 +45,7 @@
                                                                       (call-interactively 'projectile-rails-goto-file-at-point)
                                                                     (call-interactively 'ffap-other-window))))
 (define-key evil-ex-completion-map "\C-a" nil)
+(define-key evil-ex-completion-map "\C-f" nil)
 (define-key evil-ex-completion-map "\C-b" nil)
 (define-key evil-ex-completion-map "\C-d" nil)
 (define-key evil-ex-completion-map "\C-k" nil)
