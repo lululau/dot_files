@@ -683,13 +683,15 @@
 
 (defun helm-vterm-jenkins-run (alias)
   (let* ((vterm-kill-buffer-on-exit nil)
-         (cmd  (format "jk %s" alias))
-         (buffer-name (format "*vterm-jenkins-%s*" alias)))
+         (alias-name (replace-regexp-in-string ":.*" "" alias))
+         (jenkins-project-name (replace-regexp-in-string ".*build\s-*\\|:.*" "" alias))
+         (cmd  (format "jk %s" alias-name))
+         (buffer-name (format "*vterm-jenkins-%s (%s)*" alias-name jenkins-project-name)))
     (lx/run-in-vterm cmd buffer-name nil t)))
 
 (defun helm-vterm-jenkins-option-list ()
   (let ((project-root-dir (projectile-project-root)))
-    (mapcar (lambda (alias) (cons alias (replace-regexp-in-string ":.*" "" alias)))
+    (mapcar (lambda (alias) (cons alias alias))
             (s-split "\n" (shell-command-to-string "yq e .aliases ~/.jenkins-builder.yaml | grep 'build'") t))))
 
 (defclass helm-vterm-jenkins-options-source (helm-source-sync)
