@@ -661,7 +661,7 @@
     (mapcar 'buffer-name
             (seq-filter (lambda (b)
                           (and (eq 'vterm-mode (with-current-buffer b major-mode))
-                          (s-starts-with? "*vterm-jenkins-" (with-current-buffer b (buffer-name)))))
+                          (s-starts-with? "*vterm-jk-" (with-current-buffer b (buffer-name)))))
                         (buffer-list)))))
 
 (defclass helm-vterm-jenkins-buffers-source (helm-source-sync helm-type-buffer)
@@ -686,7 +686,7 @@
          (alias-name (replace-regexp-in-string ":.*" "" alias))
          (jenkins-project-name (replace-regexp-in-string ".*build\s-*\\|:.*" "" alias))
          (cmd  (format "jk %s" alias-name))
-         (buffer-name (format "*vterm-jenkins-%s (%s)*" alias-name jenkins-project-name)))
+         (buffer-name (format "*vterm-jk-%s-%s*" alias-name jenkins-project-name)))
     (lx/run-in-vterm cmd buffer-name nil t)))
 
 (defun helm-vterm-jenkins-option-list ()
