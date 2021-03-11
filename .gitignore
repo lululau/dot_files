@@ -55,3 +55,4 @@ Session.vim
 /nnn/
 /configstore/*.json
 /iterm2/
+/.isolated-storage/
