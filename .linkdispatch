@@ -13,7 +13,8 @@ SAFARI_PATTERNS=(
   '^https\?://[^/]*127\.0\.0\.1:[0-9]*/Dash/'
 )
 
-CHROME_PATTERNS=(
+EDGE_PATTERNS=(
+'^https\?://[^/]*docs\.rs'
 '^https\?://[^/]*\.bilibili\.com'
 '^https\?://youtube\.com'
 '^https\?://www\.umeng\.com'
@@ -72,6 +73,16 @@ do
   then
     url=$(echo "$URL" | perl -pe 's#^https://gitlab.ktjr.com:10022/#https://gitlab.ktjr.com/#')
     open_url "Google Chrome" "$url"
+    exit
+  fi
+done
+
+for pa in "${EDGE_PATTERNS[@]}"
+do
+  if echo "$URL" | grep -q "$pa"
+  then
+    url=$(echo "$URL" | perl -pe 's#^https://gitlab.ktjr.com:10022/#https://gitlab.ktjr.com/#')
+    open_url "Microsoft Edge Dev" "$url"
     exit
   fi
 done
