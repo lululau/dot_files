@@ -953,6 +953,7 @@ This function is called at the very end of Spacemacs initialization."
   (eval text-scale-increase 3)
   (eval flycheck-mode -1 1)
   (eval org-babel-result-hide-all)
+  (eval require 'org-journal)
   (encoding . utf-8)
   (elixir-enable-compilation-checking . t)
   (elixir-enable-compilation-checking)
