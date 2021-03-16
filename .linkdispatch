@@ -8,12 +8,14 @@ function open_url() {
   open "$url" -a "$BROWSER"
 }
 
-SAFARI_PATTERNS=(
-  '^https\?://mail\.alibaba-inc\.com'
-  '^https\?://[^/]*127\.0\.0\.1:[0-9]*/Dash/'
-)
+# SAFARI_PATTERNS=(
+#   '^https\?://mail\.alibaba-inc\.com'
+#   '^https\?://[^/]*127\.0\.0\.1:[0-9]*/Dash/'
+# )
 
 EDGE_PATTERNS=(
+  '^https\?://mail\.alibaba-inc\.com'
+  '^https\?://[^/]*127\.0\.0\.1:[0-9]*/Dash/'
 '^https\?://[^/]*docs\.rs'
 '^https\?://[^/]*\.bilibili\.com'
 '^https\?://youtube\.com'
@@ -58,6 +60,16 @@ if echo "$URL" | grep -q '^https\?://mailsso.mxhichina.com'; then
     exit
 fi
 
+for pa in "${EDGE_PATTERNS[@]}"
+do
+  if echo "$URL" | grep -q "$pa"
+  then
+    url=$(echo "$URL" | perl -pe 's#^https://gitlab.ktjr.com:10022/#https://gitlab.ktjr.com/#')
+    open_url "Microsoft Edge Dev" "$url"
+    exit
+  fi
+done
+
 for pa in "${SAFARI_PATTERNS[@]}"
 do
   if echo "$URL" | grep -q "$pa"
@@ -77,16 +89,6 @@ do
   fi
 done
 
-for pa in "${EDGE_PATTERNS[@]}"
-do
-  if echo "$URL" | grep -q "$pa"
-  then
-    url=$(echo "$URL" | perl -pe 's#^https://gitlab.ktjr.com:10022/#https://gitlab.ktjr.com/#')
-    open_url "Microsoft Edge Dev" "$url"
-    exit
-  fi
-done
-
 for pa in "${FIREFOX_PATTERNS[@]}"
 do
   if echo "$URL" | grep -q "$pa"
@@ -96,4 +98,4 @@ do
   fi
 done
 
-open_url "Safari" "$URL"
+open_url "Microsoft Edge Dev" "$URL"
