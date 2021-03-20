@@ -201,8 +201,7 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '((helm-swoop :location (recipe :fetcher github :repo "ashiklom/helm-swoop"))
-                                      calfw calfw-org browse-at-remote ranger helm-mu
+   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu
                                             jq-mode helm-dired-history go-dlv realgud-byebug
                                             dired-subtree carbon-now-sh sx daemons evil-mc
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
