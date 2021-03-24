@@ -154,6 +154,7 @@
      php
      restclient
      (rust :variables rust-backend 'racer)
+     (crystal :variables crystal-backend 'lsp)
      (scala :variables scala-backend 'scala-metals)
      swift
      kotlin
