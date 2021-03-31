@@ -20,7 +20,7 @@
 (if (display-graphic-p)
     (progn
       (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
-      (setq lx/spacemacs-banner "~/Documents/emacs-banners/ross.png")
+      (setq lx/spacemacs-banner "~/Documents/emacs-banners/nasa.png")
       (setq neo-theme 'icons))
   (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
   (setq lx/spacemacs-banner '000)
