@@ -277,7 +277,6 @@ nnoremap <Right> :tnext<CR>
 cnoremap w!! %!sudo tee > /dev/null %
 
 let mapleader=" "
-nnoremap <leader><leader> <c-" >
 noremap <leader>y "*y
 noremap <leader>p :echo @%<cr>
 
@@ -363,8 +362,9 @@ let g:gist_detect_filetype = 1
 " let g:EasyMotion_mapping_n = '<leader>n'
 " let g:EasyMotion_mapping_N = '<leader>N'
 let g:EasyMotion_smartcase = 1
+map <Leader>e <Plug>(easymotion-prefix)
 map <Leader>l <Plug>(easymotion-bd-jk)
-nmap <Leader>o <Plug>(easymotion-s2)
+nmap <Leader><Space> <Plug>(easymotion-s2)
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -920,4 +920,3 @@ endfunction
 
 noremap <F4> :call ToggleFolding()<CR>
 inoremap <F4> <c-o>:call ToggleFolding()<CR>
-
