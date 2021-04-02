@@ -282,6 +282,7 @@ noremap <leader>y "*y
 noremap <leader>p :echo @%<cr>
 
 " Open .vimrc for quick-edit.
+noremap <leader>se :edit $MYVIMRC<cr>
 noremap <leader>so :source $MYVIMRC<cr>
 noremap <leader>ss :source ./Session.vim<cr>
 
@@ -773,6 +774,18 @@ noremap <ESC>9 :call GotoBuffer(9)<CR>
 noremap <ESC>0 :call GotoBuffer("L")<CR>
 noremap <ESC>= :call GotoBuffer(">")<CR>
 noremap <ESC>- :call GotoBuffer("<")<CR>
+noremap <ESC>! :call GotoBuffer(1)<CR>
+noremap <ESC>@ :call GotoBuffer(2)<CR>
+noremap <ESC># :call GotoBuffer(3)<CR>
+noremap <ESC>$ :call GotoBuffer(4)<CR>
+noremap <ESC>% :call GotoBuffer(5)<CR>
+noremap <ESC>^ :call GotoBuffer(6)<CR>
+noremap <ESC>& :call GotoBuffer(7)<CR>
+noremap <ESC>* :call GotoBuffer(8)<CR>
+noremap <ESC>( :call GotoBuffer(9)<CR>
+noremap <ESC>) :call GotoBuffer("L")<CR>
+noremap <ESC>+ :call GotoBuffer(">")<CR>
+noremap <ESC>_ :call GotoBuffer("<")<CR>
 noremap <ESC>t :enew<CR>
 noremap <ESC>x :bd<CR>
 noremap <ESC>X :bd!<CR>
@@ -788,6 +801,18 @@ inoremap <ESC>9 <ESC>:call GotoBuffer(9)<CR>
 inoremap <ESC>0 <ESC>:call GotoBuffer("L")<CR>
 inoremap <ESC>= <ESC>:call GotoBuffer(">")<CR>
 inoremap <ESC>- <ESC>:call GotoBuffer("<")<CR>
+inoremap <ESC>! :call GotoBuffer(1)<CR>
+inoremap <ESC>@ :call GotoBuffer(2)<CR>
+inoremap <ESC># :call GotoBuffer(3)<CR>
+inoremap <ESC>$ :call GotoBuffer(4)<CR>
+inoremap <ESC>% :call GotoBuffer(5)<CR>
+inoremap <ESC>^ :call GotoBuffer(6)<CR>
+inoremap <ESC>& :call GotoBuffer(7)<CR>
+inoremap <ESC>* :call GotoBuffer(8)<CR>
+inoremap <ESC>( :call GotoBuffer(9)<CR>
+inoremap <ESC>) :call GotoBuffer("L")<CR>
+inoremap <ESC>+ :call GotoBuffer(">")<CR>
+inoremap <ESC>_ :call GotoBuffer("<")<CR>
 inoremap <ESC>t <ESC>:enew<CR>
 inoremap <ESC>x <ESC>:bd<CR>
 inoremap <ESC>X <ESC>:bd!<CR>
