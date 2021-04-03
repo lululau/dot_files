@@ -40,7 +40,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-speeddating'
-Bundle 'terryma/vim-multiple-cursors'
+" Bundle 'terryma/vim-multiple-cursors'
+Plugin 'mg979/vim-visual-multi', {'branch': 'master'}
 " Bundle 'tpope/vim-abolish'
 " Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-obsession'
@@ -242,6 +243,21 @@ function! GotoBuffer(buf)
   endif
   execute 'normal :b' . s:buf_num . "\r"
 endfunction
+
+let g:VM_default_mappings = 0
+let g:VM_maps = {}
+let g:VM_maps['Find Under']                  = '<C-n>'
+let g:VM_maps['Find Subword Under']          = '<C-n>'
+let g:VM_maps["Select All"]                  = '\\A'
+let g:VM_maps["Start Regex Search"]          = '\\/'
+let g:VM_maps["Add Cursor Down"]             = '<C-m>'
+let g:VM_maps["Add Cursor Up"]               = '<C-Up>'
+let g:VM_maps["Add Cursor At Pos"]           = '\\\'
+let g:VM_maps["Visual Regex"]                = '\\/'
+let g:VM_maps["Visual All"]                  = '\\A'
+let g:VM_maps["Visual Add"]                  = '\\a'
+let g:VM_maps["Visual Find"]                 = '\\f'
+let g:VM_maps["Visual Cursors"]              = '\\c'
 
 inoremap <c-c> <ESC>
 " imap jj <ESC>
