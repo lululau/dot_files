@@ -5,7 +5,6 @@
 
 filetype off " required by vundle
 
-
 let s:uname = substitute(system('uname'), "\n", "", "")
 
 if s:uname == 'Linux'
@@ -729,20 +728,34 @@ inoremap <c-n> <Down>
 inoremap <c-p> <Up>
 inoremap <c-d> <Del>
 inoremap <c-k> <c-o>C
-inoremap <esc>f <c-o>e
-cnoremap <esc>f <S-Right>
-inoremap <esc>b <c-o>b
-cnoremap <esc>b <S-Left>
-inoremap <esc>< <c-o>gg<c-o>0
-inoremap <esc>> <c-o>G<c-o>$
 cnoremap <c-b> <Left>
 cnoremap <c-f> <Right>
 cnoremap <c-a> <c-b>
+if has('nvim')
+  inoremap <A-f> <c-o>e
+  cnoremap <A-f> <S-Right>
+  inoremap <A-b> <c-o>b
+  cnoremap <A-b> <S-Left>
+  inoremap <A-<> <c-o>gg<c-o>0
+  inoremap <A->> <c-o>G<c-o>$
 
-noremap <esc>w <c-w>
-inoremap <esc>w <c-w>
-inoremap <esc><bs> <esc><esc>caw
-cnoremap <esc><bs> <c-w>
+  noremap <A-w> <c-w>
+  inoremap <A-w> <c-w>
+  inoremap <A-bs> <esc><esc>caw
+  cnoremap <A-bs> <c-w>
+else
+  inoremap <esc>f <c-o>e
+  cnoremap <esc>f <S-Right>
+  inoremap <esc>b <c-o>b
+  cnoremap <esc>b <S-Left>
+  inoremap <esc>< <c-o>gg<c-o>0
+  inoremap <esc>> <c-o>G<c-o>$
+
+  noremap <esc>w <c-w>
+  inoremap <esc>w <c-w>
+  inoremap <esc><bs> <esc><esc>caw
+  cnoremap <esc><bs> <c-w>
+endif
 
 nnoremap <Leader>gB <ESC>:Gblame<CR>
 nnoremap <Leader>gb <ESC>:Git branch -vv<CR>
@@ -758,64 +771,78 @@ nnoremap <Leader>gps <ESC>:Git push
 nnoremap <Leader>gpl <ESC>:Git pull<CR>
 imap <Nul> <Nop>
 inoremap <c-^> <ESC><c-^>
-noremap <ESC><TAB> <c-^>
-inoremap <ESC><TAB> <ESC><c-^>
+if has('nvim')
+  noremap <A-tab> <c-^>
+  inoremap <A-tab> <ESC><c-^>
+else
+  noremap <ESC><TAB> <c-^>
+  inoremap <ESC><TAB> <ESC><c-^>
+endif
 noremap <F10> <c-^>
 inoremap <F10> <ESC><c-^>
-noremap <ESC>1 :call GotoBuffer(1)<CR>
-noremap <ESC>2 :call GotoBuffer(2)<CR>
-noremap <ESC>3 :call GotoBuffer(3)<CR>
-noremap <ESC>4 :call GotoBuffer(4)<CR>
-noremap <ESC>5 :call GotoBuffer(5)<CR>
-noremap <ESC>6 :call GotoBuffer(6)<CR>
-noremap <ESC>7 :call GotoBuffer(7)<CR>
-noremap <ESC>8 :call GotoBuffer(8)<CR>
-noremap <ESC>9 :call GotoBuffer(9)<CR>
-noremap <ESC>0 :call GotoBuffer("L")<CR>
-noremap <ESC>= :call GotoBuffer(">")<CR>
-noremap <ESC>- :call GotoBuffer("<")<CR>
-noremap <ESC>! :call GotoBuffer(1)<CR>
-noremap <ESC>@ :call GotoBuffer(2)<CR>
-noremap <ESC># :call GotoBuffer(3)<CR>
-noremap <ESC>$ :call GotoBuffer(4)<CR>
-noremap <ESC>% :call GotoBuffer(5)<CR>
-noremap <ESC>^ :call GotoBuffer(6)<CR>
-noremap <ESC>& :call GotoBuffer(7)<CR>
-noremap <ESC>* :call GotoBuffer(8)<CR>
-noremap <ESC>( :call GotoBuffer(9)<CR>
-noremap <ESC>) :call GotoBuffer("L")<CR>
-noremap <ESC>+ :call GotoBuffer(">")<CR>
-noremap <ESC>_ :call GotoBuffer("<")<CR>
-noremap <ESC>t :enew<CR>
-noremap <ESC>x :bd<CR>
-noremap <ESC>X :bd!<CR>
-inoremap <ESC>1 <ESC>:call GotoBuffer(1)<CR>
-inoremap <ESC>2 <ESC>:call GotoBuffer(2)<CR>
-inoremap <ESC>3 <ESC>:call GotoBuffer(3)<CR>
-inoremap <ESC>4 <ESC>:call GotoBuffer(4)<CR>
-inoremap <ESC>5 <ESC>:call GotoBuffer(5)<CR>
-inoremap <ESC>6 <ESC>:call GotoBuffer(6)<CR>
-inoremap <ESC>7 <ESC>:call GotoBuffer(7)<CR>
-inoremap <ESC>8 <ESC>:call GotoBuffer(8)<CR>
-inoremap <ESC>9 <ESC>:call GotoBuffer(9)<CR>
-inoremap <ESC>0 <ESC>:call GotoBuffer("L")<CR>
-inoremap <ESC>= <ESC>:call GotoBuffer(">")<CR>
-inoremap <ESC>- <ESC>:call GotoBuffer("<")<CR>
-inoremap <ESC>! :call GotoBuffer(1)<CR>
-inoremap <ESC>@ :call GotoBuffer(2)<CR>
-inoremap <ESC># :call GotoBuffer(3)<CR>
-inoremap <ESC>$ :call GotoBuffer(4)<CR>
-inoremap <ESC>% :call GotoBuffer(5)<CR>
-inoremap <ESC>^ :call GotoBuffer(6)<CR>
-inoremap <ESC>& :call GotoBuffer(7)<CR>
-inoremap <ESC>* :call GotoBuffer(8)<CR>
-inoremap <ESC>( :call GotoBuffer(9)<CR>
-inoremap <ESC>) :call GotoBuffer("L")<CR>
-inoremap <ESC>+ :call GotoBuffer(">")<CR>
-inoremap <ESC>_ :call GotoBuffer("<")<CR>
-inoremap <ESC>t <ESC>:enew<CR>
-inoremap <ESC>x <ESC>:bd<CR>
-inoremap <ESC>X <ESC>:bd!<CR>
+if has('nvim')
+  noremap <A-1> :call GotoBuffer(1)<CR>
+  noremap <A-2> :call GotoBuffer(2)<CR>
+  noremap <A-3> :call GotoBuffer(3)<CR>
+  noremap <A-4> :call GotoBuffer(4)<CR>
+  noremap <A-5> :call GotoBuffer(5)<CR>
+  noremap <A-6> :call GotoBuffer(6)<CR>
+  noremap <A-7> :call GotoBuffer(7)<CR>
+  noremap <A-8> :call GotoBuffer(8)<CR>
+  noremap <A-9> :call GotoBuffer(9)<CR>
+  noremap <A-0> :call GotoBuffer("L")<CR>
+  noremap <A-=> :call GotoBuffer(">")<CR>
+  noremap <A--> :call GotoBuffer("<")<CR>
+  noremap <A-!> :call GotoBuffer(1)<CR>
+  noremap <A-@> :call GotoBuffer(2)<CR>
+  noremap <A-#> :call GotoBuffer(3)<CR>
+  noremap <A-$> :call GotoBuffer(4)<CR>
+  noremap <A-%> :call GotoBuffer(5)<CR>
+  noremap <A-^> :call GotoBuffer(6)<CR>
+  noremap <A-&> :call GotoBuffer(7)<CR>
+  noremap <A-*> :call GotoBuffer(8)<CR>
+  noremap <A-(> :call GotoBuffer(9)<CR>
+  noremap <A-)> :call GotoBuffer("L")<CR>
+  noremap <A-+> :call GotoBuffer(">")<CR>
+  noremap <A-_> :call GotoBuffer("<")<CR>
+  noremap <A-t> :enew<CR>
+  noremap <A-x> :bd<CR>
+  noremap <A-X> :bd!<CR>
+  inoremap <A-t> <ESC>:enew<CR>
+  inoremap <A-x> <ESC>:bd<CR>
+  inoremap <A-X> <ESC>:bd!<CR>
+else
+  noremap <ESC>1 :call GotoBuffer(1)<CR>
+  noremap <ESC>2 :call GotoBuffer(2)<CR>
+  noremap <ESC>3 :call GotoBuffer(3)<CR>
+  noremap <ESC>4 :call GotoBuffer(4)<CR>
+  noremap <ESC>5 :call GotoBuffer(5)<CR>
+  noremap <ESC>6 :call GotoBuffer(6)<CR>
+  noremap <ESC>7 :call GotoBuffer(7)<CR>
+  noremap <ESC>8 :call GotoBuffer(8)<CR>
+  noremap <ESC>9 :call GotoBuffer(9)<CR>
+  noremap <ESC>0 :call GotoBuffer("L")<CR>
+  noremap <ESC>= :call GotoBuffer(">")<CR>
+  noremap <ESC>- :call GotoBuffer("<")<CR>
+  noremap <ESC>! :call GotoBuffer(1)<CR>
+  noremap <ESC>@ :call GotoBuffer(2)<CR>
+  noremap <ESC># :call GotoBuffer(3)<CR>
+  noremap <ESC>$ :call GotoBuffer(4)<CR>
+  noremap <ESC>% :call GotoBuffer(5)<CR>
+  noremap <ESC>^ :call GotoBuffer(6)<CR>
+  noremap <ESC>& :call GotoBuffer(7)<CR>
+  noremap <ESC>* :call GotoBuffer(8)<CR>
+  noremap <ESC>( :call GotoBuffer(9)<CR>
+  noremap <ESC>) :call GotoBuffer("L")<CR>
+  noremap <ESC>+ :call GotoBuffer(">")<CR>
+  noremap <ESC>_ :call GotoBuffer("<")<CR>
+  noremap <ESC>t :enew<CR>
+  noremap <ESC>x :bd<CR>
+  noremap <ESC>X :bd!<CR>
+  inoremap <ESC>t <ESC>:enew<CR>
+  inoremap <ESC>x <ESC>:bd<CR>
+  inoremap <ESC>X <ESC>:bd!<CR>
+endif
 cnoremap sudow w ! sudo tee %
 nmap <silent> <Up> :silent! normal ddkP<CR>
 nmap <Down> ddp
@@ -860,7 +887,11 @@ colorscheme base16-railscasts
 let g:ctrlspace_save_workspace_on_exit = 1
 let g:gitguwtter_sign_column_always = 1
 
-inoremap <expr><ESC>/  "\<C-x>\<C-u>"
+if has('nvim')
+  inoremap <expr><A-/>  "\<C-x>\<C-u>"
+else
+  inoremap <expr><ESC>/  "\<C-x>\<C-u>"
+endif
 
 if has("gui_running")
     set guifont=Ubuntu\ Mono\ derivative\ Powerline:h15
