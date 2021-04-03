@@ -93,6 +93,7 @@ Plugin 'tpope/vim-endwise'
 Plugin 'vim-perl/vim-perl'
 Plugin 'justinmk/vim-ipmotion'
 Plugin 'chrisbra/csv.vim'
+Plugin 'jreybert/vimagit'
 
 set hidden
 
