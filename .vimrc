@@ -504,8 +504,8 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 
 " Set snips_author & snips_email for snipMate.vim
-let g:snips_author="Larry Lv"
-let g:snips_email="larrylv1990@gmail.com""
+let g:snips_author="Liu Xiang"
+let g:snips_email="liuxiang921@gmail.com""
 
 " Mapping Keys
 imap <silent><c-l> <Plug>(neosnippet_expand)
