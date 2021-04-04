@@ -568,16 +568,25 @@ let g:CommandTCancelMap=['<Esc>', '<C-c>']
 " let g:CommandTAcceptSelectionSplitMap=['<c-s>', '<c-CR>']
 let g:CommandTMaxHeight=20
 " silent! nnoremap <unique> <silent> <Leader>b :CommandTBuffer<CR>
-map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
-map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
-map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
-map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
-map <leader>gf :CommandTFlush<cr>\|:CommandT config<cr>
-map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
-map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
-map <leader>gj :CommandTFlush<cr>\|:CommandT public/javascripts<cr>
-map <leader>gs :CommandTFlush<cr>\|:CommandT spec<cr>
+" map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+" map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+" map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+" map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+" map <leader>gf :CommandTFlush<cr>\|:CommandT config<cr>
+" map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
+" map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+" map <leader>gj :CommandTFlush<cr>\|:CommandT public/javascripts<cr>
+" map <leader>gs :CommandTFlush<cr>\|:CommandT spec<cr>
 
+map <leader>gv :CtrlP app/views<cr>
+map <leader>gc :CtrlP app/controllers<cr>
+map <leader>gm :CtrlP app/models<cr>
+map <leader>gh :CtrlP app/helpers<cr>
+map <leader>gf :CtrlP config<cr>
+map <leader>gl :CtrlP lib<cr>
+map <leader>gp :CtrlP public<cr>
+map <leader>gj :CtrlP public/javascripts<cr>
+map <leader>gs :CtrlP spec<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTRLP.vim CONFIGURATIONS
