@@ -41,7 +41,9 @@ Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-speeddating'
 " Bundle 'terryma/vim-multiple-cursors'
-Plugin 'mg979/vim-visual-multi', {'branch': 'master'}
+if v:version >= 800
+  Plugin 'mg979/vim-visual-multi', {'branch': 'master'}
+endif
 " Bundle 'tpope/vim-abolish'
 " Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-obsession'
@@ -73,7 +75,7 @@ Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
-Bundle 'benmills/vimux'
+" Bundle 'benmills/vimux'
 Bundle 'groenewege/vim-less'
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'wting/rust.vim'
