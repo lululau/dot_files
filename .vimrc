@@ -873,8 +873,8 @@ else
   inoremap <ESC>X <ESC>:bd!<CR>
 endif
 cnoremap sudow w ! sudo tee %
-nmap <silent> <Up> :silent! normal ddkP<CR>
-nmap <Down> ddp
+" nmap <silent> <Up> :silent! normal ddkP<CR>
+" nmap <Down> ddp
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
