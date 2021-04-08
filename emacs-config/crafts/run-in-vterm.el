@@ -684,7 +684,7 @@
 (defun helm-vterm-jenkins-run (alias)
   (let* ((vterm-kill-buffer-on-exit nil)
          (alias-name (replace-regexp-in-string ":.*" "" alias))
-         (jenkins-project-name (replace-regexp-in-string ".*build\s-*\\|:.*" "" alias))
+         (jenkins-project-name (replace-regexp-in-string ".*build\\s-*\\|:.*" "" alias))
          (cmd  (format "jk %s" alias-name))
          (buffer-name (format "*vterm-jk-%s-%s*" alias-name jenkins-project-name)))
     (lx/run-in-vterm cmd buffer-name nil t)))
