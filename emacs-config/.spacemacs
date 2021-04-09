@@ -141,6 +141,7 @@
      evil-commentary
      major-modes
      html
+     common-lisp
      groovy
      java
      c-c++
