@@ -55,6 +55,7 @@ nnoremap ]f :action Tool_Files_OpenNextFile<cr>
 nnoremap [f :action Tool_Files_OpenPreviousFile<cr>
 nnoremap cio l[bc]w
 nnoremap dio l[bd]w
+nnoremap vio l[bv]w
 
 noremap <leader>ep :action GotoPreviousError<cr>
 noremap <leader>en :action GotoNextError<cr>
