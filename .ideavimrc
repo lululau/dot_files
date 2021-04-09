@@ -49,8 +49,6 @@ nnoremap [[ :action MethodUp<cr>
 nnoremap ]] :action MethodDown<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
-nnoremap [b :action GotoPreviousBookmark<cr>
-nnoremap ]b :action GotoNextBookmark<cr>
 noremap [e :action GotoPreviousError<cr>
 noremap ]e :action GotoNextError<cr>
 nnoremap ]f :action Tool_Files_OpenNextFile<cr>
