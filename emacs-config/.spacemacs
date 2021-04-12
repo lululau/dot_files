@@ -196,7 +196,7 @@
      translator
      k8s
      spotify
-     windows-scripts
+     ;; windows-scripts
      (latex :variables latex-build-command "XeLaTeX")
      )
    ;; List of additional packages that will be installed wihout being
