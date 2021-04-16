@@ -80,6 +80,7 @@
 (global-set-key (kbd "s-r l 2") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/vrl md-dev-open -a" "*vterm-vrl-md-open*" nil t)))
 (global-set-key (kbd "s-r l 3") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/vrl md-dev-task -a" "*vterm-vrl-md-task*" nil t)))
 (global-set-key (kbd "s-r l 4") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/vrl md-dev-server -a" "*vterm-vrl-md-server*" nil t)))
+(global-set-key (kbd "s-r l 5") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/vrl lcl-devb-admin -a" "*vterm-vrl-lcl-admin*" nil t)))
 (global-set-key (kbd "s-r p 0") #'(lambda () (interactive) (lx/run-in-vterm "~/.rvm/gems/ruby-3.0.0/bin/prize -h 127.0.0.1 -d 0" "*vterm-prize-localhost*" nil t)))
 (global-set-key (kbd "s-r p 1") #'(lambda () (interactive) (lx/run-in-vterm "~/.rvm/gems/ruby-3.0.0/bin/prize -h 39.97.213.239 -d 0" "*vterm-prize-lcl-devb*" nil t)))
 (global-set-key (kbd "s-r p 2") #'(lambda () (interactive) (lx/run-in-vterm "~/.rvm/gems/ruby-3.0.0/bin/prize -h 39.97.213.239 -d 1" "*vterm-prize-md-dev*" nil t)))
