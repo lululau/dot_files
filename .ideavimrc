@@ -35,6 +35,7 @@ inoremap <c-p> <Up>
 inoremap <c-d> <Del>
 nnoremap <c-c> i
 nnoremap <c-a> ^
+inoremap <c-k> <c-o>C
 nnoremap <cr> :action EditorStartNewLine<cr>
 " noremap <m-m> :action ToggleBookmark<cr>
 noremap <m-a-b> :action ToggleLineBreakpoint<cr>
