@@ -346,7 +346,7 @@
 (defvar helm-vterm-vrl-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map helm-map)
-    (define-key map (kbd "M-RET") 'helm-vterm-vrl-run-function)
+    (define-key map (kbd "M-RET") 'helm-vterm-vrl-run)
     map))
 
 (defclass helm-vterm-vrl-options-source (helm-source-sync)
