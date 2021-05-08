@@ -1,3 +1,6 @@
+(add-hook 'evil-collection-setup-hook #'(lambda (&rest args)
+                                          (evil-define-key 'normal dired-mode-map [?\S-\ ] nil)))
+
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "n") nil)
   (define-key dired-mode-map (kbd "g") nil)
@@ -13,8 +16,7 @@
   (define-key dired-mode-map (kbd "S-SPC") nil)
   (define-key dired-mode-map (kbd "TAB") 'dired-subtree-toggle)
   (define-key dired-mode-map (kbd "gr") #'spacemacs/safe-revert-buffer)
-  (with-eval-after-load 'evil-core
-    (evil-define-key 'normal dired-mode-map [?\S-\ ] nil)
+  (with-eval-after-load 'evil-collection-dired
     (evil-define-key 'normal dired-mode-map (kbd "f") 'spacemacs/helm-find-files)
     (evil-define-key 'normal dired-mode-map (kbd "F") 'spacemacs/helm-find-files-recursively)
     (evil-define-key 'normal dired-mode-map (kbd "s") 'dired-sort-toggle-or-edit)
