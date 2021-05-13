@@ -5,6 +5,12 @@ set smartcase
 set hlsearch
 set incsearch
 set ignorecase
+set commentary
+set exchange
+" set easymotion
+set vim-paragraph-motion
+set textobj-entire
+set highlightedyank
 " 共享系统粘贴板
 set clipboard=unnamed
 set expandtab
