@@ -70,3 +70,6 @@ Session.vim
 /yarn/
 /qBittorrent/
 /nnn/
+/configstore/*.json
+/iterm2/
+/.isolated-storage/

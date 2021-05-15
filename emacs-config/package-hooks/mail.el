@@ -144,6 +144,8 @@
     mu4e-view-mode-map
     :mode mu4e-view-mode
     :bindings
+    (kbd "C-j") 'mu4e-view-headers-next
+    (kbd "C-k") 'mu4e-view-headers-prev
     (kbd "y") 'evil-yank
     (kbd "Y") 'yank-to-end-of-line)
   (add-to-list 'mu4e-view-actions

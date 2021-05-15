@@ -4,6 +4,8 @@
 ;; (define-key evil-motion-state-map (kbd "SPC SPC") #'evil-avy-goto-char-2)
 (define-key evil-motion-state-map (kbd "] c") #'diff-hl-next-hunk)
 (define-key evil-motion-state-map (kbd "[ c") #'diff-hl-previous-hunk)
+(define-key evil-motion-state-map (kbd "] a") #'annotate-goto-next-annotation)
+(define-key evil-motion-state-map (kbd "[ a") #'annotate-goto-previous-annotation)
 ;; (define-key evil-motion-state-map (kbd "C-]") #'jump-to-definition-of-symbol-at-point)
 ;; (define-key evil-motion-state-map (kbd (if (display-graphic-p) "<C-return>" "C-RET")) #'(lambda () (interactive) (call-interactively (if (eq major-mode 'org-mode) 'org-insert-heading-respect-content 'jump-to-definition-of-symbol-at-point))))
 
@@ -45,6 +47,7 @@
                                                                       (call-interactively 'projectile-rails-goto-file-at-point)
                                                                     (call-interactively 'ffap-other-window))))
 (define-key evil-ex-completion-map "\C-a" nil)
+(define-key evil-ex-completion-map "\C-f" nil)
 (define-key evil-ex-completion-map "\C-b" nil)
 (define-key evil-ex-completion-map "\C-d" nil)
 (define-key evil-ex-completion-map "\C-k" nil)

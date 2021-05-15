@@ -20,7 +20,7 @@
 (if (display-graphic-p)
     (progn
       (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
-      (setq lx/spacemacs-banner "~/Documents/emacs-banners/ross.png")
+      (setq lx/spacemacs-banner "~/Documents/emacs-banners/nasa.png")
       (setq neo-theme 'icons))
   (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
   (setq lx/spacemacs-banner '000)
@@ -54,6 +54,8 @@
 (setq helm-mm-default-match-functions '(helm-mm-exact-match helm-mm-match helm-mm-pinyin-match))
 
 (setq use-package-inject-hooks t)
+
+(setq company-shell--cache '(""))
 
 ;; (setq dired-quick-sort-group-directories-last ?y)
 
@@ -141,6 +143,7 @@
      evil-commentary
      major-modes
      html
+     common-lisp
      groovy
      java
      c-c++
@@ -154,6 +157,7 @@
      php
      restclient
      (rust :variables rust-backend 'racer)
+     (crystal :variables crystal-backend 'lsp)
      (scala :variables scala-backend 'scala-metals)
      swift
      kotlin
@@ -162,6 +166,7 @@
      lua
      vagrant
      docker
+     protobuf
      chrome
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)
@@ -200,14 +205,14 @@
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '((helm-swoop :location (recipe :fetcher github :repo "ashiklom/helm-swoop"))
-                                      calfw calfw-org browse-at-remote ranger helm-mu
+   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu
                                             jq-mode helm-dired-history go-dlv realgud-byebug
                                             dired-subtree carbon-now-sh sx daemons evil-mc
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
-                                            code-archive dtrace-script-mode xwwp-follow-link-helm edit-indirect)
+                                            code-archive dtrace-script-mode xwwp-follow-link-helm
+                                            edit-indirect annotate mermaid-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -257,7 +262,7 @@ before layers configuration."
    dotspacemacs-startup-banner lx/spacemacs-banner
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
-   dotspacemacs-startup-lists '(recents projects)
+   dotspacemacs-startup-lists '((recents . 10) (bookmarks . 20))
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -345,20 +350,20 @@ before layers configuration."
    )
   ;; User initialization goes here
 
-  (setq configuration-layer-elpa-archives
-        '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-          ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-          ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+  ;; (setq configuration-layer-elpa-archives
+  ;;       '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+  ;;         ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+  ;;         ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
 
   ;; (setq configuration-layer-elpa-archives
   ;;       '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
   ;;         ("org-cn"   . "http://elpa.emacs-china.org/org/")
   ;;         ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 
-  ;; (setq configuration-layer--elpa-archives
-  ;;       '(("melpa"    . "melpa.org/packages/")
-  ;;         ("org"      . "orgmode.org/elpa/")
-  ;;         ("gnu"      . "elpa.gnu.org/packages/")))
+  (setq configuration-layer--elpa-archives
+        '(("melpa"    . "melpa.org/packages/")
+          ("org"      . "orgmode.org/elpa/")
+          ("gnu"      . "elpa.gnu.org/packages/")))
 
   (load-file lx/emacs-config-init-el)
 
@@ -431,7 +436,7 @@ layers configuration."
   (setq mac-option-modifier 'meta)
   (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
   (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
-  (setq helm-locate-command "~/.rvm/gems/ruby-2.7.0/bin/mfd %s %s")
+  (setq helm-locate-command "~/.rvm/gems/ruby-3.0.0/bin/mfd %s %s")
 
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
@@ -515,6 +520,7 @@ layers configuration."
   (add-to-list 'search-engine-alist '(ip138 :name "ip138" :url "http://ip138.com/ips138.asp?ip=%s&action=2") t)
 
   (setq auto-mode-alist (append '(("\\.pryrc\\'" . ruby-mode)
+                                  ("\\.rexerc\\'" . ruby-mode)
                                   ("\\.rails\\'" . ruby-mode)
                                   ("\\.arql\\'" . ruby-mode)
                                   ("\\.apib\\'" . markdown-mode)
@@ -526,7 +532,7 @@ layers configuration."
                                   ("\\.d$" . dtrace-script-mode)
                                   ("\\.sc" . scala-mode)) auto-mode-alist))
 
-  (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . react-mode))
+  ;; (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . rjsx-mode))
 
   (setq org-plantuml-jar-path "/usr/local/libexec/plantuml.jar")
 
@@ -876,8 +882,8 @@ This function is called at the very end of Spacemacs initialization."
 (quote
  ((pdf-engine . "xelatex")
   (template . "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/pandoc-latex-templates/Heiti/default.latex"))))
- '(org-reveal-root "~/cascode/github.com/reveal.js/")
- '(org-reveal-theme "solarized")
+ '(org-re-reveal-root "/Users/liuxiang/cascode/github.com/reveal.js/")
+ '(org-re-reveal-theme "solarized")
 '(org-src-lang-modes
 (quote
  (("http" . "ob-http")
@@ -935,6 +941,7 @@ This function is called at the very end of Spacemacs initialization."
  '(rubocop-autocorrect-command  "~/bin/rubocop -a --format emacs")
  '(neo-window-fixed-size nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
+ '(annotate-file "~/Documents/materials/annotates/annotations")
 '(safe-local-variable-values
 (quote
  ((arql-env . "lcldevb")
@@ -943,12 +950,15 @@ This function is called at the very end of Spacemacs initialization."
   (arql-env . "ermasprorw")
   (arql-env . "ddhcpro")
   (arql-env . "lldevb")
+  (arql-env . "insdevb")
+  (arql-env . "ins247")
   (maven-trigger . "b")
   (maven-trigger . "uat")
   (vc-follow-symlinks)
   (eval text-scale-increase 3)
   (eval flycheck-mode -1 1)
   (eval org-babel-result-hide-all)
+  (eval require 'org-journal)
   (encoding . utf-8)
   (elixir-enable-compilation-checking . t)
   (elixir-enable-compilation-checking)

@@ -87,6 +87,7 @@
         ("ocn" nginx "/usr/local/etc/nginx")
         ("ock" kubectl "~/.kube/config")
         ("ocq" arql "~/.arql.d")
+        ("ocm" maven "~/.m2/settings.xml")
         ("ocv" vimrc "~/.vimrc")))
 
 ;; Org files

@@ -64,7 +64,7 @@ plugins=(ack2 alibas autojump autopair
          docker docker-compose docker-machine zsh-docker-aliases
          encode64 emoji
          funcfind
-         gem gemcd git github go golang gradle
+         gem gemcd git github golang gradle
          history httpie
          jruby
          lein
@@ -95,7 +95,7 @@ autoload -U zmv
 
 [ -e $CONFIGDIR/.zsh-aliases.zsh ] && source $CONFIGDIR/.zsh-aliases.zsh || source $HOME/.zsh-aliases.zsh
 unalias ping
-unalias fd
+# unalias fd
 unalias rb
 
 # Linux Specific Config

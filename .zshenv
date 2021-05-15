@@ -66,6 +66,7 @@ export PERL5LIB=$HOME/perl5/lib/perl5
 export NULLCMD=:
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+export HOMEBREW_BAT=1
 export VISUAL=${ZDOTDIR:-$HOME}/bin/emacsclient-for-visual
 [[ -e $HOME/.secretenv ]] && source $HOME/.secretenv
 export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
@@ -73,3 +74,5 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 export BAT_CONFIG_PATH=$HOME/.config/.batrc
 export RUST_SRC_PATH=/usr/local/Cellar/rust/1.38.0/share/rust/rust_src
+export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+export curl_ca_bundle=$HOME/.mitmproxy/mitmproxy-ca.pem

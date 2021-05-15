@@ -44,7 +44,6 @@
 # ]
 
 format = """\
-    $nnn_level\  
     $username\
     $hostname\
     $kubernetes\
@@ -93,6 +92,6 @@ format = """\
 truncation_length = 8
 truncate_to_repo = false
 
-[nnn_level]
-command = "echo 【N$NNNLVL】"  # shows output of command
-when = """ test -n "$NNNLVL" """
+# [nnn_level]
+# command = "echo 【N$NNNLVL】"  # shows output of command
+# when = """ test -n "$NNNLVL" """

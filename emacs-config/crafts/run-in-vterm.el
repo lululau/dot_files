@@ -255,10 +255,10 @@
 
 (defun helm-vterm-arql-option-list ()
   (mapcar (lambda (host) (cons host host))
-          (s-split "\n" (shell-command-to-string "perl -ne 'unless (/^default/) { if (/^\\w/) {s/:$//; print;}}' ~/.arql.d/init.yml") t)))
+          (s-split "\n" (shell-command-to-string "perl -ne 'if (/^\\w.*:\\s*$/) {s/:$//; print;}' ~/.arql.d/init.yml") t)))
 
 (defun helm-vterm-arql-run (env)
-  (let ((cmd  (format "~/.rvm/gems/ruby-2.7.0/bin/arql -e %s" env))
+  (let ((cmd  (format "~/.rvm/gems/ruby-3.0.0/bin/arql -e %s" env))
         (buffer-name (format "*arql-%s*" env)))
     (lx/run-in-vterm cmd buffer-name nil t)))
 
@@ -346,7 +346,7 @@
 (defvar helm-vterm-vrl-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map helm-map)
-    (define-key map (kbd "M-RET") 'helm-vterm-vrl-run-function)
+    (define-key map (kbd "M-RET") 'helm-vterm-vrl-run)
     map))
 
 (defclass helm-vterm-vrl-options-source (helm-source-sync)
@@ -661,7 +661,7 @@
     (mapcar 'buffer-name
             (seq-filter (lambda (b)
                           (and (eq 'vterm-mode (with-current-buffer b major-mode))
-                          (s-starts-with? "*vterm-jenkins-" (with-current-buffer b (buffer-name)))))
+                          (s-starts-with? "*vterm-jk-" (with-current-buffer b (buffer-name)))))
                         (buffer-list)))))
 
 (defclass helm-vterm-jenkins-buffers-source (helm-source-sync helm-type-buffer)
@@ -683,14 +683,16 @@
 
 (defun helm-vterm-jenkins-run (alias)
   (let* ((vterm-kill-buffer-on-exit nil)
-         (cmd  (format "jk %s" alias))
-         (buffer-name (format "*vterm-jenkins-%s*" alias)))
+         (alias-name (replace-regexp-in-string ":.*" "" alias))
+         (jenkins-project-name (replace-regexp-in-string ".*build\\s-*\\|:.*" "" alias))
+         (cmd  (format "jk %s" alias-name))
+         (buffer-name (format "*vterm-jk-%s-%s*" alias-name jenkins-project-name)))
     (lx/run-in-vterm cmd buffer-name nil t)))
 
 (defun helm-vterm-jenkins-option-list ()
   (let ((project-root-dir (projectile-project-root)))
-    (mapcar (lambda (alias) (cons alias (replace-regexp-in-string ":.*" "" alias)))
-            (s-split "\n" (shell-command-to-string "yq r ~/.jenkins-builder.yaml 'aliases.*' -ppv | sed 's/aliases.//'") t))))
+    (mapcar (lambda (alias) (cons alias alias))
+            (s-split "\n" (shell-command-to-string "yq e .aliases ~/.jenkins-builder.yaml | grep 'build'") t))))
 
 (defclass helm-vterm-jenkins-options-source (helm-source-sync)
   ((candidates :initform 'helm-vterm-jenkins-option-list)

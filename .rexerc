@@ -1,12 +1,84 @@
-require 'csv'
-require 'caxlsx'
-require 'roo'
-require 'active_support/all'
+require 'active_support'
+require 'active_support/core_ext'
 
-CSV_BOM = "\xef\xbb\xbf"
+def pbp
+  p = IO.popen("pbpaste")
+  lines = p.readlines.map(&:chomp)
+  p.close
+  lines
+end
+
+def pbp_str
+  `pbpaste`
+end
+
+def pc(contents)
+  p = IO.popen("pbcopy", "w")
+  p.puts(contents)
+  p.close
+end
+
+
+class ID
+  @worker_id_bits = 5
+  @data_center_id_bits = 5
+  @max_worker_id = -1 ^ (-1 << @worker_id_bits)
+  @max_data_center_id = -1 ^ (-1 << @data_center_id_bits)
+
+  @sequence_bits = 12
+  @worker_id_shift = @sequence_bits
+  @data_center_id_shift = @sequence_bits + @worker_id_shift
+  @timestamp_left_shift = @sequence_bits + @worker_id_bits + @data_center_id_bits
+  @sequence_mask = -1 ^ (-1 << @sequence_bits)
+
+  @id_epoch = (Time.new(2018, 1, 1, 0, 0, 0).to_f * 1000).to_i
+  @worker_id = 0
+  @data_center_id = 0
+  @sequence = 0
+
+  @last_timestamp = -1
+
+  class << self
+    def long
+      ts = (Time.now.to_f * 1000).to_i
+      if ts < @last_timestamp
+        raise 'Clock moved backwards.'
+      end
+
+      if ts == @last_timestamp
+        @sequence = (@sequence + 1) & @sequence_mask
+        if (@sequence == 0)
+          ts = til_next_millis(@last_timestamp)
+        end
+      else
+        @sequence = 0
+      end
+      @last_timestamp = ts
+
+      ((ts - @id_epoch) << @timestamp_left_shift) | (@data_center_id << @data_center_id_shift) | (@worker_id << @worker_id_shift) | @sequence
+    end
+
+    def uuid
+      require 'securerandom'
+      SecureRandom.uuid.gsub('-', '')
+    end
+
+    private
+
+    def til_next_millis(last_timestamp)
+      ts = (Time.now.to_f * 1000).to_i
+      while ts <= last_timestamp
+        ts = (Time.now.to_f * 1000).to_i
+      end
+      ts
+    end
+  end
+end
+
 
 module Kernel
   def generate_csv(filename, **options, &block)
+    require 'csv'
     opts = {
       col_sep: "\t",
       row_sep: "\r\n"
@@ -20,6 +92,7 @@ module Kernel
   end
 
   def parse_csv(filename, **options)
+    require 'csv'
     encoding = options[:encoding] || 'UTF-16'
     opts = {
       headers: false,
@@ -31,6 +104,7 @@ module Kernel
   end
 
   def generate_excel(filename)
+    require 'caxlsx'
     Axlsx::Package.new do |package|
       yield(package.workbook)
       package.serialize(filename)
@@ -38,6 +112,7 @@ module Kernel
   end
 
   def parse_excel(filename)
+    require 'roo'
     xlsx = Roo::Excelx.new(File.expand_path(filename))
     xlsx.sheets.each_with_object({}) do |sheet_name, result|
       begin
@@ -51,14 +126,6 @@ end
 class Array
   def write_csv(filename, *fields, **options)
     generate_csv(filename, **options) do |csv|
-      if size > 0 && first.is_a?(ActiveRecord::Base)
-        if fields.empty?
-          fields = first.attributes.keys
-        else
-          fields = fields.map(&:to_s)
-        end
-        csv << fields
-      end
       if size > 0 && first.is_a?(Hash)
         if fields.empty?
           fields = first.keys
@@ -79,14 +146,6 @@ class Array
     sheet_name = options[:sheet_name] || 'Sheet1'
     generate_excel(filename) do |workbook|
       workbook.add_worksheet(name: sheet_name) do |sheet|
-        if size > 0 && first.is_a?(ActiveRecord::Base)
-          if fields.empty?
-            fields = first.attributes.keys
-          else
-            fields = fields.map(&:to_s)
-          end
-          sheet.add_row(fields, types: [:string] * fields.size)
-        end
         if size > 0 && first.is_a?(Hash)
           if fields.empty?
             fields = first.keys
@@ -119,14 +178,6 @@ class Hash
           end
 
           if sheet_data.is_a?(Array)
-            if sheet_data.size > 0 && sheet_data.first.is_a?(ActiveModel::Base)
-              fields = sheet_data.first.attributes.keys
-              sheet.add_row(fields, types: [:string] * fields.size)
-              sheet_data.each do |row|
-                sheet.add_row(row.slice(*fields).values.map(&:to_s), types: [:string] * fields.size)
-              end
-            end
-
             if sheet_data.size > 0 && sheet_data.first.is_a?(Hash)
               fields = sheet_data.first.keys
               sheet.add_row(fields, types: [:string] * fields.size)

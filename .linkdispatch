@@ -8,12 +8,17 @@ function open_url() {
   open "$url" -a "$BROWSER"
 }
 
-SAFARI_PATTERNS=(
+# SAFARI_PATTERNS=(
+#   '^https\?://mail\.alibaba-inc\.com'
+#   '^https\?://[^/]*127\.0\.0\.1:[0-9]*/Dash/'
+# )
+
+EDGE_PATTERNS=(
   '^https\?://mail\.alibaba-inc\.com'
   '^https\?://[^/]*127\.0\.0\.1:[0-9]*/Dash/'
-)
-
-CHROME_PATTERNS=(
+'^https\?://[^/]*docs\.rs'
+'^https\?://[^/]*\.bilibili\.com'
+'^https\?://youtube\.com'
 '^https\?://www\.umeng\.com'
 '^https\?://github\.umeng\.co'
 '^https\?://localhost'
@@ -42,6 +47,8 @@ CHROME_PATTERNS=(
 'bestsign.info'
 '^file:///'
 ':15672'
+'^https\?://[^/]\+:[0-9]\+/'
+'qc.rsvp.ai'
 )
 
 FIREFOX_PATTERNS=()
@@ -52,6 +59,16 @@ if echo "$URL" | grep -q '^https\?://mailsso.mxhichina.com'; then
     open "https://webmail.alibaba-inc.com/alimail/" -a "Google Chrome"
     exit
 fi
+
+for pa in "${EDGE_PATTERNS[@]}"
+do
+  if echo "$URL" | grep -q "$pa"
+  then
+    url=$(echo "$URL" | perl -pe 's#^https://gitlab.ktjr.com:10022/#https://gitlab.ktjr.com/#')
+    open_url "Microsoft Edge Dev" "$url"
+    exit
+  fi
+done
 
 for pa in "${SAFARI_PATTERNS[@]}"
 do
@@ -81,4 +98,4 @@ do
   fi
 done
 
-open_url "Safari" "$URL"
+open_url "Microsoft Edge Dev" "$URL"

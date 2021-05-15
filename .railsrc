@@ -1,1 +1,1 @@
--B --skip-spring -m ~/.rails.template
+--skip-spring -m ~/.rails.template
