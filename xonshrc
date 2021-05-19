@@ -1,0 +1,5 @@
+# XONSH WEBCONFIG START
+del $STARSHIP_SHELL
+$STARSHIP_CONFIG = $HOME + '/.config/starship.xonsh.toml'
+$PROMPT = $(starship prompt)
+# XONSH WEBCONFIG END
