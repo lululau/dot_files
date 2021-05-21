@@ -623,6 +623,8 @@ layers configuration."
 
   (setq ob-mermaid-cli-path "/usr/local/bin/mmdc")
 
+  (define-key y-or-n-p-map (kbd "SPC") 'y-or-n-p-insert-y)
+
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
   ) ;;; End of config.
