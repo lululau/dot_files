@@ -71,7 +71,7 @@ plugins=(ack2 alibas autojump autopair
          mvn
          node npm nvm
          osx
-         perl pip python pyenv
+         perl pip python
          rails rake rsync ruby rvm
          safe-paste sbt scala screen svn systemadmin systemd
          terminitor themes tig tmux tmux-pane-words tmuxinator
@@ -349,3 +349,7 @@ if [ -n "$INSIDE_EMACS" ]; then
 fi
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bitcomplete bit
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PATH"
+eval "$(pyenv init -)"
