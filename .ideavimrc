@@ -34,6 +34,7 @@ nnoremap s s<tab>
 nnoremap <leader>qq :action Exit<cr>
 nnoremap ,qq :action Exit<cr>
 inoremap <c-a> <c-o>^
+inoremap <c-e> <c-o>A
 inoremap <c-f> <Right>
 inoremap <c-b> <Left>
 inoremap <c-n> <Down>
