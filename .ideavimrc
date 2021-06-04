@@ -26,6 +26,7 @@ set formatoptions+=mM
 set ambiwidth=double
 set noshowmode
 set multiple-cursors
+set textobj-indent
 
 let mapleader = " "
 
