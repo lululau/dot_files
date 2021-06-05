@@ -840,6 +840,7 @@ This function is called at the very end of Spacemacs initialization."
  '(markdown-command "~/bin/markdown")
  '(mu4e-attachment-dir "~/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
+ '(evil-want-keybinding nil)
 '(mu4e-headers-fields
 (quote
  ((:human-date . 12)
