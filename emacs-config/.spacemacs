@@ -125,7 +125,7 @@
            ruby-test-runner 'rspec
            ruby-enable-enh-ruby-mode nil)
      perl5
-     perl6
+     raku
      json
      yaml
      ruby-on-rails
