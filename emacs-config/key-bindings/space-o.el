@@ -76,6 +76,7 @@
       '(("och" hosts-config "/sudo:root@localhost:/etc/hosts")
         ("ocz" zshrc "~/.zshrc")
         ("ocp" pryrc "~/.pryrc")
+        ("ocl" vrl "~/.vrl.yml")
         ("ocg" git "~/.gitconfig")
         ("ocd" ssh-dialog-config "~/.config/ssh-dialog.yml")
         ("ocs" ssh-config "~/.ssh/config")
