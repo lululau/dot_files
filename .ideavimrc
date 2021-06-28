@@ -26,6 +26,8 @@ set formatoptions+=mM
 set ambiwidth=double
 set noshowmode
 set multiple-cursors
+set textobj-indent
+set ideajoin
 
 let mapleader = " "
 

@@ -65,7 +65,7 @@ export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 export PERL5LIB=$HOME/perl5/lib/perl5
 export NULLCMD=:
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
-export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+# export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 export HOMEBREW_BAT=1
 export VISUAL=${ZDOTDIR:-$HOME}/bin/emacsclient-for-visual
 [[ -e $HOME/.secretenv ]] && source $HOME/.secretenv

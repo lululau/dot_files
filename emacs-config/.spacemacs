@@ -89,6 +89,7 @@
      neotree
      (osx :variables osx-command-as 'super)
      (auto-completion :variables
+                      auto-completion-return-key-behavior nil
                       auto-completion-tab-key-behavior 'complete
                       auto-completion-show-snippets-in-popup t
                       auto-completion-enable-snippets-in-popup t
@@ -127,7 +128,7 @@
            ruby-test-runner 'rspec
            ruby-enable-enh-ruby-mode nil)
      perl5
-     perl6
+     raku
      json
      yaml
      ruby-on-rails
@@ -842,6 +843,7 @@ This function is called at the very end of Spacemacs initialization."
  '(markdown-command "~/bin/markdown")
  '(mu4e-attachment-dir "~/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
+ '(evil-want-keybinding nil)
 '(mu4e-headers-fields
 (quote
  ((:human-date . 12)
