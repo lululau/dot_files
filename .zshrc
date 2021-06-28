@@ -352,4 +352,6 @@ complete -o nospace -C /usr/local/bin/bitcomplete bit
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/shims:$PATH"
-eval "$(pyenv init -)"
+if type pyenv &> /dev/null; then
+  eval "$(pyenv init -)"
+fi
