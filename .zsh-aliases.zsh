@@ -59,3 +59,6 @@ alias sleep-wake-log="pmset -g log | grep -e ' Sleep  ' -e ' Wake  ' | ag --pass
 alias re=rexe
 alias nuc='nu -c'
 alias gu=gitui
+alias lwl='ls | wc -l'
+alias wlwl='watch -n1 "ls | wc -l"'
+alias cdm='cd "$(tmux display-message -p "#{pane_current_path}")"'
