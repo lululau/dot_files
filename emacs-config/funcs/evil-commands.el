@@ -27,4 +27,5 @@
   (interactive)
   (let ((evil-ex-current-buffer (current-buffer)))
     (evil-ex-execute  "%s/\\[\\[data:image[^]]+\\]\\]//g")
-    (evil-ex-execute  "%s/^\\(\\*+\\s-+\\)\\[\\[.*\\]/\\1/")))
+    (evil-ex-execute  "%s/^\\(\\*+\\s-+\\)\\[\\[.*\\]/\\1/")
+    (evil-ex-execute  "%s/\\[\\[\\([^]]+\\)\\]\\[\\[\\[\\([^]]+\\)\\]\\]\\]\\]/[[\\2]]/g")))
