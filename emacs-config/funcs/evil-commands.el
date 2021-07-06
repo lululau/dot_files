@@ -15,3 +15,9 @@
   (interactive)
   (let ((evil-ex-current-buffer (current-buffer)))
     (evil-ex-execute  "%s/\[[0-9;]*m//g")))
+
+(defun vi/del-github-data-uri ()
+  (interactive)
+  (let ((evil-ex-current-buffer (current-buffer)))
+    (evil-ex-execute  "%s/\\[\\[data:image[^]]+\\]\\]//g")
+    (evil-ex-execute  "%s/^\\(\\*+\\s-+\\)\\[\\[.*\\]/\\1/")))
