@@ -11,7 +11,21 @@
     (evil-ex-execute (format "%%s/#\\+BEGIN_EXAMPLE\\C/#+BEGIN_SRC %s" lang))
     (evil-ex-execute "%s/#\\+end_example/#+end_src" )))
 
+(defun vi/convert-org-src-to-example ()
+  (interactive)
+  (let ((evil-ex-current-buffer (current-buffer)))
+    (evil-ex-execute "%s/#\\+begin_src.*\\C/#+begin_example")
+    (evil-ex-execute "%s/#\\+BEGIN_SRC.*\\C/#+BEGIN_EXAMPLE")
+    (evil-ex-execute "%s/#\\+end_src/#+end_example" )))
+
 (defun vi/strip-ansi-code ()
   (interactive)
   (let ((evil-ex-current-buffer (current-buffer)))
     (evil-ex-execute  "%s/\[[0-9;]*m//g")))
+
+(defun vi/del-github-data-uri ()
+  (interactive)
+  (let ((evil-ex-current-buffer (current-buffer)))
+    (evil-ex-execute  "%s/\\[\\[data:image[^]]+\\]\\]//g")
+    (evil-ex-execute  "%s/^\\(\\*+\\s-+\\)\\[\\[.*\\]/\\1/")
+    (evil-ex-execute  "%s/\\[\\[\\([^]]+\\)\\]\\[\\[\\[\\([^]]+\\)\\]\\]\\]\\]/[[\\2]]/g")))

@@ -88,7 +88,7 @@ plugins=(ack2 alibas autojump autopair
 
 source $ZSH/oh-my-zsh.sh
 
-autoload -U compinit; compinit
+autoload -U compinit; compinit -d
 autoload -U zmv
 
 # Customize to your needs...

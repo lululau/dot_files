@@ -33,7 +33,7 @@
     (if (current-line-has-pry-breakpoint-p)
         (kill-whole-line)
       (evil-open-above 0)
-      (insert "require 'pry'; binding.pry;"))
+      (insert "require 'pry-byebug'; binding.pry;"))
 
     (unless buf-changed (save-buffer))
     (call-interactively (intern (concat "evil-" (symbol-name saved-evil-state) "-state")))))
