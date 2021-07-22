@@ -32,7 +32,7 @@ else
     # export PYTHONPATH=$HOME/Library/Python/2.7/lib/python/site-packages
     export FPATH="$FPATH:/usr/local/share/zsh/site-functions"
     [ -n "$INSIDE_EMACS" ] && source $HOME/.zprofile
-    source $HOME/.config/private/homebrew_github_api_token.sh
+    [ -e $HOME/.config/private/homebrew_github_api_token.sh ] && source $HOME/.config/private/homebrew_github_api_token.sh
     # export JAVA_HOME=/Library/Java/JavaVirtualMachines/CurrentJDK/Contents/Home
 fi
 export XAPIAN_CJK_NGRAM=1
