@@ -1,6 +1,8 @@
 [[ `uname` == Darwin ]] && ulimit -n 200000
 ulimit -u 2128
 
+export LIGHT_ZSH=true
+
 setopt +o nomatch
 
 
