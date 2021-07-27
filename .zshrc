@@ -283,21 +283,6 @@ function px() {
   fi
 }
 
-function v() {
-  local ruby_version=$(ruby --version | cut -d ' ' -f 2)
-  local python_version=$(python --version |& cut -d ' ' -f 2)
-  local java_version=$(java -version |& head -1 | cut -d '"' -f 2)
-  local node_version=$(node --version)
-  echo -n $'\xe7\x91' | iconv -f UTF-16BE
-  echo " $ruby_version"
-  echo -n $'\xe6\x06' | iconv -f UTF-16BE
-  echo " $python_version"
-  echo -n $'\xe7\x38' | iconv -f UTF-16BE
-  echo " $java_version"
-  echo -n $'\xe7\x18' | iconv -f UTF-16BE
-  echo " $node_version"
-}
-
 source $HOME/.oh-my-zsh/custom/plugins/zsh-histdb/sqlite-history.zsh
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd histdb-update-outcome
