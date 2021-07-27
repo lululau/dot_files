@@ -17,5 +17,10 @@
 (autoload 'lx/run-shell-in-vterm "run-in-vterm")
 (autoload 'lx/run-in-vterm/set-green-box-cursor "run-in-vterm")
 (autoload 'lx/run-in-vterm/set-blue-bar-cursor "run-in-vterm")
+(autoload 'lx/kubectl/execute "kubectl")
+(autoload 'lx/kubectl/apply-region-or-buffer "kubectl")
+(autoload 'lx/kubectl/delete-region-or-buffer "kubectl")
+(autoload 'lx/kubectl/istio-inject-apply-region-or-buffer "kubectl")
+(autoload 'lx/kubectl/istio-inject-delete-region-or-buffer "kubectl")
 
 (load-file (format "%s/%s" (file-name-directory load-file-name) "spacemacs-override.el"))
