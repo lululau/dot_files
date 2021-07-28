@@ -1,9 +1,11 @@
 (defun lx/kubectl/execute (command start end)
-  (let* ((new-buffer (get-buffer-create "*lx/kubectl/execute/logs*")))
+  (let* ((new-buffer (get-buffer-create "*lx/kubectl/execute/logs*"))
+         (window (selected-window)))
     (save-current-buffer
       (switch-to-buffer-other-window new-buffer)
       (end-of-buffer)
       (insert (format-time-string "\n\n%F %T\n--------------------------\n" (current-time))))
+    (select-window window)
     (call-shell-region start end command nil new-buffer)))
 
 (defun lx/kubectl/apply-region-or-buffer (prefix)
