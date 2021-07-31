@@ -649,7 +649,7 @@ This function is called at the very end of Spacemacs initialization."
  '(split-width-threshold 126)
  '(persp-kill-foreign-buffer-behaviour (quote kill))
  '(org-hide-leading-stars t)
- '(org-jira-done-states '("Done" "已解决" "关闭"))
+ '(org-jira-done-states '("Done" "已解决" "关闭" "Closed" "Resolved" "CLOSE" "已关闭" "解决"))
  '(org-jira-users '(("lijiajia" . "lijiajia") ("liujun" . "liujun") ("liumeina" . "liumeina") ("liuxiang" . "liuxiang") ("liuyan" . "liuyan") ("niumengluo" . "niumengluo") ("wuhaojie" . "wuhaojie") ("zhangyu" . "zhangyu")))
  '(org-super-agenda-groups
    (quote
@@ -829,7 +829,7 @@ This function is called at the very end of Spacemacs initialization."
   ("arql" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/arql" user-home-directory user-home-directory))
   ("pry" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/pry" user-home-directory user-home-directory))))
  '(jiralib-url "http://jira.ktjr.com")
- '(org-jira-default-jql "(assignee = currentUser() or watcher in (currentUser())) and resolution = unresolved ORDER BY priority DESC, created ASC")
+ '(org-jira-default-jql "assignee = currentUser() AND status not in (CLOSE, closed)")
  '(js2-strict-missing-semi-warning nil)
  '(launchctl-search-path (quote ("~/.config/services/")))
  '(launchctl-filter-regex "homebrew")
