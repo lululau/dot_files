@@ -103,6 +103,8 @@
      (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
      (org :variables
+          org-enable-roam-support t
+          org-enable-epub-support t
           org-enable-github-support t
           org-enable-bootstrap-support t
           org-enable-reveal-js-support t
@@ -111,6 +113,8 @@
           org-journal-dir "~/Documents/materials/journal/"
           org-journal-file-format "%Y-%m-%d"
           org-journal-date-format "%Y-%m-%d"
+          org-roam-directory "~/Documents/materials/roam/"
+          org-roam-v2-ack t
           org-projectile-file ,lx/org-project-file)
      (shell :variables
             shell-default-height 38
