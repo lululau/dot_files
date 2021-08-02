@@ -36,6 +36,7 @@
                 ("od/" root-dir "/")
                 ("odo" org-dir "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org")
                 ("odj" org-journal-dir "~/Documents/materials/journal")
+                ("odJ" org-jira-dir "~/Documents/materials/jira")
                 ("odn" notes-dir "~/Documents/materials/notes")
                 ("odN" evernotes-dir "~/Documents/evernotes")
                 ("odw" webclips-dir "~/Documents/materials/webclips")
@@ -103,7 +104,7 @@
         ("ooC" cheatsheet-org "~/Documents/materials/notes/cheat-sheets.org")
         ("oot" team-tasks-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/team-tasks.org")
         ("ook" kbd-macros-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/kbd-macros.org")
-        ("ooj" ddhc-jira-org "~/.org-jira/DDHC.org")
+        ("ooj" jira-org "~/Documents/materials/jira/issues-headonly.org")
         ("oor" rails-guides-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org")))
 
 (setq lx/server-files

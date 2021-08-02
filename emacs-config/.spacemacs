@@ -110,6 +110,7 @@
           org-enable-reveal-js-support t
           org-enable-org-journal-support t
           org-enable-jira-support t
+          org-jira-working-dir "~/Documents/materials/jira/"
           org-journal-dir "~/Documents/materials/journal/"
           org-journal-file-format "%Y-%m-%d"
           org-journal-date-format "%Y-%m-%d"

@@ -223,3 +223,18 @@
 
 (global-set-key (kbd "M-s-b") 'helm-cwd-buffers)
 (global-set-key (kbd "s-V") 'lx/indent-paste)
+
+(global-set-key (kbd "s-i s-j pg") #'org-jira-get-projects)
+(global-set-key (kbd "s-i s-j ib") #'org-jira-browse-issue)
+(global-set-key (kbd "s-i s-j ig") #'org-jira-get-issues)
+(global-set-key (kbd "s-i s-j ih") #'org-jira-get-issues-headonly)
+(global-set-key (kbd "s-i s-j if") #'org-jira-get-issues-from-filter-headonly)
+(global-set-key (kbd "s-i s-j iu") #'org-jira-update-issue)
+(global-set-key (kbd "s-i s-j iw") #'org-jira-progress-issue)
+(global-set-key (kbd "s-i s-j ir") #'org-jira-refresh-issue)
+(global-set-key (kbd "s-i s-j ic") #'org-jira-create-issue)
+(global-set-key (kbd "s-i s-j iy") #'org-jira-copy-current-issue-key)
+(global-set-key (kbd "s-i s-j sc") #'org-jira-create-subtask)
+(global-set-key (kbd "s-i s-j sg") #'org-jira-get-subtasks)
+(global-set-key (kbd "s-i s-j cu") #'org-jira-update-comment)
+(global-set-key (kbd "s-i s-j tj") #'org-jira-todo-to-jira)
