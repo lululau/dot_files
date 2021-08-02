@@ -1,0 +1,6 @@
+(defun lx/indent-paste ()
+  (interactive)
+  (evil-normal-state)
+  (call-interactively 'evil-paste-after)
+  (execute-kbd-macro "`[v`]")
+  (indent-region (region-beginning) (region-end)))

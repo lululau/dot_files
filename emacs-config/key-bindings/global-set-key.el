@@ -222,3 +222,4 @@
                   (call-interactively (key-binding "\C-x\C-s"))))
 
 (global-set-key (kbd "M-s-b") 'helm-cwd-buffers)
+(global-set-key (kbd "s-V") 'lx/indent-paste)
