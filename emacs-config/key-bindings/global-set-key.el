@@ -238,3 +238,5 @@
 (global-set-key (kbd "s-i s-j sg") #'org-jira-get-subtasks)
 (global-set-key (kbd "s-i s-j cu") #'org-jira-update-comment)
 (global-set-key (kbd "s-i s-j tj") #'org-jira-todo-to-jira)
+
+(global-set-key (kbd "s-i TAB") #'imenu-list-smart-toggle)
