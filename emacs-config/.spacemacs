@@ -978,6 +978,7 @@ This function is called at the very end of Spacemacs initialization."
  '(dired-filter-prefix ",f")
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
+ '(org-jira-project-filename-alist (quote (("TJPT" . "~/Documents/materials/jira/projects.org") ("LEGAL" . "~/Documents/materials/jira/projects.org") ("YUNFACUI" . "~/Documents/materials/jira/projects.org"))))
  '(racer-rust-src-path "~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src")
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
