@@ -88,6 +88,8 @@
         ("ocj" ideavimrc "~/.ideavimrc")
         ("ocn" nginx "/usr/local/etc/nginx")
         ("ock" kubectl "~/.kube/config")
+        ("ocK" k9s "~/.k9s")
+        ("oc9" k9s2 "~/.k9s")
         ("ocq" arql "~/.arql.d")
         ("ocm" maven "~/.m2/settings.xml")
         ("ocv" vimrc "~/.vimrc")))
