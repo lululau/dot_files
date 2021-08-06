@@ -79,7 +79,7 @@
         ("ocp" pryrc "~/.pryrc")
         ("ocl" vrl "~/.vrl.yml")
         ("ocg" git "~/.gitconfig")
-        ("ocd" ssh-dialog-config "~/.config/ssh-dialog.yml")
+        ("ocd" docker-config "~/.docker")
         ("ocs" ssh-config "~/.ssh/config")
         ("ocA" authorized_keys "~/.ssh/authorized_keys")
         ("oca" ansible-conf-dir "/etc/ansible")
