@@ -66,6 +66,7 @@ do
   then
     url=$(echo "$URL" | perl -pe 's#^https://gitlab.ktjr.com:10022/#https://gitlab.ktjr.com/#')
     open_url "Microsoft Edge Dev" "$url"
+    # open_url "Microsoft Edge" "$url"
     exit
   fi
 done
@@ -99,3 +100,4 @@ do
 done
 
 open_url "Microsoft Edge Dev" "$URL"
+# open_url "Microsoft Edge" "$URL"
