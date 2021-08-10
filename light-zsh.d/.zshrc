@@ -91,19 +91,19 @@ order by history.start_time desc limit 1"
 
 ZSH_AUTOSUGGEST_STRATEGY=histdb_recent
 
-# # source ~/.profile
-# if [ -e ~/.jenv/bin ]; then
-#   export PATH="$HOME/.jenv/bin:$PATH"
-#   eval "$(jenv init -)"
-# fi
+# source ~/.profile
+if [ -e ~/.jenv/bin ]; then
+  export PATH="$HOME/.jenv/bin:$PATH"
+  eval "$(jenv init -)"
+fi
 
 eval "$(starship init zsh)"
 
 # autoload -U +X bashcompinit && bashcompinit
 # complete -o nospace -C /usr/local/bin/bitcomplete bit
 
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/shims:$PATH"
-# if type pyenv &> /dev/null; then
-#   eval "$(pyenv init -)"
-# fi
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PATH"
+if type pyenv &> /dev/null; then
+  eval "$(pyenv init -)"
+fi
