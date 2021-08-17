@@ -971,6 +971,7 @@ This function is called at the very end of Spacemacs initialization."
   (elixir-enable-compilation-checking)
   (org-html-head))))
  '(sh-indentation 2)
+ '(org-file-apps (quote ((auto-mode . emacs) (directory . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . emacs))))
  '(sp-highlight-pair-overlay nil)
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
  '(split-height-threshold 100)
