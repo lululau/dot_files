@@ -149,7 +149,8 @@
      html
      common-lisp
      groovy
-     java
+     ;; java
+     (java :variables java-backend 'meghanada)
      c-c++
      (javascript  :variables javascript-disable-tern-port-files nil javascript-backend 'lsp)
      typescript
