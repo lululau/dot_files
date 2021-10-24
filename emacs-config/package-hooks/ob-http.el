@@ -49,8 +49,8 @@
                        (error 'error))))
           (if (not (eq 'error json))
               'json
-            (if (string-match-p "^\\([^=]+=[^=]+\\)+$" request-body)
-                (if (string-match-p "^[^=]=@[^=]+$" request-body)
+            (if (string-match-p "^\\([^=]+=.+\\)+$" request-body)
+                (if (string-match-p "^[^=]=@.+$" request-body)
                     'upload
                   'form)
               'other)))))
@@ -131,8 +131,8 @@
             (cond (get-header (ob-http-get-response-header response get-header))
                   (select (ob-http-select response select))
                   (table (ob-http-json-to-table (ob-http-select response table)))
-                  (prettify (ob-http-response-body response))
-                  (file (ob-http-file response (cdr file)))
+                  (file (ob-http-file response (cdr file))
+                  (prettify (ob-http-response-body response)))
                   (t (s-join "\n\n" (list (ob-http-response-headers response) (ob-http-response-body response))))))
         (with-output-to-temp-buffer "*curl error*"
           (princ (with-temp-buffer

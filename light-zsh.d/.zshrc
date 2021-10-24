@@ -57,7 +57,7 @@ export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=40%
 export FZF_DEFAULT_OPTS="-x -m --history=$HOME/.fzf_history --history-size=10000 --bind 'ctrl-n:down,ctrl-p:up,alt-n:next-history,alt-p:previous-history,ctrl-l:jump,alt-a:select-all,ctrl-alt-j:half-page-down,ctrl-alt-k:half-page-up,alt-j:page-down,alt-k:page-up',ctrl-t:top"
 
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 precmd() {
   pwd > /tmp/iterm2_pwd
@@ -91,19 +91,19 @@ order by history.start_time desc limit 1"
 
 ZSH_AUTOSUGGEST_STRATEGY=histdb_recent
 
-# # source ~/.profile
-# if [ -e ~/.jenv/bin ]; then
-#   export PATH="$HOME/.jenv/bin:$PATH"
-#   eval "$(jenv init -)"
-# fi
+# source ~/.profile
+if [ -e ~/.jenv/bin ]; then
+  export PATH="$HOME/.jenv/bin:$PATH"
+  eval "$(jenv init -)"
+fi
 
 eval "$(starship init zsh)"
 
 # autoload -U +X bashcompinit && bashcompinit
 # complete -o nospace -C /usr/local/bin/bitcomplete bit
 
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/shims:$PATH"
-# if type pyenv &> /dev/null; then
-#   eval "$(pyenv init -)"
-# fi
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PATH"
+if type pyenv &> /dev/null; then
+  eval "$(pyenv init -)"
+fi

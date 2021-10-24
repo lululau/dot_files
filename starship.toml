@@ -38,7 +38,6 @@
 #     "custom",
 #     "line_break",
 #     "jobs",
-#     "battery",
 #     "time",
 #     "character",
 # ]
@@ -82,7 +81,6 @@ format = """\
     $custom\
     $line_break\
     $jobs\
-    $battery\
     $time\
     $character\
 """

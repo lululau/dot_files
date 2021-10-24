@@ -68,6 +68,11 @@
   "\\" #'lx/switch-to-previous-perp
   "p." #'projectile-find-file-in-pwd
   "bc" 'helm-cwd-buffers
+  "ka" #'lx/kubectl/apply-region-or-buffer
+  "kd" #'lx/kubectl/delete-region-or-buffer
+  "kA" #'lx/kubectl/istio-inject-apply-region-or-buffer
+  "kD" #'lx/kubectl/istio-inject-delete-region-or-buffer
+  "dk" #'docker
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

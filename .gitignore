@@ -81,3 +81,4 @@ Session.vim
 !/light-zsh.d/.zsh-aliases.zsh
 !/light-zsh.d/.zshenv
 !/light-zsh.d/.zlogin
+/rq/

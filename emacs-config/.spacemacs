@@ -105,14 +105,19 @@
      (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
      (org :variables
+          org-enable-roam-support t
+          org-enable-epub-support t
           org-enable-github-support t
           org-enable-bootstrap-support t
           org-enable-reveal-js-support t
           org-enable-org-journal-support t
           org-enable-jira-support t
+          org-jira-working-dir "~/Documents/materials/jira/"
           org-journal-dir "~/Documents/materials/journal/"
           org-journal-file-format "%Y-%m-%d"
           org-journal-date-format "%Y-%m-%d"
+          org-roam-directory "~/Documents/materials/roam/"
+          org-roam-v2-ack t
           org-projectile-file ,lx/org-project-file)
      (shell :variables
             shell-default-height 38
@@ -146,7 +151,8 @@
      html
      common-lisp
      groovy
-     java
+     ;; java
+     (java :variables java-backend 'meghanada)
      c-c++
      (javascript  :variables javascript-disable-tern-port-files nil javascript-backend 'lsp)
      typescript
@@ -531,7 +537,7 @@ layers configuration."
                                   ("\\.es$" . es-mode)
                                   ("\\.class" . jdecomp-mode)
                                   ("\\.d$" . dtrace-script-mode)
-                                  ("\\.sc" . scala-mode)) auto-mode-alist))
+                                  ("\\.sc$" . scala-mode)) auto-mode-alist))
 
   ;; (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . rjsx-mode))
 
@@ -651,7 +657,7 @@ This function is called at the very end of Spacemacs initialization."
  '(split-width-threshold 126)
  '(persp-kill-foreign-buffer-behaviour (quote kill))
  '(org-hide-leading-stars t)
- '(org-jira-done-states '("Done" "已解决" "关闭"))
+ '(org-jira-done-states '("Done" "已解决" "关闭" "Closed" "Resolved" "CLOSE" "已关闭" "解决"))
  '(org-jira-users '(("lijiajia" . "lijiajia") ("liujun" . "liujun") ("liumeina" . "liumeina") ("liuxiang" . "liuxiang") ("liuyan" . "liuyan") ("niumengluo" . "niumengluo") ("wuhaojie" . "wuhaojie") ("zhangyu" . "zhangyu")))
  '(org-super-agenda-groups
    (quote
@@ -831,7 +837,7 @@ This function is called at the very end of Spacemacs initialization."
   ("arql" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/arql" user-home-directory user-home-directory))
   ("pry" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/pry" user-home-directory user-home-directory))))
  '(jiralib-url "http://jira.ktjr.com")
- '(org-jira-default-jql "(assignee = currentUser() or watcher in (currentUser())) and resolution = unresolved ORDER BY priority DESC, created ASC")
+ '(org-jira-default-jql "assignee = currentUser() AND status not in (CLOSE, closed)")
  '(js2-strict-missing-semi-warning nil)
  '(launchctl-search-path (quote ("~/.config/services/")))
  '(launchctl-filter-regex "homebrew")
@@ -968,6 +974,7 @@ This function is called at the very end of Spacemacs initialization."
   (elixir-enable-compilation-checking)
   (org-html-head))))
  '(sh-indentation 2)
+ '(org-file-apps (quote ((auto-mode . emacs) (directory . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . emacs))))
  '(sp-highlight-pair-overlay nil)
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
  '(split-height-threshold 100)

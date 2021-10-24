@@ -1,3 +1,4 @@
+set idearefactormode=keep
 set NERDTree
 set surround
 set argtextobj
