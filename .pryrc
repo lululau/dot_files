@@ -207,7 +207,7 @@ unless $USER_PRYRC_LOADED
   $USER_PRYRC_LOADED=true
 
   if ENV['INSIDE_EMACS']
-    IRB.conf[:USE_READLINE] = false
+    # IRB.conf[:USE_READLINE] = false
     Pry.config.pager = false
     Pry.config.correct_indent = false
     Pry.config.editor = "emacs-other-window"

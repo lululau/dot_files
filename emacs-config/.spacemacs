@@ -128,6 +128,7 @@
                       version-control-diff-side 'left
                       version-control-global-margin t)
      (ruby :variables
+           ruby-backend 'robe
            ruby-test-runner 'rspec
            ruby-enable-enh-ruby-mode nil)
      perl5
