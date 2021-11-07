@@ -67,7 +67,7 @@
                                     (lx/run-in-vterm "~/.rvm/gems/ruby-3.0.0/bin/arql -e lcldevb" "*arql-lcldevb*" (projectile-project-root) t))))
 (global-set-key (kbd "s-r j") #'(lambda () (interactive) (lx/run-in-vterm "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/bin/jshell --class-path $HOME/.m2/final/ktjr-common.jar --start $HOME/.config/default.jsh" "*jshell*")))
 (global-set-key (kbd "s-r a") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/as.sh" "*arthas*")))
-(global-set-key (kbd "s-r k") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/k9s" "*k9s*" nil t)))
+(global-set-key (kbd "s-r k") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/k9s" "*k9s*" nil t)))
 (global-set-key (kbd "s-r t") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/htop" "*htop*" nil t)))
 (global-set-key (kbd "s-r 0") #'(lambda () (interactive) (let ((process-environment '("SSH_INTERACTIVE=1"))) (lx/run-shell-in-vterm "ssh lx.kt" "*vterm-ssh-lx.kt*" nil t))))
 (global-set-key (kbd "s-r 1") #'(lambda () (interactive) (let ((process-environment '("SSH_INTERACTIVE=1"))) (lx/run-shell-in-vterm "ssh lcl.devb" "*vterm-ssh-lcl.devb*" nil t))))
