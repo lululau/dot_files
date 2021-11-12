@@ -65,3 +65,4 @@ Session.vim
 !/light-zsh.d/.zshenv
 !/light-zsh.d/.zlogin
 /rq/
+/gh/
