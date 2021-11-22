@@ -770,6 +770,7 @@ This function is called at the very end of Spacemacs initialization."
      ("git.sr.ht" nil "git.sr.ht" forge-srht-repository))))
  '(fringe-mode 4 nil (fringe))
  '(writeroom-width 140)
+ '(writeroom-global-effects (quote (writeroom-set-alpha writeroom-set-menu-bar-lines writeroom-set-tool-bar-lines writeroom-set-vertical-scroll-bars writeroom-set-bottom-divider-width)))
  '(gh-profile-alist
    (quote
     (("github" :url "https://api.github.com" :remote-regexp "^\\(?:git@github\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?")
