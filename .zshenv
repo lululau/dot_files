@@ -20,6 +20,7 @@ fi
 export GOROOT=/usr/local/opt/go/libexec/
 export GOPATH=$HOME/.go
 export GO111MODULE=auto
+export GOPROXY=https://goproxy.cn,direct
 if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
     export ZDOTDIR=$HOME/liuxiang
     # export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages
