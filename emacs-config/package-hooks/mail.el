@@ -26,10 +26,9 @@
         ("date:today..now" "Today's messages" ?t)
         ("date:7d..now" "Last 7 days" ?w)
         ("mime:image/*" "Messages with images" ?p)
-        ("subject:本周上线计划" "本周上线计划" ?s)
-        ("活期" "活期" ?h)
-        ("试算" "试算" ?S)
-        ("subject:万达" "万达" ?d)
+        ("from:monitor@monitor.aliyun.com" "Aliyun Alert" ?A)
+        ("from:opscreditcloud@163.com" "Ktjr Alert" ?k)
+        ("from:kibana@ktjr.com" "Kibana Alert" ?K)
         (,(mapconcat 'identity
                      (mapcar
                       (lambda (maildir)

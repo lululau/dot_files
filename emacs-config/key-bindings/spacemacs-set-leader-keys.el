@@ -18,6 +18,7 @@
   "to" #'org-toggle-link-display
   "tA" #'(lambda () (interactive) (if (bound-and-true-p annotate-mode) (annotate-mode -1) (annotate-mode)))
   "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 12 14 12 14))
+  "s-0" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 12 14 12 14))
   "ps" #'lx/find-or-create-projectile-snippet-file
   "aC" #'calendar
   "col" #'copy-org-links-at-point
@@ -68,10 +69,10 @@
   "\\" #'lx/switch-to-previous-perp
   "p." #'projectile-find-file-in-pwd
   "bc" 'helm-cwd-buffers
-  "ka" #'lx/kubectl/apply-region-or-buffer
-  "kd" #'lx/kubectl/delete-region-or-buffer
-  "kA" #'lx/kubectl/istio-inject-apply-region-or-buffer
-  "kD" #'lx/kubectl/istio-inject-delete-region-or-buffer
+  "Ka" #'lx/kubectl/apply-region-or-buffer
+  "Kd" #'lx/kubectl/delete-region-or-buffer
+  "KA" #'lx/kubectl/istio-inject-apply-region-or-buffer
+  "KD" #'lx/kubectl/istio-inject-delete-region-or-buffer
   "dk" #'docker
 )
 
