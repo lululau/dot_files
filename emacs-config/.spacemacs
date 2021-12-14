@@ -139,7 +139,7 @@
      projectile-bundler
      projectile-bundler-robe
      elixir
-     shell-scripts
+     (shell-scripts :variables shell-scripts-backend 'shell-script-mode)
      dash
      clojure
      (haskell :variables haskell-enable-hindent t haskell-completion-backend 'dante)
@@ -952,6 +952,7 @@ This function is called at the very end of Spacemacs initialization."
  '(neo-window-fixed-size nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
  '(annotate-file "~/Documents/materials/annotates/annotations")
+ '(TeX-view-program-selection ((output-dvi "open") (output-pdf "open") (output-html "open")))
 '(safe-local-variable-values
 (quote
  ((arql-env . "lcldevb")
