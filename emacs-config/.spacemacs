@@ -633,6 +633,8 @@ layers configuration."
 
   (define-key y-or-n-p-map (kbd "SPC") 'y-or-n-p-insert-y)
 
+  (setq TeX-view-program-selection '((output-dvi "open") (output-pdf "open") (output-html "open")))
+
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
   ) ;;; End of config.
