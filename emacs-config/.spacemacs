@@ -504,11 +504,16 @@ layers configuration."
       ("gitlab.com"    git-link-commit-github)))
 
 
+  (setq org-mu4e-tmp-dir "~/tmp/mu4e")
+
+  ;; --------- Orgcss HTML Theme for Mu4e ---------
+  (setq mu4e-org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/orgcss/org.css\" type=\"text/css\" />")
+
   ;; --------- Worg HTML Theme for Mu4e ---------
-  ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/worg/worg.css\" type=\"text/css\" />")
+  ;; (setq mu4e-org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/worg/worg.css\" type=\"text/css\" />")
 
   ;; --------- ReadTheOrg HTML Theme for Mu4e ---------
-  ;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
+  ;; (setq mu4e-org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
 
   ;; --------- Worg HTML Theme for Org-Mode Export ---------
   ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://www.hackit.fun/org-assets/css/worg/worg.css\" type=\"text/css\" />")
