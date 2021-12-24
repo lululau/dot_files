@@ -638,7 +638,7 @@ layers configuration."
 
   (define-key y-or-n-p-map (kbd "SPC") 'y-or-n-p-insert-y)
 
-  (setq TeX-view-program-selection '((output-dvi "open") (output-pdf "open") (output-html "open")))
+  (setq TeX-view-program-selection '((output-dvi . "open") (output-pdf . "open") (output-html . "open")))
 
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
@@ -959,7 +959,7 @@ This function is called at the very end of Spacemacs initialization."
  '(neo-window-fixed-size nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
  '(annotate-file "~/Documents/materials/annotates/annotations")
- '(TeX-view-program-selection ((output-dvi "open") (output-pdf "open") (output-html "open")))
+ '(TeX-view-program-selection (quote ((output-dvi . "open") (output-pdf . "open") (output-html . "open"))))
 '(safe-local-variable-values
 (quote
  ((arql-env . "lcldevb")
