@@ -696,6 +696,7 @@ This function is called at the very end of Spacemacs initialization."
  '(company-show-numbers t)
  '(company-idle-delay 0)
  '(es-always-pretty-print t)
+ '(writeroom-bottom-divider-width 0)
  '(custom-safe-themes
    (quote
     ("398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" default)))
