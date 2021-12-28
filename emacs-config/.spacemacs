@@ -442,7 +442,7 @@ layers configuration."
   (setq mac-option-modifier 'meta)
   (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
   (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
-  (setq helm-locate-command "~/.rvm/gems/ruby-3.0.0/bin/mfd %s %s")
+  (setq helm-locate-command "~/.rvm/gems/ruby-3.1.0/bin/mfd %s %s")
 
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
