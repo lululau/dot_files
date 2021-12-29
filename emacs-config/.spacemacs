@@ -633,6 +633,9 @@ layers configuration."
   (add-to-list 'org-babel-load-languages '(elasticsearch . t))
   (add-to-list 'org-babel-load-languages '(mermaid . t))
   (add-to-list 'org-babel-load-languages '(sql . t))
+  (add-to-list 'org-babel-load-languages '(jq . t))
+
+  (autoload 'org-babel-execute:jq "ob-jq")
 
   (setq ob-mermaid-cli-path "/usr/local/bin/mmdc")
 
