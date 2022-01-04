@@ -643,6 +643,8 @@ layers configuration."
 
   (setq TeX-view-program-selection '((output-dvi . "open") (output-pdf . "open") (output-html . "open")))
 
+  (setq python-indent-offset 4)
+
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
   ) ;;; End of config.
