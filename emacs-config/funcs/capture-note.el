@@ -14,7 +14,9 @@
   (lx/conform-filename (lx/refine-web-string filename)))
 
 (defun lx/capture-note (title link body)
-  (let* ((filename (format "~/Documents/webclips/%s.org" (lx/refine-filename title)))
+  ;; (let* ((filename (format "~/Documents/materials/webclips/%s.org" (lx/refine-filename title)))
+  (let* ((dir (with-current-buffer (window-buffer) default-directory))
+         (filename (format "%s/%s.org" dir (lx/refine-filename title)))
          (refined-title (lx/refine-web-string title))
          (refined-link (lx/refine-web-string link))
          (buffer (find-file filename)))

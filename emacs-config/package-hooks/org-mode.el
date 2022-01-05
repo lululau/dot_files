@@ -1,5 +1,6 @@
 (with-eval-after-load 'org
   (define-key org-mode-map [M-tab] 'spacemacs/alternate-buffer)
+  (define-key org-mode-map (kbd "C-M-i") nil)
   (define-key org-mode-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'code-archive-goto-src)
   (unless (display-graphic-p)
     (define-key org-mode-map (kbd "C-RET") 'org-insert-heading-respect-content)
@@ -199,7 +200,8 @@
 
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ic" 'org-cycle-list-bullet)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ik" 'org-move-item-up)
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ij" 'org-move-item-down))
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ij" 'org-move-item-down)
+  (require 'org-mouse))
 
 (eval-after-load "org"
   '(orgit-link-set-parameters "orgit"
@@ -215,4 +217,4 @@
                  :kill-client t)))
 
 (with-eval-after-load 'evil-org
-  (evil-define-key 'motion evil-org-mode-map (kbd "C-i") 'org-cycle))
+  (evil-define-key 'motion 'evil-org-mode (kbd "C-i") 'org-cycle))

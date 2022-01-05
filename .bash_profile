@@ -75,7 +75,7 @@ export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;33m'       # begin underline
 
 export PATH=$PATH:$JRUBY_HOME/bin:/usr/local/texlive/2010/bin/x86_64-darwin
-PATH=$PATH:$HOME/bin
+PATH=$PATH:$HOME/ServerApps/bin:$HOME/bin
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 . ~/.bashrc
 
@@ -84,3 +84,4 @@ export SDKMAN_DIR="/Users/liuxiang/.sdkman"
 [[ -s "/Users/liuxiang/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/liuxiang/.sdkman/bin/sdkman-init.sh"
 
 export EA_EDITOR='/usr/local/bin/emacsclient -a "" -c'
+complete -C /usr/local/bin/bitcomplete bit

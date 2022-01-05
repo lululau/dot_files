@@ -56,20 +56,22 @@ DISABLE_AUTO_UPDATE="true"
 #          rvm safe-paste scala screen svn terminalapp terminitor textmate themes
 #          bundler httpie ack2 funcfind gemcd alibas vagrant tmux)
 
+UNBUNDLED_COMMANDS=(rubocop)
+
 plugins=(ack2 alibas autojump autopair
          brew bundler
          colored-man-pages colorize compleat cp cpanm common-aliases copybuffer
-         docker docker-compose docker-machine
+         docker docker-compose docker-machine zsh-docker-aliases
          encode64 emoji
          funcfind
-         gem gemcd git github go golang gradle
+         gem gemcd git github golang gradle
          history httpie
          jruby
          lein
          mvn
          node npm nvm
          osx
-         perl pip python pyenv
+         perl pip python
          rails rake rsync ruby rvm
          safe-paste sbt scala screen svn systemadmin systemd
          terminitor themes tig tmux tmuxinator
@@ -82,16 +84,18 @@ plugins=(ack2 alibas autojump autopair
          rust cargo
          zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions)
 
+[ -z "$INSIDE_EMACS" ] && plugins+=(fast-syntax-highlighting)
+
 source $ZSH/oh-my-zsh.sh
 
-autoload -U compinit; compinit
+autoload -U compinit; compinit -d
 autoload -U zmv
 
 # Customize to your needs...
 
-source $CONFIGDIR/.zsh-aliases.zsh
+[ -e $CONFIGDIR/.zsh-aliases.zsh ] && source $CONFIGDIR/.zsh-aliases.zsh || source $HOME/.zsh-aliases.zsh
 unalias ping
-unalias fd
+# unalias fd
 unalias rb
 
 # Linux Specific Config
@@ -231,19 +235,19 @@ export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 export ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #20 char left truncated PWD
 
 # for shell-pop
-if [ -n "$EMACS" ]
+if [ -n "$INSIDE_EMACS" ]
 then
-  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
-  alias ag='ag --color-match=33'
-  chpwd() { print -P "\033AnSiTc %d" }
-  print -P "\033AnSiTu %n"
-  print -P "\033AnSiTc %d"
+  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=101'
+  # alias ag='ag --color-match=33'
+  # chpwd() { print -P "\033AnSiTc %d" }
+  # print -P "\033AnSiTu %n"
+  # print -P "\033AnSiTc %d"
   source $HOME/.zlogin
 fi
 
 # source ~/.xsh
 
-if [ -z "$EMACS" ]; then
+if [ -z "$INSIDE_EMACS" ]; then
   if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
     source $HOME/liuxiang/.iterm2_shell_integration.zsh
   else
@@ -277,21 +281,6 @@ function px() {
   else
     echo "http_proxy=$http_proxy\nhttps_proxy=$https_proxy"
   fi
-}
-
-function v() {
-  local ruby_version=$(ruby --version | cut -d ' ' -f 2)
-  local python_version=$(python --version |& cut -d ' ' -f 2)
-  local java_version=$(java -version |& head -1 | cut -d '"' -f 2)
-  local node_version=$(node --version)
-  echo -n $'\xe7\x91' | iconv -f UTF-16BE
-  echo " $ruby_version"
-  echo -n $'\xe6\x06' | iconv -f UTF-16BE
-  echo " $python_version"
-  echo -n $'\xe7\x38' | iconv -f UTF-16BE
-  echo " $java_version"
-  echo -n $'\xe7\x18' | iconv -f UTF-16BE
-  echo " $node_version"
 }
 
 source $HOME/.oh-my-zsh/custom/plugins/zsh-histdb/sqlite-history.zsh
@@ -332,3 +321,23 @@ eval "$(starship init zsh)"
 [ -e "$HOME/Library/Preferences/org.dystroy.broot/launcher/bash/br" ] && source $HOME/Library/Preferences/org.dystroy.broot/launcher/bash/br
 
 [ -n "$SSH_CLIENT" ] && eval `ssh-agent` &> /dev/null
+
+if [ -n "$INSIDE_EMACS" ]; then
+  zle-keymap-select () {
+    starship_render
+    zle reset-prompt
+    case $KEYMAP in
+      vicmd) printf "\e]51;Elx/run-in-vterm/set-green-box-cursor\e\\";;
+      viins|main) printf "\e]51;Elx/run-in-vterm/set-blue-bar-cursor\e\\";;
+    esac
+  }
+fi
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/bitcomplete bit
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PATH"
+if type pyenv &> /dev/null; then
+  eval "$(pyenv init -)"
+  # eval "$(pyenv virtualenv-init -)"
+fi

@@ -20,4 +20,5 @@ called with prefix argument."
   (spacemacs/set-leader-keys-for-major-mode 'python-mode
     "sL" 'python-shell-send-line-switch
     "sl" 'python-shell-send-line)
+  (define-key python-mode-map (kbd "C-M-i") nil)
   )

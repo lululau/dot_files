@@ -35,8 +35,9 @@
 
 (defun lx/helm-persp-replace-project (arg)
   (interactive "P")
-  (call-interactively 'helm-projectile-switch-project)
-  (lx/persp-swith-to-buffer-project))
+  (helm-projectile-switch-project)
+  (with-current-buffer (window-buffer)
+    (lx/persp-swith-to-buffer-project)))
 
 (defun lx/persp-swith-to-buffer-project ()
   (interactive)

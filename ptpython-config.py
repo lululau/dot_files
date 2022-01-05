@@ -5,7 +5,6 @@ Copy this file to ~/.ptpython/config.py
 """
 from __future__ import unicode_literals
 from prompt_toolkit.filters import ViInsertMode
-from prompt_toolkit.key_binding.input_processor import KeyPress
 from prompt_toolkit.keys import Keys
 from pygments.token import Token
 
@@ -79,7 +78,7 @@ def configure(repl):
     # Note: When enable, please disable the `complete_while_typing` option.
     #       otherwise, when there is a completion available, the arrows will
     #       browse through the available completions instead of the history.
-    repl.enable_history_search = False
+    repl.enable_history_search = True
 
     # Enable auto suggestions. (Pressing right arrow will complete the input,
     # based on the history.)
@@ -101,7 +100,7 @@ def configure(repl):
     repl.enable_input_validation = True
 
     # Use this colorscheme for the code.
-    repl.use_code_colorscheme('pastie')
+    repl.use_code_colorscheme('monokai')
 
     # Enable 24bit True color. (Not all terminals support this. -- maybe check
     # $TERM before changing.)
@@ -128,12 +127,12 @@ def configure(repl):
     #         b.accept_action.validate_and_handle(event.cli, b)
 
 
-    # Typing 'jj' in Vi Insert mode, should send escape. (Go back to navigation
-    # mode.)
-    @repl.add_key_binding('j', 'j', filter=ViInsertMode())
-    def _(event):
-        " Map 'jj' to Escape. "
-        event.cli.input_processor.feed(KeyPress(Keys.Escape))
+    # # Typing 'jj' in Vi Insert mode, should send escape. (Go back to navigation
+    # # mode.)
+    # @repl.add_key_binding('j', 'j', filter=ViInsertMode())
+    # def _(event):
+    #     " Map 'jj' to Escape. "
+    #     event.cli.input_processor.feed(KeyPress(Keys.Escape))
 
     """
     # Custom key binding for some simple autocorrection while typing.

@@ -1,9 +1,17 @@
+set idearefactormode=keep
+set NERDTree
 set surround
 set argtextobj
 set smartcase
 set hlsearch
 set incsearch
 set ignorecase
+set commentary
+set exchange
+" set easymotion
+set vim-paragraph-motion
+set textobj-entire
+set highlightedyank
 " 共享系统粘贴板
 set clipboard=unnamed
 set expandtab
@@ -19,6 +27,8 @@ set formatoptions+=mM
 set ambiwidth=double
 set noshowmode
 set multiple-cursors
+set textobj-indent
+set ideajoin
 
 let mapleader = " "
 
@@ -27,6 +37,7 @@ nnoremap s s<tab>
 nnoremap <leader>qq :action Exit<cr>
 nnoremap ,qq :action Exit<cr>
 inoremap <c-a> <c-o>^
+inoremap <c-e> <c-o>A
 inoremap <c-f> <Right>
 inoremap <c-b> <Left>
 inoremap <c-n> <Down>
@@ -34,8 +45,9 @@ inoremap <c-p> <Up>
 inoremap <c-d> <Del>
 nnoremap <c-c> i
 nnoremap <c-a> ^
+inoremap <c-k> <c-o>C
 nnoremap <cr> :action EditorStartNewLine<cr>
-noremap <m-m> :action ToggleBookmark<cr>
+" noremap <m-m> :action ToggleBookmark<cr>
 noremap <m-a-b> :action ToggleLineBreakpoint<cr>
 noremap <m-j> 10j
 noremap <m-k> 10k
@@ -48,12 +60,13 @@ nnoremap [[ :action MethodUp<cr>
 nnoremap ]] :action MethodDown<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
-nnoremap [b :action GotoPreviousBookmark<cr>
-nnoremap ]b :action GotoNextBookmark<cr>
 noremap [e :action GotoPreviousError<cr>
 noremap ]e :action GotoNextError<cr>
 nnoremap ]f :action Tool_Files_OpenNextFile<cr>
 nnoremap [f :action Tool_Files_OpenPreviousFile<cr>
+nnoremap cio l[bc]w
+nnoremap dio l[bd]w
+nnoremap vio l[bv]w
 
 noremap <leader>ep :action GotoPreviousError<cr>
 noremap <leader>en :action GotoNextError<cr>

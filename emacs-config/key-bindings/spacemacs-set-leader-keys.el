@@ -16,7 +16,9 @@
   "aob" 'org-iswitchb
   "gho" #'browse-at-remote
   "to" #'org-toggle-link-display
-  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 12 14 13 14))
+  "tA" #'(lambda () (interactive) (if (bound-and-true-p annotate-mode) (annotate-mode -1) (annotate-mode)))
+  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 12 14 12 14))
+  "s-0" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 12 14 12 14))
   "ps" #'lx/find-or-create-projectile-snippet-file
   "aC" #'calendar
   "col" #'copy-org-links-at-point
@@ -56,7 +58,7 @@
   "xlbe" #'base64-encode-utf8-region
   "xlbd" #'base64-decode-utf8-region
   "aojo" #'org-journal-find-today-entry
-  "at" #'helm-tramp
+  "aht" #'helm-tramp
   "s*" #'spacemacs/helm-swoop-region-or-symbol
   "amm" #'lx/load-or-switch-to-emms
   "asn" #'ssh-tunnels
@@ -66,6 +68,12 @@
   "qw" #'spacemacs/frame-killer
   "\\" #'lx/switch-to-previous-perp
   "p." #'projectile-find-file-in-pwd
+  "bc" 'helm-cwd-buffers
+  "Ka" #'lx/kubectl/apply-region-or-buffer
+  "Kd" #'lx/kubectl/delete-region-or-buffer
+  "KA" #'lx/kubectl/istio-inject-apply-region-or-buffer
+  "KD" #'lx/kubectl/istio-inject-delete-region-or-buffer
+  "dk" #'docker
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

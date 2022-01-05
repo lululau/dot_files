@@ -5,7 +5,6 @@
 
 filetype off " required by vundle
 
-
 let s:uname = substitute(system('uname'), "\n", "", "")
 
 if s:uname == 'Linux'
@@ -41,7 +40,10 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-speeddating'
-Bundle 'terryma/vim-multiple-cursors'
+" Bundle 'terryma/vim-multiple-cursors'
+if v:version >= 800
+  Plugin 'mg979/vim-visual-multi', {'branch': 'master'}
+endif
 " Bundle 'tpope/vim-abolish'
 " Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-obsession'
@@ -73,7 +75,7 @@ Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
-Bundle 'benmills/vimux'
+" Bundle 'benmills/vimux'
 Bundle 'groenewege/vim-less'
 Bundle 'jnwhiteh/vim-golang'
 Bundle 'wting/rust.vim'
@@ -94,6 +96,8 @@ Plugin 'tpope/vim-endwise'
 Plugin 'vim-perl/vim-perl'
 Plugin 'justinmk/vim-ipmotion'
 Plugin 'chrisbra/csv.vim'
+Plugin 'jreybert/vimagit'
+Plugin 'yianwillis/vimcdoc'
 
 set hidden
 
@@ -243,6 +247,21 @@ function! GotoBuffer(buf)
   execute 'normal :b' . s:buf_num . "\r"
 endfunction
 
+let g:VM_default_mappings = 0
+let g:VM_maps = {}
+let g:VM_maps['Find Under']                  = '<C-n>'
+let g:VM_maps['Find Subword Under']          = '<C-n>'
+let g:VM_maps["Select All"]                  = '\\A'
+let g:VM_maps["Start Regex Search"]          = '\\/'
+let g:VM_maps["Add Cursor Down"]             = '<C-m>'
+let g:VM_maps["Add Cursor Up"]               = '<C-Up>'
+let g:VM_maps["Add Cursor At Pos"]           = '\\\'
+let g:VM_maps["Visual Regex"]                = '\\/'
+let g:VM_maps["Visual All"]                  = '\\A'
+let g:VM_maps["Visual Add"]                  = '\\a'
+let g:VM_maps["Visual Find"]                 = '\\f'
+let g:VM_maps["Visual Cursors"]              = '\\c'
+
 inoremap <c-c> <ESC>
 " imap jj <ESC>
 " Insert a hash rocket with <c-h>
@@ -262,7 +281,7 @@ nmap <F2> :TagbarToggle<CR>
 nnoremap <F3> :set invpaste paste?<CR>
 set pastetoggle=<F3>
 nnoremap <silent> <F4> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-map <F5> :!ctags -e -R --languages=-javascript --langmap=ruby:+.rake --exclude=.git --exclude=log --exclude=target --fields=+iaS --extra=+q .<CR>
+map <F5> :!ctags -R --languages=-javascript --langmap=ruby:+.rake --exclude=.git --exclude=log --exclude=target --fields=+iaS --extra=+q .<CR>
 nnoremap <Left> :tprevious<CR>
 nnoremap <Right> :tnext<CR>
 
@@ -277,11 +296,11 @@ nnoremap <Right> :tnext<CR>
 cnoremap w!! %!sudo tee > /dev/null %
 
 let mapleader=" "
-nnoremap <leader><leader> <c-" >
 noremap <leader>y "*y
 noremap <leader>p :echo @%<cr>
 
 " Open .vimrc for quick-edit.
+noremap <leader>se :edit $MYVIMRC<cr>
 noremap <leader>so :source $MYVIMRC<cr>
 noremap <leader>ss :source ./Session.vim<cr>
 
@@ -362,8 +381,9 @@ let g:gist_detect_filetype = 1
 " let g:EasyMotion_mapping_n = '<leader>n'
 " let g:EasyMotion_mapping_N = '<leader>N'
 let g:EasyMotion_smartcase = 1
+map <Leader>e <Plug>(easymotion-prefix)
 map <Leader>l <Plug>(easymotion-bd-jk)
-nmap <Leader>o <Plug>(easymotion-s2)
+nmap <Leader><Space> <Plug>(easymotion-s2)
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -487,8 +507,8 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 
 " Set snips_author & snips_email for snipMate.vim
-let g:snips_author="Larry Lv"
-let g:snips_email="larrylv1990@gmail.com""
+let g:snips_author="Liu Xiang"
+let g:snips_email="liuxiang921@gmail.com""
 
 " Mapping Keys
 imap <silent><c-l> <Plug>(neosnippet_expand)
@@ -551,16 +571,25 @@ let g:CommandTCancelMap=['<Esc>', '<C-c>']
 " let g:CommandTAcceptSelectionSplitMap=['<c-s>', '<c-CR>']
 let g:CommandTMaxHeight=20
 " silent! nnoremap <unique> <silent> <Leader>b :CommandTBuffer<CR>
-map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
-map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
-map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
-map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
-map <leader>gf :CommandTFlush<cr>\|:CommandT config<cr>
-map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
-map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
-map <leader>gj :CommandTFlush<cr>\|:CommandT public/javascripts<cr>
-map <leader>gs :CommandTFlush<cr>\|:CommandT spec<cr>
+" map <leader>gv :CommandTFlush<cr>\|:CommandT app/views<cr>
+" map <leader>gc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+" map <leader>gm :CommandTFlush<cr>\|:CommandT app/models<cr>
+" map <leader>gh :CommandTFlush<cr>\|:CommandT app/helpers<cr>
+" map <leader>gf :CommandTFlush<cr>\|:CommandT config<cr>
+" map <leader>gl :CommandTFlush<cr>\|:CommandT lib<cr>
+" map <leader>gp :CommandTFlush<cr>\|:CommandT public<cr>
+" map <leader>gj :CommandTFlush<cr>\|:CommandT public/javascripts<cr>
+" map <leader>gs :CommandTFlush<cr>\|:CommandT spec<cr>
 
+map <leader>gv :CtrlP app/views<cr>
+map <leader>gc :CtrlP app/controllers<cr>
+map <leader>gm :CtrlP app/models<cr>
+map <leader>gh :CtrlP app/helpers<cr>
+map <leader>gf :CtrlP config<cr>
+map <leader>gl :CtrlP lib<cr>
+map <leader>gp :CtrlP public<cr>
+map <leader>gj :CtrlP public/javascripts<cr>
+map <leader>gs :CtrlP spec<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTRLP.vim CONFIGURATIONS
@@ -728,20 +757,34 @@ inoremap <c-n> <Down>
 inoremap <c-p> <Up>
 inoremap <c-d> <Del>
 inoremap <c-k> <c-o>C
-inoremap <esc>f <c-o>e
-cnoremap <esc>f <S-Right>
-inoremap <esc>b <c-o>b
-cnoremap <esc>b <S-Left>
-inoremap <esc>< <c-o>gg<c-o>0
-inoremap <esc>> <c-o>G<c-o>$
 cnoremap <c-b> <Left>
 cnoremap <c-f> <Right>
 cnoremap <c-a> <c-b>
+if has('nvim')
+  inoremap <A-f> <c-o>e
+  cnoremap <A-f> <S-Right>
+  inoremap <A-b> <c-o>b
+  cnoremap <A-b> <S-Left>
+  inoremap <A-<> <c-o>gg<c-o>0
+  inoremap <A->> <c-o>G<c-o>$
 
-noremap <esc>w <c-w>
-inoremap <esc>w <c-w>
-inoremap <esc><bs> <esc><esc>caw
-cnoremap <esc><bs> <c-w>
+  noremap <A-w> <c-w>
+  inoremap <A-w> <c-w>
+  inoremap <A-bs> <esc><esc>caw
+  cnoremap <A-bs> <c-w>
+else
+  inoremap <esc>f <c-o>e
+  cnoremap <esc>f <S-Right>
+  inoremap <esc>b <c-o>b
+  cnoremap <esc>b <S-Left>
+  inoremap <esc>< <c-o>gg<c-o>0
+  inoremap <esc>> <c-o>G<c-o>$
+
+  noremap <esc>w <c-w>
+  inoremap <esc>w <c-w>
+  inoremap <esc><bs> <esc><esc>caw
+  cnoremap <esc><bs> <c-w>
+endif
 
 nnoremap <Leader>gB <ESC>:Gblame<CR>
 nnoremap <Leader>gb <ESC>:Git branch -vv<CR>
@@ -757,43 +800,81 @@ nnoremap <Leader>gps <ESC>:Git push
 nnoremap <Leader>gpl <ESC>:Git pull<CR>
 imap <Nul> <Nop>
 inoremap <c-^> <ESC><c-^>
-noremap <ESC><TAB> <c-^>
-inoremap <ESC><TAB> <ESC><c-^>
+if has('nvim')
+  noremap <A-tab> <c-^>
+  inoremap <A-tab> <ESC><c-^>
+else
+  noremap <ESC><TAB> <c-^>
+  inoremap <ESC><TAB> <ESC><c-^>
+endif
 noremap <F10> <c-^>
 inoremap <F10> <ESC><c-^>
-noremap <ESC>1 :call GotoBuffer(1)<CR>
-noremap <ESC>2 :call GotoBuffer(2)<CR>
-noremap <ESC>3 :call GotoBuffer(3)<CR>
-noremap <ESC>4 :call GotoBuffer(4)<CR>
-noremap <ESC>5 :call GotoBuffer(5)<CR>
-noremap <ESC>6 :call GotoBuffer(6)<CR>
-noremap <ESC>7 :call GotoBuffer(7)<CR>
-noremap <ESC>8 :call GotoBuffer(8)<CR>
-noremap <ESC>9 :call GotoBuffer(9)<CR>
-noremap <ESC>0 :call GotoBuffer("L")<CR>
-noremap <ESC>= :call GotoBuffer(">")<CR>
-noremap <ESC>- :call GotoBuffer("<")<CR>
-noremap <ESC>t :enew<CR>
-noremap <ESC>x :bd<CR>
-noremap <ESC>X :bd!<CR>
-inoremap <ESC>1 <ESC>:call GotoBuffer(1)<CR>
-inoremap <ESC>2 <ESC>:call GotoBuffer(2)<CR>
-inoremap <ESC>3 <ESC>:call GotoBuffer(3)<CR>
-inoremap <ESC>4 <ESC>:call GotoBuffer(4)<CR>
-inoremap <ESC>5 <ESC>:call GotoBuffer(5)<CR>
-inoremap <ESC>6 <ESC>:call GotoBuffer(6)<CR>
-inoremap <ESC>7 <ESC>:call GotoBuffer(7)<CR>
-inoremap <ESC>8 <ESC>:call GotoBuffer(8)<CR>
-inoremap <ESC>9 <ESC>:call GotoBuffer(9)<CR>
-inoremap <ESC>0 <ESC>:call GotoBuffer("L")<CR>
-inoremap <ESC>= <ESC>:call GotoBuffer(">")<CR>
-inoremap <ESC>- <ESC>:call GotoBuffer("<")<CR>
-inoremap <ESC>t <ESC>:enew<CR>
-inoremap <ESC>x <ESC>:bd<CR>
-inoremap <ESC>X <ESC>:bd!<CR>
+if has('nvim')
+  noremap <A-1> :call GotoBuffer(1)<CR>
+  noremap <A-2> :call GotoBuffer(2)<CR>
+  noremap <A-3> :call GotoBuffer(3)<CR>
+  noremap <A-4> :call GotoBuffer(4)<CR>
+  noremap <A-5> :call GotoBuffer(5)<CR>
+  noremap <A-6> :call GotoBuffer(6)<CR>
+  noremap <A-7> :call GotoBuffer(7)<CR>
+  noremap <A-8> :call GotoBuffer(8)<CR>
+  noremap <A-9> :call GotoBuffer(9)<CR>
+  noremap <A-0> :call GotoBuffer("L")<CR>
+  noremap <A-=> :call GotoBuffer(">")<CR>
+  noremap <A--> :call GotoBuffer("<")<CR>
+  noremap <A-!> :call GotoBuffer(1)<CR>
+  noremap <A-@> :call GotoBuffer(2)<CR>
+  noremap <A-#> :call GotoBuffer(3)<CR>
+  noremap <A-$> :call GotoBuffer(4)<CR>
+  noremap <A-%> :call GotoBuffer(5)<CR>
+  noremap <A-^> :call GotoBuffer(6)<CR>
+  noremap <A-&> :call GotoBuffer(7)<CR>
+  noremap <A-*> :call GotoBuffer(8)<CR>
+  noremap <A-(> :call GotoBuffer(9)<CR>
+  noremap <A-)> :call GotoBuffer("L")<CR>
+  noremap <A-+> :call GotoBuffer(">")<CR>
+  noremap <A-_> :call GotoBuffer("<")<CR>
+  noremap <A-t> :enew<CR>
+  noremap <A-x> :bd<CR>
+  noremap <A-X> :bd!<CR>
+  inoremap <A-t> <ESC>:enew<CR>
+  inoremap <A-x> <ESC>:bd<CR>
+  inoremap <A-X> <ESC>:bd!<CR>
+else
+  noremap <ESC>1 :call GotoBuffer(1)<CR>
+  noremap <ESC>2 :call GotoBuffer(2)<CR>
+  noremap <ESC>3 :call GotoBuffer(3)<CR>
+  noremap <ESC>4 :call GotoBuffer(4)<CR>
+  noremap <ESC>5 :call GotoBuffer(5)<CR>
+  noremap <ESC>6 :call GotoBuffer(6)<CR>
+  noremap <ESC>7 :call GotoBuffer(7)<CR>
+  noremap <ESC>8 :call GotoBuffer(8)<CR>
+  noremap <ESC>9 :call GotoBuffer(9)<CR>
+  noremap <ESC>0 :call GotoBuffer("L")<CR>
+  noremap <ESC>= :call GotoBuffer(">")<CR>
+  noremap <ESC>- :call GotoBuffer("<")<CR>
+  noremap <ESC>! :call GotoBuffer(1)<CR>
+  noremap <ESC>@ :call GotoBuffer(2)<CR>
+  noremap <ESC># :call GotoBuffer(3)<CR>
+  noremap <ESC>$ :call GotoBuffer(4)<CR>
+  noremap <ESC>% :call GotoBuffer(5)<CR>
+  noremap <ESC>^ :call GotoBuffer(6)<CR>
+  noremap <ESC>& :call GotoBuffer(7)<CR>
+  noremap <ESC>* :call GotoBuffer(8)<CR>
+  noremap <ESC>( :call GotoBuffer(9)<CR>
+  noremap <ESC>) :call GotoBuffer("L")<CR>
+  noremap <ESC>+ :call GotoBuffer(">")<CR>
+  noremap <ESC>_ :call GotoBuffer("<")<CR>
+  noremap <ESC>t :enew<CR>
+  noremap <ESC>x :bd<CR>
+  noremap <ESC>X :bd!<CR>
+  inoremap <ESC>t <ESC>:enew<CR>
+  inoremap <ESC>x <ESC>:bd<CR>
+  inoremap <ESC>X <ESC>:bd!<CR>
+endif
 cnoremap sudow w ! sudo tee %
-nmap <silent> <Up> :silent! normal ddkP<CR>
-nmap <Down> ddp
+" nmap <silent> <Up> :silent! normal ddkP<CR>
+" nmap <Down> ddp
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
@@ -835,7 +916,11 @@ colorscheme base16-railscasts
 let g:ctrlspace_save_workspace_on_exit = 1
 let g:gitguwtter_sign_column_always = 1
 
-inoremap <expr><ESC>/  "\<C-x>\<C-u>"
+if has('nvim')
+  inoremap <expr><A-/>  "\<C-x>\<C-u>"
+else
+  inoremap <expr><ESC>/  "\<C-x>\<C-u>"
+endif
 
 if has("gui_running")
     set guifont=Ubuntu\ Mono\ derivative\ Powerline:h15
@@ -895,4 +980,3 @@ endfunction
 
 noremap <F4> :call ToggleFolding()<CR>
 inoremap <F4> <c-o>:call ToggleFolding()<CR>
-

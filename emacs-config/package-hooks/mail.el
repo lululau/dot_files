@@ -22,14 +22,14 @@
 
 ;; Bookmarks
 (setq mu4e-bookmarks
-      `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+      `(("flag:flagged" "Starred" ?s)
+        ("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
         ("date:today..now" "Today's messages" ?t)
         ("date:7d..now" "Last 7 days" ?w)
         ("mime:image/*" "Messages with images" ?p)
-        ("subject:本周上线计划" "本周上线计划" ?s)
-        ("活期" "活期" ?h)
-        ("试算" "试算" ?S)
-        ("subject:万达" "万达" ?d)
+        ("from:monitor@monitor.aliyun.com" "Aliyun Alert" ?A)
+        ("from:opscreditcloud@163.com" "Ktjr Alert" ?k)
+        ("from:kibana@ktjr.com" "Kibana Alert" ?K)
         (,(mapconcat 'identity
                      (mapcar
                       (lambda (maildir)
@@ -85,6 +85,8 @@
 
 (defun mu4e-toggle-org-mode ()
   (interactive)
+  (require 'mu4e-org)
+  (require 'org-mu4e)
   (cond
    ((eq major-mode 'mu4e-view-mode) (mu4e-org-mode))
    ((eq major-mode 'mu4e-org-mode) (mu4e-view-mode))
@@ -144,9 +146,12 @@
     mu4e-view-mode-map
     :mode mu4e-view-mode
     :bindings
+    (kbd "C-j") 'mu4e-view-headers-next
+    (kbd "C-k") 'mu4e-view-headers-prev
     (kbd "y") 'evil-yank
     (kbd "Y") 'yank-to-end-of-line)
-
+  (add-to-list 'mu4e-view-actions
+               '("xViewXWidget" . my-mu4e-action-view-with-xwidget) t)
   (spacemacs/set-leader-keys-for-major-mode 'mu4e-view-mode
     "to" 'mu4e-toggle-org-mode
     "fo" 'open-message-with-mail-app))
@@ -161,6 +166,7 @@
   (spacemacs/set-leader-keys-for-major-mode 'mu4e-compose-mode "to" 'mu4e-toggle-org-mode))
 
 (with-eval-after-load 'org-mu4e
+  (defvar org-mu4e-tmp-dir)
   (setq org-mu4e-convert-to-html t)
   (spacemacs/set-leader-keys-for-major-mode 'org-mu4e-compose-org-mode "a" 'mml-attach-file)
   (spacemacs/set-leader-keys-for-major-mode 'org-mu4e-compose-org-mode "to" 'mu4e-toggle-org-mode)
@@ -175,7 +181,8 @@
            (end (point-max))
            (raw-body (buffer-substring begin end))
            (tmp-file (make-temp-name (expand-file-name "mail"
-                                                       temporary-file-directory)))
+                                                       (or org-mu4e-tmp-dir temporary-file-directory))))
+           (org-html-head mu4e-org-html-head)
            (org-export-skip-text-before-1st-heading nil)
            (org-export-htmlize-output-type 'inline-css)
            (org-export-preserve-breaks t)

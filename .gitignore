@@ -52,3 +52,17 @@ Session.vim
 /clash
 /yarn/
 /qBittorrent/
+/nnn/
+/configstore/*.json
+/iterm2/
+/.isolated-storage/
+
+/light-zsh.d/
+
+!/light-zsh.d/.zshrc
+!/light-zsh.d/.zprofile
+!/light-zsh.d/.zsh-aliases.zsh
+!/light-zsh.d/.zshenv
+!/light-zsh.d/.zlogin
+/rq/
+/gh/

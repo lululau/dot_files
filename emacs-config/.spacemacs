@@ -40,7 +40,14 @@
 
 (setq helm-mm-default-match-functions '(helm-mm-exact-match helm-mm-match helm-mm-pinyin-match))
 
+(setq use-package-inject-hooks t)
+
+(setq company-shell--cache '(""))
+
+;; (setq dired-quick-sort-group-directories-last ?y)
+
 (defun dotspacemacs/layers ()
+
   "Configuration Layers declaration."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
@@ -60,7 +67,8 @@
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-
+     (spacemacs-layouts :variables
+                        spacemacs-layouts-restrict-spc-tab t)
      lsp
      ;; (lsp :variables lsp-rust-server 'rust-analyzer)
      dap
@@ -68,6 +76,7 @@
      neotree
      (osx :variables osx-command-as 'super)
      (auto-completion :variables
+                      auto-completion-return-key-behavior nil
                       auto-completion-tab-key-behavior 'complete
                       auto-completion-show-snippets-in-popup t
                       auto-completion-enable-snippets-in-popup t
@@ -83,18 +92,24 @@
      (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
      (org :variables
+          org-enable-roam-support t
+          org-enable-epub-support t
           org-enable-github-support t
           org-enable-bootstrap-support t
           org-enable-reveal-js-support t
           org-enable-org-journal-support t
           org-journal-dir "~/Documents/org/journal/"
+          org-enable-jira-support t
+          org-jira-working-dir "~/Documents/org/jira/"
           org-journal-file-format "%Y-%m-%d"
           org-journal-date-format "%Y-%m-%d"
+          org-roam-directory "~/Documents/materials/roam/"
+          org-roam-v2-ack t
           org-projectile-file ,lx/org-project-file)
      (shell :variables
             shell-default-height 38
             shell-default-position 'bottom
-            shell-default-shell 'ansi-term
+            shell-default-shell 'vterm
             shell-default-term-shell ,lx/default-shell)
      syntax-checking
      (version-control :variables
@@ -102,17 +117,18 @@
                       version-control-diff-side 'left
                       version-control-global-margin t)
      (ruby :variables
+           ruby-backend 'robe
            ruby-test-runner 'rspec
            ruby-enable-enh-ruby-mode nil)
      perl5
-     perl6
+     raku
      json
      yaml
      ruby-on-rails
      projectile-bundler
      projectile-bundler-robe
      elixir
-     shell-scripts
+     (shell-scripts :variables shell-scripts-backend 'shell-script-mode)
      dash
      clojure
      (haskell :variables haskell-enable-hindent t haskell-completion-backend 'dante)
@@ -121,8 +137,10 @@
      evil-commentary
      major-modes
      html
+     common-lisp
      groovy
-     java
+     ;; java
+     (java :variables java-backend 'meghanada)
      c-c++
      (javascript  :variables javascript-disable-tern-port-files nil javascript-backend 'lsp)
      typescript
@@ -134,6 +152,7 @@
      php
      restclient
      (rust :variables rust-backend 'racer)
+     (crystal :variables crystal-backend 'lsp)
      (scala :variables scala-backend 'scala-metals)
      swift
      kotlin
@@ -142,6 +161,7 @@
      lua
      vagrant
      docker
+     protobuf
      chrome
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)
@@ -172,19 +192,21 @@
      translator
      k8s
      spotify
+     windows-scripts
+     (latex :variables latex-build-command "XeLaTeX")
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '((helm-swoop :location (recipe :fetcher github :repo "ashiklom/helm-swoop"))
-                                      calfw calfw-org browse-at-remote ranger helm-mu
+   dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu
                                             jq-mode helm-dired-history go-dlv realgud-byebug
                                             dired-subtree carbon-now-sh sx daemons evil-mc
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
-                                            code-archive dtrace-script-mode)
+                                            code-archive dtrace-script-mode xwwp-follow-link-helm
+                                            edit-indirect annotate mermaid-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -233,7 +255,7 @@ before layers configuration."
    dotspacemacs-startup-banner lx/spacemacs-banner
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
-   dotspacemacs-startup-lists '(recents projects)
+   dotspacemacs-startup-lists '((recents . 10) (bookmarks . 20))
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -321,27 +343,29 @@ before layers configuration."
    )
   ;; User initialization goes here
 
-  (setq configuration-layer-elpa-archives
-        '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-          ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-          ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+  ;; (setq configuration-layer-elpa-archives
+  ;;       '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+  ;;         ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+  ;;         ("gnu-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
 
   ;; (setq configuration-layer-elpa-archives
   ;;       '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
   ;;         ("org-cn"   . "http://elpa.emacs-china.org/org/")
   ;;         ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 
-  ;; (setq configuration-layer--elpa-archives
-  ;;       '(("melpa"    . "melpa.org/packages/")
-  ;;         ("org"      . "orgmode.org/elpa/")
-  ;;         ("gnu"      . "elpa.gnu.org/packages/")))
+  (setq configuration-layer--elpa-archives
+        '(("melpa"    . "melpa.org/packages/")
+          ("org"      . "orgmode.org/elpa/")
+          ("gnu"      . "elpa.gnu.org/packages/")))
 
   (load-file lx/emacs-config-init-el)
 
   (setq-default ruby-version-manager 'rvm)
   (setq-default ruby-enable-ruby-on-rails-support t)
   (setq evil-want-C-i-jump t)
-  (add-hook 'spacemacs-buffer-mode-hook #'(lambda () (define-key spacemacs-buffer-mode-map (kbd "s-r") #'configuration-layer/update-packages)))
+  (add-hook 'spacemacs-buffer-mode-hook #'(lambda ()
+                                            (define-key spacemacs-buffer-mode-map (kbd "s-r s-u") #'configuration-layer/update-packages)
+                                            (define-key spacemacs-buffer-mode-map (kbd "s-r s-b") #'configuration-layer/rollback)))
   (setq projectile-keymap-prefix (kbd "C-c p"))
 
   )
@@ -461,25 +485,34 @@ layers configuration."
       ("gitlab.com"    git-link-commit-github)))
 
 
+  (setq org-mu4e-tmp-dir "~/tmp/mu4e")
+
+  ;; --------- Orgcss HTML Theme for Mu4e ---------
+  (setq mu4e-org-html-head (format "<link rel=\"stylesheet\" title=\"Standard\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/orgcss/org.css\" type=\"text/css\" />" user-home-directory))
+
   ;; --------- Worg HTML Theme for Mu4e ---------
-  ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/worg/worg.css\" type=\"text/css\" />")
+  ;; (setq mu4e-org-html-head (format "<link rel=\"stylesheet\" title=\"Standard\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/worg/worg.css\" type=\"text/css\" />" user-home-directory))
 
   ;; --------- ReadTheOrg HTML Theme for Mu4e ---------
-  ;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
+  ;; (setq mu4e-org-html-head (format "<link rel=\"stylesheet\" type=\"text/css\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"%s.spacemacs-layers/assets/org-themes/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"%s.spacemacs-layers/assets/org-themes/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"%s.spacemacs-layers/assets/org-themes/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/spacemacs-wide/font-awesome.min.css\"/>\n" user-home-directory user-home-directory user-home-directory user-home-directory user-home-directory user-home-directory ))
 
   ;; --------- Worg HTML Theme for Org-Mode Export ---------
-  ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://assets.hackit.fun/style/org/worg/worg.css\" type=\"text/css\" />")
+  ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://www.hackit.fun/org-assets/css/worg/worg.css\" type=\"text/css\" />")
 
   ;; --------- Dakrone HTML Theme for Org-Mode Export ---------
-  ;; (setq org-html-head "<link rel=\"stylesheet\" href=\"http://assets.hackit.fun/style/org/dakrone/org.css\" type=\"text/css\" />")
+  ;; (setq org-html-head "<link rel=\"stylesheet\" href=\"http://www.hackit.fun/org-assets/css/dakrone/org.css\" type=\"text/css\" />")
+
+  ;; --------- OrgCSS HTML Theme for Org-Mode Export ---------
+  ;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://gongzhitaao.org/orgcss/org.css\"/>")
 
   ;; --------- ReadTheOrg HTML Theme for Org-Mode Export ---------
-  (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://assets.hackit.fun/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"http://assets.hackit.fun/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"http://assets.hackit.fun/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"http://assets.hackit.fun/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://assets.hackit.fun/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://assets.hackit.fun/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
+  (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.hackit.fun/org-assets/css/spacemacs-wide/htmlize.css\"/>\n <script src=\"http://www.hackit.fun/org-assets/js/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"http://www.hackit.fun/org-assets/js/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"http://www.hackit.fun/org-assets/js/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.hackit.fun/org-assets/css/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.hackit.fun/org-assets/css/spacemacs-wide/font-awesome.min.css\"/>\n")
 
   (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
   (add-to-list 'search-engine-alist '(ip138 :name "ip138" :url "http://ip138.com/ips138.asp?ip=%s&action=2") t)
 
   (setq auto-mode-alist (append '(("\\.pryrc\\'" . ruby-mode)
+                                  ("\\.rexerc\\'" . ruby-mode)
                                   ("\\.rails\\'" . ruby-mode)
                                   ("\\.apib\\'" . markdown-mode)
                                   ("\\.m\\'" . objc-mode)
@@ -488,9 +521,9 @@ layers configuration."
                                   ("\\.es$" . es-mode)
                                   ("\\.class" . jdecomp-mode)
                                   ("\\.d$" . dtrace-script-mode)
-                                  ("\\.sc" . scala-mode)) auto-mode-alist))
+                                  ("\\.sc$" . scala-mode)) auto-mode-alist))
 
-  (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . react-mode))
+  ;; (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . rjsx-mode))
 
   (setq org-plantuml-jar-path "/usr/local/libexec/plantuml.jar")
 
@@ -580,8 +613,17 @@ layers configuration."
   (add-to-list 'org-babel-load-languages '(elasticsearch . t))
   (add-to-list 'org-babel-load-languages '(mermaid . t))
   (add-to-list 'org-babel-load-languages '(sql . t))
+  (add-to-list 'org-babel-load-languages '(jq . t))
+
+  (autoload 'org-babel-execute:jq "ob-jq")
 
   (setq ob-mermaid-cli-path "/usr/local/bin/mmdc")
+
+  (define-key y-or-n-p-map (kbd "SPC") 'y-or-n-p-insert-y)
+
+  (setq TeX-view-program-selection '((output-dvi . "open") (output-pdf . "open") (output-html . "open")))
+
+  (setq python-indent-offset 4)
 
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
@@ -603,8 +645,10 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(split-width-threshold 126)
  '(persp-kill-foreign-buffer-behaviour (quote kill))
  '(org-jira-done-states '("Done" "已解决" "关闭"))
+ '(org-hide-leading-stars t)
  '(org-super-agenda-groups
    (quote
     ((:name "IMPOARTANT !!!" :priority>= "C")
@@ -635,6 +679,7 @@ This function is called at the very end of Spacemacs initialization."
  '(company-show-numbers t)
  '(company-idle-delay 0)
  '(es-always-pretty-print t)
+ '(writeroom-bottom-divider-width 0)
  '(custom-safe-themes
    (quote
     ("398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" default)))
@@ -715,6 +760,7 @@ This function is called at the very end of Spacemacs initialization."
      ("git.sr.ht" nil "git.sr.ht" forge-srht-repository))))
  '(fringe-mode 4 nil (fringe))
  '(writeroom-width 140)
+ '(writeroom-global-effects (quote (writeroom-set-alpha writeroom-set-menu-bar-lines writeroom-set-tool-bar-lines writeroom-set-vertical-scroll-bars writeroom-set-bottom-divider-width)))
  '(gh-profile-alist
    (quote
     (("github" :url "https://api.github.com" :remote-regexp "^\\(?:git@github\\.com:\\|\\(?:git\\|https?\\|ssh\\)://.*@?github\\.com/\\)\\(.*\\)/\\(.*\\)\\(?:\\.git\\)?")
@@ -778,9 +824,10 @@ This function is called at the very end of Spacemacs initialization."
   ("rubinius" . "rbx -r irb/completion")
   ("yarv" . "irb1.9 -r irb/completion")
   ("macruby" . "macirb -r irb/completion")
-  ("pry" . "/usr/bin/ruby /usr/local/bin/pry")))
- '(jiralib-url "http://jira.creditcloud.com")
- '(org-jira-default-jql "(assignee = currentUser() or watcher in (currentUser())) and resolution = unresolved ORDER BY priority DESC, created ASC")
+  ("arql" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/arql" user-home-directory user-home-directory))
+  ("pry" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/pry" user-home-directory user-home-directory))))
+ '(jiralib-url "http://jira.ktjr.com")
+ '(org-jira-default-jql "assignee = currentUser() AND status not in (CLOSE, closed)")
  '(js2-strict-missing-semi-warning nil)
  '(launchctl-search-path (quote ("~/.config/services/")))
  '(launchctl-filter-regex "homebrew")
@@ -792,6 +839,7 @@ This function is called at the very end of Spacemacs initialization."
  '(markdown-command "~/bin/markdown")
  '(mu4e-attachment-dir "~/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
+ '(evil-want-keybinding nil)
 '(mu4e-headers-fields
 (quote
  ((:human-date . 12)
@@ -804,27 +852,37 @@ This function is called at the very end of Spacemacs initialization."
  '(org-agenda-files "~/.agenda_files")
 '(org-capture-templates
 (quote
- (("t" "Todo" entry
+ (("t" "Todo (with link to current buffer prosition)" entry
    (file "")
    "* TODO %?
-  %u
+  %U
   %a")
-  ("g" "Todo" entry
+  ("c" "Todo (scheduled from right now)" entry
    (file "")
    "* TODO %?
-  %u")
+  SCHEDULED: %T
+  %U")
+  ("m" "Todo (scheduled from tomorrow morning)" entry
+   (file "")
+   "* TODO %?
+  SCHEDULED: %(org-insert-time-stamp (org-read-date t t \"+1d 10:00\") t)
+  %U")
+  ("g" "Todo (global capture for SPC+T)" entry
+   (file "")
+   "* TODO %?
+  SCHEDULED: %T
+  %U")
   ("w" "Web site" entry
    (file "")
     "* %a :website:\n\n%U %?\n\n%:initial"))))
  '(org-confirm-babel-evaluate nil)
  '(org-ditaa-jar-path "/usr/local/libexec/ditaa.jar")
  '(org-export-with-sub-superscripts (quote {}))
-'(org-pandoc-options-for-latex-pdf
-(quote
- ((pdf-engine . "xelatex")
-  (template . "~/Documents/org/pandoc-latex-templates/Heiti/default.latex"))))
- '(org-reveal-root "~/Documents/org/reveal.js/")
- '(org-reveal-theme "solarized")
+ '(org-pandoc-options-for-latex-pdf
+   `((pdf-engine . "xelatex")
+     (template . ,(format "%s.spacemacs-layers/assets/pandoc-latex-templates/Heiti/default.latex" user-home-directory))))
+ `(org-re-reveal-root ,(format "%s.spacemacs-layers/assets/reveal.js/" user-home-directory))
+ '(org-re-reveal-theme "solarized")
 '(org-src-lang-modes
 (quote
  (("http" . "ob-http")
@@ -876,19 +934,36 @@ This function is called at the very end of Spacemacs initialization."
  '(ring-bell-function (quote ignore))
  '(rspec-primary-source-dirs (quote ("app" "lib" "src")))
  '(ruby-insert-encoding-magic-comment nil)
+ '(rubocop-prefer-system-executable t)
+ '(rubocop-check-command  "~/bin/rubocop --format emacs")
+ '(rubocop-autocorrect-command  "~/bin/rubocop -a --format emacs")
  '(neo-window-fixed-size nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
+ '(annotate-file "~/Documents/materials/annotates/annotations")
+ '(TeX-view-program-selection (quote ((output-dvi . "open") (output-pdf . "open") (output-html . "open"))))
 '(safe-local-variable-values
 (quote
- ((vc-follow-symlinks)
+ ((arql-env . "lcldevb")
+  (arql-env . "mddev")
+  (arql-env . "mddev2")
+  (arql-env . "ermasprorw")
+  (arql-env . "ddhcpro")
+  (arql-env . "lldevb")
+  (arql-env . "insdevb")
+  (arql-env . "ins247")
+  (maven-trigger . "b")
+  (maven-trigger . "uat")
+  (vc-follow-symlinks)
   (eval text-scale-increase 3)
   (eval flycheck-mode -1 1)
   (eval org-babel-result-hide-all)
+  (eval require 'org-journal)
   (encoding . utf-8)
   (elixir-enable-compilation-checking . t)
   (elixir-enable-compilation-checking)
   (org-html-head))))
  '(sh-indentation 2)
+ '(org-file-apps (quote ((auto-mode . emacs) (directory . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . emacs))))
  '(sp-highlight-pair-overlay nil)
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
  '(split-height-threshold 100)
@@ -896,10 +971,16 @@ This function is called at the very end of Spacemacs initialization."
  '(dired-filter-prefix ",f")
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
+ '(org-jira-project-filename-alist (quote (("TJPT" . "~/Documents/materials/jira/projects.org") ("LEGAL" . "~/Documents/materials/jira/projects.org") ("YUNFACUI" . "~/Documents/materials/jira/projects.org"))))
  '(racer-rust-src-path "~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src")
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(cargo-process--enable-rust-backtrace t)
+ '(vterm-max-scrollback 10000)
+ '(vterm-eval-cmds (quote (("find-file" find-file) ("message" message) ("vterm-clear-scrollback" vterm-clear-scrollback) ("lx/run-in-vterm/set-green-box-cursor" lx/run-in-vterm/set-green-box-cursor) ("lx/run-in-vterm/set-blue-bar-cursor" lx/run-in-vterm/set-blue-bar-cursor))))
+ '(xwwp-follow-link-completion-system 'helm)
+ '(helm-buffer-max-length 40)
+ '(TeX-command-list (quote (("XeLaTeX" "%`xelatex --synctex=1%(mode)%' %t" TeX-run-TeX nil t) ("LatexMk" "latexmk %(-PDF)%S%(mode) %(file-line-error) %(extraopts) %t" TeX-run-latexmk nil (plain-tex-mode latex-mode doctex-mode) :help "Run LatexMk") ("TeX" "%(PDF)%(tex) %(file-line-error) %`%(extraopts) %S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (plain-tex-mode ams-tex-mode texinfo-mode) :help "Run plain TeX") ("LaTeX" "%`%l%(mode)%' %T" TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX") ("Makeinfo" "makeinfo %(extraopts) %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with Info output") ("Makeinfo HTML" "makeinfo %(extraopts) --html %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with HTML output") ("AmSTeX" "amstex %(PDFout) %`%(extraopts) %S%(mode)%' %t" TeX-run-TeX nil (ams-tex-mode) :help "Run AMSTeX") ("ConTeXt" "%(cntxcom) --once --texutil %(extraopts) %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt once") ("ConTeXt Full" "%(cntxcom) %(extraopts) %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt until completion") ("BibTeX" "bibtex %s" TeX-run-BibTeX nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode context-mode) :help "Run BibTeX") ("Biber" "biber %s" TeX-run-Biber nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run Biber") ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer") ("Print" "%p" TeX-run-command t t :help "Print the file") ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command) ("File" "%(o?)dvips %d -o %f " TeX-run-dvips t (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Generate PostScript file") ("Dvips" "%(o?)dvips %d -o %f " TeX-run-dvips nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Convert DVI file to PostScript") ("Dvipdfmx" "dvipdfmx %d" TeX-run-dvipdfmx nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Convert DVI file to PDF with dvipdfmx") ("Ps2pdf" "ps2pdf %f" TeX-run-ps2pdf nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Convert PostScript file to PDF") ("Glossaries" "makeglossaries %s" TeX-run-command nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run makeglossaries to create glossary file") ("Index" "makeindex %s" TeX-run-index nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run makeindex to create index file") ("upMendex" "upmendex %s" TeX-run-index t (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run upmendex to create index file") ("Xindy" "texindy %s" TeX-run-command nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run xindy to create index file") ("Check" "lacheck %s" TeX-run-compile nil (latex-mode) :help "Check LaTeX file for correctness") ("ChkTeX" "chktex -v6 %s" TeX-run-compile nil (latex-mode) :help "Check LaTeX file for common mistakes") ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document") ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files") ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files") ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
  '(sql-connection-alist
 (quote
  (("localhost-test"

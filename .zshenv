@@ -18,12 +18,14 @@ else
     export EDITOR='emacsclient'
 fi
 export GOROOT=/usr/local/opt/go/libexec/
-export GOPATH=$HOME/.go:$HOME/cascode/go
+export GOPATH=$HOME/.go
+export GO111MODULE=auto
+export GOPROXY=https://goproxy.cn,direct
 if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
     export ZDOTDIR=$HOME/liuxiang
     # export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages
     export FPATH="$FPATH:$HOME/liuxiang/local/share/zsh/site-functions"
-    [ -n "$EMACS" ] && source $HOME/liuxiang/.zprofile
+    [ -n "$INSIDE_EMACS" ] && source $HOME/liuxiang/.zprofile
 else
     # export PYTHONPATH=$HOME/Library/Python/2.7/lib/python/site-packages
     export FPATH="$FPATH:/usr/local/share/zsh/site-functions"
@@ -56,16 +58,17 @@ export PAGER='less -R'
 export RI='-f ansi'
 export LSCOLORS=exfxcxdxcxegedabagacad
 export LS_COLORS='di=01;36'
-export PERL_MB_OPT="--install_base \"/Users/liuxiang/perl5\""
-export PERL_MM_OPT="INSTALL_BASE=/Users/liuxiang/perl5"
+export PERL_MB_OPT="--install_base \"$HOME/perl5\""
+export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 export PERL5LIB=$HOME/perl5/lib/perl5
 export NULLCMD=:
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
-export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+# export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
+export HOMEBREW_BAT=1
 export VISUAL=${ZDOTDIR:-$HOME}/bin/emacsclient-for-visual
 [[ -e $HOME/.secretenv ]] && source $HOME/.secretenv
 export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
 export BAT_CONFIG_PATH=$HOME/.config/.batrc
 export RUST_SRC_PATH=/usr/local/Cellar/rust/1.38.0/share/rust/rust_src
+export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+export curl_ca_bundle=$HOME/.mitmproxy/mitmproxy-ca.pem

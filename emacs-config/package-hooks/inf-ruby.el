@@ -66,7 +66,7 @@
     (lx/ruby-send-babel-block)
     (ruby-switch-to-inf t))
 
-  (setq inf-ruby-prompt-format (format "\\(^ARQL ❯\\)\\|%s" inf-ruby-prompt-format))
-  (setq inf-ruby-first-prompt-pattern (format "\\(^ARQL ❯\\)\\|%s" inf-ruby-first-prompt-pattern))
-  (setq inf-ruby-prompt-pattern (format "\\(^ARQL ❯\\)\\|%s" inf-ruby-prompt-pattern))
+  (setq inf-ruby-prompt-format (format "\\(^ARQL@[^ ]* ❯\\)\\|%s" inf-ruby-prompt-format))
+  (setq inf-ruby-first-prompt-pattern (format "\\(^ARQL@[^ ]* ❯\\)\\|%s" inf-ruby-first-prompt-pattern))
+  (setq inf-ruby-prompt-pattern (format "\\(^ARQL@[^ ]* ❯\\)\\|%s" inf-ruby-prompt-pattern))
   )
