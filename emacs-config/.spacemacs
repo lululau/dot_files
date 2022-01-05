@@ -904,7 +904,7 @@ This function is called at the very end of Spacemacs initialization."
 '(org-pandoc-options-for-latex-pdf
 (quote
  ((pdf-engine . "xelatex")
-  (template . "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/pandoc-latex-templates/Heiti/default.latex"))))
+  (template . "/Users/liuxiang/Documents/shared_config/pandoc-latex-templates/Heiti/default.latex"))))
  '(org-re-reveal-root "/Users/liuxiang/cascode/github.com/reveal.js/")
  '(org-re-reveal-theme "solarized")
 '(org-src-lang-modes
