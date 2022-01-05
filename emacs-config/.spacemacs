@@ -507,13 +507,13 @@ layers configuration."
   (setq org-mu4e-tmp-dir "~/tmp/mu4e")
 
   ;; --------- Orgcss HTML Theme for Mu4e ---------
-  (setq mu4e-org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/orgcss/org.css\" type=\"text/css\" />")
+  (setq mu4e-org-html-head (format "<link rel=\"stylesheet\" title=\"Standard\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/orgcss/org.css\" type=\"text/css\" />" user-home-directory))
 
   ;; --------- Worg HTML Theme for Mu4e ---------
-  ;; (setq mu4e-org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/worg/worg.css\" type=\"text/css\" />")
+  ;; (setq mu4e-org-html-head (format "<link rel=\"stylesheet\" title=\"Standard\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/worg/worg.css\" type=\"text/css\" />" user-home-directory))
 
   ;; --------- ReadTheOrg HTML Theme for Mu4e ---------
-  ;; (setq mu4e-org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
+  ;; (setq mu4e-org-html-head (format "<link rel=\"stylesheet\" type=\"text/css\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"%s.spacemacs-layers/assets/org-themes/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"%s.spacemacs-layers/assets/org-themes/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"%s.spacemacs-layers/assets/org-themes/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/spacemacs-wide/font-awesome.min.css\"/>\n" user-home-directory user-home-directory user-home-directory user-home-directory user-home-directory user-home-directory ))
 
   ;; --------- Worg HTML Theme for Org-Mode Export ---------
   ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://www.hackit.fun/org-assets/css/worg/worg.css\" type=\"text/css\" />")
@@ -901,11 +901,10 @@ This function is called at the very end of Spacemacs initialization."
  '(org-confirm-babel-evaluate nil)
  '(org-ditaa-jar-path "/usr/local/libexec/ditaa.jar")
  '(org-export-with-sub-superscripts (quote {}))
-'(org-pandoc-options-for-latex-pdf
-(quote
- ((pdf-engine . "xelatex")
-  (template . "/Users/liuxiang/Documents/shared_config/pandoc-latex-templates/Heiti/default.latex"))))
- '(org-re-reveal-root "/Users/liuxiang/cascode/github.com/reveal.js/")
+ '(org-pandoc-options-for-latex-pdf
+   `((pdf-engine . "xelatex")
+     (template . ,(format "%s.spacemacs-layers/assets/pandoc-latex-templates/Heiti/default.latex" user-home-directory))))
+ `(org-re-reveal-root ,(format "%s.spacemacs-layers/assets/reveal.js/" user-home-directory))
  '(org-re-reveal-theme "solarized")
 '(org-src-lang-modes
 (quote
