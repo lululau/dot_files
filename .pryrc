@@ -10,6 +10,7 @@
 # pry-toys
 # pry-macro
 # pry-inline
+require 'pry-doc'
 
 
 unless $USER_PRYRC_LOADED
