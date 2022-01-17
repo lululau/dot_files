@@ -28,8 +28,9 @@
         ("date:7d..now" "Last 7 days" ?w)
         ("mime:image/*" "Messages with images" ?p)
         ("from:monitor@monitor.aliyun.com" "Aliyun Alert" ?A)
-        ("from:opscreditcloud@163.com" "Ktjr Alert" ?k)
+        ("from:devops@ktjr.com" "Ktjr Alert" ?k)
         ("from:kibana@ktjr.com" "Kibana Alert" ?K)
+        ("from:jira@ktjr.com and m:/INBOX" "Jira" ?j)
         (,(mapconcat 'identity
                      (mapcar
                       (lambda (maildir)
