@@ -52,7 +52,7 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # plugins=(git autojump battery colorize colored-man command-not-found compleat cp
 #          cpanm encode64 gem github gnu-utils go golang history jruby macports
-#          mvn mysql-macports node npm osx perl pip python rails rake rsync ruby
+#          mvn mysql-macports node npm macos perl pip python rails rake rsync ruby
 #          rvm safe-paste scala screen svn terminalapp terminitor textmate themes
 #          bundler httpie ack2 funcfind gemcd alibas vagrant tmux)
 
@@ -70,7 +70,7 @@ plugins=(ack2 alibas autojump autopair
          lein
          mvn
          node npm nvm
-         osx
+         macos
          perl pip python
          rails rake rsync ruby rvm
          safe-paste sbt scala screen svn systemadmin systemd
@@ -81,8 +81,8 @@ plugins=(ack2 alibas autojump autopair
          project-root
          kubectl
          minikube
-         rust cargo
-         zsh-autosuggestions zsh-brew-services zsh_reload zsh-completions)
+         rust
+         zsh-autosuggestions zsh-brew-services zsh-completions)
 
 [ -z "$INSIDE_EMACS" ] && plugins+=(fast-syntax-highlighting)
 
