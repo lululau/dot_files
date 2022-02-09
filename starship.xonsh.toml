@@ -98,6 +98,9 @@ success_symbol = "[❯❯❯](bold green)"
 error_symbol = "[❯❯❯](bold red)"
 vicmd_symbol = "[❮❮❮](bold green)"
 
+[nodejs]
+symbol = "⬢ "
+
 # [nnn_level]
 # command = "echo 【N$NNNLVL】"  # shows output of command
 # when = """ test -n "$NNNLVL" """
