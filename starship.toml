@@ -90,6 +90,9 @@ format = """\
 truncation_length = 8
 truncate_to_repo = false
 
+[nodejs]
+symbol = "⬢ "
+
 # [nnn_level]
 # command = "echo 【N$NNNLVL】"  # shows output of command
 # when = """ test -n "$NNNLVL" """
