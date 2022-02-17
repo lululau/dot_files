@@ -166,7 +166,7 @@
      (crystal :variables crystal-backend 'lsp)
      (scala :variables scala-backend 'scala-metals)
      swift
-     kotlin
+     (kotlin :variables kotlin-lsp-jar-path "/Users/liuxiang/Documents/shared_config/kotlin-lsp-server/bin/kotlin-language-server")
      groovy
      (go :variables go-tab-width 4)
      lua
