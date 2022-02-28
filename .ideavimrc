@@ -202,6 +202,8 @@ noremap <leader>tb :action EditorToggleShowBreadcrumbs<cr>
 noremap <leader>tg :action EditorToggleShowGutterIcons<cr>
 noremap <leader>ts :action ChangeInspectionProfile<cr>
 noremap <leader>th :action ToggleInlineHintsAction<cr>
+noremap <leader>to :action copilot.disableCopilot<cr>
+noremap <leader>tO :action copilot.enableCopilot<cr>
 noremap ,tp :action TogglePowerSave<cr>
 noremap ,tN :action ViewNavigationBar<cr>
 noremap ,tn :action EditorToggleShowLineNumbers<cr>
@@ -213,6 +215,8 @@ noremap ,tb :action EditorToggleShowBreadcrumbs<cr>
 noremap ,tg :action EditorToggleShowGutterIcons<cr>
 noremap ,ts :action ChangeInspectionProfile<cr>
 noremap ,th :action ToggleInlineHintsAction<cr>
+noremap ,to :action copilot.disableCopilot<cr>
+noremap ,tO :action copilot.enableCopilot<cr>
 
 
 " Maven/Gradle/Other Build-related Actions
