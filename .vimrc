@@ -98,8 +98,11 @@ Plugin 'justinmk/vim-ipmotion'
 Plugin 'chrisbra/csv.vim'
 Plugin 'jreybert/vimagit'
 Plugin 'yianwillis/vimcdoc'
+Plugin 'github/copilot.vim'
 
 set hidden
+
+set guicursor=i:block
 
 let g:airline_exclude_preview = 1
 let g:multi_cursor_quit_key='<c-c>'
@@ -263,6 +266,7 @@ let g:VM_maps["Visual Find"]                 = '\\f'
 let g:VM_maps["Visual Cursors"]              = '\\c'
 
 inoremap <c-c> <ESC>
+inoremap <c-z> <ESC>
 " imap jj <ESC>
 " Insert a hash rocket with <c-h>
 inoremap <c-h> =><space>

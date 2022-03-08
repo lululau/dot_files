@@ -65,3 +65,5 @@ alias cdm='cd "$(tmux display-message -p "#{pane_current_path}")"'
 alias groovysh='JAVA_OPTS=-Djava.awt.headless=true groovysh'
 alias gsh='JAVA_OPTS=-Djava.awt.headless=true groovysh'
 alias ports='sudo lsof -Pn -iTCP -sTCP:LISTEN | tee >(head -1)'
+alias vi=nvim
+alias vim=nvim
