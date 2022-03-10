@@ -67,3 +67,4 @@ alias gsh='JAVA_OPTS=-Djava.awt.headless=true groovysh'
 alias ports='sudo lsof -Pn -iTCP -sTCP:LISTEN | tee >(head -1)'
 alias vi=nvim
 alias vim=nvim
+alias view='nvim -R'
