@@ -824,6 +824,7 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-mu-default-search-string "(m:/INBOX or m:/\"Sent Messages\" or m:/Archive)")
  '(helm-mu-gnu-sed-program "gsed")
  '(helm-recentf-fuzzy-match t)
+ '(recentf-max-saved-items 10000)
  '(helm-source-projectile-projects-actions
    (quote
     (("Switch to project" .
