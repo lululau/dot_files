@@ -99,6 +99,7 @@ Plugin 'chrisbra/csv.vim'
 Plugin 'jreybert/vimagit'
 Plugin 'yianwillis/vimcdoc'
 Plugin 'github/copilot.vim'
+Plugin 'udalov/kotlin-vim'
 
 set hidden
 
