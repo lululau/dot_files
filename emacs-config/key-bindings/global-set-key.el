@@ -121,8 +121,9 @@
 ;; (global-set-key [M-S-tab] #'projectile-project-switch-to-alternate-buffer)
 (global-set-key [M-S-tab] #'(lambda () (interactive) (switch-to-buffer (nth 2 (projectile-project-buffers)))))
 
-(global-set-key (kbd "C-g") '(lambda () (interactive) (spacemacs/evil-search-clear-highlight) (copilot-clear-overlay) (keyboard-quit)))
-(global-set-key (kbd "M-\\") '(lambda () (interactive) (copilot-complete)))
+(global-set-key (kbd "C-g") '(lambda () (interactive) (spacemacs/evil-search-clear-highlight) (keyboard-quit)))
+;; (global-set-key (kbd "C-g") '(lambda () (interactive) (spacemacs/evil-search-clear-highlight) (copilot-clear-overlay) (keyboard-quit)))
+;; (global-set-key (kbd "M-\\") '(lambda () (interactive) (copilot-complete)))
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
 (global-set-key (kbd "C-M-i") 'spacemacs/alternate-buffer)
 (unless (display-graphic-p) (global-set-key (kbd "C-M-i") 'spacemacs/alternate-buffer) (global-set-key (kbd "<f10>") 'spacemacs/alternate-buffer))
@@ -245,5 +246,5 @@
 (global-set-key (kbd "s-=") #'lx/set-monospaced-font/increase-font-size)
 (global-set-key (kbd "s--") #'lx/set-monospaced-font/decrease-font-size)
 
-(global-set-key (kbd "TAB") #'(lambda (&optional arg) (interactive "P") (or (copilot-accept-completion) (indent-for-tab-command arg))))
-(global-set-key (kbd "<S-tab>") #'copilot-accept-completion)
+;; (global-set-key (kbd "TAB") #'(lambda (&optional arg) (interactive "P") (or (copilot-accept-completion) (indent-for-tab-command arg))))
+;; (global-set-key (kbd "<S-tab>") #'copilot-accept-completion)
