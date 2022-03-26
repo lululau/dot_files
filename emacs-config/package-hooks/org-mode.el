@@ -203,12 +203,13 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ij" 'org-move-item-down)
   (require 'org-mouse))
 
-(eval-after-load "org"
-  '(orgit-link-set-parameters "orgit"
-                              :store    'orgit-status-store
-                              :follow   'orgit-status-open
-                              :export   'orgit-status-export
-                              :complete 'orgit-status-complete-link))
+;; (eval-after-load "org"
+;;   '(orgit-link-set-parameters "orgit"
+;;                               :store    'orgit-status-store
+;;                               :follow   'orgit-status-open
+;;                               :export   'orgit-status-export
+;;                               :complete 'orgit-status-complete-link))
+
 (with-eval-after-load 'org-protocol
   (add-to-list 'org-protocol-protocol-alist
                '("capture-html"

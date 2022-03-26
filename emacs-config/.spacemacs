@@ -155,7 +155,7 @@
      (crystal :variables crystal-backend 'lsp)
      (scala :variables scala-backend 'scala-metals)
      swift
-     kotlin
+     (kotlin :variables kotlin-lsp-jar-path "/Users/liuxiang/Documents/shared_config/kotlin-lsp-server/bin/kotlin-language-server")
      groovy
      (go :variables go-tab-width 4)
      lua
@@ -801,6 +801,7 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-mu-default-search-string "(m:/INBOX or m:/\"Sent Messages\" or m:/Archive)")
  '(helm-mu-gnu-sed-program "gsed")
  '(helm-recentf-fuzzy-match t)
+ '(recentf-max-saved-items 10000)
  '(helm-source-projectile-projects-actions
    (quote
     (("Switch to project" .
