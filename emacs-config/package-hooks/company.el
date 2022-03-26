@@ -5,4 +5,10 @@
   ;; (add-to-list 'company-backends #'company-tabnine)
   (spacemacs|add-company-backends
     :backends company-indirect-sql-backend
-    :modes sql-mode))
+    :modes sql-mode)
+  (define-key company-mode-map (kbd "S-<tab>") (lambda ()
+                                               (interactive)
+                                               (copilot-accept-completion)))
+  (add-hook 'company-after-completion-hook '(lambda (&optional args) (copilot-clear-overlay)))
+
+  (copilot-enable))

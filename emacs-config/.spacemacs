@@ -141,7 +141,7 @@
      projectile-bundler
      projectile-bundler-robe
      elixir
-     shell-scripts
+     (shell-scripts :variables shell-scripts-backend 'shell-script-mode)
      dash
      clojure
      (haskell :variables haskell-enable-hindent t haskell-completion-backend 'dante)
@@ -168,7 +168,7 @@
      (crystal :variables crystal-backend 'lsp)
      (scala :variables scala-backend 'scala-metals)
      swift
-     kotlin
+     (kotlin :variables kotlin-lsp-jar-path "/Users/liuxiang/Documents/shared_config/kotlin-lsp-server/bin/kotlin-language-server")
      groovy
      (go :variables go-tab-width 4)
      lua
@@ -444,7 +444,7 @@ layers configuration."
   (setq mac-option-modifier 'meta)
   (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
   (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
-  (setq helm-locate-command "~/.rvm/gems/ruby-3.0.0/bin/mfd %s %s")
+  (setq helm-locate-command "~/.rvm/gems/ruby-3.1.0/bin/mfd %s %s")
 
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
@@ -506,11 +506,16 @@ layers configuration."
       ("gitlab.com"    git-link-commit-github)))
 
 
+  (setq org-mu4e-tmp-dir "~/tmp/mu4e")
+
+  ;; --------- Orgcss HTML Theme for Mu4e ---------
+  (setq mu4e-org-html-head (format "<link rel=\"stylesheet\" title=\"Standard\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/orgcss/org.css\" type=\"text/css\" />" user-home-directory))
+
   ;; --------- Worg HTML Theme for Mu4e ---------
-  ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/worg/worg.css\" type=\"text/css\" />")
+  ;; (setq mu4e-org-html-head (format "<link rel=\"stylesheet\" title=\"Standard\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/worg/worg.css\" type=\"text/css\" />" user-home-directory))
 
   ;; --------- ReadTheOrg HTML Theme for Mu4e ---------
-  ;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"/Users/liuxiang/cascode/github.com/coding.me/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"/Users/liuxiang/cascode/github.com/coding.me/style/org/spacemacs-wide/font-awesome.min.css\"/>\n")
+  ;; (setq mu4e-org-html-head (format "<link rel=\"stylesheet\" type=\"text/css\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/spacemacs-wide/htmlize.css\"/>\n <script src=\"%s.spacemacs-layers/assets/org-themes/js/org/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"%s.spacemacs-layers/assets/org-themes/js/org/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"%s.spacemacs-layers/assets/org-themes/js/org/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"%s.spacemacs-layers/assets/org-themes/style/org/spacemacs-wide/font-awesome.min.css\"/>\n" user-home-directory user-home-directory user-home-directory user-home-directory user-home-directory user-home-directory ))
 
   ;; --------- Worg HTML Theme for Org-Mode Export ---------
   ;; (setq org-html-head "<link rel=\"stylesheet\" title=\"Standard\" href=\"http://www.hackit.fun/org-assets/css/worg/worg.css\" type=\"text/css\" />")
@@ -630,10 +635,17 @@ layers configuration."
   (add-to-list 'org-babel-load-languages '(elasticsearch . t))
   (add-to-list 'org-babel-load-languages '(mermaid . t))
   (add-to-list 'org-babel-load-languages '(sql . t))
+  (add-to-list 'org-babel-load-languages '(jq . t))
+
+  (autoload 'org-babel-execute:jq "ob-jq")
 
   (setq ob-mermaid-cli-path "/usr/local/bin/mmdc")
 
   (define-key y-or-n-p-map (kbd "SPC") 'y-or-n-p-insert-y)
+
+  (setq TeX-view-program-selection '((output-dvi . "open") (output-pdf . "open") (output-html . "open")))
+
+  (setq python-indent-offset 4)
 
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
@@ -691,6 +703,7 @@ This function is called at the very end of Spacemacs initialization."
  '(company-show-numbers t)
  '(company-idle-delay 0)
  '(es-always-pretty-print t)
+ '(writeroom-bottom-divider-width 0)
  '(custom-safe-themes
    (quote
     ("398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" default)))
@@ -813,6 +826,7 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-mu-default-search-string "(m:/INBOX or m:/\"Sent Messages\" or m:/Archive)")
  '(helm-mu-gnu-sed-program "gsed")
  '(helm-recentf-fuzzy-match t)
+ '(recentf-max-saved-items 10000)
  '(helm-source-projectile-projects-actions
    (quote
     (("Switch to project" .
@@ -890,11 +904,10 @@ This function is called at the very end of Spacemacs initialization."
  '(org-confirm-babel-evaluate nil)
  '(org-ditaa-jar-path "/usr/local/libexec/ditaa.jar")
  '(org-export-with-sub-superscripts (quote {}))
-'(org-pandoc-options-for-latex-pdf
-(quote
- ((pdf-engine . "xelatex")
-  (template . "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/pandoc-latex-templates/Heiti/default.latex"))))
- '(org-re-reveal-root "/Users/liuxiang/cascode/github.com/reveal.js/")
+ '(org-pandoc-options-for-latex-pdf
+   `((pdf-engine . "xelatex")
+     (template . ,(format "%s.spacemacs-layers/assets/pandoc-latex-templates/Heiti/default.latex" user-home-directory))))
+ `(org-re-reveal-root ,(format "%s.spacemacs-layers/assets/reveal.js/" user-home-directory))
  '(org-re-reveal-theme "solarized")
 '(org-src-lang-modes
 (quote
@@ -954,6 +967,7 @@ This function is called at the very end of Spacemacs initialization."
  '(neo-window-fixed-size nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
  '(annotate-file "~/Documents/materials/annotates/annotations")
+ '(TeX-view-program-selection (quote ((output-dvi . "open") (output-pdf . "open") (output-html . "open"))))
 '(safe-local-variable-values
 (quote
  ((arql-env . "lcldevb")

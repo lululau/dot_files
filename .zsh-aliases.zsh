@@ -55,7 +55,7 @@ alias f=fd
 alias shu=tree
 alias rm=trash
 alias mm=trash
-alias sleep-wake-log="pmset -g log | grep -e ' Sleep  ' -e ' Wake  ' | ag --passthru ' Wake  '"
+alias sleep-wake-log="pmset -g log | grep -e ' Sleep  ' -e ' \(Dark\)\?Wake  ' | ag --passthru ' Wake  '"
 alias re=rexe
 alias nuc='nu -c'
 alias gu=gitui
@@ -65,3 +65,6 @@ alias cdm='cd "$(tmux display-message -p "#{pane_current_path}")"'
 alias groovysh='JAVA_OPTS=-Djava.awt.headless=true groovysh'
 alias gsh='JAVA_OPTS=-Djava.awt.headless=true groovysh'
 alias ports='sudo lsof -Pn -iTCP -sTCP:LISTEN | tee >(head -1)'
+alias vi=nvim
+alias vim=nvim
+alias view='nvim -R'

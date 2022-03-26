@@ -83,3 +83,5 @@ Session.vim
 !/light-zsh.d/.zlogin
 /rq/
 /gh/
+/github-copilot/
+/emacs-config/vendor/dist/
