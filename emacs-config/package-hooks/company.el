@@ -6,7 +6,7 @@
   (spacemacs|add-company-backends
     :backends company-indirect-sql-backend
     :modes sql-mode)
-  ;; (define-key company-mode-map (kbd "S-<tab>") (lambda ()
+  ;; (define-key company-mode-map (kbd "<backtab>") (lambda ()
   ;;                                              (interactive)
   ;;                                              (copilot-accept-completion)))
   ;; (add-hook 'company-after-completion-hook '(lambda (&optional args) (copilot-clear-overlay)))
