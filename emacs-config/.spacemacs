@@ -368,7 +368,7 @@ before layers configuration."
 
   (setq configuration-layer--elpa-archives
         '(("melpa"    . "melpa.org/packages/")
-          ("org"      . "orgmode.org/elpa/")
+          ;; ("org"      . "orgmode.org/elpa/")
           ("gnu"      . "elpa.gnu.org/packages/")))
 
   (load-file lx/emacs-config-init-el)
