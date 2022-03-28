@@ -11,3 +11,4 @@ GRTAGS
 **/._.DS_Store
 .pdf-view-restore
 *.~undo-tree~
+.*.~undo-tree~
