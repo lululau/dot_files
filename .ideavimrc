@@ -43,6 +43,7 @@ inoremap <c-b> <Left>
 inoremap <c-n> <Down>
 inoremap <c-p> <Up>
 inoremap <c-d> <Del>
+inoremap <c-i> <c-o>:action copilot.requestCompletions<cr>
 nnoremap <c-c> i
 nnoremap <c-a> ^
 inoremap <c-k> <c-o>C
