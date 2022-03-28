@@ -80,8 +80,8 @@
      ;; ----------------------------------------------------------------
      (spacemacs-layouts :variables
                         spacemacs-layouts-restrict-spc-tab t)
-     lsp
-     ;; (lsp :variables lsp-rust-server 'rust-analyzer)
+     ;; lsp
+     (lsp :variables lsp-rust-server 'rust-analyzer)
      dap
      ivy helm
      neotree
@@ -162,7 +162,7 @@
      (python :variables python-test-runner '(pytest))
      php
      restclient
-     (rust :variables rust-backend 'racer)
+     (rust :variables rust-backend 'lsp)
      (crystal :variables crystal-backend 'lsp)
      (scala :variables scala-backend 'scala-metals)
      swift
