@@ -128,7 +128,7 @@
                       version-control-diff-side 'left
                       version-control-global-margin t)
      (ruby :variables
-           ruby-backend 'robe
+           ;; ruby-backend 'robe
            ruby-test-runner 'rspec
            ruby-enable-enh-ruby-mode nil)
      perl5
@@ -150,8 +150,8 @@
      html
      common-lisp
      groovy
-     ;; java
-     (java :variables java-backend 'meghanada)
+     java
+     ;; (java :variables java-backend 'meghanada)
      c-c++
      (javascript  :variables javascript-disable-tern-port-files nil javascript-backend 'lsp)
      typescript
