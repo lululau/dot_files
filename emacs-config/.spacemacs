@@ -98,7 +98,7 @@
      ;; (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      emacs-lisp
      git
-     github
+     ;; github ;; layer deprecated
      gtags
      (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
