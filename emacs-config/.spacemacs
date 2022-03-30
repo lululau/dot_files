@@ -105,7 +105,8 @@
      (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
      (org :variables
-          ;; org-enable-roam-support t
+          org-enable-notifications t
+          org-start-notification-daemon-on-startup t
           org-enable-epub-support t
           org-enable-github-support t
           org-enable-bootstrap-support t
@@ -452,7 +453,8 @@ layers configuration."
   (if (lx/system-is-mac)
       (setq org-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org")
     (setq org-directory "~/.org"))
-  ;; (setq org-agenda-files (append (file-expand-wildcards "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/**/*.org") (file-expand-wildcards  "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/*.org")))
+  (if (file-exists-p "~/.agenda_files")
+      (setq org-agenda-files "~/.agenda_files"))
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
   (setq org-link-search-must-match-exact-headline nil)
@@ -562,34 +564,6 @@ layers configuration."
                                (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
 
   (setq mu4e-hide-index-messages t)
-
-  ;; org-mode and appointment notifications on Mac OS 10.8+
-  ;; https://lists.gnu.org/archive/html/emacs-orgmode/2013-02/msg00644.html
-  (require 'appt)
-  (setq appt-time-msg-list nil)    ;; clear existing appt list
-  (setq appt-display-interval 8) ;; warn every 10 minutes from t - appt-message-warning-time
-  (setq
-   appt-message-warning-time 15  ;; send first warning 10 minutes before appointment
-   appt-display-mode-line nil     ;; don't show in the modeline
-   appt-display-format 'window)   ;; pass warnings to the designated window function
-  (appt-activate 1)                ;; activate appointment notification
-  (display-time)                   ;; activate time display
-
-  (org-agenda-to-appt)             ;; generate the appt list from org agenda files on emacs launch
-  (run-at-time "24:01" 3600 'org-agenda-to-appt)           ;; update appt list hourly
-  (add-hook 'org-finalize-agenda-hook 'org-agenda-to-appt) ;; update appt list on agenda view
-
-  ;; set up the call to terminal-notifier
-  (defvar my-notifier-path "/usr/local/bin/terminal-notifier")
-  (defun my-appt-send-notification (title msg)
-    (shell-command (concat my-notifier-path " -message " msg " -title " title " -sender org.gnu.Emacs -appIcon ~/.emacs.d/private/org.png")))
-
-  ;; designate the window function for my-appt-send-notification
-  (defun my-appt-display (min-to-app new-time msg)
-    (my-appt-send-notification
-     (format "'%s 分钟之后'" min-to-app)    ;; passed to -title in terminal-notifier call
-     (format "'%s'" msg)))                                ;; passed to -message in terminal-notifier call
-  (setq appt-disp-window-function (function my-appt-display))
 
   (define-coding-system-alias 'UTF-8 'utf-8)
   (define-coding-system-alias 'UTF8 'utf-8)
@@ -866,6 +840,7 @@ This function is called at the very end of Spacemacs initialization."
  '(mu4e-attachment-dir "~/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
  '(evil-want-keybinding nil)
+ '(alert-default-style 'notifier)
 '(mu4e-headers-fields
 (quote
  ((:human-date . 12)
@@ -875,7 +850,6 @@ This function is called at the very end of Spacemacs initialization."
   (:subject))))
  '(mu4e-headers-time-format "%H:%M")
  '(ns-pop-up-frames nil)
- '(org-agenda-files "~/.agenda_files")
 '(org-capture-templates
 (quote
  (("t" "Todo (with link to current buffer prosition)" entry
