@@ -74,6 +74,7 @@
   "KA" #'lx/kubectl/istio-inject-apply-region-or-buffer
   "KD" #'lx/kubectl/istio-inject-delete-region-or-buffer
   "dk" #'docker
+  "qk" #'lx/kill-all-except-default
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

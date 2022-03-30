@@ -40,11 +40,9 @@
                                                                                          (helm-find-files-1 sel)) (helm-get-selection))))
                               map))
 
-  (defclass helm-autojump-source (helm-source-ffiles)
-    ((candidates :initform 'helm-autojump-candidates)
-     (fuzzy-match :initform t)
-     (filtered-candidate-transformer :initform nil)
-     (keymap :initform helm-autojump-map)))
+  (defclass helm-autojump-source (helm-source-sync)
+     ((candidates :initform 'helm-autojump-candidates)
+      (action :initform 'find-file)))
 
   (defvar helm-source-autojump (helm-make-source "Autojump" 'helm-autojump-source))
 

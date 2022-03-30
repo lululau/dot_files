@@ -82,8 +82,8 @@
      ;; ----------------------------------------------------------------
      (spacemacs-layouts :variables
                         spacemacs-layouts-restrict-spc-tab t)
-     lsp
-     ;; (lsp :variables lsp-rust-server 'rust-analyzer)
+     ;; lsp
+     (lsp :variables lsp-rust-server 'rust-analyzer)
      dap
      ivy helm
      neotree
@@ -100,7 +100,7 @@
      ;; (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      emacs-lisp
      git
-     github
+     ;; github ;; layer deprecated
      gtags
      (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
@@ -130,7 +130,7 @@
                       version-control-diff-side 'left
                       version-control-global-margin t)
      (ruby :variables
-           ruby-backend 'robe
+           ;; ruby-backend 'robe
            ruby-test-runner 'rspec
            ruby-enable-enh-ruby-mode nil)
      perl5
@@ -164,7 +164,7 @@
      (python :variables python-test-runner '(pytest))
      php
      restclient
-     (rust :variables rust-backend 'racer)
+     (rust :variables rust-backend 'lsp)
      (crystal :variables crystal-backend 'lsp)
      (scala :variables scala-backend 'scala-metals)
      swift
