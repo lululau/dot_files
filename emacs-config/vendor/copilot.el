@@ -130,7 +130,7 @@
   ;; (message "-----output-----")
   ;; (message "%S" copilot--output-buffer)
   ;; (message "----------------")
-  (let ((header-match (s-match "Content-Length: \\([0-9]+\\)\r\n\r\n" copilot--output-buffer)))
+  (let ((header-match (s-match "Content-Length: \\([0-9]+\\)\r?\n\r?\n" copilot--output-buffer)))
     (if (and (not header-match) (> (length copilot--output-buffer) 50))
         (progn (setq copilot--output-buffer nil)
                (message "Copilot agent output buffer reset."))
@@ -357,7 +357,7 @@
     (copilot--get-candidates
      (lambda (result)
        (let* ((completions (alist-get 'completions result))
-              (completion (if (seq-empty-p completions) nil (seq-elt completions 0))))
+              (completion (if (seq-empty-p completions) (progn (message "No copilot completion") nil) (seq-elt completions 0))))
         (when completion
           (let* ((text (alist-get 'text completion))
                  (range (alist-get 'range completion))
