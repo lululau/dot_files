@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+ruby_dir=($HOME/.rvm/gems/ruby-<0-9>.<0-9>.<0-9>(On[1]))
+gem_dir=($ruby_dir/gems/rubocop-<0-9>*(On[1]))
+args=($@)
+if [[ $# == 8 && -z "$args[$#]" ]]; then
+  args[$#]='/stub.rb'
+  $gem_dir/exe/rubocop "${args[@]}" | sed 's/^\/stub.rb//'
+else
+  $gem_dir/exe/rubocop "${args[@]}"
+fi

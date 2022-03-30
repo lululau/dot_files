@@ -215,6 +215,7 @@
                                                             (when current-persp-project (find-file current-persp-project)))))
 (global-set-key (kbd "s-e") '(lambda () (interactive) (let ((current-persp-project (get-current-persp-project)))
                                                             (when current-persp-project (find-file current-persp-project)))))
+(global-set-key (kbd "s-p s-g") '(lambda () (interactive) (find-file (magit-toplevel))))
 
 (global-set-key (kbd "s-<backspace>") 'evil-change-whole-line)
 

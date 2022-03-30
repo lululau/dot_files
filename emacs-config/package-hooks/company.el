@@ -11,5 +11,4 @@
   ;;                                              (copilot-accept-completion)))
   ;; (add-hook 'company-after-completion-hook '(lambda (&optional args) (copilot-clear-overlay)))
 
-  ;; (copilot-enable)
   )
