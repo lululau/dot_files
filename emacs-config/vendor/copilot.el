@@ -273,6 +273,15 @@
            (copilot--diagnose-network)
            (copilot--diagnose-access)))
 
+(defun copilot--buffer-file-path ()
+  (or (buffer-file-name) ""))
+
+(defun copilot--buffer-file-name ()
+  (let ((buffer-file-name (buffer-file-name)))
+    (if buffer-file-name
+        (file-name-nondirectory buffer-file-name)
+      "")))
+
 ;;
 ;; Auto completion
 ;;
@@ -282,8 +291,8 @@
         :tabSize tab-width
         :indentSize tab-width
         :insertSpaces (if indent-tabs-mode :false t)
-        :path (buffer-file-name)
-        :relativePath (file-name-nondirectory (buffer-file-name))
+        :path (copilot--buffer-file-path)
+        :relativePath (copilot--buffer-file-name)
         :languageId (s-chop-suffix "-mode" (symbol-name major-mode))
         :position (list :line (1- (line-number-at-pos))
                         :character (length (buffer-substring-no-properties (point-at-bol) (point))))))
@@ -353,7 +362,7 @@
 (defun copilot-complete ()
   (interactive)
   (copilot-clear-overlay)
-  (when (buffer-file-name)
+  (when t
     (copilot--get-candidates
      (lambda (result)
        (let* ((completions (alist-get 'completions result))
@@ -365,5 +374,24 @@
                  (start-line (alist-get 'line start))
                  (start-char (alist-get 'character start)))
             (copilot-display-overlay-completion text start-line start-char))))))))
+
+(defun copilot-complete-if-insert-state ()
+  (interactive)
+  (copilot-clear-overlay)
+  (when (evil-insert-state-p)
+    (copilot-complete)))
+
+(defun copilot-toggle-auto-copilot ()
+  (interactive)
+  (if (bound-and-true-p copilot--auto-copilot-on-p)
+      (progn (remove-hook 'post-command-hook 'copilot-complete-if-insert-state)
+             (setq copilot--auto-copilot-on-p nil)
+             (message "Auto Copilot off!"))
+    (add-hook 'post-command-hook 'copilot-complete-if-insert-state)
+    (setq copilot--auto-copilot-on-p t)
+    (message "Auto Copilot on!")))
+
+(add-hook 'post-command-hook #'copilot-complete-if-insert-state)
+(setq copilot--auto-copilot-on-p t)
 
 (provide 'copilot)
