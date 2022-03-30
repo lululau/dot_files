@@ -450,7 +450,7 @@ layers configuration."
   (if (lx/system-is-mac)
       (setq org-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org")
     (setq org-directory "~/.org"))
-  ;; (setq org-agenda-files (append (file-expand-wildcards "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/**/*.org") (file-expand-wildcards  "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/*.org")))
+  (setq org-agenda-files "~/.agenda_files")
   (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                    (org-agenda-files :maxlevel . 9))))
   (setq org-link-search-must-match-exact-headline nil)
@@ -565,9 +565,9 @@ layers configuration."
   ;; https://lists.gnu.org/archive/html/emacs-orgmode/2013-02/msg00644.html
   (require 'appt)
   (setq appt-time-msg-list nil)    ;; clear existing appt list
-  (setq appt-display-interval 8) ;; warn every 10 minutes from t - appt-message-warning-time
+  (setq appt-display-interval 10) ;; warn every 10 minutes from t - appt-message-warning-time
   (setq
-   appt-message-warning-time 15  ;; send first warning 10 minutes before appointment
+   appt-message-warning-time 10  ;; send first warning 10 minutes before appointment
    appt-display-mode-line nil     ;; don't show in the modeline
    appt-display-format 'window)   ;; pass warnings to the designated window function
   (appt-activate 1)                ;; activate appointment notification
@@ -873,7 +873,6 @@ This function is called at the very end of Spacemacs initialization."
   (:subject))))
  '(mu4e-headers-time-format "%H:%M")
  '(ns-pop-up-frames nil)
- '(org-agenda-files "~/.agenda_files")
 '(org-capture-templates
 (quote
  (("t" "Todo (with link to current buffer prosition)" entry
