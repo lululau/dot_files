@@ -66,6 +66,7 @@
 
 (defun copilot--kill-process ()
   "Kill Copilot agent process."
+  (interactive)
   (when copilot--process
     (delete-process copilot--process)
     (setq copilot--process nil)))
