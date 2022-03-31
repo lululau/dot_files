@@ -381,7 +381,7 @@
 (defun copilot-complete-if-insert-state ()
   (interactive)
   (copilot-clear-overlay)
-  (when (evil-insert-state-p)
+  (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode) major-mode)))
     (copilot-complete)))
 
 (defun copilot-toggle-auto-copilot ()
