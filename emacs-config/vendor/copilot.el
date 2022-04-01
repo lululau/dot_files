@@ -511,6 +511,8 @@
   "Complete at the current point."
   (interactive)
   (copilot-clear-overlay)
+  (setq copilot--completion-cache nil)
+  (setq copilot--completion-idx 0)
   (when t
     (copilot--get-completion
      (lambda (result)
@@ -543,8 +545,6 @@
     (add-hook 'post-command-hook 'copilot-complete-if-insert-state)
     (setq copilot--auto-copilot-on-p t)
     (message "Auto Copilot on!")))
-(setq copilot--completion-cache nil)
-(setq copilot--completion-idx 0)
 
 (add-hook 'post-command-hook #'copilot-complete-if-insert-state)
 
