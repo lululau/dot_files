@@ -380,8 +380,8 @@
         :tabSize tab-width
         :indentSize tab-width
         :insertSpaces (if indent-tabs-mode :false t)
-        :path (buffer-file-name)
-        :relativePath (file-name-nondirectory (buffer-file-name))
+        :path (copilot--buffer-file-path)
+        :relativePath (copilot--buffer-file-name)
         :languageId (s-chop-suffix "-mode" (symbol-name major-mode))
         :position (list :line (1- (line-number-at-pos))
                         :character (length (buffer-substring-no-properties (point-at-bol) (point))))))
@@ -511,13 +511,22 @@
   "Complete at the current point."
   (interactive)
   (copilot-clear-overlay)
-  (when (buffer-file-name)
+  (when t
     (copilot--get-completion
      (lambda (result)
      (copilot--log "[INFO] Completion: %S" result)
        (let* ((completions (alist-get 'completions result))
-              (completion (if (seq-empty-p completions) nil (seq-elt completions 0))))
+              (completion (if (seq-empty-p completions) (progn (message "No copilot completion.") nil) (seq-elt completions 0))))
           (copilot--show-completion completion))))))
+
+(defun copilot--buffer-file-path ()
+  (or (buffer-file-name) ""))
+
+(defun copilot--buffer-file-name ()
+  (let ((buffer-file-name (buffer-file-name)))
+    (if buffer-file-name
+        (file-name-nondirectory buffer-file-name)
+      "")))
 
 (defun copilot-complete-if-insert-state ()
   (interactive)
