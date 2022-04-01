@@ -131,7 +131,7 @@
   ;; (message "-----output-----")
   ;; (message "%S" copilot--output-buffer)
   ;; (message "----------------")
-  (let ((header-match (s-match "Content-Length: \\([0-9]+\\)\r?\n\r?\n" copilot--output-buffer)))
+  (let ((header-match (s-match "^Content-Length: \\([0-9]+\\)\r?\n\r?\n" copilot--output-buffer)))
     (if (and (not header-match) (> (length copilot--output-buffer) 50))
         (progn (setq copilot--output-buffer nil)
                (message "Copilot agent output buffer reset."))
