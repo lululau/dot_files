@@ -123,9 +123,11 @@
         ("oso" org-mode-cheatsheet     "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/cheatsheets/org-mode-cheatsheets.org")))
 
 (defmacro lx/make-open-file-function (name dir)
-  `(defun ,(intern (format "lx/open-file-%s" name)) ()
-     (interactive)
-     (find-file ,dir)))
+  `(defun ,(intern (format "lx/open-file-%s" name)) (arg)
+     (interactive "P")
+     (if (not arg)
+         (find-file ,dir)
+       (find-file-other-window ,dir))))
 
 (let ((result '()))
   (dolist (elem (append lx/dirs lx/demo-files lx/config-files lx/org-files lx/cheatsheets lx/server-files) result)
