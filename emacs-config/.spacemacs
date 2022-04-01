@@ -938,6 +938,7 @@ This function is called at the very end of Spacemacs initialization."
  '(rubocop-check-command  "~/bin/rubocop --format emacs")
  '(rubocop-autocorrect-command  "~/bin/rubocop -a --format emacs")
  '(neo-window-fixed-size nil)
+ '(create-lockfiles nil)
  '(python-indent-guess-indent-offset-verbose nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
  '(annotate-file "~/Documents/materials/annotates/annotations")
