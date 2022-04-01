@@ -915,6 +915,7 @@ This function is called at the very end of Spacemacs initialization."
  '(rubocop-check-command  "~/bin/rubocop --format emacs")
  '(rubocop-autocorrect-command  "~/bin/rubocop -a --format emacs")
  '(neo-window-fixed-size nil)
+ '(python-indent-guess-indent-offset-verbose nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
  '(annotate-file "~/Documents/materials/annotates/annotations")
  '(TeX-view-program-selection (quote ((output-dvi . "open") (output-pdf . "open") (output-html . "open"))))

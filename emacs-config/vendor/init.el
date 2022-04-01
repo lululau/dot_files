@@ -28,4 +28,6 @@
 (autoload 'toggle-company-english-helper  "company-english-helper.el")
 (autoload 'copilot-clear-overlay "copilot.el")
 (autoload 'copilot-complete "copilot.el")
+(autoload 'copilot-next-completion "copilot.el")
+(autoload 'copilot-previous-completion "copilot.el")
 (autoload 'copilot-accept-completion "copilot.el")
