@@ -17,7 +17,6 @@
   "gho" #'browse-at-remote
   "Ct" #'copilot-toggle-auto-copilot
   "Cd" #'copilot-diagnose
-  "Ck" #'copilot--kill-process
   "to" #'org-toggle-link-display
   "tA" #'(lambda () (interactive) (if (bound-and-true-p annotate-mode) (annotate-mode -1) (annotate-mode)))
   "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 12 14 12 14))
