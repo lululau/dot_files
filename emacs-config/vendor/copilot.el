@@ -125,6 +125,9 @@
       (cl-incf count))
     result))
 
+(defun copilot--substring-by-bytes (multibyte-str &optional start end)
+  (string-as-multibyte (substring (string-as-unibyte multibyte-str) start end)))
+
 (defun copilot--process-filter (process output)
   "Process filter for Copilot agent. Only care about responses with id."
   (setq copilot--output-buffer (concat copilot--output-buffer output))
@@ -138,10 +141,10 @@
       (when header-match
         (let* ((header (car header-match))
               (content-length (string-to-number (cadr header-match)))
-              (full-length (+ (length header) content-length)))
-          (when (>= (length copilot--output-buffer) full-length)
-            (let ((content (substring copilot--output-buffer (length header) full-length)))
-              (setq copilot--output-buffer (substring copilot--output-buffer full-length))
+              (full-length (+ (string-bytes header) content-length)))
+          (when (>= (string-bytes copilot--output-buffer) full-length)
+            (let ((content (copilot--substring-by-bytes copilot--output-buffer (string-bytes header) full-length)))
+              (setq copilot--output-buffer (copilot--substring-by-bytes copilot--output-buffer full-length))
               (copilot--process-response content)
               ; rerun filter to process remaining output
               (copilot--process-filter process nil))))))))
