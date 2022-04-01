@@ -212,11 +212,11 @@
 (global-set-key (kbd "s-p s-o") 'lx/helm-projectile-open-projects)
 (global-set-key (kbd "s-p s-u") 'lx/helm-projectile-other-open-projects)
 (global-set-key (kbd "s-p s-l") 'spacemacs/helm-perspectives)
-(global-set-key (kbd "s-p s-t") '(lambda () (interactive) (let ((current-persp-project (get-current-persp-project)))
-                                                            (when current-persp-project (find-file current-persp-project)))))
-(global-set-key (kbd "s-e") '(lambda () (interactive) (let ((current-persp-project (get-current-persp-project)))
-                                                            (when current-persp-project (find-file current-persp-project)))))
-(global-set-key (kbd "s-p s-g") '(lambda () (interactive) (find-file (magit-toplevel))))
+(global-set-key (kbd "s-p s-t") '(lambda (in-other-window) (interactive "P") (let ((current-persp-project (get-current-persp-project)))
+                                                            (when current-persp-project (if in-other-window (find-file-other-window current-persp-project)(find-file current-persp-project))))))
+(global-set-key (kbd "s-e") '(lambda (in-other-window) (interactive "P") (let ((current-persp-project (get-current-persp-project)))
+                                                                           (when current-persp-project (if in-other-window (find-file-other-window current-persp-project)(find-file current-persp-project))))))
+(global-set-key (kbd "s-p s-g") '(lambda (in-other-window) (interactive "P") (if in-other-window (find-file-other-window (magit-toplevel))(find-file (magit-toplevel)))))
 
 (global-set-key (kbd "s-<backspace>") 'evil-change-whole-line)
 
