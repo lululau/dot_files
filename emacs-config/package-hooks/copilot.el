@@ -2,15 +2,17 @@
 
   (defun copilot--generate-doc ()
     "Generate doc param for completion request."
-    (list :source (concat (buffer-substring-no-properties (point-min) (point-max)) "\n")
-          :tabSize tab-width
-          :indentSize tab-width
-          :insertSpaces (if indent-tabs-mode :false t)
-          :path (copilot--buffer-file-path)
-          :relativePath (copilot--buffer-file-name)
-          :languageId (s-chop-suffix "-mode" (symbol-name major-mode))
-          :position (list :line (1- (line-number-at-pos))
-                          :character (length (buffer-substring-no-properties (point-at-bol) (point))))))
+    (let ((pry-history nil))
+      (if (eq 'pry-vterm-mode major-mode)
+          (setq pry-history (tail-f "~/.pry_history" 5000)))
+      (list :source (copilot--get-source pry-history)
+            :tabSize tab-width
+            :indentSize tab-width
+            :insertSpaces (if indent-tabs-mode :false t)
+            :path (copilot--buffer-file-path)
+            :relativePath (copilot--buffer-file-name)
+            :languageId (copilot--get-language-id)
+            :position (copilot--get-position pry-history))))
 
   (defun copilot-complete ()
     "Complete at the current point."
@@ -26,6 +28,91 @@
                 (completion (if (seq-empty-p completions) (progn (message "No copilot completion.") nil) (seq-elt completions 0))))
            (copilot--show-completion completion))))))
 
+  (defun copilot-accept-completion ()
+    "Accept completion. Return t if there is a completion."
+    (interactive)
+    (when copilot--overlay
+      (let ((completion (overlay-get copilot--overlay 'completion))
+            (start (overlay-get copilot--overlay 'start)))
+        (copilot-clear-overlay)
+        (delete-region start (line-end-position))
+        (if (eq 'pry-vterm-mode major-mode)
+            (vterm-send-string completion)
+        (insert completion))
+        t)))
+
+  (defun copilot--show-completion (completion)
+    "Show COMPLETION."
+    (when completion
+      (let* ((text (alist-get 'text completion))
+             (range (alist-get 'range completion))
+             (start (alist-get 'start range))
+             (start-line (alist-get 'line start))
+             (start-char (alist-get 'character start)))
+        (if (eq 'pry-vterm-mode major-mode)
+            (copilot-display-overlay-completion text (1- (line-number-at-pos)) 0)
+          (copilot-display-overlay-completion text start-line start-char)))))
+
+  (defun copilot-display-overlay-completion (completion line col)
+    "Show COMPLETION in overlay at LINE and COL. For Copilot, COL is always 0."
+    (copilot-clear-overlay)
+    (save-excursion
+      (when (not (eq 'pry-vterm-mode major-mode))
+        (widen)
+        (goto-char (point-min))
+        (if (= (line-end-position line) (1- (point-max)))
+                                        ; special case if the last line is empty
+            (progn
+              (goto-char (point-max))
+              (newline)
+              (forward-char -1))
+          (forward-line line)
+          (forward-char col)))
+
+                                        ; remove common prefix
+      (let* ((cur-line (copilot--get-current-line))
+             (common-prefix-len (length (s-shared-start completion cur-line))))
+        (setq completion (substring completion common-prefix-len))
+        (when (not (eq 'pry-vterm-mode major-mode))
+          (forward-char common-prefix-len)))
+
+      (unless (s-blank? completion)
+        (let* ((ov (make-overlay (point) (point-at-eol) nil t t))
+               (p-completion (propertize completion 'face 'copilot-overlay-face))
+               (display (substring p-completion 0 1))
+               (after-string (substring p-completion 1)))
+          (overlay-put ov 'completion completion)
+          (overlay-put ov 'start (point))
+          (if (equal (overlay-start ov) (overlay-end ov))
+              (progn
+                (put-text-property 0 1 'cursor t p-completion)
+                (overlay-put ov 'after-string p-completion))
+            (overlay-put ov 'display display)
+            (overlay-put ov 'after-string after-string))
+          (setq copilot--overlay ov)))))
+
+  (defun copilot--get-current-line ()
+    (if (eq 'pry-vterm-mode major-mode)
+        (pry-vterm-get-current-line)
+      (s-chop-suffix "\n" (thing-at-point 'line))))
+
+  (defun copilot--get-source (&optional pry-history)
+    (let ((source (if (eq 'pry-vterm-mode major-mode)
+                      (concat (s-join "\n" pry-history) "\n" (pry-vterm-get-current-line))
+                    (buffer-substring-no-properties (point-min) (point-max)))))
+        (concat source "\n")))
+
+  (defun copilot--get-language-id ()
+    (if (eq 'pry-vterm-mode major-mode)
+        "ruby"
+      (s-chop-suffix "-mode" (symbol-name major-mode))))
+
+  (defun copilot--get-position (&optional pry-history)
+    (if (eq 'pry-vterm-mode major-mode)
+        (list :line (length pry-history) :character (length (pry-vterm-get-current-line)))
+      (list :line (1- (line-number-at-pos))
+            :character (length (buffer-substring-no-properties (point-at-bol) (point))))))
+
   (defun copilot--buffer-file-path ()
     (or (buffer-file-name) ""))
 
@@ -34,13 +121,6 @@
       (if buffer-file-name
           (file-name-nondirectory buffer-file-name)
         "")))
-
-  (defun copilot-complete-if-insert-state ()
-    (interactive)
-    (when (not (seq-contains-p '(copilot-complete copilot-next-completion copilot-previous-completion) this-command))
-      (copilot-clear-overlay)
-      (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode) major-mode)))
-        (copilot-complete))))
 
   (defun copilot-toggle-auto-copilot ()
     (interactive)
@@ -52,7 +132,15 @@
       (setq copilot--auto-copilot-on-p t)
       (message "Auto Copilot on!")))
 
-  (add-hook 'post-command-hook #'copilot-complete-if-insert-state)
   (add-hook 'evil-insert-state-exit-hook #'copilot-clear-overlay)
-  (add-hook 'evil-hybrid-state-exit-hook #'copilot-clear-overlay)
-  (setq copilot--auto-copilot-on-p t))
+  (add-hook 'evil-hybrid-state-exit-hook #'copilot-clear-overlay))
+
+(defun copilot-complete-if-insert-state ()
+  (interactive)
+  (when (not (seq-contains-p '(copilot-complete copilot-next-completion copilot-previous-completion) this-command))
+    (copilot-clear-overlay)
+    (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode) major-mode)))
+      (copilot-complete))))
+
+(add-hook 'post-command-hook #'copilot-complete-if-insert-state)
+(setq copilot--auto-copilot-on-p t)
