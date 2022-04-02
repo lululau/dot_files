@@ -151,7 +151,7 @@
 
 (defun copilot-complete-if-insert-state ()
   (interactive)
-  (when (not (seq-contains-p '(copilot-complete copilot-next-completion copilot-previous-completion) this-command))
+  (when (not (seq-contains-p '(copilot-complete copilot-next-completion copilot-previous-completion lx/keyboard-quit) this-command))
     (copilot-clear-overlay)
     (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode pry-vterm-mode zsh-vterm-mode) major-mode)))
       (copilot-complete))))

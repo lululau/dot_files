@@ -121,7 +121,7 @@
 ;; (global-set-key [M-S-tab] #'projectile-project-switch-to-alternate-buffer)
 (global-set-key [M-S-tab] #'(lambda () (interactive) (switch-to-buffer (nth 2 (projectile-project-buffers)))))
 
-(global-set-key (kbd "C-g") '(lambda () (interactive) (spacemacs/evil-search-clear-highlight) (copilot-clear-overlay) (keyboard-quit)))
+(global-set-key (kbd "C-g") 'lx/keyboard-quit)
 (global-set-key (kbd "M-\\") 'copilot-complete)
 (global-set-key (kbd "M-]") 'copilot-next-completion)
 (global-set-key (kbd "M-[") 'copilot-previous-completion)
