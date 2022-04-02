@@ -107,10 +107,9 @@
                       (concat (s-join "\n" history) "\n" (pry-vterm-get-current-line))
                     (if (eq 'zsh-vterm-mode major-mode)
                         (concat (mapconcat (lambda (it)
-                                     (let ((s it))
-                                       (if (s-starts-with? ": " s)
-                                           (substring s 15)
-                                         s))) history "\n") "\n" (zsh-vterm-get-current-line)) ;; TODO add `mv file ./' to source, which file is each file of current directory
+                                             (if (s-starts-with? ": " it)
+                                                 (substring it 15)
+                                               it)) history "\n") "\n" (zsh-vterm-get-current-line))
                       (buffer-substring-no-properties (point-min) (point-max))))))
         (concat source "\n")))
 
