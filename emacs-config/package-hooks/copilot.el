@@ -139,7 +139,7 @@
   (interactive)
   (when (not (seq-contains-p '(copilot-complete copilot-next-completion copilot-previous-completion) this-command))
     (copilot-clear-overlay)
-    (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode) major-mode)))
+    (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode pry-vterm-mode) major-mode)))
       (copilot-complete))))
 
 (add-hook 'post-command-hook #'copilot-complete-if-insert-state)
