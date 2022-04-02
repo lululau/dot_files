@@ -79,6 +79,10 @@
   (setq cursor-type 'bar)
   (set-cursor-color "#6db2e9"))
 
+(defun lx/run-in-vterm/set-default-directory (dir)
+  (interactive)
+  (setq default-directory dir))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun helm-vterm-buffers-list--init ()
