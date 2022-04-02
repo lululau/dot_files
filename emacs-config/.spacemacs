@@ -622,6 +622,8 @@ layers configuration."
 
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
+
+  (make-shell-pop-command "zsh-vterm" zsh-vterm)
   ) ;;; End of config.
 
 ;; (desktop-save-mode 1)

@@ -12,6 +12,8 @@
 (autoload 'helm-vterm-ssh "run-in-vterm")
 (autoload 'helm-pry-vterm-arql "pry-vterm")
 (autoload 'lx/run-in-pry-vterm "pry-vterm")
+(autoload 'lx/run-in-zsh-vterm "zsh-vterm")
+(autoload 'zsh-vterm "zsh-vterm")
 (autoload 'helm-vterm-vrl "run-in-vterm")
 (autoload 'helm-vterm-jenkins "run-in-vterm")
 (autoload 'lx/run-in-vterm "run-in-vterm")

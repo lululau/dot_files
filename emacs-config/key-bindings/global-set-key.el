@@ -24,13 +24,13 @@
 (global-set-key (kbd "s-'") #'(lambda (prefix)
                                 (interactive "P")
                                 (if prefix
-                                    (switch-to-buffer (get-buffer "*vterm-0*"))
-                                  (if (string= "*vterm-0*" (buffer-name))
+                                    (switch-to-buffer (get-buffer "*zsh-vterm-0*"))
+                                  (if (string= "*zsh-vterm-0*" (buffer-name))
                                       (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
                                           (bury-buffer)
                                         (shell-pop-out))
                                     (let ((shell-pop-autocd-to-working-dir nil))
-                                      (spacemacs/shell-pop-vterm 0))))))
+                                      (spacemacs/shell-pop-zsh-vterm 0))))))
 
 (global-set-key (kbd "s-\"") #'projectile-shell-pop)
 (global-set-key (kbd "s-n") '(lambda () (interactive) (switch-to-buffer-other-window (generate-new-buffer "*Untitled*")) (undo-tree-mode)))
