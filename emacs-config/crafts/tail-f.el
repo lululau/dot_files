@@ -20,25 +20,29 @@
       string-buf-symbol)))
 
 
-(defun tail-f--start-process (file lines string-buf-var)
+(defun tail-f--start-process (command string-buf-var)
   (let* ((name (format "* %s*" string-buf-var)))
     (set string-buf-var '())
     (process-put (make-process :name name
-                  :command (list "tail" "-n" (number-to-string lines) "-f" file)
+                  :command (list "bash" "-c" command)
                   :coding 'utf-8
                   :connection-type 'pipe
                   :filter 'tail-f--process-filter
                   :noquery t)
                  'tail-f-string-buf string-buf-var)))
 
-(defun tail-f (file lines)
-  (let* ((filename (expand-file-name file))
+(defun tail-f (file lines &optional command)
+  (let* ((filename (shell-quote-argument (expand-file-name file)))
          (string-buf-var (tail-f--get-string-buf-var filename)))
+    (if (not command)
+        (setq command "tail -n %d %s -f"))
+    (setq command (format command lines filename))
     (if (boundp string-buf-var)
         (if (eval string-buf-var)
             (eval string-buf-var)
-          (process-lines "tail" "-n" (number-to-string lines) filename))
-      (tail-f--start-process filename lines string-buf-var)
-      (process-lines "tail" "-n" (number-to-string lines) filename))))
+          ;; TODO replace with a better solution
+          (process-lines "bash" "-c" (replace-regexp-in-string "-f" "" command)))
+      (tail-f--start-process command string-buf-var)
+      (process-lines "bash" "-c" (replace-regexp-in-string "-f" "" command)))))
 
 (provide 'tail-f)
