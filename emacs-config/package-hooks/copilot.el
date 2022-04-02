@@ -2,17 +2,19 @@
 
   (defun copilot--generate-doc ()
     "Generate doc param for completion request."
-    (let ((pry-history nil))
+    (let ((history nil))
       (if (eq 'pry-vterm-mode major-mode)
-          (setq pry-history (tail-f "~/.pry_history" 5000)))
-      (list :source (copilot--get-source pry-history)
+          (setq history (tail-f "~/.pry_history" 5000)))
+      (if (eq 'zsh-vterm-mode major-mode)
+          (setq history (tail-f "~/.zsh_history" 5000 "tail -n %d -f %s | zsh-histfile-unmetafy")))
+      (list :source (copilot--get-source history)
             :tabSize tab-width
             :indentSize tab-width
             :insertSpaces (if indent-tabs-mode :false t)
             :path (copilot--buffer-file-path)
             :relativePath (copilot--buffer-file-name)
             :languageId (copilot--get-language-id)
-            :position (copilot--get-position pry-history))))
+            :position (copilot--get-position history))))
 
   (defun copilot-complete ()
     "Complete at the current point."
@@ -35,10 +37,10 @@
       (let ((completion (overlay-get copilot--overlay 'completion))
             (start (overlay-get copilot--overlay 'start)))
         (copilot-clear-overlay)
-        (delete-region start (line-end-position))
-        (if (eq 'pry-vterm-mode major-mode)
+        (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode)
             (vterm-send-string completion)
-        (insert completion))
+          (delete-region start (line-end-position))
+          (insert completion))
         t)))
 
   (defun copilot--show-completion (completion)
@@ -49,7 +51,7 @@
              (start (alist-get 'start range))
              (start-line (alist-get 'line start))
              (start-char (alist-get 'character start)))
-        (if (eq 'pry-vterm-mode major-mode)
+        (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode)
             (copilot-display-overlay-completion text (1- (line-number-at-pos)) 0)
           (copilot-display-overlay-completion text start-line start-char)))))
 
@@ -57,7 +59,7 @@
     "Show COMPLETION in overlay at LINE and COL. For Copilot, COL is always 0."
     (copilot-clear-overlay)
     (save-excursion
-      (when (not (eq 'pry-vterm-mode major-mode))
+      (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode))
         (widen)
         (goto-char (point-min))
         (if (= (line-end-position line) (1- (point-max)))
@@ -73,7 +75,7 @@
       (let* ((cur-line (copilot--get-current-line))
              (common-prefix-len (length (s-shared-start completion cur-line))))
         (setq completion (substring completion common-prefix-len))
-        (when (not (eq 'pry-vterm-mode major-mode))
+        (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode))
           (forward-char common-prefix-len)))
 
       (unless (s-blank? completion)
@@ -94,24 +96,36 @@
   (defun copilot--get-current-line ()
     (if (eq 'pry-vterm-mode major-mode)
         (pry-vterm-get-current-line)
-      (s-chop-suffix "\n" (thing-at-point 'line))))
+      (if (eq 'zsh-vterm-mode major-mode)
+          (zsh-vterm-get-current-line)
+        (s-chop-suffix "\n" (thing-at-point 'line)))))
 
-  (defun copilot--get-source (&optional pry-history)
+  (defun copilot--get-source (&optional history)
     (let ((source (if (eq 'pry-vterm-mode major-mode)
-                      (concat (s-join "\n" pry-history) "\n" (pry-vterm-get-current-line))
-                    (buffer-substring-no-properties (point-min) (point-max)))))
+                      (concat (s-join "\n" history) "\n" (pry-vterm-get-current-line))
+                    (if (eq 'zsh-vterm-mode major-mode)
+                        (concat (mapconcat (lambda (it)
+                                     (let ((s it))
+                                       (if (s-starts-with? ": " s)
+                                           (substring s 15)
+                                         s))) history "\n") "\n" (zsh-vterm-get-current-line)) ;; TODO add `mv file ./' to source, which file is each file of current directory
+                      (buffer-substring-no-properties (point-min) (point-max))))))
         (concat source "\n")))
 
   (defun copilot--get-language-id ()
     (if (eq 'pry-vterm-mode major-mode)
         "ruby"
-      (s-chop-suffix "-mode" (symbol-name major-mode))))
+      (if (eq 'zsh-vterm-mode major-mode)
+          "zsh"
+          (s-chop-suffix "-mode" (symbol-name major-mode)))))
 
-  (defun copilot--get-position (&optional pry-history)
+  (defun copilot--get-position (&optional history)
     (if (eq 'pry-vterm-mode major-mode)
-        (list :line (length pry-history) :character (length (pry-vterm-get-current-line)))
+        (list :line (length history) :character (length (pry-vterm-get-current-line)))
+      (if (eq 'zsh-vterm-mode major-mode)
+          (list :line (length history) :character (length (zsh-vterm-get-current-line)))
       (list :line (1- (line-number-at-pos))
-            :character (length (buffer-substring-no-properties (point-at-bol) (point))))))
+            :character (length (buffer-substring-no-properties (point-at-bol) (point)))))))
 
   (defun copilot--buffer-file-path ()
     (or (buffer-file-name) ""))
@@ -139,7 +153,7 @@
   (interactive)
   (when (not (seq-contains-p '(copilot-complete copilot-next-completion copilot-previous-completion) this-command))
     (copilot-clear-overlay)
-    (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode pry-vterm-mode) major-mode)))
+    (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode pry-vterm-mode zsh-vterm-mode) major-mode)))
       (copilot-complete))))
 
 (add-hook 'post-command-hook #'copilot-complete-if-insert-state)
