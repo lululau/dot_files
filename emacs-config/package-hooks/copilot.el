@@ -6,7 +6,9 @@
       (if (eq 'pry-vterm-mode major-mode)
           (setq history (tail-f "~/.pry_history" 5000)))
       (if (eq 'zsh-vterm-mode major-mode)
-          (setq history (tail-f "~/.zsh_history" 5000 "tail -n %d -f %s | zsh-histfile-unmetafy")))
+          (setq history (append (tail-f "~/.zsh_history" 5000 "tail -n %d -f %s | zsh-histfile-unmetafy")
+                (mapcar (lambda (it)
+                             (format "ls %s" it)) (cdr (cdr (directory-files default-directory)))))))
       (list :source (copilot--get-source history)
             :tabSize tab-width
             :indentSize tab-width
