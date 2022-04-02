@@ -131,9 +131,16 @@ value of `vterm-buffer-name'."
         (str (buffer-substring-no-properties start end)))
     (replace-regexp-in-string "^.*[❯>] ?" "" str)))
 
+(defun pry-vterm-accept-copilot-or-send-tab-to-term ()
+  (interactive)
+  (if copilot--overlay
+      (copilot-accept-completion)
+    (vterm-send-tab)))
+
 (defvar pry-vterm-mode-map
   (let ((map (copy-keymap vterm-mode-map)))
-    (define-key map (kbd "<backtab>")                 #'copilot-accept-completion)
+    (define-key map (kbd "<backtab>") #'copilot-accept-completion)
+    (define-key map (kbd "<tab>") #'pry-vterm-accept-copilot-or-send-tab-to-term)
     map))
 
 (define-derived-mode pry-vterm-mode vterm-mode "Pry"
