@@ -78,7 +78,7 @@
 
       (unless (s-blank? completion)
         (let* ((ov (make-overlay (point) (point-at-eol) nil t t))
-               (p-completion (propertize completion 'face 'copilot-overlay-face))
+               (p-completion (propertize completion 'face 'all-the-icons-dyellow))
                (display (substring p-completion 0 1))
                (after-string (substring p-completion 1)))
           (overlay-put ov 'completion completion)
