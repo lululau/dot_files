@@ -40,7 +40,7 @@
             (start (overlay-get copilot--overlay 'start)))
         (copilot-clear-overlay)
         (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode)
-            (vterm-send-string completion)
+            (vterm-send-string (concat completion " "))
           (delete-region start (line-end-position))
           (insert completion))
         t)))
