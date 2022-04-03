@@ -6,6 +6,8 @@
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
+(setq evil-want-keybinding nil)
+
 (defun lx/system-is-linux()
   (eq system-type 'gnu/linux))
 
