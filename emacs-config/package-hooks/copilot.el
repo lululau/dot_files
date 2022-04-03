@@ -107,9 +107,7 @@
                       (concat (s-join "\n" history) "\n" (pry-vterm-get-current-line))
                     (if (eq 'zsh-vterm-mode major-mode)
                         (concat (mapconcat (lambda (it)
-                                             (if (s-starts-with? ": " it)
-                                                 (substring it 15)
-                                               it)) history "\n") "\n" (zsh-vterm-get-current-line))
+                                             (replace-regexp-in-string "^: [0-9]\\{10\\};0" "" it)) history "\n") "\n" (zsh-vterm-get-current-line))
                       (buffer-substring-no-properties (point-min) (point-max))))))
         (concat source "\n")))
 
