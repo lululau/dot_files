@@ -75,6 +75,10 @@
   (define-key vterm-mode-map (kbd "s-w") #'delete-window-or-bury-buffer)
   (define-key vterm-mode-map (kbd "<f12>") nil)
   (define-key vterm-mode-map (kbd "C-x C-e") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "e" nil nil t)))
+  (define-key vterm-mode-map (kbd "C-x C-k") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "k" nil nil t)))
+  (define-key vterm-mode-map (kbd "C-x k") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "k" nil nil nil)))
+  (define-key vterm-mode-map (kbd "C-x s") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "s" nil nil nil)))
+  (define-key vterm-mode-map (kbd "<M-return>") #'(lambda () (interactive) (process-send-string vterm--process "\e\C-m")))
 
   (let ((map (lookup-key vterm-mode-map "\e")))
     ;; (define-key map "h" #'evil-window-left)
