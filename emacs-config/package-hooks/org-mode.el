@@ -145,22 +145,24 @@
             (push ov org-inline-image-overlays)))))))))))))))
 
   (defun lx/get-babel-src ()
-    (let* ((info (org-babel-get-src-block-info nil (org-element-context)))
-           (lang (nth 0 info))
-           (params (nth 2 info))
-           (body
-            (let ((coderef (nth 6 info))
-                  (expand
-                   (if (org-babel-noweb-p params :eval)
-                       (org-babel-expand-noweb-references info)
-                     (nth 1 info))))
-              (if (not coderef) expand
-                (replace-regexp-in-string
-                 (org-src-coderef-regexp coderef) "" expand nil nil 1)))))
-      (if (symbol-function (intern (format "org-babel-expand-body:%s" lang)))
-          (funcall (intern (format "org-babel-expand-body:%s" lang)) body params)
-        (org-babel-expand-body:generic
-         body params (funcall (intern (format "org-babel-variable-assignments:%s" lang)) params)))))
+    (let* ((info (org-babel-get-src-block-info nil (org-element-context))))
+      (if (not info)
+          (org-babel-read-element (org-element-context))
+        (let* ((lang (nth 0 info))
+               (params (nth 2 info))
+               (body
+                (let ((coderef (nth 6 info))
+                      (expand
+                       (if (org-babel-noweb-p params :eval)
+                           (org-babel-expand-noweb-references info)
+                         (nth 1 info))))
+                  (if (not coderef) expand
+                    (replace-regexp-in-string
+                     (org-src-coderef-regexp coderef) "" expand nil nil 1)))))
+          (if (symbol-function (intern (format "org-babel-expand-body:%s" lang)))
+              (funcall (intern (format "org-babel-expand-body:%s" lang)) body params)
+            (org-babel-expand-body:generic
+             body params (funcall (intern (format "org-babel-variable-assignments:%s" lang)) params)))))))
 
   (defun lx/yank-babel-src ()
     (interactive)
