@@ -156,4 +156,4 @@
       (copilot-complete))))
 
 (add-hook 'post-command-hook #'copilot-complete-if-insert-state)
-(setq copilot--auto-copilot-on-p t)
+(setq copilot--auto-copilot-on-p nil)
