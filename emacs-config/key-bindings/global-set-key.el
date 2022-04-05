@@ -202,6 +202,7 @@
 (global-set-key (kbd "s-i s-c") 'org-capture)
 (global-set-key (kbd "s-i s-a") 'org-agenda-list)
 (global-set-key (kbd "s-i s-b") 'helm-filtered-bookmarks)
+(global-set-key (kbd "s-i s-i") 'spacemacs/helm-jump-in-buffer)
 
 ;; s-p
 (global-unset-key (kbd "s-p"))
