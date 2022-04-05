@@ -44,4 +44,4 @@
            (set (intern (format "evil-%s-state-cursor" state))
                 (list (when dotspacemacs-colorize-cursor-according-to-state color)
                       cursor)))
-  (lx/set-monospaced-font "Source Code Pro" "黑体-简" 12 14 12 14)))
+  (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16)))

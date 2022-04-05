@@ -79,6 +79,10 @@
   (setq cursor-type 'bar)
   (set-cursor-color "#6db2e9"))
 
+(defun lx/run-in-vterm/set-default-directory (dir)
+  (interactive)
+  (setq default-directory dir))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun helm-vterm-buffers-list--init ()
@@ -204,77 +208,6 @@
 (defun helm-vterm-ssh ()
   (interactive)
   (helm-other-buffer '(helm-vterm-ssh-buffers-list helm-vterm-ssh-options-list) "*helm-vterm-ssh-buffers*"))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun helm-vterm-arql-buffers-list--init ()
-  (require 'dired)
-  (helm-attrset 'candidates (funcall (helm-attr 'buffer-list)))
-  (let ((result (cl-loop with allbufs = (memq 'helm-shadow-boring-buffers
-                                              (helm-attr
-                                               'filtered-candidate-transformer
-                                               helm-vterm-arql-buffers-list))
-                         for b in (if allbufs
-                                      (helm-attr 'candidates)
-                                    (helm-skip-boring-buffers
-                                     (helm-attr 'candidates)
-                                     helm-vterm-arql-buffers-list))
-                         maximize (length b) into len-buf
-                         maximize (length (helm-buffer--format-mode-name b))
-                         into len-mode
-                         finally return (cons len-buf len-mode))))
-    (unless (default-value 'helm-buffer-max-length)
-      (helm-set-local-variable 'helm-buffer-max-length (car result)))
-    (unless (default-value 'helm-buffer-max-len-mode)
-      (helm-set-local-variable 'helm-buffer-max-len-mode (cdr result)))))
-
-(defun helm-vterm-arql-buffer-list ()
-  (let ((directory (expand-file-name default-directory)))
-    (mapcar 'buffer-name
-            (seq-filter (lambda (b)
-                          (and (eq 'vterm-mode (with-current-buffer b major-mode))
-                          (s-starts-with? "*arql-" (with-current-buffer b (buffer-name)))))
-                        (buffer-list)))))
-
-(defclass helm-vterm-arql-buffers-source (helm-source-sync helm-type-buffer)
-  ((buffer-list
-    :initarg :buffer-list
-    :initform #'helm-vterm-arql-buffer-list
-    :custom function
-    :documentation)
-   (init :initform 'helm-vterm-arql-buffers-list--init)
-   (multimatch :initform nil)
-   (match :initform 'helm-buffers-match-function)
-   (persistent-action :initform 'helm-buffers-list-persistent-action)
-   (keymap :initform helm-buffer-map)
-   (migemo :initform 'nomultimatch)
-   (volatile :initform t)
-   (nohighlight :initform t)
-   (resume :initform (lambda () (setq helm-buffers-in-project-p nil)))
-   (help-message :initform 'helm-buffer-help-message)))
-
-(defun helm-vterm-arql-option-list ()
-  (mapcar (lambda (host) (cons host host))
-          (s-split "\n" (shell-command-to-string "perl -ne 'if (/^\\w.*:\\s*$/) {s/:$//; print;}' ~/.arql.d/init.yml") t)))
-
-(defun helm-vterm-arql-run (env)
-  (let ((cmd  (format "~/.rvm/gems/ruby-3.1.0/bin/arql -e %s" env))
-        (buffer-name (format "*arql-%s*" env)))
-    (lx/run-in-vterm cmd buffer-name nil t)))
-
-(defclass helm-vterm-arql-options-source (helm-source-sync)
-  ((candidates :initform 'helm-vterm-arql-option-list)
-   (action :initform 'helm-vterm-arql-run)))
-
-(setq helm-vterm-arql-options-list
-      (helm-make-source "ARQL Environments" 'helm-vterm-arql-options-source))
-
-(setq helm-vterm-arql-buffers-list
-      (helm-make-source "ARQL Buffers" 'helm-vterm-arql-buffers-source))
-
-(defun helm-vterm-arql ()
-  (interactive)
-  (helm-other-buffer '(helm-vterm-arql-buffers-list helm-vterm-arql-options-list) "*helm-vterm-arql-buffers*"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -331,7 +331,30 @@ if [ -n "$INSIDE_EMACS" ]; then
       viins|main) printf "\e]51;Elx/run-in-vterm/set-blue-bar-cursor\e\\";;
     esac
   }
+
+  vterm_printf(){
+    printf "\e]%s\e\\" "$1"
+  }
+
+  vterm_cmd() {
+    local vterm_elisp
+    vterm_elisp=""
+    while [ $# -gt 0 ]; do
+      vterm_elisp="$vterm_elisp""$(printf '"%s" ' "$(printf "%s" "$1" | sed -e 's|\\|\\\\|g' -e 's|"|\\"|g')")"
+      shift
+    done
+    vterm_printf "51;E$vterm_elisp"
+  }
+
+  vterm_set_directory() {
+    vterm_cmd update-pwd "$PWD/"
+  }
+
+  autoload -U add-zsh-hook
+  add-zsh-hook -Uz chpwd (){ vterm_set_directory }
 fi
+
+
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bitcomplete bit
 

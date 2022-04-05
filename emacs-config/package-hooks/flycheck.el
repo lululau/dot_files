@@ -1,7 +1,5 @@
 (setq rubocop-wrapper-path (format "%srubocop" (file-name-directory load-file-name)))
 
-(message "debug: %s" rubocop-wrapper-path)
-
 (with-eval-after-load 'flycheck
   (defconst flycheck-ruby-rubocop-error-patterns
     '((info line-start (optional (file-name)) ":" line ":" column ": C: "
