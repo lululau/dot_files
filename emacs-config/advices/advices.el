@@ -22,36 +22,6 @@
           (when detail
             (helm-gtags--show-detail))))))))
 
-(advice-add 'projectile-completing-read :override #'(lambda (prompt choices &optional initial-input)
-  "Present a project tailored PROMPT with CHOICES."
-  (let ((prompt (projectile-prepend-project-name prompt)))
-    (cond
-     ((eq projectile-completion-system 'ido)
-      (ido-completing-read prompt choices nil nil initial-input))
-     ((eq projectile-completion-system 'default)
-      (completing-read prompt choices nil nil initial-input))
-     ((eq projectile-completion-system 'helm)
-      (if (fboundp 'helm-comp-read)
-          (helm-comp-read prompt choices
-                          :initial-input initial-input
-                          :fuzzy t
-                          :candidates-in-buffer t
-                          :must-match 'confirm)
-        (user-error "Please install helm from \
-https://github.com/emacs-helm/helm")))
-     ((eq projectile-completion-system 'grizzl)
-      (if (and (fboundp 'grizzl-completing-read)
-               (fboundp 'grizzl-make-index))
-          (grizzl-completing-read prompt (grizzl-make-index choices))
-        (user-error "Please install grizzl from \
-https://github.com/d11wtq/grizzl")))
-     ((eq projectile-completion-system 'ivy)
-      (if (fboundp 'ivy-completing-read)
-          (ivy-completing-read prompt choices nil nil initial-input)
-        (user-error "Please install ivy from \
-https://github.com/abo-abo/swiper")))
-     (t (funcall projectile-completion-system prompt choices))))))
-
 (advice-add 'run-ruby :override #'(lambda (&optional command name check-buf)
   (interactive)
   (setq command (or command (cdr (assoc inf-ruby-default-implementation
