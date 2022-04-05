@@ -23,10 +23,14 @@
     (progn
       (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
       (setq lx/spacemacs-banner "~/Documents/emacs-banners/nasa.png")
-      (setq neo-theme 'icons))
+      (setq neo-theme 'icons)
+      (setq enable-org-notification t)
+      (setq enable-mu4e-notification t))
   (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
   (setq lx/spacemacs-banner '000)
-  (setq neo-theme 'ascii))
+  (setq neo-theme 'ascii)
+  (setq enable-org-notification nil)
+  (setq enable-mu4e-notification nil))
 
 (if (and (lx/system-is-linux) (file-exists-p "~/liuxiang"))
     (progn
@@ -108,7 +112,7 @@
      pandoc
      (org :variables
           org-enable-notifications t
-          org-start-notification-daemon-on-startup t
+          org-start-notification-daemon-on-startup ,enable-org-notification
           org-enable-epub-support t
           org-enable-github-support t
           org-enable-bootstrap-support t
@@ -194,7 +198,7 @@
      plantuml
      nginx
      vimscript
-     (mu4e :variables mu4e-enable-notifications t mu4e-enable-mode-line t mu4e-use-maildirs-extension t)
+     (mu4e :variables mu4e-enable-notifications ,enable-mu4e-notification mu4e-enable-mode-line t mu4e-use-maildirs-extension t)
      confluence-lx
      ragtag
      org-yank-image
