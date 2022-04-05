@@ -70,7 +70,7 @@ plugins=(ack2 alibas autojump autopair
          lein
          mvn
          node npm nvm
-         macos
+         # macos
          perl pip python
          rails rake rsync ruby rvm
          safe-paste sbt scala screen svn systemadmin systemd
