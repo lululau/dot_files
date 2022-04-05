@@ -19,8 +19,8 @@
   "Cd" #'copilot-diagnose
   "to" #'org-toggle-link-display
   "tA" #'(lambda () (interactive) (if (bound-and-true-p annotate-mode) (annotate-mode -1) (annotate-mode)))
-  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 12 14 12 14))
-  "s-0" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 12 14 12 14))
+  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16))
+  "s-0" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16))
   "ps" #'lx/find-or-create-projectile-snippet-file
   "aC" #'calendar
   "col" #'copy-org-links-at-point
