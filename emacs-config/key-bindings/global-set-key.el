@@ -249,5 +249,5 @@
 (global-set-key (kbd "s-=") #'lx/set-monospaced-font/increase-font-size)
 (global-set-key (kbd "s--") #'lx/set-monospaced-font/decrease-font-size)
 
-;; (global-set-key (kbd "TAB") #'(lambda (&optional arg) (interactive "P") (or (copilot-accept-completion) (indent-for-tab-command arg))))
-;; (global-set-key (kbd "<backtab>") #'copilot-accept-completion)
+(global-set-key (kbd "TAB") #'(lambda (&optional arg) (interactive "P") (or (copilot-accept-completion) (indent-for-tab-command arg))))
+(global-set-key (kbd "<backtab>") #'copilot-accept-completion)
