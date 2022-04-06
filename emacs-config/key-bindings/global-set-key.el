@@ -124,7 +124,7 @@
 (global-set-key (kbd "C-g") 'lx/keyboard-quit)
 (global-set-key (kbd "M-\\") 'copilot-complete)
 (global-set-key (kbd "M-]") 'copilot-next-completion)
-(global-set-key (kbd "M-[") 'copilot-previous-completion)
+;; (global-set-key (kbd "M-[") 'copilot-previous-completion) ;; Comment out this kbd due to confliction with S-TAB in terminal
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
 (global-set-key (kbd "C-M-i") 'spacemacs/alternate-buffer)
 (unless (display-graphic-p) (global-set-key (kbd "C-M-i") 'spacemacs/alternate-buffer) (global-set-key (kbd "<f10>") 'spacemacs/alternate-buffer))
