@@ -841,6 +841,7 @@ This function is called at the very end of Spacemacs initialization."
  (("t" "Todo (with link to current buffer prosition)" entry
    (file "")
    "* TODO %?
+  SCHEDULED: %T
   %U
   %a")
   ("c" "Todo (scheduled from right now)" entry
@@ -856,7 +857,7 @@ This function is called at the very end of Spacemacs initialization."
   ("g" "Todo (global capture for SPC+T)" entry
    (file "")
    "* TODO %?
-  SCHEDULED: %T
+  SCHEDULED: %(org-time-stamp t)
   %U")
   ("w" "Web site" entry
    (file "")
