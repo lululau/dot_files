@@ -186,17 +186,36 @@
    (help-message :initform 'helm-buffer-help-message)))
 
 (defun helm-vterm-ssh-option-list ()
-  (mapcar (lambda (host) (cons host host))
-          (s-split "\n" (shell-command-to-string "perl -ne 'if (/^Host [^*]/) {s/^Host *//; print;}' ~/.ssh/config") t)))
+  (mapcar (lambda (candidate)
+            (let ((host (car (s-split " " candidate))))
+            (cons candidate host)))
+          (s-split "\n" (shell-command-to-string "ruby -e 'h=nil;ARGF.readlines.each {|l| l.chomp!; if l=~/^Host\\s+\\w/; puts h unless h.nil?; h=l.gsub(/^Host\\s+/, \"\"); end; if l=~/^\\s+Host[Nn]ame\\s+\\S/; puts \"%-32s [ #{l.gsub(/^\\s+Host.ame\\s+/,\"\")} ]\" % h; h=nil; end;}' ~/.ssh/config") t)))
 
 (defun helm-vterm-ssh-run (host)
-  (let ((cmd (format "ssh %s" host))
+  (let ((process-environment '("SSH_INTERACTIVE=1"))
+        (cmd (format "ssh %s" host))
         (buffer-name (format "*vterm-ssh-%s*" host)))
     (lx/run-shell-in-vterm cmd buffer-name nil t)))
 
+(defun helm-vterm-ssh-run-without-interactive-environ ()
+  (interactive)
+  (with-helm-alive-p (helm-exit-and-execute-action #'helm-vterm-ssh-run-without-interactive-environ-action)))
+
+(defun helm-vterm-ssh-run-without-interactive-environ-action (host)
+  (let* ((cmd (format "ssh %s" host))
+        (buffer-name (format "*vterm-ssh-%s*" host)))
+    (lx/run-shell-in-vterm cmd buffer-name nil t)))
+
+(defvar helm-vterm-ssh-map
+  (let ((map (make-sparse-keymap)))
+    (set-keymap-parent map helm-map)
+    (define-key map (kbd "<s-return>") #'helm-vterm-ssh-run-without-interactive-environ)
+    map))
+
 (defclass helm-vterm-ssh-options-source (helm-source-sync)
   ((candidates :initform 'helm-vterm-ssh-option-list)
-   (action :initform 'helm-vterm-ssh-run)))
+   (action :initform '(("SSH (with SSH_INTERACTIVE environ set)" . helm-vterm-ssh-run) ("SSH (without SSH_INTERACTIVE environ set)" . helm-vterm-ssh-run-without-interactive-environ-action)))
+   (keymap :initform helm-vterm-ssh-map)))
 
 (setq helm-vterm-ssh-buffers-list
       (helm-make-source "SSH Buffers" 'helm-vterm-ssh-buffers-source))
@@ -204,10 +223,9 @@
 (setq helm-vterm-ssh-options-list
       (helm-make-source "SSH Hosts" 'helm-vterm-ssh-options-source))
 
-(defun helm-vterm-ssh (arg)
-  (interactive "P")
-  (let ((process-environment (list (format "SSH_INTERACTIVEs=%d" (if arg 0 1)))))
-    (helm-other-buffer '(helm-vterm-ssh-buffers-list helm-vterm-ssh-options-list) "*helm-vterm-ssh-buffers*")))
+(defun helm-vterm-ssh ()
+  (interactive)
+  (helm-other-buffer '(helm-vterm-ssh-buffers-list helm-vterm-ssh-options-list) "*helm-vterm-ssh-buffers*"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
