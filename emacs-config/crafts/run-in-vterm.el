@@ -190,8 +190,7 @@
           (s-split "\n" (shell-command-to-string "perl -ne 'if (/^Host [^*]/) {s/^Host *//; print;}' ~/.ssh/config") t)))
 
 (defun helm-vterm-ssh-run (host)
-  (let ((process-environment '("SSH_INTERACTIVE=1"))
-        (cmd (format "ssh %s" host))
+  (let ((cmd (format "ssh %s" host))
         (buffer-name (format "*vterm-ssh-%s*" host)))
     (lx/run-shell-in-vterm cmd buffer-name nil t)))
 
@@ -205,9 +204,10 @@
 (setq helm-vterm-ssh-options-list
       (helm-make-source "SSH Hosts" 'helm-vterm-ssh-options-source))
 
-(defun helm-vterm-ssh ()
-  (interactive)
-  (helm-other-buffer '(helm-vterm-ssh-buffers-list helm-vterm-ssh-options-list) "*helm-vterm-ssh-buffers*"))
+(defun helm-vterm-ssh (arg)
+  (interactive "P")
+  (let ((process-environment (list (format "SSH_INTERACTIVEs=%d" (if arg 0 1)))))
+    (helm-other-buffer '(helm-vterm-ssh-buffers-list helm-vterm-ssh-options-list) "*helm-vterm-ssh-buffers*")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
