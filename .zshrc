@@ -236,8 +236,8 @@ export ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #20 char left truncated PWD
 
 # for shell-pop
 if [ -n "$INSIDE_EMACS" ]
+   export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=102'
 then
-  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=101'
   # alias ag='ag --color-match=33'
   # chpwd() { print -P "\033AnSiTc %d" }
   # print -P "\033AnSiTu %n"
