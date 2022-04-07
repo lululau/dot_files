@@ -37,6 +37,7 @@
 (global-set-key (kbd "s-N") '(lambda () (interactive) (switch-to-buffer (generate-new-buffer "*Untitled*")) (undo-tree-mode)))
 (global-set-key (kbd "s-w") 'delete-window)
 (global-set-key (kbd "s-W") '(lambda () (interactive) (kill-this-buffer) (delete-window)))
+(global-set-key (kbd "s-D") 'spacemacs/kill-this-buffer)
 (global-set-key (kbd "M-s-n") '(lambda () (interactive) (make-frame-command)))
 (global-set-key (kbd "M-s-w") 'delete-frame)
 ;; (global-set-key (kbd "s-C") 'bzg-big-fringe-mode)
