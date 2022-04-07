@@ -15,3 +15,14 @@
   (lx/kill-except-spacemacs-and-scratch-buffers)
   (lx/kill-except-default-processes)
   (lx/kill-all-non-default-layouts))
+
+(defun lx/switch-to-warning-buffer (arg)
+  (interactive "P")
+  (with-current-buffer (get-buffer "*Warnings*")
+    (goto-char (point-max))
+    (if arg
+        (switch-to-buffer-other-window (current-buffer))
+      (switch-to-buffer (current-buffer)))
+    (when (evil-evilified-state-p)
+      (evil-normal-state)))
+  )
