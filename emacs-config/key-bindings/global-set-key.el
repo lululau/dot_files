@@ -244,7 +244,7 @@
 (global-set-key (kbd "s-i s-j cu") #'org-jira-update-comment)
 (global-set-key (kbd "s-i s-j tj") #'org-jira-todo-to-jira)
 
-(global-set-key (kbd "s-i TAB") #'imenu-list-smart-toggle)
+(global-set-key (kbd "s-i TAB") #'(lambda () (interactive) (imenu-list-minor-mode 1)))
 
 (global-set-key (kbd "s-=") #'lx/set-monospaced-font/increase-font-size)
 (global-set-key (kbd "s--") #'lx/set-monospaced-font/decrease-font-size)
