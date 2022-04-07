@@ -26,3 +26,9 @@
     (when (evil-evilified-state-p)
       (evil-normal-state)))
   )
+
+(defun lx/delete-window-or-bury-buffer ()
+  (interactive)
+  (if (window-parent (selected-window))
+      (delete-window)
+    (bury-buffer)))
