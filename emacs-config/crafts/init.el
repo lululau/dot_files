@@ -17,7 +17,7 @@
 (autoload 'helm-vterm-vrl "run-in-vterm")
 (autoload 'helm-vterm-jenkins "run-in-vterm")
 (autoload 'lx/run-in-vterm "run-in-vterm")
-(autoload 'lx/run-shell-in-vterm "run-in-vterm")
+(autoload 'lx/run-shell-in-zsh-vterm "zsh-vterm")
 (autoload 'lx/run-in-vterm/set-green-box-cursor "run-in-vterm")
 (autoload 'lx/run-in-vterm/set-blue-bar-cursor "run-in-vterm")
 (autoload 'lx/run-in-vterm/set-default-directory "run-in-vterm")
