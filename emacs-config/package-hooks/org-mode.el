@@ -6,6 +6,7 @@
     (define-key org-mode-map (kbd "C-RET") 'org-insert-heading-respect-content)
     (define-key org-mode-map (kbd "M-S-RET") 'org-insert-todo-heading))
   (evil-define-key 'normal org-mode-map (kbd "RET") #'(lambda () (interactive) (condition-case nil (call-interactively 'org-open-at-point) (error (evil-insert-newline-below)))))
+  (evil-define-key 'hybrid org-mode-map (kbd "<tab>") #'(lambda () (interactive) (if copilot--overlay (copilot-accept-completion) (org-cycle))))
 
   (defun org-display-inline-images (&optional include-linked refresh beg end)
     "Display inline images.
