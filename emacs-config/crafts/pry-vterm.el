@@ -138,7 +138,8 @@ value of `vterm-buffer-name'."
     (vterm-send-tab)))
 
 (defvar pry-vterm-mode-map
-  (let ((map (copy-keymap vterm-mode-map)))
+  (let ((map (make-sparse-keymap)))
+    (set-keymap-parent map vterm-mode-map)
     (define-key map (kbd "<backtab>") #'copilot-accept-completion)
     (define-key map (kbd "<tab>") #'pry-vterm-accept-copilot-or-send-tab-to-term)
     map))

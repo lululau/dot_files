@@ -73,9 +73,28 @@ value of `vterm-buffer-name'."
     (vterm--self-insert)))
 
 (defvar zsh-vterm-mode-map
-  (let ((map (copy-keymap vterm-mode-map)))
+  (let ((map (make-sparse-keymap)))
+    (set-keymap-parent map vterm-mode-map)
     (define-key map (kbd "<backtab>") #'zsh-vterm-accept-copilot-or-send-shift-tab-to-term)
     (define-key map (kbd "<tab>") #'zsh-vterm-accept-copilot-or-send-tab-to-term)
+
+    (evil-define-key 'hybrid vterm-mode-map (kbd "M-1") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "7")))
+    (evil-define-key 'hybrid vterm-mode-map (kbd "M-2") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "8")))
+    (evil-define-key 'hybrid vterm-mode-map (kbd "M-3") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "9")))
+    (evil-define-key 'hybrid vterm-mode-map (kbd "M-4") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "0")))
+    (evil-define-key 'hybrid vterm-mode-map (kbd "s-z") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "z")))
+
+    (evil-define-key 'hybrid vterm-mode-map (kbd "C-M-s-!") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "1")))
+    (evil-define-key 'hybrid vterm-mode-map (kbd "C-M-s-@") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "2")))
+    (evil-define-key 'hybrid vterm-mode-map (kbd "C-M-s-#") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "3")))
+    (evil-define-key 'hybrid vterm-mode-map (kbd "C-M-s-$") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "4")))
+    (evil-define-key 'hybrid vterm-mode-map (kbd "C-M-s-%") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "5")))
+    (evil-define-key 'hybrid vterm-mode-map (kbd "C-M-s-^") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "6")))
+    (evil-define-key 'hybrid vterm-mode-map (kbd "C-M-s-|") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-C-j)))
+
+    (evil-define-key 'hybrid vterm-mode-map (kbd "s-]") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string ">")))
+    (evil-define-key 'hybrid vterm-mode-map (kbd "s-[") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "<")))
+
     map))
 
 (define-derived-mode zsh-vterm-mode vterm-mode "zsh"
