@@ -77,6 +77,7 @@
   (define-key vterm-mode-map (kbd "M-D") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "exit-program\n")))
   (define-key vterm-mode-map (kbd "s-w") #'delete-window-or-bury-buffer)
   (define-key vterm-mode-map (kbd "<f12>") nil)
+  (define-key vterm-mode-map (kbd "C-x C-c") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "c" nil nil t)))
   (define-key vterm-mode-map (kbd "C-x C-e") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "e" nil nil t)))
   (define-key vterm-mode-map (kbd "C-x C-k") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "k" nil nil t)))
   (define-key vterm-mode-map (kbd "C-x k") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "k" nil nil nil)))
