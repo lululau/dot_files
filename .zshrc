@@ -322,6 +322,15 @@ eval "$(starship init zsh)"
 
 [ -n "$SSH_CLIENT" ] && eval `ssh-agent` &> /dev/null
 
+zle-keymap-select () {
+  zle reset-prompt
+  case $KEYMAP in
+    vicmd) printf "\e[2 q";;
+    viins|main) printf "\e[5 q";;
+  esac
+}
+zle -N zle-keymap-select
+
 if [ -n "$INSIDE_EMACS" ]; then
   # zle-keymap-select () {
   #   starship_render
