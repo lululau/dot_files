@@ -363,20 +363,6 @@ if [ -n "$INSIDE_EMACS" ]; then
   add-zsh-hook -Uz chpwd (){ vterm_set_directory }
 fi
 
-function is_inside_emacs() {
-  if [ -n "$TMUX" ]; then
-    local client_tty="$(tmux display-message -p '#{client_tty}')"
-    if lsof "$client_tty" | grep -q Emacs; then
-      echo true
-    else
-      echo false
-    fi
-  else
-    [ -n "$INSIDE_EMACS" ] && echo true || echo false
-  fi
-}
-
-
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bitcomplete bit
 
