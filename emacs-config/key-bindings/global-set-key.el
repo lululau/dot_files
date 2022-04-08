@@ -98,7 +98,7 @@
 (global-set-key (kbd "s-r m a r") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "~/bin/mar" "*vterm-cmd-mar*" nil t))))
 (global-set-key (kbd "s-r m a d") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "~/bin/mad" "*vterm-cmd-mad*" nil t))))
 (global-set-key (kbd "s-r s-j") #'helm-vterm-jenkins)
-(global-set-key (kbd "s-r s-r bu") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "brew update; brew upgrade ; brew post-update ; brew cleanup ; brew list --casks | xargs -I {} brew upgrade --cask {}" "*vterm-cmd-brew-upgrade-cleanup*" nil t))))
+(global-set-key (kbd "s-r s-r bu") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "bash -c \"brew update; brew upgrade ; brew post-update ; brew cleanup ; brew list --casks | xargs -I {} brew upgrade --cask {}\"" "*vterm-cmd-brew-upgrade-cleanup*" nil t))))
 (global-set-key (kbd "s-r s-r lp") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "sudo lsof -Pn -iTCP -sTCP:LISTEN" "*vterm-cmd-listening-ports*" nil t))))
 (global-set-key (kbd "s-r s-r gs") #'(lambda () (interactive) (let* ((vterm-kill-buffer-on-exit nil)
                                                                      (root (projectile-project-root))
