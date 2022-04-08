@@ -1,5 +1,7 @@
 (require 'vterm)
 
+(defvar zsh-vterm-last-buffer nil)
+
 (defun lx/run-in-zsh-vterm (command buffer-name &optional directory exclusive-window)
   (interactive)
   (let* ((buffer (get-buffer buffer-name)))
@@ -11,12 +13,14 @@
             (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
                 (bury-buffer)
               (delete-window))
+          (setq zsh-vterm-last-buffer (current-buffer))
           (if exclusive-window
               (switch-to-buffer buffer)
             (pop-to-buffer buffer 'display-buffer-pop-up-window)))
       (let* ((default-directory (or directory user-home-directory))
              (vterm-shell command))
         (unless exclusive-window (split-window-right-and-focus))
+        (setq zsh-vterm-last-buffer (current-buffer))
         (zsh-vterm buffer-name)))))
 
 (defun zsh-vterm (&optional arg)

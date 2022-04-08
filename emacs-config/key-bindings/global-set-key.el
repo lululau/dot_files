@@ -31,6 +31,7 @@
                                           (bury-buffer)
                                         (shell-pop-out))
                                     (let ((shell-pop-autocd-to-working-dir nil))
+                                      (setq zsh-vterm-last-buffer (current-buffer))
                                       (spacemacs/shell-pop-zsh-vterm 0))))))
 
 (global-set-key (kbd "s-\"") #'projectile-shell-pop)

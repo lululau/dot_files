@@ -1,4 +1,5 @@
 (with-eval-after-load 'vterm
+  (require 'shell-pop)
 ;;   (defvar-local vterm--undecoded-bytes nil)
 ;;   (defun vterm--filter (process input)
 ;;     "I/O Event.  Feeds PROCESS's INPUT to the virtual terminal.
@@ -38,13 +39,15 @@
   (define-key vterm-mode-map
     (kbd (if (display-graphic-p) "<S-return>" "S-RET")) #'(lambda ()
                                                             (interactive)
-                                                            (shell-pop--cd-to-cwd
-                                                             (with-current-buffer (get-buffer shell-pop-last-buffer) (projectile-project-root)))))
+                                                            (let ((shell-pop-internal-mode "zsh-vterm"))
+                                                              (shell-pop--cd-to-cwd
+                                                               (with-current-buffer (get-buffer zsh-vterm-last-buffer) (projectile-project-root))))))
 
   (define-key vterm-mode-map
     (kbd (if (display-graphic-p) "<s-return>" "s-RET")) #'(lambda ()
                                                             (interactive)
-                                                            (let* ((buffer (get-buffer shell-pop-last-buffer))
+                                                            (let* ((shell-pop-internal-mode "zsh-vterm")
+                                                                   (buffer (get-buffer zsh-vterm-last-buffer))
                                                                    (buffer-file-name (buffer-file-name buffer)))
                                                               (if buffer-file-name
                                                                   (setq buffer-file-directory (file-name-directory buffer-file-name))
