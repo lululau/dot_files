@@ -631,6 +631,8 @@ layers configuration."
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
 
   (make-shell-pop-command "zsh-vterm" zsh-vterm)
+
+  (add-hook 'post-command-hook #'lx/reset-hybrid-state-cursor-type-after-tab)
   ) ;;; End of config.
 
 ;; (desktop-save-mode 1)
