@@ -2,6 +2,10 @@
 
 (defvar zsh-vterm-last-buffer nil)
 
+(defvar zsh-vterm-prompt-regexp "^.*\\(❯\\|\\]#\\|\\]\\$\\|➜\\) ")
+
+(defvar zsh-vterm-prompt-has-previous-regexp "^.*\\(❯\\|➜\\) ")
+
 (defun lx/run-in-zsh-vterm (command buffer-name &optional directory exclusive-window)
   (interactive)
   (let* ((buffer (get-buffer buffer-name)))
@@ -170,11 +174,90 @@ value of `vterm-buffer-name'."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun zsh-vterm-previous-cli-output ()
+  (if (string-match-p zsh-vterm-prompt-has-previous-regexp (thing-at-point 'line))
+      (evil-previous-line))
+  (evil-previous-line)
+  (evil-visual-line)
+  (let ((evil-ex-current-buffer (current-buffer)))
+    (evil-ex-execute (concat "?" zsh-vterm-prompt-regexp)))
+  (evil-next-line)
+  (beginning-of-line))
+
+(defun zsh-vterm-previous-cli-command ()
+  (evil-previous-line)
+  (beginning-of-line)
+  (string-match zsh-vterm-prompt-regexp (thing-at-point 'line))
+  (forward-char (match-end 0))
+  (evil-visual-char)
+  (evil-end-of-line)
+  (evil-backward-WORD-end))
+
+(defun zsh-vterm-previous-cli ()
+  (interactive)
+  (if (eq evil-state 'visual) (evil-exit-visual-state))
+  (evil-normal-state)
+  (if (string-match-p zsh-vterm-prompt-regexp (thing-at-point 'line))
+      (zsh-vterm-previous-cli-output)
+    (zsh-vterm-previous-cli-command)))
+
+(defun zsh-vterm-next-cli-output ()
+  (evil-next-line)
+  (evil-visual-line)
+  (let ((evil-ex-current-buffer (current-buffer)))
+    (evil-ex-execute (concat "/" zsh-vterm-prompt-regexp)))
+  (if (string-match-p zsh-vterm-prompt-has-previous-regexp (thing-at-point 'line))
+      (evil-previous-line))
+  (evil-previous-line)
+  (beginning-of-line))
+
+(defun zsh-vterm-next-cli-command ()
+  (let ((evil-ex-current-buffer (current-buffer)))
+    (evil-ex-execute (concat "/" zsh-vterm-prompt-regexp)))
+  (beginning-of-line)
+  (string-match zsh-vterm-prompt-regexp (thing-at-point 'line))
+  (forward-char (match-end 0))
+  (evil-visual-char)
+  (evil-end-of-line)
+  (evil-backward-WORD-end))
+
+(defun zsh-vterm-next-cli ()
+  (interactive)
+  (if (eq evil-state 'visual) (evil-exit-visual-state))
+  (evil-normal-state)
+  (if (string-match-p zsh-vterm-prompt-regexp (thing-at-point 'line))
+      (zsh-vterm-next-cli-output)
+    (zsh-vterm-next-cli-command)))
+
+(evil-define-operator evil-yank-for-zsh-vterm (beg end type register yank-handler)
+  "Saves the characters in motion into the kill-ring."
+  :move-point nil
+  :repeat nil
+  (interactive "<R><x><y>")
+  (let ((evil-was-yanked-without-register
+         (and evil-was-yanked-without-register (not register))))
+    (cond
+     ((and (fboundp 'cua--global-mark-active)
+           (fboundp 'cua-copy-region-to-global-mark)
+           (cua--global-mark-active))
+      (cua-copy-region-to-global-mark beg end))
+     ((eq type 'block)
+      (evil-yank-rectangle beg end register yank-handler))
+     ((memq type '(line screen-line))
+      (evil-yank-lines beg end register yank-handler))
+     (t
+      (evil-yank-characters beg end register yank-handler)))
+    (evil-hybrid-state)
+    (vterm-send-string "a")
+    (vterm-send-backspace)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defun zsh-vterm-get-current-line ()
   (let* ((start (line-beginning-position))
         (end (point))
         (str (buffer-substring-no-properties start end)))
-    (replace-regexp-in-string "^.*[❯>] ?" "" str)))
+    (replace-regexp-in-string zsh-vterm-prompt-regexp "" str)))
 
 (defun zsh-vterm-accept-copilot-or-send-tab-to-term ()
   (interactive)
@@ -193,6 +276,10 @@ value of `vterm-buffer-name'."
     (set-keymap-parent map vterm-mode-map)
     (define-key map (kbd "<backtab>") #'zsh-vterm-accept-copilot-or-send-shift-tab-to-term)
     (define-key map (kbd "<tab>") #'zsh-vterm-accept-copilot-or-send-tab-to-term)
+    (define-key map (kbd "s-C") #'zsh-vterm-previous-cli)
+    (define-key map (kbd "s-V") #'zsh-vterm-next-cli)
+
+    (evil-define-key 'visual map (kbd "<return>") #'evil-yank-for-zsh-vterm)
 
     (evil-define-key 'hybrid map (kbd "M-1") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "7")))
     (evil-define-key 'hybrid map (kbd "M-2") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "8")))
