@@ -11,4 +11,5 @@
   (define-key markdown-mode-map (kbd "M-J") nil)
   (define-key markdown-mode-map (kbd "M-K") nil)
   (define-key markdown-mode-map (kbd "M-L") nil)
-  (add-hook 'markdown-mode-hook #'turn-company-english-helper-on 100))
+  ;; (add-hook 'markdown-mode-hook #'turn-company-english-helper-on 100)
+  )

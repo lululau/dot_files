@@ -205,7 +205,7 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ik" 'org-move-item-up)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ij" 'org-move-item-down)
 
-  (add-hook 'org-mode-hook #'turn-company-english-helper-on 100)
+  ;; (add-hook 'org-mode-hook #'turn-company-english-helper-on 100)
 
   (require 'org-mouse))
 
