@@ -390,6 +390,9 @@ before layers configuration."
                                             (define-key spacemacs-buffer-mode-map (kbd "s-r s-b") #'configuration-layer/rollback)))
   (setq projectile-keymap-prefix (kbd "C-c p"))
   (load-library "autoinsert")
+
+  (add-hook 'lsp-completion-mode-hook #'lx/reset-lsp-company-backends)
+
   )
 
 (defun dotspacemacs/user-config ()
