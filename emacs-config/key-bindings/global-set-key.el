@@ -252,5 +252,5 @@
 (global-set-key (kbd "s-=") #'lx/set-monospaced-font/increase-font-size)
 (global-set-key (kbd "s--") #'lx/set-monospaced-font/decrease-font-size)
 
-(global-set-key (kbd "<tab>") #'lx/tab)
+(global-set-key (kbd "TAB") #'lx/tab)
 (global-set-key (kbd "<backtab>") #'copilot-accept-completion)
