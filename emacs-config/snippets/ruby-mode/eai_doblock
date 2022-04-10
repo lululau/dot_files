@@ -1,0 +1,6 @@
+#name : each_index do |i| ... end
+# key: eaidb
+# --
+each_index do |${i}|
+  $0
+end

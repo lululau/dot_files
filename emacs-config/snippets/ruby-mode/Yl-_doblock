@@ -1,0 +1,6 @@
+#name : YAML.load(file)
+# key: Yl-db
+# --
+File.open("${1:path/to/file.yaml}") do |${2:file}|
+  YAML.load(${2:file})
+end

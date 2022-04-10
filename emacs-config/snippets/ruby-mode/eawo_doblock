@@ -1,0 +1,7 @@
+#name : each_with_object do |e, h| ... end
+#group : Enumerables
+# key: eawodb
+# --
+each_with_object do |${e}, ${h}|
+  $0
+end

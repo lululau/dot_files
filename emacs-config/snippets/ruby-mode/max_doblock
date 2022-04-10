@@ -1,0 +1,7 @@
+# This was cloned from a TextMate bundle for yasnippet.
+#group : Enumerables
+# key: maxdb
+# --
+max do |a, b|
+  $0
+end

@@ -1,0 +1,7 @@
+#name : inject(...) do |...| ... end
+#group : Enumerables
+# key: injectdb
+# --
+inject(${1:0}) do |${2:injection}, ${3:element}|
+  $0
+end

@@ -1,0 +1,7 @@
+#name : each_with_index do |e, i| ... end
+#group : Enumerables
+# key: eawidb
+# --
+each_with_index do |${e}, ${i}|
+  $0
+end

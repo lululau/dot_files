@@ -1,0 +1,7 @@
+#name : any? do |...| ... end
+#group : Enumerables
+# key: anydb
+# --
+any? do |${e}|
+  $0
+end

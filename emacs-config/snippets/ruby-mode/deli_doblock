@@ -1,0 +1,4 @@
+#name : delete_if do |...| ... end
+# key: delidb
+# --
+delete_if { |${e} $0 }

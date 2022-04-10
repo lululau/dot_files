@@ -1,0 +1,6 @@
+#name : step(2) do |e| .. end
+# key: stedb
+# --
+step(${1:2}) do |${2:n}|
+  $0
+end

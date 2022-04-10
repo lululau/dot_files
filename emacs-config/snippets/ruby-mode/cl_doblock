@@ -1,0 +1,6 @@
+#name : classify do |...| ... end
+# key: cldb
+# --
+classify do |${e}|
+  $0
+end

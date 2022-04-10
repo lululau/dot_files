@@ -1,0 +1,7 @@
+#name : reject do |e| .. end
+#group : Enumerables
+# key: rejdb
+# --
+reject do |${1:e}|
+  $0
+end
