@@ -14,6 +14,7 @@
 (autoload 'lx/run-in-zsh-vterm "zsh-vterm")
 (autoload 'helm-zsh-vterm-ssh "zsh-vterm")
 (autoload 'zsh-vterm "zsh-vterm")
+(autoload 'vterm-completion "vterm-completion")
 (autoload 'helm-vterm-vrl "run-in-vterm")
 (autoload 'helm-vterm-jenkins "run-in-vterm")
 (autoload 'lx/run-in-vterm "run-in-vterm")

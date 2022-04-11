@@ -83,6 +83,7 @@
   (define-key vterm-mode-map (kbd "C-x k") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "k" nil nil nil)))
   (define-key vterm-mode-map (kbd "C-x s") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "s" nil nil nil)))
   (define-key vterm-mode-map (kbd "<M-return>") #'(lambda () (interactive) (process-send-string vterm--process "\e\C-m")))
+  (define-key vterm-mode-map (kbd "M-/") 'vterm-completion)
 
   (let ((map (lookup-key vterm-mode-map "\e")))
     ;; (define-key map "h" #'evil-window-left)
@@ -136,4 +137,5 @@
 
 (spacemacs|use-package-add-hook vterm
   :post-config
-  (define-key vterm-mode-map (kbd "M-p") #'vterm-send-M-p))
+  (define-key vterm-mode-map (kbd "M-p") #'vterm-send-M-p)
+  (define-key vterm-mode-map (kbd "M-/") 'vterm-completion))
