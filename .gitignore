@@ -68,3 +68,4 @@ Session.vim
 /gh/
 /github-copilot/
 /emacs-config/vendor/dist/
+.vterm-mitmproxy-current-user

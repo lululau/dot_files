@@ -18,6 +18,8 @@
 (autoload 'helm-vterm-vrl "vterm-vrl")
 (autoload 'helm-vterm-prize "vterm-prize")
 (autoload 'helm-vterm-jenkins "vterm-jenkins")
+(autoload 'vterm-mitmproxy-transparent-proxy "vterm-mitmproxy")
+(autoload 'vterm-mitmproxy-normal-proxy "vterm-mitmproxy")
 (autoload 'helm-vterm-maven-deploy "vterm-maven")
 (autoload 'helm-vterm-maven-deploy-current-artifact "vterm-maven")
 (autoload 'helm-vterm-maven-deploy-parent-artifact "vterm-maven")
