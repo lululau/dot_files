@@ -15,34 +15,32 @@
 (global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (progn (setq saved-ido-make-buffer-list-hook ido-make-buffer-list-hook) (setq ido-make-buffer-list-hook nil) (spacemacs-layouts/non-restricted-buffer-list-helm) (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook)) (error (progn (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook) (helm-keyboard-quit))))))
 (global-set-key (kbd "s-b") 'helm-projectile-switch-to-buffer)
 (global-set-key (kbd "s-L") 'spacemacs/helm-perspectives)
-(global-set-key (kbd "s-;") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil t)))
-(global-set-key (kbd "s-:") #'(lambda () (interactive) (let* ((project-root (projectile-project-root)))
+(global-set-key (kbd "s-:") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*")))
+(global-set-key (kbd "s-;") #'(lambda () (interactive) (let* ((project-root (projectile-project-root)))
                                                          (if project-root
                                                              (let* ((cmd (format "tmux-attach-or-create %s %s" project-root project-root))
                                                                     (buffer-name (format "*tmux-%s*" project-root)))
-                                                               (lx/run-in-zsh-vterm cmd buffer-name nil t)
+                                                               (lx/run-in-zsh-vterm cmd buffer-name)
                                                                (with-current-buffer buffer-name
                                                                  (setq default-directory project-root)))
-                                                           (message "No project root found.")))))
+                                                           (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*")))))
+
+(global-set-key (kbd "s-\"") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup)))
+(global-set-key (kbd "s-'") #'(lambda () (interactive) (let* ((project-root (projectile-project-root)))
+                                                         (if project-root
+                                                             (let* ((cmd (format "tmux-attach-or-create %s %s" project-root project-root))
+                                                                    (buffer-name (format "*tmux-%s*" project-root)))
+                                                               (lx/run-in-zsh-vterm cmd buffer-name nil 'popup)
+                                                               (with-current-buffer buffer-name
+                                                                 (setq default-directory project-root)))
+                                                           (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup)))))
+
 (global-set-key (kbd "s-r s-;") #'(lambda () (interactive) (lx/run-in-pry-vterm (cdr (assoc "pry" inf-ruby-implementations)) "*pry*")))
-(global-set-key (kbd "s-\"") #'projectile-shell-pop)
 (global-set-key (kbd "s-[") 'previous-buffer)
 (global-set-key (kbd "s-]") 'next-buffer)
 (global-set-key (kbd "s-/") 'evilnc-comment-or-uncomment-lines)
 (global-set-key (kbd "s-\\") 'lx/switch-to-previous-perp)
 (global-set-key (kbd "s-M-'") #'(lambda () (interactive) (call-interactively 'split-window-right-and-focus) (vterm "/bin/zsh")))
-
-(global-set-key (kbd "s-'") #'(lambda (prefix)
-                                (interactive "P")
-                                (if prefix
-                                    (switch-to-buffer (get-buffer "*zsh-vterm-0*"))
-                                  (if (string= "*zsh-vterm-0*" (buffer-name))
-                                      (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
-                                          (bury-buffer)
-                                        (shell-pop-out))
-                                    (let ((shell-pop-autocd-to-working-dir nil))
-                                      (setq zsh-vterm-last-buffer (current-buffer))
-                                      (spacemacs/shell-pop-zsh-vterm 0))))))
 
 (global-set-key (kbd "s-n") '(lambda () (interactive) (switch-to-buffer-other-window (generate-new-buffer "*Untitled*")) (undo-tree-mode)))
 (global-set-key (kbd "s-N") '(lambda () (interactive) (switch-to-buffer (generate-new-buffer "*Untitled*")) (undo-tree-mode)))

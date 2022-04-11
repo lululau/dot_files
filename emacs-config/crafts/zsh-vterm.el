@@ -6,10 +6,11 @@
 
 (defvar zsh-vterm-prompt-has-previous-regexp "^.*\\(❯\\|➜\\) ")
 
-(defun lx/run-in-zsh-vterm (command buffer-name &optional directory exclusive-window)
+(defun lx/run-in-zsh-vterm (command buffer-name &optional directory window-type)
   (interactive)
-  (let* ((buffer (get-buffer buffer-name)))
-    (set (intern (format "%s-command" buffer-name)) (list command buffer-name directory exclusive-window))
+  (let* ((buffer (get-buffer buffer-name))
+         (window-type (or window-type 'default)))
+    (set (intern (format "%s-command" buffer-name)) (list command buffer-name directory window-type))
     (set (intern (format "%s-process-environment" buffer-name)) process-environment)
     (set (intern (format "%s-kill-buffer-on-exit" buffer-name)) (bound-and-true-p vterm-kill-buffer-on-exit))
     (if buffer
@@ -18,12 +19,17 @@
                 (bury-buffer)
               (delete-window))
           (setq zsh-vterm-last-buffer (current-buffer))
-          (if exclusive-window
-              (switch-to-buffer buffer)
-            (pop-to-buffer buffer 'display-buffer-pop-up-window)))
+          (pcase window-type
+            ('split (pop-to-buffer buffer 'display-buffer-pop-up-window))
+            ('popup (select-window (shell-pop-split-window)) (switch-to-buffer buffer))
+            (_ (switch-to-buffer buffer))))
+
       (let* ((default-directory (or directory user-home-directory))
              (vterm-shell command))
-        (unless exclusive-window (split-window-right-and-focus))
+        (pcase window-type
+          ('split (split-window-right-and-focus))
+          ('popup (select-window (shell-pop-split-window))))
+
         (setq zsh-vterm-last-buffer (current-buffer))
         (zsh-vterm buffer-name)))))
 
