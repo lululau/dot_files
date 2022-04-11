@@ -277,6 +277,16 @@ value of `vterm-buffer-name'."
       (copilot-accept-completion)
     (vterm--self-insert)))
 
+(defun zsh-vterm-goto-tmp-dir ()
+  (interactive)
+  (let* ((project-root (projectile-project-root))
+         (tmp-dir (concat project-root "tmp")))
+    (if project-root
+        (if (file-exists-p tmp-dir)
+              (vterm-send-string (concat "cd " tmp-dir "\n"))
+          (message "No tmp directory found"))
+      (vterm-send-string "cd ~/tmp\n"))))
+
 (defvar zsh-vterm-mode-map
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map vterm-mode-map)
@@ -284,6 +294,7 @@ value of `vterm-buffer-name'."
     (define-key map (kbd "<tab>") #'zsh-vterm-accept-copilot-or-send-tab-to-term)
     (define-key map (kbd "s-C") #'zsh-vterm-previous-cli)
     (define-key map (kbd "s-V") #'zsh-vterm-next-cli)
+    (define-key map (kbd "s-i s-o") #'zsh-vterm-goto-tmp-dir)
 
     (evil-define-key 'visual map (kbd "<return>") #'evil-yank-for-zsh-vterm)
 
