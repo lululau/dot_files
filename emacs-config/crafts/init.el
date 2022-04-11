@@ -16,6 +16,7 @@
 (autoload 'zsh-vterm "zsh-vterm")
 (autoload 'vterm-completion "vterm-completion")
 (autoload 'helm-vterm-vrl "vterm-vrl")
+(autoload 'helm-vterm-prize "vterm-prize")
 (autoload 'helm-vterm-jenkins "vterm-jenkins")
 (autoload 'helm-vterm-maven-deploy "vterm-maven")
 (autoload 'helm-vterm-maven-deploy-current-artifact "vterm-maven")
