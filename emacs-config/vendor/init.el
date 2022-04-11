@@ -26,6 +26,8 @@
 (autoload 'tda/download-clipboard-link-to-current-dir  "tmtxt-dired-async.el")
 (autoload 'tda/execute-command-in-current-dir  "tmtxt-dired-async.el")
 (autoload 'toggle-company-english-helper  "company-english-helper.el")
+(autoload 'turn-company-english-helper-on "company-english-helper.el")
+(autoload 'company-en-words "company-english-helper.el")
 (autoload 'copilot-clear-overlay "copilot.el")
 (autoload 'copilot-complete "copilot.el")
 (autoload 'copilot-next-completion "copilot.el")

@@ -236,8 +236,8 @@ export ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #20 char left truncated PWD
 
 # for shell-pop
 if [ -n "$INSIDE_EMACS" ]
+   export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=102'
 then
-  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=101'
   # alias ag='ag --color-match=33'
   # chpwd() { print -P "\033AnSiTc %d" }
   # print -P "\033AnSiTu %n"
@@ -322,15 +322,24 @@ eval "$(starship init zsh)"
 
 [ -n "$SSH_CLIENT" ] && eval `ssh-agent` &> /dev/null
 
+zle-keymap-select () {
+  zle reset-prompt
+  case $KEYMAP in
+    vicmd) printf "\e[2 q";;
+    viins|main) printf "\e[5 q";;
+  esac
+}
+zle -N zle-keymap-select
+
 if [ -n "$INSIDE_EMACS" ]; then
-  zle-keymap-select () {
-    starship_render
-    zle reset-prompt
-    case $KEYMAP in
-      vicmd) printf "\e]51;Elx/run-in-vterm/set-green-box-cursor\e\\";;
-      viins|main) printf "\e]51;Elx/run-in-vterm/set-blue-bar-cursor\e\\";;
-    esac
-  }
+  # zle-keymap-select () {
+  #   starship_render
+  #   zle reset-prompt
+  #   case $KEYMAP in
+  #     vicmd) printf "\e]51;Elx/run-in-vterm/set-green-box-cursor\e\\";;
+  #     viins|main) printf "\e]51;Elx/run-in-vterm/set-blue-bar-cursor\e\\";;
+  #   esac
+  # }
 
   vterm_printf(){
     printf "\e]%s\e\\" "$1"
@@ -353,7 +362,6 @@ if [ -n "$INSIDE_EMACS" ]; then
   autoload -U add-zsh-hook
   add-zsh-hook -Uz chpwd (){ vterm_set_directory }
 fi
-
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bitcomplete bit

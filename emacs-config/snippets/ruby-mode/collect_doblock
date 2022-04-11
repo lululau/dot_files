@@ -1,0 +1,7 @@
+#name : collect do |...| ... end
+#group : Enumerables
+# key: collectdb
+# --
+collect do |${e}|
+  $0
+end

@@ -1,39 +1,5 @@
 (require 'vterm)
 
-(defvar lx/run-shell-in-vterm-keymap (let ((map (make-sparse-keymap)))
-                                       (set-keymap-parent map vterm-mode-map)
-                                       (evil-define-key 'hybrid map (kbd "s-1") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "1")))
-                                       (evil-define-key 'hybrid map (kbd "s-2") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "2")))
-                                       (evil-define-key 'hybrid map (kbd "s-3") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "3")))
-                                       (evil-define-key 'hybrid map (kbd "s-4") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "4")))
-                                       (evil-define-key 'hybrid map (kbd "s-5") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "5")))
-                                       (evil-define-key 'hybrid map (kbd "s-6") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "6")))
-                                       (evil-define-key 'hybrid map (kbd "M-1") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "7")))
-                                       (evil-define-key 'hybrid map (kbd "M-2") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "8")))
-                                       (evil-define-key 'hybrid map (kbd "M-3") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "9")))
-                                       (evil-define-key 'hybrid map (kbd "M-4") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "0")))
-                                       map))
-
-(defun lx/run-shell-in-vterm (command buffer-name &optional directory exclusive-window)
-  (interactive)
-  (let* ((buffer (get-buffer buffer-name)))
-    (set (intern (format "%s-command" buffer-name)) (list command buffer-name directory exclusive-window))
-    (set (intern (format "%s-process-environment" buffer-name)) process-environment)
-    (set (intern (format "%s-kill-buffer-on-exit" buffer-name)) (bound-and-true-p vterm-kill-buffer-on-exit))
-    (if buffer
-        (if (equal buffer (current-buffer))
-            (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
-                (bury-buffer)
-              (delete-window))
-          (if exclusive-window
-              (switch-to-buffer buffer)
-            (pop-to-buffer buffer 'display-buffer-pop-up-window)))
-      (let* ((default-directory (or directory user-home-directory))
-             (vterm-shell command))
-        (unless exclusive-window (split-window-right-and-focus))
-        (vterm buffer-name)
-        (with-current-buffer buffer-name (use-local-map lx/run-shell-in-vterm-keymap))))))
-
 
 (defun lx/run-in-vterm (command buffer-name &optional directory exclusive-window)
   (interactive)
@@ -110,7 +76,7 @@
   (let ((directory (expand-file-name default-directory)))
     (mapcar 'buffer-name
             (seq-filter (lambda (b)
-                          (eq 'vterm-mode (with-current-buffer b major-mode)))
+                          (seq-contains-p '(vterm-mode zsh-vterm-mode pry-vterm-mode) (with-current-buffer b major-mode)))
                         (buffer-list)))))
 
 (defclass helm-vterm-buffers-source (helm-source-sync helm-type-buffer)
@@ -136,78 +102,6 @@
 (defun helm-vterm-buffers ()
   (interactive)
   (helm-other-buffer '(helm-vterm-buffers-list) "*helm-vterm-buffers*"))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun helm-vterm-ssh-buffers-list--init ()
-  (require 'dired)
-  (helm-attrset 'candidates (funcall (helm-attr 'buffer-list)))
-  (let ((result (cl-loop with allbufs = (memq 'helm-shadow-boring-buffers
-                                              (helm-attr
-                                               'filtered-candidate-transformer
-                                               helm-vterm-ssh-buffers-list))
-                         for b in (if allbufs
-                                      (helm-attr 'candidates)
-                                    (helm-skip-boring-buffers
-                                     (helm-attr 'candidates)
-                                     helm-vterm-ssh-buffers-list))
-                         maximize (length b) into len-buf
-                         maximize (length (helm-buffer--format-mode-name b))
-                         into len-mode
-                         finally return (cons len-buf len-mode))))
-    (unless (default-value 'helm-buffer-max-length)
-      (helm-set-local-variable 'helm-buffer-max-length (car result)))
-    (unless (default-value 'helm-buffer-max-len-mode)
-      (helm-set-local-variable 'helm-buffer-max-len-mode (cdr result)))))
-
-(defun helm-vterm-ssh-buffer-list ()
-  (let ((directory (expand-file-name default-directory)))
-    (mapcar 'buffer-name
-            (seq-filter (lambda (b)
-                          (and (eq 'vterm-mode (with-current-buffer b major-mode))
-                          (s-starts-with? "*vterm-ssh-" (with-current-buffer b (buffer-name)))))
-                        (buffer-list)))))
-
-(defclass helm-vterm-ssh-buffers-source (helm-source-sync helm-type-buffer)
-  ((buffer-list
-    :initarg :buffer-list
-    :initform #'helm-vterm-ssh-buffer-list
-    :custom function
-    :documentation)
-   (init :initform 'helm-vterm-ssh-buffers-list--init)
-   (multimatch :initform nil)
-   (match :initform 'helm-buffers-match-function)
-   (persistent-action :initform 'helm-buffers-list-persistent-action)
-   (keymap :initform helm-buffer-map)
-   (migemo :initform 'nomultimatch)
-   (volatile :initform t)
-   (nohighlight :initform t)
-   (resume :initform (lambda () (setq helm-buffers-in-project-p nil)))
-   (help-message :initform 'helm-buffer-help-message)))
-
-(defun helm-vterm-ssh-option-list ()
-  (mapcar (lambda (host) (cons host host))
-          (s-split "\n" (shell-command-to-string "perl -ne 'if (/^Host [^*]/) {s/^Host *//; print;}' ~/.ssh/config") t)))
-
-(defun helm-vterm-ssh-run (host)
-  (let ((process-environment '("SSH_INTERACTIVE=1"))
-        (cmd (format "ssh %s" host))
-        (buffer-name (format "*vterm-ssh-%s*" host)))
-    (lx/run-shell-in-vterm cmd buffer-name nil t)))
-
-(defclass helm-vterm-ssh-options-source (helm-source-sync)
-  ((candidates :initform 'helm-vterm-ssh-option-list)
-   (action :initform 'helm-vterm-ssh-run)))
-
-(setq helm-vterm-ssh-buffers-list
-      (helm-make-source "SSH Buffers" 'helm-vterm-ssh-buffers-source))
-
-(setq helm-vterm-ssh-options-list
-      (helm-make-source "SSH Hosts" 'helm-vterm-ssh-options-source))
-
-(defun helm-vterm-ssh ()
-  (interactive)
-  (helm-other-buffer '(helm-vterm-ssh-buffers-list helm-vterm-ssh-options-list) "*helm-vterm-ssh-buffers*"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

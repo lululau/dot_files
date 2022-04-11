@@ -1,0 +1,7 @@
+#name : collect do |e| ... end
+#group : Enumerables
+# key: coldb
+# --
+collect do |${e}|
+  $0
+end

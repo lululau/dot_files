@@ -1,0 +1,7 @@
+# This was cloned from a TextMate bundle for yasnippet.
+#group : Files
+# key: Filedb
+# --
+File.foreach(${1:"${2:path/to/file}"}) do |${3:line}|
+  $0
+end

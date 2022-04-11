@@ -1,0 +1,6 @@
+#name : upto(1.0/0.0) do |n| .. end
+# key: uptdb
+# --
+upto(${1:1.0/0.0}) do |${2:n}|
+  $0
+end

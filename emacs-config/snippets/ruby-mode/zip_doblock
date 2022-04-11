@@ -1,0 +1,7 @@
+#name : zip(...) do |...| ... end
+#group : Enumerables
+# key: zipdb
+# --
+zip(${enums}) do |${row}|
+  $0
+end

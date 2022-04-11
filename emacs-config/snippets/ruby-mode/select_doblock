@@ -1,0 +1,7 @@
+#name : select do |...| ... end
+#group : Enumerables
+# key: selectdb
+# --
+select do |${1:element}|
+  $0
+end

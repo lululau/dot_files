@@ -633,6 +633,21 @@
                         `(term-color-white ((,class (:foreground ,base))))
                         `(term-color-yellow ((,class (:foreground ,yellow))))
 
+
+;;;;; vterm
+                        `(vterm-color-default ((,class (:foreground ,base :background ,bg1))))
+                        ;; vterm-color-black used to render black color code.
+                        ;; The foreground color is used as ANSI color 0 and the background
+                        ;; color is used as ANSI color 8.
+                        `(vterm-color-black ((,class (:foreground ,bg4 :background ,bg4))))
+                        `(vterm-color-blue ((,class (:foreground ,blue :background ,blue))))
+                        `(vterm-color-cyan ((,class (:foreground ,cyan :background ,cyan))))
+                        `(vterm-color-green ((,class (:foreground ,green :background ,green))))
+                        `(vterm-color-magenta ((,class (:foreground ,magenta :background ,magenta))))
+                        `(vterm-color-red ((,class (:foreground ,red  :background ,red))))
+                        `(vterm-color-white ((,class (:foreground ,base  :background ,base))))
+                        `(vterm-color-yellow ((,class (:foreground ,yellow   :background ,yellow))))
+
 ;;;;; web-mode
                         `(web-mode-builtin-face ((,class (:inherit ,font-lock-builtin-face))))
                         `(web-mode-comment-face ((,class (:inherit ,font-lock-comment-face))))

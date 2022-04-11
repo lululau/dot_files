@@ -1,0 +1,6 @@
+#name : each_value do |val| ... end
+# key: eavdb
+# --
+each_value do |${val}|
+  $0
+end

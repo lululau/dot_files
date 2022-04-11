@@ -4,9 +4,12 @@
       (let* ((projectile-project-root (projectile-project-root))
              (index (or (gethash projectile-project-root projectile-term-index-hash-table)
                         (1+ (apply 'max 99 (hash-table-values projectile-term-index-hash-table))))))
-        (switch-to-buffer (get-buffer (format "*zsh-vterm-%d*" index))))
+        (progn
+          (setq zsh-vterm-last-buffer (current-buffer))
+          (switch-to-buffer (get-buffer (format "*zsh-vterm-%d*" index)))))
     (if (seq-contains-p '(vterm-mode zsh-vterm-mode) major-mode)
         (shell-pop-out)
+      (setq zsh-vterm-last-buffer (current-buffer))
       (if (not (projectile-project-p))
           (spacemacs/shell-pop-zsh-vterm 0)
         (if (not (boundp 'projectile-term-index-hash-table)) (setq projectile-term-index-hash-table (make-hash-table :test 'equal)))

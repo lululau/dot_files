@@ -985,3 +985,12 @@ endfunction
 
 noremap <F4> :call ToggleFolding()<CR>
 inoremap <F4> <c-o>:call ToggleFolding()<CR>
+
+if &readonly == 1
+  nnoremap f <C-f>
+  nnoremap b <C-b>
+  nnoremap q :q<CR>
+  vnoremap f <C-f>
+  vnoremap b <C-b>
+  vnoremap q :q<CR>
+endif

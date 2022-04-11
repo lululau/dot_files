@@ -140,15 +140,17 @@ Default is disable.")
   (interactive)
   (if company-en-words-active-p
       (progn
-        (setq company-backends (remove 'company-en-words company-backends))
-        ;; I need remove `company-en-words' with `company-yasnippet',
-        ;; it's not enough just remove `company-en-words' from `company-backends'
-        (setq company-backends (remove '(company-en-words :with company-yasnippet) company-backends))
+        (setq-local company-backends (seq-filter (lambda (b) (not (seq-contains-p '(company-en-words (company-en-words :with company-yasnippet)) b))) company-backends))
         (setq company-en-words-active-p nil)
         (message "English helper has disable."))
-    (add-to-list 'company-backends 'company-en-words)
+    (setq-local company-backends (append '((company-en-words :with company-yasnippet)) company-backends))
     (setq company-en-words-active-p t)
     (message "English helper has enable.")))
+
+(defun turn-company-english-helper-on ()
+  (interactive)
+  (setq-local company-backends (append '((company-en-words :with company-yasnippet)) company-backends))
+  (setq company-en-words-active-p t))
 
 (provide 'company-english-helper)
 

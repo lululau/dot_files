@@ -1,0 +1,7 @@
+#name : Array.new(10) do |i| ... end
+#group : Arrays
+# key: Arraydb
+# --
+Array.new(${10}) do |${i}|
+  $0
+end

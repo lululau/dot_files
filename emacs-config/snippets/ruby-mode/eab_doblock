@@ -1,0 +1,6 @@
+# This was cloned from a TextMate bundle for yasnippet.
+# key: eabdb
+# --
+each_byte do |${1:byte}|
+  $0
+end

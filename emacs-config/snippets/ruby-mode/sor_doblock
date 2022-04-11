@@ -1,0 +1,7 @@
+#name : sort do |a, b| .. end
+#group : Enumerables
+# key: sordb
+# --
+sort do |a, b|
+  $0
+end
