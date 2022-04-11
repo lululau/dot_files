@@ -377,6 +377,8 @@ before layers configuration."
                                             (define-key spacemacs-buffer-mode-map (kbd "s-r s-b") #'configuration-layer/rollback)))
   (setq projectile-keymap-prefix (kbd "C-c p"))
 
+  (add-hook 'lsp-completion-mode-hook #'lx/reset-lsp-company-backends)
+
   )
 
 (defun dotspacemacs/user-config ()
@@ -429,7 +431,7 @@ layers configuration."
   (setenv "PKG_CONFIG_PATH" "/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig")
   (add-hook 'prog-mode-hook 'display-line-numbers-mode)
   (setq magit-push-always-verify nil)
-  (add-hook 'smartparens-enabled-hook #'turn-off-sp-on-large-file)
+  ;; (add-hook 'smartparens-enabled-hook #'turn-off-sp-on-large-file)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh t)
   (add-hook 'git-commit-mode-hook 'evil-emacs-state)
   (setq helm-mode-fuzzy-match t)
@@ -612,6 +614,8 @@ layers configuration."
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
 
   (make-shell-pop-command "zsh-vterm" zsh-vterm)
+
+  (add-hook 'post-command-hook #'lx/reset-hybrid-state-cursor-type-after-tab)
   ) ;;; End of config.
 
 ;; (desktop-save-mode 1)
@@ -978,7 +982,8 @@ This function is called at the very end of Spacemacs initialization."
    (sql-user "root")
    (sql-database "test")
    (sql-server "")))))
- '(vc-follow-symlinks t))
+ '(vc-follow-symlinks t)
+ '(warning-suppress-types (quote ((comp)))))
 ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.

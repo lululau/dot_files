@@ -1,0 +1,6 @@
+# This was cloned from a TextMate bundle for yasnippet.
+# key: Mldb
+# --
+File.open(${1:"${2:path/to/file}.dump"}) do |${3:file}|
+  Marshal.load(${3:file})
+end

@@ -1,0 +1,7 @@
+#name : select do |e| .. end
+#group : Enumerables
+# key: seldb
+# --
+select do |${e}|
+  $0
+end

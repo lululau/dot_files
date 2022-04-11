@@ -1,0 +1,6 @@
+# This was cloned from a TextMate bundle for yasnippet.
+# key: eakdb
+# --
+each_key do |${1:key}|
+  $0
+end

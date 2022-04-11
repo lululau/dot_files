@@ -1,0 +1,7 @@
+# This was cloned from a TextMate bundle for yasnippet.
+#group : Arrays
+# key: flaodb
+# --
+inject(Array.new) do |${1:arr}, ${2:a}|
+  ${1:arr}.push(*${2:a})
+end

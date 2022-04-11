@@ -1,0 +1,7 @@
+# This was cloned from a TextMate bundle for yasnippet.
+#group : Enumerables
+# key: gredb
+# --
+grep(${1:/${2:pattern}/}) do |${3:match}|
+  $0
+end

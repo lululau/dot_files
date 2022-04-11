@@ -1,0 +1,7 @@
+#name : find do |e| .. end
+#group : Enumerables
+# key: findb
+# --
+find do |${1:e}|
+  $0
+end

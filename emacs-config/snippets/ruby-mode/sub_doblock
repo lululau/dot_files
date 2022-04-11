@@ -1,0 +1,6 @@
+#name : sub(/../) do |match| .. end
+# key: subdb
+# --
+sub(/${pattern}/) do |${match}|
+  $0
+end

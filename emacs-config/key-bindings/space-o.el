@@ -102,6 +102,7 @@
         ("ool" learnings-org "~/Documents/org/learnings.org")
         ("oof" life-org "~/Documents/org/life.org")
         ("ooc" capture-org "~/Documents/org/capture.org")
+        ("ooC" cheatsheet-org "~/Documents/org/cheatsheets")
         ("oot" team-tasks-org "~/Documents/org/team-tasks.org")
         ("ook" kbd-macros-org "~/Documents/org/kbd-macros.org")
         ("ooj" ddhc-jira-org "~/.org-jira/DDHC.org")

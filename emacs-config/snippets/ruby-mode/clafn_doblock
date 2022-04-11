@@ -1,0 +1,6 @@
+#name : class_from_name()
+# key: clafndb
+# --
+split("::").inject(Object) do |par, const|
+  par.const_get(const)
+end

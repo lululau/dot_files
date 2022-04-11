@@ -1,0 +1,7 @@
+#name : classify do |...| ... end
+#group : collections
+# key: classifydb
+# --
+classify do |${e}|
+  $0
+end

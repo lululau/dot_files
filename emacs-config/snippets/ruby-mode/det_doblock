@@ -1,0 +1,7 @@
+#name : detect do |...| ... end
+#group : Enumerables
+# key: detdb
+# --
+detect do |${e}|
+  $0
+end

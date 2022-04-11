@@ -1,0 +1,6 @@
+#name : times do |n| ... end
+# key: timdb
+# --
+times do |${n}|
+  $0
+end

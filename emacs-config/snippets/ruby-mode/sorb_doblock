@@ -1,0 +1,7 @@
+#name : sort_by do |e| .. end
+#group : Enumerables
+# key: sorbdb
+# --
+sort_by do |${e}|
+  $0
+end

@@ -1,4 +1,5 @@
 (with-eval-after-load 'vterm
+  (require 'shell-pop)
 ;;   (defvar-local vterm--undecoded-bytes nil)
 ;;   (defun vterm--filter (process input)
 ;;     "I/O Event.  Feeds PROCESS's INPUT to the virtual terminal.
@@ -38,13 +39,15 @@
   (define-key vterm-mode-map
     (kbd (if (display-graphic-p) "<S-return>" "S-RET")) #'(lambda ()
                                                             (interactive)
-                                                            (shell-pop--cd-to-cwd
-                                                             (with-current-buffer (get-buffer shell-pop-last-buffer) (projectile-project-root)))))
+                                                            (let ((shell-pop-internal-mode "zsh-vterm"))
+                                                              (shell-pop--cd-to-cwd
+                                                               (with-current-buffer (get-buffer zsh-vterm-last-buffer) (projectile-project-root))))))
 
   (define-key vterm-mode-map
     (kbd (if (display-graphic-p) "<s-return>" "s-RET")) #'(lambda ()
                                                             (interactive)
-                                                            (let* ((buffer (get-buffer shell-pop-last-buffer))
+                                                            (let* ((shell-pop-internal-mode "zsh-vterm")
+                                                                   (buffer (get-buffer zsh-vterm-last-buffer))
                                                                    (buffer-file-name (buffer-file-name buffer)))
                                                               (if buffer-file-name
                                                                   (setq buffer-file-directory (file-name-directory buffer-file-name))
@@ -74,11 +77,13 @@
   (define-key vterm-mode-map (kbd "M-D") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "exit-program\n")))
   (define-key vterm-mode-map (kbd "s-w") #'delete-window-or-bury-buffer)
   (define-key vterm-mode-map (kbd "<f12>") nil)
+  (define-key vterm-mode-map (kbd "C-x C-c") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "c" nil nil t)))
   (define-key vterm-mode-map (kbd "C-x C-e") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "e" nil nil t)))
   (define-key vterm-mode-map (kbd "C-x C-k") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "k" nil nil t)))
   (define-key vterm-mode-map (kbd "C-x k") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "k" nil nil nil)))
   (define-key vterm-mode-map (kbd "C-x s") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "s" nil nil nil)))
   (define-key vterm-mode-map (kbd "<M-return>") #'(lambda () (interactive) (process-send-string vterm--process "\e\C-m")))
+  (define-key vterm-mode-map (kbd "M-/") 'vterm-completion)
 
   (let ((map (lookup-key vterm-mode-map "\e")))
     ;; (define-key map "h" #'evil-window-left)
@@ -132,4 +137,5 @@
 
 (spacemacs|use-package-add-hook vterm
   :post-config
-  (define-key vterm-mode-map (kbd "M-p") #'vterm-send-M-p))
+  (define-key vterm-mode-map (kbd "M-p") #'vterm-send-M-p)
+  (define-key vterm-mode-map (kbd "M-/") 'vterm-completion))

@@ -1,0 +1,7 @@
+#name : each_cons(...) do |...| ... end
+#group : Enumerables
+# key: eacdb
+# --
+each_cons(${1:2}) do |${group}|
+  $0
+end

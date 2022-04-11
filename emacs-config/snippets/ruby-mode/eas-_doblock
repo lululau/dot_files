@@ -1,0 +1,7 @@
+# This was cloned from a TextMate bundle for yasnippet.
+#group : Enumerables
+# key: eas-db
+# --
+each_slice(${1:2}) do |${2:group}|
+  $0
+end
