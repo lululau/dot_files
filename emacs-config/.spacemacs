@@ -255,13 +255,14 @@
                     )) dotspacemacs-configuration-layers)
         (setq-default dotspacemacs-configuration-layers lx/conf-layers))))
 
-(defun dotspacemacs/user-init ()
-  "Initialization function.
-This function is called at the very startup of Spacemacs initialization
-before layers configuration."
+(defun dotspacemacs/init ()
+  "Initialization:
+This function is called at the very beginning of Spacemacs startup,
+before layer configuration.
+It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
-  (setq-default
+ (setq-default
    ;; Either `vim' or `emacs'. Evil is always enabled but if the variable
    ;; is `emacs' then the `holy-mode' is enabled at startup.
    dotspacemacs-editing-style 'hybrid
@@ -326,7 +327,7 @@ before layers configuration."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'.
@@ -362,8 +363,15 @@ before layers configuration."
    dotspacemacs-pretty-docs t
    dotspacemacs-use-spacelpa nil
    dotspacemacs-use-SPC-as-y t
-   )
-  ;; User initialization goes here
+   ))
+
+
+(defun dotspacemacs/user-init ()
+  "Initialization for user code:
+This function is called immediately after `dotspacemacs/init', before layer
+configuration.
+It is mostly for variables that should be set before packages are loaded.
+If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   ;; (setq configuration-layer-elpa-archives
   ;;       '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
@@ -1008,6 +1016,10 @@ This function is called at the very end of Spacemacs initialization."
    (sql-server "")))))
  '(vc-follow-symlinks t)
  '(warning-suppress-types (quote ((comp)))))
+
+  (persp-mode)
+  (persp-load-state-from-file "~/.emacs.d/.cache/layouts/A")
+
 ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.
