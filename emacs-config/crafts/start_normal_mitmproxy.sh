@@ -10,6 +10,8 @@ if [ "$1" = "true" ]; then
 fi
 
 
+ulimit -n 200000
+ulimit -u 2128
 PAGER="$dirname"/mitmproxy-emacs-viewer.sh mitmproxy --showhost -k -p 8888
 
 if [ "$1" = "true" ]; then
