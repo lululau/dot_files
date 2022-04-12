@@ -86,6 +86,7 @@
      ;; ----------------------------------------------------------------
      (spacemacs-layouts :variables
                         spacemacs-layouts-restrict-spc-tab t)
+     (spacemacs-evil :variable spacemacs-evil-collection-allowed-list '(eww dired quickrun zsh-vterm pry-vterm))
      ;; lsp
      (lsp :variables lsp-rust-server 'rust-analyzer)
      dap
