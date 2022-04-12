@@ -20,8 +20,12 @@
               (delete-window))
           (setq zsh-vterm-last-buffer (current-buffer))
           (pcase window-type
-            ('split (pop-to-buffer buffer 'display-buffer-pop-up-window))
-            ('popup (select-window (shell-pop-split-window)) (switch-to-buffer buffer))
+            ('split (if (get-buffer-window buffer)
+                        (select-window (get-buffer-window buffer))
+             (pop-to-buffer buffer 'display-buffer-pop-up-window)))
+            ('popup (if (get-buffer-window buffer)
+                        (select-window (get-buffer-window buffer))
+             (select-window (shell-pop-split-window)) (switch-to-buffer buffer)))
             (_ (switch-to-buffer buffer))))
 
       (let* ((default-directory (or directory user-home-directory))
