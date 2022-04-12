@@ -112,7 +112,7 @@
       (dnd-handle-one-url nil action uri)))
 
   (defun vterm-dnd (uri action)
-    (cond ((eq 'vterm-mode major-mode)
+    (cond ((derived-mode-p 'vterm-mode)
            (condition-case nil
                (vterm-dnd-copy-path uri)
              (error
