@@ -111,11 +111,14 @@
         ("oor" rails-guides-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org")))
 
 (setq lx/server-files
-      '(("os1" ddhc-dev-a "/scp:lcl.dev:/server/app")
-      ("os2" ddhc-dev-b "/scp:lcl.pro:/server/app")
-      ("os3" ddhc-uat "/scp:ddhc.uat:/server/app")
-      ("os4" ddhc-pro "/scp:ddhc.pro:/server/app")
-      ("os5" ddhc-pro-2 "/scp:ddhc.pro2:/server/app")
+      '(("os1" lcl-devb "/scp:lcl.devb:/etc/nginx/conf.d")
+      ("os2" ceres-devb "/scp:ceres.devb:/etc/nginx/conf.d")
+      ("os3" ll-devb "/scp:ll-devb:/etc/nginx/conf.d")
+      ("os4" md-dev "/scp:md.dev:/etc/nginx/conf.d")
+      ("os6" lcl-fe1 "/scp:lcl.fe1:/etc/nginx/conf.d")
+      ("os7" lcl-fe2 "/scp:lcl.fe2:/etc/nginx/conf.d")
+      ("os8" ceres-fe1 "/scp:ceres.fe1:/opt/nginx/conf/conf.d")
+      ("os9" ceres-fe2 "/scp:ceres.fe2:/opt/nginx/conf/conf.d")
       ("os0" lx-kt "/scp:lx.kt:~/")))
 
 ;; Cheat Sheets
