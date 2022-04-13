@@ -917,6 +917,8 @@ autocmd FileType lisp,clojure let b:AutoClosePairs = AutoClose#DefaultPairsModif
 autocmd FileType lisp,clojure let b:AutoClosePairs = AutoClose#DefaultPairsModified("", "`")
 
 colorscheme base16-railscasts
+highlight Normal ctermfg=None ctermbg=None
+highlight CursorLine ctermfg=None ctermbg=237
 
 let g:ctrlspace_save_workspace_on_exit = 1
 let g:gitguwtter_sign_column_always = 1
