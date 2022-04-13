@@ -1,0 +1,12 @@
+(defun lx/open-mail-custom-layout-or-mu4e-main()
+  (interactive)
+  (if (string= "@Mu4e" (spacemacs//current-layout-name))
+      (call-interactively 'mu4e)
+    (spacemacs/custom-perspective-@Mu4e)))
+
+(defun lx/force-update-mu4e ()
+  (interactive)
+   (setq mu4e-maildirs-extension-bookmarks nil)
+   (setq mu4e-maildirs-extension-maildirs nil)
+   (mu4e-maildirs-extension-update)
+   (mu4e-maildirs-extension-unqueue-maybe))
