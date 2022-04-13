@@ -9,9 +9,7 @@
          (word-at-point (car (last (s-split-words current-line))))
          (WORD-at-point (car (last (split-string current-line "\\s-+" t))))
          (vterm-content (buffer-substring-no-properties (point-min) (point-max)))
-         (vterm-content (if (not (string-prefix-p "*tmux" (buffer-name)))
-                           vterm-content
-                         (concat vterm-content (shell-command-to-string (format "%s/capture-all-tmux-panes.sh" vterm-completion-script-dir)))))
+         (vterm-content (concat vterm-content (shell-command-to-string (format "%s/capture-all-tmux-panes.sh" vterm-completion-script-dir))))
          (vterm-lines (mapcar (lambda (it) (replace-regexp-in-string  "^[^❯➜\\]]*\\(❯\\|\\]#\\|\\]\\$\\|➜\\) " "" (s-trim it))) (split-string vterm-content "[\n│]" t)))
          (vterm-WORDS (mapcan (lambda (line) (split-string line "\\s-+" t)) vterm-lines))
          (vterm-words (mapcan (lambda (WORD) (s-split-words WORD)) vterm-WORDS))
