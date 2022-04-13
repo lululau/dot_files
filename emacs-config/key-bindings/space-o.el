@@ -75,6 +75,7 @@
 ;; Config files
 (setq lx/config-files
       '(("och" hosts-config "/sudo:root@localhost:/etc/hosts")
+        ("ocS" sudoers "/sudo:root@localhost:/etc/sudoers")
         ("ocz" zshrc "~/.zshrc")
         ("ocp" pryrc "~/.pryrc")
         ("ocl" vrl "~/.vrl.yml")
