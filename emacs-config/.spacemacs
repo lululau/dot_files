@@ -563,6 +563,7 @@ layers configuration."
                                   ("\\.es$" . es-mode)
                                   ("\\.class" . jdecomp-mode)
                                   ("\\.d$" . dtrace-script-mode)
+                                  ("\\.xlsx$" . visidata-mode)
                                   ("\\.sc$" . scala-mode)) auto-mode-alist))
 
   ;; (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . rjsx-mode))

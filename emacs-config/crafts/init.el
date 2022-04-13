@@ -36,5 +36,6 @@
 (autoload 'lx/kubectl/istio-inject-apply-region-or-buffer "kubectl")
 (autoload 'lx/kubectl/istio-inject-delete-region-or-buffer "kubectl")
 (autoload 'tail-f "tail-f")
+(autoload 'visidata-mode "visidata")
 
 (load-file (format "%s/%s" (file-name-directory load-file-name) "spacemacs-override.el"))

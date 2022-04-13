@@ -84,6 +84,7 @@
   (define-key vterm-mode-map (kbd "C-x k") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "k" nil nil nil)))
   (define-key vterm-mode-map (kbd "C-x s") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "s" nil nil nil)))
   (define-key vterm-mode-map (kbd "<M-return>") #'(lambda () (interactive) (process-send-string vterm--process "\e\C-m")))
+  (define-key vterm-mode-map (kbd "C-h") 'vterm-send-C-h)
   (define-key vterm-mode-map (kbd "M-/") 'vterm-completion)
 
   (let ((map (lookup-key vterm-mode-map "\e")))
