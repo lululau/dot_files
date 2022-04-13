@@ -1,20 +1,29 @@
 (defvar helm-vterm-completion-last-buffer nil)
 
+;; (setq vterm-completion-script-dir (file-name-directory load-file-name))
+(setq vterm-completion-script-dir (file-name-directory (buffer-file-name)))
+
 (defun helm-vterm-completion-candidates ()
   (with-current-buffer helm-vterm-completion-last-buffer
   (let* ((current-line (buffer-substring-no-properties (line-beginning-position) (point)))
          (word-at-point (car (last (s-split-words current-line))))
+         (WORD-at-point (car (last (split-string current-line "\\s-+" t))))
          (vterm-content (buffer-substring-no-properties (point-min) (point-max)))
          (vterm-content (if (not (string-prefix-p "*tmux" (buffer-name)))
                            vterm-content
-                         (concat vterm-content (shell-command-to-string "tmux capture-pane -S- -E- -p -J"))))
-         (vterm-lines (mapcar (lambda (it) (replace-regexp-in-string  "^.*\\(❯\\|\\]#\\|\\]\\$\\|➜\\) " "" (s-trim it))) (split-string vterm-content "[\n│]" t)))
+                         (concat vterm-content (shell-command-to-string (format "%s/capture-all-tmux-panes.sh" vterm-completion-script-dir)))))
+         (vterm-lines (mapcar (lambda (it) (replace-regexp-in-string  "^[^❯➜\\]]*\\(❯\\|\\]#\\|\\]\\$\\|➜\\) " "" (s-trim it))) (split-string vterm-content "[\n│]" t)))
          (vterm-WORDS (mapcan (lambda (line) (split-string line "\\s-+" t)) vterm-lines))
-         (vterm-words (mapcan (lambda (line) (s-split-words line)) vterm-lines))
+         (vterm-words (mapcan (lambda (WORD) (s-split-words WORD)) vterm-WORDS))
          (candidates (append vterm-lines vterm-WORDS vterm-words))
-         (candidates (seq-filter (lambda (candidate) (string-prefix-p word-at-point candidate)) candidates)))
-    (sort candidates #'string<)
-    (seq-uniq candidates))))
+         (candidates (let (result)(dolist (candidate candidates result)
+                       (when (or (string-prefix-p word-at-point candidate) (string-prefix-p WORD-at-point candidate))
+                         (setq result (cons candidate result)))
+                       (let ((idx (s-index-of word-at-point candidate)))
+                         (when idx
+                           (setq result (cons (substring candidate idx) result))))))))
+
+    (seq-uniq (seq-sort #'string< candidates)))))
 
 (defun helm-vterm-completion-insert (candidate)
   (with-current-buffer helm-vterm-completion-last-buffer
