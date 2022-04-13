@@ -5,6 +5,9 @@
   (let* ((current-line (buffer-substring-no-properties (line-beginning-position) (point)))
          (word-at-point (car (last (s-split-words current-line))))
          (vterm-content (buffer-substring-no-properties (point-min) (point-max)))
+         (vterm-content (if (not (string-prefix-p "*tmux" (buffer-name)))
+                           vterm-content
+                         (concat vterm-content (shell-command-to-string "tmux capture-pane -S- -E- -p -J"))))
          (vterm-lines (mapcar (lambda (it) (replace-regexp-in-string  "^.*\\(❯\\|\\]#\\|\\]\\$\\|➜\\) " "" (s-trim it))) (split-string vterm-content "[\n│]" t)))
          (vterm-WORDS (mapcan (lambda (line) (split-string line "\\s-+" t)) vterm-lines))
          (vterm-words (mapcan (lambda (line) (s-split-words line)) vterm-lines))
