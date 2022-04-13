@@ -1018,6 +1018,11 @@ This function is called at the very end of Spacemacs initialization."
  '(vc-follow-symlinks t)
  '(warning-suppress-types (quote ((comp)))))
 
+  (set-frame-parameter (selected-frame) 'width 1.0)
+  (set-frame-parameter (selected-frame) 'height 1.0)
+  (set-frame-parameter (selected-frame) 'top 0.0)
+  (set-frame-parameter (selected-frame) 'left 0.0)
+
   (persp-mode)
   (persp-load-state-from-file "~/.emacs.d/.cache/layouts/A")
 
