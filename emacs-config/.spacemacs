@@ -582,6 +582,8 @@ layers configuration."
                                (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                                (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
 
+  (add-hook 'pdf-view-mode-hook #'pdf-view-fit-height-to-window)
+
   (setq mu4e-hide-index-messages t)
 
   (define-coding-system-alias 'UTF-8 'utf-8)
