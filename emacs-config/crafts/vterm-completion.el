@@ -17,18 +17,22 @@
          (vterm-words (mapcan (lambda (WORD) (s-split-words WORD)) vterm-WORDS))
          (candidates (append vterm-lines vterm-WORDS vterm-words))
          (candidates (let (result)(dolist (candidate candidates result)
-                       (when (or (string-prefix-p word-at-point candidate) (string-prefix-p WORD-at-point candidate))
-                         (setq result (cons candidate result)))
-                       (let ((idx (s-index-of word-at-point candidate)))
-                         (when idx
-                           (setq result (cons (substring candidate idx) result))))))))
+                                    (when (string-prefix-p word-at-point candidate)
+                                      (setq result (cons (cons candidate (cons candidate word-at-point)) result)))
+                                    (when (string-prefix-p WORD-at-point candidate)
+                                      (setq result (cons (cons candidate (cons candidate WORD-at-point)) result)))
+                                    (let ((idx (s-index-of word-at-point candidate)))
+                                      (when idx
+                                        (let ((sub-candidate (substring candidate idx)))
+                                        (setq result (cons (cons sub-candidate (cons sub-candidate word-at-point)) result)))))))))
 
-    (seq-uniq (seq-sort #'string< candidates)))))
+    (seq-uniq (seq-sort (lambda (a b) (string< (car a) (car b))) candidates)))))
 
-(defun helm-vterm-completion-insert (candidate)
+(defun helm-vterm-completion-insert (selected)
   (with-current-buffer helm-vterm-completion-last-buffer
-  (let* ((current-line (buffer-substring-no-properties (line-beginning-position) (point)))
-         (word-at-point (car (last (s-split-words current-line))))
+  (let* ((candidate (car selected))
+         (word-at-point (cdr selected))
+         (current-line (buffer-substring-no-properties (line-beginning-position) (point)))
         (to-insert (substring candidate (length word-at-point))))
     (vterm-send-string to-insert)
     (setq helm-vterm-completion-last-buffer nil))))
