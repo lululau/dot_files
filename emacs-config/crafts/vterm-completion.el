@@ -5,7 +5,7 @@
   (let* ((current-line (buffer-substring-no-properties (line-beginning-position) (point)))
          (word-at-point (car (last (s-split-words current-line))))
          (vterm-content (buffer-substring-no-properties (point-min) (point-max)))
-         (vterm-lines (mapcar 's-trim (split-string vterm-content "[\n│]" t)))
+         (vterm-lines (mapcar (lambda (it) (replace-regexp-in-string  "^.*\\(❯\\|\\]#\\|\\]\\$\\|➜\\) " "" (s-trim it))) (split-string vterm-content "[\n│]" t)))
          (vterm-WORDS (mapcan (lambda (line) (split-string line "\\s-+" t)) vterm-lines))
          (vterm-words (mapcan (lambda (line) (s-split-words line)) vterm-lines))
          (candidates (append vterm-lines vterm-WORDS vterm-words))
