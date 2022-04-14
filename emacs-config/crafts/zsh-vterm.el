@@ -216,6 +216,6 @@ value of `vterm-buffer-name'."
 (define-derived-mode zsh-vterm-mode vterm-mode "zsh"
   "Major mode for zsh vterm buffer.")
 
-(setplist 'zsh-vterm-mode (plist-put (symbol-plist 'zsh-vterm-mode) 'lx/insert-func 'vterm-send-string))
+(setplist 'zsh-vterm-mode (plist-put (symbol-plist 'zsh-vterm-mode) 'insert-function 'vterm-send-string))
 
 (provide 'zsh-vterm)

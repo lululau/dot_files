@@ -260,3 +260,4 @@
 
 (global-set-key (kbd "TAB") #'lx/tab)
 (global-set-key (kbd "<backtab>") #'copilot-accept-completion)
+(global-set-key (kbd "M-?") 'all-buffer-completion)

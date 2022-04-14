@@ -2,7 +2,7 @@
   "Read a timestamp from the user and insert it at point."
   (interactive)
   (let* ((time (current-time))
-        (insert-func (plist-get (symbol-plist major-mode) 'lx/insert-func))
+        (insert-func (plist-get (symbol-plist major-mode) 'insert-function))
         (insert-func (or insert-func 'insert)))
     (helm :prompt "Timestamp: "
           :buffer "*Helm Timestamp*"
