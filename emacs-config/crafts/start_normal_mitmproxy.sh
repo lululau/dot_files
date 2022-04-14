@@ -12,7 +12,7 @@ fi
 
 ulimit -n 200000
 ulimit -u 2128
-PAGER="$dirname"/mitmproxy-emacs-viewer.sh mitmproxy --showhost -k -p 8888
+PAGER="$dirname"/mitmproxy-emacs-viewer.sh mitmproxy --showhost -k --set console_palette_transparent=true --set console_palette=dark -p 8888
 
 if [ "$1" = "true" ]; then
   sudo networksetup -setwebproxystate "$SERVICE_NAME" off
