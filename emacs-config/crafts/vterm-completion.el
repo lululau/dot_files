@@ -1,6 +1,6 @@
 (defvar helm-vterm-completion-last-buffer nil)
 
-(setq vterm-completion-script-dir (file-name-directory (or load-file-name (buffer-file-name))))
+(setq helm-vterm-completion-script-dir (file-name-directory (or load-file-name (buffer-file-name))))
 
 (defun helm-vterm-completion--all-emacs-buffer-lines (word)
   (mapcan (lambda (buf)
@@ -11,7 +11,7 @@
              (buffer-list)))
 
 (defun helm-vterm-completion--all-tmux-buffer-lines (word)
-  (s-lines (shell-command-to-string (format "%s/capture-all-tmux-panes.sh '%s'" vterm-completion-script-dir word))))
+  (s-lines (shell-command-to-string (format "%s/capture-all-tmux-panes.sh '%s'" helm-vterm-completion-script-dir word))))
 
 (defun helm-vterm-completion--all-lines (word)
   (append (helm-vterm-completion--all-emacs-buffer-lines word)
