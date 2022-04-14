@@ -76,4 +76,6 @@ value of `vterm-buffer-name'."
 (define-derived-mode pry-vterm-mode vterm-mode "Pry"
   "Major mode for pry vterm buffer.")
 
+(setplist 'pry-vterm-mode (plist-put (symbol-plist 'pry-vterm-mode) 'lx/insert-func 'vterm-send-string))
+
 (provide 'pry-vterm)

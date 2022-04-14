@@ -1,7 +1,9 @@
 (defun lx/insert-timestamp ()
   "Read a timestamp from the user and insert it at point."
   (interactive)
-  (let ((time (current-time)))
+  (let* ((time (current-time))
+        (insert-func (plist-get (symbol-plist major-mode) 'lx/insert-func))
+        (insert-func (or insert-func 'insert)))
     (helm :prompt "Timestamp: "
           :buffer "*Helm Timestamp*"
           :sources
@@ -10,7 +12,7 @@
                              (format-time-string "%Y-%m-%d %H:%M:%S" time)
                              (format-time-string "%Y-%m-%d" time)
                              (format-time-string "%Y-%m-%d %I:%M:%S %p" time)))
-             (action . insert)
+             (action . ,insert-func)
              (volatile))
 
             ((name . "Times")
@@ -18,7 +20,7 @@
                              (format-time-string "%X" time)
                              (format-time-string "%H:%M:%S" time)
                              (format-time-string "%I:%M:%S %p" time)))
-             (action . insert)
+             (action . ,insert-func)
              (volatile))
 
             ((name . "Special")
@@ -26,5 +28,5 @@
                              (format "%d" (float-time time))
                              (format-time-string "%d %B, %Y" time)
                              (format-time-string "%Y-%m-%dT%H%M%S%z")))
-             (action . insert)
+             (action . ,insert-func)
              (volatile))))))
