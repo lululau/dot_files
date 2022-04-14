@@ -1,7 +1,6 @@
 (defvar helm-vterm-completion-last-buffer nil)
 
-;; (setq vterm-completion-script-dir (file-name-directory load-file-name))
-(setq vterm-completion-script-dir (file-name-directory (buffer-file-name)))
+(setq vterm-completion-script-dir (file-name-directory (or load-file-name (buffer-file-name))))
 
 (defun helm-vterm-completion-candidates ()
   (with-current-buffer helm-vterm-completion-last-buffer
