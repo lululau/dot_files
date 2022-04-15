@@ -91,7 +91,20 @@ truncation_length = 8
 truncate_to_repo = false
 
 [nodejs]
-symbol = "⬢ "
+symbol = "N "
+
+[ruby]
+symbol = "Rb "
+
+[python]
+symbol = "Py "
+
+[rust]
+symbol = "Rs "
+
+[java]
+symbol = "J "
+style = "bold white"
 
 # [nnn_level]
 # command = "echo 【N$NNNLVL】"  # shows output of command
