@@ -5,7 +5,7 @@
   (unless (display-graphic-p)
     (define-key org-mode-map (kbd "C-RET") 'org-insert-heading-respect-content)
     (define-key org-mode-map (kbd "M-S-RET") 'org-insert-todo-heading))
-  (evil-define-key 'normal org-mode-map (kbd "RET") #'(lambda () (interactive) (condition-case nil (call-interactively 'org-open-at-point) (error (evil-insert-newline-below)))))
+  (evil-define-key 'normal org-mode-map (kbd "RET") #'(lambda () (interactive) (condition-case nil (call-interactively 'org-open-at-point) (user-error (evil-insert-newline-below)))))
   (define-key org-mode-map (kbd "<tab>") #'copilot-accept-or-org-cycel)
 
   (defun copilot-accept-or-org-cycel ()
