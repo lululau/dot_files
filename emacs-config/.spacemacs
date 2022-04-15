@@ -700,7 +700,7 @@ This function is called at the very end of Spacemacs initialization."
  '(cfw:display-calendar-holidays nil)
  '(company-search-regexp-function (quote company-search-flex-regexp))
  '(company-show-numbers t)
- '(company-idle-delay 0)
+ '(company-idle-delay 1)
  '(es-always-pretty-print t)
  '(writeroom-bottom-divider-width 0)
  '(custom-safe-themes
