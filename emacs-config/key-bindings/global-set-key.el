@@ -15,6 +15,7 @@
 (global-set-key (kbd "s-B") '(lambda () (interactive) (condition-case nil (progn (setq saved-ido-make-buffer-list-hook ido-make-buffer-list-hook) (setq ido-make-buffer-list-hook nil) (spacemacs-layouts/non-restricted-buffer-list-helm) (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook)) (error (progn (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook) (helm-keyboard-quit))))))
 (global-set-key (kbd "s-b") 'helm-projectile-switch-to-buffer)
 (global-set-key (kbd "s-L") 'spacemacs/helm-perspectives)
+(global-set-key (kbd "M-.") 'company-complete)
 (global-set-key (kbd "s-:") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*")))
 (global-set-key (kbd "s-;") #'(lambda () (interactive) (let* ((project-root (projectile-project-root)))
                                                          (if project-root
