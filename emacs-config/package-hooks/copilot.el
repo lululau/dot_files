@@ -1,5 +1,13 @@
 (with-eval-after-load 'copilot
 
+  (defvar copilot-auto-copilot-inhibit-commands '(copilot-complete
+                                                  copilot-next-completion
+                                                  copilot-previous-completion
+                                                  lx/keyboard-quit
+                                                  delete-char
+                                                  backward-delete-char-untabify
+                                                  copilot-accept-or-org-cycel))
+
   (defun copilot--generate-doc ()
     "Generate doc param for completion request."
     ;; Begin Add
@@ -173,7 +181,7 @@ USER-POS is the cursor position (for verification only)."
 
 (defun copilot-complete-if-insert-state ()
   (interactive)
-  (when (not (seq-contains-p '(copilot-complete copilot-next-completion copilot-previous-completion lx/keyboard-quit) this-command))
+  (when (not (seq-contains-p copilot-auto-copilot-inhibit-commands this-command))
     (copilot-clear-overlay)
     (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode pry-vterm-mode zsh-vterm-mode) major-mode)))
       (copilot-complete))))
