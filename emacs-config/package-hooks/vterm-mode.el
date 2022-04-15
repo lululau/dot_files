@@ -36,6 +36,12 @@
 ;;           (vterm--write-input vterm--term decoded-str)
 ;;           (vterm--update vterm--term)))))
 
+  (defun vterm-enter-hybrid-state-decently ()
+    (interactive)
+    (evil-hybrid-state)
+    (vterm-send-space)
+    (vterm-send-backspace))
+
   (define-key vterm-mode-map
     (kbd (if (display-graphic-p) "<S-return>" "S-RET")) #'(lambda ()
                                                             (interactive)
@@ -73,6 +79,7 @@
   (define-key vterm-mode-map (kbd "s-r r") #'lx/run-in-vterm/rerun)
   (evil-define-key 'hybrid vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
   (evil-define-key 'hybrid vterm-mode-map (kbd "<escape>") #'vterm-send-escape)
+  (evil-define-key 'motion vterm-mode-map (kbd "s-q") #'vterm-enter-hybrid-state-decently)
   (define-key vterm-mode-map (kbd "s-<backspace>") #'vterm-send-C-u)
   (define-key vterm-mode-map (kbd "M-D") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "exit-program\n")))
   (define-key vterm-mode-map (kbd "s-w") #'delete-window-or-bury-buffer)
