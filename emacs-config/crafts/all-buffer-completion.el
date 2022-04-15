@@ -36,7 +36,7 @@
                                             (when idx
                                               (let ((sub-candidate (substring candidate idx)))
                                                 (setq result (cons (cons sub-candidate (cons sub-candidate word-at-point)) result)))))))))
-          (seq-uniq candidates))))))
+          (seq-uniq (seq-sort (lambda (a b) (< (length (car a)) (length (car b)))) candidates)))))))
 
 (defun helm-all-buffer-completion-insert (selected)
   (with-current-buffer helm-all-buffer-completion-last-buffer
