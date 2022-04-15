@@ -14,8 +14,8 @@
 
       ;; (list :source (concat (buffer-substring-no-properties (point-min) (point-max)) "\n")
       (list :source (copilot--get-source history) ;; Mod
-            :tabSize tab-width
-            :indentSize tab-width
+            :tabSize (copilot--infer-indentation-offset)
+            :indentSize (copilot--infer-indentation-offset)
             :insertSpaces (if indent-tabs-mode :false t)
             ;; :path (buffer-file-name)
             :path (copilot--buffer-file-path) ;; Mod
@@ -27,35 +27,23 @@
             ;;                 :character (length (buffer-substring-no-properties (point-at-bol) (point))))))
             :position (copilot--get-position history)))) ;; Mod
 
-  (defun copilot-complete ()
-    "Complete at the current point."
-    (interactive)
-    (copilot-clear-overlay)
-    (setq copilot--completion-cache nil)
-    (setq copilot--completion-idx 0)
-    ;; (when (buffer-file-name)
-    (when t ;; Mod
-      (copilot--get-completion
-       (lambda (result)
-         (copilot--log "[INFO] Completion: %S" result)
-         (let* ((completions (alist-get 'completions result))
-                ;; (completion (if (seq-empty-p completions) nil (seq-elt completions 0))))
-                (completion (if (seq-empty-p completions) (progn (message "No copilot completion.") nil) (seq-elt completions 0)))) ;; Mod
-           (copilot--show-completion completion))))))
-
-  (defun copilot-accept-completion ()
-    "Accept completion. Return t if there is a completion."
+  (defun copilot-accept-completion (&optional transform-fn)
+    "Accept completion. Return t if there is a completion. Use TRANSFORM-FN to transform completion if provided."
     (interactive)
     (when copilot--overlay
-      (let ((completion (overlay-get copilot--overlay 'completion))
-            (start (overlay-get copilot--overlay 'start)))
+      (let* ((completion (overlay-get copilot--overlay 'completion))
+             (start (overlay-get copilot--overlay 'start))
+             (t-completion (funcall (or transform-fn 'identity) completion)))
         (copilot-clear-overlay)
         ;; (delete-region start (line-end-position))
-        ;; (insert completion)
+        ;; (insert t-completion)
         (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode) ;; Mod
-            (vterm-send-string (concat completion " ")) ;; Mod
+            (vterm-send-string (concat t-completion " ")) ;; Mod
           (delete-region start (line-end-position)) ;; Mod
-          (insert completion)) ;; Mod
+          (insert t-completion))
+                                        ; trigger completion again if not fully accepted
+        (unless (equal completion t-completion)
+          (copilot-complete))
         t)))
 
   (defun copilot--show-completion (completion)
@@ -68,11 +56,12 @@
              (start-char (alist-get 'character start)))
         ;; (copilot-display-overlay-completion text start-line start-char))))
         (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode) ;; Mod
-            (copilot-display-overlay-completion text (1- (line-number-at-pos)) 0) ;; Mod
-          (copilot-display-overlay-completion text start-line start-char))))) ;; Mod
+            (copilot-display-overlay-completion text (1- (line-number-at-pos)) 0 (point)) ;; Mod
+          (copilot-display-overlay-completion text start-line start-char (point)))))) ;; Mod
 
-  (defun copilot-display-overlay-completion (completion line col)
-    "Show COMPLETION in overlay at LINE and COL. For Copilot, COL is always 0."
+  (defun copilot-display-overlay-completion (completion line col user-pos)
+    "Show COMPLETION in overlay at LINE and COL. For Copilot, COL is always 0.
+USER-POS is the cursor position (for verification only)."
     (copilot-clear-overlay)
     (save-excursion
       (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode)) ;; Add
@@ -94,20 +83,38 @@
         (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode)) ;; Mod
           (forward-char common-prefix-len)))
 
-      (unless (s-blank? completion)
+      (when (and (s-present-p completion)
+                 (or (= (point) user-pos) ; up-to-date completion
+                     (and (< (point) user-pos) ; special case for removing indentation
+                          (s-blank-p (s-trim (buffer-substring-no-properties (point) user-pos))))))
         (let* ((ov (make-overlay (point) (point-at-eol) nil t t))
-               (p-completion (propertize completion 'face 'all-the-icons-dyellow))
+               (p-completion (propertize completion 'face 'copilot-overlay-face))
                (display (substring p-completion 0 1))
                (after-string (substring p-completion 1)))
           (overlay-put ov 'completion completion)
           (overlay-put ov 'start (point))
           (if (equal (overlay-start ov) (overlay-end ov))
               (progn
-                (put-text-property 0 1 'cursor t p-completion)
+                (if (equal 10 (elt p-completion 0))
+                    (put-text-property 1 2 'cursor t p-completion)
+                  (put-text-property 0 1 'cursor t p-completion))
                 (overlay-put ov 'after-string p-completion))
             (overlay-put ov 'display display)
             (overlay-put ov 'after-string after-string))
           (setq copilot--overlay ov)))))
+
+  (defun copilot-accept-completion-by-line (n-line)
+    "Accept first N-LINE lines of completion."
+    (interactive "p")
+    (setq n-line (or n-line 1))
+    (copilot-accept-completion (lambda (completion)
+                                 (let* ((lines (s-split-up-to (rx anychar (? "\r") "\n") completion n-line))
+                                        (remain (if (<= (length lines) n-line)
+                                                    ""
+                                                  (first (last lines))))
+                                        (length (- (length completion) (length remain)))
+                                        (prefix (substring completion 0 length)))
+                                   (s-chomp prefix)))))
 
   ;; Begin Add
 
