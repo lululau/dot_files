@@ -111,6 +111,24 @@ USER-POS is the cursor position (for verification only)."
             (overlay-put ov 'after-string after-string))
           (setq copilot--overlay ov)))))
 
+  (defun copilot-accept-completion-by-word (n-word)
+    "Accept first N-WORD words of completion."
+    (interactive "p")
+    (setq n-word (or n-word 1))
+    (copilot-accept-completion (lambda (completion)
+                                 (let* ((blank-regexp '(any blank punct "\r" "\n"))
+                                        (separator-regexp (rx-to-string
+                                                           `(seq
+                                                             (not ,blank-regexp)
+                                                             (1+ ,blank-regexp))))
+                                        (words (s-split-up-to separator-regexp completion n-word))
+                                        (remain (if (<= (length words) n-word)
+                                                    ""
+                                                  (first (last words))))
+                                        (length (- (length completion) (length remain)))
+                                        (prefix (substring completion 0 length)))
+                                   (s-trim-right prefix)))))
+
   (defun copilot-accept-completion-by-line (n-line)
     "Accept first N-LINE lines of completion."
     (interactive "p")
