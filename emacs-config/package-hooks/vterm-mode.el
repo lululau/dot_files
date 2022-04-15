@@ -36,11 +36,36 @@
 ;;           (vterm--write-input vterm--term decoded-str)
 ;;           (vterm--update vterm--term)))))
 
+  (defcustom vterm-kill-buffer-on-normal-exit t
+    "If not nil vterm buffers are killed when the attached process is terminated.
+
+If `vterm-kill-buffer-on-exit' is set to t, when the process
+associated to a vterm buffer quits, the buffer is killed.  When
+nil, the buffer will still be available as if it were in
+`fundamental-mode'."
+    :type  'boolean
+    :group 'vterm)
+
+
+  (defun vterm--sentinel (process event)
+    "Sentinel of vterm PROCESS.
+Argument EVENT process event."
+    (let ((buf (process-buffer process)))
+      (run-hook-with-args 'vterm-exit-functions
+                          (if (buffer-live-p buf) buf nil)
+                          event)
+      (if (and vterm-kill-buffer-on-normal-exit (buffer-live-p buf))
+          (if (string= "finished\n" event)
+              (kill-buffer buf))
+        (if (and vterm-kill-buffer-on-exit (buffer-live-p buf))
+            (kill-buffer buf)))))
+
   (defun vterm-enter-hybrid-state-decently ()
     (interactive)
     (evil-hybrid-state)
     (vterm-send-space)
     (vterm-send-backspace))
+
 
   (define-key vterm-mode-map
     (kbd (if (display-graphic-p) "<S-return>" "S-RET")) #'(lambda ()

@@ -6,6 +6,7 @@
     (set (intern (format "%s-command" buffer-name)) (list command buffer-name directory exclusive-window))
     (set (intern (format "%s-process-environment" buffer-name)) process-environment)
     (set (intern (format "%s-kill-buffer-on-exit" buffer-name)) (bound-and-true-p vterm-kill-buffer-on-exit))
+    (set (intern (format "%s-kill-buffer-on-normal-exit" buffer-name)) (bound-and-true-p vterm-kill-buffer-on-normal-exit))
     (if buffer
         (if (equal buffer (current-buffer))
             (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
@@ -25,13 +26,15 @@
          (process (get-buffer-process buffer-name))
          (args (eval (read (format "%s-command" buffer-name))))
          (penv (eval (read (format "%s-process-environment" buffer-name))))
-         (kill-on-exit (eval (read (format "%s-kill-buffer-on-exit" buffer-name)))))
+         (kill-on-exit (eval (read (format "%s-kill-buffer-on-exit" buffer-name))))
+         (kill-on-normal-exit (eval (read (format "%s-kill-buffer-on-normal-exit" buffer-name)))))
     (if process
         (message "Buffer process still running")
       (progn
         (kill-buffer)
         (let ((process-environment penv)
-              (vterm-kill-buffer-on-exit kill-on-exit))
+              (vterm-kill-buffer-on-exit kill-on-exit)
+              (vterm-kill-buffer-on-normal-exit kill-on-normal-exit))
           (apply 'lx/run-in-vterm args))))))
 
 (defun lx/run-in-vterm/set-green-box-cursor ()
