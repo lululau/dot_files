@@ -105,6 +105,8 @@ Argument EVENT process event."
   (evil-define-key 'hybrid vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
   (evil-define-key 'hybrid vterm-mode-map (kbd "<escape>") #'vterm-send-escape)
   (evil-define-key 'motion vterm-mode-map (kbd "s-q") #'vterm-enter-hybrid-state-decently)
+  (evil-define-key 'hybrid vterm-mode-map (kbd "s-k") #'(lambda () (interactive) (dotimes (i 10) (vterm-send-string "k"))))
+  (evil-define-key 'hybrid vterm-mode-map (kbd "s-j") #'(lambda () (interactive) (dotimes (i 10) (vterm-send-string "j"))))
   (define-key vterm-mode-map (kbd "s-<backspace>") #'vterm-send-C-u)
   (define-key vterm-mode-map (kbd "M-D") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "exit-program\n")))
   (define-key vterm-mode-map (kbd "s-w") #'delete-window-or-bury-buffer)
