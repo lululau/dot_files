@@ -1,5 +1,11 @@
 #!/bin/bash
 
+tmux_session=mitmproxy-normal
+
+if tmux has-session -t $tmux_session 2>/dev/null; then
+  tmux attach -t $tmux_session
+fi
+
 dirname=$(cd "$(dirname $0)"; pwd)
 
 if [ "$1" = "true" ]; then
@@ -12,7 +18,7 @@ fi
 
 ulimit -n 200000
 ulimit -u 2128
-PAGER="$dirname"/mitmproxy-emacs-viewer.sh mitmproxy --showhost -k --set console_palette_transparent=true --set console_palette=dark -p 8888
+tmux new -s $tmux_session -n 'normal mitmproxy' "PAGER='$dirname'/mitmproxy-emacs-viewer.sh mitmproxy --showhost -k --set console_palette_transparent=true --set console_palette=dark -p 8888 --view-filter='~t json'"
 exit_code=$?
 
 if [ "$1" = "true" ]; then
