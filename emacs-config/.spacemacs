@@ -61,6 +61,14 @@
 
 (setq company-shell--cache '(""))
 
+(setq ffap-url-regexp
+  (concat
+   "\\("
+   "news\\(post\\)?:\\|mailto:\\|file:" ; no host ok
+   "\\|"
+   "\\(ftp\\|https?\\|telnet\\|gopher\\|www\\|wais\\)://" ; needs host
+   "\\)"))
+
 ;; (setq dired-quick-sort-group-directories-last ?y)
 
 (defun dotspacemacs/layers ()
