@@ -1,5 +1,7 @@
 (require 'vterm)
 
+(defvar zsh-vterm-zsh-buffer-index 0)
+
 (defvar zsh-vterm-last-buffer nil)
 
 (defvar zsh-vterm-prompt-regexp "^.*\\(❯\\|\\]#\\|\\]\\$\\|➜\\) ")
@@ -8,7 +10,8 @@
 
 (defun lx/run-in-zsh-vterm (command buffer-name &optional directory window-type)
   (interactive)
-  (let* ((buffer (get-buffer buffer-name))
+  (let* ((buffer-name (or buffer-name (message "zsh %d" (cl-incf zsh-vterm-zsh-buffer-index))))
+         (buffer (get-buffer buffer-name))
          (window-type (or window-type 'default)))
     (set (intern (format "%s-command" buffer-name)) (list command buffer-name directory window-type))
     (set (intern (format "%s-process-environment" buffer-name)) process-environment)
