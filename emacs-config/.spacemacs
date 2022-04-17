@@ -63,6 +63,14 @@
 
 (setq company-shell--cache '(""))
 
+(setq ffap-url-regexp
+  (concat
+   "\\("
+   "news\\(post\\)?:\\|mailto:\\|file:" ; no host ok
+   "\\|"
+   "\\(ftp\\|https?\\|telnet\\|gopher\\|www\\|wais\\)://" ; needs host
+   "\\)"))
+
 ;; (setq dired-quick-sort-group-directories-last ?y)
 
 (defun dotspacemacs/layers ()
@@ -88,6 +96,7 @@
      ;; ----------------------------------------------------------------
      (spacemacs-layouts :variables
                         spacemacs-layouts-restrict-spc-tab t)
+     (spacemacs-evil :variable spacemacs-evil-collection-allowed-list '(eww dired quickrun zsh-vterm pry-vterm))
      ;; lsp
      (lsp :variables lsp-rust-server 'rust-analyzer)
      dap
@@ -256,13 +265,14 @@
                     )) dotspacemacs-configuration-layers)
         (setq-default dotspacemacs-configuration-layers lx/conf-layers))))
 
-(defun dotspacemacs/user-init ()
-  "Initialization function.
-This function is called at the very startup of Spacemacs initialization
-before layers configuration."
+(defun dotspacemacs/init ()
+  "Initialization:
+This function is called at the very beginning of Spacemacs startup,
+before layer configuration.
+It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
-  (setq-default
+ (setq-default
    ;; Either `vim' or `emacs'. Evil is always enabled but if the variable
    ;; is `emacs' then the `holy-mode' is enabled at startup.
    dotspacemacs-editing-style 'hybrid
@@ -310,7 +320,7 @@ before layers configuration."
    dotspacemacs-use-ido nil
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content.
-   dotspacemacs-enable-paste-micro-state nil
+   dotspacemacs-enable-paste-micro-state t
    ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
    ;; the commands bound to the current keystrokes.
    dotspacemacs-guide-key-delay 0.4
@@ -363,8 +373,15 @@ before layers configuration."
    dotspacemacs-pretty-docs t
    dotspacemacs-use-spacelpa nil
    dotspacemacs-use-SPC-as-y t
-   )
-  ;; User initialization goes here
+   ))
+
+
+(defun dotspacemacs/user-init ()
+  "Initialization for user code:
+This function is called immediately after `dotspacemacs/init', before layer
+configuration.
+It is mostly for variables that should be set before packages are loaded.
+If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   ;; (setq configuration-layer-elpa-archives
   ;;       '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
@@ -555,6 +572,7 @@ layers configuration."
                                   ("\\.es$" . es-mode)
                                   ("\\.class" . jdecomp-mode)
                                   ("\\.d$" . dtrace-script-mode)
+                                  ("\\.xlsx$" . visidata-mode)
                                   ("\\.sc$" . scala-mode)) auto-mode-alist))
 
   ;; (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . rjsx-mode))
@@ -572,6 +590,8 @@ layers configuration."
   (add-hook 'org-mode-hook #'(lambda ()
                                (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                                (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
+
+  (add-hook 'pdf-view-mode-hook #'pdf-view-fit-height-to-window)
 
   (setq mu4e-hide-index-messages t)
 
@@ -689,7 +709,7 @@ This function is called at the very end of Spacemacs initialization."
  '(cfw:display-calendar-holidays nil)
  '(company-search-regexp-function (quote company-search-flex-regexp))
  '(company-show-numbers t)
- '(company-idle-delay 0)
+ '(company-idle-delay 1)
  '(es-always-pretty-print t)
  '(writeroom-bottom-divider-width 0)
  '(custom-safe-themes
@@ -771,7 +791,7 @@ This function is called at the very end of Spacemacs initialization."
      ("repo.or.cz" nil "repo.or.cz" forge-repoorcz-repository)
      ("git.suckless.org" nil "git.suckless.org" forge-stagit-repository)
      ("git.sr.ht" nil "git.sr.ht" forge-srht-repository))))
- '(fringe-mode 4 nil (fringe))
+ '(fringe-mode nil nil (fringe))
  '(writeroom-width 140)
  '(writeroom-global-effects (quote (writeroom-set-alpha writeroom-set-menu-bar-lines writeroom-set-tool-bar-lines writeroom-set-vertical-scroll-bars writeroom-set-bottom-divider-width)))
  '(gh-profile-alist
@@ -1008,6 +1028,15 @@ This function is called at the very end of Spacemacs initialization."
    (sql-server "")))))
  '(vc-follow-symlinks t)
  '(warning-suppress-types (quote ((comp)))))
+
+  (set-frame-parameter (selected-frame) 'width 1.0)
+  (set-frame-parameter (selected-frame) 'height 1.0)
+  (set-frame-parameter (selected-frame) 'top 0.0)
+  (set-frame-parameter (selected-frame) 'left 0.0)
+
+  (persp-mode)
+  (persp-load-state-from-file "~/.emacs.d/.cache/layouts/A")
+
 ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.

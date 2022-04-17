@@ -1,7 +1,15 @@
-(with-eval-after-load 'copilot
+(defvar copilot-auto-copilot-inhibit-commands '(copilot-complete
+                                                copilot-next-completion
+                                                copilot-previous-completion
+                                                lx/keyboard-quit
+                                                delete-char
+                                                backward-delete-char-untabify
+                                                copilot-accept-or-org-cycel))
 
+(with-eval-after-load 'copilot
   (defun copilot--generate-doc ()
     "Generate doc param for completion request."
+    ;; Begin Add
     (let ((history nil))
       (if (eq 'pry-vterm-mode major-mode)
           (setq history (tail-f "~/.pry_history" 5000)))
@@ -9,40 +17,40 @@
           (setq history (append (tail-f "~/.zsh_history" 5000 "tail -n %d -f %s | zsh-histfile-unmetafy")
                 (mapcar (lambda (it)
                              (format "ls %s" it)) (cdr (cdr (directory-files default-directory)))))))
-      (list :source (copilot--get-source history)
-            :tabSize tab-width
-            :indentSize tab-width
+      ;; End Add
+
+      ;; (list :source (concat (buffer-substring-no-properties (point-min) (point-max)) "\n")
+      (list :source (copilot--get-source history) ;; Mod
+            :tabSize (copilot--infer-indentation-offset)
+            :indentSize (copilot--infer-indentation-offset)
             :insertSpaces (if indent-tabs-mode :false t)
-            :path (copilot--buffer-file-path)
-            :relativePath (copilot--buffer-file-name)
-            :languageId (copilot--get-language-id)
-            :position (copilot--get-position history))))
+            ;; :path (buffer-file-name)
+            :path (copilot--buffer-file-path) ;; Mod
+            ;; :relativePath (file-name-nondirectory (buffer-file-name))
+            :relativePath (copilot--buffer-file-name) ;; Mod
+            ;; :languageId (s-chop-suffix "-mode" (symbol-name major-mode))
+            :languageId (copilot--get-language-id) ;; Mod
+            ;; :position (list :line (1- (line-number-at-pos))
+            ;;                 :character (length (buffer-substring-no-properties (point-at-bol) (point))))))
+            :position (copilot--get-position history)))) ;; Mod
 
-  (defun copilot-complete ()
-    "Complete at the current point."
-    (interactive)
-    (copilot-clear-overlay)
-    (setq copilot--completion-cache nil)
-    (setq copilot--completion-idx 0)
-    (when t
-      (copilot--get-completion
-       (lambda (result)
-         (copilot--log "[INFO] Completion: %S" result)
-         (let* ((completions (alist-get 'completions result))
-                (completion (if (seq-empty-p completions) (progn (message "No copilot completion.") nil) (seq-elt completions 0))))
-           (copilot--show-completion completion))))))
-
-  (defun copilot-accept-completion ()
-    "Accept completion. Return t if there is a completion."
+  (defun copilot-accept-completion (&optional transform-fn)
+    "Accept completion. Return t if there is a completion. Use TRANSFORM-FN to transform completion if provided."
     (interactive)
     (when copilot--overlay
-      (let ((completion (overlay-get copilot--overlay 'completion))
-            (start (overlay-get copilot--overlay 'start)))
+      (let* ((completion (overlay-get copilot--overlay 'completion))
+             (start (overlay-get copilot--overlay 'start))
+             (t-completion (funcall (or transform-fn 'identity) completion)))
         (copilot-clear-overlay)
-        (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode)
-            (vterm-send-string (concat completion " "))
-          (delete-region start (line-end-position))
-          (insert completion))
+        ;; (delete-region start (line-end-position))
+        ;; (insert t-completion)
+        (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode) ;; Mod
+            (vterm-send-string (concat t-completion " ")) ;; Mod
+          (delete-region start (line-end-position)) ;; Mod
+          (insert t-completion))
+                                        ; trigger completion again if not fully accepted
+        (unless (equal completion t-completion)
+          (copilot-complete))
         t)))
 
   (defun copilot--show-completion (completion)
@@ -53,15 +61,17 @@
              (start (alist-get 'start range))
              (start-line (alist-get 'line start))
              (start-char (alist-get 'character start)))
-        (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode)
-            (copilot-display-overlay-completion text (1- (line-number-at-pos)) 0)
-          (copilot-display-overlay-completion text start-line start-char)))))
+        ;; (copilot-display-overlay-completion text start-line start-char))))
+        (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode) ;; Mod
+            (copilot-display-overlay-completion text (1- (line-number-at-pos)) 0 (point)) ;; Mod
+          (copilot-display-overlay-completion text start-line start-char (point)))))) ;; Mod
 
-  (defun copilot-display-overlay-completion (completion line col)
-    "Show COMPLETION in overlay at LINE and COL. For Copilot, COL is always 0."
+  (defun copilot-display-overlay-completion (completion line col user-pos)
+    "Show COMPLETION in overlay at LINE and COL. For Copilot, COL is always 0.
+USER-POS is the cursor position (for verification only)."
     (copilot-clear-overlay)
     (save-excursion
-      (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode))
+      (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode)) ;; Add
         (widen)
         (goto-char (point-min))
         (if (= (line-end-position line) (1- (point-max)))
@@ -71,16 +81,19 @@
               (newline)
               (forward-char -1))
           (forward-line line)
-          (forward-char col)))
+          (forward-char col))) ;; Mod
 
                                         ; remove common prefix
-      (let* ((cur-line (copilot--get-current-line))
+      (let* ((cur-line (copilot--get-current-line)) ;; Mod
              (common-prefix-len (length (s-shared-start completion cur-line))))
         (setq completion (substring completion common-prefix-len))
-        (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode))
+        (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode)) ;; Mod
           (forward-char common-prefix-len)))
 
-      (unless (s-blank? completion)
+      (when (and (s-present-p completion)
+                 (or (= (point) user-pos) ; up-to-date completion
+                     (and (< (point) user-pos) ; special case for removing indentation
+                          (s-blank-p (s-trim (buffer-substring-no-properties (point) user-pos))))))
         (let* ((ov (make-overlay (point) (point-at-eol) nil t t))
                (p-completion (propertize completion 'face 'all-the-icons-dyellow))
                (display (substring p-completion 0 1))
@@ -89,11 +102,46 @@
           (overlay-put ov 'start (point))
           (if (equal (overlay-start ov) (overlay-end ov))
               (progn
-                (put-text-property 0 1 'cursor t p-completion)
+                (if (equal 10 (elt p-completion 0))
+                    (put-text-property 1 2 'cursor t p-completion)
+                  (put-text-property 0 1 'cursor t p-completion))
                 (overlay-put ov 'after-string p-completion))
             (overlay-put ov 'display display)
             (overlay-put ov 'after-string after-string))
           (setq copilot--overlay ov)))))
+
+  (defun copilot-accept-completion-by-word (n-word)
+    "Accept first N-WORD words of completion."
+    (interactive "p")
+    (setq n-word (or n-word 1))
+    (copilot-accept-completion (lambda (completion)
+                                 (let* ((blank-regexp '(any blank punct "\r" "\n"))
+                                        (separator-regexp (rx-to-string
+                                                           `(seq
+                                                             (not ,blank-regexp)
+                                                             (1+ ,blank-regexp))))
+                                        (words (s-split-up-to separator-regexp completion n-word))
+                                        (remain (if (<= (length words) n-word)
+                                                    ""
+                                                  (first (last words))))
+                                        (length (- (length completion) (length remain)))
+                                        (prefix (substring completion 0 length)))
+                                   (s-trim-right prefix)))))
+
+  (defun copilot-accept-completion-by-line (n-line)
+    "Accept first N-LINE lines of completion."
+    (interactive "p")
+    (setq n-line (or n-line 1))
+    (copilot-accept-completion (lambda (completion)
+                                 (let* ((lines (s-split-up-to (rx anychar (? "\r") "\n") completion n-line))
+                                        (remain (if (<= (length lines) n-line)
+                                                    ""
+                                                  (first (last lines))))
+                                        (length (- (length completion) (length remain)))
+                                        (prefix (substring completion 0 length)))
+                                   (s-chomp prefix)))))
+
+  ;; Begin Add
 
   (defun copilot--get-current-line ()
     (if (eq 'pry-vterm-mode major-mode)
@@ -150,10 +198,12 @@
 
 (defun copilot-complete-if-insert-state ()
   (interactive)
-  (when (not (seq-contains-p '(copilot-complete copilot-next-completion copilot-previous-completion lx/keyboard-quit) this-command))
+  (when (not (seq-contains-p copilot-auto-copilot-inhibit-commands this-command))
     (copilot-clear-overlay)
     (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode pry-vterm-mode zsh-vterm-mode) major-mode)))
       (copilot-complete))))
 
 (add-hook 'post-command-hook #'copilot-complete-if-insert-state)
 (setq copilot--auto-copilot-on-p t)
+
+;; End Add

@@ -11,3 +11,15 @@
    (when (and (eq 'lx/tab this-command) (eq 'hybrid evil-state))
      (setq cursor-type '(bar . 2))
      (set-cursor-color "SkyBlue2")))
+
+(defun lx/copilot-accept-or-forward-word (arg)
+  (interactive "P")
+  (if (bound-and-true-p copilot--overlay)
+      (copilot-accept-completion-by-word 1)
+    (call-interactively 'forward-word)))
+
+(defun lx/copilot-accept-or-next-line (arg)
+  (interactive "P")
+  (if (bound-and-true-p copilot--overlay)
+      (copilot-accept-completion-by-line 1)
+    (call-interactively 'next-line)))

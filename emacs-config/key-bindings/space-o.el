@@ -75,6 +75,7 @@
 ;; Config files
 (setq lx/config-files
       '(("och" hosts-config "/sudo:root@localhost:/etc/hosts")
+        ("ocS" sudoers "/sudo:root@localhost:/etc/sudoers")
         ("ocz" zshrc "~/.zshrc")
         ("ocp" pryrc "~/.pryrc")
         ("ocl" vrl "~/.vrl.yml")
@@ -110,11 +111,14 @@
         ("oor" rails-guides-org "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org")))
 
 (setq lx/server-files
-      '(("os1" ddhc-dev-a "/scp:lcl.dev:/server/app")
-      ("os2" ddhc-dev-b "/scp:lcl.pro:/server/app")
-      ("os3" ddhc-uat "/scp:ddhc.uat:/server/app")
-      ("os4" ddhc-pro "/scp:ddhc.pro:/server/app")
-      ("os5" ddhc-pro-2 "/scp:ddhc.pro2:/server/app")
+      '(("os1" lcl-devb "/scp:lcl.devb:/etc/nginx/conf.d")
+      ("os2" ceres-devb "/scp:ceres.devb:/etc/nginx/conf.d")
+      ("os3" ll-devb "/scp:ll-devb:/etc/nginx/conf.d")
+      ("os4" md-dev "/scp:md.dev:/etc/nginx/conf.d")
+      ("os6" lcl-fe1 "/scp:lcl.fe1:/etc/nginx/conf.d")
+      ("os7" lcl-fe2 "/scp:lcl.fe2:/etc/nginx/conf.d")
+      ("os8" ceres-fe1 "/scp:ceres.fe1:/opt/nginx/conf/conf.d")
+      ("os9" ceres-fe2 "/scp:ceres.fe2:/opt/nginx/conf/conf.d")
       ("os0" lx-kt "/scp:lx.kt:~/")))
 
 ;; Cheat Sheets
@@ -204,6 +208,58 @@
     (setf (nth 1 magit-log-margin) new-value)
     (message "Set magit-log-date-format to `%s'" new-value)))
 
+(defun lx/helm-remote-locations ()
+  (interactive)
+  (helm :prompt "Remote locations: "
+        :buffer "*helm-remote-locaions*"
+        :sources
+        (list (helm-build-sync-source "Remote locations"
+                :fuzzy-match  t
+                :candidates  (list (cons (format "%-20s%s" "lx.kt" "~") "/scp:lx.kt:~/")
+                              (cons (format "%-20s%s" "lcl.devb" "/etc/nginx/conf.d") "/scp:lcl.devb:/etc/nginx/conf.d")
+                              (cons (format "%-20s%s" "ceres.devb" "/etc/nginx/conf.d") "/scp:ceres.devb:/etc/nginx/conf.d")
+                              (cons (format "%-20s%s" "ll.devb" "/etc/nginx/conf.d") "/scp:ll.devb:/etc/nginx/conf.d")
+                              (cons (format "%-20s%s" "md.dev" "/etc/nginx/conf.d") "/scp:md.dev:/etc/nginx/conf.d")
+                              (cons (format "%-20s%s" "lcl.fe1" "/etc/nginx/conf.d") "/scp:lcl.fe1:/etc/nginx/conf.d")
+                              (cons (format "%-20s%s" "lcl.fe2" "/etc/nginx/conf.d") "/scp:lcl.fe2:/etc/nginx/conf.d")
+                              (cons (format "%-20s%s" "ceres.fe1" "/opt/nginx/conf/conf.d") "/scp:ceres.fe1:/opt/nginx/conf/conf.d")
+                              (cons (format "%-20s%s" "ceres.fe2" "/opt/nginx/conf/conf.d") "/scp:ceres.fe2:/opt/nginx/conf/conf.d")
+
+                              (cons (format "%-20s%s" "ceres.api1" "~/") "/scp:ceres.api1:~/")
+                              (cons (format "%-20s%s" "ceres.api2" "~/") "/scp:ceres.api2:~/")
+                              (cons (format "%-20s%s" "ceres.job1" "~/") "/scp:ceres.job1:~/")
+                              (cons (format "%-20s%s" "ceres.job2" "~/") "/scp:ceres.job2:~/")
+                              (cons (format "%-20s%s" "ceres.job3" "~/") "/scp:ceres.job3:~/")
+                              (cons (format "%-20s%s" "ceres.mq" "~/") "/scp:ceres.mq:~/")
+                              (cons (format "%-20s%s" "elk2" "~/") "/scp:elk2:~/")
+                              (cons (format "%-20s%s" "gitlab.ktjr" "~/") "/scp:gitlab.ktjr:~/")
+                              (cons (format "%-20s%s" "jira" "~/") "/scp:jira:~/")
+                              (cons (format "%-20s%s" "kapi1" "~/") "/scp:kapi1:~/")
+                              (cons (format "%-20s%s" "kapi2" "~/") "/scp:kapi2:~/")
+                              (cons (format "%-20s%s" "kapi3" "~/") "/scp:kapi3:~/")
+                              (cons (format "%-20s%s" "khcpro" "~/") "/scp:khcpro:~/")
+                              (cons (format "%-20s%s" "kt01" "/etc/nginx/sites-enabled") "/scp:kt01:/etc/nginx/sites-enabled")
+                              (cons (format "%-20s%s" "kt02" "/etc/nginx/sites-enabled") "/scp:kt02:/etc/nginx/sites-enabled")
+                              (cons (format "%-20s%s" "kt03" "/etc/nginx/sites-enabled") "/scp:kt03:/etc/nginx/sites-enabled")
+                              (cons (format "%-20s%s" "kt04" "/etc/nginx/sites-enabled") "/scp:kt04:/etc/nginx/sites-enabled")
+                              (cons (format "%-20s%s" "kt05" "/etc/nginx/sites-enabled") "/scp:kt05:/etc/nginx/sites-enabled")
+                              (cons (format "%-20s%s" "root@kt01" "/etc/nginx/sites-enabled") "/scp:root@kt01:/etc/nginx/sites-enabled")
+                              (cons (format "%-20s%s" "root@kt02" "/etc/nginx/sites-enabled") "/scp:root@kt02:/etc/nginx/sites-enabled")
+                              (cons (format "%-20s%s" "root@kt03" "/etc/nginx/sites-enabled") "/scp:root@kt03:/etc/nginx/sites-enabled")
+                              (cons (format "%-20s%s" "root@kt04" "/etc/nginx/sites-enabled") "/scp:root@kt04:/etc/nginx/sites-enabled")
+                              (cons (format "%-20s%s" "root@kt05" "/etc/nginx/sites-enabled") "/scp:root@kt05:/etc/nginx/sites-enabled")
+                              (cons (format "%-20s%s" "lcl.api1" "~/") "/scp:lcl.api1:~/")
+                              (cons (format "%-20s%s" "lcl.api2_task" "~/") "/scp:lcl.api2_task:~/")
+                              (cons (format "%-20s%s" "lcl.pro1" "~/") "/scp:lcl.pro1:~/")
+                              (cons (format "%-20s%s" "lcl.pro2" "~/") "/scp:lcl.pro2:~/")
+                              (cons (format "%-20s%s" "lcl.pro3" "~/") "/scp:lcl.pro3:~/")
+                              (cons (format "%-20s%s" "mw" "~/") "/scp:mw:~/")
+                              (cons (format "%-20s%s" "nexus" "~/") "/scp:nexus:~/")
+                              (cons (format "%-20s%s" "repair.pro" "~/") "/scp:repair.pro:~/")
+                              (cons (format "%-20s%s" "seafile" "~/") "/scp:seafile:~/"))
+                :action  'find-file
+                ))))
+
 (spacemacs/set-leader-keys
 
   ;; Info bookmarks
@@ -236,7 +292,9 @@
 
   "ogt" #'lx/toggle-maigt-log-date-format
 
-  "oss" #'lx/save-scratch
+  "ofs" #'lx/save-scratch
 
   "oac" #'carbon-now-sh
+
+  "oss" #'lx/helm-remote-locations
   )

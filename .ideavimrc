@@ -45,6 +45,7 @@ inoremap <c-p> <Up>
 inoremap <c-d> <Del>
 inoremap <c-i> <c-o>:action copilot.requestCompletions<cr>
 nnoremap <c-c> i
+inoremap <c-c> <esc>:action copilot.disposeInlays<cr>
 nnoremap <c-a> ^
 inoremap <c-k> <c-o>C
 nnoremap <cr> :action EditorStartNewLine<cr>
@@ -55,7 +56,8 @@ noremap <m-k> 10k
 inoremap <m-j> <c-o>10j
 inoremap <m-k> <c-o>10k
 nnoremap Y y$
-nnoremap <c-g> :noh<cr>
+nnoremap <c-g> :call Clear_highlight_copilot()<cr>
+inoremap <c-g> <c-o>:call Clear_highlight_copilot()<cr>
 
 nnoremap [[ :action MethodUp<cr>
 nnoremap ]] :action MethodDown<cr>
@@ -324,6 +326,11 @@ noremap <leader>ai :action AliP3CInspectionAction<cr>
 noremap ,ai :action AliP3CInspectionAction<cr>
 
 let g:copilot_on = 'true'
+
+function! Clear_highlight_copilot()
+  :noh
+  :action copilot.disposeInlays
+endfunction
 
 function! toggle_copilot()
   if g:copilot_on == 'true'
