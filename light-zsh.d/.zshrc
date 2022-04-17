@@ -66,6 +66,11 @@ precmd() {
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 export ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #20 char left truncated PWD
 
+
+if [ -n "$INSIDE_EMACS" ]; then
+   export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=102'
+fi
+
 source $HOME/.oh-my-zsh/custom/plugins/zsh-histdb/sqlite-history.zsh
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd histdb-update-outcome

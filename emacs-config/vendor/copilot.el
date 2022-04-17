@@ -1,10 +1,13 @@
 ;;; copilot.el --- An unofficial Copilot plugin for Emacs  -*- lexical-binding:t -*-
 
+;; Package-Requires: ((emacs "27.2") (s "1.12.0") (dash "2.19.1") (editorconfig "0.8.2"))
+
 ;;; Code:
 (require 'cl-lib)
 (require 'json)
 (require 's)
 (require 'dash)
+(require 'editorconfig)
 
 (defgroup copilot nil
   "Copilot."
@@ -318,7 +321,6 @@
       ((result (copilot--agent-http-request "https://api.github.com/user"
                                             `(:method "GET"
                                                       :headers (:Authorization ,(concat "Bearer " access-token))))))
-    (message "RESULT: %S" result)
     (if (equal (alist-get 'status result) 200)
         (alist-get 'login result)
       (message "Failed to get user info.")
@@ -370,14 +372,34 @@
 ;; Auto completion
 ;;
 
+(defconst copilot--indentation-alist
+  (append '((latex-mode tex-indent-basic)
+            (nxml-mode nxml-child-indent)
+            (python-mode python-indent py-indent-offset python-indent-offset)
+            (web-mode web-mode-markup-indent-offset web-mode-html-offset))
+          editorconfig-indentation-alist)
+  "Alist of `major-mode' to indentation map with optional fallbacks.")
+
 (defvar-local copilot--completion-cache nil)
 (defvar-local copilot--completion-idx 0)
+
+(defun copilot--infer-indentation-offset ()
+  "Infer indentation offset."
+  (or (let ((mode major-mode))
+        (while (and (not (assq mode copilot--indentation-alist))
+                    (setq mode (get mode 'derived-mode-parent))))
+        (when mode
+          (cl-some (lambda (s)
+                     (when (boundp s)
+                       (symbol-value s)))
+                   (alist-get mode copilot--indentation-alist))))
+      tab-width))
 
 (defun copilot--generate-doc ()
   "Generate doc param for completion request."
   (list :source (concat (buffer-substring-no-properties (point-min) (point-max)) "\n")
-        :tabSize tab-width
-        :indentSize tab-width
+        :tabSize (copilot--infer-indentation-offset)
+        :indentSize (copilot--infer-indentation-offset)
         :insertSpaces (if indent-tabs-mode :false t)
         :path (buffer-file-name)
         :relativePath (file-name-nondirectory (buffer-file-name))
@@ -442,8 +464,9 @@
 (defvar-local copilot--overlay nil
   "Overlay for Copilot completion.")
 
-(defun copilot-display-overlay-completion (completion line col)
-  "Show COMPLETION in overlay at LINE and COL. For Copilot, COL is always 0."
+(defun copilot-display-overlay-completion (completion line col user-pos)
+  "Show COMPLETION in overlay at LINE and COL. For Copilot, COL is always 0.
+USER-POS is the cursor position (for verification only)."
   (copilot-clear-overlay)
   (save-excursion
     (widen)
@@ -463,7 +486,10 @@
       (setq completion (substring completion common-prefix-len))
       (forward-char common-prefix-len))
 
-    (unless (s-blank? completion)
+    (when (and (s-present-p completion)
+               (or (= (point) user-pos) ; up-to-date completion
+                   (and (< (point) user-pos) ; special case for removing indentation
+                        (s-blank-p (s-trim (buffer-substring-no-properties (point) user-pos))))))
       (let* ((ov (make-overlay (point) (point-at-eol) nil t t))
              (p-completion (propertize completion 'face 'copilot-overlay-face))
              (display (substring p-completion 0 1))
@@ -485,16 +511,51 @@
     (delete-overlay copilot--overlay)
     (setq copilot--overlay nil)))
 
-(defun copilot-accept-completion ()
-  "Accept completion. Return t if there is a completion."
+(defun copilot-accept-completion (&optional transform-fn)
+  "Accept completion. Return t if there is a completion. Use TRANSFORM-FN to transform completion if provided."
   (interactive)
   (when copilot--overlay
-    (let ((completion (overlay-get copilot--overlay 'completion))
-          (start (overlay-get copilot--overlay 'start)))
+    (let* ((completion (overlay-get copilot--overlay 'completion))
+           (start (overlay-get copilot--overlay 'start))
+           (t-completion (funcall (or transform-fn 'identity) completion)))
       (copilot-clear-overlay)
       (delete-region start (line-end-position))
-      (insert completion)
+      (insert t-completion)
+      ; trigger completion again if not fully accepted
+      (unless (equal completion t-completion)
+        (copilot-complete))
       t)))
+
+(defun copilot-accept-completion-by-word (n-word)
+  "Accept first N-WORD words of completion."
+  (interactive "p")
+  (setq n-word (or n-word 1))
+  (copilot-accept-completion (lambda (completion)
+                               (let* ((blank-regexp '(any blank "\r" "\n"))
+                                      (separator-regexp (rx-to-string
+                                                         `(seq
+                                                           (not ,blank-regexp)
+                                                           (1+ ,blank-regexp))))
+                                      (words (s-split-up-to separator-regexp completion n-word))
+                                      (remain (if (<= (length words) n-word)
+                                                  ""
+                                                (first (last words))))
+                                      (length (- (length completion) (length remain)))
+                                      (prefix (substring completion 0 length)))
+                                 (s-trim-right prefix)))))
+
+(defun copilot-accept-completion-by-line (n-line)
+  "Accept first N-LINE lines of completion."
+  (interactive "p")
+  (setq n-line (or n-line 1))
+  (copilot-accept-completion (lambda (completion)
+                               (let* ((lines (s-split-up-to (rx anychar (? "\r") "\n") completion n-line))
+                                      (remain (if (<= (length lines) n-line)
+                                                  ""
+                                                (first (last lines))))
+                                      (length (- (length completion) (length remain)))
+                                      (prefix (substring completion 0 length)))
+                                 prefix))))
 
 (defun copilot--show-completion (completion)
   "Show COMPLETION."
@@ -504,7 +565,7 @@
            (start (alist-get 'start range))
            (start-line (alist-get 'line start))
            (start-char (alist-get 'character start)))
-      (copilot-display-overlay-completion text start-line start-char))))
+      (copilot-display-overlay-completion text start-line start-char (point)))))
 
 (defun copilot-complete ()
   "Complete at the current point."
@@ -514,13 +575,54 @@
   (setq copilot--completion-cache nil)
   (setq copilot--completion-idx 0)
 
-  (when (buffer-file-name)
-    (copilot--get-completion
-     (lambda (result)
-     (copilot--log "[INFO] Completion: %S" result)
-       (let* ((completions (alist-get 'completions result))
-              (completion (if (seq-empty-p completions) nil (seq-elt completions 0))))
-          (copilot--show-completion completion))))))
+  (let ((called-interactively (called-interactively-p 'interactive)))
+    ;; (when (buffer-file-name)
+    (when t ;; Mod
+      (copilot--get-completion
+      (lambda (result)
+        (copilot--log "[INFO] Completion: %S" result)
+        (let* ((completions (alist-get 'completions result))
+                (completion (if (seq-empty-p completions) nil (seq-elt completions 0))))
+          (when (and (not completion)
+                     called-interactively)
+            (message "No completion is available."))
+          (copilot--show-completion completion)))))))
+
+;;
+;; minor mode
+;;
+
+(defcustom copilot-disable-predicates nil
+  "A list of predicate functions with no argument to disable Copilot. Copilot will be disabled if any predicate returns t."
+  :type 'list
+  :group 'copilot)
+
+(defcustom copilot-enable-predicates nil
+  "A list of predicate functions with no argument to enable Copilot. Copilot will be enabled only if all predicates return t."
+  :type 'list
+  :group 'copilot)
+
+;;;###autoload
+(define-minor-mode copilot-mode
+  "Minor mode for Copilot."
+  :init-value nil
+  :lighter " Copilot"
+  (copilot-clear-overlay)
+  (add-hook 'post-command-hook 'copilot--complete-post-command))
+
+(defun copilot--complete-post-command ()
+  "Complete in post-command hook."
+  (when copilot-mode
+    (unless (and (symbolp this-command)
+                 (s-starts-with-p "copilot-" (symbol-name this-command)))
+      (copilot-clear-overlay)
+      (when (and (cl-every (lambda (pred)
+                             (if (functionp pred) (funcall pred) t))
+                          copilot-enable-predicates)
+                 (cl-notany (lambda (pred)
+                              (if (functionp pred) (funcall pred) f))
+                            copilot-disable-predicates))
+          (copilot-complete)))))
 
 (provide 'copilot)
 ;;; copilot.el ends here

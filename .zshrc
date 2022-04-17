@@ -372,3 +372,9 @@ if type pyenv &> /dev/null; then
   eval "$(pyenv init -)"
   # eval "$(pyenv virtualenv-init -)"
 fi
+
+function set_vim_cursor_type() {
+  echo "$3" | grep -q '^\(vim\|vi\|nvim\|=vim\)' && echo -ne '\e[2 q'
+}
+
+preexec_functions+=(set_vim_cursor_type)

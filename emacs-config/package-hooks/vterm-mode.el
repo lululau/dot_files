@@ -36,6 +36,37 @@
 ;;           (vterm--write-input vterm--term decoded-str)
 ;;           (vterm--update vterm--term)))))
 
+  (defcustom vterm-kill-buffer-on-normal-exit t
+    "If not nil vterm buffers are killed when the attached process is terminated.
+
+If `vterm-kill-buffer-on-exit' is set to t, when the process
+associated to a vterm buffer quits, the buffer is killed.  When
+nil, the buffer will still be available as if it were in
+`fundamental-mode'."
+    :type  'boolean
+    :group 'vterm)
+
+
+  (defun vterm--sentinel (process event)
+    "Sentinel of vterm PROCESS.
+Argument EVENT process event."
+    (let ((buf (process-buffer process)))
+      (run-hook-with-args 'vterm-exit-functions
+                          (if (buffer-live-p buf) buf nil)
+                          event)
+      (if (and vterm-kill-buffer-on-normal-exit (buffer-live-p buf))
+          (if (string= "finished\n" event)
+              (kill-buffer buf))
+        (if (and vterm-kill-buffer-on-exit (buffer-live-p buf))
+            (kill-buffer buf)))))
+
+  (defun vterm-enter-hybrid-state-decently ()
+    (interactive)
+    (evil-hybrid-state)
+    (vterm-send-space)
+    (vterm-send-backspace))
+
+
   (define-key vterm-mode-map
     (kbd (if (display-graphic-p) "<S-return>" "S-RET")) #'(lambda ()
                                                             (interactive)
@@ -67,23 +98,32 @@
   (define-key vterm-mode-map (kbd "M-DEL") #'term-send-raw-meta)
   ;; (define-key vterm-mode-map (kbd "C-S-l") #'vterm-send-C-l)
   ;; (define-key vterm-mode-map (kbd "C-l") #'recenter-top-bottom)
-  (define-key vterm-mode-map (kbd "C-l") #'(lambda () (interactive) (let ((inhibit-read-only t)) (insert (s-repeat (count-screen-lines (window-start) (point)) "\n")) (vterm-send-C-l))))
+  ;; (define-key vterm-mode-map (kbd "C-l") #'(lambda () (interactive) (let ((inhibit-read-only t)) (insert (s-repeat (count-screen-lines (window-start) (point)) "\n")) (vterm-send-C-l))))
   (define-key vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
   (define-key vterm-mode-map (kbd "M-p") #'vterm-send-M-p)
   (define-key vterm-mode-map (kbd "s-r r") #'lx/run-in-vterm/rerun)
   (evil-define-key 'hybrid vterm-mode-map (kbd "C-z") #'vterm-send-C-z)
   (evil-define-key 'hybrid vterm-mode-map (kbd "<escape>") #'vterm-send-escape)
+  (evil-define-key 'motion vterm-mode-map (kbd "s-q") #'vterm-enter-hybrid-state-decently)
+  (evil-define-key 'hybrid vterm-mode-map (kbd "s-k") #'(lambda () (interactive) (dotimes (i 10) (vterm-send-string "k"))))
+  (evil-define-key 'hybrid vterm-mode-map (kbd "s-j") #'(lambda () (interactive) (dotimes (i 10) (vterm-send-string "j"))))
   (define-key vterm-mode-map (kbd "s-<backspace>") #'vterm-send-C-u)
   (define-key vterm-mode-map (kbd "M-D") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "exit-program\n")))
   (define-key vterm-mode-map (kbd "s-w") #'delete-window-or-bury-buffer)
   (define-key vterm-mode-map (kbd "<f12>") nil)
   (define-key vterm-mode-map (kbd "C-x C-c") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "c" nil nil t)))
   (define-key vterm-mode-map (kbd "C-x C-e") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "e" nil nil t)))
+  (define-key vterm-mode-map (kbd "C-c e") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "e" nil nil t)))
   (define-key vterm-mode-map (kbd "C-x C-k") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "k" nil nil t)))
+  (define-key vterm-mode-map (kbd "C-x C-s") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "s" nil nil t)))
+  (define-key vterm-mode-map (kbd "C-x C-f") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "f" nil nil t)))
+  (define-key vterm-mode-map (kbd "C-x C-b") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "b" nil nil t)))
+  (define-key vterm-mode-map (kbd "C-x b") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "b" nil nil nil)))
   (define-key vterm-mode-map (kbd "C-x k") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "k" nil nil nil)))
   (define-key vterm-mode-map (kbd "C-x s") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "s" nil nil nil)))
   (define-key vterm-mode-map (kbd "<M-return>") #'(lambda () (interactive) (process-send-string vterm--process "\e\C-m")))
-  (define-key vterm-mode-map (kbd "M-/") 'vterm-completion)
+  (define-key vterm-mode-map (kbd "C-h") 'vterm-send-C-h)
+  (define-key vterm-mode-map (kbd "M-/") 'all-buffer-completion)
 
   (let ((map (lookup-key vterm-mode-map "\e")))
     ;; (define-key map "h" #'evil-window-left)
@@ -111,7 +151,7 @@
       (dnd-handle-one-url nil action uri)))
 
   (defun vterm-dnd (uri action)
-    (cond ((eq 'vterm-mode major-mode)
+    (cond ((derived-mode-p 'vterm-mode)
            (condition-case nil
                (vterm-dnd-copy-path uri)
              (error
@@ -138,4 +178,4 @@
 (spacemacs|use-package-add-hook vterm
   :post-config
   (define-key vterm-mode-map (kbd "M-p") #'vterm-send-M-p)
-  (define-key vterm-mode-map (kbd "M-/") 'vterm-completion))
+  (define-key vterm-mode-map (kbd "M-/") 'all-buffer-completion))

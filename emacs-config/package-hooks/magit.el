@@ -38,6 +38,3 @@ Like `vc-mode-line' but simpler, more efficient, and less buggy."
 (with-eval-after-load 'magit-mode
   (define-key magit-mode-map [S-tab] 'magit-section-cycle-global)
   (define-key magit-mode-map [remap org-store-link] 'orgit-store-link))
-
-(with-eval-after-load 'magit-diff
-  (define-key magit-diff-section-map "s" 'magit-stage))
