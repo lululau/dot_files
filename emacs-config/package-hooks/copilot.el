@@ -1,13 +1,12 @@
+(defvar copilot-auto-copilot-inhibit-commands '(copilot-complete
+                                                copilot-next-completion
+                                                copilot-previous-completion
+                                                lx/keyboard-quit
+                                                delete-char
+                                                backward-delete-char-untabify
+                                                copilot-accept-or-org-cycel))
+
 (with-eval-after-load 'copilot
-
-  (defvar copilot-auto-copilot-inhibit-commands '(copilot-complete
-                                                  copilot-next-completion
-                                                  copilot-previous-completion
-                                                  lx/keyboard-quit
-                                                  delete-char
-                                                  backward-delete-char-untabify
-                                                  copilot-accept-or-org-cycel))
-
   (defun copilot--generate-doc ()
     "Generate doc param for completion request."
     ;; Begin Add
