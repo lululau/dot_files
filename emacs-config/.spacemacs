@@ -1027,6 +1027,8 @@ This function is called at the very end of Spacemacs initialization."
    (sql-database "test")
    (sql-server "")))))
  '(vc-follow-symlinks t)
+ '(docker-show-messages nil)
+ '(docker-run-async-with-buffer-function (quote docker-run-async-with-buffer-vterm))
  '(warning-suppress-types (quote ((comp)))))
 
   (set-frame-parameter (selected-frame) 'width 1.0)

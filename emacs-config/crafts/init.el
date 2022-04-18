@@ -26,7 +26,7 @@
 (autoload 'helm-vterm-maven-deps-tree "vterm-maven")
 (autoload 'helm-vterm-maven-deps-resolve "vterm-maven")
 (autoload 'lx/run-in-vterm "run-in-vterm")
-(autoload 'lx/run-shell-in-zsh-vterm "zsh-vterm")
+(autoload 'lx/run-ssh-in-zsh-vterm "zsh-vterm-ssh")
 (autoload 'lx/run-in-vterm/set-green-box-cursor "run-in-vterm")
 (autoload 'lx/run-in-vterm/set-blue-bar-cursor "run-in-vterm")
 (autoload 'lx/run-in-vterm/set-default-directory "run-in-vterm")
