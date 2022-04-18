@@ -216,6 +216,8 @@
         (list (helm-build-sync-source "Remote locations"
                 :fuzzy-match  t
                 :candidates  (list (cons (format "%-20s%s" "lx.kt" "~") "/scp:lx.kt:~/")
+                              (cons (format "%-20s%s" "dev42" "~") "/scp:dev42:~")
+                              (cons (format "%-20s%s" "dev42" "docker") "ssh:liuxiang@dev42|docker:liuxiang@container:/var/run/docker.sock")
                               (cons (format "%-20s%s" "lcl.devb" "/etc/nginx/conf.d") "/scp:lcl.devb:/etc/nginx/conf.d")
                               (cons (format "%-20s%s" "ceres.devb" "/etc/nginx/conf.d") "/scp:ceres.devb:/etc/nginx/conf.d")
                               (cons (format "%-20s%s" "ll.devb" "/etc/nginx/conf.d") "/scp:ll.devb:/etc/nginx/conf.d")

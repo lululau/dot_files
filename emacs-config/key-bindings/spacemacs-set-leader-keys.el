@@ -78,6 +78,7 @@
   "dk" #'docker
   "qk" #'lx/kill-all-except-default
   "bM" #'lx/switch-to-warning-buffer
+  "ag" #'github-star-list
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

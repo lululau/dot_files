@@ -7,7 +7,7 @@
         (progn
           (setq zsh-vterm-last-buffer (current-buffer))
           (switch-to-buffer (get-buffer (format "*zsh-vterm-%d*" index)))))
-    (if (seq-contains-p '(vterm-mode zsh-vterm-mode) major-mode)
+    (if (seq-contains-p '(vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)
         (shell-pop-out)
       (setq zsh-vterm-last-buffer (current-buffer))
       (if (not (projectile-project-p))
