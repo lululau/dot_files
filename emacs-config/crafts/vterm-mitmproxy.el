@@ -1,6 +1,6 @@
 (require 'run-in-vterm)
 
-(defvar vterm-mitmproxy-dir (file-name-directory load-file-name))
+(defvar vterm-mitmproxy-dir (file-name-directory (or load-file-name buffer-file-name)))
 
 (defun vterm-mitmproxy-transparent-proxy ()
   (interactive)

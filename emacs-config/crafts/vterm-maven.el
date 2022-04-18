@@ -2,6 +2,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defvar vterm-maven-dir (file-name-directory (or load-file-name buffer-file-name)))
+
 (defun helm-vterm-maven-deploy-buffers-list--init ()
   (require 'dired)
   (helm-attrset 'candidates (funcall (helm-attr 'buffer-list)))
@@ -49,9 +51,16 @@
    (help-message :initform 'helm-buffer-help-message)))
 
 (defun helm-vterm-maven-option-list ()
-  (let ((project-root-dir (projectile-project-root)))
-    (mapcar (lambda (host) (cons host host))
-            (s-split "\n" (shell-command-to-string (format "find %s -maxdepth 4 -name pom.xml | perl -pe 's#%s/##;s#/pom.xml##'" project-root-dir project-root-dir)) t))))
+  (let* ((project-root-dir (projectile-project-root))
+        (current-artifact-dir (helm-vterm-maven-get-current-artifact-dir))
+        (parent-artifact-dir (helm-vterm-maven-get-parent-artifact-dir))
+        (all-artifact-dirs (mapcar (lambda (host) (cons host host))
+                                   (s-split "\n" (shell-command-to-string (format "find %s -maxdepth 4 -name pom.xml | perl -pe 's#%s/##;s#/pom.xml##'" project-root-dir project-root-dir)) t))))
+    (if parent-artifact-dir
+        (setq all-artifact-dirs (cons parent-artifact-dir all-artifact-dirs)))
+    (if current-artifact-dir
+        (setq all-artifact-dirs (cons current-artifact-dir all-artifact-dirs)))
+    all-artifact-dirs))
 
 (defun helm-vterm-maven-deploy-run (artifact)
   (let* ((vterm-kill-buffer-on-exit nil)
@@ -76,27 +85,51 @@
   (interactive)
   (helm-other-buffer '(helm-vterm-maven-deploy-buffers-list helm-vterm-maven-deploy-options-list) "*helm-vterm-maven-deploy-buffers*"))
 
-(defun helm-vterm-maven-deploy-current-artifact ()
-  (interactive)
-  (let* ((dir default-directory)
+(defun helm-vterm-maven-get-current-artifact-dir ()
+  (let* ((dir (expand-file-name default-directory))
          (found nil))
     (while (and (not found) (not (string= "/" dir)))
       (when (file-exists-p (format "%s/pom.xml" dir))
-        (helm-vterm-maven-deploy-run (s-replace (projectile-project-root) "" dir))
-        (setq found t))
+        (setq found (s-replace (projectile-project-root) "" dir)))
       (setq dir (expand-file-name (format "%s/.." dir))))
-    (unless found (message "pom not found"))))
+    (if found
+        (replace-regexp-in-string "/$" "" found)
+      nil)))
 
-(defun helm-vterm-maven-deploy-parent-artifact ()
-  (interactive)
-  (let* ((dir default-directory)
+(defun helm-vterm-maven-get-parent-artifact-dir ()
+  (let* ((dir (expand-file-name default-directory))
          (found nil)
          (parent-found nil))
     (while (and (not parent-found) (not (string= "/" dir)))
       (when (file-exists-p (format "%s/pom.xml" dir))
         (if (not found)
             (setq found t)
-          (helm-vterm-maven-deploy-run (s-replace (projectile-project-root) "" dir))
+          (setq parent-found (s-replace (projectile-project-root) "" dir))))
+      (setq dir (expand-file-name (format "%s/.." dir))))
+    (if parent-found
+        (replace-regexp-in-string "/$" "" parent-found))))
+
+(defun helm-vterm-maven-deploy-current-artifact ()
+  (interactive)
+  (let* ((dir (expand-file-name default-directory))
+         (found nil))
+    (while (and (not found) (not (string= "/" dir)))
+      (when (file-exists-p (format "%s/pom.xml" dir))
+        (helm-vterm-maven-deploy-run (replace-regexp-in-string "/$/" "" (s-replace (projectile-project-root) "" dir)))
+        (setq found t))
+      (setq dir (expand-file-name (format "%s/.." dir))))
+    (unless found (message "pom not found"))))
+
+(defun helm-vterm-maven-deploy-parent-artifact ()
+  (interactive)
+  (let* ((dir (expand-file-name default-directory))
+         (found nil)
+         (parent-found nil))
+    (while (and (not parent-found) (not (string= "/" dir)))
+      (when (file-exists-p (format "%s/pom.xml" dir))
+        (if (not found)
+            (setq found t)
+          (helm-vterm-maven-deploy-run (replace-regexp-in-string "/$/" "" (s-replace (projectile-project-root) "" dir)))
           (setq parent-found t)))
       (setq dir (expand-file-name (format "%s/.." dir))))
     (unless found (message "parent pom not found"))))
@@ -263,6 +296,16 @@
 
 (setq helm-vterm-maven-deps-resolve-buffers-list
       (helm-make-source "MAVEN-DEPS-RESOLVE Buffers" 'helm-vterm-maven-deps-resolve-buffers-source))
+
+(defun vterm-maven-update-local-artifact ()
+  (interactive)
+  (let ((vterm-kill-buffer-on-exit nil))
+    (lx/run-in-vterm (format "%s/vterm-maven-update-local-artifact.sh" vterm-maven-dir) "*vterm-maven-update-local-artifact*" nil t)))
+
+(defun vterm-maven-kill-local-artifact ()
+  (interactive)
+  (let ((vterm-kill-buffer-on-exit nil))
+    (lx/run-in-vterm (format "%s/vterm-maven-kill-local-artifact.sh" vterm-maven-dir) "*vterm-maven-kill-local-artifact*" nil t)))
 
 (defun helm-vterm-maven-deps-resolve ()
   (interactive)

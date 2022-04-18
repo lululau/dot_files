@@ -25,6 +25,8 @@
 (autoload 'helm-vterm-maven-deploy-parent-artifact "vterm-maven")
 (autoload 'helm-vterm-maven-deps-tree "vterm-maven")
 (autoload 'helm-vterm-maven-deps-resolve "vterm-maven")
+(autoload 'vterm-maven-update-local-artifact "vterm-maven")
+(autoload 'vterm-maven-kill-local-artifact "vterm-maven")
 (autoload 'lx/run-in-vterm "run-in-vterm")
 (autoload 'lx/run-ssh-in-zsh-vterm "zsh-vterm-ssh")
 (autoload 'lx/run-in-vterm/set-green-box-cursor "run-in-vterm")
