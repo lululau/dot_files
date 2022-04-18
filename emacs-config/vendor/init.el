@@ -33,3 +33,5 @@
 (autoload 'copilot-next-completion "copilot.el")
 (autoload 'copilot-previous-completion "copilot.el")
 (autoload 'copilot-accept-completion "copilot.el")
+(autoload 'github-star-setup "github-star.el")
+(autoload 'github-star-list "github-star.el")
