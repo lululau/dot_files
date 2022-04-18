@@ -44,7 +44,7 @@
         (copilot-clear-overlay)
         ;; (delete-region start (line-end-position))
         ;; (insert t-completion)
-        (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode) ;; Mod
+        (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode) ;; Mod
             (vterm-send-string (concat t-completion " ")) ;; Mod
           (delete-region start (line-end-position)) ;; Mod
           (insert t-completion))
@@ -62,7 +62,7 @@
              (start-line (alist-get 'line start))
              (start-char (alist-get 'character start)))
         ;; (copilot-display-overlay-completion text start-line start-char))))
-        (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode) ;; Mod
+        (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode) ;; Mod
             (copilot-display-overlay-completion text (1- (line-number-at-pos)) 0 (point)) ;; Mod
           (copilot-display-overlay-completion text start-line start-char (point)))))) ;; Mod
 
@@ -71,7 +71,7 @@
 USER-POS is the cursor position (for verification only)."
     (copilot-clear-overlay)
     (save-excursion
-      (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode)) ;; Add
+      (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)) ;; Add
         (widen)
         (goto-char (point-min))
         (if (= (line-end-position line) (1- (point-max)))
@@ -87,7 +87,7 @@ USER-POS is the cursor position (for verification only)."
       (let* ((cur-line (copilot--get-current-line)) ;; Mod
              (common-prefix-len (length (s-shared-start completion cur-line))))
         (setq completion (substring completion common-prefix-len))
-        (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode) major-mode)) ;; Mod
+        (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)) ;; Mod
           (forward-char common-prefix-len)))
 
       (when (and (s-present-p completion)
@@ -200,7 +200,7 @@ USER-POS is the cursor position (for verification only)."
   (interactive)
   (when (not (seq-contains-p copilot-auto-copilot-inhibit-commands this-command))
     (copilot-clear-overlay)
-    (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode pry-vterm-mode zsh-vterm-mode) major-mode)))
+    (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)))
       (copilot-complete))))
 
 (add-hook 'post-command-hook #'copilot-complete-if-insert-state)

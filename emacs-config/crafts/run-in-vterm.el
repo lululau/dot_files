@@ -78,7 +78,7 @@
   (let ((directory (expand-file-name default-directory)))
     (mapcar 'buffer-name
             (seq-filter (lambda (b)
-                          (seq-contains-p '(vterm-mode zsh-vterm-mode pry-vterm-mode) (with-current-buffer b major-mode)))
+                          (seq-contains-p '(vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode pry-vterm-mode) (with-current-buffer b major-mode)))
                         (buffer-list)))))
 
 (defclass helm-vterm-buffers-source (helm-source-sync helm-type-buffer)
