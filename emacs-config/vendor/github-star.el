@@ -155,6 +155,7 @@
 (defun github-star-list ()
   "Display GitHub stars in table view"
   (interactive)
+  (github-star-setup)
   (with-current-buffer (get-buffer-create "*github-star*")
     (github-star-mode)
     (tabulated-list-print t)
