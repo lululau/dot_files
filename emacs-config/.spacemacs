@@ -1036,6 +1036,7 @@ This function is called at the very end of Spacemacs initialization."
 
   (persp-mode)
   (persp-load-state-from-file "~/.emacs.d/.cache/layouts/A")
+  (face-spec-set 'header-line '((t :weight bold :foreground "grey" :background nil)))
 
 ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
