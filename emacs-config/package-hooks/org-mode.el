@@ -213,6 +213,14 @@
 
   ;; (add-hook 'org-mode-hook #'turn-company-english-helper-on 100)
 
+
+  (add-to-list 'org-babel-load-languages '(elasticsearch . t))
+  (add-to-list 'org-babel-load-languages '(mermaid . t))
+  (add-to-list 'org-babel-load-languages '(sql . t))
+  (add-to-list 'org-babel-load-languages '(jq . t))
+
+  (autoload 'org-babel-execute:jq "ob-jq")
+
   (require 'org-mouse))
 
 ;; (eval-after-load "org"
