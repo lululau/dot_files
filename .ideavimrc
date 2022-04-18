@@ -124,6 +124,7 @@ noremap <leader>fY :action Tool_Files_CopyAndShowCurrentFilePath<cr>
 noremap <leader>fa :action Tool_Files_BrowseInAlfred<cr>
 noremap <leader>fR :action RefactoringMenuRenameFile<cr>
 noremap <leader>fc :action CopyReference<cr>
+noremap <leader>bs :e ~/Library/Application Support/JetBrains/IntelliJIdea2021.2/scratches/scratch.kts<cr>
 noremap ,feR :source ~/.ideavimrc<cr>
 noremap ,fed :e ~/.ideavimrc<cr>
 noremap ,feD :e ~/.ideavim_actions.txt<cr>
@@ -144,6 +145,7 @@ noremap ,fb :action ShowBookmarks<cr>
 noremap <m-s-n> :action NewClass<cr>
 nnoremap <leader>jd :action Tool_Files_OpenPWDWithEmacs<cr>
 nnoremap ,jd :action Tool_Files_OpenPWDWithEmacs<cr>
+noremap ,bs :e ~/Library/Application Support/JetBrains/IntelliJIdea2021.2/scratches/scratch.kts<cr>
 
 " Code
 noremap <leader>cf :action ReformatCode<cr>
