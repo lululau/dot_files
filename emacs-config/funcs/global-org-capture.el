@@ -5,6 +5,7 @@
                       (top . 0.25) (left . 0.35))))
   (select-frame-by-name "Remember")
   (find-file "~/.emacs.d/layers/+emacs/org/img/org.png")
+  (delete-other-windows)
   (org-capture-string "" "g")
   (delete-other-windows))
 
