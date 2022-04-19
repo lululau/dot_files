@@ -2,8 +2,9 @@
   (setq lx/global-org-capture-system-process system-porcess)
   (setq lx/global-org-capture-frame
         (make-frame '((name . "Remember") (width . 80) (height . 20)
-                      (top . 100) (left . 350))))
+                      (top . 0.25) (left . 0.35))))
   (select-frame-by-name "Remember")
+  (find-file "~/.emacs.d/layers/+emacs/org/img/org.png")
   (org-capture-string "" "g")
   (delete-other-windows))
 
