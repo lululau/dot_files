@@ -221,6 +221,12 @@
 
   (autoload 'org-babel-execute:jq "ob-jq")
 
+  (global-org-modern-mode 1)
+
+  (face-spec-set 'org-modern-done
+                 '((t :inherit (org-done org-modern-label)
+                      :weight semibold :foreground "lime green" :inverse-video t)))
+
   (require 'org-mouse))
 
 ;; (eval-after-load "org"
