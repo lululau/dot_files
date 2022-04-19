@@ -39,9 +39,11 @@
   "df" #'find-dired
   "dn" #'find-name-dired
   "dg" #'find-grep-dired
-  "dF" #'mfd-dired
-  "dN" #'mfd-name-dired
-  "dG" #'mfd-grep-dired
+  "dF" #'fd-dired
+  "dN" #'fd-name-dired
+  "d s-F" #'mfd-dired
+  "d s-N" #'mfd-name-dired
+  "d s-G" #'mfd-grep-dired
   "d TAB" #'(lambda () (interactive) (switch-to-buffer (--find (eq 'dired-mode (with-current-buffer it major-mode)) (buffer-list))))
   "pL" #'lx/helm-persp-replace-project
   "bL" #'lx/persp-swith-to-buffer-project
