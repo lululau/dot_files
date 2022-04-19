@@ -1,5 +1,11 @@
-(with-eval-after-load 'info
-  (define-key Info-mode-map (kbd "C-n") #'evil-search-next)
-  (define-key Info-mode-map (kbd "g") nil)
-  (define-key Info-mode-map (kbd "gg") #'evil-goto-first-line)
-  (define-key Info-mode-map (kbd "G") #'evil-goto-line))
+(with-eval-after-load 'evil-core
+  (with-eval-after-load 'info
+    (evil-define-key 'motion Info-mode-map
+      (kbd "n") #'Info-next
+      (kbd "C-n") #'evil-search-next
+      (kbd "O") #'Info-toc
+      (kbd "<return>") #'Info-follow-nearest-node
+      (kbd "RET") #'Info-follow-nearest-node
+      (kbd "g") nil
+      (kbd "gg") #'evil-goto-first-line
+      (kbd "G") #'evil-goto-line)))
