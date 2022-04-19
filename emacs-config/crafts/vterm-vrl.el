@@ -59,8 +59,8 @@
 
 (defun helm-vterm-vrl-run ()
   (interactive)
-  (with-helm-alive-p
-    (helm-exit-and-execute-action 'helm-vterm-vrl-run-function)))
+    (with-helm-alive-p
+      (helm-exit-and-execute-action 'helm-vterm-vrl-run-function)))
 
 (defun helm-vterm-vrl-run-auto-function (env)
   (let ((cmd  (format "~/bin/vrl %s -a" env))
@@ -87,6 +87,7 @@
 
 (defun helm-vterm-vrl ()
   (interactive)
-  (helm-other-buffer '(helm-vterm-vrl-buffers-list helm-vterm-vrl-options-list) "*helm-vterm-vrl-buffers*"))
+  (let ((default-directory "~"))
+    (helm-other-buffer '(helm-vterm-vrl-buffers-list helm-vterm-vrl-options-list) "*helm-vterm-vrl-buffers*")))
 
 (provide 'vterm-vrl)
