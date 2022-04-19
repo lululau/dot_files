@@ -10,6 +10,7 @@
 (autoload 'lx/helm-projectile-open-projects "helm-open-projects")
 (autoload 'lx/helm-projectile-other-open-projects "helm-open-projects")
 (autoload 'helm-cwd-buffers "helm-cwd-buffers")
+(autoload 'helm-remote-buffers "helm-remote-buffers")
 (autoload 'helm-vterm-buffers "run-in-vterm")
 (autoload 'helm-pry-vterm-arql "vterm-arql")
 (autoload 'lx/run-in-pry-vterm "pry-vterm")

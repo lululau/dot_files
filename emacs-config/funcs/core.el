@@ -38,6 +38,16 @@
 
 (defun lx/switch-to-project-or-all-buffer ()
   (interactive)
-  (if (projectile-project-p)
-      (helm-projectile-switch-to-buffer)
-    (lx/switch-to-buffer)))
+  (cond ((lx/is-remote-buffer) (helm-remote-buffers))
+        ((projectile-project-p) (helm-projectile-switch-to-buffer))
+        (t (lx/switch-to-buffer))))
+
+(defun lx/is-remote-buffer ()
+  (or (eq 'ssh-zsh-vterm-mode major-mode)
+      (string-prefix-p "/scp:" default-directory)
+      (string-prefix-p "/ssh:" default-directory)))
+
+(defun lx/get-remote-buffer-host ()
+  (cond ((eq 'ssh-zsh-vterm-mode major-mode) (plist-get ssh-zsh-vterm-ssh-options :host))
+        ((or (string-prefix-p "/scp:" default-directory) (string-prefix-p "/ssh:" default-directory))
+         (seq--elt-safe (split-string default-directory ":") 1))))
