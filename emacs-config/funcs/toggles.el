@@ -1,0 +1,18 @@
+(setq-default org-modern-mode-status 1)
+(setq global-org-modern-mode-status 1)
+
+(defun org-toggle-org-modern-mode ()
+  (interactive)
+  (if (eq 1 org-modern-mode-status)
+      (progn (org-modern-mode -1)
+             (setq-local org-modern-mode-status -1))
+    (org-modern-mode 1)
+    (setq-local org-modern-mode-status 1)))
+
+(defun org-toggle-global-org-modern-mode ()
+  (interactive)
+  (if (eq 1 global-org-modern-mode-status)
+      (progn (global-org-modern-mode -1)
+             (setq global-org-modern-mode-status -1))
+    (global-org-modern-mode 1)
+    (setq-local global-org-modern-mode-status 1)))
