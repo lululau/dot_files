@@ -71,6 +71,8 @@
 
 (setq vterm-eval-cmds '(("find-file" find-file)
                         ("message" message)
+                        ("download" lx/run-in-vterm/download)
+                        ("upload" lx/run-in-vterm/upload)
                         ("vterm-clear-scrollback" vterm-clear-scrollback)
                         ("lx/run-in-vterm/set-green-box-cursor" lx/run-in-vterm/set-green-box-cursor)
                         ("lx/run-in-vterm/set-blue-bar-cursor" lx/run-in-vterm/set-blue-bar-cursor)

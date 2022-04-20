@@ -429,3 +429,15 @@ function update_history_outcome_to_vterm() {
 # autoload -Uz add-zsh-hook
 add-zsh-hook precmd update_history_outcome_to_vterm
 zshaddhistory_functions+=(save_history_to_vterm)
+
+function download() {
+  local file=$1
+  if [ "$file[1]" != "/" ]; then
+    file="$PWD/$file"
+  fi
+  vterm_cmd download "$file"
+}
+
+function upload() {
+  vterm_cmd upload "$PWD"
+}

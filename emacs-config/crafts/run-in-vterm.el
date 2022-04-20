@@ -58,6 +58,41 @@
          (dir (concat file-prefix dir)))
     (setq default-directory dir)))
 
+(defun lx/run-in-vterm/download (file)
+  (interactive)
+  (let* ((remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
+                          (plist-get ssh-zsh-vterm-ssh-options :host)
+                        nil)))
+    (if (not remote-host)
+        (message "Not in ssh-zsh-vterm-mode")
+      (let* ((remote-file (format "%s:%s" remote-host file))
+             (local-dir (helm-read-file-name "Local directory: "
+                                             :name "~/tmp/"
+                                             :initial-input "~/tmp/"
+                                             :test 'file-directory-p))
+             (local-dir (if (string-suffix-p "/" local-dir) local-dir (concat local-dir "/")))
+             (cmd (format "rsync -rzP %s %s" remote-file local-dir remote-file local-dir))
+             (buffer-name (format "*rsync: %s -> %s*" remote-file local-dir))
+             (vterm-kill-buffer-on-exit nil))
+        (lx/run-in-vterm cmd buffer-name)))))
+
+(defun lx/run-in-vterm/upload (dir)
+  (interactive)
+  (let* ((remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
+                          (plist-get ssh-zsh-vterm-ssh-options :host)
+                        nil)))
+    (if (not remote-host)
+        (message "Not in ssh-zsh-vterm-mode")
+      (let* ((remote-dir (format "%s:%s" remote-host dir))
+             (local-file (helm-read-file-name "Local File: "
+                                              :name "~/tmp/"
+                                              :initial-input "~/tmp/"))
+             (remote-dir (if (string-suffix-p "/" remote-dir) remote-dir (concat remote-dir "/")))
+             (cmd (format "rsync -rzP %s %s" local-file remote-dir))
+             (buffer-name (format "*rsync: %s -> %s*" local-file remote-dir))
+             (vterm-kill-buffer-on-exit nil))
+        (lx/run-in-vterm cmd buffer-name)))))
+
 (defun lx/run-in-vterm/find-remote-file (file &optional host)
   (interactive)
   (let* ((remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
