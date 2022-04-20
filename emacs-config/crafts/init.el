@@ -36,6 +36,8 @@
 (autoload 'lx/run-in-vterm/set-blue-bar-cursor "run-in-vterm")
 (autoload 'lx/run-in-vterm/set-default-directory "run-in-vterm")
 (autoload 'lx/run-in-vterm/find-remote-file "run-in-vterm")
+(autoload 'lx/run-in-vterm/save-history-to-vterm "run-in-vterm")
+(autoload 'lx/run-in-vterm/update-history-outcome-to-vterm "run-in-vterm")
 (autoload 'lx/kubectl/execute "kubectl")
 (autoload 'lx/kubectl/apply-region-or-buffer "kubectl")
 (autoload 'lx/kubectl/delete-region-or-buffer "kubectl")
