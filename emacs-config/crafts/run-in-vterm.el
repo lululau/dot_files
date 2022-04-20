@@ -51,6 +51,16 @@
   (interactive)
   (setq default-directory dir))
 
+(defun lx/run-in-vterm/find-remote-file (file &optional host)
+  (interactive)
+  (let* ((pwd default-directory)
+         (remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
+                          (plist-get ssh-zsh-vterm-ssh-options :host)
+                        nil))
+         (file-prefix (if remote-host (format "/scp:%s:" remote-host) ""))
+         (file (concat file-prefix file)))
+    (find-file-other-window file)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun helm-vterm-buffers-list--init ()

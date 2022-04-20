@@ -17,7 +17,9 @@
   "gho" #'browse-at-remote
   "Ct" #'copilot-toggle-auto-copilot
   "Cd" #'copilot-diagnose
-  "to" #'org-toggle-link-display
+  "tol" #'org-toggle-link-display
+  "tom" #'org-toggle-org-modern-mode
+  "toM" #'org-toggle-global-org-modern-mode
   "tA" #'(lambda () (interactive) (if (bound-and-true-p annotate-mode) (annotate-mode -1) (annotate-mode)))
   "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16))
   "s-0" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16))
@@ -37,9 +39,11 @@
   "df" #'find-dired
   "dn" #'find-name-dired
   "dg" #'find-grep-dired
-  "dF" #'mfd-dired
-  "dN" #'mfd-name-dired
-  "dG" #'mfd-grep-dired
+  "dF" #'fd-dired
+  "dN" #'fd-name-dired
+  "d s-F" #'mfd-dired
+  "d s-N" #'mfd-name-dired
+  "d s-G" #'mfd-grep-dired
   "d TAB" #'(lambda () (interactive) (switch-to-buffer (--find (eq 'dired-mode (with-current-buffer it major-mode)) (buffer-list))))
   "pL" #'lx/helm-persp-replace-project
   "bL" #'lx/persp-swith-to-buffer-project
@@ -79,6 +83,8 @@
   "qk" #'lx/kill-all-except-default
   "bM" #'lx/switch-to-warning-buffer
   "ag" #'github-star-list
+  "man" #'helm-man-woman
+  "mai" #'helm-info
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

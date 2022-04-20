@@ -213,6 +213,20 @@
 
   ;; (add-hook 'org-mode-hook #'turn-company-english-helper-on 100)
 
+
+  (add-to-list 'org-babel-load-languages '(elasticsearch . t))
+  (add-to-list 'org-babel-load-languages '(mermaid . t))
+  (add-to-list 'org-babel-load-languages '(sql . t))
+  (add-to-list 'org-babel-load-languages '(jq . t))
+
+  (autoload 'org-babel-execute:jq "ob-jq")
+
+  (global-org-modern-mode 1)
+
+  (face-spec-set 'org-modern-done
+                 '((t :inherit (org-done org-modern-label)
+                      :weight semibold :foreground "lime green" :inverse-video t)))
+
   (require 'org-mouse))
 
 ;; (eval-after-load "org"

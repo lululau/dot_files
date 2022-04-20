@@ -143,7 +143,8 @@
 
 (defun helm-zsh-vterm-ssh ()
   (interactive)
-  (helm-other-buffer '(helm-zsh-vterm-ssh-buffers-list helm-zsh-vterm-ssh-options-list) "*helm-zsh-vterm-ssh-buffers*"))
+  (let ((default-directory "~"))
+    (helm-other-buffer '(helm-zsh-vterm-ssh-buffers-list helm-zsh-vterm-ssh-options-list) "*helm-zsh-vterm-ssh-buffers*")))
 
 (defvar ssh-zsh-vterm-mode-map
   (let ((map (make-sparse-keymap)))

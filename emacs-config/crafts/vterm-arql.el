@@ -69,6 +69,7 @@
 
 (defun helm-pry-vterm-arql ()
   (interactive)
-  (helm-other-buffer '(helm-pry-vterm-arql-buffers-list helm-pry-vterm-arql-options-list) "*helm-pry-vterm-arql-buffers*"))
+  (let ((default-directory "~"))
+    (helm-other-buffer '(helm-pry-vterm-arql-buffers-list helm-pry-vterm-arql-options-list) "*helm-pry-vterm-arql-buffers*")))
 
 (provide 'vterm-arql)

@@ -82,6 +82,7 @@
 
 (defun helm-vterm-prize ()
   (interactive)
-  (helm-other-buffer '(helm-vterm-prize-buffers-list helm-vterm-prize-options-list) "*helm-vterm-prize-buffers*"))
+  (let ((default-directory "~"))
+    (helm-other-buffer '(helm-vterm-prize-buffers-list helm-vterm-prize-options-list) "*helm-vterm-prize-buffers*")))
 
 (provide 'vterm-prize)

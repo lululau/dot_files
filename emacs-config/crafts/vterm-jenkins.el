@@ -73,7 +73,8 @@
 
 (defun helm-vterm-jenkins ()
   (interactive)
-  (helm-other-buffer '(helm-vterm-jenkins-buffers-list helm-vterm-jenkins-options-list) "*helm-vterm-jenkins-buffers*"))
+  (let ((default-directory "~"))
+    (helm-other-buffer '(helm-vterm-jenkins-buffers-list helm-vterm-jenkins-options-list) "*helm-vterm-jenkins-buffers*")))
 
 
 (provide 'vterm-jenkins)
