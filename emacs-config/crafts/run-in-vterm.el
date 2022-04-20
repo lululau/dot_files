@@ -51,7 +51,12 @@
 
 (defun lx/run-in-vterm/set-default-directory (dir)
   (interactive)
-  (setq default-directory dir))
+  (let* ((remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
+                          (plist-get ssh-zsh-vterm-ssh-options :host)
+                        nil))
+         (file-prefix (if remote-host (format "/scp:%s:" remote-host) ""))
+         (dir (concat file-prefix dir)))
+    (setq default-directory dir)))
 
 (defun lx/run-in-vterm/find-remote-file (file &optional host)
   (interactive)

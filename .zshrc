@@ -380,10 +380,10 @@ if is_inside_emacs | grep -q true; then
   #     viins|main) printf "\e]51;Elx/run-in-vterm/set-blue-bar-cursor\e\\";;
   #   esac
   # }
-
-  autoload -U add-zsh-hook
-  add-zsh-hook -Uz chpwd (){ vterm_set_directory }
 fi
+
+autoload -U add-zsh-hook
+add-zsh-hook -Uz chpwd (){ vterm_set_directory }
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bitcomplete bit
