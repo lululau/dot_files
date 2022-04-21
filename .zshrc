@@ -371,16 +371,16 @@ me() {
   vterm_cmd find-remote-file "$file" "$host_name"
 }
 
-if is_inside_emacs | grep -q true; then
-  # zle-keymap-select () {
-  #   starship_render
-  #   zle reset-prompt
-  #   case $KEYMAP in
-  #     vicmd) printf "\e]51;Elx/run-in-vterm/set-green-box-cursor\e\\";;
-  #     viins|main) printf "\e]51;Elx/run-in-vterm/set-blue-bar-cursor\e\\";;
-  #   esac
-  # }
-fi
+# if is_inside_emacs | grep -q true; then
+#   # zle-keymap-select () {
+#   #   starship_render
+#   #   zle reset-prompt
+#   #   case $KEYMAP in
+#   #     vicmd) printf "\e]51;Elx/run-in-vterm/set-green-box-cursor\e\\";;
+#   #     viins|main) printf "\e]51;Elx/run-in-vterm/set-blue-bar-cursor\e\\";;
+#   #   esac
+#   # }
+# fi
 
 autoload -U add-zsh-hook
 add-zsh-hook -Uz chpwd (){ vterm_set_directory }
