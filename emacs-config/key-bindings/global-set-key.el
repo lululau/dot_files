@@ -17,24 +17,38 @@
 (global-set-key (kbd "s-L") 'spacemacs/helm-perspectives)
 (global-set-key (kbd "M-.") 'company-complete)
 (global-set-key (kbd "s-:") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*")))
-(global-set-key (kbd "s-;") #'(lambda () (interactive) (let* ((project-root (projectile-project-root)))
-                                                         (if project-root
-                                                             (let* ((cmd (format "tmux-attach-or-create %s %s" project-root project-root))
-                                                                    (buffer-name (format "*tmux-%s*" project-root)))
-                                                               (lx/run-in-zsh-vterm cmd buffer-name)
-                                                               (with-current-buffer buffer-name
-                                                                 (setq default-directory project-root)))
-                                                           (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*")))))
+(global-set-key (kbd "s-;") #'(lambda () (interactive)
+                                (let* ((remote-host (lx/get-remote-buffer-host)))
+                                  (if remote-host
+                                      (let* ((process-environment '("SSH_INTERACTIVE=1"))
+                                             (cmd (format "ssh %s" remote-host))
+                                             (buffer-name (format "*zsh-vterm-ssh-%s*" remote-host)))
+                                        (lx/run-ssh-in-zsh-vterm cmd buffer-name (plist-put nil :host remote-host) nil))
+                                    (let* ((project-root (projectile-project-root)))
+                                      (if project-root
+                                          (let* ((cmd (format "tmux-attach-or-create %s %s" project-root project-root))
+                                                 (buffer-name (format "*tmux-%s*" project-root)))
+                                            (lx/run-in-zsh-vterm cmd buffer-name)
+                                            (with-current-buffer buffer-name
+                                              (setq default-directory project-root)))
+                                        (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*")))))))
 
 (global-set-key (kbd "s-\"") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup)))
-(global-set-key (kbd "s-'") #'(lambda () (interactive) (let* ((project-root (projectile-project-root)))
-                                                         (if project-root
-                                                             (let* ((cmd (format "tmux-attach-or-create %s %s" project-root project-root))
-                                                                    (buffer-name (format "*tmux-%s*" project-root)))
-                                                               (lx/run-in-zsh-vterm cmd buffer-name nil 'popup)
-                                                               (with-current-buffer buffer-name
-                                                                 (setq default-directory project-root)))
-                                                           (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup)))))
+(global-set-key (kbd "s-'") #'(lambda () (interactive)
+                                (let* ((remote-host (lx/get-remote-buffer-host)))
+                                  (if remote-host
+                                      (let* ((process-environment '("SSH_INTERACTIVE=1"))
+                                             (cmd (format "ssh %s" remote-host))
+                                             (buffer-name (format "*zsh-vterm-ssh-%s*" remote-host)))
+                                        (lx/run-ssh-in-zsh-vterm cmd buffer-name (plist-put nil :host remote-host) nil 'popup))
+                                    (let* ((project-root (projectile-project-root)))
+                                      (if project-root
+                                          (let* ((cmd (format "tmux-attach-or-create %s %s" project-root project-root))
+                                                 (buffer-name (format "*tmux-%s*" project-root)))
+                                            (lx/run-in-zsh-vterm cmd buffer-name nil 'popup)
+                                            (with-current-buffer buffer-name
+                                              (setq default-directory project-root)))
+                                        (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup)))))))
 
 (global-set-key (kbd "s-r s-;") #'(lambda () (interactive) (lx/run-in-pry-vterm (cdr (assoc "pry" inf-ruby-implementations)) "*pry*")))
 (global-set-key (kbd "s-[") 'previous-buffer)
