@@ -1,5 +1,7 @@
 (require 'vterm)
 
+(defvar lx/run-in-vterm/histdb-file (expand-file-name "~/.histdb/zsh-history.db"))
+
 (defun lx/run-in-vterm (command buffer-name &optional directory exclusive-window)
   (interactive)
   (let* ((buffer (get-buffer buffer-name)))
@@ -49,17 +51,102 @@
 
 (defun lx/run-in-vterm/set-default-directory (dir)
   (interactive)
-  (setq default-directory dir))
+  (let* ((remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
+                          (plist-get ssh-zsh-vterm-ssh-options :host)
+                        nil))
+         (file-prefix (if remote-host (format "/scp:%s:" remote-host) ""))
+         (dir (concat file-prefix dir)))
+    (setq default-directory dir)))
+
+(defun lx/run-in-vterm/download (file)
+  (interactive)
+  (let* ((remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
+                          (plist-get ssh-zsh-vterm-ssh-options :host)
+                        nil)))
+    (if (not remote-host)
+        (message "Not in ssh-zsh-vterm-mode")
+      (let* ((remote-file (format "%s:%s" remote-host file))
+             (local-dir (helm-read-file-name "Local directory: "
+                                             :name "~/tmp/"
+                                             :initial-input "~/tmp/"
+                                             :test 'file-directory-p))
+             (local-dir (if (string-suffix-p "/" local-dir) local-dir (concat local-dir "/")))
+             (remote-file (replace-regexp-in-string "/$" "" remote-file))
+             (cmd (format "rsync -rzP %s %s" remote-file local-dir))
+             (buffer-name (format "*rsync: %s -> %s*" remote-file local-dir))
+             (vterm-kill-buffer-on-exit nil))
+        (lx/run-in-vterm cmd buffer-name)))))
+
+(defun lx/run-in-vterm/upload (dir)
+  (interactive)
+  (let* ((remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
+                          (plist-get ssh-zsh-vterm-ssh-options :host)
+                        nil)))
+    (if (not remote-host)
+        (message "Not in ssh-zsh-vterm-mode")
+      (let* ((remote-dir (format "%s:%s" remote-host dir))
+             (local-file (helm-read-file-name "Local File: "
+                                              :name "~/tmp/"
+                                              :initial-input "~/tmp/"))
+             (remote-dir (if (string-suffix-p "/" remote-dir) remote-dir (concat remote-dir "/")))
+             (local-file (replace-regexp-in-string "/$" "" local-file))
+             (cmd (format "rsync -rzP %s %s" local-file remote-dir))
+             (buffer-name (format "*rsync: %s -> %s*" local-file remote-dir))
+             (vterm-kill-buffer-on-exit nil))
+        (lx/run-in-vterm cmd buffer-name)))))
 
 (defun lx/run-in-vterm/find-remote-file (file &optional host)
   (interactive)
-  (let* ((pwd default-directory)
-         (remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
+  (let* ((remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
                           (plist-get ssh-zsh-vterm-ssh-options :host)
                         nil))
          (file-prefix (if remote-host (format "/scp:%s:" remote-host) ""))
          (file (concat file-prefix file)))
     (find-file-other-window file)))
+
+(defun lx/run-in-vterm/sql-escape (sql)
+  (string-replace "'" "''" (string-replace "\0" "" sql)))
+
+(defun lx/run-in-vterm/histdb-query (sql)
+  (let ((sql (replace-regexp-in-string "'+" "'\"\\&\"'" sql)))
+    (start-process-shell-command "histdb-query" nil (format "sqlite3 -cmd '.timeout 1000' '%s' '%s'" lx/run-in-vterm/histdb-file sql))))
+
+(defun lx/run-in-vterm/save-history-to-vterm (session hostname cmd pwd started)
+  (interactive)
+  (let* ((remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
+                          (plist-get ssh-zsh-vterm-ssh-options :host)
+                        nil))
+         (remote-host (concat "'" remote-host "'"))
+         (cmd (concat "'" (lx/run-in-vterm/sql-escape cmd) "'"))
+         (pwd (concat "'" (lx/run-in-vterm/sql-escape pwd) "'")))
+    (if (> (length remote-host) 2)
+        (lx/run-in-vterm/histdb-query (format "insert into commands (argv) values (%s);
+insert into places   (host, dir) values (%s, %s);
+insert into history
+  (session, command_id, place_id, start_time)
+select
+  %s,
+  commands.rowid,
+  places.rowid,
+  %s
+from
+  commands, places
+where
+  commands.argv = %s and
+  places.host = %s and
+  places.dir = %s
+;" cmd remote-host pwd session started cmd remote-host pwd)))))
+
+(defun lx/run-in-vterm/update-history-outcome-to-vterm (session hostname retval finished)
+  (interactive)
+  (let* ((remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
+                          (plist-get ssh-zsh-vterm-ssh-options :host)
+                        nil))
+         (remote-host (concat "'" remote-host "'")))
+    (if (> (length remote-host) 2)
+        (lx/run-in-vterm/histdb-query (format "update history set exit_status = %s, duration = %s - start_time
+where rowid = (select max(h.rowid) from history h join places p on h.place_id = p.rowid where h.session = %s and p.host = %s)" retval finished session remote-host)))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

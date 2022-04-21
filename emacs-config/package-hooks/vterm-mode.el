@@ -72,7 +72,11 @@ Argument EVENT process event."
                                                             (interactive)
                                                             (let ((shell-pop-internal-mode "zsh-vterm"))
                                                               (shell-pop--cd-to-cwd
-                                                               (with-current-buffer (get-buffer zsh-vterm-last-buffer) (projectile-project-root))))))
+                                                               (with-current-buffer (get-buffer zsh-vterm-last-buffer)
+                                                                 (let ((remote-host (lx/get-remote-buffer-host)))
+                                                                   (if remote-host
+                                                                       (replace-regexp-in-string (message "^/\\(scp\\|ssh\\):%s:" remote-host) "" default-directory)
+                                                                     (projectile-project-root))))))))
 
   (define-key vterm-mode-map
     (kbd (if (display-graphic-p) "<s-return>" "s-RET")) #'(lambda ()
@@ -80,13 +84,17 @@ Argument EVENT process event."
                                                             (let* ((shell-pop-internal-mode "zsh-vterm")
                                                                    (buffer (get-buffer zsh-vterm-last-buffer))
                                                                    (buffer-file-name (buffer-file-name buffer)))
-                                                              (if buffer-file-name
-                                                                  (setq buffer-file-directory (file-name-directory buffer-file-name))
-                                                                (if (eq 'dired-mode (with-current-buffer buffer major-mode))
-                                                                    (setq buffer-file-directory (with-current-buffer buffer dired-directory))
-                                                                  (setq buffer-file-directory (with-current-buffer buffer (projectile-project-root)))
-                                                                  ))
-                                                              (shell-pop--cd-to-cwd buffer-file-directory))))
+                                                              (shell-pop--cd-to-cwd
+                                                               (with-current-buffer buffer
+                                                                 (let ((remote-host (lx/get-remote-buffer-host)))
+                                                                   (if remote-host
+                                                                       (replace-regexp-in-string (message "^/\\(scp\\|ssh\\):%s:" remote-host) "" default-directory)
+                                                                     (if buffer-file-name
+                                                                         (setq buffer-file-directory (file-name-directory buffer-file-name))
+                                                                       (if (eq 'dired-mode (with-current-buffer buffer major-mode))
+                                                                           (setq buffer-file-directory (with-current-buffer buffer dired-directory))
+                                                                         (setq buffer-file-directory (with-current-buffer buffer (projectile-project-root)))))
+                                                                    buffer-file-directory)))))))
 
   (define-key vterm-mode-map (kbd "<s-left>") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "frame\n")))
   (define-key vterm-mode-map (kbd "<s-up>") #'(lambda () (interactive) (comint-send-string (get-buffer-process (current-buffer)) "up\n")))

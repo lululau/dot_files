@@ -380,10 +380,10 @@ if is_inside_emacs | grep -q true; then
   #     viins|main) printf "\e]51;Elx/run-in-vterm/set-blue-bar-cursor\e\\";;
   #   esac
   # }
-
-  autoload -U add-zsh-hook
-  add-zsh-hook -Uz chpwd (){ vterm_set_directory }
 fi
+
+autoload -U add-zsh-hook
+add-zsh-hook -Uz chpwd (){ vterm_set_directory }
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bitcomplete bit
@@ -400,3 +400,44 @@ function set_vim_cursor_type() {
 }
 
 preexec_functions+=(set_vim_cursor_type)
+
+HISTDB_VTERM_SESSION=$RANDOM
+
+function save_history_to_vterm() {
+  local cmd="${1[0, -2]}"
+
+  for boring in "${_BORING_COMMANDS[@]}"; do
+    if [[ "$cmd" =~ $boring ]]; then
+      return 0
+    fi
+  done
+
+  local pwd=$PWD
+  local started=$(date +%s)
+  local host_name=$HOST
+  vterm_cmd save-zsh-history "$HISTDB_VTERM_SESSION" "$host_name" "$cmd" "$pwd" "$started"
+  return 0
+}
+
+function update_history_outcome_to_vterm() {
+  local retval=$?
+  local finished=$(date +%s)
+  local host_name=$HOST
+  vterm_cmd update-zsh-history-outcome "$HISTDB_VTERM_SESSION" "$host_name" "$retval" "$finished"
+}
+
+# autoload -Uz add-zsh-hook
+add-zsh-hook precmd update_history_outcome_to_vterm
+zshaddhistory_functions+=(save_history_to_vterm)
+
+function download() {
+  local file=$1
+  if [ "$file[1]" != "/" ]; then
+    file="$PWD/$file"
+  fi
+  vterm_cmd download "$file"
+}
+
+function upload() {
+  vterm_cmd upload "$PWD"
+}
