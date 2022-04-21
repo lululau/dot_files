@@ -108,7 +108,8 @@
   (string-replace "'" "''" (string-replace "\0" "" sql)))
 
 (defun lx/run-in-vterm/histdb-query (sql)
-  (start-process-shell-command "histdb-query" nil (format "sqlite3 -cmd '.timeout 1000' '%s' \"%s\"" lx/run-in-vterm/histdb-file sql)))
+  (let ((sql (replace-regexp-in-string "'+" "'\"\\&\"'" sql)))
+    (start-process-shell-command "histdb-query" nil (format "sqlite3 -cmd '.timeout 1000' '%s' '%s'" lx/run-in-vterm/histdb-file sql))))
 
 (defun lx/run-in-vterm/save-history-to-vterm (session hostname cmd pwd started)
   (interactive)
@@ -118,7 +119,7 @@
          (remote-host (concat "'" remote-host "'"))
          (cmd (concat "'" (lx/run-in-vterm/sql-escape cmd) "'"))
          (pwd (concat "'" (lx/run-in-vterm/sql-escape pwd) "'")))
-    (if remote-host
+    (if (> (length remote-host) 2)
         (lx/run-in-vterm/histdb-query (format "insert into commands (argv) values (%s);
 insert into places   (host, dir) values (%s, %s);
 insert into history
@@ -142,7 +143,7 @@ where
                           (plist-get ssh-zsh-vterm-ssh-options :host)
                         nil))
          (remote-host (concat "'" remote-host "'")))
-    (if remote-host
+    (if (> (length remote-host) 2)
         (lx/run-in-vterm/histdb-query (format "update history set exit_status = %s, duration = %s - start_time
 where rowid = (select max(h.rowid) from history h join places p on h.place_id = p.rowid where h.session = %s and p.host = %s)" retval finished session remote-host)))))
 
