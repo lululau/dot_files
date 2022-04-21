@@ -71,6 +71,12 @@
    "\\(ftp\\|https?\\|telnet\\|gopher\\|www\\|wais\\)://" ; needs host
    "\\)"))
 
+(setq arthas-class-reload-docker-list '((:context "lcl-devb" :pattern "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
+                                        (:context "ceres-devb" :pattern "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
+                                        (:context "ll-devb" :pattern "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
+                                        (:context "md-dev" :pattern "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")))
+
+
 (setq vterm-eval-cmds '(("find-file" find-file)
                         ("message" message)
                         ("download" lx/run-in-vterm/download)
