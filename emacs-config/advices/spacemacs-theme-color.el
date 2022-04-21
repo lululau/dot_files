@@ -639,7 +639,7 @@
                         ;; vterm-color-black used to render black color code.
                         ;; The foreground color is used as ANSI color 0 and the background
                         ;; color is used as ANSI color 8.
-                        `(vterm-color-black ((,class (:foreground ,bg4 :background ,bg4))))
+                        `(vterm-color-black ((,class (:foreground "#6c7890" :background "#6c7890"))))
                         `(vterm-color-blue ((,class (:foreground ,blue :background ,blue))))
                         `(vterm-color-cyan ((,class (:foreground ,cyan :background ,cyan))))
                         `(vterm-color-green ((,class (:foreground ,green :background ,green))))
