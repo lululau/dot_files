@@ -61,6 +61,8 @@
 
 (setq company-shell--cache '(""))
 
+(setq copilot--auto-copilot-on-p t)
+
 (setq ffap-url-regexp
   (concat
    "\\("
