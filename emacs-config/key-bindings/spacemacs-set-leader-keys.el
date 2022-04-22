@@ -85,6 +85,8 @@
   "ag" #'github-star-list
   "man" #'helm-man-woman
   "mai" #'helm-info
+  "xit" #'lx/insert-timestamp
+  "xpt" #'lx/parse-timestamp
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
