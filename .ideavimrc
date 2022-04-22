@@ -122,7 +122,8 @@ noremap <leader>fD :action Tool_Files_DeleteCurrentFile<cr>
 noremap <leader>fy :action Tool_Files_CopyCurrentFilePath<cr>
 noremap <leader>fY :action Tool_Files_CopyAndShowCurrentFilePath<cr>
 noremap <leader>fa :action Tool_Files_BrowseInAlfred<cr>
-noremap <leader>ad :action Tool_Files_ArthasClassReload<cr>
+noremap <leader>ad :action Tool_Files_ArthasClassReloadInDocker<cr>
+noremap <leader>ak :action Tool_Files_ArthasClassReloadInK8s<cr>
 noremap <leader>fR :action RefactoringMenuRenameFile<cr>
 noremap <leader>fc :action CopyReference<cr>
 noremap <leader>bs :e ~/Library/Application Support/JetBrains/IntelliJIdea2021.2/scratches/scratch.kts<cr>
@@ -136,7 +137,8 @@ noremap ,fY :action Tool_Files_CopyAndShowCurrentFilePath<cr>
 noremap ,fa :action Tool_Files_BrowseInAlfred<cr>
 noremap ,fR :action RefactoringMenuRenameFile<cr>
 noremap ,fc :action CopyReference<cr>
-noremap ,ad :action Tool_Files_ArthasClassReload<cr>
+noremap ,ad :action Tool_Files_ArthasClassReloadInDocker<cr>
+noremap ,ak :action Tool_Files_ArthasClassReloadInK8s<cr>
 noremap <a-tab> :action TabSwitchPlugin.SwitchTab<cr>
 noremap <leader>fnc :action NewClass<cr>
 noremap <leader>fnf :action NewFile<cr>
