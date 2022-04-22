@@ -138,7 +138,8 @@
                                                                     (root-base-name (car (last (split-string root "/" t))))
                                                                     (buffer-name (format "*vterm-cmd-git-multi-pull-%s*" root-base-name)))
                                                                 (lx/run-in-vterm "git multi-pull" buffer-name root t))))
-(global-set-key (kbd "s-r s-r ad") #'arthas-class-reload)
+(global-set-key (kbd "s-r s-r ad") #'arthas-class-reload-docker)
+(global-set-key (kbd "s-r s-r ak") #'arthas-class-reload-k8s)
 (global-set-key (kbd "s-r b") #'helm-vterm-buffers)
 
 (global-set-key (kbd "s-u") 'universal-argument)

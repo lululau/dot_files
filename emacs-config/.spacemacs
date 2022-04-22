@@ -71,11 +71,12 @@
    "\\(ftp\\|https?\\|telnet\\|gopher\\|www\\|wais\\)://" ; needs host
    "\\)"))
 
-(setq arthas-class-reload-docker-list '((:context "lcl-devb" :pattern "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
-                                        (:context "ceres-devb" :pattern "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
-                                        (:context "ll-devb" :pattern "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
-                                        (:context "md-dev" :pattern "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")))
+(setq arthas-class-reload-docker-list '((:context "lcl-devb" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
+                                        (:context "ceres-devb" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
+                                        (:context "ll-devb" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
+                                        (:context "md-dev" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")))
 
+(setq arthas-class-reload-k8s-list '((:context "aliyun" :namespace-filter "prod|test" :deployment-filter ".*")))
 
 (setq vterm-eval-cmds '(("find-file" find-file)
                         ("message" message)

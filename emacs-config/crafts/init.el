@@ -47,6 +47,7 @@
 (autoload 'lx/kubectl/istio-inject-delete-region-or-buffer "kubectl")
 (autoload 'tail-f "tail-f")
 (autoload 'visidata-mode "visidata")
-(autoload 'arthas-class-reload "arthas-class-reloader")
+(autoload 'arthas-class-reload-docker "arthas-class-reloader")
+(autoload 'arthas-class-reload-k8s "arthas-class-reloader")
 
 (load-file (format "%s/%s" (file-name-directory load-file-name) "spacemacs-override.el"))
