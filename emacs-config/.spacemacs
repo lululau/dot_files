@@ -118,6 +118,7 @@
      (spacemacs-evil :variable spacemacs-evil-collection-allowed-list '(eww dired quickrun zsh-vterm pry-vterm))
      ;; lsp
      (lsp :variables lsp-rust-server 'rust-analyzer)
+
      dap
      ivy helm
      neotree
@@ -724,6 +725,7 @@ This function is called at the very end of Spacemacs initialization."
  '(company-show-numbers t)
  '(company-idle-delay 0.2)
  '(company-selection-wrap-around t)
+ '(company-quick-access-modifier 'super)
  '(es-always-pretty-print t)
  '(writeroom-bottom-divider-width 0)
  '(custom-safe-themes
