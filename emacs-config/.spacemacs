@@ -731,6 +731,7 @@ This function is called at the very end of Spacemacs initialization."
  '(custom-safe-themes
    (quote
     ("398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" default)))
+ '(oh-my-github-download-directory (concat spacemacs-cache-directory "oh-my-github/"))
  '(dash-at-point-mode-alist
    (quote
     ((actionscript-mode . "actionscript")
