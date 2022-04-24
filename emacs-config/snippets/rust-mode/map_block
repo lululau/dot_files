@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: map block
+# key: mapb
+# --
+map(|${1:item}| {
+    $0
+})

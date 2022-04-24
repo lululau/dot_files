@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: foreach
+# key: fe
+# --
+for_each(|${1:item}| $0)
