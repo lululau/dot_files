@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: union Type { ... }
-# key: union
+# key: uni
 # --
 union ${1:Type} {
      $0
