@@ -87,6 +87,7 @@
   "mai" #'helm-info
   "xit" #'lx/insert-timestamp
   "xpt" #'lx/parse-timestamp
+  "xC" #'lx/cleanup-text-properties
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

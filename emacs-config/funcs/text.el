@@ -1,0 +1,5 @@
+(defun lx/cleanup-text-properties ()
+  (interactive)
+  (if (use-region-p)
+      (set-text-properties (region-beginning) (region-end) nil)
+    (set-text-properties (point-min) (point-max) nil)))
