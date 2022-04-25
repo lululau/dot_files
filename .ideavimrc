@@ -326,6 +326,16 @@ noremap ,gd :action Tool_Git_DiffCurrentFile<cr>
 noremap ,gb :action Tool_Git_BlameCurrentFile<cr>
 noremap ,gu :action Tool_Git_RevertCurrentFile<cr>
 
+" RestfulTools
+noremap <leader>sy :action RestfulTool.action.OptionForEditor-CopyApiPath<cr>
+noremap <leader>sY :action RestfulTool.action.OptionForEditor-CopyFullPath<cr>
+noremap <leader>st :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
+noremap <leader>js :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
+noremap ,sy :action RestfulTool.action.OptionForEditor-CopyApiPath<cr>
+noremap ,sY :action RestfulTool.action.OptionForEditor-CopyFullPath<cr>
+noremap ,st :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
+noremap ,js :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
+
 
 " AliP3C Inspection
 noremap <leader>ai :action AliP3CInspectionAction<cr>
