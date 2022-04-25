@@ -90,6 +90,10 @@
                         ("save-zsh-history" lx/run-in-vterm/save-history-to-vterm)
                         ("update-zsh-history-outcome" lx/run-in-vterm/update-history-outcome-to-vterm)))
 
+(setq mu4e-view-highlights '(("com\\.\\(ktjr\\|creditcloud\\|ibg\\)" . hi-yellow)
+                             ("^[^ ]*Exception: " . hi-red-b)
+                             ("/releases/[0-9]+/\\(app\\|lib\\)" . hi-yellow)))
+
 ;; (setq dired-quick-sort-group-directories-last ?y)
 
 (defun dotspacemacs/layers ()
