@@ -191,6 +191,7 @@ value of `vterm-buffer-name'."
     (define-key map (kbd "<tab>") #'zsh-vterm-accept-copilot-or-send-tab-to-term)
     (define-key map (kbd "s-C") #'zsh-vterm-previous-cli)
     (define-key map (kbd "s-V") #'zsh-vterm-next-cli)
+    (define-key map (kbd "s-a") #'vterm-send-C-z)
     (define-key map (kbd "s-i s-o") #'zsh-vterm-goto-tmp-dir)
 
     (evil-define-key 'visual map (kbd "<return>") #'evil-yank-for-zsh-vterm)

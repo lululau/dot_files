@@ -82,9 +82,14 @@
   "dk" #'docker
   "qk" #'lx/kill-all-except-default
   "bM" #'lx/switch-to-warning-buffer
-  "ag" #'github-star-list
+  "ags" #'oh-my-github-star-list
+  "agr" #'oh-my-github-repo-list
+  "agi" #'oh-my-github-whoami
   "man" #'helm-man-woman
   "mai" #'helm-info
+  "xit" #'lx/insert-timestamp
+  "xpt" #'lx/parse-timestamp
+  "xC" #'lx/cleanup-text-properties
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

@@ -203,7 +203,7 @@ USER-POS is the cursor position (for verification only)."
     (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)))
       (copilot-complete))))
 
-(add-hook 'post-command-hook #'copilot-complete-if-insert-state)
-(setq copilot--auto-copilot-on-p t)
+(if (bound-and-true-p copilot--auto-copilot-on-p)
+    (add-hook 'post-command-hook 'copilot-complete-if-insert-state))
 
 ;; End Add

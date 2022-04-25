@@ -121,6 +121,7 @@
 (global-set-key (kbd "s-r m u") #'vterm-maven-update-local-artifact)
 (global-set-key (kbd "s-r m k") #'vterm-maven-kill-local-artifact)
 (global-set-key (kbd "s-r s-j") #'helm-vterm-jenkins)
+(global-set-key (kbd "s-r s-r bw") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit t)) (lx/run-in-vterm "bandwhich" "*vterm-bandwhich*" nil t))))
 (global-set-key (kbd "s-r s-r bu") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "bash -c \"brew update; brew upgrade ; brew post-update ; brew cleanup ; brew list --casks | xargs -I {} brew upgrade --cask {}\"" "*vterm-cmd-brew-upgrade-cleanup*" nil t))))
 (global-set-key (kbd "s-r s-r lp") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "sudo lsof -Pn -iTCP -sTCP:LISTEN" "*vterm-cmd-listening-ports*" nil t))))
 (global-set-key (kbd "s-r s-r gs") #'(lambda () (interactive) (let* ((vterm-kill-buffer-on-exit nil)
@@ -138,6 +139,8 @@
                                                                     (root-base-name (car (last (split-string root "/" t))))
                                                                     (buffer-name (format "*vterm-cmd-git-multi-pull-%s*" root-base-name)))
                                                                 (lx/run-in-vterm "git multi-pull" buffer-name root t))))
+(global-set-key (kbd "s-r s-r ad") #'arthas-class-reload-docker)
+(global-set-key (kbd "s-r s-r ak") #'arthas-class-reload-k8s)
 (global-set-key (kbd "s-r b") #'helm-vterm-buffers)
 
 (global-set-key (kbd "s-u") 'universal-argument)
