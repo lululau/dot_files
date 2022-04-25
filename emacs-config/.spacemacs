@@ -50,7 +50,7 @@
 
 (setq company-shell--cache '(""))
 
-(setq copilot--auto-copilot-on-p t)
+(setq copilot--auto-copilot-on-p nil)
 
 (setq ffap-url-regexp
   (concat
