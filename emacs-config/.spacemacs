@@ -50,6 +50,8 @@
 
 (setq company-shell--cache '(""))
 
+(setq copilot--auto-copilot-on-p t)
+
 (setq ffap-url-regexp
   (concat
    "\\("
@@ -57,6 +59,13 @@
    "\\|"
    "\\(ftp\\|https?\\|telnet\\|gopher\\|www\\|wais\\)://" ; needs host
    "\\)"))
+
+(setq arthas-class-reload-docker-list '((:context "lcl-devb" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
+                                        (:context "ceres-devb" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
+                                        (:context "ll-devb" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
+                                        (:context "md-dev" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")))
+
+(setq arthas-class-reload-k8s-list '((:context "aliyun" :namespace-filter "prod|test" :deployment-filter ".*")))
 
 (setq vterm-eval-cmds '(("find-file" find-file)
                         ("message" message)
@@ -98,6 +107,7 @@
      (spacemacs-evil :variable spacemacs-evil-collection-allowed-list '(eww dired quickrun zsh-vterm pry-vterm))
      ;; lsp
      (lsp :variables lsp-rust-server 'rust-analyzer)
+
      dap
      ivy helm
      neotree
@@ -691,12 +701,15 @@ This function is called at the very end of Spacemacs initialization."
  '(cfw:display-calendar-holidays nil)
  '(company-search-regexp-function (quote company-search-flex-regexp))
  '(company-show-numbers t)
- '(company-idle-delay 1)
+ '(company-idle-delay 0.2)
+ '(company-selection-wrap-around t)
+ '(company-quick-access-modifier 'super)
  '(es-always-pretty-print t)
  '(writeroom-bottom-divider-width 0)
  '(custom-safe-themes
    (quote
     ("398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" default)))
+ '(oh-my-github-download-directory (concat spacemacs-cache-directory "oh-my-github/"))
  '(dash-at-point-mode-alist
    (quote
     ((actionscript-mode . "actionscript")

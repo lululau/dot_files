@@ -30,3 +30,13 @@
                              (format-time-string "%Y-%m-%dT%H%M%S%z")))
              (action . ,insert-func)
              (volatile))))))
+
+(defun lx/parse-timestamp ()
+  (interactive)
+  (let* ((time-string (thing-at-point 'word))
+         (seconds (string-to-number time-string))
+         (time (seconds-to-time seconds))
+         (readable-string (format-time-string "%Y-%m-%d %H:%M:%S" time)))
+    (kill-new time-string)
+    (kill-new readable-string)
+    (message readable-string)))

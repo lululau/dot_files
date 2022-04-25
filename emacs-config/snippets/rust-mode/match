@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: match expression { ... }
+# key: mac
+# --
+match ${1:expression} {
+      $0
+}

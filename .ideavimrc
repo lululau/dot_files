@@ -122,6 +122,8 @@ noremap <leader>fD :action Tool_Files_DeleteCurrentFile<cr>
 noremap <leader>fy :action Tool_Files_CopyCurrentFilePath<cr>
 noremap <leader>fY :action Tool_Files_CopyAndShowCurrentFilePath<cr>
 noremap <leader>fa :action Tool_Files_BrowseInAlfred<cr>
+noremap <leader>ad :action Tool_Files_ArthasClassReloadInDocker<cr>
+noremap <leader>ak :action Tool_Files_ArthasClassReloadInK8s<cr>
 noremap <leader>fR :action RefactoringMenuRenameFile<cr>
 noremap <leader>fc :action CopyReference<cr>
 noremap <leader>bs :e ~/Library/Application Support/JetBrains/IntelliJIdea2021.2/scratches/scratch.kts<cr>
@@ -135,6 +137,8 @@ noremap ,fY :action Tool_Files_CopyAndShowCurrentFilePath<cr>
 noremap ,fa :action Tool_Files_BrowseInAlfred<cr>
 noremap ,fR :action RefactoringMenuRenameFile<cr>
 noremap ,fc :action CopyReference<cr>
+noremap ,ad :action Tool_Files_ArthasClassReloadInDocker<cr>
+noremap ,ak :action Tool_Files_ArthasClassReloadInK8s<cr>
 noremap <a-tab> :action TabSwitchPlugin.SwitchTab<cr>
 noremap <leader>fnc :action NewClass<cr>
 noremap <leader>fnf :action NewFile<cr>
@@ -256,7 +260,7 @@ noremap ,mp :action Tool_Files_OpenModulePom<cr>
 noremap <leader>av :action ActivateBeanValidationToolWindow<cr>
 noremap <leader>ac :action ActivateCheckStyleToolWindow<cr>
 noremap <leader>aD :action ActivateDatabaseToolWindow<cr>
-noremap <leader>ad :action ActivateDebugToolWindow<cr>
+" noremap <leader>ad :action ActivateDebugToolWindow<cr>
 noremap <leader>ae :action ActivateEventLogToolWindow<cr>
 noremap <leader>aF :action ActivateFavoritesToolWindow<cr>
 noremap <leader>af :action ActivateFindToolWindow<cr>
@@ -280,7 +284,7 @@ noremap <leader>ax :action HideSideWindows<cr>
 noremap ,av :action ActivateBeanValidationToolWindow<cr>
 noremap ,ac :action ActivateCheckStyleToolWindow<cr>
 noremap ,aD :action ActivateDatabaseToolWindow<cr>
-noremap ,ad :action ActivateDebugToolWindow<cr>
+" noremap ,ad :action ActivateDebugToolWindow<cr>
 noremap ,ae :action ActivateEventLogToolWindow<cr>
 noremap ,aF :action ActivateFavoritesToolWindow<cr>
 noremap ,af :action ActivateFindToolWindow<cr>

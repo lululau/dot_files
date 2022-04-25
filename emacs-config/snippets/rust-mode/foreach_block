@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: foreach block
+# key: feb
+# --
+for_each(|${1:item}| {
+    $0
+})
