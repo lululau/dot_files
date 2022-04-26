@@ -92,6 +92,7 @@
 
 (setq mu4e-view-highlights '(("com\\.\\(ktjr\\|creditcloud\\|ibg\\)" . hi-yellow)
                              ("^[^ ]*Exception: " . hi-red-b)
+                             ("^Caused by: " . hi-red-b)
                              ("/releases/[0-9]+/\\(app\\|lib\\)" . hi-yellow)))
 
 ;; (setq dired-quick-sort-group-directories-last ?y)
