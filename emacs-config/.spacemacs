@@ -92,6 +92,11 @@
                         ("save-zsh-history" lx/run-in-vterm/save-history-to-vterm)
                         ("update-zsh-history-outcome" lx/run-in-vterm/update-history-outcome-to-vterm)))
 
+(setq mu4e-view-highlights '(("com\\.\\(ktjr\\|creditcloud\\|ibg\\)" . hi-yellow)
+                             ("^[^ ]*Exception: " . hi-red-b)
+                             ("^Caused by: " . hi-red-b)
+                             ("/releases/[0-9]+/\\(app\\|lib\\)" . hi-yellow)))
+
 ;; (setq dired-quick-sort-group-directories-last ?y)
 
 (defun dotspacemacs/layers ()
@@ -1025,6 +1030,10 @@ This function is called at the very end of Spacemacs initialization."
  '(split-height-threshold 100)
  '(spacemacs-theme-comment-bg nil)
  '(dired-filter-prefix ",f")
+ '(org-modern-star nil)
+ '(org-modern-hide-stars nil)
+ '(org-modern-block nil)
+ '(org-modern-keyword nil)
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
  '(racer-rust-src-path "~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")

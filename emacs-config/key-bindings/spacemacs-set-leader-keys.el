@@ -90,6 +90,12 @@
   "xit" #'lx/insert-timestamp
   "xpt" #'lx/parse-timestamp
   "xC" #'lx/cleanup-text-properties
+
+  "hhl" #'highlight-lines-matching-regexp
+  "hhr" #'highlight-regexp
+  "hhp" #'highlight-phrase
+  "hhw" #'highlight-symbol-at-point
+  "hhu" #'(lambda () (interactive) (unhighlight-regexp t))
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
