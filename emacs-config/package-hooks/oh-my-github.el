@@ -2,6 +2,14 @@
 
   (oh-my-github-setup)
 
+  (define-key oh-my-github-repos-mode-map (kbd "b") 'oh-my-github-browse-repo)
+  (define-key oh-my-github-repos-mode-map (kbd "RET") 'oh-my-github-browse-repo)
+  (define-key oh-my-github-repos-mode-map (kbd "w") 'oh-my-github-copy-repo-url)
+  (define-key oh-my-github-repos-mode-map (kbd "s") 'oh-my-github-query-repos)
+  (define-key oh-my-github-repos-mode-map (kbd "c") 'oh-my-github-query-commits)
+  (define-key oh-my-github-repos-mode-map (kbd "r") 'oh-my-github-query-releases)
+  (define-key oh-my-github-repos-mode-map (kbd "gr") 'tabulated-list-revert)
+
   (evilified-state-evilify oh-my-github-stars-mode oh-my-github-stars-mode-map
     "u" 'oh-my-github-sync
     "RET" 'oh-my-github-browse-repo
@@ -31,4 +39,9 @@
   (evilified-state-evilify oh-my-github-release-mode oh-my-github-release-mode-map
     "b" 'oh-my-github-browse-release
     "w" 'oh-my-github-copy-release-url
-    "RET" 'oh-my-github-query-assets))
+    "RET" 'oh-my-github-query-assets)
+
+  (evilified-state-evilify oh-my-github-trending-repo-mode oh-my-github-trending-repos-mode-map
+    "RET" 'oh-my-github-browse-repo
+    "s" 'oh-my-github-trending-repos-query
+    "i" 'oh-my-github-trending-repos-info))

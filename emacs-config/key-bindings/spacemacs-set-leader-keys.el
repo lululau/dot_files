@@ -85,6 +85,7 @@
   "ags" #'oh-my-github-star-list
   "agr" #'oh-my-github-repo-list
   "agi" #'oh-my-github-whoami
+  "agt" #'oh-my-github-trending-repos-list
   "man" #'helm-man-woman
   "mai" #'helm-info
   "xit" #'lx/insert-timestamp

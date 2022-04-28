@@ -36,4 +36,5 @@
 (autoload 'oh-my-github-setup "oh-my-github.el")
 (autoload 'oh-my-github-star-list "oh-my-github.el")
 (autoload 'oh-my-github-repo-list "oh-my-github.el")
+(autoload 'oh-my-github-trending-repos-list "oh-my-github.el")
 (autoload 'oh-my-github-whoami "oh-my-github.el")
