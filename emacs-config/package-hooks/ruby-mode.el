@@ -8,8 +8,8 @@
   (define-key ruby-mode-map (kbd "<left-margin> <s-mouse-1>") #'(lambda () (interactive)
                                                                   (comint-send-string (lx/last-pry-proc) (format "b %s:%s\nb\n" (buffer-file-name) (spacemacs//line-at-click)))))
 
-  (define-key ruby-mode-map (kbd (if (display-graphic-p) "<C-return>" "C-RET")) 'jump-to-definition-of-symbol-at-point)
-  (define-key ruby-mode-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'jump-to-definition-of-symbol-at-point-other-window)
+  ;; (define-key ruby-mode-map (kbd (if (display-graphic-p) "<C-return>" "C-RET")) 'jump-to-definition-of-symbol-at-point)
+  ;; (define-key ruby-mode-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'jump-to-definition-of-symbol-at-point-other-window)
   )
 
 (spacemacs|use-package-add-hook robe
