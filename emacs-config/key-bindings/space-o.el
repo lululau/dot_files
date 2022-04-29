@@ -34,7 +34,7 @@
                 ("odz" spacezsh-dir ("~/.spacezsh/"))
                 ("odZ" ohmyzsh-dir ("~/.oh-my-zsh/"))
                 ("od/" root-dir ("/"))
-                ("odo" org-dir ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org"))
+                ("odo" org-dir ("~/Documents/org"))
                 ("odj" org-journal-dir ("~/Documents/materials/journal"))
                 ("odJ" org-jira-dir ("~/Documents/materials/jira"))
                 ("odn" notes-dir ("~/Documents/materials/notes"))
@@ -97,18 +97,18 @@
 
 ;; Org files
 (setq lx/org-files
-      '(("oob" bookmarks-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/bookmarks.org"))
-        ("ood" tech-diary-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/tech_diary.org"))
-        ("ooh" homebrews-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/homebrews.org"))
-        ("oop" projects-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/projects.org"))
-        ("ool" learnings-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/learnings.org"))
-        ("oof" life-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/life.org"))
-        ("ooc" capture-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/capture.org"))
+      '(("oob" bookmarks-org ("~/Documents/org/bookmarks.org"))
+        ("ood" tech-diary-org ("~/Documents/org/tech_diary.org"))
+        ("ooh" homebrews-org ("~/Documents/org/homebrews.org"))
+        ("oop" projects-org ("~/Documents/org/projects.org"))
+        ("ool" learnings-org ("~/Documents/org/learnings.org"))
+        ("oof" life-org ("~/Documents/org/life.org"))
+        ("ooc" capture-org ("~/Documents/org/capture.org"))
         ("ooC" cheatsheet-org ("~/Documents/materials/cheatsheets"))
-        ("oot" team-tasks-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/team-tasks.org"))
-        ("ook" kbd-macros-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/kbd-macros.org"))
+        ("oot" team-tasks-org ("~/Documents/org/team-tasks.org"))
+        ("ook" kbd-macros-org ("~/Documents/org/kbd-macros.org"))
         ("ooj" jira-org ("~/Documents/materials/jira/projects.org"))
-        ("oor" rails-guides-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org"))))
+        ("oor" rails-guides-org ("~/Documents/org/rails-guides-org/rails-guides-index.org"))))
 
 (setq lx/server-files
       '(("os1" lcl-devb "/scp:lcl.devb:/etc/nginx/conf.d")
@@ -123,8 +123,8 @@
 
 ;; Cheat Sheets
 (setq lx/cheatsheets
-      '(("osr" emacs-regexp-cheatsheet ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/cheatsheets/emacs-regexp-cheatsheets.org"))
-        ("oso" org-mode-cheatsheet     ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/cheatsheets/org-mode-cheatsheets.org"))))
+      '(("osr" emacs-regexp-cheatsheet ("~/Documents/org/cheatsheets/emacs-regexp-cheatsheets.org"))
+        ("oso" org-mode-cheatsheet     ("~/Documents/org/cheatsheets/org-mode-cheatsheets.org"))))
 
 (defmacro lx/make-open-file-function (name dir)
   `(defun ,(intern (format "lx/open-file-%s" name)) (arg)
