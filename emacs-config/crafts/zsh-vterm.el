@@ -164,13 +164,13 @@ value of `vterm-buffer-name'."
 
 (defun zsh-vterm-accept-copilot-or-send-tab-to-term ()
   (interactive)
-  (if copilot--overlay
+  (if (bound-and-true-p copilot--overlay)
       (copilot-accept-completion)
     (vterm-send-tab)))
 
 (defun zsh-vterm-accept-copilot-or-send-shift-tab-to-term ()
   (interactive)
-  (if copilot--overlay
+  (if (bound-and-true-p copilot--overlay)
       (copilot-accept-completion)
     (vterm--self-insert)))
 

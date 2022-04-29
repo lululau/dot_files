@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rocket catch
+# key: cat
+# --
+#[catch("${1:error}")]
+$0
