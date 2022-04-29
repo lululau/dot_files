@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rocket post
+# key: post
+# --
+#[post("${1:/}")]
+$0

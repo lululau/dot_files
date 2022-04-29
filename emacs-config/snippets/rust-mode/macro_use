@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: #[macro_use]
+# key: macu
+# --
+#[macro_use] extern crate ${1:crate_name};
