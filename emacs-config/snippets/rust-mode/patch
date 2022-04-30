@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rocket patch
+# key: pac
+# --
+#[patch("${1:/}")]
+$0

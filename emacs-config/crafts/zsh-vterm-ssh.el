@@ -154,4 +154,6 @@
 (define-derived-mode ssh-zsh-vterm-mode zsh-vterm-mode "ssh"
   "Major mode for ssh zsh vterm buffer.")
 
+(setplist 'ssh-zsh-vterm-mode (plist-put (symbol-plist 'ssh-zsh-vterm-mode) 'insert-function 'vterm-send-string))
+
 (provide 'zsh-vterm-ssh)

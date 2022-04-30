@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rocket launch
+# key: lau
+# --
+#[launch]
+$0

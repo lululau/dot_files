@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rocket get
+# key: get
+# --
+#[get("${1:/}")]
+$0

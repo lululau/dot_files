@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rocket put
+# key: put
+# --
+#[put("${1:/}")]
+$0

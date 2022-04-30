@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: rocket delete
+# key: del
+# --
+#[delete("${1:/}")]
+$0
