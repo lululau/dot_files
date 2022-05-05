@@ -1021,6 +1021,7 @@ This function is called at the very end of Spacemacs initialization."
   (encoding . utf-8)
   (elixir-enable-compilation-checking . t)
   (elixir-enable-compilation-checking)
+  (lsp-enable-file-watchers . nil)
   (org-html-head))))
  '(sh-indentation 2)
  '(org-file-apps (quote ((auto-mode . emacs) (directory . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . emacs))))
