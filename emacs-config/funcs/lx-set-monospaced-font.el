@@ -1,7 +1,7 @@
 ;; Set the monospaced font size when mixed Chinese and English words, and if you use a computer with a retina display and a external display.
 (setq lx/set-monospaced-font/font-names '("Source Code Pro" "黑体-简"))
 (setq lx/set-monospaced-font/iniital-font-size '(14 16))
-(defvar lx/set-monospaced-font/font-size-options '((14 16)
+(defvar lx/set-monospaced-font/font-size-options '((12 14)
                                                    (13 16)
                                                    (14 16)
                                                    (15 18)
