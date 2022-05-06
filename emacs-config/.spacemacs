@@ -123,7 +123,7 @@
      (spacemacs-evil :variable spacemacs-evil-collection-allowed-list '(eww dired quickrun zsh-vterm pry-vterm))
      ;; lsp
      (lsp :variables lsp-rust-server 'rust-analyzer)
-
+     ansible
      dap
      ivy helm
      neotree
