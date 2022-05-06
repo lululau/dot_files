@@ -82,7 +82,8 @@ plugins=(ack2 alibas autojump autopair
          kubectl
          minikube
          rust
-         zsh-autosuggestions zsh-brew-services zsh-completions)
+         zsh-autosuggestions zsh-brew-services zsh-completions
+         you-should-use)
 
 [ -z "$INSIDE_EMACS" ] && plugins+=(fast-syntax-highlighting)
 
