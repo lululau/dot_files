@@ -12,3 +12,4 @@ GRTAGS
 .pdf-view-restore
 *.~undo-tree~
 .*.~undo-tree~
+.project
