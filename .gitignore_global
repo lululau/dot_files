@@ -13,3 +13,6 @@ GRTAGS
 *.~undo-tree~
 .*.~undo-tree~
 .project
+.classpath
+.factorypath
+.settings
