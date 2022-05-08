@@ -7,7 +7,6 @@
 (require 'json)
 (require 's)
 (require 'dash)
-(require 'editorconfig)
 
 (defgroup copilot nil
   "Copilot."
@@ -376,8 +375,7 @@
   (append '((latex-mode tex-indent-basic)
             (nxml-mode nxml-child-indent)
             (python-mode python-indent py-indent-offset python-indent-offset)
-            (web-mode web-mode-markup-indent-offset web-mode-html-offset))
-          editorconfig-indentation-alist)
+            (web-mode web-mode-markup-indent-offset web-mode-html-offset)))
   "Alist of `major-mode' to indentation map with optional fallbacks.")
 
 (defvar-local copilot--completion-cache nil)
