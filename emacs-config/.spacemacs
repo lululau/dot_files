@@ -658,7 +658,8 @@ layers configuration."
   (add-hook 'ido-setup-hook #'(lambda () (define-key (cdr ido-minor-mode-map-entry) [remap dired] nil)))
 
   (defalias 'fuck-ido-dired 'dired)
-  (spacemacs/set-leader-keys "ad" 'fuck-ido-dired)
+  (spacemacs/set-leader-keys "ad" 'lx/helm-dired-histories)
+  (spacemacs/set-leader-keys "dr" 'lx/helm-dired-histories)
 
   (global-subword-mode)
 
