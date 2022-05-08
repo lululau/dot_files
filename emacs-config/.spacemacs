@@ -266,7 +266,7 @@
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
-                                               logcat ido evil-escape helm-xref)
+                                               logcat ido evil-escape helm-xref editorconfig drupal-mode)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
