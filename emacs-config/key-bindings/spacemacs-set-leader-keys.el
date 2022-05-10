@@ -97,6 +97,8 @@
   "hhp" #'highlight-phrase
   "hhw" #'highlight-symbol-at-point
   "hhu" #'(lambda () (interactive) (unhighlight-regexp t))
+
+  "axx" #'xwidget-webkit-browse-url
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
