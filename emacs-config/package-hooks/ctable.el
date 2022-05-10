@@ -1,0 +1,20 @@
+(with-eval-after-load 'ctable
+
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "k" 'ctbl:navi-move-up)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "j" 'ctbl:navi-move-down)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "h" 'ctbl:navi-move-left)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "p" 'ctbl:navi-move-up)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "p" 'evil-start-next)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "q" 'bury-buffer)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "b" 'ctbl:navi-move-left)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "f" 'ctbl:navi-move-right)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "c" 'ctbl:navi-jump-to-column)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "e" 'ctbl:navi-move-right-most)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "a" 'ctbl:navi-move-left-most)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "g" 'ctbl:action-update-buffer)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "?" 'ctbl:describe-bindings)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map [mouse-1] 'ctbl:navi-on-click)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "C-m" 'ctbl:navi-on-click)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "RET" 'ctbl:navi-on-click)
+
+  )

@@ -99,6 +99,9 @@
   "hhu" #'(lambda () (interactive) (unhighlight-regexp t))
 
   "axx" #'xwidget-webkit-browse-url
+  "axh" #'xwwp-history-show
+  "axbc" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1:9090/ui/#/proxies"))
+  "axbr" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1/cgi-bin/luci/admin/services/openclash/config"))
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
