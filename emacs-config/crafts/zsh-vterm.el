@@ -196,10 +196,10 @@ value of `vterm-buffer-name'."
 
     (evil-define-key 'visual map (kbd "<return>") #'evil-yank-for-zsh-vterm)
 
-    (evil-define-key 'hybrid map (kbd "M-1") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "7")))
-    (evil-define-key 'hybrid map (kbd "M-2") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "8")))
-    (evil-define-key 'hybrid map (kbd "M-3") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "9")))
-    (evil-define-key 'hybrid map (kbd "M-4") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "0")))
+    (evil-define-key 'hybrid map (kbd "M-!") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "7")))
+    (evil-define-key 'hybrid map (kbd "M-@") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "8")))
+    (evil-define-key 'hybrid map (kbd "M-#") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "9")))
+    (evil-define-key 'hybrid map (kbd "M-$") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "0")))
     (evil-define-key 'hybrid map (kbd "s-z") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "z")))
 
     (evil-define-key 'hybrid map (kbd "C-M-s-!") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "1")))
