@@ -42,6 +42,7 @@
 
 (autoload 'xwwp-browse-url-other-window "xwwp.el")
 (autoload 'xwwp-ace-toggle "xwwp-ace.el")
+(autoload 'xwwp-input-toggle "xwwp-input.el")
 (autoload 'xwwp-follow-link "xwwp-follow-link.el")
 (autoload 'xwwp-follow-link-helm "xwwp-follow-link-helm.el")
 (autoload 'xwwp-history-show "xwwp-history.el")
