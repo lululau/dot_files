@@ -48,3 +48,4 @@
 (autoload 'xwwp-reader-toggle "xwwp-reader.el")
 (autoload 'xwwp-section "xwwp-section.el")
 (autoload 'xwwp-yank "xwwp-yank.el")
+(autoload 'xwwp-goto-root "xwwp-misc.el")
