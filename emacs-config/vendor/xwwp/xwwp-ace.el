@@ -32,11 +32,15 @@
   :group 'xwwp)
 
 (defcustom xwwp-ace-label-style '(("z-index" . "2147483647")
-                                  ("color" . "red")
-                                  ("opacity" . "0.5")
-                                  ("background-color" . "yellow")
-                                  ("font-family" . "monospace")
-                                  ("font-size" . "2em"))
+                                  ("color" . "#333")
+                                  ("opacity" . "0.9")
+                                  ("background-color" . "#c39a2c")
+                                  ("font-family" . "Arial")
+                                  ("font-size" . "14px")
+                                  ("font-weight" . "bold")
+                                  ("text-transform" . "uppercase")
+                                  ("padding" . "0px 5px"))
+
   "CSS style to apply to xwwp-ace labels."
   :type '(list (cons string string))
   :group 'xwwp-ace)
@@ -110,7 +114,7 @@ window.__xwidget_plus_ace_candidates=[];
 (xwwp-js-def ace read-key (keycode)
   "Accept one keystroke.
 Return 1 if located an element, 0 if need more input or -1 if failed.""
-let key = String.fromCharCode(keycode);
+let key = String.fromCharCode(keycode).toUpperCase();
 let updated_candidates = window.__xwidget_plus_ace_candidates.filter(
   candidate => candidate[0].innerText.startsWith(key));
 if(updated_candidates.length > 1){
@@ -146,7 +150,7 @@ and 1 means one unique candidate has been selected and clicked."
   (let ((xwidget (xwidget-webkit-current-session)))
     (cond ((= action 0)
            (let ((next-key (read-key "Enter prefix of the candidate labels to narrow down selection")))
-             (if (= next-key 7)
+             (if (seq-contains '(3 7 27 113) next-key)
                  (xwwp-ace-cleanup xwidget)
                (xwwp-ace-read-key xwidget next-key #'xwwp-ace-read-key-command))))
           ((= action -1)
