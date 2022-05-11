@@ -11,10 +11,11 @@
   (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "c" 'ctbl:navi-jump-to-column)
   (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "e" 'ctbl:navi-move-right-most)
   (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "a" 'ctbl:navi-move-left-most)
-  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "g" 'ctbl:action-update-buffer)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "0" 'ctbl:navi-move-left-most)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "$" 'ctbl:navi-move-right-most)
+  (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "g" #'(lambda () (interactive) (evil-goto-first-line 3)))
   (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "?" 'ctbl:describe-bindings)
   (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map [mouse-1] 'ctbl:navi-on-click)
   (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "C-m" 'ctbl:navi-on-click)
   (evilified-state-evilify ctbl:table-mode ctbl:table-mode-map "RET" 'ctbl:navi-on-click)
-
   )
