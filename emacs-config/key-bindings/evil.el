@@ -53,8 +53,8 @@
 (define-key evil-ex-completion-map "\C-k" nil)
 (define-key evil-normal-state-map (kbd "RET") #'(lambda () (interactive) (evil-insert-newline-below)))
 (define-key evil-motion-state-map (kbd "RET") #'(lambda () (interactive) (evil-insert-newline-below)))
-(define-key evil-normal-state-map (kbd "<S-return>") #'(lambda () (interactive) (save-excursion (evil-insert-newline-above))))
-(define-key evil-motion-state-map (kbd "<S-return>") #'(lambda () (interactive) (save-excursion (evil-insert-newline-above))))
+;; (define-key evil-normal-state-map (kbd "<S-return>") #'(lambda () (interactive) (save-excursion (evil-insert-newline-above))))
+;; (define-key evil-motion-state-map (kbd "<S-return>") #'(lambda () (interactive) (save-excursion (evil-insert-newline-above))))
 (evil-leader/set-key "SPC" 'avy-goto-char-2)
 
 (with-eval-after-load 'evil-lisp-state
