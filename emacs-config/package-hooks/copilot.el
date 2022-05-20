@@ -26,8 +26,8 @@
             :insertSpaces (if indent-tabs-mode :false t)
             ;; :path (buffer-file-name)
             :path (copilot--buffer-file-path) ;; Mod
-            ;; :relativePath (file-name-nondirectory (buffer-file-name))
-            :relativePath (copilot--buffer-file-name) ;; Mod
+            :relativePath (copilot--get-relative-path)
+            :uri (copilot--get-uri)
             ;; :languageId (s-chop-suffix "-mode" (symbol-name major-mode))
             :languageId (copilot--get-language-id) ;; Mod
             ;; :position (list :line (1- (line-number-at-pos))
@@ -40,7 +40,9 @@
     (when copilot--overlay
       (let* ((completion (overlay-get copilot--overlay 'completion))
              (start (overlay-get copilot--overlay 'start))
+             (uuid (overlay-get copilot--overlay 'uuid))
              (t-completion (funcall (or transform-fn 'identity) completion)))
+        (funcall (copilot--agent-request "notifyAccepted" (list :uuid uuid)) copilot--ignore-response)
         (copilot-clear-overlay)
         ;; (delete-region start (line-end-position))
         ;; (insert t-completion)
@@ -57,16 +59,17 @@
     "Show COMPLETION."
     (when completion
       (let* ((text (alist-get 'text completion))
+             (uuid (alist-get 'uuid completion))
              (range (alist-get 'range completion))
              (start (alist-get 'start range))
              (start-line (alist-get 'line start))
              (start-char (alist-get 'character start)))
-        ;; (copilot-display-overlay-completion text start-line start-char))))
+        ;; (copilot-display-overlay-completion text uuid start-line start-char))))
         (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode) ;; Mod
-            (copilot-display-overlay-completion text (1- (line-number-at-pos)) 0 (point)) ;; Mod
-          (copilot-display-overlay-completion text start-line start-char (point)))))) ;; Mod
+            (copilot-display-overlay-completion text uuid (1- (line-number-at-pos)) 0 (point)) ;; Mod
+          (copilot-display-overlay-completion text uuid start-line start-char (point)))))) ;; Mod
 
-  (defun copilot-display-overlay-completion (completion line col user-pos)
+  (defun copilot-display-overlay-completion (completion uuid line col user-pos)
     "Show COMPLETION in overlay at LINE and COL. For Copilot, COL is always 0.
 USER-POS is the cursor position (for verification only)."
     (copilot-clear-overlay)
@@ -94,21 +97,17 @@ USER-POS is the cursor position (for verification only)."
                  (or (= (point) user-pos) ; up-to-date completion
                      (and (< (point) user-pos) ; special case for removing indentation
                           (s-blank-p (s-trim (buffer-substring-no-properties (point) user-pos))))))
-        (let* ((ov (make-overlay (point) (point-at-eol) nil t t))
-               (p-completion (propertize completion 'face 'all-the-icons-dyellow))
-               (display (substring p-completion 0 1))
-               (after-string (substring p-completion 1)))
+        (let* ((ov (make-overlay (point) (1+ (point-at-eol)) nil t t))
+               (p-completion (propertize completion 'face 'all-the-icons-yellow)))
+          (if (= (overlay-start ov) (overlay-end ov)) ; in this case (end of file), no space to place display
+              (overlay-put ov 'after-string p-completion)
+            (overlay-put ov 'display (substring p-completion 0 1))
+            (overlay-put ov 'after-string (concat (substring p-completion 1) "\n")))
           (overlay-put ov 'completion completion)
           (overlay-put ov 'start (point))
-          (if (equal (overlay-start ov) (overlay-end ov))
-              (progn
-                (if (equal 10 (elt p-completion 0))
-                    (put-text-property 1 2 'cursor t p-completion)
-                  (put-text-property 0 1 'cursor t p-completion))
-                (overlay-put ov 'after-string p-completion))
-            (overlay-put ov 'display display)
-            (overlay-put ov 'after-string after-string))
-          (setq copilot--overlay ov)))))
+          (overlay-put ov 'uuid uuid)
+          (setq copilot--overlay ov)
+          (funcall (copilot--agent-request "notifyShown" (list :uuid uuid)) copilot--ignore-response)))))
 
   (defun copilot-accept-completion-by-word (n-word)
     "Accept first N-WORD words of completion."
@@ -123,7 +122,7 @@ USER-POS is the cursor position (for verification only)."
                                         (words (s-split-up-to separator-regexp completion n-word))
                                         (remain (if (<= (length words) n-word)
                                                     ""
-                                                  (first (last words))))
+                                                  (cl-first (last words))))
                                         (length (- (length completion) (length remain)))
                                         (prefix (substring completion 0 length)))
                                    (s-trim-right prefix)))))
@@ -136,7 +135,7 @@ USER-POS is the cursor position (for verification only)."
                                  (let* ((lines (s-split-up-to (rx anychar (? "\r") "\n") completion n-line))
                                         (remain (if (<= (length lines) n-line)
                                                     ""
-                                                  (first (last lines))))
+                                                  (cl-first (last lines))))
                                         (length (- (length completion) (length remain)))
                                         (prefix (substring completion 0 length)))
                                    (s-chomp prefix)))))
@@ -148,7 +147,7 @@ USER-POS is the cursor position (for verification only)."
         (pry-vterm-get-current-line)
       (if (eq 'zsh-vterm-mode major-mode)
           (zsh-vterm-get-current-line)
-        (s-chop-suffix "\n" (thing-at-point 'line)))))
+        (s-chop-suffix "\n" (or (thing-at-point 'line) "")))))
 
   (defun copilot--get-source (&optional history)
     (let ((source (if (eq 'pry-vterm-mode major-mode)
@@ -176,12 +175,6 @@ USER-POS is the cursor position (for verification only)."
 
   (defun copilot--buffer-file-path ()
     (or (buffer-file-name) ""))
-
-  (defun copilot--buffer-file-name ()
-    (let ((buffer-file-name (buffer-file-name)))
-      (if buffer-file-name
-          (file-name-nondirectory buffer-file-name)
-        "")))
 
   (defun copilot-toggle-auto-copilot ()
     (interactive)

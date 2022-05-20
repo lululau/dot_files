@@ -84,6 +84,10 @@
     "node")
   "Node executable name.")
 
+(defconst copilot--ignore-response
+  (lambda (response))
+  "Simply ignore the response.")
+
 (defun copilot--start-process ()
   "Start the copilot agent process."
   (if (not (locate-file copilot--node exec-path))
@@ -103,7 +107,10 @@
                             :filter 'copilot--process-filter
                             :sentinel 'copilot--process-sentinel
                             :noquery t))
-        (message "Copilot agent started.")))))
+        (message "Copilot agent started.")
+        (funcall (copilot--agent-request "initialize" (list :capabilities nil))
+                 (lambda (response)
+                   (copilot--log "[Initialize] %S" response)))))))
 
 
 (defun copilot--kill-process ()
@@ -203,7 +210,7 @@
     (if (and (not header-match) (> (length copilot--output-buffer) 50))
         (progn
           (copilot--log "[Warning] Copilot agent output buffer reset.")
-          (copilot--log "[Warning] Before reset:%S\n" copilot--output-buffer)
+          (copilot--log "[Warning] Before reset: %S\n" copilot--output-buffer)
           (setq copilot--output-buffer nil))
       (when header-match
         (let* ((header (car header-match))
@@ -212,23 +219,28 @@
           (when (>= (length copilot--output-buffer) full-length)
             (let ((content (copilot--substring-raw copilot--output-buffer (length header) full-length)))
               (setq copilot--output-buffer (copilot--substring-raw copilot--output-buffer full-length))
-              (copilot--process-response content)
+              (let ((content (ignore-errors (json-read-from-string content))))
+                (if content
+                    (copilot--process-response content)
+                  (copilot--log "[ERROR] Failed to parse response: %S" content)))
               ; rerun filter to process remaining output
               (copilot--process-filter process nil))))))))
 
 (defun copilot--process-response (content)
   "Process a response message with CONTENT."
-  (let* ((content (json-read-from-string content))
-         (result (alist-get 'result content))
+  (let* ((result (alist-get 'result content))
          (err (alist-get 'error content))
          (id (alist-get 'id content)))
     (when err
       (copilot--log "[ERROR] Error in response: %S\n[ERROR] Response:%S\n" err content))
     (if (not id)
-        (copilot--log "[INFO] Discard message without id: %S" content)
+        (if (equal (alist-get 'method content) "LogMessage")
+            (copilot--log "[Agent] %s" (alist-get 'message (alist-get 'params content)))
+          (copilot--log "[INFO] Discard message without id: %S" content))
       (funcall (alist-get id copilot--callbacks)
                (cons (cons 'error err) result))
       (assq-delete-all id copilot--callbacks))))
+
 
 ;;
 ;; login
@@ -342,10 +354,11 @@
 (defun copilot--diagnose-access ()
   "Diagnose Copilot access with a dummy completion request."
   (copilot--let-req-async ((result (copilot--agent-request "getCompletions"
-                                                           '(:doc (:source ""
+                                                           '(:doc (:source "\n"
                                                                    :path ""
+                                                                   :uri ""
                                                                    :relativePath ""
-                                                                   :languageId ""
+                                                                   :languageId "text"
                                                                    :position (:line 0 :character 0))))))
 
     (let ((err (alist-get 'error result)))
@@ -393,14 +406,37 @@
                    (alist-get mode copilot--indentation-alist))))
       tab-width))
 
+(defun copilot--get-relative-path ()
+  "Get relative path to current buffer."
+  (cond
+   ((not buffer-file-name)
+    "")
+   ((boundp 'projectile-project-root)
+    (file-relative-name buffer-file-name (projectile-project-root)))
+   ((boundp 'vc-root-dir)
+    (file-relative-name buffer-file-name (vc-root-dir)))
+   (t
+    (file-name-nondirectory buffer-file-name))))
+
+(defun copilot--get-uri ()
+  "Get URI of current buffer."
+  (cond
+   ((not buffer-file-name)
+    "")
+   ((eq system-type 'windows-nt)
+    (concat "file:///" (url-encode-url buffer-file-name)))
+   (t
+    (concat "file://" (url-encode-url buffer-file-name)))))
+
 (defun copilot--generate-doc ()
-  "Generate doc param for completion request."
+  "Generate doc parameters for completion request."
   (list :source (concat (buffer-substring-no-properties (point-min) (point-max)) "\n")
         :tabSize (copilot--infer-indentation-offset)
         :indentSize (copilot--infer-indentation-offset)
         :insertSpaces (if indent-tabs-mode :false t)
         :path (buffer-file-name)
-        :relativePath (file-name-nondirectory (buffer-file-name))
+        :uri (copilot--get-uri)
+        :relativePath (copilot--get-relative-path)
         :languageId (s-chop-suffix "-mode" (symbol-name major-mode))
         :position (list :line (1- (line-number-at-pos))
                         :character (length (buffer-substring-no-properties (point-at-bol) (point))))))
@@ -462,8 +498,8 @@
 (defvar-local copilot--overlay nil
   "Overlay for Copilot completion.")
 
-(defun copilot-display-overlay-completion (completion line col user-pos)
-  "Show COMPLETION in overlay at LINE and COL. For Copilot, COL is always 0.
+(defun copilot-display-overlay-completion (completion uuid line col user-pos)
+  "Show COMPLETION with UUID in overlay at LINE and COL. For Copilot, COL is always 0.
 USER-POS is the cursor position (for verification only)."
   (copilot-clear-overlay)
   (save-excursion
@@ -479,8 +515,8 @@ USER-POS is the cursor position (for verification only)."
       (forward-char col))
 
     ; remove common prefix
-    (let* ((cur-line (s-chop-suffix "\n" (thing-at-point 'line)))
-            (common-prefix-len (length (s-shared-start completion cur-line))))
+    (let* ((cur-line (s-chop-suffix "\n" (or (thing-at-point 'line) "")))
+           (common-prefix-len (length (s-shared-start completion cur-line))))
       (setq completion (substring completion common-prefix-len))
       (forward-char common-prefix-len))
 
@@ -488,26 +524,28 @@ USER-POS is the cursor position (for verification only)."
                (or (= (point) user-pos) ; up-to-date completion
                    (and (< (point) user-pos) ; special case for removing indentation
                         (s-blank-p (s-trim (buffer-substring-no-properties (point) user-pos))))))
-      (let* ((ov (make-overlay (point) (point-at-eol) nil t t))
-             (p-completion (propertize completion 'face 'copilot-overlay-face))
-             (display (substring p-completion 0 1))
-             (after-string (substring p-completion 1)))
+      (let* ((ov (make-overlay (point) (1+ (point-at-eol)) nil t t))
+             (p-completion (propertize completion 'face 'copilot-overlay-face)))
+        (if (= (overlay-start ov) (overlay-end ov)) ; in this case (end of file), no space to place display
+            (overlay-put ov 'after-string p-completion)
+          (overlay-put ov 'display (substring p-completion 0 1))
+          (overlay-put ov 'after-string (concat (substring p-completion 1) "\n")))
         (overlay-put ov 'completion completion)
         (overlay-put ov 'start (point))
-        (if (equal (overlay-start ov) (overlay-end ov))
-            (progn
-              (put-text-property 0 1 'cursor t p-completion)
-              (overlay-put ov 'after-string p-completion))
-          (overlay-put ov 'display display)
-          (overlay-put ov 'after-string after-string))
-        (setq copilot--overlay ov)))))
+        (overlay-put ov 'uuid uuid)
+        (setq copilot--overlay ov)
+        (funcall (copilot--agent-request "notifyShown" (list :uuid uuid)) copilot--ignore-response)))))
 
 (defun copilot-clear-overlay ()
   "Clear Copilot overlay."
   (interactive)
   (when copilot--overlay
+    (funcall (copilot--agent-request "notifyRejected"
+                                     (list :uuids `[,(overlay-get copilot--overlay 'uuid)]))
+             copilot--ignore-response)
     (delete-overlay copilot--overlay)
     (setq copilot--overlay nil)))
+
 
 (defun copilot-accept-completion (&optional transform-fn)
   "Accept completion. Return t if there is a completion. Use TRANSFORM-FN to transform completion if provided."
@@ -515,7 +553,9 @@ USER-POS is the cursor position (for verification only)."
   (when copilot--overlay
     (let* ((completion (overlay-get copilot--overlay 'completion))
            (start (overlay-get copilot--overlay 'start))
+           (uuid (overlay-get copilot--overlay 'uuid))
            (t-completion (funcall (or transform-fn 'identity) completion)))
+      (funcall (copilot--agent-request "notifyAccepted" (list :uuid uuid)) copilot--ignore-response)
       (copilot-clear-overlay)
       (delete-region start (line-end-position))
       (insert t-completion)
@@ -537,7 +577,7 @@ USER-POS is the cursor position (for verification only)."
                                       (words (s-split-up-to separator-regexp completion n-word))
                                       (remain (if (<= (length words) n-word)
                                                   ""
-                                                (first (last words))))
+                                                (cl-first (last words))))
                                       (length (- (length completion) (length remain)))
                                       (prefix (substring completion 0 length)))
                                  (s-trim-right prefix)))))
@@ -550,7 +590,7 @@ USER-POS is the cursor position (for verification only)."
                                (let* ((lines (s-split-up-to (rx anychar (? "\r") "\n") completion n-line))
                                       (remain (if (<= (length lines) n-line)
                                                   ""
-                                                (first (last lines))))
+                                                (cl-first (last lines))))
                                       (length (- (length completion) (length remain)))
                                       (prefix (substring completion 0 length)))
                                  prefix))))
@@ -559,11 +599,12 @@ USER-POS is the cursor position (for verification only)."
   "Show COMPLETION."
   (when completion
     (let* ((text (alist-get 'text completion))
+           (uuid (alist-get 'uuid completion))
            (range (alist-get 'range completion))
            (start (alist-get 'start range))
            (start-line (alist-get 'line start))
            (start-char (alist-get 'character start)))
-      (copilot-display-overlay-completion text start-line start-char (point)))))
+      (copilot-display-overlay-completion text uuid start-line start-char (point)))))
 
 (defun copilot-complete ()
   "Complete at the current point."
