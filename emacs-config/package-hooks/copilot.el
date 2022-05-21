@@ -97,12 +97,17 @@ USER-POS is the cursor position (for verification only)."
                  (or (= (point) user-pos) ; up-to-date completion
                      (and (< (point) user-pos) ; special case for removing indentation
                           (s-blank-p (s-trim (buffer-substring-no-properties (point) user-pos))))))
-        (let* ((ov (make-overlay (point) (1+ (point-at-eol)) nil t t))
-               (p-completion (propertize completion 'face 'all-the-icons-yellow)))
-          (if (= (overlay-start ov) (overlay-end ov)) ; in this case (end of file), no space to place display
+        (let* ((p-completion (propertize completion 'face 'all-the-icons-yellow))
+               (ov))
+          (if copilot-overlay-safe
+              ;; don't make overlay over a single "\n" in this case
+              (setq ov (make-overlay (point) (point-at-eol)))
+            (setq ov (make-overlay (point) (1+ (point-at-eol))))
+            (setq p-completion (concat p-completion "\n")))
+          (if (= (overlay-start ov) (overlay-end ov)) ; in this case (end of file or end of line in overlay safe mode), no space to place display
               (overlay-put ov 'after-string p-completion)
             (overlay-put ov 'display (substring p-completion 0 1))
-            (overlay-put ov 'after-string (concat (substring p-completion 1) "\n")))
+            (overlay-put ov 'after-string (substring p-completion 1)))
           (overlay-put ov 'completion completion)
           (overlay-put ov 'start (point))
           (overlay-put ov 'uuid uuid)
