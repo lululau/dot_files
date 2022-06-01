@@ -185,7 +185,7 @@
      elixir
      (shell-scripts :variables shell-scripts-backend 'shell-script-mode)
      dash
-     clojure
+     (clojure :variables clojure-backend 'cider clojure-enable-clj-refactor t)
      (haskell :variables haskell-enable-hindent t haskell-completion-backend 'dante)
      emacs-lisp
      ;; evernote
