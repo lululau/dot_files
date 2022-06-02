@@ -23,7 +23,7 @@
       (list :source (copilot--get-source history) ;; Mod
             :tabSize (copilot--infer-indentation-offset)
             :indentSize (copilot--infer-indentation-offset)
-            :insertSpaces (if indent-tabs-mode :false t)
+            :insertSpaces (if indent-tabs-mode :json-false t)
             ;; :path (buffer-file-name)
             :path (copilot--buffer-file-path) ;; Mod
             :relativePath (copilot--get-relative-path)
@@ -42,7 +42,7 @@
              (start (overlay-get copilot--overlay 'start))
              (uuid (overlay-get copilot--overlay 'uuid))
              (t-completion (funcall (or transform-fn 'identity) completion)))
-        (funcall (copilot--agent-request "notifyAccepted" (list :uuid uuid)) copilot--ignore-response)
+        (copilot--async-request 'notifyAccepted (list :uuid uuid))
         (copilot-clear-overlay)
         ;; (delete-region start (line-end-position))
         ;; (insert t-completion)
@@ -57,17 +57,10 @@
 
   (defun copilot--show-completion (completion)
     "Show COMPLETION."
-    (when completion
-      (let* ((text (alist-get 'text completion))
-             (uuid (alist-get 'uuid completion))
-             (range (alist-get 'range completion))
-             (start (alist-get 'start range))
-             (start-line (alist-get 'line start))
-             (start-char (alist-get 'character start)))
-        ;; (copilot-display-overlay-completion text uuid start-line start-char))))
-        (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode) ;; Mod
-            (copilot-display-overlay-completion text uuid (1- (line-number-at-pos)) 0 (point)) ;; Mod
-          (copilot-display-overlay-completion text uuid start-line start-char (point)))))) ;; Mod
+    (copilot--dbind (:text :uuid :range (:start (:line :character))) completion
+                    (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode) ;; Mod
+                        (copilot-display-overlay-completion text uuid (1- (line-number-at-pos)) 0 (point)) ;; Mod
+                      (copilot-display-overlay-completion text uuid line character (point)))))
 
   (defun copilot-display-overlay-completion (completion uuid line col user-pos)
     "Show COMPLETION in overlay at LINE and COL. For Copilot, COL is always 0.
@@ -98,21 +91,19 @@ USER-POS is the cursor position (for verification only)."
                      (and (< (point) user-pos) ; special case for removing indentation
                           (s-blank-p (s-trim (buffer-substring-no-properties (point) user-pos))))))
         (let* ((p-completion (propertize completion 'face 'all-the-icons-yellow))
-               (ov))
-          (if copilot-overlay-safe
-              ;; don't make overlay over a single "\n" in this case
-              (setq ov (make-overlay (point) (point-at-eol)))
-            (setq ov (make-overlay (point) (1+ (point-at-eol))))
-            (setq p-completion (concat p-completion "\n")))
-          (if (= (overlay-start ov) (overlay-end ov)) ; in this case (end of file or end of line in overlay safe mode), no space to place display
-              (overlay-put ov 'after-string p-completion)
+               (ov (make-overlay (point) (point-at-eol) nil t t)))
+          (if (= (overlay-start ov) (overlay-end ov)) ; end of line
+              (progn
+                (setq copilot--real-posn (cons (point) (posn-at-point)))
+                (put-text-property 0 1 'cursor t p-completion)
+                (overlay-put ov 'after-string p-completion))
             (overlay-put ov 'display (substring p-completion 0 1))
             (overlay-put ov 'after-string (substring p-completion 1)))
           (overlay-put ov 'completion completion)
           (overlay-put ov 'start (point))
           (overlay-put ov 'uuid uuid)
           (setq copilot--overlay ov)
-          (funcall (copilot--agent-request "notifyShown" (list :uuid uuid)) copilot--ignore-response)))))
+          (copilot--async-request 'notifyShown (list :uuid uuid))))))
 
   (defun copilot-accept-completion-by-word (n-word)
     "Accept first N-WORD words of completion."
@@ -190,6 +181,9 @@ USER-POS is the cursor position (for verification only)."
       (add-hook 'post-command-hook 'copilot-complete-if-insert-state)
       (setq copilot--auto-copilot-on-p t)
       (message "Auto Copilot on!")))
+
+  (unless copilot--connection
+    (copilot--start-agent))
 
   (add-hook 'evil-insert-state-exit-hook #'copilot-clear-overlay)
   (add-hook 'evil-hybrid-state-exit-hook #'copilot-clear-overlay))
