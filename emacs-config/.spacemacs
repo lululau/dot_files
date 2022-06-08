@@ -299,6 +299,14 @@ It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
  (setq-default
+
+    ;; Scale factor controls the scaling (size) of the startup banner. Default
+    ;; value is `auto' for scaling the logo automatically to fit all buffer
+    ;; contents, to a maximum of the full image height and a minimum of 3 line
+    ;; heights. If set to a number (int or float) it is used as a constant
+    ;; scaling factor for the default logo size.
+    dotspacemacs-startup-banner-scale 1.0
+
    ;; Either `vim' or `emacs'. Evil is always enabled but if the variable
    ;; is `emacs' then the `holy-mode' is enabled at startup.
    dotspacemacs-editing-style 'hybrid
