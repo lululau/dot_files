@@ -10,7 +10,7 @@
   (define-key oh-my-github-repos-mode-map (kbd "r") 'oh-my-github-query-releases)
   (define-key oh-my-github-repos-mode-map (kbd "gr") 'tabulated-list-revert)
 
-  (evilified-state-evilify oh-my-github-stars-mode oh-my-github-stars-mode-map
+  (evilified-state-evilify-map oh-my-github-stars-mode-map :mode oh-my-github-stars-mode :bindings
     "u" 'oh-my-github-sync
     "RET" 'oh-my-github-browse-repo
     "w" 'oh-my-github-copy-repo-url
@@ -19,7 +19,7 @@
     "r" 'oh-my-github-query-releases
     "gr" 'tabulated-list-revert)
 
-  (evilified-state-evilify oh-my-github-repos-mode oh-my-github-repos-mode-map
+  (evilified-state-evilify-map oh-my-github-repos-mode-map :mode oh-my-github-repos-mode :bindings
     "u" 'oh-my-github-sync
     "RET" 'oh-my-github-browse-repo
     "w" 'oh-my-github-copy-repo-url
@@ -28,20 +28,20 @@
     "r" 'oh-my-github-query-releases
     "gr" 'tabulated-list-revert)
 
-  (evilified-state-evilify oh-my-github-assets-mode oh-my-github-assets-mode-map
+  (evilified-state-evilify-map oh-my-github-assets-mode-map :mode oh-my-github-assets-mode :bindings
     "w" 'oh-my-github-copy-asset-url
     "RET" 'oh-my-github-download-asset)
 
-  (evilified-state-evilify oh-my-github-commits-mode oh-my-github-commits-mode-map
+  (evilified-state-evilify-map oh-my-github-commits-mode-map :mode oh-my-github-commits-mode :bindings
     "RET" 'oh-my-github-browse-commit
     "w" 'oh-my-github-copy-commit-url)
 
-  (evilified-state-evilify oh-my-github-release-mode oh-my-github-release-mode-map
+  (evilified-state-evilify-map oh-my-github-releases-mode-map :mode oh-my-github-releases-mode :bindings
     "b" 'oh-my-github-browse-release
     "w" 'oh-my-github-copy-release-url
     "RET" 'oh-my-github-query-assets)
 
-  (evilified-state-evilify oh-my-github-trending-repo-mode oh-my-github-trending-repos-mode-map
+  (evilified-state-evilify-map oh-my-github-trending-repos-mode-map :mode-mode oh-my-github-trending-repos-mode :bindings
     "RET" 'oh-my-github-browse-repo
     "s" 'oh-my-github-trending-repos-query
     "i" 'oh-my-github-trending-repos-info))
