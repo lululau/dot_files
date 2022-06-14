@@ -38,7 +38,7 @@
        (buffer-file-name)))
   "Directory containing this file.")
 
-(defconst copilot-version "0.9.1"
+(defconst copilot-version "0.9.2"
   "Copilot version.")
 
 (defvar-local copilot--overlay nil
@@ -61,13 +61,19 @@
 
 (defmacro copilot--request (&rest args)
   "Send a request to the copilot agent with ARGS."
-  `(jsonrpc-request copilot--connection ,@args))
+  `(progn
+     (unless copilot--connection
+       (copilot--start-agent))
+     (jsonrpc-request copilot--connection ,@args)))
 
 (cl-defmacro copilot--async-request (&rest args)
   "Send an asynchronous request to the copilot agent with ARGS."
-  `(jsonrpc-async-request copilot--connection
-                          ,@args
-                          :success-fn (lambda (&rest _ignored))))
+  `(progn
+     (unless copilot--connection
+       (copilot--start-agent))
+     (jsonrpc-async-request copilot--connection
+                            ,@args
+                            :success-fn (lambda (&rest _ignored)))))
 
 (defun copilot--start-agent ()
   "Start the copilot agent process."
@@ -123,7 +129,7 @@
   (copilot--dbind
       (:status :user :userCode user-code :verificationUri verification-uri)
       (copilot--request 'signInInitiate ''nil)
-    (when (s-equals-p status "alreadySignedIn")
+    (when (s-equals-p status "AlreadySignedIn")
         (message "Already signed in as %s." user)
         (cl-return-from copilot-login))
     (if (display-graphic-p)
@@ -162,7 +168,6 @@
   (when copilot--connection
     (jsonrpc-shutdown copilot--connection)
     (setq copilot--connection nil))
-  (copilot--start-agent)
   (copilot--async-request 'getCompletions
                           '(:doc (:source "\n"
                                   :path ""
@@ -451,8 +456,6 @@ For Copilot, COL is always 0. USER-POS is the cursor position (for verification 
   :init-value nil
   :lighter " Copilot"
   (copilot-clear-overlay)
-  (unless copilot--connection
-    (copilot--start-agent))
   (advice-add 'posn-at-point :before-until 'copilot--posn-advice)
   (add-hook 'post-command-hook 'copilot--complete-post-command))
 
