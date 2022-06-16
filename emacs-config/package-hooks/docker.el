@@ -1,7 +1,7 @@
 (spacemacs|use-package-add-hook docker
   :post-config
   (progn
-    (evilified-state-evilify docker-image-mode docker-image-mode-map
+    (evilified-state-evilify-map docker-image-mode-map :mode docker-image-mode :bindings
       "?" 'docker-image-help
       "D" 'docker-image-rm
       "F" 'docker-image-pull
@@ -12,7 +12,7 @@
       "d" 'docker-image-mark-dangling
       "l" 'docker-image-ls)
 
-    (evilified-state-evilify docker-container-mode docker-container-mode-map
+    (evilified-state-evilify-map docker-container-mode-map :mode docker-container-mode :bindings
        "?" 'docker-container-help
        "C" 'docker-container-cp
        "D" 'docker-container-rm
@@ -30,14 +30,14 @@
        "l" 'docker-container-ls
        "r" 'docker-container-rename-selection)
 
-    (evilified-state-evilify docker-network-mode docker-network-mode-map
+    (evilified-state-evilify-map docker-network-mode-map :mode docker-network-mode :bindings
        "?" 'docker-network-help
        "D" 'docker-network-rm
        "I" 'docker-network-inspect
        "d" 'docker-network-mark-dangling
        "l" 'docker-network-ls)
 
-    (evilified-state-evilify docker-volume-mode docker-volume-mode-map
+    (evilified-state-evilify-map docker-volume-mode-map :mode docker-volume-mode :bindings
        "?" 'docker-volume-help
        "D" 'docker-volume-rm
        "I" 'docker-volume-inspect

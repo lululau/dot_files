@@ -211,6 +211,12 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ik" 'org-move-item-up)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ij" 'org-move-item-down)
 
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "gt" 'grip-mode)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "gs" 'grip-start-preview)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "gr" 'grip-restart-preview)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "go" 'grip-stop-preview)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "gb" 'grip-browse-preview)
+
   ;; (add-hook 'org-mode-hook #'turn-company-english-helper-on 100)
 
 

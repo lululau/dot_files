@@ -2,8 +2,8 @@
 (define-key evil-motion-state-map (kbd "t") #'evil-avy-goto-char)
 (define-key evil-motion-state-map (kbd "T") #'evil-avy-goto-char-2)
 ;; (define-key evil-motion-state-map (kbd "SPC SPC") #'evil-avy-goto-char-2)
-(define-key evil-motion-state-map (kbd "] c") #'diff-hl-next-hunk)
-(define-key evil-motion-state-map (kbd "[ c") #'diff-hl-previous-hunk)
+(define-key evil-motion-state-map (kbd "] c") #'diff-hl-show-hunk-next)
+(define-key evil-motion-state-map (kbd "[ c") #'diff-hl-show-hunk-previous)
 (define-key evil-motion-state-map (kbd "] a") #'annotate-goto-next-annotation)
 (define-key evil-motion-state-map (kbd "[ a") #'annotate-goto-previous-annotation)
 ;; (define-key evil-motion-state-map (kbd "C-]") #'jump-to-definition-of-symbol-at-point)
@@ -53,8 +53,8 @@
 (define-key evil-ex-completion-map "\C-k" nil)
 (define-key evil-normal-state-map (kbd "RET") #'(lambda () (interactive) (evil-insert-newline-below)))
 (define-key evil-motion-state-map (kbd "RET") #'(lambda () (interactive) (evil-insert-newline-below)))
-(define-key evil-normal-state-map (kbd "<S-return>") #'(lambda () (interactive) (save-excursion (evil-insert-newline-above))))
-(define-key evil-motion-state-map (kbd "<S-return>") #'(lambda () (interactive) (save-excursion (evil-insert-newline-above))))
+;; (define-key evil-normal-state-map (kbd "<S-return>") #'(lambda () (interactive) (save-excursion (evil-insert-newline-above))))
+;; (define-key evil-motion-state-map (kbd "<S-return>") #'(lambda () (interactive) (save-excursion (evil-insert-newline-above))))
 (evil-leader/set-key "SPC" 'avy-goto-char-2)
 
 (with-eval-after-load 'evil-lisp-state

@@ -97,6 +97,17 @@
   "hhp" #'highlight-phrase
   "hhw" #'highlight-symbol-at-point
   "hhu" #'(lambda () (interactive) (unhighlight-regexp t))
+
+  "axx" #'xwidget-webkit-browse-url
+  "axh" #'xwwp-history-show
+  "axjc" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1:9090/ui/#/proxies") (if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
+  "axjr" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1/cgi-bin/luci/admin/services/openclash/config")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
+  "axjg" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://github.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
+  "axjj" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://jenkins.ktjr.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
+  "axjJ" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://jira.ktjr.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
+  "axjv" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://www.v2ex.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
+  "axje" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://emacs-china.org")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
+  "axjt" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://twitter.com/home")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
 )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

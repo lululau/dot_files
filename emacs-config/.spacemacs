@@ -125,7 +125,7 @@
      (spacemacs-evil :variable spacemacs-evil-collection-allowed-list '(eww dired quickrun zsh-vterm pry-vterm))
      ;; lsp
      (lsp :variables lsp-rust-server 'rust-analyzer)
-
+     ansible
      dap
      ivy helm
      neotree
@@ -135,7 +135,7 @@
                       auto-completion-tab-key-behavior 'complete
                       auto-completion-show-snippets-in-popup t
                       auto-completion-enable-snippets-in-popup t
-                      auto-completion-use-company-box nil
+                      auto-completion-use-company-box t
                       auto-completion-private-snippets-directory ,lx/snippets-path)
      tabnine
      better-defaults
@@ -186,7 +186,7 @@
      elixir
      (shell-scripts :variables shell-scripts-backend 'shell-script-mode)
      dash
-     clojure
+     (clojure :variables clojure-backend 'cider clojure-enable-clj-refactor t)
      (haskell :variables haskell-enable-hindent t haskell-completion-backend 'dante)
      emacs-lisp
      ;; evernote
@@ -262,12 +262,12 @@
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
-                                            code-archive dtrace-script-mode xwwp-follow-link-helm
-                                            edit-indirect annotate mermaid-mode org-modern)
+                                            code-archive dtrace-script-mode edit-indirect annotate
+                                            mermaid-mode org-modern grip-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
-                                               logcat ido evil-escape helm-xref)
+                                               logcat ido evil-escape helm-xref editorconfig drupal-mode)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -300,6 +300,14 @@ It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
  (setq-default
+
+    ;; Scale factor controls the scaling (size) of the startup banner. Default
+    ;; value is `auto' for scaling the logo automatically to fit all buffer
+    ;; contents, to a maximum of the full image height and a minimum of 3 line
+    ;; heights. If set to a number (int or float) it is used as a constant
+    ;; scaling factor for the default logo size.
+    dotspacemacs-startup-banner-scale 1.0
+
    ;; Either `vim' or `emacs'. Evil is always enabled but if the variable
    ;; is `emacs' then the `holy-mode' is enabled at startup.
    dotspacemacs-editing-style 'hybrid
@@ -659,7 +667,8 @@ layers configuration."
   (add-hook 'ido-setup-hook #'(lambda () (define-key (cdr ido-minor-mode-map-entry) [remap dired] nil)))
 
   (defalias 'fuck-ido-dired 'dired)
-  (spacemacs/set-leader-keys "ad" 'fuck-ido-dired)
+  (spacemacs/set-leader-keys "ad" 'lx/helm-dired-histories)
+  (spacemacs/set-leader-keys "dr" 'lx/helm-dired-histories)
 
   (global-subword-mode)
 
@@ -1022,6 +1031,7 @@ This function is called at the very end of Spacemacs initialization."
   (encoding . utf-8)
   (elixir-enable-compilation-checking . t)
   (elixir-enable-compilation-checking)
+  (lsp-enable-file-watchers . nil)
   (org-html-head))))
  '(sh-indentation 2)
  '(org-file-apps (quote ((auto-mode . emacs) (directory . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . emacs))))
@@ -1043,6 +1053,9 @@ This function is called at the very end of Spacemacs initialization."
  '(vterm-max-scrollback 10000)
  '(xwwp-follow-link-completion-system 'helm)
  '(helm-buffer-max-length 40)
+ '(copilot-overlay-safe nil)
+ '(copilot-idle-delay 0.5)
+ '(xwwp-ace-candidate-selector "button, input, [href], select, textarea, [tabindex]:not([tabindex=\"-1\"]), span.proxies-speed-test")
  '(TeX-command-list (quote (("XeLaTeX" "%`xelatex --synctex=1%(mode)%' %t" TeX-run-TeX nil t) ("LatexMk" "latexmk %(-PDF)%S%(mode) %(file-line-error) %(extraopts) %t" TeX-run-latexmk nil (plain-tex-mode latex-mode doctex-mode) :help "Run LatexMk") ("TeX" "%(PDF)%(tex) %(file-line-error) %`%(extraopts) %S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (plain-tex-mode ams-tex-mode texinfo-mode) :help "Run plain TeX") ("LaTeX" "%`%l%(mode)%' %T" TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX") ("Makeinfo" "makeinfo %(extraopts) %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with Info output") ("Makeinfo HTML" "makeinfo %(extraopts) --html %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with HTML output") ("AmSTeX" "amstex %(PDFout) %`%(extraopts) %S%(mode)%' %t" TeX-run-TeX nil (ams-tex-mode) :help "Run AMSTeX") ("ConTeXt" "%(cntxcom) --once --texutil %(extraopts) %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt once") ("ConTeXt Full" "%(cntxcom) %(extraopts) %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt until completion") ("BibTeX" "bibtex %s" TeX-run-BibTeX nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode context-mode) :help "Run BibTeX") ("Biber" "biber %s" TeX-run-Biber nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run Biber") ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer") ("Print" "%p" TeX-run-command t t :help "Print the file") ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command) ("File" "%(o?)dvips %d -o %f " TeX-run-dvips t (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Generate PostScript file") ("Dvips" "%(o?)dvips %d -o %f " TeX-run-dvips nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Convert DVI file to PostScript") ("Dvipdfmx" "dvipdfmx %d" TeX-run-dvipdfmx nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Convert DVI file to PDF with dvipdfmx") ("Ps2pdf" "ps2pdf %f" TeX-run-ps2pdf nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Convert PostScript file to PDF") ("Glossaries" "makeglossaries %s" TeX-run-command nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run makeglossaries to create glossary file") ("Index" "makeindex %s" TeX-run-index nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run makeindex to create index file") ("upMendex" "upmendex %s" TeX-run-index t (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run upmendex to create index file") ("Xindy" "texindy %s" TeX-run-command nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run xindy to create index file") ("Check" "lacheck %s" TeX-run-compile nil (latex-mode) :help "Check LaTeX file for correctness") ("ChkTeX" "chktex -v6 %s" TeX-run-compile nil (latex-mode) :help "Check LaTeX file for common mistakes") ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document") ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files") ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files") ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
  '(sql-connection-alist
 (quote
