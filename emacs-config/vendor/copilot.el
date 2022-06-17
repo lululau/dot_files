@@ -79,7 +79,9 @@
   "Start the copilot agent process."
   (if (not (locate-file copilot-node-executable exec-path))
       (message "Could not find node executable")
-    (let ((node-version (->> (shell-command-to-string (concat copilot-node-executable " --version"))
+
+    (let ((node-version (->> (with-output-to-string
+                               (call-process copilot-node-executable nil standard-output nil "--version"))
                              (s-trim)
                              (s-chop-prefix "v")
                              (string-to-number))))
