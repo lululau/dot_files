@@ -635,7 +635,7 @@ layers configuration."
 
   (setq eclim-eclipse-dirs "~/Applications/Eclipse.app" eclim-executable "~/Applications/Eclipse.app/Contents/Eclipse/eclim")
   (global-pangu-spacing-mode -1)
-  (global-vi-tilde-fringe-mode -1)
+  ;; (global-vi-tilde-fringe-mode -1)
   ;; (spacemacs|define-custom-layout "@Mail"
   ;;   :binding "m"
   ;;   :body
