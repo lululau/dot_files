@@ -93,8 +93,8 @@ noremap <m-e> ^v$:action EvaluateExpression<cr>
 " Motion/Jump
 nnoremap <leader><leader> :action AceWordAction<cr>
 nnoremap ,, :action AceWordAction<cr>
-noremap <c-o> :action Back<cr>
-noremap <c-i> :action Forward<cr>
+nmap <C-o> <Action>(Back)
+nmap <C-i> <Action>(Forward)
 
 " Getting Help
 noremap <leader>hd :action QuickJavaDoc<cr>
