@@ -24,7 +24,7 @@
       (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
       (setq lx/spacemacs-banner "~/Documents/emacs-banners/nasa.png")
       (setq neo-theme 'icons)
-      (setq enable-org-notification t)
+      (setq enable-org-notification nil)
       (setq enable-mu4e-notification t))
   (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
   (setq lx/spacemacs-banner '000)
@@ -145,7 +145,7 @@
      (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
      (org :variables
-          org-enable-notifications t
+          org-enable-notifications nil
           org-start-notification-daemon-on-startup ,enable-org-notification
           org-enable-roam-support t
           org-enable-epub-support t
