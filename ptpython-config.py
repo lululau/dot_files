@@ -165,3 +165,5 @@ _custom_ui_colorscheme = {
     # Make the status toolbar red.
     Token.Toolbar.Status:                         'bg:#ff0000 #000000',
 }
+
+print('\x1b[5 q]')
