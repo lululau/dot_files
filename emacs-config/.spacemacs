@@ -24,7 +24,7 @@
       (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
       (setq lx/spacemacs-banner "~/Documents/emacs-banners/nasa.png")
       (setq neo-theme 'icons)
-      (setq enable-org-notification t)
+      (setq enable-org-notification nil)
       (setq enable-mu4e-notification t))
   (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
   (setq lx/spacemacs-banner '000)
@@ -147,7 +147,7 @@
      (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
      (org :variables
-          org-enable-notifications t
+          org-enable-notifications nil
           org-start-notification-daemon-on-startup ,enable-org-notification
           org-enable-epub-support t
           org-enable-github-support t
@@ -636,7 +636,7 @@ layers configuration."
 
   (setq eclim-eclipse-dirs "~/Applications/Eclipse.app" eclim-executable "~/Applications/Eclipse.app/Contents/Eclipse/eclim")
   (global-pangu-spacing-mode -1)
-  (global-vim-empty-lines-mode -1)
+  (global-vi-tilde-fringe-mode -1)
   ;; (spacemacs|define-custom-layout "@Mail"
   ;;   :binding "m"
   ;;   :body
@@ -1016,7 +1016,7 @@ This function is called at the very end of Spacemacs initialization."
  ((arql-env . "lcldevb")
   (arql-env . "mddev")
   (arql-env . "mddev2")
-  (arql-env . "ermasprorw")
+  (arql-env . "ermasdevb")
   (arql-env . "ddhcpro")
   (arql-env . "lldevb")
   (arql-env . "insdevb")
