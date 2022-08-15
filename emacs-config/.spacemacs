@@ -1015,7 +1015,7 @@ This function is called at the very end of Spacemacs initialization."
  ((arql-env . "lcldevb")
   (arql-env . "mddev")
   (arql-env . "mddev2")
-  (arql-env . "ermasprorw")
+  (arql-env . "ermasdevb")
   (arql-env . "ddhcpro")
   (arql-env . "lldevb")
   (arql-env . "insdevb")
