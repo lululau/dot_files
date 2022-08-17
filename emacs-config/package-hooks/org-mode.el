@@ -10,7 +10,7 @@
 
   (defun copilot-accept-or-org-cycel ()
     (interactive)
-    (if copilot--overlay
+    (if (copilot--overlay-visible)
         (copilot-accept-completion)
       (org-cycle)))
 
