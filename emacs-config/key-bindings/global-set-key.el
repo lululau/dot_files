@@ -231,6 +231,7 @@
 (global-set-key (kbd "s-i s-p") 'lx/find-or-create-projectile-request-org)
 (global-set-key (kbd "s-i s-q") 'lx/find-or-create-projectile-sql-org)
 (global-set-key (kbd "s-i s-m") 'lx/toggle-global-evil-mc-mode)
+(global-set-key (kbd "s-i s-r") 'lx/evil-mc-make-cursors-by-regexp)
 (global-set-key (kbd "s-i s-t") 'insert-translated-name-replace)
 (global-set-key (kbd "s-i s-c") 'org-capture)
 (global-set-key (kbd "s-i s-a") 'org-agenda-list)

@@ -4,6 +4,29 @@
 
 (with-eval-after-load 'evil-mc
 
+  (evil-define-command evil-mc-make-cursors-by-regexp ()
+    "Initialize `evil-mc-pattern' and make cursors for all matches."
+    :repeat ignore
+    :evil-mc t
+    (if (evil-mc-has-cursors-p) (user-error "Cursors already exist.")
+      (global-evil-mc-mode 1)
+      (setq evil-mc-pattern (cons (list (read-regexp "Mark regexp: ") t t) (evil-visual-range)))
+      (evil-mc-before-undo-all-cursors)
+      (evil-exit-visual-state)
+      (when (evil-mc-has-pattern-p)
+        (goto-char (point-min))
+        (evil-ex-find-next (evil-mc-get-pattern) 'forward t)
+        (goto-char (1- (point)))
+        (let ((point (point)))
+          (save-excursion
+            (while (eq (evil-ex-find-next (evil-mc-get-pattern) 'forward t) t)
+              (goto-char (1- (point)))
+              (when (/= point (point))
+                (evil-mc-run-cursors-before)
+                (evil-mc-make-cursor-at-pos (point)))
+              (goto-char (1+ (point)))))))
+      (evil-mc-print-cursors-info "Created")))
+
   (evil-define-command evil-mc-undo-cursor-at-posi ()
     "Initialize `evil-mc-pattern' and make cursors for all matches."
     :repeat ignore
