@@ -687,6 +687,8 @@ layers configuration."
   (add-hook 'post-command-hook #'lx/reset-hybrid-state-cursor-type-after-tab)
 
   (add-to-list 'completion-ignored-extensions "node_modules/")
+  (add-to-list 'completion-ignored-extensions "target/")
+  (add-to-list 'completion-ignored-extensions ".idea/")
 
   ) ;;; End of config.
 
