@@ -91,7 +91,7 @@ USER-POS is the cursor position (for verification only)."
                  (or (= (point) user-pos) ; up-to-date completion
                      (and (< (point) user-pos) ; special case for removing indentation
                           (s-blank-p (s-trim (buffer-substring-no-properties (point) user-pos))))))
-        (let* ((p-completion (propertize completion 'face 'all-the-icons-yellow))
+        (let* ((p-completion (propertize completion 'face 'all-the-icons-cyan-alt))
                (ov (if (not (overlayp copilot--overlay))
                        (make-overlay (point) (point-at-eol) nil nil t)
                      (move-overlay copilot--overlay (point) (point-at-eol))
