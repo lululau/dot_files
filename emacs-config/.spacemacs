@@ -689,6 +689,7 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions "node_modules/")
   (add-to-list 'completion-ignored-extensions "target/")
   (add-to-list 'completion-ignored-extensions ".idea/")
+  (add-to-list 'completion-ignored-extensions "site-packages/")
 
   ) ;;; End of config.
 
