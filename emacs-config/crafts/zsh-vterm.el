@@ -193,8 +193,18 @@ value of `vterm-buffer-name'."
     (define-key map (kbd "s-V") #'zsh-vterm-next-cli)
     (define-key map (kbd "s-a") #'vterm-send-C-z)
     (define-key map (kbd "s-i s-o") #'zsh-vterm-goto-tmp-dir)
+    (define-key map (kbd "M-C") #'(lambda () (interactive) (vterm-send-key "C" t t)))
+    (define-key map (kbd "M-V") #'(lambda () (interactive) (vterm-send-key "V" t t)))
+    (define-key map (kbd "M-N") #'(lambda () (interactive) (vterm-send-key "N" t t)))
+    (define-key map (kbd "M-P") #'(lambda () (interactive) (vterm-send-key "P" t t)))
 
     (evil-define-key 'visual map (kbd "<return>") #'evil-yank-for-zsh-vterm)
+
+    (evil-define-key 'hybrid map (kbd "M-C") #'(lambda () (interactive) (vterm-send-key "C" t t)))
+    (evil-define-key 'hybrid map (kbd "M-V") #'(lambda () (interactive) (vterm-send-key "V" t t)))
+    (evil-define-key 'hybrid map (kbd "M-N") #'(lambda () (interactive) (vterm-send-key "N" t t)))
+    (evil-define-key 'hybrid map (kbd "M-P") #'(lambda () (interactive) (vterm-send-key "P" t t)))
+
 
     (evil-define-key 'hybrid map (kbd "M-!") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "7")))
     (evil-define-key 'hybrid map (kbd "M-@") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "8")))
