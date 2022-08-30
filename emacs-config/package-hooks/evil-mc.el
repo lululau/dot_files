@@ -16,8 +16,8 @@
     (evil-previous-line)
     (evil-mc-undo-cursor-at-pos (point)))
 
-  (defun evil-mc-make-cursors-on-region ()
-    (interactive)
+  (defun evil-mc-make-cursors-on-region (skip-empty-lines)
+    (interactive "P")
     (if (evil-mc-has-cursors-p) (user-error "Cursors already exist.")
       (global-evil-mc-mode 1))
     (let* ((beg (region-beginning))
@@ -25,7 +25,9 @@
       (evil-exit-visual-state)
       (goto-char beg)
       (while (< (point) end)
-        (evil-mc-make-cursor-move-next-line 1))
+        (if (and skip-empty-lines (string-match-p "^[[:space:]]*$" (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+            (evil-next-line)
+            (evil-mc-make-cursor-move-next-line 1)))
       (evil-previous-line)
       (evil-mc-undo-cursor-at-pos (point))))
 
