@@ -4,6 +4,31 @@
 
 (with-eval-after-load 'evil-mc
 
+  (defun evil-mc-make-cursors-on-paragraph ()
+    (interactive)
+    (if (evil-mc-has-cursors-p) (user-error "Cursors already exist.")
+      (global-evil-mc-mode 1))
+    (evil-backward-paragraph 1)
+    (if (string-match-p "^[[:space:]]*$" (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
+        (evil-next-line))
+    (while (not (string-match-p "^[[:space:]]*$" (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
+      (evil-mc-make-cursor-move-next-line 1))
+    (evil-previous-line)
+    (evil-mc-undo-cursor-at-pos (point)))
+
+  (defun evil-mc-make-cursors-on-region ()
+    (interactive)
+    (if (evil-mc-has-cursors-p) (user-error "Cursors already exist.")
+      (global-evil-mc-mode 1))
+    (let* ((beg (region-beginning))
+           (end (region-end)))
+      (evil-exit-visual-state)
+      (goto-char beg)
+      (while (< (point) end)
+        (evil-mc-make-cursor-move-next-line 1))
+      (evil-previous-line)
+      (evil-mc-undo-cursor-at-pos (point))))
+
   (evil-define-command evil-mc-make-cursors-by-regexp ()
     "Initialize `evil-mc-pattern' and make cursors for all matches."
     :repeat ignore
@@ -12,6 +37,8 @@
       (global-evil-mc-mode 1)
       (setq evil-mc-pattern (cons (list (read-regexp "Mark regexp: ") t t) (evil-visual-range)))
       (evil-mc-before-undo-all-cursors)
+      (if (evil-visual-state-p)
+          (narrow-to-region (region-beginning) (region-end)))
       (evil-exit-visual-state)
       (when (evil-mc-has-pattern-p)
         (goto-char (point-min))
@@ -25,6 +52,7 @@
                 (evil-mc-run-cursors-before)
                 (evil-mc-make-cursor-at-pos (point)))
               (goto-char (1+ (point)))))))
+      (widen)
       (evil-mc-print-cursors-info "Created")))
 
   (evil-define-command evil-mc-undo-cursor-at-posi ()
