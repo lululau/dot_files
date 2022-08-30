@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: bulma-notification
+# key: notification
+# group: bulma
+# binding: direct-keybinding
+# --
+
+<div class="notification is-${1:$$(yas-choose-value '("primary" "link" "success" "info" "warning" "danger" "link" "white" "light" "dark" "black" "text" "ghost"))}">
+  <button class="delete"></button>
+  $0
+</div>

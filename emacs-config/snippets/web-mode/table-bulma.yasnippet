@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# name: bulma-table
+# key: table
+# group: bulma
+# binding: direct-keybinding
+# --
+<table class="table is-${1:$$(yas-choose-value '("bordered" "striped" "narrow" "hoverable" "fullwidth"))}">
+  <thead>
+    <tr>
+      <th>$2</th>
+      <th>$3</th>
+      <th>$4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$5</td>
+      <td>$6</td>
+      <td>$7</td>
+    </tr>
+  </tbody>
+</table>$0
