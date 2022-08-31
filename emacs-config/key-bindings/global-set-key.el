@@ -35,20 +35,24 @@
 
 (global-set-key (kbd "s-\"") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup)))
 (global-set-key (kbd "s-'") #'(lambda () (interactive)
-                                (let* ((remote-host (lx/get-remote-buffer-host)))
-                                  (if remote-host
-                                      (let* ((process-environment '("SSH_INTERACTIVE=1"))
-                                             (cmd (format "ssh %s" remote-host))
-                                             (buffer-name (format "*zsh-vterm-ssh-%s*" remote-host)))
-                                        (lx/run-ssh-in-zsh-vterm cmd buffer-name (plist-put nil :host remote-host) nil 'popup))
-                                    (let* ((project-root (projectile-project-root)))
-                                      (if project-root
-                                          (let* ((cmd (format "tmux-attach-or-create %s %s" project-root project-root))
-                                                 (buffer-name (format "*tmux-%s*" project-root)))
-                                            (lx/run-in-zsh-vterm cmd buffer-name nil 'popup)
-                                            (with-current-buffer buffer-name
-                                              (setq default-directory project-root)))
-                                        (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup)))))))
+                                (if (eq major-mode 'zsh-vterm-mode)
+                                    (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
+                                        (bury-buffer)
+                                      (delete-window))
+                                  (let* ((remote-host (lx/get-remote-buffer-host)))
+                                    (if remote-host
+                                        (let* ((process-environment '("SSH_INTERACTIVE=1"))
+                                               (cmd (format "ssh %s" remote-host))
+                                               (buffer-name (format "*zsh-vterm-ssh-%s*" remote-host)))
+                                          (lx/run-ssh-in-zsh-vterm cmd buffer-name (plist-put nil :host remote-host) nil 'popup))
+                                      (let* ((project-root (projectile-project-root)))
+                                        (if project-root
+                                            (let* ((cmd (format "tmux-attach-or-create %s %s" project-root project-root))
+                                                   (buffer-name (format "*tmux-%s*" project-root)))
+                                              (lx/run-in-zsh-vterm cmd buffer-name nil 'popup)
+                                              (with-current-buffer buffer-name
+                                                (setq default-directory project-root)))
+                                          (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup))))))))
 
 (global-set-key (kbd "s-r s-;") #'(lambda () (interactive) (lx/run-in-pry-vterm (cdr (assoc "pry" inf-ruby-implementations)) "*pry*")))
 (global-set-key (kbd "s-[") 'previous-buffer)
@@ -139,6 +143,10 @@
                                                                     (root-base-name (car (last (split-string root "/" t))))
                                                                     (buffer-name (format "*vterm-cmd-git-multi-pull-%s*" root-base-name)))
                                                                 (lx/run-in-vterm "git multi-pull" buffer-name root t))))
+(global-set-key (kbd "s-r s-r ga") #'(lambda (arg) (interactive "P") (let* ((vterm-kill-buffer-on-exit nil)
+                                                                     (buffer-name "*vterm-cmd-git-remote-branches*")
+                                                                     (remote (if arg (magit-read-remote "Remote") "")))
+                                                                (lx/run-in-vterm (format "git remote-branches %s" remote) buffer-name (magit-toplevel) t))))
 (global-set-key (kbd "s-r s-r ad") #'arthas-class-reload-docker)
 (global-set-key (kbd "s-r s-r ak") #'arthas-class-reload-k8s)
 (global-set-key (kbd "s-r b") #'helm-vterm-buffers)
@@ -223,6 +231,9 @@
 (global-set-key (kbd "s-i s-p") 'lx/find-or-create-projectile-request-org)
 (global-set-key (kbd "s-i s-q") 'lx/find-or-create-projectile-sql-org)
 (global-set-key (kbd "s-i s-m") 'lx/toggle-global-evil-mc-mode)
+(global-set-key (kbd "s-i s-r") 'lx/evil-mc-make-cursors-by-regexp)
+(global-set-key (kbd "s-i p") 'lx/evil-mc-make-cursors-on-paragraph)
+(global-set-key (kbd "s-i r") 'lx/evil-mc-make-cursors-on-region)
 (global-set-key (kbd "s-i s-t") 'insert-translated-name-replace)
 (global-set-key (kbd "s-i s-c") 'org-capture)
 (global-set-key (kbd "s-i s-a") 'org-agenda-list)
@@ -282,3 +293,4 @@
 ;; ;; (global-set-key (kbd "M-[") 'copilot-previous-completion) ;; Comment out this kbd due to confliction with S-TAB in terminal
 ;; (global-set-key (kbd "<backtab>") #'copilot-accept-completion)
 ;; (global-set-key (kbd "M-?") 'all-buffer-completion)
+(global-set-key (kbd "M-SPC") 'dash-at-point)

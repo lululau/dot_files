@@ -68,3 +68,5 @@ alias ports='sudo lsof -Pn -iTCP -sTCP:LISTEN | tee >(head -1)'
 alias vi=nvim
 alias vim=nvim
 alias view='nvim -R'
+alias dev=./bin/dev
+alias ❯=''

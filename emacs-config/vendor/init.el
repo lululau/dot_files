@@ -1,4 +1,5 @@
 (add-to-list 'load-path (file-name-directory load-file-name))
+(add-to-list 'load-path (concat (file-name-directory load-file-name) "/xwwp"))
 
 (autoload 'org-babel-execute:html-chrome "ob-html-chrome")
 (autoload 'org-babel-execute:tmux "ob-tmux")
@@ -38,3 +39,14 @@
 (autoload 'oh-my-github-repo-list "oh-my-github.el")
 (autoload 'oh-my-github-trending-repos-list "oh-my-github.el")
 (autoload 'oh-my-github-whoami "oh-my-github.el")
+
+(autoload 'xwwp-browse-url-other-window "xwwp.el")
+(autoload 'xwwp-ace-toggle "xwwp-ace.el")
+(autoload 'xwwp-input-toggle "xwwp-input.el")
+(autoload 'xwwp-follow-link "xwwp-follow-link.el")
+(autoload 'xwwp-follow-link-helm "xwwp-follow-link-helm.el")
+(autoload 'xwwp-history-show "xwwp-history.el")
+(autoload 'xwwp-reader-toggle "xwwp-reader.el")
+(autoload 'xwwp-section "xwwp-section.el")
+(autoload 'xwwp-yank "xwwp-yank.el")
+(autoload 'xwwp-goto-root "xwwp-misc.el")

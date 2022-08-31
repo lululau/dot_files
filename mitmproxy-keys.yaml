@@ -1,5 +1,5 @@
 -
   key: "e"
-  ctx: ["flowlist", "flowview"]
+  ctx: ["flowlist"]
   cmd: "console.choose.cmd Format export.formats\nconsole.command export.clip {choice} @focus"
   help: Export this flow to clipboard

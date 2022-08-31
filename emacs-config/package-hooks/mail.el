@@ -137,6 +137,7 @@
     :bindings
     (kbd "y") 'evil-yank
     (kbd "Y") 'yank-to-end-of-line)
+  (evil-define-key 'visual mu4e-headers-mode-map (kbd "!") 'mu4e-headers-mark-for-read)
   (define-key mu4e-headers-mode-map (kbd "c") 'yank-selected-message-contents)
   (spacemacs/set-leader-keys-for-major-mode 'mu4e-headers-mode
     "fo" 'open-message-with-mail-app))

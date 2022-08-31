@@ -51,7 +51,7 @@ end
 class Array
   def write_csv(filename, *fields, **options)
     generate_csv(filename, **options) do |csv|
-      if size > 0 && first.is_a?(ActiveRecord::Base)
+      if size > 0 && Object.const_defined?(:ActiveRecord) && first.is_a?(ActiveRecord::Base)
         if fields.empty?
           fields = first.attributes.keys
         else
@@ -79,7 +79,7 @@ class Array
     sheet_name = options[:sheet_name] || 'Sheet1'
     generate_excel(filename) do |workbook|
       workbook.add_worksheet(name: sheet_name) do |sheet|
-        if size > 0 && first.is_a?(ActiveRecord::Base)
+        if size > 0 && Object.const_defined?(:ActiveRecord) && first.is_a?(ActiveRecord::Base)
           if fields.empty?
             fields = first.attributes.keys
           else
@@ -119,7 +119,7 @@ class Hash
           end
 
           if sheet_data.is_a?(Array)
-            if sheet_data.size > 0 && sheet_data.first.is_a?(ActiveModel::Base)
+            if sheet_data.size > 0 && Object.const_defined?(:ActiveRecord) && sheet_data.first.is_a?(ActiveRecord:Base)
               fields = sheet_data.first.attributes.keys
               sheet.add_row(fields, types: [:string] * fields.size)
               sheet_data.each do |row|
@@ -137,7 +137,7 @@ class Hash
 
             if sheet_data.size > 0 && sheet_data.first.is_a?(Array)
               sheet_data.each do |row|
-                sheet.add_row(row.map(&:to_s), types: [:string] * fields.size)
+                sheet.add_row(row.map(&:to_s), types: [:string] * row.size)
               end
             end
           end

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: bulma-field-input
+# key: input
+# group: bulma
+# binding: direct-keybinding
+# --
+<div class="field">
+  <label class="label">$1</label>
+  <div class="control">
+    <input class="input is-${2:$$(yas-choose-value '("primary" "link" "success" "info" "warning" "danger" "link" "white" "light" "dark" "black" "text" "ghost"))}$3" type="text" placeholder="$4" />$0
+  </div>
+</div>
