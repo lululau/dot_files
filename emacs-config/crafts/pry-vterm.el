@@ -62,7 +62,7 @@ value of `vterm-buffer-name'."
 
 (defun pry-vterm-accept-copilot-or-send-tab-to-term ()
   (interactive)
-  (if copilot--overlay
+  (if (copilot--overlay-visible)
       (copilot-accept-completion)
     (vterm-send-tab)))
 

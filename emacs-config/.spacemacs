@@ -686,6 +686,12 @@ layers configuration."
   (make-shell-pop-command "zsh-vterm" zsh-vterm)
 
   (add-hook 'post-command-hook #'lx/reset-hybrid-state-cursor-type-after-tab)
+
+  (add-to-list 'completion-ignored-extensions "node_modules/")
+  (add-to-list 'completion-ignored-extensions "target/")
+  (add-to-list 'completion-ignored-extensions ".idea/")
+  (add-to-list 'completion-ignored-extensions "site-packages/")
+
   ) ;;; End of config.
 
 ;; (desktop-save-mode 1)

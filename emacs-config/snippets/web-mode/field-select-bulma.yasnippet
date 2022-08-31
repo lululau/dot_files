@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: bulma-field-select
+# key: select
+# group: bulma
+# binding: direct-keybinding
+# --
+<div class="field">
+  <label class="label">$1</label>
+  <div class="control">
+    <div class="select is-${1:$$(yas-choose-value '("primary" "link" "success" "info" "warning" "danger" "link" "white" "light" "dark" "black" "text" "ghost"))}$2">
+      <select>
+        <option>Select dropdown</option>
+        <option>With options</option>
+      </select>
+    </div>$0
+  </div>
+</div>

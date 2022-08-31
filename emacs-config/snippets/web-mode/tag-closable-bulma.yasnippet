@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: bulma-tag-addons
+# key: tag
+# group: bulma
+# binding: direct-keybinding
+# --
+<div class="tags">
+  <a class="tag is-${1:$$(yas-choose-value '("primary" "link" "success" "info" "warning" "danger" "link" "white" "light" "dark" "black" "text" "ghost"))}">$2</a>
+  <a class="tag is-delete"></a>
+</div>$0

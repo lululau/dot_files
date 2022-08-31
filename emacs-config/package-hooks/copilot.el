@@ -1,3 +1,4 @@
+;;;  -*- lexical-binding: t -*-
 (defvar copilot-auto-copilot-inhibit-commands '(copilot-complete
                                                 copilot-next-completion
                                                 copilot-previous-completion
@@ -37,11 +38,11 @@
   (defun copilot-accept-completion (&optional transform-fn)
     "Accept completion. Return t if there is a completion. Use TRANSFORM-FN to transform completion if provided."
     (interactive)
-    (when copilot--overlay
+    (when (copilot--overlay-visible)
       (let* ((completion (overlay-get copilot--overlay 'completion))
              (start (overlay-get copilot--overlay 'start))
              (uuid (overlay-get copilot--overlay 'uuid))
-             (t-completion (funcall (or transform-fn 'identity) completion)))
+             (t-completion (funcall (or transform-fn #'identity) completion)))
         (copilot--async-request 'notifyAccepted (list :uuid uuid))
         (copilot-clear-overlay)
         ;; (delete-region start (line-end-position))
@@ -90,8 +91,11 @@ USER-POS is the cursor position (for verification only)."
                  (or (= (point) user-pos) ; up-to-date completion
                      (and (< (point) user-pos) ; special case for removing indentation
                           (s-blank-p (s-trim (buffer-substring-no-properties (point) user-pos))))))
-        (let* ((p-completion (propertize completion 'face 'all-the-icons-yellow))
-               (ov (make-overlay (point) (point-at-eol) nil t t)))
+        (let* ((p-completion (propertize completion 'face 'all-the-icons-cyan-alt))
+               (ov (if (not (overlayp copilot--overlay))
+                       (make-overlay (point) (point-at-eol) nil nil t)
+                     (move-overlay copilot--overlay (point) (point-at-eol))
+                     copilot--overlay)))
           (if (= (overlay-start ov) (overlay-end ov)) ; end of line
               (progn
                 (setq copilot--real-posn (cons (point) (posn-at-point)))
@@ -102,6 +106,7 @@ USER-POS is the cursor position (for verification only)."
           (overlay-put ov 'completion completion)
           (overlay-put ov 'start (point))
           (overlay-put ov 'uuid uuid)
+          (overlay-put ov 'keymap copilot-completion-map)
           (setq copilot--overlay ov)
           (copilot--async-request 'notifyShown (list :uuid uuid))))))
 
@@ -166,8 +171,8 @@ USER-POS is the cursor position (for verification only)."
         (list :line (length history) :character (length (pry-vterm-get-current-line)))
       (if (eq 'zsh-vterm-mode major-mode)
           (list :line (length history) :character (length (zsh-vterm-get-current-line)))
-      (list :line (1- (line-number-at-pos))
-            :character (length (buffer-substring-no-properties (point-at-bol) (point)))))))
+        (list :line (1- (line-number-at-pos))
+              :character (- (point) (point-at-bol))))))
 
   (defun copilot--buffer-file-path ()
     (or (buffer-file-name) ""))
