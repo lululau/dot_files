@@ -1047,7 +1047,7 @@ This function is called at the very end of Spacemacs initialization."
  '(dired-filter-prefix ",f")
  '(org-modern-star nil)
  '(org-modern-hide-stars nil)
- '(org-modern-block nil)
+ '(org-modern-block-fringe nil)
  '(org-modern-keyword nil)
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
