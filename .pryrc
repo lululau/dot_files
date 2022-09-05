@@ -10,7 +10,11 @@
 # pry-toys
 # pry-macro
 # pry-inline
-require 'pry-doc'
+begin
+  require 'pry-doc'
+rescue LoadError => e
+  puts(%Q{#{e}, consider putting `gem "pry-doc"' into your Gemfile})
+end
 
 
 unless $USER_PRYRC_LOADED
