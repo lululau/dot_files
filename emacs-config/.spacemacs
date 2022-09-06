@@ -217,7 +217,7 @@
      vagrant
      docker
      protobuf
-     chrome
+     ;; chrome
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)
      search-engine
@@ -262,7 +262,7 @@
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
-                                            mermaid-mode org-modern grip-mode)
+                                            mermaid-mode org-modern grip-mode atomic-chrome)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -691,6 +691,7 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
 
+  (atomic-chrome-start-server)
   ) ;;; End of config.
 
 ;; (desktop-save-mode 1)
