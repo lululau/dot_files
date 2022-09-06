@@ -18,6 +18,24 @@
     "sP" 'lx/ruby-send-paragraph-and-go
     "sp" 'lx/ruby-send-babel-block
     "sP" 'lx/ruby-send-babel-block-and-go)
+
+  (defun ruby/jump-to-definition ()
+    (interactive)
+    (if (get-buffer-process (get-ruby-buffer))
+        (call-interactively 'robe-jump)
+      (call-interactively 'spacemacs/jump-to-definition)))
+
+  (defun ruby/jump-to-definition-other-window ()
+    (interactive)
+    (let ((pos (point)))
+      (switch-to-buffer-other-window (current-buffer))
+      (goto-char pos)
+      (call-interactively 'ruby/jump-to-definition)))
+
+
+  (define-key ruby-mode-map (kbd (if (display-graphic-p) "<C-return>" "C-RET")) 'ruby/jump-to-definition)
+  (define-key ruby-mode-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'ruby/jump-to-definition-other-window)
+
   )
 
 (spacemacs|use-package-add-hook ruby-mode
