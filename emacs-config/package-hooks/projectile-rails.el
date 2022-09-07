@@ -8,13 +8,6 @@
      '(("app/api/" "/api/\\(.+?\\)\\(_api\\)?\\.rb$"))
      "app/api/${filename}_api.rb"))
 
-  (defun projectile-rails-find-job ()
-    (interactive)
-    (projectile-rails-find-resource
-     "job: "
-     '(("app/jobs/" "/jobs/\\(.+?\\)\\.rb$"))
-     "app/jobs/${filename}.rb"))
-
   (defun rails-buffer-candidates-function (type)
     (let ((result '()))
       (dolist (buf-name helm-projectile-buffers-list-cache result)
