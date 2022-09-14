@@ -407,7 +407,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-pretty-docs t
    dotspacemacs-use-spacelpa nil
    dotspacemacs-use-SPC-as-y t
-   dotspacemacs-show-trailing-whitespace nil
+   dotspacemacs-show-trailing-whitespace t
    ))
 
 
