@@ -35,7 +35,7 @@
   (let* ((filename (shell-quote-argument (expand-file-name file)))
          (string-buf-var (tail-f--get-string-buf-var filename)))
     (if (not command)
-        (setq command "tail -n %d %s -f"))
+        (setq command "tail -n %d -f %s"))
     (setq command (format command lines filename))
     (if (boundp string-buf-var)
         (if (eval string-buf-var)
