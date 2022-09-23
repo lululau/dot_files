@@ -1,6 +1,6 @@
 gsub_file "Gemfile", "https://rubygems.org", "https://gems.ruby-china.com"
 
-gsub_file "Procfile.dev", "web: bin/rails server -p 3000", ""
+# gsub_file "Procfile.dev", "web: bin/rails server -p 3000", ""
 
 gem 'pry-rails'
 gem 'pry-byebug'
