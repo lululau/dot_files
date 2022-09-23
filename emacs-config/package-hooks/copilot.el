@@ -11,13 +11,24 @@
   (defun copilot--generate-doc ()
     "Generate doc param for completion request."
     ;; Begin Add
-    (let ((history nil))
+    (let* ((hist nil)
+           (history nil)
+           (code-line-found nil))
       (if (eq 'pry-vterm-mode major-mode)
-          (setq history (tail-f "~/.pry_history" 5000)))
+          (setq hist (tail-f "~/.pry_history" 500)))
       (if (eq 'zsh-vterm-mode major-mode)
-          (setq history (append (tail-f "~/.zsh_history" 5000 "tail -n %d -f %s | zsh-histfile-unmetafy")
-                (mapcar (lambda (it)
-                             (format "ls %s" it)) (cdr (cdr (directory-files default-directory)))))))
+          (setq hist (append (mapcar (lambda (it)
+                                          (format "ls %s" it)) (cdr (cdr (directory-files default-directory))))
+                             (mapcar (lambda (it) (replace-regexp-in-string "^[^;]*;" "" it))
+                                (tail-f "~/.zsh_history" 500 "tail -n %d -f %s | zsh-histfile-unmetafy")))))
+      (mapc (lambda (line)
+              (if (string-match-p "^ *#" line)
+                  (if (not code-line-found)
+                      (setq history (append (list line) history)))
+                (setq history (append (list line) history))
+                (setq code-line-found t)))
+            (reverse hist))
+
       ;; End Add
 
       ;; (list :source (concat (buffer-substring-no-properties (point-min) (point-max)) "\n")
@@ -154,10 +165,9 @@ USER-POS is the cursor position (for verification only)."
     (let ((source (if (eq 'pry-vterm-mode major-mode)
                       (concat (s-join "\n" history) "\n" (pry-vterm-get-current-line))
                     (if (eq 'zsh-vterm-mode major-mode)
-                        (concat (mapconcat (lambda (it)
-                                             (replace-regexp-in-string "^: [0-9]\\{10\\};0" "" it)) history "\n") "\n" (zsh-vterm-get-current-line))
+                        (concat (s-join "\n" history) "\n" (zsh-vterm-get-current-line))
                       (buffer-substring-no-properties (point-min) (point-max))))))
-        (concat source "\n")))
+      (concat source "\n")))
 
   (defun copilot--get-language-id ()
     (if (eq 'pry-vterm-mode major-mode)
