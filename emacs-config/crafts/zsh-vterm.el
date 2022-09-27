@@ -211,6 +211,7 @@ value of `vterm-buffer-name'."
     (evil-define-key 'hybrid map (kbd "M-#") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "9")))
     (evil-define-key 'hybrid map (kbd "M-$") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "0")))
     (evil-define-key 'hybrid map (kbd "s-z") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "z")))
+    (evil-define-key 'hybrid map (kbd "s-j") #'(lambda () (interactive) (vterm-send-C-j)))
 
     (evil-define-key 'hybrid map (kbd "C-M-s-!") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "1")))
     (evil-define-key 'hybrid map (kbd "C-M-s-@") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "2")))
