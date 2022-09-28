@@ -70,9 +70,9 @@
                                              :name "~/tmp/"
                                              :initial-input "~/tmp/"
                                              :test 'file-directory-p))
-             (local-dir (if (string-suffix-p "/" local-dir) local-dir (concat local-dir "/")))
+             (local-dir (shell-quote-argument (if (string-suffix-p "/" local-dir) local-dir (concat local-dir "/"))))
              (remote-file (replace-regexp-in-string "/$" "" remote-file))
-             (cmd (format "rsync -rzP %s %s" remote-file local-dir))
+             (cmd (format "rsync -rzP '%s' %s" remote-file local-dir))
              (buffer-name (format "*rsync: %s -> %s*" remote-file local-dir))
              (vterm-kill-buffer-on-exit nil))
         (lx/run-in-vterm cmd buffer-name)))))
@@ -89,8 +89,8 @@
                                               :name "~/tmp/"
                                               :initial-input "~/tmp/"))
              (remote-dir (if (string-suffix-p "/" remote-dir) remote-dir (concat remote-dir "/")))
-             (local-file (replace-regexp-in-string "/$" "" local-file))
-             (cmd (format "rsync -rzP %s %s" local-file remote-dir))
+             (local-file (shell-quote-argument (replace-regexp-in-string "/$" "" local-file)))
+             (cmd (format "rsync -rzP %s '%s'" local-file remote-dir))
              (buffer-name (format "*rsync: %s -> %s*" local-file remote-dir))
              (vterm-kill-buffer-on-exit nil))
         (lx/run-in-vterm cmd buffer-name)))))
