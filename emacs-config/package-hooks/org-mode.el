@@ -217,6 +217,8 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "go" 'grip-stop-preview)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "gb" 'grip-browse-preview)
 
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ed" 'org-excalidraw-create-drawing)
+
   ;; (add-hook 'org-mode-hook #'turn-company-english-helper-on 100)
 
 

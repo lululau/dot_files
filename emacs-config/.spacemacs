@@ -951,6 +951,7 @@ This function is called at the very end of Spacemacs initialization."
     "* %a :website:\n\n%U %?\n\n%:initial"))))
  '(org-confirm-babel-evaluate nil)
  '(org-ditaa-jar-path "/usr/local/libexec/ditaa.jar")
+ '(org-excalidraw-directory "~/Documents/materials/org-excalidraw")
  '(org-export-with-sub-superscripts (quote {}))
  '(org-pandoc-options-for-latex-pdf
    `((pdf-engine . "xelatex")

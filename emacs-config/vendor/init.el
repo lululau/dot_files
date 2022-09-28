@@ -29,6 +29,7 @@
 (autoload 'toggle-company-english-helper  "company-english-helper.el")
 (autoload 'turn-company-english-helper-on "company-english-helper.el")
 (autoload 'company-en-words "company-english-helper.el")
+
 (autoload 'copilot-clear-overlay "copilot.el")
 (autoload 'copilot-complete "copilot.el")
 (autoload 'copilot-next-completion "copilot.el")
@@ -53,3 +54,6 @@
 (autoload 'xwwp-section "xwwp-section.el")
 (autoload 'xwwp-yank "xwwp-yank.el")
 (autoload 'xwwp-goto-root "xwwp-misc.el")
+
+(autoload 'org-excalidraw-create-drawing "org-excalidraw.el")
+(autoload 'org-excalidraw-initialize "org-excalidraw.el")
