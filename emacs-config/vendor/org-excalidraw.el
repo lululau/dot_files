@@ -105,7 +105,7 @@
   (interactive)
   (let* ((filename (format "%s.excalidraw" (org-id-uuid)))
          (path (expand-file-name filename org-excalidraw-directory))
-         (link (format "[[excalidraw:%s.svg]]" path)))
+         (link (format "[[excalidraw:%s.svg][file:%s.svg]]" path path)))
     (org-excalidraw--validate-excalidraw-file path)
     (insert link)
     (with-temp-file path (insert org-excalidraw-base))
