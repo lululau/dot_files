@@ -237,6 +237,14 @@
                  '((t :inherit (org-done org-modern-label)
                       :weight semibold :foreground "lime green" :inverse-video t)))
 
+  (org-link-set-parameters "excalidraw"
+                           :follow 'org-excalidraw--open-file-from-svg
+                           :image-data-fun (lambda (_protocol link _desc)
+                                             (with-temp-buffer (insert-file-contents-literally link)
+                                                               (buffer-substring-no-properties
+                                                                (point-min)
+                                                                (point-max)))))
+
   (require 'org-mouse))
 
 ;; (eval-after-load "org"

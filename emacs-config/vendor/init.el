@@ -57,3 +57,4 @@
 
 (autoload 'org-excalidraw-create-drawing "org-excalidraw.el")
 (autoload 'org-excalidraw-initialize "org-excalidraw.el")
+(autoload 'org-excalidraw--open-file-from-svg "org-excalidraw.el")
