@@ -910,6 +910,7 @@ This function is called at the very end of Spacemacs initialization."
  '(magit-revision-show-gravatars nil)
  '(magit-section-visibility-indicator nil)
  '(markdown-command "~/bin/markdown")
+ '(mu4e-alert-interesting-mail-query "flag:unread AND NOT flag:trashed AND NOT f:kibana AND NOT f:devops")
  '(mu4e-attachment-dir "~/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
  '(evil-want-keybinding nil)
