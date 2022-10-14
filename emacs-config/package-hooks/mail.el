@@ -152,6 +152,7 @@
     (kbd "C-k") 'mu4e-view-headers-prev
     (kbd "y") 'evil-yank
     (kbd "Y") 'yank-to-end-of-line)
+  (setq mu4e-view-actions (-remove (lambda (x) (eq (cdr x) 'mu4e-action-view-in-xwidget)) mu4e-view-actions))
   (add-to-list 'mu4e-view-actions
                '("xViewXWidget" . my-mu4e-action-view-with-xwidget) t)
   (spacemacs/set-leader-keys-for-major-mode 'mu4e-view-mode

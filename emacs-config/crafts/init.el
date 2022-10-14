@@ -49,5 +49,9 @@
 (autoload 'visidata-mode "visidata")
 (autoload 'arthas-class-reload-docker "arthas-class-reloader")
 (autoload 'arthas-class-reload-k8s "arthas-class-reloader")
+(autoload 'vterm-rails/run "vterm-rails")
+(autoload 'vterm-rails/rails-server "vterm-rails")
+(autoload 'vterm-rails/rails-dev "vterm-rails")
+(autoload 'vterm-rails/sidekiq "vterm-rails")
 
 (load-file (format "%s/%s" (file-name-directory load-file-name) "spacemacs-override.el"))

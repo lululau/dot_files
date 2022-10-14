@@ -217,6 +217,10 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "go" 'grip-stop-preview)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "gb" 'grip-browse-preview)
 
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ed" 'org-excalidraw-create-drawing)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ei" 'org-excalidraw-initialize)
+  (spacemacs/set-leader-keys-for-major-mode 'org-mode "di" 'org-redisplay-inline-images)
+
   ;; (add-hook 'org-mode-hook #'turn-company-english-helper-on 100)
 
 
@@ -232,6 +236,14 @@
   (face-spec-set 'org-modern-done
                  '((t :inherit (org-done org-modern-label)
                       :weight semibold :foreground "lime green" :inverse-video t)))
+
+  (org-link-set-parameters "excalidraw"
+                           :follow 'org-excalidraw--open-file-from-svg
+                           :image-data-fun (lambda (_protocol link _desc)
+                                             (with-temp-buffer (insert-file-contents-literally link)
+                                                               (buffer-substring-no-properties
+                                                                (point-min)
+                                                                (point-max)))))
 
   (require 'org-mouse))
 

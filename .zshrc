@@ -97,6 +97,7 @@ autoload -U zmv
 [ -e $CONFIGDIR/.zsh-aliases.zsh ] && source $CONFIGDIR/.zsh-aliases.zsh || source $HOME/.zsh-aliases.zsh
 unalias ping
 # unalias fd
+unalias vd
 unalias rb
 
 # Linux Specific Config

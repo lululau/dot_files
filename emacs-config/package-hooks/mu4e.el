@@ -6,7 +6,7 @@
 
 (defvar mu4e-view-highlights nil)
 
-(with-eval-after-load 'mu4e-view-gnus
+(with-eval-after-load 'mu4e-view
   (defun mu4e-view-mode-auto-highlight (&rest _)
     (mapc (lambda (highlight)
             (let ((regexp (car highlight))

@@ -206,7 +206,7 @@
      vagrant
      docker
      protobuf
-     chrome
+     ;; chrome
      (ibuffer :variables
               ibuffer-group-buffers-by 'projects)
      search-engine
@@ -250,7 +250,7 @@
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
-                                            mermaid-mode org-modern grip-mode)
+                                            mermaid-mode org-modern grip-mode atomic-chrome)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -394,6 +394,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-pretty-docs t
    dotspacemacs-use-spacelpa nil
    dotspacemacs-use-SPC-as-y t
+   dotspacemacs-show-trailing-whitespace t
    ))
 
 
@@ -671,6 +672,7 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
 
+  (atomic-chrome-start-server)
   ) ;;; End of config.
 
 ;; (desktop-save-mode 1)
@@ -885,6 +887,7 @@ This function is called at the very end of Spacemacs initialization."
  '(magit-revision-show-gravatars nil)
  '(magit-section-visibility-indicator nil)
  '(markdown-command "~/bin/markdown")
+ '(mu4e-alert-interesting-mail-query "flag:unread AND NOT flag:trashed AND NOT f:kibana AND NOT f:devops")
  '(mu4e-attachment-dir "~/Downloads/")
  '(mu4e-headers-date-format "%Y-%m-%d")
  '(evil-want-keybinding nil)
@@ -926,6 +929,7 @@ This function is called at the very end of Spacemacs initialization."
     "* %a :website:\n\n%U %?\n\n%:initial"))))
  '(org-confirm-babel-evaluate nil)
  '(org-ditaa-jar-path "/usr/local/libexec/ditaa.jar")
+ '(org-excalidraw-directory "~/Documents/materials/org-excalidraw")
  '(org-export-with-sub-superscripts (quote {}))
  '(org-pandoc-options-for-latex-pdf
    `((pdf-engine . "xelatex")
@@ -1023,7 +1027,7 @@ This function is called at the very end of Spacemacs initialization."
  '(dired-filter-prefix ",f")
  '(org-modern-star nil)
  '(org-modern-hide-stars nil)
- '(org-modern-block nil)
+ '(org-modern-block-fringe nil)
  '(org-modern-keyword nil)
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
@@ -1037,6 +1041,25 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-buffer-max-length 40)
  '(copilot-overlay-safe nil)
  '(copilot-idle-delay 0.5)
+ '(projectile-rails-javascript-dirs
+       (quote ("app/assets/javascripts/" "lib/assets/javascripts/" "public/javascripts/" "app/javascript/" "app/javascript/controllers" "app/javascript/vue/")))
+ '(projectile-rails-model-keywords (quote ("default_scope" "named_scope" "scope" "serialize" "belongs_to" "has_one"
+    "has_many" "has_and_belongs_to_many" "composed_of" "accepts_nested_attributes_for"
+    "before_create" "before_destroy" "before_save" "before_update" "before_validation"
+    "before_validation_on_create" "before_validation_on_update" "after_create"
+    "after_destroy" "after_save" "after_update" "after_validation"
+    "after_validation_on_create" "after_validation_on_update" "around_create"
+    "around_destroy" "around_save" "around_update" "after_commit" "after_find"
+    "after_initialize" "after_rollback" "after_touch" "attr_accessible"
+    "attr_protected" "attr_readonly" "validates" "validate" "validate_on_create"
+    "validate_on_update" "validates_acceptance_of" "validates_associated"
+    "validates_confirmation_of" "validates_each" "validates_exclusion_of"
+    "validates_format_of" "validates_inclusion_of" "validates_length_of"
+    "validates_numericality_of" "validates_presence_of" "validates_size_of"
+    "validates_existence_of" "validates_uniqueness_of" "validates_with"
+    "enum" "after_create_commit" "after_update_commit" "after_destroy_commit"
+    "has_rich_text" "has_one_attached" "has_many_attached" "has_many_attached")))
+
  '(xwwp-ace-candidate-selector "button, input, [href], select, textarea, [tabindex]:not([tabindex=\"-1\"]), span.proxies-speed-test")
  '(TeX-command-list (quote (("XeLaTeX" "%`xelatex --synctex=1%(mode)%' %t" TeX-run-TeX nil t) ("LatexMk" "latexmk %(-PDF)%S%(mode) %(file-line-error) %(extraopts) %t" TeX-run-latexmk nil (plain-tex-mode latex-mode doctex-mode) :help "Run LatexMk") ("TeX" "%(PDF)%(tex) %(file-line-error) %`%(extraopts) %S%(PDFout)%(mode)%' %t" TeX-run-TeX nil (plain-tex-mode ams-tex-mode texinfo-mode) :help "Run plain TeX") ("LaTeX" "%`%l%(mode)%' %T" TeX-run-TeX nil (latex-mode doctex-mode) :help "Run LaTeX") ("Makeinfo" "makeinfo %(extraopts) %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with Info output") ("Makeinfo HTML" "makeinfo %(extraopts) --html %t" TeX-run-compile nil (texinfo-mode) :help "Run Makeinfo with HTML output") ("AmSTeX" "amstex %(PDFout) %`%(extraopts) %S%(mode)%' %t" TeX-run-TeX nil (ams-tex-mode) :help "Run AMSTeX") ("ConTeXt" "%(cntxcom) --once --texutil %(extraopts) %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt once") ("ConTeXt Full" "%(cntxcom) %(extraopts) %(execopts)%t" TeX-run-TeX nil (context-mode) :help "Run ConTeXt until completion") ("BibTeX" "bibtex %s" TeX-run-BibTeX nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode context-mode) :help "Run BibTeX") ("Biber" "biber %s" TeX-run-Biber nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run Biber") ("View" "%V" TeX-run-discard-or-function t t :help "Run Viewer") ("Print" "%p" TeX-run-command t t :help "Print the file") ("Queue" "%q" TeX-run-background nil t :help "View the printer queue" :visible TeX-queue-command) ("File" "%(o?)dvips %d -o %f " TeX-run-dvips t (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Generate PostScript file") ("Dvips" "%(o?)dvips %d -o %f " TeX-run-dvips nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Convert DVI file to PostScript") ("Dvipdfmx" "dvipdfmx %d" TeX-run-dvipdfmx nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Convert DVI file to PDF with dvipdfmx") ("Ps2pdf" "ps2pdf %f" TeX-run-ps2pdf nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Convert PostScript file to PDF") ("Glossaries" "makeglossaries %s" TeX-run-command nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run makeglossaries to create glossary file") ("Index" "makeindex %s" TeX-run-index nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run makeindex to create index file") ("upMendex" "upmendex %s" TeX-run-index t (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run upmendex to create index file") ("Xindy" "texindy %s" TeX-run-command nil (plain-tex-mode latex-mode doctex-mode ams-tex-mode texinfo-mode) :help "Run xindy to create index file") ("Check" "lacheck %s" TeX-run-compile nil (latex-mode) :help "Check LaTeX file for correctness") ("ChkTeX" "chktex -v6 %s" TeX-run-compile nil (latex-mode) :help "Check LaTeX file for common mistakes") ("Spell" "(TeX-ispell-document \"\")" TeX-run-function nil t :help "Spell-check the document") ("Clean" "TeX-clean" TeX-run-function nil t :help "Delete generated intermediate files") ("Clean All" "(TeX-clean t)" TeX-run-function nil t :help "Delete generated intermediate and output files") ("Other" "" TeX-run-command t t :help "Run an arbitrary command"))))
  '(sql-connection-alist
