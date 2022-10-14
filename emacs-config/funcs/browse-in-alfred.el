@@ -1,5 +1,5 @@
 (defun lx/browse-in-alfred (path)
-  (shell-command-to-string (format "osascript -e 'tell app \"Alfred 4\" to browse \"%s\"'" path)))
+  (shell-command-to-string (format "osascript -e 'tell app \"Alfred 5\" to browse \"%s\"'" path)))
 
 (defun lx/browse-file-or-directory-in-alfred (arg)
   "Open current file in external application.
