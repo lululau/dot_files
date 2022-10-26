@@ -900,7 +900,7 @@ This function is called at the very end of Spacemacs initialization."
   ("arql" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/arql" user-home-directory user-home-directory))
   ("pry" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/pry" user-home-directory user-home-directory))))
  '(jiralib-url "https://jira.ktjr.com")
- '(org-jira-default-jql "assignee = currentUser() AND status not in (CLOSE, closed, Resolved)")
+ '(org-jira-default-jql "assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\")")
  '(js2-strict-missing-semi-warning nil)
  '(launchctl-search-path (quote ("~/.config/services/")))
  '(launchctl-filter-regex "homebrew")
