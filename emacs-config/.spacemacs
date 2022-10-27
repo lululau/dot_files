@@ -715,7 +715,7 @@ This function is called at the very end of Spacemacs initialization."
  '(persp-kill-foreign-buffer-behaviour (quote kill))
  '(org-hide-leading-stars t)
  '(org-jira-done-states '("Done" "已解决" "关闭" "Closed" "Resolved" "CLOSE" "已关闭" "解决"))
- '(org-jira-users '(("lijiajia" . "lijiajia") ("liujun" . "liujun") ("liumeina" . "liumeina") ("liuxiang" . "liuxiang") ("liuyan" . "liuyan") ("niumengluo" . "niumengluo") ("wuhaojie" . "wuhaojie") ("zhangyu" . "zhangyu")))
+ '(org-jira-users '(("liuxiang" . "liuxiang") ("wangjianqing" . "wangjianqing") ("zhangjilin" . "zhangjilin") ("liumeina" . "liumeina") ("zhangwenqiang" "zhangwenqiang") ("niumengluo" . "niumengluo") ("wanghao" . "wanghao") ("zhangxinyu" . "zhouxinyu") ("liujun" . "liujun")))
  '(org-super-agenda-groups
    (quote
     ((:name "IMPOARTANT !!!" :priority>= "C")
@@ -901,6 +901,18 @@ This function is called at the very end of Spacemacs initialization."
   ("pry" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/pry" user-home-directory user-home-directory))))
  '(jiralib-url "https://jira.ktjr.com")
  '(org-jira-default-jql "assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\")")
+ '(org-jira-custom-jqls '((:jql "assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\") AND PROJECT = 云法催 ORDER BY created DESC"
+                                :limit 30
+                                :filename "recent-issues")
+                          (:jql "assignee = currentUser() AND status in (CLOSE, closed, Resolved) AND PROJECT = 云法催 ORDER BY created DESC"
+                                :limit 30
+                                :filename "recent-issues")
+                          (:jql "assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\") AND PROJECT = 智能法函 ORDER BY created DESC"
+                                :limit 30
+                                :filename "recent-issues")
+                          (:jql "assignee = currentUser() AND status in (CLOSE, closed, Resolved) AND PROJECT = 智能法函 ORDER BY created DESC"
+                                :limit 30
+                                :filename "recent-issues")))
  '(js2-strict-missing-semi-warning nil)
  '(launchctl-search-path (quote ("~/.config/services/")))
  '(launchctl-filter-regex "homebrew")
@@ -1055,7 +1067,7 @@ This function is called at the very end of Spacemacs initialization."
  '(org-modern-keyword nil)
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
- '(org-jira-project-filename-alist (quote (("TJPT" . "~/Documents/materials/jira/projects.org") ("LEGAL" . "~/Documents/materials/jira/projects.org") ("YUNFACUI" . "~/Documents/materials/jira/projects.org"))))
+ ;; '(org-jira-project-filename-alist (quote (("TJPT" . "~/Documents/materials/jira/projects.org") ("LEGAL" . "~/Documents/materials/jira/projects.org") ("YUNFACUI" . "~/Documents/materials/jira/projects.org"))))
  '(racer-rust-src-path "~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src")
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
