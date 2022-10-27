@@ -304,4 +304,4 @@
 ;; (global-set-key (kbd "M-[") 'copilot-previous-completion) ;; Comment out this kbd due to confliction with S-TAB in terminal
 (global-set-key (kbd "<backtab>") #'copilot-accept-completion)
 (global-set-key (kbd "M-?") 'all-buffer-completion)
-(global-set-key (kbd "M-SPC") 'dash-at-point)
+(global-set-key (kbd "s-H") 'dash-at-point)
