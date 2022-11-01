@@ -101,6 +101,8 @@
   "hhw" #'highlight-symbol-at-point
   "hhu" #'(lambda () (interactive) (unhighlight-regexp t))
 
+  "hdd" #'dash-at-point
+
   "axx" #'xwidget-webkit-browse-url
   "axh" #'xwwp-history-show
   "axjc" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1:9090/ui/#/proxies") (if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))

@@ -716,7 +716,7 @@ This function is called at the very end of Spacemacs initialization."
  '(persp-kill-foreign-buffer-behaviour (quote kill))
  '(org-hide-leading-stars t)
  '(org-jira-done-states '("Done" "已解决" "关闭" "Closed" "Resolved" "CLOSE" "已关闭" "解决"))
- '(org-jira-users '(("lijiajia" . "lijiajia") ("liujun" . "liujun") ("liumeina" . "liumeina") ("liuxiang" . "liuxiang") ("liuyan" . "liuyan") ("niumengluo" . "niumengluo") ("wuhaojie" . "wuhaojie") ("zhangyu" . "zhangyu")))
+ '(org-jira-users '(("liuxiang" . "liuxiang") ("wangjianqing" . "wangjianqing") ("zhangjilin" . "zhangjilin") ("liumeina" . "liumeina") ("zhangwenqiang" "zhangwenqiang") ("niumengluo" . "niumengluo") ("wanghao" . "wanghao") ("zhangxinyu" . "zhouxinyu") ("liujun" . "liujun")))
  '(org-super-agenda-groups
    (quote
     ((:name "IMPOARTANT !!!" :priority>= "C")
@@ -900,8 +900,20 @@ This function is called at the very end of Spacemacs initialization."
   ("macruby" . "macirb -r irb/completion")
   ("arql" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/arql" user-home-directory user-home-directory))
   ("pry" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/pry" user-home-directory user-home-directory))))
- '(jiralib-url "http://jira.ktjr.com")
- '(org-jira-default-jql "assignee = currentUser() AND status not in (CLOSE, closed)")
+ '(jiralib-url "https://jira.ktjr.com")
+ '(org-jira-default-jql "assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\")")
+ '(org-jira-custom-jqls '((:jql "assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\") AND PROJECT = 云法催 ORDER BY created DESC"
+                                :limit 30
+                                :filename "recent-issues")
+                          (:jql "assignee = currentUser() AND status in (CLOSE, closed, Resolved) AND PROJECT = 云法催 ORDER BY created DESC"
+                                :limit 30
+                                :filename "recent-issues")
+                          (:jql "assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\") AND PROJECT = 智能法函 ORDER BY created DESC"
+                                :limit 30
+                                :filename "recent-issues")
+                          (:jql "assignee = currentUser() AND status in (CLOSE, closed, Resolved) AND PROJECT = 智能法函 ORDER BY created DESC"
+                                :limit 30
+                                :filename "recent-issues")))
  '(js2-strict-missing-semi-warning nil)
  '(launchctl-search-path (quote ("~/.config/services/")))
  '(launchctl-filter-regex "homebrew")
@@ -1061,6 +1073,7 @@ This function is called at the very end of Spacemacs initialization."
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(cargo-process--enable-rust-backtrace t)
  '(vterm-max-scrollback 10000)
+ '(vterm-keymap-exceptions (quote ("C-c" "C-x" "C-u" "C-g" "C-h" "C-l" "M-x" "M-o" "C-y" "M-y" "M-1" "M-2" "M-3" "M-4" "M-5" "M-6" "M-7" "M-8" "M-9" "M-0" "M-\\")))
  '(xwwp-follow-link-completion-system 'helm)
  '(helm-buffer-max-length 40)
  '(copilot-overlay-safe nil)
