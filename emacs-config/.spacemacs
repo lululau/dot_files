@@ -876,8 +876,20 @@ This function is called at the very end of Spacemacs initialization."
   ("macruby" . "macirb -r irb/completion")
   ("arql" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/arql" user-home-directory user-home-directory))
   ("pry" . ,(format "%s.rvm/rubies/default/bin/ruby %s.rvm/gems/default/bin/pry" user-home-directory user-home-directory))))
- '(jiralib-url "http://jira.ktjr.com")
- '(org-jira-default-jql "assignee = currentUser() AND status not in (CLOSE, closed)")
+ '(jiralib-url "https://jira.ktjr.com")
+ '(org-jira-default-jql "assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\")")
+ '(org-jira-custom-jqls '((:jql "assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\") AND PROJECT = 云法催 ORDER BY created DESC"
+                                :limit 30
+                                :filename "recent-issues")
+                          (:jql "assignee = currentUser() AND status in (CLOSE, closed, Resolved) AND PROJECT = 云法催 ORDER BY created DESC"
+                                :limit 30
+                                :filename "recent-issues")
+                          (:jql "assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\") AND PROJECT = 智能法函 ORDER BY created DESC"
+                                :limit 30
+                                :filename "recent-issues")
+                          (:jql "assignee = currentUser() AND status in (CLOSE, closed, Resolved) AND PROJECT = 智能法函 ORDER BY created DESC"
+                                :limit 30
+                                :filename "recent-issues")))
  '(js2-strict-missing-semi-warning nil)
  '(launchctl-search-path (quote ("~/.config/services/")))
  '(launchctl-filter-regex "homebrew")
@@ -1031,12 +1043,13 @@ This function is called at the very end of Spacemacs initialization."
  '(org-modern-keyword nil)
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
- '(org-jira-project-filename-alist (quote (("TJPT" . "~/Documents/materials/jira/projects.org") ("LEGAL" . "~/Documents/materials/jira/projects.org") ("YUNFACUI" . "~/Documents/materials/jira/projects.org"))))
+ ;; '(org-jira-project-filename-alist (quote (("TJPT" . "~/Documents/materials/jira/projects.org") ("LEGAL" . "~/Documents/materials/jira/projects.org") ("YUNFACUI" . "~/Documents/materials/jira/projects.org"))))
  '(racer-rust-src-path "~/.rustup/toolchains/nightly-x86_64-apple-darwin/lib/rustlib/src/rust/src")
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(cargo-process--enable-rust-backtrace t)
  '(vterm-max-scrollback 10000)
+ '(vterm-keymap-exceptions (quote ("C-c" "C-x" "C-u" "C-g" "C-h" "C-l" "M-x" "M-o" "C-y" "M-y" "M-1" "M-2" "M-3" "M-4" "M-5" "M-6" "M-7" "M-8" "M-9" "M-0" "M-\\")))
  '(xwwp-follow-link-completion-system 'helm)
  '(helm-buffer-max-length 40)
  '(copilot-overlay-safe nil)

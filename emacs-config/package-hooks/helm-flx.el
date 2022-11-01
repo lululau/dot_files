@@ -1,5 +1,6 @@
 (with-eval-after-load 'helm-flx
-  (defun helm-flx-fuzzy-highlight-match (candidate &optional diacritics)
+  (cl-defun helm-flx-fuzzy-highlight-match (candidate
+                                         &optional (pattern helm-pattern) diacritics file-comp)
     (require 'flx)
     (if (string-match-p " " helm-pattern)
         (helm-fuzzy-default-highlight-match candidate diacritics)
