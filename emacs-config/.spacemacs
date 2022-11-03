@@ -680,6 +680,8 @@ layers configuration."
 
   (setq python-indent-offset 4)
 
+  (setq calc-window-height 26)
+
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
 
