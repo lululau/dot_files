@@ -1,0 +1,6 @@
+#group: source block
+# key: sclj
+# --
+#+BEGIN_SRC clojure
+$0
+#+END_SRC
