@@ -126,7 +126,7 @@ noremap <leader>ad :action Tool_Files_ArthasClassReloadInDocker<cr>
 noremap <leader>ak :action Tool_Files_ArthasClassReloadInK8s<cr>
 noremap <leader>fR :action RefactoringMenuRenameFile<cr>
 noremap <leader>fc :action CopyReference<cr>
-noremap <leader>bs :e ~/Library/Application Support/JetBrains/IntelliJIdea2021.2/scratches/scratch.kts<cr>
+noremap <leader>bs :e ~/Library/Application Support/JetBrains/IntelliJIdea2022.2/scratches/scratch.kts<cr>
 noremap ,feR :source ~/.ideavimrc<cr>
 noremap ,fed :e ~/.ideavimrc<cr>
 noremap ,feD :e ~/.ideavim_actions.txt<cr>
