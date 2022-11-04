@@ -998,6 +998,7 @@ This function is called at the very end of Spacemacs initialization."
 '(plantuml-default-exec-mode jar)
 '(plantuml-jar-path "/usr/local/libexec/plantuml.jar")
 '(org-plantuml-jar-path "/usr/local/libexec/plantuml.jar")
+'(imenu-list-position left)
 '(evil-surround-pairs-alist
   (quote
    ((40 "( " . " )")
@@ -1030,6 +1031,7 @@ This function is called at the very end of Spacemacs initialization."
  '(rubocop-autocorrect-command  "~/bin/rubocop -a --format emacs")
  '(neo-window-fixed-size nil)
  '(create-lockfiles nil)
+ '(pdf-view-midnight-colors (quote ("#839496" . "#2a2b2e")))
  '(python-indent-guess-indent-offset-verbose nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
  '(annotate-file "~/Documents/materials/annotates/annotations")
