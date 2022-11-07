@@ -1031,7 +1031,7 @@ This function is called at the very end of Spacemacs initialization."
  '(rubocop-autocorrect-command  "~/bin/rubocop -a --format emacs")
  '(neo-window-fixed-size nil)
  '(create-lockfiles nil)
- '(pdf-view-midnight-colors (quote ("#839496" . "#2a2b2e")))
+ '(pdf-view-midnight-colors (quote ("#37383a" . "#dcdbd8")))
  '(python-indent-guess-indent-offset-verbose nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
  '(annotate-file "~/Documents/materials/annotates/annotations")
