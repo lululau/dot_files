@@ -998,7 +998,7 @@ This function is called at the very end of Spacemacs initialization."
 '(plantuml-default-exec-mode jar)
 '(plantuml-jar-path "/usr/local/libexec/plantuml.jar")
 '(org-plantuml-jar-path "/usr/local/libexec/plantuml.jar")
-'(imenu-list-position left)
+'(imenu-list-position (quote left))
 '(evil-surround-pairs-alist
   (quote
    ((40 "( " . " )")
