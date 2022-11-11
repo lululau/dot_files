@@ -4,7 +4,9 @@
     (kbd "<backtab>") 'dired-subtree-cycle)
   (evil-collection-define-key 'normal 'dired-mode-map
     (kbd "TAB") 'dired-subtree-toggle
-    (kbd "<backtab>") 'dired-subtree-cycle))
+    (kbd "<backtab>") 'dired-subtree-cycle
+    (kbd "M-j") 'lx/window-down-fallback-to-switch-frame
+    (kbd "M-k") 'lx/window-up-fallback-to-switch-frame))
 
 
 (with-eval-after-load 'evil-collection-vterm
