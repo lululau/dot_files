@@ -1036,6 +1036,7 @@ This function is called at the very end of Spacemacs initialization."
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
  '(annotate-file "~/Documents/materials/annotates/annotations")
  '(TeX-view-program-selection (quote ((output-dvi . "open") (output-pdf . "open") (output-html . "open"))))
+ '(org-src-window-setup (quote plain))
 '(safe-local-variable-values
 (quote
  ((arql-env . "lcldevb")
