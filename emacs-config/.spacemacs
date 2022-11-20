@@ -459,7 +459,7 @@ layers configuration."
   (load-file lx/emacs-crafts-init-el)
   ;; (load-file "~/.config/emacs-config/doom-themes.el")
 
-  (setq recentf-save-file (format "~/.emacs.d/.cache/recentf.%s" server-name))
+  (setq recentf-save-file (format "%srecentf.%s" spacemacs-cache-directory server-name))
 
   (setq tat/window-close-delay "100000000")
 
@@ -1123,7 +1123,7 @@ This function is called at the very end of Spacemacs initialization."
   (set-frame-parameter (selected-frame) 'left 0.0)
 
   (persp-mode)
-  (persp-load-state-from-file "~/.emacs.d/.cache/layouts/A")
+  (persp-load-state-from-file (format "%sA" spacemacs-layouts-directory))
   (face-spec-set 'header-line '((t :weight bold :foreground "grey" :background nil)))
 
 ;; (custom-set-faces

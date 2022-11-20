@@ -30,7 +30,7 @@
                 ("ods" scratch-dir ("~/Documents/materials/scratches/"))
                 ("odS" snips-dir ("~/snips/"))
                 ("od C-s" snippets-dir ("~/Documents/materials/snippets"))
-                ("ode" emacs-dir ("~/.emacs.d/"))
+                ("ode" emacs-dir ("~/.emacs.spacemacs.d/"))
                 ("odz" spacezsh-dir ("~/.spacezsh/"))
                 ("odZ" ohmyzsh-dir ("~/.oh-my-zsh/"))
                 ("od/" root-dir ("/"))
