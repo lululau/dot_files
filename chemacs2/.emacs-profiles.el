@@ -1,0 +1,5 @@
+(("default" . ((user-emacs-directory . "~/.emacs.spacemacs.d") (env . (("SPACEMACSDIR" . "~/.spacemacs.d")))))
+ ("spacemacs" . ((user-emacs-directory . "~/.emacs.spacemacs.d") (env . (("SPACEMACSDIR" . "~/.spacemacs.d")))))
+ ("light" . ((user-emacs-directory . "~/.emacs.light.d") (env . (("SPACEMACSDIR" . "~/.light.spacemacs.d")))))
+ ("doom" . ((user-emacs-directory . "~/.emacs.doom.d") (env . (("DOOMDIR" . "~/.emacs.doom.d")))))
+ ("bare" . ((user-emacs-directory . "~/.emacs.bare.d"))))
