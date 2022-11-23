@@ -22,7 +22,7 @@
   (interactive "P")
   (if (bound-and-true-p copilot--overlay)
       (copilot-accept-completion-by-line 1)
-    (call-interactively 'next-line)))
+    (call-interactively (if (eq major-mode 'cider-repl-mode) 'cider-repl-next-input 'next-line))))
 
 (defun lx/switch-to-buffer ()
   (interactive)
