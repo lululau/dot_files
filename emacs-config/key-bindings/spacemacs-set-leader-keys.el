@@ -82,13 +82,13 @@
   "dk" #'docker
   "qk" #'lx/kill-all-except-default
   "bM" #'lx/switch-to-warning-buffer
-  "agu" #'oh-my-github-sync
-  "ags" #'oh-my-github-list-starred-repositories
-  "agr" #'oh-my-github-list-created-repositories
-  "agt" #'oh-my-github-list-trending-repositories
-  "agg" #'oh-my-github-list-created-gists
-  "agG" #'oh-my-github-list-starred-gists
-  "agi" #'oh-my-github-whoami
+  "agu" #'omg-sync
+  "ags" #'omg-repo-list-starred
+  "agr" #'omg-repo-list-created
+  "agt" #'omg-trending-list
+  "agg" #'omg-gist-list-created
+  "agG" #'omg-gist-list-starred
+  "agi" #'omg-whoami
   "man" #'helm-man-woman
   "mai" #'helm-info
   "xit" #'lx/insert-timestamp
