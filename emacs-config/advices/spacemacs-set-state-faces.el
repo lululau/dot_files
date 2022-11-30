@@ -8,6 +8,7 @@
     (face-spec-set 'diff-hl-change '((t (:background "#69B7F0" :foreground "#00629D"))))
     (face-spec-set 'diff-hl-delete '((t (:background "#FF6E64" :foreground "#990A1B"))))
     (face-spec-set 'diff-hl-insert '((t (:background "#B4C342" :foreground "#546E00"))))
+    (shell-command-to-string "defaults write org.gnu.Emacs TransparentTitleBar DARK")
     )
   (when (string= "solarized-light" spacemacs--cur-theme)
     (face-spec-set 'enh-ruby-op-face '((t (:foreground "#748488"))))
@@ -18,7 +19,9 @@
     (face-spec-set 'diff-hl-change '((t (:background "#69B7F0" :foreground "#00629D"))))
     (face-spec-set 'diff-hl-delete '((t (:background "#FF6E64" :foreground "#990A1B"))))
     (face-spec-set 'diff-hl-insert '((t (:background "#B4C342" :foreground "#546E00"))))
+    (shell-command-to-string "defaults write org.gnu.Emacs TransparentTitleBar LIGHT")
     )
+
 
   (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
                                    ("insert" "chartreuse3" (bar . 2))
@@ -45,3 +48,13 @@
                 (list (when dotspacemacs-colorize-cursor-according-to-state color)
                       cursor)))
   (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16)))
+
+(advice-add 'spacemacs/cycle-spacemacs-theme :after #'(lambda (&rest args)
+                                                        (let ((old-frame (selected-frame))
+                                                              (frame (make-frame-command)))
+                                                          (message "debug debug")
+                                                          (delete-frame old-frame t)
+                                                          (set-frame-parameter frame 'width 1.0)
+                                                          (set-frame-parameter frame 'height 1.0)
+                                                          (set-frame-parameter frame 'top 0.0)
+                                                          (set-frame-parameter frame 'left 0.0))))
