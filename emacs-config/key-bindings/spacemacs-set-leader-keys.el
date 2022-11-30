@@ -147,3 +147,7 @@
 
 (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
    "cb" #'byte-compile-current-buffer-file)
+
+
+(spacemacs/set-leader-keys-for-major-mode 'pdf-view-mode
+  "N" #'org-noter)

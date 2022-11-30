@@ -1,6 +1,7 @@
 (add-to-list 'load-path (file-name-directory load-file-name))
 (add-to-list 'load-path (concat (file-name-directory load-file-name) "/xwwp"))
 (add-to-list 'load-path (concat (file-name-directory load-file-name) "/oh-my-github"))
+(add-to-list 'load-path (concat (file-name-directory load-file-name) "/org-noter"))
 
 (autoload 'org-babel-execute:html-chrome "ob-html-chrome")
 (autoload 'org-babel-execute:tmux "ob-tmux")
@@ -59,3 +60,7 @@
 (autoload 'org-excalidraw-create-drawing "org-excalidraw.el")
 (autoload 'org-excalidraw-initialize "org-excalidraw.el")
 (autoload 'org-excalidraw--open-file-from-svg "org-excalidraw.el")
+
+(autoload 'org-noter "org-noter.el")
+(autoload 'org-noter-get-buffer-file-name-nov "org-noter-nov.el")
+(autoload 'org-noter-get-buffer-file-name-pdf "org-noter-pdf.el")

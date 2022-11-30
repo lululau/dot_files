@@ -144,6 +144,7 @@
      gtags
      (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
+     epub
      (org :variables
           org-enable-notifications nil
           org-start-notification-daemon-on-startup ,enable-org-notification
@@ -1037,6 +1038,7 @@ This function is called at the very end of Spacemacs initialization."
  '(annotate-file "~/Documents/materials/annotates/annotations")
  '(TeX-view-program-selection (quote ((output-dvi . "open") (output-pdf . "open") (output-html . "open"))))
  '(org-src-window-setup (quote plain))
+ '(org-noter-notes-search-path (quote ("~/Documents/materials/org-notes")))
 '(safe-local-variable-values
 (quote
  ((arql-env . "lcldevb")
