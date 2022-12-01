@@ -293,6 +293,8 @@
 
 (global-set-key (kbd "s-i TAB") #'(lambda () (interactive) (imenu-list-minor-mode 1)))
 
+(global-set-key (kbd "s-?") #'lx/clojure-repl)
+
 (global-set-key (kbd "s-=") #'lx/set-monospaced-font/increase-font-size)
 (global-set-key (kbd "s--") #'lx/set-monospaced-font/decrease-font-size)
 

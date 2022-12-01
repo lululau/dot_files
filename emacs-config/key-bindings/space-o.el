@@ -61,7 +61,7 @@
         ("oep" perl-demo ("~/Documents/materials/demo/demo.pl"))
         ("oeo" org-demo ("~/Documents/materials/demo/demo.org"))
         ("oem" markdown-demo ("~/Documents/materials/demo/demo.md"))
-        ("oeC" coffee-demo ("~/Documents/materials/demo/demo.coffee"))
+        ("oeC" coffee-demo ("~/Documents/materials/demo/clojure/demo/src/demo/demo.clj"))
         ("oey" yaml-demo ("~/Documents/materials/demo/demo.yaml"))
         ("oeH" html-demo ("~/Documents/materials/demo/demo.html"))
         ("oec" c-demo ("~/Documents/materials/demo/demo.c"))

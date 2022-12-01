@@ -919,6 +919,7 @@ This function is called at the very end of Spacemacs initialization."
  '(js2-strict-missing-semi-warning nil)
  '(launchctl-search-path (quote ("~/.config/services/")))
  '(launchctl-filter-regex "homebrew")
+ '(cider-allow-jack-in-without-project (quote always))
  '(magit-blame-heading-format "%-20a %A %s %H")
  '(magit-diff-use-overlays nil)
  '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
