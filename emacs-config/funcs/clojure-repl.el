@@ -14,5 +14,6 @@
   (with-current-buffer (find-file-noselect "~/Documents/materials/demo/clojure/demo")
     (let ((default-directory  "~/Documents/materials/demo/clojure/demo"))
       (unless (--filter (string-match-p "^\\*nrepl-server clojure/demo" (buffer-name it)) (buffer-list))
+        (message "Starting CIDER server...")
         (call-interactively 'cider-jack-in-clj))
       (call-interactively 'cider-switch-to-repl-buffer))))
