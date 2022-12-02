@@ -243,7 +243,8 @@
                               (cons (format "%-20s%s" "lcl.fe2" "/etc/nginx/conf.d") "/scp:lcl.fe2:/etc/nginx/conf.d")
                               (cons (format "%-20s%s" "ceres.fe1" "/opt/nginx/conf/conf.d") "/scp:ceres.fe1:/opt/nginx/conf/conf.d")
                               (cons (format "%-20s%s" "ceres.fe2" "/opt/nginx/conf/conf.d") "/scp:ceres.fe2:/opt/nginx/conf/conf.d")
-
+                              (cons (format "%-20s%s" "jenkins2" "/data/jenkins_home/workspace/docker_file") "/scp:jenkins2:/data/jenkins_home/workspace/docker_file")
+                              (cons (format "%-20s%s" "jenkins2" "/data/jenkins_home/workspace") "/scp:jenkins2:/data/jenkins_home/workspace")
                               (cons (format "%-20s%s" "ceres.api1" "~/") "/scp:ceres.api1:~/")
                               (cons (format "%-20s%s" "ceres.api2" "~/") "/scp:ceres.api2:~/")
                               (cons (format "%-20s%s" "ceres.job1" "~/") "/scp:ceres.job1:~/")

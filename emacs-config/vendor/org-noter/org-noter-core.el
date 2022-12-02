@@ -1930,7 +1930,7 @@ defines if the text should be inserted inside the note."
             ((or precise-info force-new)
              (setq quote-p (with-temp-buffer
                              (insert (or selected-text ""))
-                             (> (how-many "\n" (point-min)) 1)))
+                             (> (how-many "\n" (point-min)) -1)))
              (setq default (and selected-text
                                 (replace-regexp-in-string "\n" " " selected-text))))
             (org-noter-insert-note-no-questions)
