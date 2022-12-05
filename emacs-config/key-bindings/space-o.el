@@ -9,7 +9,7 @@
 (spacemacs/declare-prefix "ob" "Set ibuffer group")
 
 ;; Common used directories
-(setq lx/dirs '(("odA" applications-dir ("/Applications/" "/server"))
+(setq lx/dirs `(("odA" applications-dir ("/Applications/" "/server"))
                 ("odb" blog-dir ("~/blog/"))
                 ("odB" bin-dir ("~/bin/"))
                 ("odC" cafe-dir ("~/Cafe/"))
@@ -30,7 +30,7 @@
                 ("ods" scratch-dir ("~/Documents/materials/scratches/"))
                 ("odS" snips-dir ("~/snips/"))
                 ("od C-s" snippets-dir ("~/Documents/materials/snippets"))
-                ("ode" emacs-dir ("~/.emacs.spacemacs.d/"))
+                ("ode" emacs-dir (,user-emacs-directory))
                 ("odz" spacezsh-dir ("~/.spacezsh/"))
                 ("odZ" ohmyzsh-dir ("~/.oh-my-zsh/"))
                 ("od/" root-dir ("/"))
