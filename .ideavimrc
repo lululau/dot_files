@@ -36,6 +36,8 @@ let mapleader = " "
 nnoremap s s<tab>
 nnoremap <leader>qq :action Exit<cr>
 nnoremap ,qq :action Exit<cr>
+nnoremap <leader>qr :action RestartIde<cr>
+nnoremap ,qr :action RestartIde<cr>
 inoremap <c-a> <c-o>^
 inoremap <c-e> <c-o>A
 inoremap <c-f> <Right>
