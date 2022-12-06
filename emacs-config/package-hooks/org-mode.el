@@ -222,15 +222,6 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "di" 'org-redisplay-inline-images)
 
 
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "Sc" 'lx/ruby-send-babel-block)
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "SC" 'lx/ruby-send-babel-block-and-go)
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "Sp" 'lx/ruby-send-paragraph)
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "SP" 'lx/ruby-send-paragraph-and-go)
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "Sl" 'lx/ruby-send-line)
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "SL" 'lx/ruby-send-line-and-go)
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "Sr" 'lx/ruby-send-region)
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "SR" 'lx/ruby-send-region-and-go)
-
   ;; (add-hook 'org-mode-hook #'turn-company-english-helper-on 100)
 
 
