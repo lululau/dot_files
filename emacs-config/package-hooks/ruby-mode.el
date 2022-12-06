@@ -10,15 +10,6 @@
 
   ;; (define-key ruby-mode-map (kbd (if (display-graphic-p) "<C-return>" "C-RET")) 'jump-to-definition-of-symbol-at-point)
   ;; (define-key ruby-mode-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'jump-to-definition-of-symbol-at-point-other-window)
-  (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
-    "hd" 'robe-doc
-    "sa" 'lx/ruby-send-reload
-    "sl" 'lx/ruby-send-line
-    "sL" 'lx/ruby-send-line-and-go
-    "sp" 'lx/ruby-send-paragraph
-    "sP" 'lx/ruby-send-paragraph-and-go
-    "sp" 'lx/ruby-send-babel-block
-    "sP" 'lx/ruby-send-babel-block-and-go)
 
   (defun ruby/jump-to-definition ()
     (interactive)
@@ -32,6 +23,17 @@
       (switch-to-buffer-other-window (current-buffer))
       (goto-char pos)
       (call-interactively 'ruby/jump-to-definition)))
+
+  (spacemacs/set-leader-keys-for-major-mode 'ruby-mode
+    "hd" 'robe-doc
+    "sa" 'lx/ruby-send-reload
+    "sl" 'lx/ruby-send-line
+    "sL" 'lx/ruby-send-line-and-go
+    "sp" 'lx/ruby-send-paragraph
+    "sP" 'lx/ruby-send-paragraph-and-go
+    "sr" 'lx/ruby-send-region
+    "sR" 'lx/ruby-send-region-and-go
+    "RF" 'rubocop-autocorrect-current-file)
 
 
   (define-key ruby-mode-map (kbd (if (display-graphic-p) "<C-return>" "C-RET")) 'ruby/jump-to-definition)
