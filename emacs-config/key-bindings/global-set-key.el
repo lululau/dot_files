@@ -100,7 +100,7 @@
 (global-set-key (kbd "s-r j") #'(lambda () (interactive) (lx/run-in-vterm "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/bin/jshell --class-path $HOME/.m2/final/ktjr-common.jar --start $HOME/.config/default.jsh" "*jshell*")))
 (global-set-key (kbd "s-r a") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/as.sh" "*arthas*")))
 (global-set-key (kbd "s-r k") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/k9s" "*k9s*" nil t)))
-(global-set-key (kbd "s-r t") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/htop" "*htop*" nil t)))
+(global-set-key (kbd "s-r h") #'(lambda () (interactive) (lx/run-in-vterm "/usr/local/bin/htop" "*htop*" nil t)))
 (global-set-key (kbd "s-r 0") #'(lambda () (interactive) (helm-zsh-vterm-ssh-run "lx.kt")))
 (global-set-key (kbd "s-r 1") #'(lambda () (interactive) (helm-zsh-vterm-ssh-run "xym")))
 (global-set-key (kbd "s-r 2") #'(lambda () (interactive) (helm-zsh-vterm-ssh-run "dev42")))
