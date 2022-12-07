@@ -14,17 +14,17 @@ set textobj-entire
 set highlightedyank
 " 共享系统粘贴板
 set clipboard=unnamed
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set autoindent
-set cindent
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8,ucs-bom,chinese
-set formatoptions+=mM
-set ambiwidth=double
+" set expandtab
+" set tabstop=4
+" set shiftwidth=4
+" set softtabstop=4
+" set autoindent
+" set cindent
+" set encoding=utf-8
+" set fileencoding=utf-8
+" set fileencodings=utf-8,ucs-bom,chinese
+" set formatoptions+=mM
+" set ambiwidth=double
 set noshowmode
 set multiple-cursors
 set textobj-indent
