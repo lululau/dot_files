@@ -1,4 +1,17 @@
-(advice-add 'spacemacs/set-state-faces :override (lambda ()
+(defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
+                                 ("insert" "chartreuse3" (bar . 2))
+                                 ("emacs" "SkyBlue2" box)
+                                 ("hybrid" "SkyBlue2" (bar . 2))
+                                 ("replace" "chocolate" (hbar . 2))
+                                 ("evilified" "LightGoldenrod3" box)
+                                 ("visual" "gray" (hbar . 2))
+                                 ("motion" "plum3" box)
+                                 ("lisp" "HotPink1" box)
+                                 ("iedit" "firebrick1" box)
+                                 ("iedit-insert" "firebrick1" (bar . 2)))
+  "Colors assigned to evil states with cursor definitions.")
+
+(defun lx/optimize-theme-colors-and-font (&rest args)
   (when (string= "spacemacs-dark" spacemacs--cur-theme)
     (face-spec-set 'enh-ruby-op-face '((t (:foreground "#b2b2b2"))))
     (face-spec-set 'enh-ruby-string-delimiter-face '((t (:foreground "#3c95d2"))))
@@ -9,7 +22,7 @@
     (face-spec-set 'diff-hl-delete '((t (:background "#FF6E64" :foreground "#990A1B"))))
     (face-spec-set 'diff-hl-insert '((t (:background "#B4C342" :foreground "#546E00"))))
     (shell-command-to-string "defaults write org.gnu.Emacs TransparentTitleBar DARK")
-    )
+    (shell-command-to-string "tmux set-option -g status-style bg=colour235,fg=colour244"))
   (when (string= "solarized-light" spacemacs--cur-theme)
     (face-spec-set 'enh-ruby-op-face '((t (:foreground "#748488"))))
     (face-spec-set 'enh-ruby-string-delimiter-face '((t (:foreground "#b58901"))))
@@ -20,21 +33,7 @@
     (face-spec-set 'diff-hl-delete '((t (:background "#FF6E64" :foreground "#990A1B"))))
     (face-spec-set 'diff-hl-insert '((t (:background "#B4C342" :foreground "#546E00"))))
     (shell-command-to-string "defaults write org.gnu.Emacs TransparentTitleBar LIGHT")
-    )
-
-
-  (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
-                                   ("insert" "chartreuse3" (bar . 2))
-                                   ("emacs" "SkyBlue2" box)
-                                   ("hybrid" "SkyBlue2" (bar . 2))
-                                   ("replace" "chocolate" (hbar . 2))
-                                   ("evilified" "LightGoldenrod3" box)
-                                   ("visual" "gray" (hbar . 2))
-                                   ("motion" "plum3" box)
-                                   ("lisp" "HotPink1" box)
-                                   ("iedit" "firebrick1" box)
-                                   ("iedit-insert" "firebrick1" (bar . 2)))
-    "Colors assigned to evil states with cursor definitions.")
+    (shell-command-to-string "tmux set-option -g status-style bg=black,fg=colour244"))
 
   (cl-loop for (state color cursor) in spacemacs-evil-cursors
            do
@@ -47,7 +46,10 @@
            (set (intern (format "evil-%s-state-cursor" state))
                 (list (when dotspacemacs-colorize-cursor-according-to-state color)
                       cursor)))
-  (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16)))
+  (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16))
+
+(advice-add 'spacemacs/set-state-faces :override #'lx/optimize-theme-colors-and-font)
+
 
 (advice-add 'spacemacs/cycle-spacemacs-theme :after #'(lambda (&rest args)
                                                         (let ((old-frame (selected-frame))

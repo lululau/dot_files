@@ -1037,6 +1037,7 @@ This function is called at the very end of Spacemacs initialization."
  '(python-indent-guess-indent-offset-verbose nil)
  '(python-shell-interpreter "ipython3")
  '(python-shell-interpreter-args "--simple-prompt -i")
+ '(dired-subtree-use-backgrounds nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
  '(annotate-file "~/Documents/materials/annotates/annotations")
  '(TeX-view-program-selection (quote ((output-dvi . "open") (output-pdf . "open") (output-html . "open"))))
