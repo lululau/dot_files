@@ -38,3 +38,33 @@ Like `vc-mode-line' but simpler, more efficient, and less buggy."
 (with-eval-after-load 'magit-mode
   (define-key magit-mode-map [S-tab] 'magit-section-cycle-global)
   (define-key magit-mode-map [remap org-store-link] 'orgit-store-link))
+
+(with-eval-after-load 'magit-commit
+  (defun lx/git-commit-get-message ()
+    (interactive)
+    (replace-regexp-in-string "^#[^\n]*\n" ""
+                              (or (buffer-substring-no-properties (point-min) (point-max)) "")))
+
+  (defun lx/git-commit-get-diff ()
+    (interactive)
+    (let* ((diff-buffer (magit-get-mode-buffer 'magit-diff-mode))
+
+           (diff (if diff-buffer
+                     (with-current-buffer diff-buffer
+                       (buffer-substring-no-properties (point-min) (point-max)))
+                   "")))
+      (format "%s\n\nGit commit message:\n\n" diff)))
+
+  (defun lx/git-commit-get-diff-lines ()
+    (interactive)
+    (s-lines (s-chomp (lx/git-commit-get-diff))))
+
+
+  (defun lx/git-commit-get-diff-line-nums ()
+    (interactive)
+    (s-count-matches "\n" (lx/git-commit-get-diff)))
+
+  (defun lx/git-commit-get-doc ()
+    (interactive)
+    (s-lines (concat (lx/git-commit-get-diff)
+            (lx/git-commit-get-message)))))
