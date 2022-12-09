@@ -1130,6 +1130,9 @@ This function is called at the very end of Spacemacs initialization."
     (set-frame-parameter (selected-frame) 'top 0.0)
     (set-frame-parameter (selected-frame) 'left 0.0))
 
+  (if (autoloadp (symbol-function 'pixel-scroll-precision-mode))
+      (pixel-scroll-precision-mode))
+
   (persp-mode)
   (persp-load-state-from-file (format "%sA" spacemacs-layouts-directory))
   (face-spec-set 'header-line '((t :weight bold :foreground "grey" :background nil)))
