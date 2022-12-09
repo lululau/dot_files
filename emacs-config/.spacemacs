@@ -1123,10 +1123,12 @@ This function is called at the very end of Spacemacs initialization."
  '(docker-run-async-with-buffer-function (quote docker-run-async-with-buffer-vterm))
  '(warning-suppress-types (quote ((comp)))))
 
-  (set-frame-parameter (selected-frame) 'width 1.0)
-  (set-frame-parameter (selected-frame) 'height 1.0)
-  (set-frame-parameter (selected-frame) 'top 0.0)
-  (set-frame-parameter (selected-frame) 'left 0.0)
+  (if (string-version-lessp "28.2" emacs-version)
+      (spacemacs/toggle-maximize-frame)
+    (set-frame-parameter (selected-frame) 'width 1.0)
+    (set-frame-parameter (selected-frame) 'height 1.0)
+    (set-frame-parameter (selected-frame) 'top 0.0)
+    (set-frame-parameter (selected-frame) 'left 0.0))
 
   (persp-mode)
   (persp-load-state-from-file (format "%sA" spacemacs-layouts-directory))
