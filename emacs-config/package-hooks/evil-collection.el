@@ -16,6 +16,13 @@
       (kbd "M-k") 'lx/window-up-fallback-to-switch-frame)))
 
 
+(with-eval-after-load 'evil-collection-magit
+  (evil-define-key 'normal magit-mode-map (kbd "S-SPC") nil)
+  (evil-define-key 'visual magit-mode-map (kbd "S-SPC") nil)
+  (evil-define-key 'motion magit-mode-map (kbd "S-SPC") nil)
+  (evil-define-key 'emacs magit-mode-map (kbd "S-SPC") nil)
+  (evil-define-key 'hybrid magit-mode-map (kbd "S-SPC") nil))
+
 (with-eval-after-load 'evil-collection-vterm
   (evil-define-operator evil-collection-vterm-delete-forward-char (beg end type register)
     "Delete previous character."
