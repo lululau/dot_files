@@ -21,8 +21,11 @@
     (face-spec-set 'diff-hl-change '((t (:background "#69B7F0" :foreground "#00629D"))))
     (face-spec-set 'diff-hl-delete '((t (:background "#FF6E64" :foreground "#990A1B"))))
     (face-spec-set 'diff-hl-insert '((t (:background "#B4C342" :foreground "#546E00"))))
+    (setq default-frame-alist (assq-delete-all 'ns-appearance default-frame-alist))
+    (add-to-list 'default-frame-alist '(ns-appearance . dark))
     (shell-command-to-string "defaults write org.gnu.Emacs TransparentTitleBar DARK")
     (shell-command-to-string "tmux set-option -g status-style bg=colour235,fg=colour244"))
+
   (when (string= "solarized-light" spacemacs--cur-theme)
     (face-spec-set 'enh-ruby-op-face '((t (:foreground "#748488"))))
     (face-spec-set 'enh-ruby-string-delimiter-face '((t (:foreground "#b58901"))))
@@ -32,6 +35,8 @@
     (face-spec-set 'diff-hl-change '((t (:background "#69B7F0" :foreground "#00629D"))))
     (face-spec-set 'diff-hl-delete '((t (:background "#FF6E64" :foreground "#990A1B"))))
     (face-spec-set 'diff-hl-insert '((t (:background "#B4C342" :foreground "#546E00"))))
+    (setq default-frame-alist (assq-delete-all 'ns-appearance default-frame-alist))
+    (add-to-list 'default-frame-alist '(ns-appearance . light))
     (shell-command-to-string "defaults write org.gnu.Emacs TransparentTitleBar LIGHT")
     (shell-command-to-string "tmux set-option -g status-style bg=black,fg=colour244"))
 
