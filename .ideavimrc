@@ -82,15 +82,26 @@ noremap ,en :action GotoNextError<cr>
 " debugging
 noremap <a-s> :action StepOver<cr>
 noremap <a-S> :action ForceStepOver<cr>
+nnoremap <a-f> :action StepOut<cr>
 noremap <a-i> :action StepInto<cr>
 noremap <m-i> :action StepInto<cr>
 noremap <a-I> :action ForceStepInto<cr>
 noremap <m-S> :action SmartStepInto<cr>
-" noremap <a-f> :action StepOut<cr>
 noremap <a-H> :action ForceRunToCursor<cr>
 noremap <a-c> :action Resume<cr>
 noremap <a-e> :action EvaluateExpression<cr>
 noremap <m-e> ^v$:action EvaluateExpression<cr>
+
+inoremap <a-s> :action StepOver<cr>
+inoremap <a-S> :action ForceStepOver<cr>
+inoremap <a-i> :action StepInto<cr>
+inoremap <m-i> :action StepInto<cr>
+inoremap <a-I> :action ForceStepInto<cr>
+inoremap <m-S> :action SmartStepInto<cr>
+inoremap <a-H> :action ForceRunToCursor<cr>
+inoremap <a-c> :action Resume<cr>
+inoremap <a-e> :action EvaluateExpression<cr>
+inoremap <m-e> ^v$:action EvaluateExpression<cr>
 
 " Motion/Jump
 nnoremap <leader><leader> :action AceWordAction<cr>
