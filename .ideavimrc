@@ -60,6 +60,7 @@ inoremap <m-k> <c-o>10k
 nnoremap Y y$
 nnoremap <c-g> :call Clear_highlight_copilot()<cr>
 inoremap <c-g> <c-o>:call Clear_highlight_copilot()<cr>
+noremap <a-x> :action RunAnything<cr>
 
 nnoremap [[ :action MethodUp<cr>
 nnoremap ]] :action MethodDown<cr>
@@ -104,7 +105,7 @@ inoremap <a-e> :action EvaluateExpression<cr>
 inoremap <m-e> ^v$:action EvaluateExpression<cr>
 
 " Motion/Jump
-nnoremap <leader><leader> :action AceWordAction<cr>
+nnoremap <leader><Space> :action AceWordAction<cr>
 nnoremap ,, :action AceWordAction<cr>
 nmap <C-o> <Action>(Back)
 nmap <C-i> <Action>(Forward)
@@ -119,14 +120,20 @@ noremap ,hs :action QuickImplementations<cr>
 noremap ,dd :action SmartSearchAction<cr>
 noremap ,dD :action SearchAction<cr>
 
+nnoremap <leader>tg    :action EditorToggleShowGutterIcons<CR>
+vnoremap <leader>tg    :action EditorToggleShowGutterIcons<CR>
 
 " Projects
+nnoremap <leader>p, :action WelcomeScreen.Configure.ProjectStructure<cr>
 nnoremap <leader>pt :action ActivateProjectToolWindow<cr>
 nnoremap <leader>ps :action ShowProjectStructureSettings<cr>
 nnoremap ,pt :action ActivateProjectToolWindow<cr>
 nnoremap ,ps :action ShowProjectStructureSettings<cr>
+nnoremap <leader>qf    :action CloseProject<CR>
+vnoremap <leader>qf    <Esc>:action CloseProject<CR>
 
 " Files
+nnoremap <leader>fyy    :action CopyAbsolutePath<CR>
 noremap <leader>feR :source ~/.ideavimrc<cr>
 noremap <leader>fed :e ~/.ideavimrc<cr>
 noremap <leader>feD :e ~/.ideavim_actions.txt<cr>
@@ -174,6 +181,14 @@ noremap ,cis :action ConvertIndentsToSpaces<cr>
 noremap ,co :action OptimizeImports<cr>
 noremap ,ca :action Tool_Files_CodeArchiveSave<cr>
 noremap ,j= :action ReformatCode<cr>
+
+" Move lines down
+nnoremap <leader>xJ    $:action MoveLineDown<CR>
+vnoremap <leader>xJ    $:action MoveLineDown<CR>
+
+" Move lines up
+nnoremap <leader>xK    $:action MoveLineUp<CR>
+vnoremap <leader>xK    $:action MoveLineUp<CR>
 
 " Nav
 noremap <leader>ni :action SelectInProjectView<cr>
@@ -267,6 +282,16 @@ noremap ,mP :action Tool_Files_OpenProjectPom<cr>
 noremap ,mp :action Tool_Files_OpenModulePom<cr>
 
 
+" Show cpu usage
+nnoremap <leader>aP    :action Performance.ActivityMonitor<CR>
+vnoremap <leader>aP    :action Performance.ActivityMonitor<CR>
+
+" List processes
+nnoremap <leader>ap    :action ShowProcessWindow<CR>
+vnoremap <leader>ap    :action ShowProcessWindow<CR>
+
+nnoremap <leader>a,p    :action WelcomeScreen.Plugins<CR>
+vnoremap <leader>a,p    :action WelcomeScreen.Plugins<CR>
 
 
 " Tool Windows
@@ -284,7 +309,7 @@ noremap <leader>ajt :action ActivateJRebelToolWindow<cr>
 noremap <leader>aM :action ActivateMavenProjectsToolWindow<cr>
 noremap <leader>am :action ActivateMessagesToolWindow<cr>
 noremap <leader>an :action ActivateNavBar<cr>
-noremap <leader>ap :action ActivatePaletteToolWindow<cr>
+
 noremap <leader>ar :action ActivateRunToolWindow<cr>
 noremap <leader>as :action ActivateSpringToolWindow<cr>
 noremap <leader>aS :action ActivateStructureToolWindow<cr>
@@ -340,6 +365,8 @@ noremap ,gb :action Tool_Git_BlameCurrentFile<cr>
 noremap ,gu :action Tool_Git_RevertCurrentFile<cr>
 
 " RestfulTools
+noremap <leader>fya :action RestfulTool.action.OptionForEditor-CopyApiPath<cr>
+noremap <leader>fyA :action RestfulTool.action.OptionForEditor-CopyFullPath<cr>
 noremap <leader>sy :action RestfulTool.action.OptionForEditor-CopyApiPath<cr>
 noremap <leader>sY :action RestfulTool.action.OptionForEditor-CopyFullPath<cr>
 noremap <leader>st :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
@@ -353,6 +380,10 @@ noremap ,js :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
 " AliP3C Inspection
 noremap <leader>ai :action AliP3CInspectionAction<cr>
 noremap ,ai :action AliP3CInspectionAction<cr>
+
+
+nnoremap <leader>bm    :action ActivateNotificationsToolWindow<CR>
+vnoremap <leader>bm    :action ActivateNotificationsToolWindow<CR>
 
 let g:copilot_on = 'true'
 
@@ -370,3 +401,4 @@ function! toggle_copilot()
     let g:copilot_on = 'true'
   endif
 endfunction
+
