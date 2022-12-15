@@ -110,3 +110,16 @@
                (default-directory (format "%s%s" file-prefix container-address)))
           (zsh-vterm (docker-utils-generate-new-buffer-name "docker" "vterm:" default-directory)))
       (error "The vterm package is not installed"))))
+
+
+(with-eval-after-load 'docker-image
+  (defun docker-image-run-selection (command)
+    "Run \"docker image run\" with COMMAND on the images selection."
+    (interactive "sCommand: ")
+    (docker-utils-ensure-items)
+    (let* ((run-args (transient-args 'docker-image-run))
+           (docker-command (if (seq-contains-p run-args "-t")
+                               (replace-regexp-in-string "^ssh" "ssh -t" docker-command)
+                             docker-command)))
+      (--each (docker-utils-get-marked-items-ids)
+        (docker-run-docker-async-with-buffer "container" "run" run-args it command)))))
