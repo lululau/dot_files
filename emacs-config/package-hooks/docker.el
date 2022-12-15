@@ -82,7 +82,8 @@
              (command-args (s-join " " process-args))
              (command (if (string-match-p "ssh" program)
                           (format "%s '%s'" program command-args)
-                        (format "%s %s" program command-args))))
+                        (format "%s %s" program command-args)))
+             (default-directory "~"))
         (when docker-show-messages (message "Running: %s" command))
         (start-file-process-shell-command command (apply #'docker-utils-generate-new-buffer-name program process-args) command)))))
 
