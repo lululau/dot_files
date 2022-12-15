@@ -43,7 +43,13 @@
        "I" 'docker-volume-inspect
        "d" 'docker-volume-mark-dangling
        "f" 'docker-volume-dired-selection
-       "l" 'docker-volume-ls)))
+       "l" 'docker-volume-ls)
+
+    (evil-collection-define-key 'evilified 'tablist-minor-mode-map
+      (kbd "TAB") 'tablist-forward-column
+      [backtab] 'tablist-backward-column
+      (kbd "]") 'tablist-forward-column
+      (kbd "[") 'tablist-backward-column)))
 
 (with-eval-after-load 'docker-core
   (transient-define-prefix docker (arg)
