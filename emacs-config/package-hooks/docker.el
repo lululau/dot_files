@@ -83,9 +83,18 @@
              (command (if (string-match-p "ssh" program)
                           (format "%s '%s'" program command-args)
                         (format "%s %s" program command-args)))
-             (default-directory "~"))
+             (default-directory (if (string-match-p "ssh" program)
+                                    "~"
+                                  default-directory)))
         (when docker-show-messages (message "Running: %s" command))
-        (start-file-process-shell-command command (apply #'docker-utils-generate-new-buffer-name program process-args) command)))))
+        (start-file-process-shell-command command (apply #'docker-utils-generate-new-buffer-name program process-args) command))))
+
+  (defun docker-run-async-with-buffer (program &rest args)
+    "Execute \"PROGRAM ARGS\" and display output in a new buffer."
+    (let ((default-directory (if (string-prefix-p "/scp:" default-directory)
+                                 "~"
+                               default-directory)))
+      (apply docker-run-async-with-buffer-function program args))))
 
 (with-eval-after-load 'docker-container
   (defun docker-container-vterm (container)
