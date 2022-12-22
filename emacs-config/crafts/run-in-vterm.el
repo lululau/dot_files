@@ -66,10 +66,9 @@
     (if (not remote-host)
         (message "Not in ssh-zsh-vterm-mode")
       (let* ((remote-file (format "%s:%s" remote-host file))
-             (local-dir (helm-read-file-name "Local directory: "
-                                             :name "~/tmp/"
-                                             :initial-input "~/tmp/"
-                                             :test 'file-directory-p))
+             (local-dir (helm-dired-history-read-file-name "Local directory: "
+                                             "~/tmp/"
+                                             "~/tmp/"))
              (local-dir (shell-quote-argument (if (string-suffix-p "/" local-dir) local-dir (concat local-dir "/"))))
              (remote-file (replace-regexp-in-string "/$" "" remote-file))
              (cmd (format "rsync -rzP '%s' %s" remote-file local-dir))
@@ -85,9 +84,9 @@
     (if (not remote-host)
         (message "Not in ssh-zsh-vterm-mode")
       (let* ((remote-dir (format "%s:%s" remote-host dir))
-             (local-file (helm-read-file-name "Local File: "
-                                              :name "~/tmp/"
-                                              :initial-input "~/tmp/"))
+             (local-file (helm-dired-history-read-file-name "Local File: "
+                                              "~/tmp/"
+                                              "~/tmp/"))
              (remote-dir (if (string-suffix-p "/" remote-dir) remote-dir (concat remote-dir "/")))
              (local-file (shell-quote-argument (replace-regexp-in-string "/$" "" local-file)))
              (cmd (format "rsync -rzP %s '%s'" local-file remote-dir))
