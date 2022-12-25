@@ -143,7 +143,9 @@
   "lv" 'lx/open-file-in-lnav
   "nn" 'dired-narrow
   "nr" 'dired-narrow-regexp
-  "nf" 'dired-narrow-fuzzy)
+  "nf" 'dired-narrow-fuzzy
+  "rs" 'dired-rsync
+  "r." 'dired-rsync-transient)
 
 (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
    "cb" #'byte-compile-current-buffer-file)
