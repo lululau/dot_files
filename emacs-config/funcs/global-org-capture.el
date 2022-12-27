@@ -4,7 +4,7 @@
         (make-frame '((name . "Remember") (width . 80) (height . 20)
                       (top . 0.25) (left . 0.35))))
   (select-frame-by-name "Remember")
-  (find-file "~/.emacs.d/layers/+emacs/org/img/org.png")
+  (find-file (format "%slayers/+emacs/org/img/org.png" user-emacs-directory))
   (delete-other-windows)
   (org-capture-string "" "g")
   (delete-other-windows))

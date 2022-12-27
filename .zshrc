@@ -373,6 +373,20 @@ me() {
   vterm_cmd find-remote-file "$file" "$host_name"
 }
 
+sme() {
+  local file=$1
+  if [ -n "$file" ]; then
+    if [ "$file[1]" != "/" ]; then
+      file="$PWD/$file"
+    fi
+  else
+    file="$PWD"
+  fi
+  local host_name=$HOST
+  vterm_cmd sudo-find-remote-file "$file" "$host_name"
+}
+
+
 # if is_inside_emacs | grep -q true; then
 #   # zle-keymap-select () {
 #   #   starship_render
@@ -386,6 +400,7 @@ me() {
 
 autoload -U add-zsh-hook
 add-zsh-hook -Uz chpwd (){ vterm_set_directory }
+add-zsh-hook -Uz precmd (){ vterm_set_directory }
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bitcomplete bit
@@ -443,3 +458,22 @@ function download() {
 function upload() {
   vterm_cmd upload "$PWD"
 }
+
+function helm-dired-history-update() {
+  emacsclient -n -q --eval "(helm-dired-history--update \"$PWD\")" &> /dev/null
+}
+
+function recentf-add-file() {
+  local first_arg=$1
+  local arg
+  for arg (${(z)first_arg}); do
+    if [ -d $arg ]; then
+      emacsclient -n -q --eval "(helm-dired-history--update \"${(Q)arg:a}\")" &> /dev/null
+    elif [ -f "$arg" ]; then
+      emacsclient -n -q --eval "(recentf-add-file \"${(Q)arg:a}\")" &> /dev/null
+    fi
+  done
+}
+
+chpwd_functions+=(helm-dired-history-update)
+preexec_functions+=(recentf-add-file)

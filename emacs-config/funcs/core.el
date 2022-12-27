@@ -14,15 +14,15 @@
 
 (defun lx/copilot-accept-or-forward-word (arg)
   (interactive "P")
-  (if (bound-and-true-p copilot--overlay)
+  (if (and (bound-and-true-p copilot--overlay) (copilot--overlay-visible))
       (copilot-accept-completion-by-word 1)
     (call-interactively 'forward-word)))
 
 (defun lx/copilot-accept-or-next-line (arg)
   (interactive "P")
-  (if (bound-and-true-p copilot--overlay)
+  (if (and (bound-and-true-p copilot--overlay) (copilot--overlay-visible))
       (copilot-accept-completion-by-line 1)
-    (call-interactively 'next-line)))
+    (call-interactively (if (eq major-mode 'cider-repl-mode) 'cider-repl-next-input 'next-line))))
 
 (defun lx/switch-to-buffer ()
   (interactive)

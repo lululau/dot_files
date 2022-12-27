@@ -9,7 +9,7 @@
 (spacemacs/declare-prefix "ob" "Set ibuffer group")
 
 ;; Common used directories
-(setq lx/dirs '(("odA" applications-dir ("/Applications/" "/server"))
+(setq lx/dirs `(("odA" applications-dir ("/Applications/" "/server"))
                 ("odb" blog-dir ("~/blog/"))
                 ("odB" bin-dir ("~/bin/"))
                 ("odC" cafe-dir ("~/Cafe/"))
@@ -30,7 +30,7 @@
                 ("ods" scratch-dir ("~/Documents/materials/scratches/"))
                 ("odS" snips-dir ("~/snips/"))
                 ("od C-s" snippets-dir ("~/Documents/materials/snippets"))
-                ("ode" emacs-dir ("~/.emacs.d/"))
+                ("ode" emacs-dir (,user-emacs-directory))
                 ("odz" spacezsh-dir ("~/.spacezsh/"))
                 ("odZ" ohmyzsh-dir ("~/.oh-my-zsh/"))
                 ("od/" root-dir ("/"))
@@ -61,7 +61,7 @@
         ("oep" perl-demo ("~/Documents/materials/demo/demo.pl"))
         ("oeo" org-demo ("~/Documents/materials/demo/demo.org"))
         ("oem" markdown-demo ("~/Documents/materials/demo/demo.md"))
-        ("oeC" coffee-demo ("~/Documents/materials/demo/demo.coffee"))
+        ("oeC" coffee-demo ("~/Documents/materials/demo/clojure/demo/src/demo/demo.clj"))
         ("oey" yaml-demo ("~/Documents/materials/demo/demo.yaml"))
         ("oeH" html-demo ("~/Documents/materials/demo/demo.html"))
         ("oec" c-demo ("~/Documents/materials/demo/demo.c"))
@@ -243,7 +243,8 @@
                               (cons (format "%-20s%s" "lcl.fe2" "/etc/nginx/conf.d") "/scp:lcl.fe2:/etc/nginx/conf.d")
                               (cons (format "%-20s%s" "ceres.fe1" "/opt/nginx/conf/conf.d") "/scp:ceres.fe1:/opt/nginx/conf/conf.d")
                               (cons (format "%-20s%s" "ceres.fe2" "/opt/nginx/conf/conf.d") "/scp:ceres.fe2:/opt/nginx/conf/conf.d")
-
+                              (cons (format "%-20s%s" "jenkins2" "/data/jenkins_home/workspace/docker_file") "/scp:jenkins2:/data/jenkins_home/workspace/docker_file")
+                              (cons (format "%-20s%s" "jenkins2" "/data/jenkins_home/workspace") "/scp:jenkins2:/data/jenkins_home/workspace")
                               (cons (format "%-20s%s" "ceres.api1" "~/") "/scp:ceres.api1:~/")
                               (cons (format "%-20s%s" "ceres.api2" "~/") "/scp:ceres.api2:~/")
                               (cons (format "%-20s%s" "ceres.job1" "~/") "/scp:ceres.job1:~/")

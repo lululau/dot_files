@@ -70,3 +70,4 @@ alias vim=nvim
 alias view='nvim -R'
 alias dev=./bin/dev
 alias ❯=''
+alias html2pdf=wkhtmltopdf

@@ -112,3 +112,22 @@ export PATH="$PYENV_ROOT/shims:$PATH"
 if type pyenv &> /dev/null; then
   eval "$(pyenv init -)"
 fi
+
+function helm-dired-history-update() {
+  emacsclient -n -q --eval "(helm-dired-history--update \"$PWD\")" &> /dev/null
+}
+
+function recentf-add-file() {
+  local first_arg=$1
+  local arg
+  for arg (${(z)first_arg}); do
+    if [ -d $arg ]; then
+      emacsclient -n -q --eval "(helm-dired-history--update \"${(Q)arg:a}\")" &> /dev/null
+    elif [ -f "$arg" ]; then
+      emacsclient -n -q --eval "(recentf-add-file \"${(Q)arg:a}\")" &> /dev/null
+    fi
+  done
+}
+
+chpwd_functions+=(helm-dired-history-update)
+preexec_functions+=(recentf-add-file)

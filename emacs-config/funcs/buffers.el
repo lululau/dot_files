@@ -12,9 +12,9 @@
 
 (defun lx/kill-all-except-default ()
   (interactive)
+  (lx/kill-all-non-default-layouts)
   (lx/kill-except-spacemacs-and-scratch-buffers)
-  (lx/kill-except-default-processes)
-  (lx/kill-all-non-default-layouts))
+  (lx/kill-except-default-processes))
 
 (defun lx/switch-to-warning-buffer (arg)
   (interactive "P")
