@@ -1,49 +1,48 @@
-(with-eval-after-load 'oh-my-github
+(with-eval-after-load 'omg
 
-  (oh-my-github-setup)
+  (omg-setup)
 
-  (define-key oh-my-github-repos-mode-map (kbd "b") 'oh-my-github-browse-repo)
-  (define-key oh-my-github-repos-mode-map (kbd "RET") 'oh-my-github-browse-repo)
-  (define-key oh-my-github-repos-mode-map (kbd "w") 'oh-my-github-copy-repo-url)
-  (define-key oh-my-github-repos-mode-map (kbd "s") 'oh-my-github-query-repos)
-  (define-key oh-my-github-repos-mode-map (kbd "c") 'oh-my-github-query-commits)
-  (define-key oh-my-github-repos-mode-map (kbd "r") 'oh-my-github-query-releases)
-  (define-key oh-my-github-repos-mode-map (kbd "gr") 'tabulated-list-revert)
+  (define-key omg-repo-mode-map (kbd "b") 'omg-repo-browse)
+  (define-key omg-repo-mode-map (kbd "RET") 'omg-repo-browse)
+  (define-key omg-repo-mode-map (kbd "w") 'omg-repo-copy-url)
+  (define-key omg-repo-mode-map (kbd "s") 'omg-repo-query-repos)
+  (define-key omg-repo-mode-map (kbd "c") 'omg-repo-query-commits)
+  (define-key omg-repo-mode-map (kbd "r") 'omg-repo-query-releases)
+  (define-key omg-repo-mode-map (kbd "gr") 'tabulated-list-revert)
 
-  (evilified-state-evilify-map oh-my-github-repos-mode-map :mode oh-my-github-repos-mode :bindings
-    "u" 'oh-my-github-sync
-    "RET" 'oh-my-github-browse-repo
-    "w" 'oh-my-github-copy-repo-url
-    "s" 'oh-my-github-query-repos
-    "c" 'oh-my-github-query-commits
-    "r" 'oh-my-github-query-releases
+  (evilified-state-evilify-map omg-repo-mode-map :mode omg-repo-mode :bindings
+    "u" 'omg-sync
+    "RET" 'omg-repo-browse
+    "w" 'omg-repo-copy-url
+    "s" 'omg-repo-query-repos
+    "c" 'omg-repo-query-commits
+    "r" 'omg-repo-query-releases
     "gr" 'tabulated-list-revert)
 
-  (evilified-state-evilify-map oh-my-github-gists-mode-map :mode oh-my-github-gists-mode :bindings
-    "u" 'oh-my-github-sync
-    "b" 'oh-my-github-browse-gist
-    "x" 'oh-my-github-delete-gist
-    "d" 'oh-my-github-download-gist-file
-    "w" 'oh-my-github-copy-gist-file-url
-    "RET" 'oh-my-github-browse-gist-file
+  (evilified-state-evilify-map omg-gist-mode-map :mode omg-gist-mode :bindings
+    "u" 'omg-sync
+    "b" 'omg-gist-browse
+    "x" 'omg-gist-delete
+    "d" 'omg-gist-download
+    "w" 'omg-gist-copy-gist-url
+    "RET" 'omg-gist-browse-file
     "gr" 'tabulated-list-revert)
 
-  (evilified-state-evilify-map oh-my-github-assets-mode-map :mode oh-my-github-assets-mode :bindings
-    "w" 'oh-my-github-copy-asset-url
-    "RET" 'oh-my-github-download-asset)
+  (evilified-state-evilify-map omg-release-asset-mode-map :mode omg-release-asset-mode :bindings
+    "w" 'omg-release-copy-asset-url
+    "RET" 'omg-release-download-asset)
 
-  (evilified-state-evilify-map oh-my-github-commits-mode-map :mode oh-my-github-commits-mode :bindings
-    "RET" 'oh-my-github-browse-commit
-    "w" 'oh-my-github-copy-commit-url)
+  (evilified-state-evilify-map omg-commit-mode-map :mode omg-commit-mode :bindings
+    "RET" 'omg-commit-browse
+    "w" 'omg-commit-copy-url)
 
-  (evilified-state-evilify-map oh-my-github-releases-mode-map :mode oh-my-github-releases-mode :bindings
-    "b" 'oh-my-github-browse-release
-    "w" 'oh-my-github-copy-release-url
-    "RET" 'oh-my-github-query-assets)
+  (evilified-state-evilify-map omg-release-mode-map :mode omg-release-mode :bindings
+    "b" 'omg-release-browse
+    "w" 'omg-release-copy-url
+    "RET" 'omg-query-assets)
 
-  (evilified-state-evilify-map oh-my-github-trendings-mode-map :mode-mode oh-my-github-trending-repos-mode :bindings
-    "RET" 'oh-my-github-browse-repo
-    "s" 'oh-my-github-trending-repos-query
-    "i" 'oh-my-github-trending-repos-info)
+  (evilified-state-evilify-map omg-trending-mode-map :mode-mode omg-trending-repos-mode :bindings
+    "RET" 'omg-repo-browse
+    "s" 'omg-trending-query)
 
-  (advice-add 'oh-my-github-sync :after #'(lambda (&rest args)  (popwin:popup-buffer-tail oh-my-github--log-buf-name))))
+  (advice-add 'omg-sync :after #'(lambda (&rest args)  (popwin:popup-buffer-tail omg--log-buf-name))))

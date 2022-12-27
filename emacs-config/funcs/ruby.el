@@ -54,3 +54,71 @@
       (setq path str)
       (setq line 0))
     (org-open-file path t line)))
+
+
+(defun lx/ruby-send-line ()
+  (interactive)
+  (ruby-send-region (line-beginning-position) (line-end-position))
+  (comint-send-string (inf-ruby-proc) "\n"))
+
+(defun lx/ruby-send-line-and-go ()
+  (interactive)
+  (ruby-send-region (line-beginning-position) (line-end-position))
+  (comint-send-string (inf-ruby-proc) "\n")
+  (ruby-switch-to-inf t))
+
+(defun lx/ruby-send-reload ()
+  (interactive)
+  (comint-send-string (inf-ruby-proc) "reload!\n")
+  (ruby-switch-to-inf t))
+
+(defun lx/ruby-send-paragraph ()
+  (interactive)
+  (ruby-send-region (save-excursion (backward-paragraph) (point)) (save-excursion (forward-paragraph) (point))))
+
+
+(defun lx/ruby-send-paragraph-and-go ()
+  (interactive)
+  (ruby-send-region (save-excursion (backward-paragraph) (point)) (save-excursion (forward-paragraph) (point)))
+  (ruby-switch-to-inf t))
+
+
+(defun lx/ruby-send-region ()
+  (ruby-send-region (region-beginning) (region-end)))
+
+
+(defun lx/ruby-send-region-and-go ()
+  (ruby-send-region (region-beginning) (region-end))
+  (ruby-switch-to-inf t))
+
+
+(defun lx/ruby-send-babel-block ()
+  (interactive)
+  (if (lx/find-inf-buffer)
+      (progn
+        (comint-send-string (inf-ruby-proc) (concat (lx/get-babel-src) "\n")))
+    (let ((pry-buffer (lx/find-pry-vterm-buffer)))
+      (if pry-buffer
+          (let ((str (concat (lx/get-babel-src) "\n")))
+            (with-current-buffer pry-buffer
+              (vterm-send-string str t)
+              (vterm-send-return)))))))
+
+
+(defun lx/ruby-send-babel-block-and-go ()
+  (interactive)
+  (if (lx/find-inf-buffer)
+      (progn
+        (comint-send-string (inf-ruby-proc) (concat (lx/get-babel-src) "\n"))
+        (ruby-switch-to-inf t))
+    (let ((pry-buffer (lx/find-pry-vterm-buffer)))
+      (if pry-buffer
+          (let ((str (concat (lx/get-babel-src) "\n")))
+            (with-current-buffer pry-buffer
+              (vterm-send-string str t)
+              (vterm-send-return))
+            (select-window (get-buffer-window pry-buffer)))))))
+
+(defun lx/find-pry-vterm-buffer ()
+  (let* ((window-buffers (mapcar #'window-buffer (window-list))))
+    (--find (with-current-buffer it (eq major-mode 'pry-vterm-mode)) window-buffers)))

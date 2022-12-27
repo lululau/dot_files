@@ -21,6 +21,9 @@
                                           (format "ls %s" it)) (cdr (cdr (directory-files default-directory))))
                              (mapcar (lambda (it) (replace-regexp-in-string "^[^;]*;" "" it))
                                 (tail-f "~/.zsh_history" 500 "tail -n %d -f %s | zsh-histfile-unmetafy")))))
+      (if (bound-and-true-p git-commit-mode)
+          (setq history (lx/git-commit-get-diff-lines)))
+
       (mapc (lambda (line)
               (if (string-match-p "^ *#" line)
                   (if (not code-line-found)
@@ -70,26 +73,33 @@
   (defun copilot--show-completion (completion)
     "Show COMPLETION."
     (copilot--dbind (:text :uuid :range (:start (:line :character))) completion
-                    (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode) ;; Mod
-                        (copilot-display-overlay-completion text uuid (1- (line-number-at-pos)) 0 (point)) ;; Mod
-                      (copilot-display-overlay-completion text uuid line character (point)))))
+                    (cond ;; Mod
+                     ((seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)
+                        (copilot-display-overlay-completion text uuid (1- (line-number-at-pos)) 0 (point)))
+                     ((bound-and-true-p git-commit-mode)
+                      (copilot-display-overlay-completion text uuid (- line (lx/git-commit-get-diff-line-nums)) character (point)))
+                     (t
+                      (copilot-display-overlay-completion text uuid line character (point))))))
 
   (defun copilot-display-overlay-completion (completion uuid line col user-pos)
     "Show COMPLETION in overlay at LINE and COL. For Copilot, COL is always 0.
 USER-POS is the cursor position (for verification only)."
     (copilot-clear-overlay)
+
     (save-excursion
-      (when (not (seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)) ;; Add
-        (widen)
-        (goto-char (point-min))
-        (if (= (line-end-position line) (1- (point-max)))
+      (cond  ;; Mod
+       ((seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode) t)
+       (t (progn
+            (widen)
+            (goto-char (point-min))
+            (if (= (line-end-position line) (1- (point-max)))
                                         ; special case if the last line is empty
-            (progn
-              (goto-char (point-max))
-              (newline)
-              (forward-char -1))
-          (forward-line line)
-          (forward-char col))) ;; Mod
+                (progn
+                  (goto-char (point-max))
+                  (newline)
+                  (forward-char -1))
+              (forward-line line)
+              (forward-char col)))))
 
                                         ; remove common prefix
       (let* ((cur-line (copilot--get-current-line)) ;; Mod
@@ -155,34 +165,41 @@ USER-POS is the cursor position (for verification only)."
   ;; Begin Add
 
   (defun copilot--get-current-line ()
-    (if (eq 'pry-vterm-mode major-mode)
-        (pry-vterm-get-current-line)
-      (if (eq 'zsh-vterm-mode major-mode)
-          (zsh-vterm-get-current-line)
-        (s-chop-suffix "\n" (or (thing-at-point 'line) "")))))
+    (cond ((eq 'pry-vterm-mode major-mode)
+           (pry-vterm-get-current-line))
+          ((eq 'zsh-vterm-mode major-mode)
+           (zsh-vterm-get-current-line))
+          (t
+           (s-chop-suffix "\n" (or (thing-at-point 'line) "")))))
 
   (defun copilot--get-source (&optional history)
-    (let ((source (if (eq 'pry-vterm-mode major-mode)
-                      (concat (s-join "\n" history) "\n" (pry-vterm-get-current-line))
-                    (if (eq 'zsh-vterm-mode major-mode)
-                        (concat (s-join "\n" history) "\n" (zsh-vterm-get-current-line))
-                      (buffer-substring-no-properties (point-min) (point-max))))))
+    (let ((source (cond ((eq 'pry-vterm-mode major-mode)
+                         (concat (s-join "\n" history) "\n" (pry-vterm-get-current-line)))
+                        ((eq 'zsh-vterm-mode major-mode)
+                         (concat (s-join "\n" history) "\n" (zsh-vterm-get-current-line)))
+                        ((bound-and-true-p git-commit-mode)
+                         (concat (s-join "\n" history) "\n" (lx/git-commit-get-message)))
+                        (t
+                         (buffer-substring-no-properties (point-min) (point-max))))))
       (concat source "\n")))
 
+
   (defun copilot--get-language-id ()
-    (if (eq 'pry-vterm-mode major-mode)
-        "ruby"
-      (if (eq 'zsh-vterm-mode major-mode)
-          "zsh"
-          (s-chop-suffix "-mode" (symbol-name major-mode)))))
+    (cond ((eq 'pry-vterm-mode major-mode) "ruby")
+          ((eq 'zsh-vterm-mode major-mode) "zsh")
+          ((bound-and-true-p git-commit-mode) "git")
+          (t (s-chop-suffix "-mode" (symbol-name major-mode)))))
 
   (defun copilot--get-position (&optional history)
-    (if (eq 'pry-vterm-mode major-mode)
-        (list :line (length history) :character (length (pry-vterm-get-current-line)))
-      (if (eq 'zsh-vterm-mode major-mode)
-          (list :line (length history) :character (length (zsh-vterm-get-current-line)))
-        (list :line (1- (line-number-at-pos))
-              :character (- (point) (point-at-bol))))))
+    (cond ((eq 'pry-vterm-mode major-mode)
+           (list :line (length history) :character (length (pry-vterm-get-current-line))))
+          ((eq 'zsh-vterm-mode major-mode)
+           (list :line (length history) :character (length (zsh-vterm-get-current-line))))
+          ((bound-and-true-p git-commit-mode)
+           (list :line (1- (+ (length history) (line-number-at-pos))) :character (- (point) (point-at-bol))))
+          (t
+           (list :line (1- (line-number-at-pos))
+                 :character (- (point) (point-at-bol))))))
 
   (defun copilot--buffer-file-path ()
     (or (buffer-file-name) ""))
@@ -207,7 +224,9 @@ USER-POS is the cursor position (for verification only)."
   (interactive)
   (when (not (seq-contains-p copilot-auto-copilot-inhibit-commands this-command))
     (copilot-clear-overlay)
-    (when (and (evil-insert-state-p) (not (seq-contains-p '(vterm-mode pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)))
+    (when (and (evil-insert-state-p)
+               (not (seq-contains-p '(vterm-mode pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)))
+               ;; (not (bound-and-true-p git-commit-mode)))
       (copilot-complete))))
 
 (if (bound-and-true-p copilot--auto-copilot-on-p)

@@ -82,13 +82,13 @@
   "dk" #'docker
   "qk" #'lx/kill-all-except-default
   "bM" #'lx/switch-to-warning-buffer
-  "agu" #'oh-my-github-sync
-  "ags" #'oh-my-github-list-starred-repositories
-  "agr" #'oh-my-github-list-created-repositories
-  "agt" #'oh-my-github-list-trending-repositories
-  "agg" #'oh-my-github-list-created-gists
-  "agG" #'oh-my-github-list-starred-gists
-  "agi" #'oh-my-github-whoami
+  "agu" #'omg-sync
+  "ags" #'omg-repo-list-starred
+  "agr" #'omg-repo-list-created
+  "agt" #'omg-trending-list
+  "agg" #'omg-gist-list-created
+  "agG" #'omg-gist-list-starred
+  "agi" #'omg-whoami
   "man" #'helm-man-woman
   "mai" #'helm-info
   "xit" #'lx/insert-timestamp
@@ -143,7 +143,13 @@
   "lv" 'lx/open-file-in-lnav
   "nn" 'dired-narrow
   "nr" 'dired-narrow-regexp
-  "nf" 'dired-narrow-fuzzy)
+  "nf" 'dired-narrow-fuzzy
+  "rs" 'dired-rsync
+  "r." 'dired-rsync-transient)
 
 (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
    "cb" #'byte-compile-current-buffer-file)
+
+
+(spacemacs/set-leader-keys-for-major-mode 'pdf-view-mode
+  "N" #'org-noter)

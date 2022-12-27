@@ -170,7 +170,7 @@ value of `vterm-buffer-name'."
 
 (defun zsh-vterm-accept-copilot-or-send-shift-tab-to-term ()
   (interactive)
-  (if (bound-and-true-p copilot--overlay)
+  (if (and (bound-and-true-p copilot--overlay) (copilot--overlay-visible))
       (copilot-accept-completion)
     (vterm--self-insert)))
 
@@ -223,6 +223,8 @@ value of `vterm-buffer-name'."
 
     (evil-define-key 'hybrid map (kbd "s-]") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string ">")))
     (evil-define-key 'hybrid map (kbd "s-[") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "<")))
+
+    (evil-define-key 'hybrid map (kbd "M-h") #'(lambda () (interactive) (vterm--self-insert)))
 
     (define-key map (kbd "<s-S-return>") #'(lambda () (interactive) (if (window-parent) (spacemacs/toggle-maximize-buffer) (vterm-send-C-j) (vterm-send-string "z"))))
 

@@ -43,7 +43,13 @@
        "I" 'docker-volume-inspect
        "d" 'docker-volume-mark-dangling
        "f" 'docker-volume-dired-selection
-       "l" 'docker-volume-ls)))
+       "l" 'docker-volume-ls)
+
+    (evil-collection-define-key 'evilified 'tablist-minor-mode-map
+      (kbd "TAB") 'tablist-forward-column
+      [backtab] 'tablist-backward-column
+      (kbd "]") 'tablist-forward-column
+      (kbd "[") 'tablist-backward-column)))
 
 (with-eval-after-load 'docker-core
   (transient-define-prefix docker (arg)
@@ -82,9 +88,19 @@
              (command-args (s-join " " process-args))
              (command (if (string-match-p "ssh" program)
                           (format "%s '%s'" program command-args)
-                        (format "%s %s" program command-args))))
+                        (format "%s %s" program command-args)))
+             (default-directory (if (string-match-p "ssh" program)
+                                    "~"
+                                  default-directory)))
         (when docker-show-messages (message "Running: %s" command))
-        (start-file-process-shell-command command (apply #'docker-utils-generate-new-buffer-name program process-args) command)))))
+        (start-file-process-shell-command command (apply #'docker-utils-generate-new-buffer-name program process-args) command))))
+
+  (defun docker-run-async-with-buffer (program &rest args)
+    "Execute \"PROGRAM ARGS\" and display output in a new buffer."
+    (let ((default-directory (if (string-prefix-p "/scp:" default-directory)
+                                 "~"
+                               default-directory)))
+      (apply docker-run-async-with-buffer-function program args))))
 
 (with-eval-after-load 'docker-container
   (defun docker-container-vterm (container)
@@ -100,3 +116,16 @@
                (default-directory (format "%s%s" file-prefix container-address)))
           (zsh-vterm (docker-utils-generate-new-buffer-name "docker" "vterm:" default-directory)))
       (error "The vterm package is not installed"))))
+
+
+(with-eval-after-load 'docker-image
+  (defun docker-image-run-selection (command)
+    "Run \"docker image run\" with COMMAND on the images selection."
+    (interactive "sCommand: ")
+    (docker-utils-ensure-items)
+    (let* ((run-args (transient-args 'docker-image-run))
+           (docker-command (if (seq-contains-p run-args "-t")
+                               (replace-regexp-in-string "^ssh" "ssh -t" docker-command)
+                             docker-command)))
+      (--each (docker-utils-get-marked-items-ids)
+        (docker-run-docker-async-with-buffer "container" "run" run-args it command)))))

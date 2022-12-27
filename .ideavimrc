@@ -14,17 +14,17 @@ set textobj-entire
 set highlightedyank
 " 共享系统粘贴板
 set clipboard=unnamed
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set autoindent
-set cindent
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8,ucs-bom,chinese
-set formatoptions+=mM
-set ambiwidth=double
+" set expandtab
+" set tabstop=4
+" set shiftwidth=4
+" set softtabstop=4
+" set autoindent
+" set cindent
+" set encoding=utf-8
+" set fileencoding=utf-8
+" set fileencodings=utf-8,ucs-bom,chinese
+" set formatoptions+=mM
+" set ambiwidth=double
 set noshowmode
 set multiple-cursors
 set textobj-indent
@@ -36,6 +36,8 @@ let mapleader = " "
 nnoremap s s<tab>
 nnoremap <leader>qq :action Exit<cr>
 nnoremap ,qq :action Exit<cr>
+nnoremap <leader>qr :action RestartIde<cr>
+nnoremap ,qr :action RestartIde<cr>
 inoremap <c-a> <c-o>^
 inoremap <c-e> <c-o>A
 inoremap <c-f> <Right>
@@ -58,6 +60,7 @@ inoremap <m-k> <c-o>10k
 nnoremap Y y$
 nnoremap <c-g> :call Clear_highlight_copilot()<cr>
 inoremap <c-g> <c-o>:call Clear_highlight_copilot()<cr>
+noremap <a-x> :action RunAnything<cr>
 
 nnoremap [[ :action MethodUp<cr>
 nnoremap ]] :action MethodDown<cr>
@@ -80,18 +83,29 @@ noremap ,en :action GotoNextError<cr>
 " debugging
 noremap <a-s> :action StepOver<cr>
 noremap <a-S> :action ForceStepOver<cr>
+nnoremap <a-f> :action StepOut<cr>
 noremap <a-i> :action StepInto<cr>
 noremap <m-i> :action StepInto<cr>
 noremap <a-I> :action ForceStepInto<cr>
 noremap <m-S> :action SmartStepInto<cr>
-" noremap <a-f> :action StepOut<cr>
 noremap <a-H> :action ForceRunToCursor<cr>
 noremap <a-c> :action Resume<cr>
 noremap <a-e> :action EvaluateExpression<cr>
 noremap <m-e> ^v$:action EvaluateExpression<cr>
 
+inoremap <a-s> :action StepOver<cr>
+inoremap <a-S> :action ForceStepOver<cr>
+inoremap <a-i> :action StepInto<cr>
+inoremap <m-i> :action StepInto<cr>
+inoremap <a-I> :action ForceStepInto<cr>
+inoremap <m-S> :action SmartStepInto<cr>
+inoremap <a-H> :action ForceRunToCursor<cr>
+inoremap <a-c> :action Resume<cr>
+inoremap <a-e> :action EvaluateExpression<cr>
+inoremap <m-e> ^v$:action EvaluateExpression<cr>
+
 " Motion/Jump
-nnoremap <leader><leader> :action AceWordAction<cr>
+nnoremap <leader><Space> :action AceWordAction<cr>
 nnoremap ,, :action AceWordAction<cr>
 nmap <C-o> <Action>(Back)
 nmap <C-i> <Action>(Forward)
@@ -106,14 +120,20 @@ noremap ,hs :action QuickImplementations<cr>
 noremap ,dd :action SmartSearchAction<cr>
 noremap ,dD :action SearchAction<cr>
 
+nnoremap <leader>tg    :action EditorToggleShowGutterIcons<CR>
+vnoremap <leader>tg    :action EditorToggleShowGutterIcons<CR>
 
 " Projects
+nnoremap <leader>p, :action WelcomeScreen.Configure.ProjectStructure<cr>
 nnoremap <leader>pt :action ActivateProjectToolWindow<cr>
 nnoremap <leader>ps :action ShowProjectStructureSettings<cr>
 nnoremap ,pt :action ActivateProjectToolWindow<cr>
 nnoremap ,ps :action ShowProjectStructureSettings<cr>
+nnoremap <leader>qf    :action CloseProject<CR>
+vnoremap <leader>qf    <Esc>:action CloseProject<CR>
 
 " Files
+nnoremap <leader>fyy    :action CopyAbsolutePath<CR>
 noremap <leader>feR :source ~/.ideavimrc<cr>
 noremap <leader>fed :e ~/.ideavimrc<cr>
 noremap <leader>feD :e ~/.ideavim_actions.txt<cr>
@@ -126,7 +146,7 @@ noremap <leader>ad :action Tool_Files_ArthasClassReloadInDocker<cr>
 noremap <leader>ak :action Tool_Files_ArthasClassReloadInK8s<cr>
 noremap <leader>fR :action RefactoringMenuRenameFile<cr>
 noremap <leader>fc :action CopyReference<cr>
-noremap <leader>bs :e ~/Library/Application Support/JetBrains/IntelliJIdea2021.2/scratches/scratch.kts<cr>
+noremap <leader>bs :e ~/Library/Application Support/JetBrains/IntelliJIdea2022.2/scratches/scratch.kts<cr>
 noremap ,feR :source ~/.ideavimrc<cr>
 noremap ,fed :e ~/.ideavimrc<cr>
 noremap ,feD :e ~/.ideavim_actions.txt<cr>
@@ -161,6 +181,14 @@ noremap ,cis :action ConvertIndentsToSpaces<cr>
 noremap ,co :action OptimizeImports<cr>
 noremap ,ca :action Tool_Files_CodeArchiveSave<cr>
 noremap ,j= :action ReformatCode<cr>
+
+" Move lines down
+nnoremap <leader>xJ    $:action MoveLineDown<CR>
+vnoremap <leader>xJ    $:action MoveLineDown<CR>
+
+" Move lines up
+nnoremap <leader>xK    $:action MoveLineUp<CR>
+vnoremap <leader>xK    $:action MoveLineUp<CR>
 
 " Nav
 noremap <leader>ni :action SelectInProjectView<cr>
@@ -254,6 +282,16 @@ noremap ,mP :action Tool_Files_OpenProjectPom<cr>
 noremap ,mp :action Tool_Files_OpenModulePom<cr>
 
 
+" Show cpu usage
+nnoremap <leader>aP    :action Performance.ActivityMonitor<CR>
+vnoremap <leader>aP    :action Performance.ActivityMonitor<CR>
+
+" List processes
+nnoremap <leader>ap    :action ShowProcessWindow<CR>
+vnoremap <leader>ap    :action ShowProcessWindow<CR>
+
+nnoremap <leader>a,p    :action WelcomeScreen.Plugins<CR>
+vnoremap <leader>a,p    :action WelcomeScreen.Plugins<CR>
 
 
 " Tool Windows
@@ -271,7 +309,7 @@ noremap <leader>ajt :action ActivateJRebelToolWindow<cr>
 noremap <leader>aM :action ActivateMavenProjectsToolWindow<cr>
 noremap <leader>am :action ActivateMessagesToolWindow<cr>
 noremap <leader>an :action ActivateNavBar<cr>
-noremap <leader>ap :action ActivatePaletteToolWindow<cr>
+
 noremap <leader>ar :action ActivateRunToolWindow<cr>
 noremap <leader>as :action ActivateSpringToolWindow<cr>
 noremap <leader>aS :action ActivateStructureToolWindow<cr>
@@ -327,6 +365,8 @@ noremap ,gb :action Tool_Git_BlameCurrentFile<cr>
 noremap ,gu :action Tool_Git_RevertCurrentFile<cr>
 
 " RestfulTools
+noremap <leader>fya :action RestfulTool.action.OptionForEditor-CopyApiPath<cr>
+noremap <leader>fyA :action RestfulTool.action.OptionForEditor-CopyFullPath<cr>
 noremap <leader>sy :action RestfulTool.action.OptionForEditor-CopyApiPath<cr>
 noremap <leader>sY :action RestfulTool.action.OptionForEditor-CopyFullPath<cr>
 noremap <leader>st :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
@@ -340,6 +380,10 @@ noremap ,js :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
 " AliP3C Inspection
 noremap <leader>ai :action AliP3CInspectionAction<cr>
 noremap ,ai :action AliP3CInspectionAction<cr>
+
+
+nnoremap <leader>bm    :action ActivateNotificationsToolWindow<CR>
+vnoremap <leader>bm    :action ActivateNotificationsToolWindow<CR>
 
 let g:copilot_on = 'true'
 
@@ -357,3 +401,4 @@ function! toggle_copilot()
     let g:copilot_on = 'true'
   endif
 endfunction
+

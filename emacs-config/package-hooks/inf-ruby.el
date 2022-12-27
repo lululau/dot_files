@@ -27,45 +27,6 @@
       (comint-send-region (inf-ruby-proc) start end)
       (when print (ruby-print-result))))
 
-  (defun lx/ruby-send-line ()
-    (interactive)
-    (ruby-send-region (line-beginning-position) (line-end-position))
-    (comint-send-string (inf-ruby-proc) "\n"))
-
-  (defun lx/ruby-send-line-and-go ()
-    (interactive)
-    (lx/ruby-send-line)
-    (ruby-switch-to-inf t))
-
-  (defun lx/ruby-send-reload ()
-    (interactive)
-    (comint-send-string (inf-ruby-proc) "reload!\n")
-    (ruby-switch-to-inf t))
-
-  (defun lx/ruby-send-paragraph ()
-    (interactive)
-    (let ((start (save-excursion
-                   (backward-paragraph)
-                   (point)))
-          (end (save-excursion
-                 (forward-paragraph)
-                 (point))))
-      (ruby-send-region start end)))
-
-  (defun lx/ruby-send-paragraph-and-go ()
-    (interactive)
-    (lx/ruby-send-paragraph)
-    (ruby-switch-to-inf t))
-
-  (defun lx/ruby-send-babel-block ()
-    (interactive)
-    (comint-send-string (inf-ruby-proc) (concat (lx/get-babel-src) "\n")))
-
-  (defun lx/ruby-send-babel-block-and-go ()
-    (interactive)
-    (lx/ruby-send-babel-block)
-    (ruby-switch-to-inf t))
-
   (setq inf-ruby-prompt-format (format "\\(^ARQL@[^ ]* ❯\\)\\|%s" inf-ruby-prompt-format))
   (setq inf-ruby-first-prompt-pattern (format "\\(^ARQL@[^ ]* ❯\\)\\|%s" inf-ruby-first-prompt-pattern))
   (setq inf-ruby-prompt-pattern (format "\\(^ARQL@[^ ]* ❯\\)\\|%s" inf-ruby-prompt-pattern))

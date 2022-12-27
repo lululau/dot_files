@@ -79,3 +79,42 @@
           ("\\.tar\\.zst\\'" . "tar -cf - %i | zstd -19 -o %o")
           ("\\.rar\\'" . "rar a %o %i")
           ("\\.zip\\'" . "zip %o -r --filesync %i"))))
+
+(with-eval-after-load 'dired-rsync
+  (defun dired-rsync--do-run (command details)
+    "Run rsync COMMAND in a unique buffer, passing DETAILS to sentinel."
+    (apply #'make-process
+           (append (list :name "*rsync*"
+                         :buffer (format "%s @ %s"
+                                         dired-rsync-proc-buffer-prefix
+                                         (current-time-string))
+                         :command (list shell-file-name
+                                        shell-command-switch
+                                        command)
+                         :sentinel (lambda (proc desc)
+                                     (dired-rsync--sentinel proc desc details))
+                         :filter (lambda (proc string)
+                                   (dired-rsync--filter proc string)))
+                   (list :coding 'mac)))
+    (dired-rsync--update-modeline))
+
+  (defun dired-rsync (dest)
+    "Asynchronously copy files in dired to `DEST' using rsync.
+
+    `DEST' can be a relative filename and will be processed by
+    `expand-file-name' before being passed to the rsync command.
+
+    This function runs the copy asynchronously so Emacs won't block whilst
+    the copy is running.  It also handles both source and destinations on
+    ssh/scp tramp connections."
+    ;; Interactively grab dest if not called with
+    (interactive
+     (list (helm-dired-history-read-file-name "rsync to: " (dired-dwim-target-directory))))
+
+    (setq dest (expand-file-name dest))
+
+    (let* ((sfiles (funcall dired-rsync-source-files))
+           (cmd (dired-rsync--build-cmd sfiles dest)))
+      (dired-rsync--do-run cmd
+                           (list :marked-files sfiles
+                                 :dired-buffer (current-buffer))))))

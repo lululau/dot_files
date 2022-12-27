@@ -89,6 +89,7 @@
                         ("lx/run-in-vterm/set-blue-bar-cursor" lx/run-in-vterm/set-blue-bar-cursor)
                         ("update-pwd" lx/run-in-vterm/set-default-directory)
                         ("find-remote-file" lx/run-in-vterm/find-remote-file)
+                        ("sudo-find-remote-file" lx/run-in-vterm/sudo-find-remote-file)
                         ("save-zsh-history" lx/run-in-vterm/save-history-to-vterm)
                         ("update-zsh-history-outcome" lx/run-in-vterm/update-history-outcome-to-vterm)))
 
@@ -146,6 +147,7 @@
      gtags
      (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
+     epub
      (org :variables
           org-enable-notifications nil
           org-start-notification-daemon-on-startup ,enable-org-notification
@@ -263,7 +265,7 @@
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
-                                            mermaid-mode org-modern grip-mode atomic-chrome)
+                                            mermaid-mode org-modern grip-mode atomic-chrome dired-rsync dired-rsync-transient)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -460,7 +462,7 @@ layers configuration."
   (load-file lx/emacs-crafts-init-el)
   ;; (load-file "~/.config/emacs-config/doom-themes.el")
 
-  (setq recentf-save-file (format "~/.emacs.d/.cache/recentf.%s" server-name))
+  (setq recentf-save-file (format "%srecentf.%s" spacemacs-cache-directory server-name))
 
   (setq tat/window-close-delay "100000000")
 
@@ -501,7 +503,7 @@ layers configuration."
   (setq magit-push-always-verify nil)
   ;; (add-hook 'smartparens-enabled-hook #'turn-off-sp-on-large-file)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh t)
-  (add-hook 'git-commit-mode-hook 'evil-emacs-state)
+  (add-hook 'git-commit-mode-hook 'evil-hybrid-state)
   (setq helm-mode-fuzzy-match t)
   (setq helm-gtags-fuzzy-match t)
   (setq rvm--gemset-default "default")
@@ -681,6 +683,8 @@ layers configuration."
 
   (setq python-indent-offset 4)
 
+  (setq calc-window-height 26)
+
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
 
@@ -858,6 +862,7 @@ This function is called at the very end of Spacemacs initialization."
    (quote
     (select-window-9 select-window-8 select-window-7 select-window-6 select-window-5 select-window-4 select-window-3 select-window-2 select-window-1 select-window-0 quit-window evil-window-move-very-bottom evil-window-move-far-right evil-window-move-far-left evil-window-move-very-top evil-window-rotate-downwards evil-window-rotate-upwards evil-window-vnew evil-window-new evil-window-prev evil-window-next evil-window-mru evil-window-top-left evil-window-bottom-right evil-window-down evil-window-up evil-window-right evil-window-left evil-window-vsplit evil-window-split evil-window-delete evil-avy-goto-line evil-avy-goto-word-or-subword-1 buf-move-down buf-move-up buf-move-right buf-move-left avy-pop-mark ace-maximize-window ace-swap-window ace-select-window ace-delete-window ace-window windmove-left windmove-right windmove-down windmove-up lx/window-up-fallback-to-switch-frame lx/window-down-fallback-to-switch-frame)))
  '(dante-methods (quote (stack bare-ghci bare-cabal styx snack new-impure-nix new-nix nix impure-nix new-build nix-ghci mafia)))
+ '(eww-retrieve-command (quote ("readable")))
  '(helm-M-x-fuzzy-match t)
  '(helm-ag-command-option "-U")
  '(helm-ag-ignore-patterns (quote (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "log")))
@@ -917,6 +922,22 @@ This function is called at the very end of Spacemacs initialization."
  '(js2-strict-missing-semi-warning nil)
  '(launchctl-search-path (quote ("~/.config/services/")))
  '(launchctl-filter-regex "homebrew")
+ '(cider-allow-jack-in-without-project (quote always))
+ '(cider-debug-prompt-commands '((?c "continue" "continue")
+                                (?C "continue-all" nil)
+                                (?n "next" "next")
+                                (?i "in" "in")
+                                (?o "out" "out")
+                                (?O "force-out" nil)
+                                (?h "here" "here")
+                                (?e "eval" "eval")
+                                (?p "inspect" "inspect")
+                                (?P "inspect-prompt" nil)
+                                (?l "locals" "locals")
+                                (?J "inject" "inject")
+                                (?s "stacktrace" "stacktrace")
+                                (?t "trace" "trace")
+                                (?q "quit" "quit")))
  '(magit-blame-heading-format "%-20a %A %s %H")
  '(magit-diff-use-overlays nil)
  '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
@@ -997,6 +1018,7 @@ This function is called at the very end of Spacemacs initialization."
 '(plantuml-default-exec-mode jar)
 '(plantuml-jar-path "/usr/local/libexec/plantuml.jar")
 '(org-plantuml-jar-path "/usr/local/libexec/plantuml.jar")
+'(imenu-list-position (quote left))
 '(evil-surround-pairs-alist
   (quote
    ((40 "( " . " )")
@@ -1029,10 +1051,16 @@ This function is called at the very end of Spacemacs initialization."
  '(rubocop-autocorrect-command  "~/bin/rubocop -a --format emacs")
  '(neo-window-fixed-size nil)
  '(create-lockfiles nil)
+ '(pdf-view-midnight-colors (quote ("#37383a" . "#dcdbd8")))
  '(python-indent-guess-indent-offset-verbose nil)
+ '(python-shell-interpreter "ipython3")
+ '(python-shell-interpreter-args "--simple-prompt -i")
+ '(dired-subtree-use-backgrounds nil)
  '(dired-subtree-ignored-regexp "^\\(?:\\.\\(?:bzr\\|git\\|idea\\|hg\\|s\\(?:rc\\|vn\\)\\)\\|CVS\\|MCVS\\|RCS\\|SCCS\\|_\\(?:MTN\\|darcs\\)\\|{arch}\\)$")
  '(annotate-file "~/Documents/materials/annotates/annotations")
  '(TeX-view-program-selection (quote ((output-dvi . "open") (output-pdf . "open") (output-html . "open"))))
+ '(org-src-window-setup (quote plain))
+ '(org-noter-notes-search-path (quote ("~/Documents/materials/org-notes")))
 '(safe-local-variable-values
 (quote
  ((arql-env . "lcldevb")
@@ -1073,7 +1101,7 @@ This function is called at the very end of Spacemacs initialization."
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(cargo-process--enable-rust-backtrace t)
  '(vterm-max-scrollback 10000)
- '(vterm-keymap-exceptions (quote ("C-c" "C-x" "C-u" "C-g" "C-h" "C-l" "M-x" "M-o" "C-y" "M-y" "M-1" "M-2" "M-3" "M-4" "M-5" "M-6" "M-7" "M-8" "M-9" "M-0" "M-\\")))
+ '(vterm-keymap-exceptions (quote ("C-c" "C-x" "C-u" "C-g" "C-h" "M-x" "M-o" "C-y" "M-y" "M-1" "M-2" "M-3" "M-4" "M-5" "M-6" "M-7" "M-8" "M-9" "M-0" "M-\\" "M-h" "M-l" "M-k" "M-:")))
  '(xwwp-follow-link-completion-system 'helm)
  '(helm-buffer-max-length 40)
  '(copilot-overlay-safe nil)
@@ -1112,13 +1140,18 @@ This function is called at the very end of Spacemacs initialization."
  '(docker-run-async-with-buffer-function (quote docker-run-async-with-buffer-vterm))
  '(warning-suppress-types (quote ((comp)))))
 
-  (set-frame-parameter (selected-frame) 'width 1.0)
-  (set-frame-parameter (selected-frame) 'height 1.0)
-  (set-frame-parameter (selected-frame) 'top 0.0)
-  (set-frame-parameter (selected-frame) 'left 0.0)
+  (if (string-version-lessp "28.2" emacs-version)
+      (spacemacs/toggle-maximize-frame)
+    (set-frame-parameter (selected-frame) 'width 1.0)
+    (set-frame-parameter (selected-frame) 'height 1.0)
+    (set-frame-parameter (selected-frame) 'top 0.0)
+    (set-frame-parameter (selected-frame) 'left 0.0))
+
+  (if (autoloadp (symbol-function 'pixel-scroll-precision-mode))
+      (pixel-scroll-precision-mode))
 
   (persp-mode)
-  (persp-load-state-from-file "~/.emacs.d/.cache/layouts/A")
+  (persp-load-state-from-file (format "%sA" spacemacs-layouts-directory))
   (face-spec-set 'header-line '((t :weight bold :foreground "grey" :background nil)))
 
 ;; (custom-set-faces
