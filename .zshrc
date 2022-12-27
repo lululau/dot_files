@@ -400,6 +400,7 @@ sme() {
 
 autoload -U add-zsh-hook
 add-zsh-hook -Uz chpwd (){ vterm_set_directory }
+add-zsh-hook -Uz precmd (){ vterm_set_directory }
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bitcomplete bit
