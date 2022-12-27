@@ -103,6 +103,15 @@
          (file (concat file-prefix file)))
     (find-file-other-window file)))
 
+(defun lx/run-in-vterm/sudo-find-remote-file (file &optional host)
+  (interactive)
+  (let* ((remote-host (if (eq major-mode 'ssh-zsh-vterm-mode)
+                          (plist-get ssh-zsh-vterm-ssh-options :host)
+                        nil))
+         (file-prefix (if remote-host (format "/sudo:root@%s:" remote-host) ""))
+         (file (concat file-prefix file)))
+    (find-file-other-window file)))
+
 (defun lx/run-in-vterm/sql-escape (sql)
   (string-replace "'" "''" (string-replace "\0" "" sql)))
 

@@ -87,6 +87,7 @@
                         ("lx/run-in-vterm/set-blue-bar-cursor" lx/run-in-vterm/set-blue-bar-cursor)
                         ("update-pwd" lx/run-in-vterm/set-default-directory)
                         ("find-remote-file" lx/run-in-vterm/find-remote-file)
+                        ("sudo-find-remote-file" lx/run-in-vterm/sudo-find-remote-file)
                         ("save-zsh-history" lx/run-in-vterm/save-history-to-vterm)
                         ("update-zsh-history-outcome" lx/run-in-vterm/update-history-outcome-to-vterm)))
 

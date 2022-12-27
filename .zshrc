@@ -373,6 +373,20 @@ me() {
   vterm_cmd find-remote-file "$file" "$host_name"
 }
 
+sme() {
+  local file=$1
+  if [ -n "$file" ]; then
+    if [ "$file[1]" != "/" ]; then
+      file="$PWD/$file"
+    fi
+  else
+    file="$PWD"
+  fi
+  local host_name=$HOST
+  vterm_cmd sudo-find-remote-file "$file" "$host_name"
+}
+
+
 # if is_inside_emacs | grep -q true; then
 #   # zle-keymap-select () {
 #   #   starship_render
