@@ -73,6 +73,9 @@
 
 (setq arthas-class-reload-docker-list '((:context "lcl-devb" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
                                         (:context "ceres-devb" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
+                                        (:context "ceres_job1" :container-filter "ceres")
+                                        (:context "ceres_job2" :container-filter "ceres")
+                                        (:context "ceres_job3" :container-filter "ceres")
                                         (:context "ll-devb" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
                                         (:context "md-dev" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")))
 
