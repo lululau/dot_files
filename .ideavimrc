@@ -51,12 +51,12 @@ inoremap <c-c> <esc>:action copilot.disposeInlays<cr>
 nnoremap <c-a> ^
 inoremap <c-k> <c-o>C
 nnoremap <cr> :action EditorStartNewLine<cr>
-" noremap <m-m> :action ToggleBookmark<cr>
-noremap <m-a-b> :action ToggleLineBreakpoint<cr>
-noremap <m-j> 10j
-noremap <m-k> 10k
-inoremap <m-j> <c-o>10j
-inoremap <m-k> <c-o>10k
+" noremap <D-m> :action ToggleBookmark<cr>
+noremap <D-a-b> :action ToggleLineBreakpoint<cr>
+noremap <D-j> 10j
+noremap <D-k> 10k
+inoremap <D-j> <c-o>10j
+inoremap <D-k> <c-o>10k
 nnoremap Y y$
 nnoremap <c-g> :call Clear_highlight_copilot()<cr>
 inoremap <c-g> <c-o>:call Clear_highlight_copilot()<cr>
@@ -85,24 +85,24 @@ noremap <a-s> :action StepOver<cr>
 noremap <a-S> :action ForceStepOver<cr>
 nnoremap <a-f> :action StepOut<cr>
 noremap <a-i> :action StepInto<cr>
-noremap <m-i> :action StepInto<cr>
+noremap <D-i> :action StepInto<cr>
 noremap <a-I> :action ForceStepInto<cr>
-noremap <m-S> :action SmartStepInto<cr>
+noremap <D-S> :action SmartStepInto<cr>
 noremap <a-H> :action ForceRunToCursor<cr>
 noremap <a-c> :action Resume<cr>
 noremap <a-e> :action EvaluateExpression<cr>
-noremap <m-e> ^v$:action EvaluateExpression<cr>
+noremap <D-e> ^v$:action EvaluateExpression<cr>
 
 inoremap <a-s> :action StepOver<cr>
 inoremap <a-S> :action ForceStepOver<cr>
 inoremap <a-i> :action StepInto<cr>
-inoremap <m-i> :action StepInto<cr>
+inoremap <D-i> :action StepInto<cr>
 inoremap <a-I> :action ForceStepInto<cr>
-inoremap <m-S> :action SmartStepInto<cr>
+inoremap <D-S> :action SmartStepInto<cr>
 inoremap <a-H> :action ForceRunToCursor<cr>
 inoremap <a-c> :action Resume<cr>
 inoremap <a-e> :action EvaluateExpression<cr>
-inoremap <m-e> ^v$:action EvaluateExpression<cr>
+inoremap <D-e> ^v$:action EvaluateExpression<cr>
 
 " Motion/Jump
 nnoremap <leader><Space> :action AceWordAction<cr>
@@ -166,7 +166,7 @@ noremap <leader>fb :action ShowBookmarks<cr>
 noremap ,fnc :action NewClass<cr>
 noremap ,fnf :action NewFile<cr>
 noremap ,fb :action ShowBookmarks<cr>
-noremap <m-s-n> :action NewClass<cr>
+noremap <D-s-n> :action NewClass<cr>
 nnoremap <leader>jd :action Tool_Files_OpenPWDWithEmacs<cr>
 nnoremap ,jd :action Tool_Files_OpenPWDWithEmacs<cr>
 noremap ,bs :e ~/Library/Application Support/JetBrains/IntelliJIdea2021.2/scratches/scratch.kts<cr>
@@ -350,9 +350,9 @@ noremap ,ax :action HideSideWindows<cr>
 " nnoremap <A-j> :action VimWindowDown<cr>
 " nnoremap <A-k> :action VimWindowUp<cr>
 " nnoremap <A-l> :action VimWindowRight<cr>
-" nnoremap <M-t> :action VimWindowSplitVertical<cr>
-" nnoremap <M-S-t> :action VimWindowSplitHorizontal<cr>
-" nnoremap <M-S-w> :action Unsplit<cr>
+" nnoremap <D-t> :action VimWindowSplitVertical<cr>
+" nnoremap <D-S-t> :action VimWindowSplitHorizontal<cr>
+" nnoremap <D-S-w> :action Unsplit<cr>
 
 " Git
 noremap <leader>gs :action Tool_Git_MagitStatus<cr>
