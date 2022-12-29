@@ -1092,6 +1092,7 @@ This function is called at the very end of Spacemacs initialization."
  '(split-height-threshold 100)
  '(spacemacs-theme-comment-bg nil)
  '(dired-filter-prefix ",f")
+ '(shr-use-colors nil)
  '(org-modern-star nil)
  '(org-modern-hide-stars nil)
  '(org-modern-block-fringe nil)
