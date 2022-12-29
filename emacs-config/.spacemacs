@@ -1097,6 +1097,7 @@ This function is called at the very end of Spacemacs initialization."
  '(org-modern-hide-stars nil)
  '(org-modern-block-fringe nil)
  '(org-modern-keyword nil)
+ '(orgit-rev-description-format "%s. [dir: %%N] (rev: %%R)")
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
  ;; '(org-jira-project-filename-alist (quote (("TJPT" . "~/Documents/materials/jira/projects.org") ("LEGAL" . "~/Documents/materials/jira/projects.org") ("YUNFACUI" . "~/Documents/materials/jira/projects.org"))))
