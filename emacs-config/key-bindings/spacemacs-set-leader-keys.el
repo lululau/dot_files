@@ -118,6 +118,7 @@
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
   "h" 'dired-dotfiles-toggle
+  "aC" 'dired-async-do-copy
   "ar" 'tda/rsync
   "aR" 'tda/rsync-delete
   "az" 'tda/zip
