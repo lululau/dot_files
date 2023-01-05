@@ -267,7 +267,8 @@
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
-                                            mermaid-mode org-modern grip-mode atomic-chrome dired-rsync dired-rsync-transient)
+                                            mermaid-mode org-modern grip-mode atomic-chrome dired-rsync dired-rsync-transient
+                                            (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el")))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -699,6 +700,10 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions "target/")
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
+
+  (require 'python)
+  (setq python-interpreter "python")
+  (setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
 
   (atomic-chrome-start-server)
   ) ;;; End of config.

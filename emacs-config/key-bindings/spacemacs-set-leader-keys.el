@@ -103,6 +103,8 @@
 
   "hdd" #'dash-at-point
 
+  "cg" #'chatgpt-query
+
   "axx" #'xwidget-webkit-browse-url
   "axh" #'xwwp-history-show
   "axjc" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1:9090/ui/#/proxies") (if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
