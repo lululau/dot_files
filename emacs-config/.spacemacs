@@ -673,6 +673,7 @@ layers configuration."
 
   (defalias 'fuck-ido-dired 'dired)
   (spacemacs/set-leader-keys "ad" 'lx/helm-dired-histories)
+  (spacemacs/set-leader-keys "aD" 'lx/helm-projectile-dired-histories)
   (spacemacs/set-leader-keys "dr" 'lx/helm-dired-histories)
 
   (global-subword-mode)
