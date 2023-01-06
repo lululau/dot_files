@@ -56,6 +56,7 @@
                         nil))
          (file-prefix (if remote-host (format "/scp:%s:" remote-host) ""))
          (dir (concat file-prefix dir)))
+    (helm-dired-history--update dir)
     (setq default-directory dir)))
 
 (defun lx/run-in-vterm/download (file)

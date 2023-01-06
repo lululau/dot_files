@@ -51,7 +51,8 @@
 	the output to that window. After finish execution, print the message to that
 	window and close it after x seconds"
   (let ((output-buffer
-		 (concat "*" command-name "*" " at " (current-time-string))))
+		     (concat "*" command-name "*" " at " (current-time-string)))
+        (default-directory (if (string= command-name "rsync") "~/" default-directory)))
 
 	;; make a new window
 	;; (select-window (tat/create-window))

@@ -56,7 +56,7 @@
   (let* ((fields (s-split ":" conf t))
          (name (car fields))
          (args (cadr fields))
-         (cmd  (format "~/.rvm/gems/ruby-3.1.0/bin/prize %s" args))
+         (cmd  (format "~/.rvm/gems/ruby-3.2.0/bin/prize %s" args))
          (buffer-name (format "*vterm-prize-%s*" name)))
     (lx/run-in-vterm cmd buffer-name nil t)))
 

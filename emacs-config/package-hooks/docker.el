@@ -52,6 +52,27 @@
       (kbd "[") 'tablist-backward-column)))
 
 (with-eval-after-load 'docker-core
+
+  (defun docker-context-current ()
+    (format "Context (%s)" (string-trim-right (shell-command-to-string "docker context show"))))
+
+  (defun docker-context-list ()
+    (split-string (string-trim-right (shell-command-to-string "docker context ls -q"))))
+
+  (defun docker-context-use (context)
+    (shell-command-to-string (format "docker context use %s" context))
+    (message "Context set to %s" context))
+
+  (defun docker-context ()
+    (interactive)
+    (helm :prompt "Docker Contexts: "
+          :buffer "*helm-docker-contexts*"
+          :sources
+          (list (helm-build-sync-source "Docker Contexts"
+                  :fuzzy-match  t
+                  :candidates 'docker-context-list
+                  :action 'docker-context-use))))
+
   (transient-define-prefix docker (arg)
     "Transient for docker."
     :man-page "docker"
@@ -69,6 +90,7 @@
      ("n" (lambda ()(plist-get docker-status-strings :networks))   docker-networks)
      ("v" (lambda ()(plist-get docker-status-strings :volumes))    docker-volumes)]
     ["Other"
+     ("x" docker-context-current docker-context)
      ("C" "Compose" docker-compose)]
     (interactive "P")
     (if arg

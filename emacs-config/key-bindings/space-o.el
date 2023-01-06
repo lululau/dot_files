@@ -111,14 +111,17 @@
         ("oor" rails-guides-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org"))))
 
 (setq lx/server-files
-      '(("os1" lcl-devb "/scp:lcl.devb:/etc/nginx/conf.d")
-      ("os2" ceres-devb "/scp:ceres.devb:/etc/nginx/conf.d")
-      ("os3" ll-devb "/scp:ll-devb:/etc/nginx/conf.d")
-      ("os4" md-dev "/scp:md.dev:/etc/nginx/conf.d")
-      ("os6" lcl-fe1 "/scp:lcl.fe1:/etc/nginx/conf.d")
-      ("os7" lcl-fe2 "/scp:lcl.fe2:/etc/nginx/conf.d")
-      ("os8" ceres-fe1 "/scp:ceres.fe1:/opt/nginx/conf/conf.d")
-      ("os9" ceres-fe2 "/scp:ceres.fe2:/opt/nginx/conf/conf.d")
+      '(("os3" lcl-devb "/scp:lcl.devb:/etc/nginx/conf.d")
+      ("os4" ceres-devb "/scp:ceres.devb:/etc/nginx/conf.d")
+      ("os5" ll-devb "/scp:ll-devb:/etc/nginx/conf.d")
+      ("os6" md-dev "/scp:md.dev:/etc/nginx/conf.d")
+      ("os7" lcl-fe1 "/scp:lcl.fe1:/etc/nginx/conf.d")
+      ("os8" lcl-fe2 "/scp:lcl.fe2:/etc/nginx/conf.d")
+      ("os9" ceres-fe1 "/scp:ceres.fe1:/opt/nginx/conf/conf.d")
+      ("osj" jsroot "/scp:jsroot:/data/monitor/prometheus")
+      ("osJ" jenkins2 "/scp:jenkins2:/data/jenkins_home/workspace/docker_file")
+      ("os2" dev42 "/scp:dev42:~/")
+      ("os1" xym "/scp:xym:~/")
       ("os0" lx-kt "/scp:lx.kt:~/")))
 
 ;; Cheat Sheets
@@ -275,6 +278,8 @@
                               (cons (format "%-20s%s" "lcl.pro3" "~/") "/scp:lcl.pro3:~/")
                               (cons (format "%-20s%s" "mw" "~/") "/scp:mw:~/")
                               (cons (format "%-20s%s" "nexus" "~/") "/scp:nexus:~/")
+                              (cons (format "%-20s%s" "R720" "/data") "/scp:R720:/data")
+                              (cons (format "%-20s%s" "R730" "/data") "/scp:R730:/data")
                               (cons (format "%-20s%s" "repair.pro" "~/") "/scp:repair.pro:~/")
                               (cons (format "%-20s%s" "seafile" "~/") "/scp:seafile:~/"))
                 :action  'find-file
