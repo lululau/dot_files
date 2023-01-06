@@ -62,6 +62,9 @@
 
 (setq arthas-class-reload-docker-list '((:context "lcl-devb" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
                                         (:context "ceres-devb" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
+                                        (:context "ceres_job1" :container-filter "ceres")
+                                        (:context "ceres_job2" :container-filter "ceres")
+                                        (:context "ceres_job3" :container-filter "ceres")
                                         (:context "ll-devb" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")
                                         (:context "md-dev" :container-filter "(lcl|ceres|lawyer|mediation).*(admin|open|api|task|server|web|job)")))
 
@@ -252,7 +255,8 @@
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
-                                            mermaid-mode org-modern grip-mode atomic-chrome dired-rsync dired-rsync-transient)
+                                            mermaid-mode org-modern grip-mode atomic-chrome dired-rsync dired-rsync-transient
+                                            (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el")))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -650,6 +654,7 @@ layers configuration."
 
   (defalias 'fuck-ido-dired 'dired)
   (spacemacs/set-leader-keys "ad" 'lx/helm-dired-histories)
+  (spacemacs/set-leader-keys "aD" 'lx/helm-projectile-dired-histories)
   (spacemacs/set-leader-keys "dr" 'lx/helm-dired-histories)
 
   (global-subword-mode)
@@ -675,6 +680,10 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions "target/")
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
+
+  (require 'python)
+  (setq python-interpreter "python")
+  (setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
 
   (atomic-chrome-start-server)
   ) ;;; End of config.
@@ -1065,10 +1074,12 @@ This function is called at the very end of Spacemacs initialization."
  '(split-height-threshold 100)
  '(spacemacs-theme-comment-bg nil)
  '(dired-filter-prefix ",f")
+ '(shr-use-colors nil)
  '(org-modern-star nil)
  '(org-modern-hide-stars nil)
  '(org-modern-block-fringe nil)
  '(org-modern-keyword nil)
+ '(orgit-rev-description-format "%s. [dir: %%N] (rev: %%R)")
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")
  ;; '(org-jira-project-filename-alist (quote (("TJPT" . "~/Documents/materials/jira/projects.org") ("LEGAL" . "~/Documents/materials/jira/projects.org") ("YUNFACUI" . "~/Documents/materials/jira/projects.org"))))
@@ -1076,6 +1087,7 @@ This function is called at the very end of Spacemacs initialization."
  '(jdecomp-decompiler-type 'fernflower)
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(cargo-process--enable-rust-backtrace t)
+ '(org-journal-enable-agenda-integration t)
  '(vterm-max-scrollback 10000)
  '(vterm-keymap-exceptions (quote ("C-c" "C-x" "C-u" "C-g" "C-h" "M-x" "M-o" "C-y" "M-y" "M-1" "M-2" "M-3" "M-4" "M-5" "M-6" "M-7" "M-8" "M-9" "M-0" "M-\\" "M-h" "M-l" "M-k" "M-:")))
  '(xwwp-follow-link-completion-system 'helm)

@@ -48,18 +48,16 @@
 
 (defun tda/remove-src-scp-prefix (src dest)
   (if (string-match-p "^/scp:" src)
-      (tda/remove-scp-host-prefix src)
+      (tda/remove-scp-prefix src)
     src))
 
 (defun tda/remove-dest-scp-prefix (src dest)
   (if (string-match-p "^/scp:" dest)
-      (if (string-match-p "^/scp:" src)
-          (tda/remove-scp-host-prefix dest)
-        (tda/remove-scp-prefix dest))
+        (tda/remove-scp-prefix dest)
     dest))
 
 (defun tda/read-rsync-file-name ()
-  (expand-file-name (read-file-name "Rsync to:" "/scp:")))
+  (helm-dired-history-read-file-name "rsync to: " (dired-dwim-target-directory)))
 
 (defun tda/rsync (dest)
   "Asynchronously copy file using Rsync for dired.

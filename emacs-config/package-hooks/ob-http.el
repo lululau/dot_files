@@ -43,6 +43,19 @@
                           match)))))
       (replace-regexp-in-string "\\${[^}]+}" rep-func value)))
 
+
+  (defun ob-http-construct-url (path params)
+    (if (s-starts-with? "/" path)
+        (s-concat
+         (format "%s://" (ob-http-expand-var-in-header (or (assoc-default :schema params) "http") params))
+         (ob-http-expand-var-in-header (assoc-default :host params) params)
+         (when (assoc :port params)
+           (format ":%s" (ob-http-expand-var-in-header (assoc-default :port params) params)))
+         (assoc-default :path-prefix params)
+         path)
+      path))
+
+
   (defun ob-http-guest-body-type (request-body)
     (if request-body
         (let* ((json (condition-case err (json-read-from-string request-body)
@@ -99,7 +112,7 @@
                      (when content-type `("-H" ,(format "Content-Type: %s" content-type)))
                      (when (and (assoc :username params) (assoc :password params))
                        `("--user" ,(s-format "${:username}:${:password}" 'ob-http-aget params)))
-                     (when (assoc :user params) `("--user" ,(cdr (assoc :user params))))
+                     (when (assoc :user params) `("--user" ,(ob-http-expand-var-in-header (cdr (assoc :user params)) params)))
                      (mapcar (lambda (x) `("-H" ,x)) (ob-http-request-headers request))
                      (when (and (s-present? request-body) (not (or (eq 'form body-type) (eq 'upload body-type))))
                        (let ((tmp (org-babel-temp-file "http-"))
