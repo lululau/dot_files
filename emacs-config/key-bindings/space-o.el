@@ -278,6 +278,8 @@
                               (cons (format "%-20s%s" "lcl.pro3" "~/") "/scp:lcl.pro3:~/")
                               (cons (format "%-20s%s" "mw" "~/") "/scp:mw:~/")
                               (cons (format "%-20s%s" "nexus" "~/") "/scp:nexus:~/")
+                              (cons (format "%-20s%s" "R720" "/data") "/scp:R720:/data")
+                              (cons (format "%-20s%s" "R730" "/data") "/scp:R730:/data")
                               (cons (format "%-20s%s" "repair.pro" "~/") "/scp:repair.pro:~/")
                               (cons (format "%-20s%s" "seafile" "~/") "/scp:seafile:~/"))
                 :action  'find-file
