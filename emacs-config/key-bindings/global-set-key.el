@@ -110,6 +110,7 @@
 (global-set-key (kbd "s-r l 1") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "ceres-devb-web")))
 (global-set-key (kbd "s-r l 2") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "ceres-devb-job")))
 (global-set-key (kbd "s-r l 3") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "ceres-devb-api")))
+(global-set-key (kbd "s-r l 4") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "lcl-devb-admin")))
 (global-set-key (kbd "s-r p") #'helm-vterm-prize)
 (global-set-key (kbd "s-r s-p") #'(lambda () (interactive) (lx/run-in-vterm "~/Library/Python/3.11/bin/ptipython" "*ptpython*")))
 (global-set-key (kbd "s-r s-r s-p") #'vterm-mitmproxy-transparent-proxy)
