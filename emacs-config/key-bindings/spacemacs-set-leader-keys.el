@@ -104,6 +104,7 @@
   "hdd" #'dash-at-point
 
   "cg" #'chatgpt-query
+  "ct" #'gptel
 
   "axx" #'xwidget-webkit-browse-url
   "axh" #'xwwp-history-show

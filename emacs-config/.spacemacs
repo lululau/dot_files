@@ -269,6 +269,7 @@
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode org-modern grip-mode atomic-chrome dired-rsync dired-rsync-transient
+                                            gptel org-ai
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el")))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
@@ -515,6 +516,8 @@ layers configuration."
   (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
   (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
   (setq helm-locate-command "~/.rvm/gems/ruby-3.1.0/bin/mfd %s %s")
+  (setq gptel-default-mode 'org-mode)
+  (setq gptel-prompt-string "** ")
 
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
@@ -632,6 +635,8 @@ layers configuration."
   (add-hook 'org-mode-hook #'(lambda ()
                                (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                                (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
+  (autoload 'org-ai-mode "org-ai")
+  (add-hook 'org-mode-hook #'org-ai-mode)
 
   (add-hook 'pdf-view-mode-hook #'pdf-view-fit-height-to-window)
 
