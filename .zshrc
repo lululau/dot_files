@@ -477,3 +477,7 @@ function recentf-add-file() {
 
 chpwd_functions+=(helm-dired-history-update)
 preexec_functions+=(recentf-add-file)
+
+# textra
+export TEXTRA_INSTALL="$HOME/.textra"
+export PATH="$TEXTRA_INSTALL/bin:$PATH"
