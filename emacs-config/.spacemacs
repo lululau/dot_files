@@ -159,6 +159,7 @@
           org-enable-reveal-js-support t
           org-enable-org-journal-support t
           org-enable-jira-support t
+          org-enable-modern-support t
           org-jira-working-dir "~/Documents/materials/jira/"
           org-journal-dir "~/Documents/materials/journal/"
           org-journal-file-format "%Y-%m-%d"
@@ -268,7 +269,7 @@
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
-                                            mermaid-mode org-modern grip-mode atomic-chrome dired-rsync dired-rsync-transient
+                                            mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
                                             gptel org-ai
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el")))
    ;; A list of packages and/or extensions that will not be install and loaded.
