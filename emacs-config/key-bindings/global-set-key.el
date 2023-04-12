@@ -128,7 +128,7 @@
 (global-set-key (kbd "s-r m k") #'vterm-maven-kill-local-artifact)
 (global-set-key (kbd "s-r s-j") #'helm-vterm-jenkins)
 (global-set-key (kbd "s-r s-r bw") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit t)) (lx/run-in-vterm "bandwhich" "*vterm-bandwhich*" nil t))))
-(global-set-key (kbd "s-r s-r bu") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "bash -c \"brew update; brew upgrade ; brew post-update ; brew cleanup ; brew list --casks | xargs -I {} brew upgrade --cask {}\"" "*vterm-cmd-brew-upgrade-cleanup*" nil t))))
+(global-set-key (kbd "s-r s-r bu") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "bash -c \"brew update; brew upgrade ; brew post-update ; brew cleanup ; brew list --casks | xargs -I {} brew upgrade --cask {}; brew post-update; brew cleanup;\"" "*vterm-cmd-brew-upgrade-cleanup*" nil t))))
 (global-set-key (kbd "s-r s-r lp") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "sudo lsof -Pn -iTCP -sTCP:LISTEN" "*vterm-cmd-listening-ports*" default-directory t))))
 (global-set-key (kbd "s-r s-r df") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit nil)) (lx/run-in-vterm "sudo duf --only local" "*vterm-cmd-duf*" default-directory t))))
 (global-set-key (kbd "s-r s-r j") #'(lambda () (interactive) (let ((vterm-kill-buffer-on-exit t)) (lx/run-in-vterm "jira issue list -q 'assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\") and project != XYC'" "*vterm-cmd-jira-cli*" nil t))))
