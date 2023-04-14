@@ -619,6 +619,7 @@ layers configuration."
                                   ("\\.class" . jdecomp-mode)
                                   ("\\.d$" . dtrace-script-mode)
                                   ("\\.xlsx$" . visidata-mode)
+                                  ("\\.chat$" . mind-wave-chat-mode)
                                   ("\\.sc$" . scala-mode)) auto-mode-alist))
 
   ;; (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . rjsx-mode))
@@ -1052,6 +1053,7 @@ This function is called at the very end of Spacemacs initialization."
     (115 "​" . "​"))))
 '(fill-column 120)
 '(projectile-completion-system (quote helm))
+'(mind-wave-api-key-path "~/.config/secrets/.openai_api_key")
 '(projectile-indexing-method 'hybrid)
 '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
