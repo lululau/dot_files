@@ -11,6 +11,7 @@ path+=($HOME/.fzf/bin)
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 path+=($HOME/.rvm/bin) # Add RVM to PATH for scripting
 path+=($HOME/perl5/bin)
+path+=($HOME/.docker/bin)
 
 if uname | grep -q Linux ; then
     export EDITOR='emacsclient -t'

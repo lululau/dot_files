@@ -68,3 +68,5 @@ Session.vim
 /gh/
 /github-copilot/
 .vterm-mitmproxy-current-user
+
+__pycache__/

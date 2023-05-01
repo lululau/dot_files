@@ -149,7 +149,9 @@
           org-enable-org-journal-support t
           org-journal-dir "~/Documents/org/journal/"
           org-enable-jira-support t
-          org-jira-working-dir "~/Documents/org/jira/"
+          org-enable-modern-support t
+          org-jira-working-dir "~/Documents/materials/jira/"
+          org-journal-dir "~/Documents/materials/journal/"
           org-journal-file-format "%Y-%m-%d"
           org-journal-date-format "%Y-%m-%d"
           org-roam-directory "~/Documents/materials/roam/"
@@ -256,7 +258,8 @@
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
-                                            mermaid-mode org-modern grip-mode atomic-chrome dired-rsync dired-rsync-transient
+                                            mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
+                                            gptel org-ai sqlite3
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el")))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
@@ -499,7 +502,10 @@ layers configuration."
   (setq rvm--gemset-default "default")
   (setq mac-option-modifier 'meta)
   (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
-  (setq helm-locate-command "~/bin/mfd %s %s")
+  (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
+  (setq helm-locate-command "~/.rvm/gems/ruby-3.1.0/bin/mfd %s %s")
+  (setq gptel-default-mode 'org-mode)
+  (setq gptel-prompt-string "** ")
 
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
@@ -595,6 +601,7 @@ layers configuration."
                                   ("\\.class" . jdecomp-mode)
                                   ("\\.d$" . dtrace-script-mode)
                                   ("\\.xlsx$" . visidata-mode)
+                                  ("\\.chat$" . mind-wave-chat-mode)
                                   ("\\.sc$" . scala-mode)) auto-mode-alist))
 
   ;; (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . rjsx-mode))
@@ -612,6 +619,8 @@ layers configuration."
   (add-hook 'org-mode-hook #'(lambda ()
                                (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                                (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
+  (autoload 'org-ai-mode "org-ai")
+  (add-hook 'org-mode-hook #'org-ai-mode)
 
   (add-hook 'pdf-view-mode-hook #'pdf-view-fit-height-to-window)
 
@@ -1022,6 +1031,7 @@ This function is called at the very end of Spacemacs initialization."
     (115 "​" . "​"))))
 '(fill-column 120)
 '(projectile-completion-system (quote helm))
+'(mind-wave-api-key-path "~/.config/secrets/.openai_api_key")
 '(projectile-indexing-method 'hybrid)
 '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
