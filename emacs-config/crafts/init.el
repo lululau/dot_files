@@ -19,6 +19,7 @@
 (autoload 'helm-zsh-vterm-ssh-run "zsh-vterm-ssh")
 (autoload 'zsh-vterm "zsh-vterm")
 (autoload 'all-buffer-completion "all-buffer-completion")
+(autoload 'current-buffer-completion "current-buffer-completion")
 (autoload 'helm-vterm-vrl "vterm-vrl")
 (autoload 'helm-vterm-vrl-run-auto-function "vterm-vrl")
 (autoload 'helm-vterm-prize "vterm-prize")

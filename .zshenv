@@ -14,6 +14,7 @@ path+=($HOME/perl5/bin)
 if [ -e /snap/bin ]; then
   path+=(/snap/bin)
 fi
+path+=($HOME/.docker/bin)
 
 if uname | grep -q Linux ; then
     export EDITOR='emacsclient -t'

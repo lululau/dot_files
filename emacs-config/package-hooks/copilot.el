@@ -7,6 +7,15 @@
                                                 backward-delete-char-untabify
                                                 copilot-accept-or-org-cycel))
 
+;; (defun vterm-get-current-input ()
+;;   (interactive)
+;;   (let* ((begin (vterm--get-beginning-of-line))
+;;          (point (vterm--get-cursor-point))
+;;          (input (buffer-substring-no-properties begin point))
+;;          (input (replace-regexp-in-string "^.*│" "" input))
+;;          (input (replace-regexp-in-string "^❯ *" "" input)))
+;;     input))
+
 (with-eval-after-load 'copilot
   (defun copilot--generate-doc ()
     "Generate doc param for completion request."
@@ -16,21 +25,13 @@
            (code-line-found nil))
       (if (eq 'pry-vterm-mode major-mode)
           (setq hist (tail-f "~/.pry_history" 500)))
-      (if (eq 'zsh-vterm-mode major-mode)
-          (setq hist (append (mapcar (lambda (it)
-                                          (format "ls %s" it)) (cdr (cdr (directory-files default-directory))))
-                             (mapcar (lambda (it) (replace-regexp-in-string "^[^;]*;" "" it))
-                                (tail-f "~/.zsh_history" 500 "tail -n %d -f %s | zsh-histfile-unmetafy")))))
+      (if (seq-contains-p '(zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)
+          (setq hist '("" "# Every line begins with # is the comment of the following line, and every line only has one line comment" "#!/bin/zsh")
+                             ))
       (if (bound-and-true-p git-commit-mode)
           (setq history (lx/git-commit-get-diff-lines)))
 
-      (mapc (lambda (line)
-              (if (string-match-p "^ *#" line)
-                  (if (not code-line-found)
-                      (setq history (append (list line) history)))
-                (setq history (append (list line) history))
-                (setq code-line-found t)))
-            (reverse hist))
+      (mapc (lambda (line) (setq history (append (list line) history))) (reverse hist))
 
       ;; End Add
 
@@ -61,10 +62,14 @@
         (copilot-clear-overlay)
         ;; (delete-region start (line-end-position))
         ;; (insert t-completion)
-        (if (seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode) ;; Mod
-            (vterm-send-string (concat t-completion " ")) ;; Mod
-          (delete-region start (line-end-position)) ;; Mod
-          (insert t-completion))
+        (cond ((eq 'pry-vterm-mode major-mode)
+               (vterm-send-string (concat t-completion " ")))
+              ((seq-contains-p '(zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)
+               (vterm-send-return)
+               (vterm-send-string (concat t-completion " ")))
+              (t
+               (delete-region start (line-end-position))
+               (insert t-completion)))
                                         ; trigger completion again if not fully accepted
         (unless (equal completion t-completion)
           (copilot-complete))
@@ -74,8 +79,10 @@
     "Show COMPLETION."
     (copilot--dbind (:text :uuid :range (:start (:line :character))) completion
                     (cond ;; Mod
-                     ((seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)
-                        (copilot-display-overlay-completion text uuid (1- (line-number-at-pos)) 0 (point)))
+                     ((seq-contains-p '(pry-vterm-mode) major-mode)
+                      (copilot-display-overlay-completion text uuid (1- (line-number-at-pos)) 0 (point)))
+                     ((seq-contains-p '(zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)
+                      (copilot-display-overlay-completion text uuid (1- (line-number-at-pos)) 0 (save-excursion (let ((line-pos (zsh-vterm-get-current-line-beginning))) (forward-line 1) (forward-char line-pos)) (point))))
                      ((bound-and-true-p git-commit-mode)
                       (copilot-display-overlay-completion text uuid (- line (lx/git-commit-get-diff-line-nums)) character (point)))
                      (t
@@ -88,7 +95,8 @@ USER-POS is the cursor position (for verification only)."
 
     (save-excursion
       (cond  ;; Mod
-       ((seq-contains-p '(pry-vterm-mode zsh-vterm-mode ssh-zsh-vterm-mode) major-mode) t)
+       ((seq-contains-p '(pry-vterm-mode) major-mode) t)
+       ((seq-contains-p '(zsh-vterm-mode ssh-zsh-vterm-mode) major-mode) (let ((line-pos (zsh-vterm-get-current-line-beginning))) (forward-line 1) (forward-char line-pos)))
        (t (progn
             (widen)
             (goto-char (point-min))
@@ -167,16 +175,15 @@ USER-POS is the cursor position (for verification only)."
   (defun copilot--get-current-line ()
     (cond ((eq 'pry-vterm-mode major-mode)
            (pry-vterm-get-current-line))
-          ((eq 'zsh-vterm-mode major-mode)
-           (zsh-vterm-get-current-line))
+          ((seq-contains-p '(zsh-vterm-mode ssh-zsh-vterm-mode) major-mode) "")
           (t
            (s-chop-suffix "\n" (or (thing-at-point 'line) "")))))
 
   (defun copilot--get-source (&optional history)
     (let ((source (cond ((eq 'pry-vterm-mode major-mode)
                          (concat (s-join "\n" history) "\n" (pry-vterm-get-current-line)))
-                        ((eq 'zsh-vterm-mode major-mode)
-                         (concat (s-join "\n" history) "\n" (zsh-vterm-get-current-line)))
+                        ((seq-contains-p '(zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)
+                         (concat (s-join "\n" history) "\n" (zsh-vterm-get-current-line) "\n"))
                         ((bound-and-true-p git-commit-mode)
                          (concat (s-join "\n" history) "\n" (lx/git-commit-get-message)))
                         (t
@@ -186,15 +193,15 @@ USER-POS is the cursor position (for verification only)."
 
   (defun copilot--get-language-id ()
     (cond ((eq 'pry-vterm-mode major-mode) "ruby")
-          ((eq 'zsh-vterm-mode major-mode) "zsh")
+          ((seq-contains-p '(zsh-vterm-mode ssh-zsh-vterm-mode) major-mode) "zsh")
           ((bound-and-true-p git-commit-mode) "git")
           (t (s-chop-suffix "-mode" (symbol-name major-mode)))))
 
   (defun copilot--get-position (&optional history)
     (cond ((eq 'pry-vterm-mode major-mode)
            (list :line (length history) :character (length (pry-vterm-get-current-line))))
-          ((eq 'zsh-vterm-mode major-mode)
-           (list :line (length history) :character (length (zsh-vterm-get-current-line))))
+          ((seq-contains-p '(zsh-vterm-mode ssh-zsh-vterm-mode) major-mode)
+           (list :line (1+ (length history)) :character 0))
           ((bound-and-true-p git-commit-mode)
            (list :line (1- (+ (length history) (line-number-at-pos))) :character (- (point) (point-at-bol))))
           (t

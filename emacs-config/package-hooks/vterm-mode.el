@@ -133,7 +133,7 @@ Argument EVENT process event."
   (define-key vterm-mode-map (kbd "M-:") #'eval-expression)
   (define-key vterm-mode-map (kbd "<M-return>") #'(lambda () (interactive) (process-send-string vterm--process "\e\C-m")))
   (define-key vterm-mode-map (kbd "C-h") 'vterm-send-C-h)
-  (define-key vterm-mode-map (kbd "M-/") 'all-buffer-completion)
+  (define-key vterm-mode-map (kbd "M-/") 'current-buffer-completion)
 
   (let ((map (lookup-key vterm-mode-map "\e")))
     ;; (define-key map "h" #'evil-window-left)
@@ -188,4 +188,4 @@ Argument EVENT process event."
 (spacemacs|use-package-add-hook vterm
   :post-config
   (define-key vterm-mode-map (kbd "M-p") #'vterm-send-M-p)
-  (define-key vterm-mode-map (kbd "M-/") 'all-buffer-completion))
+  (define-key vterm-mode-map (kbd "M-/") 'current-buffer-completion))

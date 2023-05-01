@@ -90,3 +90,5 @@ Session.vim
 /jesseduffield/
 /systemd/
 .vterm-mitmproxy-current-user
+
+__pycache__/

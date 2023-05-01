@@ -162,6 +162,14 @@ value of `vterm-buffer-name'."
         (str (buffer-substring-no-properties start end)))
     (replace-regexp-in-string zsh-vterm-prompt-regexp "" str)))
 
+(defun zsh-vterm-get-current-line-beginning ()
+  (let ((idx-bar (string-match "│" (thing-at-point 'line))))
+    (if idx-bar
+        (if (> (- (point) (line-beginning-position)) idx-bar)
+            (1+ idx-bar)
+          0)
+      0)))
+
 (defun zsh-vterm-accept-copilot-or-send-tab-to-term ()
   (interactive)
   (if (and (bound-and-true-p copilot--overlay) (copilot--overlay-visible))
