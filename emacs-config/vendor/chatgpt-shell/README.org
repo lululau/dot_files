@@ -1,0 +1,340 @@
+👉 [[https://github.com/sponsors/xenodium][Support this work via GitHub Sponsors]]
+
+* chatgpt-shell
+
+ChatGPT and DALL-E Emacs shells + [[https://orgmode.org/worg/org-contrib/babel/intro.html][Org Babel]].
+
+Includes =shell-maker=, a way to create shells for any service (local or cloud).
+
+** Support this effort
+
+If you're finding =chatgpt-shell= useful, consider ✨[[https://github.com/sponsors/xenodium][sponsoring]]✨.
+
+=chatgpt-shell= is in development. Please report issues or send [[https://github.com/xenodium/chatgpt-shell/pulls][pull requests]] for improvements.
+
+#+HTML: <img src="https://raw.githubusercontent.com/xenodium/chatgpt-shell/main/demos/chatgpt-shell-demo.gif" width="80%" />
+
+#+HTML: <img src="https://raw.githubusercontent.com/xenodium/chatgpt-shell/main/demos/blocks.gif" width="80%" />
+
+
+* Install
+
+- Load =(require 'chatgpt-shell)=
+- Load =(require 'dall-e-shell)=
+
+** MELPA
+
+As of now, only =chatgpt-shell= is available on MELPA.
+
+If using [[https://github.com/jwiegley/use-package][use-package]], you can install with =:ensure t=.
+
+#+begin_src emacs-lisp :lexical no
+  (use-package chatgpt-shell
+    :ensure t
+    :custom
+    (chatgpt-shell-openai-key
+     (lambda ()
+       (auth-source-pass-get 'secret "openai-key"))))
+#+end_src
+
+Read on for setting your OpenAI key in other ways.
+
+* Set OpenAI key
+
+You'll first need to get a [[https://platform.openai.com/account/api-keys][key from OpenAI]].
+
+** ChatGPT key
+*** As function
+#+begin_src emacs-lisp
+  ;; if you are using the "pass" password manager
+  (setq chatgpt-shell-openai-key
+        (lambda ()
+          ;; (auth-source-pass-get 'secret "openai-key") ; alternative using pass support in auth-sources
+          (nth 0 (process-lines "pass" "show" "openai-key"))))
+
+  ;; or if using auth-sources, e.g., so the file ~/.authinfo has this line:
+  ;;  machine api.openai.com password OPENAI_KEY
+  (setq chatgpt-shell-openai-key
+        (auth-source-pick-first-password :host "api.openai.com"))
+
+  ;; or same as previous but lazy loaded (prevents unexpected passphrase prompt)
+  (setq chatgpt-shell-openai-key
+        (lambda ()
+          (auth-source-pick-first-password :host "api.openai.com")))
+#+end_src
+
+*** Manually
+=M-x set-variable chatgpt-shell-openai-key=
+
+*** As variable
+#+begin_src emacs-lisp
+  (setq chatgpt-shell-openai-key "my key")
+#+end_src
+
+** DALL-E key
+
+Same as ChatGPT, but use =dall-e-shell-openai-key= variable.
+
+* Launch
+
+Launch with =M-x chatgpt-shell= or =dall-e-shell=.
+
+* Clear buffer
+
+Type =clear= as a prompt.
+
+#+begin_src sh
+  ChatGPT> clear
+#+end_src
+
+Alternatively, use either =M-x chatgpt-shell-clear-buffer= or =M-x comint-clear-buffer=.
+
+* Saving and restoring (experimental)
+
+Save with =M-x shell-maker-save-session-transcript= and restore with =M-x chatgpt-shell-restore-session-from-transcript=.
+
+* Streaming
+
+=chatgpt-shell= can either wait until the entire response is received before displaying, or it can progressively display as chunks arrive (streaming).
+
+Streaming is enabled by default. =(setq chatgpt-shell-chatgpt-streaming nil)= to disable it.
+
+* chatgpt-shell customizations
+
+#+BEGIN_SRC emacs-lisp :results table :colnames '("Custom variable" "Description") :exports results
+  (let ((rows))
+    (mapatoms
+     (lambda (symbol)
+       (when (and (string-match "^chatgpt-shell"
+                                (symbol-name symbol))
+                  (custom-variable-p symbol))
+         (push `(,symbol
+                 ,(car
+                   (split-string
+                    (or (get (indirect-variable symbol)
+                             'variable-documentation)
+                        (get symbol 'variable-documentation)
+                        "")
+                    "\n")))
+               rows))))
+    rows)
+#+END_SRC
+
+#+RESULTS:
+| Custom variable                          | Description                                                                    |
+|------------------------------------------+--------------------------------------------------------------------------------|
+| chatgpt-shell-display-function           | Function to display shell.  Can be set to `display-buffer' or custom function. |
+| chatgpt-shell-curl-additional-options    | Additional options for `curl' command.                                         |
+| chatgpt-shell-system-prompt              | The system message helps set the behavior of the assistant.                    |
+| chatgpt-shell-default-prompts            | List of default prompts to choose from.                                        |
+| chatgpt-shell-read-string-function       | Function to read strings from user.                                            |
+| chatgpt-shell-model-temperature          | What sampling temperature to use, between 0 and 2, or nil.                     |
+| chatgpt-shell-transmitted-context-length | Controls the amount of context provided to chatGPT.                            |
+| chatgpt-shell-streaming                  | Whether or not to stream ChatGPT responses (experimental).                     |
+| chatgpt-shell-model-version              | The used ChatGPT OpenAI model.                                                 |
+| chatgpt-shell-source-block-actions       | Block actions for known languages.                                             |
+| chatgpt-shell-additional-curl-options    | Additional options for `curl' command.                                         |
+| chatgpt-shell-openai-key                 | OpenAI key as a string or a function that loads and returns it.                |
+| chatgpt-shell-after-command-functions    | Abnormal hook (i.e. with parameters) invoked after each command.               |
+| chatgpt-shell-babel-headers              | Additional headers to make babel blocks work.                                  |
+| chatgpt-shell-language-mapping           | Maps external language names to Emacs names.                                   |
+| chatgpt-shell-request-timeout            | How long to wait for a request to time out.                                    |
+
+There are more. Browse via =M-x set-variable=
+
+** =chatgpt-shell-display-function= (with custom function)
+
+If you'd prefer your own custom display function,
+
+#+begin_src emacs-lisp :lexical no
+  (setq chatgpt-shell-display-function #'my/chatgpt-shell-frame)
+
+  (defun my/chatgpt-shell-frame (bname)
+    (let ((cur-f (selected-frame))
+          (f (my/find-or-make-frame "chatgpt")))
+      (select-frame-by-name "chatgpt")
+      (pop-to-buffer-same-window bname)
+      (set-frame-position f (/ (display-pixel-width) 2) 0)
+      (set-frame-height f (frame-height cur-f))
+      (set-frame-width f  (frame-width cur-f) 1)))
+
+  (defun my/find-or-make-frame (fname)
+    (condition-case
+        nil
+        (select-frame-by-name fname)
+      (error (make-frame `((name . ,fname))))))
+#+end_src
+
+Thanks to [[https://github.com/tuhdo][tuhdo]] for the custom display function.
+
+* chatgpt-shell commands
+#+BEGIN_SRC emacs-lisp :results table :colnames '("Binding" "Command" "Description") :exports results
+  (let ((rows))
+    (mapatoms
+     (lambda (symbol)
+       (when (and (string-match "^chatgpt-shell"
+                                (symbol-name symbol))
+                  (commandp symbol))
+         (push `(,(mapconcat
+                   #'help--key-description-fontified
+                   (where-is-internal
+                    symbol shell-maker-mode-map nil nil (command-remapping symbol)) ", ")
+                 ,symbol
+                 ,(car
+                   (split-string
+                    (or (documentation symbol t) "")
+                    "\n")))
+               rows))))
+    rows)
+#+END_SRC
+
+#+RESULTS:
+| Binding | Command                                             | Description                                                |
+|---------+-----------------------------------------------------+------------------------------------------------------------|
+|         | chatgpt-shell                                       | Start a ChatGPT shell.                                     |
+|         | chatgpt-shell-rename-block-at-point                 | Rename block at point (perhaps a different language).      |
+| C-M-h   | chatgpt-shell-mark-at-point-dwim                    | Mark source block if at point.  Mark all output otherwise. |
+|         | chatgpt-shell-execute-primary-block-action-at-point | Execute primary action for known block.                    |
+|         | chatgpt-shell-execute-babel-block-action-at-point   | Execute block as org babel.                                |
+|         | chatgpt-shell-eshell-whats-wrong-with-last-command  | Ask ChatGPT what's wrong with the last eshell command.     |
+| C-c C-p | chatgpt-shell-previous-item                         | Go to previous item.                                       |
+|         | chatgpt-shell-explain-code                          | Describe code from region using ChatGPT.                   |
+|         | chatgpt-shell-prompt                                | Make a ChatGPT request from the minibuffer.                |
+|         | chatgpt-shell-remove-block-overlays                 | Remove block overlays.  Handy for renaming blocks.         |
+|         | chatgpt-shell-proofread-region                      | Proofread English from region using ChatGPT.               |
+|         | chatgpt-shell-send-and-review-region                | Send region to ChatGPT, review before submitting.          |
+|         | chatgpt-shell-eshell-summarize-last-command-output  | Ask ChatGPT to summarize the last command output.          |
+|         | chatgpt-shell-describe-code                         | Describe code from region using ChatGPT.                   |
+|         | chatgpt-shell-mode                                  | Major mode for editing text written for humans to read.    |
+|         | chatgpt-shell-previous-source-block                 | Move point to previous source block.                       |
+|         | chatgpt-shell-refactor-code                         | Refactor code from region using ChatGPT.                   |
+|         | chatgpt-shell-swap-system-prompt                    |                                                            |
+|         | chatgpt-shell-save-session-transcript               | Save shell transcript to file.                             |
+|         | chatgpt-shell-clear-buffer                          | Clear the comint buffer.                                   |
+| C-c C-n | chatgpt-shell-next-item                             | Go to next item.                                           |
+|         | chatgpt-shell-view-at-point                         | View prompt and putput at point in a separate buffer.      |
+|         | chatgpt-shell-send-region                           | Send region to ChatGPT.                                    |
+|         | chatgpt-shell-restore-session-from-transcript       | Restore session from transcript.                           |
+|         | chatgpt-shell-generate-unit-test                    | Generate unit-test for the code from region using ChatGPT. |
+|         | chatgpt-shell-next-source-block                     | Move point to previous source block.                       |
+| C-c C-c | chatgpt-shell-ctrl-c-ctrl-c                         | Ctrl-C Ctrl-C DWIM binding.                                |
+
+Browse all available via =M-x=.
+
+* dall-e-shell customizations
+#+BEGIN_SRC emacs-lisp :results table :colnames '("Custom variable" "Description") :exports results
+  (let ((rows))
+    (mapatoms
+     (lambda (symbol)
+       (when (and (string-match "^dall-e-shell"
+                                (symbol-name symbol))
+                  (custom-variable-p symbol))
+         (push `(,symbol
+                 ,(car
+                   (split-string
+                    (or (get (indirect-variable symbol)
+                             'variable-documentation)
+                        (get symbol 'variable-documentation)
+                        "")
+                    "\n")))
+               rows))))
+    rows)
+#+END_SRC
+
+#+RESULTS:
+| Custom variable                     | Description                                                                    |
+|-------------------------------------+--------------------------------------------------------------------------------|
+| dall-e-shell-openai-key             | OpenAI key as a string or a function that loads and returns it.                |
+| dall-e-shell-image-size             | The default size of the requested image as a string.                           |
+| dall-e-shell-read-string-function   | Function to read strings from user.                                            |
+| dall-e-shell-request-timeout        | How long to wait for a request to time out.                                    |
+| dall-e-shell-model-version          | The used DALL-E OpenAI model.                                                  |
+| dall-e-shell-display-function       | Function to display shell.  Can be set to `display-buffer' or custom function. |
+| dall-e-shell-image-output-directory | Output directory for the generated image.                                      |
+
+* dall-e-shell commands
+#+BEGIN_SRC emacs-lisp :results table :colnames '("Command" "Description") :exports results
+  (let ((rows))
+    (mapatoms
+     (lambda (symbol)
+       (when (and (string-match "^dall-e-shell"
+                                (symbol-name symbol))
+                  (commandp symbol))
+         (push `(,symbol
+                 ,(car
+                   (split-string
+                    (or (documentation symbol t) "")
+                    "\n")))
+               rows))))
+    rows)
+#+END_SRC
+
+#+RESULTS:
+| Command           | Description                                             |
+|-------------------+---------------------------------------------------------|
+| dall-e-shell      | Start a DALL-E shell.                                   |
+| dall-e-shell-mode | Major mode for editing text written for humans to read. |
+
+* ChatGPT org babel
+
+Load =(require 'ob-chatgpt-shell)= and invoke =(ob-chatgpt-shell-setup)=.
+
+#+begin_src org
+  ,#+begin_src chatgpt-shell
+    Hello
+  ,#+end_src
+
+  ,#+RESULTS:
+  : Hi there! How can I assist you today?
+#+end_src
+
+* DALL-E org babel
+
+Load =(require 'ob-dall-e-shell)= and invoke =(ob-dall-e-shell-setup)=.
+
+#+begin_src org
+  ,#+begin_src dall-e-shell
+    Pretty clouds
+  ,#+end_src
+
+  ,#+RESULTS:
+  [[file:/var/folders/m7/ky091cp56d5g68nyhl4y7frc0000gn/T/1680644778.png]]
+#+end_src
+
+* shell-maker
+
+There are currently two shell implementations (ChatGPT and DALL-E). Other services (local or cloud) can be brought to Emacs as shells. =shell-maker= can help with that.
+
+=shell-maker= is a convenience wrapper around [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Shell-Prompts.html][comint mode]].
+
+Both =chatgpt-shell= and =dall-e-shell= use =shell-maker=, but a basic implementation of a new shell looks as follows:
+
+#+begin_src emacs-lisp :lexical no
+  (require 'shell-maker)
+
+  (defvar greeter-shell--config
+    (make-shell-maker-config
+     :name "Greeter"
+     :execute-command
+     (lambda (command _history callback error-callback)
+       (funcall callback
+                (format "Hello \"%s\"" command)
+                nil))))
+
+  (defun greeter-shell ()
+    "Start a Greeter shell."
+    (interactive)
+    (shell-maker-start greeter-shell--config))
+#+end_src
+
+#+HTML: <img src="https://raw.githubusercontent.com/xenodium/chatgpt-shell/main/demos/greeter.gif" width="50%" />
+
+* Other packages
+
+👉 [[https://github.com/sponsors/xenodium][Support this work via GitHub Sponsors]]
+
+- [[https://xenodium.com/][Blog (xenodium.com)]]
+- [[https://github.com/xenodium/dwim-shell-command][dwim-shell-command]]
+- [[https://github.com/xenodium/company-org-block][company-org-block]]
+- [[https://github.com/xenodium/org-block-capf][org-block-capf]]
+- [[https://github.com/xenodium/ob-swiftui][ob-swiftui]]
