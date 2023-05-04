@@ -3,8 +3,6 @@
 (add-to-list 'load-path (concat (file-name-directory load-file-name) "/oh-my-github"))
 (add-to-list 'load-path (concat (file-name-directory load-file-name) "/org-noter"))
 (add-to-list 'load-path (concat (file-name-directory load-file-name) "/mind-wave"))
-(add-to-list 'load-path (concat (file-name-directory load-file-name) "/chatgpt-shell"))
-(load "chatgpt-shell-autoloads.el")
 
 (autoload 'org-babel-execute:html-chrome "ob-html-chrome")
 (autoload 'org-babel-execute:tmux "ob-tmux")
