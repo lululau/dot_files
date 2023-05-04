@@ -105,6 +105,7 @@
 
   "cg" #'chatgpt-query
   "ct" #'gptel
+  "cs" #'chatgpt-shell
 
   "axx" #'xwidget-webkit-browse-url
   "axh" #'xwwp-history-show
