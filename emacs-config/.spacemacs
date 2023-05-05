@@ -625,6 +625,7 @@ layers configuration."
 
   ;; (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . rjsx-mode))
 
+  (defvar org-babel-tangle-lang-exts '())
   (add-to-list 'org-babel-tangle-lang-exts '("swiftui" . "swift"))
   (org-babel-do-load-languages 'org-babel-load-languages
                                (append org-babel-load-languages
