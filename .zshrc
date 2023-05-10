@@ -83,7 +83,7 @@ plugins=(ack2 alibas autojump autopair
          minikube
          rust
          zsh-autosuggestions zsh-brew-services zsh-completions
-         you-should-use poetry)
+         you-should-use poetry swiftpm)
 
 [ -z "$INSIDE_EMACS" ] && plugins+=(fast-syntax-highlighting)
 
