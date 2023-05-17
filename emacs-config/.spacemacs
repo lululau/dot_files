@@ -517,7 +517,7 @@ layers configuration."
   (setq mac-option-modifier 'meta)
   (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
   (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
-  (setq helm-locate-command "~/.rvm/gems/ruby-3.1.0/bin/mfd %s %s")
+  (setq helm-locate-command "~/.rvm/gems/ruby-3.2.0/bin/mfd %s %s")
   (setq gptel-default-mode 'org-mode)
   (setq gptel-prompt-string "** ")
 
