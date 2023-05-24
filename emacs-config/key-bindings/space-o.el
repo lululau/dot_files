@@ -119,7 +119,7 @@
       ("os8" lcl-fe2 "/scp:lcl.fe2:/etc/nginx/conf.d")
       ("os9" ceres-fe1 "/scp:ceres.fe1:/opt/nginx/conf/conf.d")
       ("osj" jsroot "/scp:jsroot:/data/monitor/prometheus")
-      ("osJ" jenkins "/scp:jenkins2:/data/jenkins_home/workspace/docker_file")
+      ("osJ" jenkins "/scp:jenkins:/data/jenkins_home/workspace/docker_file")
       ("os2" dev42 "/scp:dev42:~/")
       ("os1" xym "/scp:xym:~/")
       ("os0" lx-kt "/scp:lx.kt:~/")))
