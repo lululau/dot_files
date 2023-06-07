@@ -106,6 +106,7 @@
   "cg" #'chatgpt-query
   "ct" #'gptel
   "cs" #'chatgpt-shell
+  "CS" #'(lambda () (interactive) (lx/run-in-pry-vterm "chatsh" "*chatsh*"))
 
   "axx" #'xwidget-webkit-browse-url
   "axh" #'xwwp-history-show
