@@ -70,6 +70,7 @@
         ("oeE" elixir-demo ("~/Documents/materials/demo/demo.exs"))
         ("oee" es-demo ("~/Documents/materials/demo/demo.es"))
         ("oek" haskell-demo ("~/Documents/materials/demo/demo.hs"))
+        ("oex" chat-demo ("~/Documents/materials/demo/demo.chat"))
         ("oet" txt-demo ("~/Documents/materials/demo/demo.txt"))))
 
 ;; Config files

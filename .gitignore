@@ -71,3 +71,4 @@ Session.vim
 
 __pycache__/
 /messauto/
+/openai.token
