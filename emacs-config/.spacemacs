@@ -1135,6 +1135,7 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-buffer-max-length 40)
  '(copilot-overlay-safe nil)
  '(copilot-idle-delay 0.5)
+ '(copilot-node-executable "~/.nvm/versions/node/v14.21.3/bin/node")
  '(projectile-rails-javascript-dirs
        (quote ("app/assets/javascripts/" "lib/assets/javascripts/" "public/javascripts/" "app/javascript/" "app/javascript/controllers" "app/javascript/vue/")))
  '(projectile-rails-model-keywords (quote ("default_scope" "named_scope" "scope" "serialize" "belongs_to" "has_one"
