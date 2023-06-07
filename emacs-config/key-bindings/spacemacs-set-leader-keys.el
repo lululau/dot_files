@@ -111,7 +111,7 @@
   "axx" #'xwidget-webkit-browse-url
   "axh" #'xwwp-history-show
   "axjc" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://127.0.0.1:9090/ui/#/proxies") (if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-  "axjC" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1:9090/ui/#/proxies") (if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
+  "axjC" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1:9090/ui/dashboard/#/proxies") (if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjr" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1/cgi-bin/luci/admin/services/openclash/config")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjg" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://github.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjl" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://gitlab.ktjr.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
