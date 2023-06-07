@@ -109,7 +109,7 @@
                                                          :stderr (get-buffer-create "*copilot stderr*")
                                                          :noquery t)))
              (message "Copilot agent started.")
-             (copilot--request 'initialize '(:capabilities 'nil))
+             (copilot--request 'initialize '(:capabilities (:workspace (:workspaceFolders t))))
              (copilot--async-request 'setEditorInfo
                                      `(:editorInfo (:name "Emacs" :version ,emacs-version)
                                        :editorPluginInfo (:name "copilot.el" :version ,copilot-version))))))))
