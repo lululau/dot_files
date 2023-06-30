@@ -485,7 +485,7 @@ export TEXTRA_INSTALL="$HOME/.textra"
 export PATH="$TEXTRA_INSTALL/bin:$PATH"
 
 ### Codex CLI setup - start
-# export CODEX_CLI_PATH=/Users/liuxiang/.cli-co-pilot
+# export CODEX_CLI_PATH=$HOME/.cli-co-pilot
 # source "$CODEX_CLI_PATH/scripts/zsh_plugin.zsh"
 # bindkey '^G' create_completion
 ### Codex CLI setup - end
