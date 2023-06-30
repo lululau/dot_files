@@ -1,0 +1,11 @@
+CHAT_CACHE_PATH=/var/folders/c7/8cxdcxpj5yg8n_282qjhkg4m0000gp/T/chat_cache
+CACHE_PATH=/var/folders/c7/8cxdcxpj5yg8n_282qjhkg4m0000gp/T/cache
+CHAT_CACHE_LENGTH=100
+CACHE_LENGTH=100
+REQUEST_TIMEOUT=60
+DEFAULT_MODEL=gpt-3.5-turbo
+OPENAI_API_HOST=https://api.openai.com
+DEFAULT_COLOR=magenta
+ROLE_STORAGE_PATH=/Users/liuxiang/.config/shell_gpt/roles
+SYSTEM_ROLES=false
+DEFAULT_EXECUTE_SHELL_CMD=false
