@@ -521,10 +521,10 @@ smap <silent><c-l> <Plug>(neosnippet_expand)
 imap <silent><c-j> <Plug>(neosnippet_jump)
 smap <silent><c-j> <Plug>(neosnippet_jump)
 
-function! s:my_crinsert()
-    return pumvisible() ? neocomplcache#close_popup() : "\<Cr>"
-endfunction
-inoremap <silent> <expr><CR> <C-R>=<SID>my_crinsert()<CR>
+" function! s:my_crinsert()
+"     return pumvisible() ? neocomplcache#close_popup() : "\<Cr>"
+" endfunction
+" inoremap <silent> <expr><CR> <C-R>=<SID>my_crinsert()<CR>
 
 " inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 inoremap <expr><C-e>  neocomplcache#close_popup()
@@ -996,3 +996,6 @@ if &readonly == 1
   vnoremap b <C-b>
   vnoremap q :q<CR>
 endif
+
+highlight CopilotSuggestion guifg=#24ead9 ctermfg=6
+inoremap <M-return> :Copilot panel<CR>
