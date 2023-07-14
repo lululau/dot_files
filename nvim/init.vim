@@ -1,1 +1,0 @@
-/Users/liuxiang/.config/.vimrc

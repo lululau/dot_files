@@ -72,3 +72,6 @@ Session.vim
 __pycache__/
 /messauto/
 /openai.token
+/fontforge/
+/nvim
+/nvim_back/
