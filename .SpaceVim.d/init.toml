@@ -40,10 +40,6 @@ name = 'sudo'
 name = 'incsearch'
 
 [[layers]]
-name = 'indentmove'
-
-
-[[layers]]
   name = "VersionControl"
 [[layers]]
 name = 'git'
