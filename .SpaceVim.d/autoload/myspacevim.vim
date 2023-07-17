@@ -8,6 +8,7 @@ function! myspacevim#after() abort
   map <F1> :NERDTreeToggle<CR>
   " nnoremap <F3> :set invpaste paste?<CR>
   " set pastetoggle=<F3>
+  map <c-c> <esc>
   nmap <c-x><c-c> <ESC>:qa<CR>
   imap <c-x><c-c> <ESC>:qa<CR>
   noremap <c-x><c-x> <ESC>:qa!<CR>
