@@ -105,7 +105,7 @@ function _update_ps1()
 #   export PS1='\[[01;32m\]\u@MacBookPro: \w $ \[[00m\]'
 # fi
 
-export PS1=$'\e[01;32m'"➜  $(rvm-prompt | gsed 's/ruby-//')"$'\e[0m \e[01;31m'"\\w"$'\e[0m '
+# export PS1=$'\e[01;32m'"➜  $(rvm-prompt | gsed 's/ruby-//')"$'\e[0m \e[01;31m'"\\w"$'\e[0m '
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 if [ -f /opt/local/etc/bash_completion ]
@@ -128,3 +128,7 @@ export SDKMAN_DIR="/Users/liuxiang/.sdkman"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export STARSHIP_CONFIG=$HOME/.config/starship.bash.toml
+
+eval "$(starship init bash)"
