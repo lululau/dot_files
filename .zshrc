@@ -83,7 +83,7 @@ plugins=(ack2 alibas autojump autopair
          minikube
          rust
          zsh-autosuggestions zsh-brew-services zsh-completions
-         you-should-use)
+         you-should-use poetry swiftpm)
 
 [ -z "$INSIDE_EMACS" ] && plugins+=(fast-syntax-highlighting)
 
@@ -478,11 +478,28 @@ function recentf-add-file() {
 chpwd_functions+=(helm-dired-history-update)
 preexec_functions+=(recentf-add-file)
 
+export OPENAI_API_KEY=$(cat ~/.config/secrets/.openai_api_key)
+
 # textra
 export TEXTRA_INSTALL="$HOME/.textra"
 export PATH="$TEXTRA_INSTALL/bin:$PATH"
+
 ### Codex CLI setup - start
-export CODEX_CLI_PATH=/Users/liuxiang/.cli-co-pilot
-source "$CODEX_CLI_PATH/scripts/zsh_plugin.zsh"
-bindkey '^G' create_completion
+# export CODEX_CLI_PATH=$HOME/.cli-co-pilot
+# source "$CODEX_CLI_PATH/scripts/zsh_plugin.zsh"
+# bindkey '^G' create_completion
 ### Codex CLI setup - end
+
+# Shell-GPT integration ZSH v0.1
+_sgpt_zsh() {
+if [[ -n "$BUFFER" ]]; then
+    _sgpt_prev_cmd=$BUFFER
+    BUFFER+="⌛"
+    zle -I && zle redisplay
+    BUFFER=$(sgpt --shell <<< "$_sgpt_prev_cmd")
+    zle end-of-line
+fi
+}
+zle -N _sgpt_zsh
+bindkey '^G' _sgpt_zsh
+# Shell-GPT integration ZSH v0.1

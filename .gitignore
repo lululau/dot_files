@@ -92,3 +92,8 @@ Session.vim
 .vterm-mitmproxy-current-user
 
 __pycache__/
+/messauto/
+/openai.token
+/fontforge/
+/nvim
+/nvim_back/

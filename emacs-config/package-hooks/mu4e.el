@@ -13,4 +13,4 @@
                   (face (cdr highlight)))
               (highlight-lines-matching-regexp regexp face)))
           mu4e-view-highlights))
-  (advice-add 'mu4e~view-render-buffer :after #'mu4e-view-mode-auto-highlight))
+  (advice-add 'mu4e--view-render-buffer :after #'mu4e-view-mode-auto-highlight))

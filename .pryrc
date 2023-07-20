@@ -189,6 +189,18 @@ unless $USER_PRYRC_LOADED
     end
   end
 
+  class String
+    def md5
+      require 'digest'
+      Digest::MD5.hexdigest(self)
+    end
+
+    def sha256
+      require 'digest'
+      Digest::SHA256.hexdigest(self)
+    end
+  end
+
   module Mongoid
     module Document
       def tt(*fields)

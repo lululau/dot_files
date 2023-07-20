@@ -240,7 +240,7 @@
      plantuml
      nginx
      vimscript
-     (mu4e :variables mu4e-enable-notifications ,enable-mu4e-notification mu4e-enable-mode-line t mu4e-use-maildirs-extension t)
+     (mu4e :variables mu4e-enable-notifications ,enable-mu4e-notification mu4e-enable-mode-line t)
      confluence-lx
      ragtag
      org-yank-image
@@ -272,6 +272,7 @@
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
                                             gptel org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
+                                            ob-swiftui
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el")))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
@@ -517,7 +518,7 @@ layers configuration."
   (setq mac-option-modifier 'meta)
   (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
   (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
-  (setq helm-locate-command "~/.rvm/gems/ruby-3.1.0/bin/mfd %s %s")
+  (setq helm-locate-command "~/.rvm/gems/ruby-3.2.0/bin/mfd %s %s")
   (setq gptel-default-mode 'org-mode)
   (setq gptel-prompt-string "** ")
 
@@ -624,6 +625,13 @@ layers configuration."
                                   ("\\.sc$" . scala-mode)) auto-mode-alist))
 
   ;; (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . rjsx-mode))
+
+  (defvar org-babel-tangle-lang-exts '())
+  (add-to-list 'org-babel-tangle-lang-exts '("swiftui" . "swift"))
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               (append org-babel-load-languages
+                                       '((swiftui . t))))
+  (add-to-list 'org-src-lang-modes '("swiftui" . swift))
 
   (setq org-plantuml-jar-path "/usr/local/libexec/plantuml.jar")
 
@@ -1127,6 +1135,7 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-buffer-max-length 40)
  '(copilot-overlay-safe nil)
  '(copilot-idle-delay 0.5)
+ '(copilot-node-executable "~/.nvm/versions/node/v14.21.3/bin/node")
  '(projectile-rails-javascript-dirs
        (quote ("app/assets/javascripts/" "lib/assets/javascripts/" "public/javascripts/" "app/javascript/" "app/javascript/controllers" "app/javascript/vue/")))
  '(projectile-rails-model-keywords (quote ("default_scope" "named_scope" "scope" "serialize" "belongs_to" "has_one"

@@ -1,0 +1,158 @@
+#=============================================================================
+# dark_powered.toml --- dark powered configuration example for SpaceVim
+# Copyright (c) 2016-2023 Wang Shidong & Contributors
+# Author: Wang Shidong < wsdjeg@outlook.com >
+# URL: https://spacevim.org
+# License: GPLv3
+#=============================================================================
+
+[[custom_plugins]]
+    repo = 'github/copilot.vim'
+    # `merged` option is used for merging plugins directory.
+    # When `merged` is `true`, all files in this custom plugin
+    # will be merged into `~/.cache/vimfiles/.cache/init.vim/`
+    # for neovim or `~/.cache/vimfiles/.cache/vimrc/` for vim.
+    merged = false
+
+
+[[layers]]
+name = 'telescope'
+
+[[layers]]
+name = 'colorscheme'
+
+# Enable autocomplete layer
+[[layers]]
+name = 'autocomplete'
+auto_completion_return_key_behavior = "complete"
+auto_completion_tab_key_behavior = "smart"
+
+[[layers]]
+name = 'shell'
+default_position = 'bottom'
+default_height = 30
+
+
+[[layers]]
+name = 'sudo'
+
+[[layers]]
+name = 'incsearch'
+
+[[layers]]
+  name = "VersionControl"
+[[layers]]
+name = 'git'
+[[layers]]
+name = 'github'
+
+
+[[layers]]
+  name = "gtags"
+  gtagslabel = "ctags"
+[[layers]]
+name = 'lsp'
+enabled_clients = ['pyright', 'solargraph', 'vuels', 'tsserver', 'bashls']
+
+
+[[layers]]
+name = 'lang#python'
+[[layers]]
+name = 'lang#c'
+[[layers]]
+name = 'lang#clojure'
+[[layers]]
+name = 'lang#cmake'
+[[layers]]
+name = 'lang#dockerfile'
+[[layers]]
+name = 'lang#elixir'
+[[layers]]
+name = 'lang#extra'
+[[layers]]
+name = 'lang#go'
+[[layers]]
+name = 'lang#groovy'
+[[layers]]
+name = 'lang#haskell'
+[[layers]]
+name = 'lang#html'
+[[layers]]
+name = 'lang#ipynb'
+[[layers]]
+name = 'lang#java'
+[[layers]]
+name = 'lang#javascript'
+[[layers]]
+name = 'lang#json'
+[[layers]]
+name = 'lang#kotlin'
+[[layers]]
+name = 'lang#latex'
+[[layers]]
+name = 'lang#lisp'
+[[layers]]
+name = 'lang#lua'
+[[layers]]
+name = 'lang#markdown'
+[[layers]]
+name = 'lang#org'
+[[layers]]
+name = 'lang#perl'
+[[layers]]
+name = 'lang#php'
+[[layers]]
+name = 'lang#plantuml'
+[[layers]]
+name = 'lang#ruby'
+repl_command = '~/.rvm/gems/ruby-3.2.0/bin/pry'
+[[layers]]
+name = 'lang#rust'
+[[layers]]
+name = 'lang#sh'
+[[layers]]
+name = 'lang#sql'
+[[layers]]
+name = 'lang#swift'
+[[layers]]
+name = 'lang#toml'
+[[layers]]
+name = 'lang#typescript'
+[[layers]]
+name = 'lang#vim'
+[[layers]]
+name = 'lang#vue'
+[[layers]]
+name = 'lang#xml'
+
+[[layers]]
+name = 'tools#dash'
+[[layers]]
+  name = "treesitter"
+
+
+# All SpaceVim option below [option] section
+[options]
+    bootstrap_before = 'myspacevim#before'
+    bootstrap_after = 'myspacevim#after'
+    # set spacevim theme. by default colorscheme layer is not loaded,
+    # if you want to use more colorscheme, please load the colorscheme
+    # layer
+    colorscheme = "onedark"
+    colorscheme_bg = "dark"
+    # Disable guicolors in basic mode, many terminal do not support 24bit
+    # true colors
+    enable_guicolors = true
+    # Disable statusline separator, if you want to use other value, please
+    # install nerd fonts
+    statusline_separator = "arrow"
+    statusline_iseparator = "arrow"
+    buffer_index_type = 4
+    enable_tabline_filetype_icon = true
+    enable_statusline_mode = false
+    enable_vimfiler_welcome = false
+    filemanager = 'nerdtree'
+    filetree_direction = "left"
+    relativenumber=false
+
+
