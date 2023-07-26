@@ -1,2 +1,2 @@
---theme=TwoDark
+--theme=OneHalfDark
 --pager='less --RAW-CONTROL-CHARS --no-init -RF'
