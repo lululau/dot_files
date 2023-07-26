@@ -109,3 +109,6 @@ style = "bold white"
 # [nnn_level]
 # command = "echo 【N$NNNLVL】"  # shows output of command
 # when = """ test -n "$NNNLVL" """
+
+[hostname]
+ssh_symbol = "\uf108  "
