@@ -1,10 +1,17 @@
 function! myspacevim#before() abort
-  autocmd User NerdTreeInit
-     \ nnoremap <silent><buffer> <CR> :<C-u>call
-     \ g:NERDTreeKeyMap.Invoke('o')<CR>
+autocmd User NerdTreeInit
+\ nnoremap <silent><buffer> <CR> :<C-u>call
+\ g:NERDTreeKeyMap.Invoke('o')<CR>
 endfunction
 
 function! myspacevim#after() abort
+  " if firenvim (it sets the g:started_by_firenvim variable)
+  if exists('g:started_by_firenvim')
+    imap « <Plug>(copilot-suggest)
+    imap ‘ <Plug>(copilot-next)
+    imap “ <Plug>(copilot-previous)
+    set guifont=JetBrainsMono\ Nerd\ Font:h18
+  endif
   map <F1> :NERDTreeToggle<CR>
   " nnoremap <F3> :set invpaste paste?<CR>
   " set pastetoggle=<F3>
