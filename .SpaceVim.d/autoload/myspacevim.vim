@@ -10,7 +10,38 @@ function! myspacevim#after() abort
     imap « <Plug>(copilot-suggest)
     imap ‘ <Plug>(copilot-next)
     imap “ <Plug>(copilot-previous)
-    set guifont=JetBrainsMono\ Nerd\ Font:h12
+    lua <<EOF
+      vim.g.firenvim_config = {
+        globalSettings = { alt = "all" },
+        localSettings = {
+          [".*"] = {
+            cmdline  = "neovim",
+            content  = "text",
+            priority = 0,
+            selector = "nothing",
+            takeover = "always"
+            },
+
+        ["https://jenkins."] = {
+            cmdline  = "neovim",
+            content  = "text",
+            priority = 99,
+            selector = "textarea",
+            takeover = "always"
+          }
+      }
+
+    }
+
+    local handle = io.popen("system_profiler SPDisplaysDataType | grep -E '5120|Retina'")
+    local result = handle:read("*a")
+    handle:close()
+    if result ~= "" then
+      vim.cmd "set guifont=JetBrainsMono\\ Nerd\\ Font:h18"
+    else
+      vim.cmd "set guifont=JetBrainsMono\\ Nerd\\ Font:h12"
+    end
+EOF
   endif
   map <F1> :NERDTreeToggle<CR>
   " nnoremap <F3> :set invpaste paste?<CR>
