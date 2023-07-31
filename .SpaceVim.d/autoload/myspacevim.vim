@@ -1,10 +1,17 @@
 function! myspacevim#before() abort
-  autocmd User NerdTreeInit
-     \ nnoremap <silent><buffer> <CR> :<C-u>call
-     \ g:NERDTreeKeyMap.Invoke('o')<CR>
+autocmd User NerdTreeInit
+\ nnoremap <silent><buffer> <CR> :<C-u>call
+\ g:NERDTreeKeyMap.Invoke('o')<CR>
 endfunction
 
 function! myspacevim#after() abort
+  " if firenvim (it sets the g:started_by_firenvim variable)
+  if exists('g:started_by_firenvim')
+    imap « <Plug>(copilot-suggest)
+    imap ‘ <Plug>(copilot-next)
+    imap “ <Plug>(copilot-previous)
+    set guifont=JetBrainsMono\ Nerd\ Font:h12
+  endif
   map <F1> :NERDTreeToggle<CR>
   " nnoremap <F3> :set invpaste paste?<CR>
   " set pastetoggle=<F3>
@@ -22,6 +29,17 @@ function! myspacevim#after() abort
   imap <c-p> <c-k>
   cmap <c-n> <c-j>
   cmap <c-p> <c-k>
+  nmap <c-return> :call SpaceVim#mapping#gd()<CR>
+  imap <c-return> <c-o>:call SpaceVim#mapping#gd()<CR>
+  nmap <c-x><c-o><c-a> :call SpaceVim#lsp#go_to_typedef()<CR>
+  " nmap <c-x><c-o><c-a> :call SpaceVim#mapping#g_capital_d()<CR>
+  imap <c-x><c-o><c-a> <c-o>:call SpaceVim#lsp#go_to_typedef()<CR>
+  " imap <c-x><c-o><c-a> <c-o>:call SpaceVim#mapping#g_capital_d()<CR>
+  nmap <c-x><c-o><c-b> :call SpaceVim#lsp#references()<CR>
+  imap <c-x><c-o><c-b> <c-o>:call SpaceVim#lsp#references()<CR>
+  imap <c-z> <esc>
+  " nmap <c-z> i
+  " nnoremap <c-z><c-z> <c-z>
 
   inoremap <c-e> <c-o>A
   inoremap <c-a> <c-o>^
@@ -49,10 +67,10 @@ function! myspacevim#after() abort
   inoremap <A-bs> <esc><esc>caw
   cnoremap <A-bs> <c-w>
 
-call SpaceVim#mapping#space#def('xnoremap', ['y'], 'call clipboard#yank()', 'copy-to-system-clipboard', 1)
+  call SpaceVim#mapping#space#def('xnoremap', ['y'], 'call clipboard#yank()', 'copy-to-system-clipboard', 1)
 
-call SpaceVim#mapping#space#def('nnoremap', ['/'], 'call SpaceVim#plugins#flygrep#open({})',
-\ 'grep-on-the-fly', 1)
+  call SpaceVim#mapping#space#def('nnoremap', ['/'], 'call SpaceVim#plugins#flygrep#open({})',
+  \ 'grep-on-the-fly', 1)
 
   call SpaceVim#mapping#space#def('nnoremap', ['*'],
        \ "call SpaceVim#plugins#flygrep#open({'input' : expand(\"<cword>\"), 'dir' : get(b:, \"rootDir\", getcwd())})",
@@ -68,8 +86,7 @@ call SpaceVim#mapping#space#def('nnoremap', ['/'], 'call SpaceVim#plugins#flygre
   nnoremap <M-return> :Copilot panel<CR>
   inoremap <M-return> <esc>:Copilot panel<CR>
   iabbrev pry require 'pry'; binding.pry;<ESC>
-  nmap <c-x>@c gdk
-  imap <c-x>@c <esc>gdk
-  nmap <return> ]<Space>
+  iabbrev ipdb import ipdb; ipdb.set_trace()<ESC>
+  " nmap <return> ]<Space>
 
 endfunction

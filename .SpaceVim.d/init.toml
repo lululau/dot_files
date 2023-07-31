@@ -14,6 +14,10 @@
     # for neovim or `~/.cache/vimfiles/.cache/vimrc/` for vim.
     merged = false
 
+[[custom_plugins]]
+    repo = 'glacambre/firenvim'
+    merged = false
+
 
 [[layers]]
 name = 'telescope'
