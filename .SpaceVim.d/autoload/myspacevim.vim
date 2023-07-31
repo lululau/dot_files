@@ -29,8 +29,8 @@ function! myspacevim#after() abort
   imap <c-p> <c-k>
   cmap <c-n> <c-j>
   cmap <c-p> <c-k>
-  nmap <c-return> :call SpaceVim#mapping#gd()<CR>
-  imap <c-return> <c-o>:call SpaceVim#mapping#gd()<CR>
+  nmap <c-x><c-o><c-e> :call SpaceVim#mapping#gd()<CR>
+  imap <c-x><c-o><c-e> <c-o>:call SpaceVim#mapping#gd()<CR>
   nmap <c-x><c-o><c-a> :call SpaceVim#lsp#go_to_typedef()<CR>
   " nmap <c-x><c-o><c-a> :call SpaceVim#mapping#g_capital_d()<CR>
   imap <c-x><c-o><c-a> <c-o>:call SpaceVim#lsp#go_to_typedef()<CR>
@@ -38,6 +38,10 @@ function! myspacevim#after() abort
   nmap <c-x><c-o><c-b> :call SpaceVim#lsp#references()<CR>
   imap <c-x><c-o><c-b> <c-o>:call SpaceVim#lsp#references()<CR>
   imap <c-z> <esc>
+  nmap <A-h> :wincmd h<CR>
+  nmap <A-j> :wincmd j<CR>
+  nmap <A-k> :wincmd k<CR>
+  nmap <A-l> :wincmd l<CR>
   " nmap <c-z> i
   " nnoremap <c-z><c-z> <c-z>
 
