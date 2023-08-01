@@ -78,6 +78,7 @@ EOF
 
   inoremap <c-e> <c-o>A
   inoremap <c-a> <c-o>^
+  nnoremap <c-a> ^
   inoremap <c-f> <Right>
   inoremap <c-b> <Left>
   inoremap <c-d> <Del>
