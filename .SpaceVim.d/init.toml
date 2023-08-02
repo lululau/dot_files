@@ -7,13 +7,15 @@
 #=============================================================================
 
 [[custom_plugins]]
+    repo = 'terryma/vim-multiple-cursors'
+    merged = false
+[[custom_plugins]]
     repo = 'github/copilot.vim'
     # `merged` option is used for merging plugins directory.
     # When `merged` is `true`, all files in this custom plugin
     # will be merged into `~/.cache/vimfiles/.cache/init.vim/`
     # for neovim or `~/.cache/vimfiles/.cache/vimrc/` for vim.
     merged = false
-
 [[custom_plugins]]
     repo = 'glacambre/firenvim'
     merged = false

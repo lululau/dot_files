@@ -1,16 +1,60 @@
 function! myspacevim#before() abort
-autocmd User NerdTreeInit
-\ nnoremap <silent><buffer> <CR> :<C-u>call
-\ g:NERDTreeKeyMap.Invoke('o')<CR>
+
+  let g:multi_cursor_use_default_mapping=0
+  let g:multi_cursor_start_word_key      = '<A-J>'
+  let g:multi_cursor_select_all_word_key = '<A-m>'
+  let g:multi_cursor_start_key           = 'g<A-J>'
+  let g:multi_cursor_select_all_key      = 'g<A-m>'
+  let g:multi_cursor_next_key            = '<A-J>'
+  let g:multi_cursor_prev_key            = '<A-K>'
+  let g:multi_cursor_skip_key            = '<A-X>'
+  let g:multi_cursor_quit_key            = '<Esc>'
+
+  autocmd User NerdTreeInit
+  \ nnoremap <silent><buffer> <CR> :<C-u>call
+  \ g:NERDTreeKeyMap.Invoke('o')<CR>
 endfunction
 
+
 function! myspacevim#after() abort
+
   " if firenvim (it sets the g:started_by_firenvim variable)
   if exists('g:started_by_firenvim')
     imap « <Plug>(copilot-suggest)
     imap ‘ <Plug>(copilot-next)
     imap “ <Plug>(copilot-previous)
-    set guifont=JetBrainsMono\ Nerd\ Font:h12
+    lua <<EOF
+      vim.g.firenvim_config = {
+        globalSettings = { alt = "all" },
+        localSettings = {
+          [".*"] = {
+            cmdline  = "neovim",
+            content  = "text",
+            priority = 0,
+            selector = "nothing",
+            takeover = "always"
+            },
+
+        ["https://jenkins."] = {
+            cmdline  = "neovim",
+            content  = "text",
+            priority = 99,
+            selector = "textarea",
+            takeover = "always"
+          }
+      }
+
+    }
+
+    local handle = io.popen("system_profiler SPDisplaysDataType | grep -E '5120|Retina'")
+    local result = handle:read("*a")
+    handle:close()
+    if result ~= "" then
+      vim.cmd "set guifont=JetBrainsMono\\ Nerd\\ Font:h18"
+    else
+      vim.cmd "set guifont=JetBrainsMono\\ Nerd\\ Font:h12"
+    end
+EOF
   endif
   map <F1> :NERDTreeToggle<CR>
   " nnoremap <F3> :set invpaste paste?<CR>
@@ -37,7 +81,9 @@ function! myspacevim#after() abort
   " imap <c-x><c-o><c-a> <c-o>:call SpaceVim#mapping#g_capital_d()<CR>
   nmap <c-x><c-o><c-b> :call SpaceVim#lsp#references()<CR>
   imap <c-x><c-o><c-b> <c-o>:call SpaceVim#lsp#references()<CR>
+  nnoremap <c-x><c-z> <c-z>
   imap <c-z> <esc>
+  nnoremap <c-z> i
   nmap <A-h> :wincmd h<CR>
   nmap <A-j> :wincmd j<CR>
   nmap <A-k> :wincmd k<CR>
@@ -47,6 +93,7 @@ function! myspacevim#after() abort
 
   inoremap <c-e> <c-o>A
   inoremap <c-a> <c-o>^
+  nnoremap <c-a> ^
   inoremap <c-f> <Right>
   inoremap <c-b> <Left>
   inoremap <c-d> <Del>
