@@ -1,10 +1,23 @@
 function! myspacevim#before() abort
-autocmd User NerdTreeInit
-\ nnoremap <silent><buffer> <CR> :<C-u>call
-\ g:NERDTreeKeyMap.Invoke('o')<CR>
+
+  let g:multi_cursor_use_default_mapping=0
+  let g:multi_cursor_start_word_key      = '<A-J>'
+  let g:multi_cursor_select_all_word_key = '<A-m>'
+  let g:multi_cursor_start_key           = 'g<A-J>'
+  let g:multi_cursor_select_all_key      = 'g<A-m>'
+  let g:multi_cursor_next_key            = '<A-J>'
+  let g:multi_cursor_prev_key            = '<A-K>'
+  let g:multi_cursor_skip_key            = '<A-X>'
+  let g:multi_cursor_quit_key            = '<Esc>'
+
+  autocmd User NerdTreeInit
+  \ nnoremap <silent><buffer> <CR> :<C-u>call
+  \ g:NERDTreeKeyMap.Invoke('o')<CR>
 endfunction
 
+
 function! myspacevim#after() abort
+
   " if firenvim (it sets the g:started_by_firenvim variable)
   if exists('g:started_by_firenvim')
     imap « <Plug>(copilot-suggest)
@@ -68,7 +81,9 @@ EOF
   " imap <c-x><c-o><c-a> <c-o>:call SpaceVim#mapping#g_capital_d()<CR>
   nmap <c-x><c-o><c-b> :call SpaceVim#lsp#references()<CR>
   imap <c-x><c-o><c-b> <c-o>:call SpaceVim#lsp#references()<CR>
+  nnoremap <c-x><c-z> <c-z>
   imap <c-z> <esc>
+  nnoremap <c-z> i
   nmap <A-h> :wincmd h<CR>
   nmap <A-j> :wincmd j<CR>
   nmap <A-k> :wincmd k<CR>
