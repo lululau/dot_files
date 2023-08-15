@@ -717,9 +717,13 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
 
+  (add-hook 'prog-mode-hook 'send-to-vterm-mode)
+  (add-hook 'text-mode-hook 'send-to-vterm-mode)
+  (add-hook 'fundamental-mode-hook 'send-to-vterm-mode)
+
   (require 'python)
   (setq python-interpreter "python")
-  (setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
+  ;; (setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
 
   (atomic-chrome-start-server)
   ) ;;; End of config.

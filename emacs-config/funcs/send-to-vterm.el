@@ -101,8 +101,3 @@
     "Sb" 'lx/vterm-send-babel-block
     "SB" 'lx/vterm-send-babel-block-and-go))
 
-(add-hook 'prog-mode-hook 'send-to-vterm-mode)
-(add-hook 'text-mode-hook 'send-to-vterm-mode)
-(add-hook 'fundamental-mode-hook 'send-to-vterm-mode)
-
-
