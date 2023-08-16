@@ -646,7 +646,7 @@ layers configuration."
                                (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                                (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
   (autoload 'org-ai-mode "org-ai")
-  (add-hook 'org-mode-hook #'org-ai-mode)
+  ;; (add-hook 'org-mode-hook #'org-ai-mode)
 
   (add-hook 'pdf-view-mode-hook #'pdf-view-fit-height-to-window)
 
