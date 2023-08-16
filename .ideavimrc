@@ -51,7 +51,8 @@ inoremap <c-c> <esc>:action copilot.disposeInlays<cr>
 nnoremap <c-a> ^
 inoremap <c-k> <c-o>C
 nnoremap <cr> :action EditorStartNewLine<cr>
-" noremap <D-m> :action ToggleBookmark<cr>
+noremap <leader>bk :action ToggleBookmarkWithMnemonic<cr>
+noremap ,bk :action ToggleBookmarkWithMnemonic<cr>
 noremap <D-a-b> :action ToggleLineBreakpoint<cr>
 noremap <D-j> 10j
 noremap <D-k> 10k
