@@ -647,7 +647,7 @@ layers configuration."
                                (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                                (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
   (autoload 'org-ai-mode "org-ai")
-  (add-hook 'org-mode-hook #'org-ai-mode)
+  ;; (add-hook 'org-mode-hook #'org-ai-mode)
 
   (add-hook 'pdf-view-mode-hook #'pdf-view-fit-height-to-window)
 
@@ -718,9 +718,13 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
 
+  (add-hook 'prog-mode-hook 'send-to-vterm-mode)
+  (add-hook 'text-mode-hook 'send-to-vterm-mode)
+  (add-hook 'fundamental-mode-hook 'send-to-vterm-mode)
+
   (require 'python)
   (setq python-interpreter "python")
-  (setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
+  ;; (setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
 
   (atomic-chrome-start-server)
   ) ;;; End of config.
