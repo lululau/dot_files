@@ -209,7 +209,7 @@
      (vue :variables vue-backend 'lsp)
      coffeescript
      react
-     (python :variables python-test-runner '(pytest))
+     (python :variables python-test-runner '(pytest) python-backend 'lsp python-lsp-server 'pyright)
      php
      restclient
      (rust :variables rust-backend 'lsp)
