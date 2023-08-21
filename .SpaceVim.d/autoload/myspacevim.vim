@@ -96,6 +96,8 @@ EOF
   nnoremap <c-a> ^
   inoremap <c-f> <Right>
   inoremap <c-b> <Left>
+  cnoremap <c-p> <up>
+  cnoremap <c-n> <down>
   inoremap <c-d> <Del>
   cnoremap <c-b> <Left>
   cnoremap <c-f> <Right>
