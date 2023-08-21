@@ -22,7 +22,7 @@
 (if (display-graphic-p)
     (progn
       (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
-      (setq lx/spacemacs-banner "~/Documents/emacs-banners/nasa.png")
+      (setq lx/spacemacs-banner "~/Documents/emacs-banners/gnu_color.png")
       (setq neo-theme 'icons)
       (setq enable-org-notification nil)
       (setq enable-mu4e-notification t))
