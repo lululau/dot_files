@@ -22,3 +22,6 @@ called with prefix argument."
     "sl" 'python-shell-send-line)
   (define-key python-mode-map (kbd "C-M-i") nil)
   )
+
+(with-eval-after-load 'python
+  (define-key python-mode-map (kbd "s-r c") #'spacemacs/python-start-or-switch-repl))

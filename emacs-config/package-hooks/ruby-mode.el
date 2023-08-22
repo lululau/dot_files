@@ -39,6 +39,19 @@
   (define-key ruby-mode-map (kbd (if (display-graphic-p) "<C-return>" "C-RET")) 'ruby/jump-to-definition)
   (define-key ruby-mode-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'ruby/jump-to-definition-other-window)
 
+  ;; (define-key ruby-mode-map (kbd "s-r s") 'projectile-rails-server)
+  (define-key ruby-mode-map (kbd "s-r s") 'vterm-rails/rails-server)
+  (define-key ruby-mode-map (kbd "s-r d") 'vterm-rails/rails-dev)
+  (define-key ruby-mode-map (kbd "s-r S") 'vterm-rails/sidekiq)
+  (define-key ruby-mode-map (kbd "s-r s-v") 'rvm-activate-corresponding-ruby)
+  (define-key ruby-mode-map (kbd "s-r /" ) 'lx/helm-ag-search-pry-breakpoints)
+
+  (define-key ruby-mode-map (kbd "s-r c") #'(lambda (arg)
+                                    (interactive "P")
+                                    (let ((console (get-buffer (format "**%srailsconsole**" (projectile-project-name)))))
+                                      (if (and arg console)
+                                          (switch-to-buffer console)
+                                        (call-interactively 'projectile-bundler-console)))))
   )
 
 (spacemacs|use-package-add-hook ruby-mode
