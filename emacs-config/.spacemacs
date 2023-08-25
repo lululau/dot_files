@@ -1188,7 +1188,10 @@ This function is called at the very end of Spacemacs initialization."
   (persp-load-state-from-file (format "%sA" spacemacs-layouts-directory))
   (face-spec-set 'header-line '((t :weight bold :foreground "grey" :background nil)))
 
-;; (custom-set-faces
+  (custom-set-faces
+   '(docker-face-active ((t (:inherit bold :foreground "SeaGreen2")))))
+
+  ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.
 ;;  ;; Your init file should contain only one such instance.
