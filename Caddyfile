@@ -1,11 +1,10 @@
 # Caddyfile
 
 # log
-
 {
-  log {
-    output file {$HOME}/tmp/caddy.log
-  }
+	log {
+		output file {$HOME}/tmp/caddy.log
+	}
 }
 
 ## LCL
