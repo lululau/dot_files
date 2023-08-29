@@ -328,7 +328,9 @@ xplr.config.general.focus_ui.suffix = "]"
 -- Style for focused item.
 -- Type: [Style](https://xplr.dev/en/style)
 xplr.config.general.focus_ui.style = {
-  add_modifiers = { "Reversed", "Bold" }
+  fg = 'Black',
+  bg = 'White',
+  add_modifiers = { "Bold" }
 }
 
 -- The string placed before the item name for a selected row.
@@ -345,8 +347,9 @@ xplr.config.general.selection_ui.suffix = "}"
 --
 -- Type: [Style](https://xplr.dev/en/style)
 xplr.config.general.selection_ui.style = {
-  fg = "DarkGray",
-  add_modifiers = { "CrossedOut" },
+  fg = "White",
+  bg = "Yellow",
+  add_modifiers = { "Bold", "CrossedOut" },
 }
 
 -- The string placed before item name for a selected row that gets the focus.
