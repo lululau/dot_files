@@ -1,5 +1,37 @@
 version = '0.21.3'
 
+local function black(x)
+  return "\x1b[30m" .. x .. "\x1b[0m"
+end
+
+local function red(x)
+  return "\x1b[31m" .. x .. "\x1b[0m"
+end
+
+local function green(x)
+  return "\x1b[32m" .. x .. "\x1b[0m"
+end
+
+local function yellow(x)
+  return "\x1b[33m" .. x .. "\x1b[0m"
+end
+
+local function blue(x)
+  return "\x1b[34m" .. x .. "\x1b[0m"
+end
+
+local function magenta(x)
+  return "\x1b[35m" .. x .. "\x1b[0m"
+end
+
+local function cyan(x)
+  return "\x1b[36m" .. x .. "\x1b[0m"
+end
+
+local function white(x)
+  return "\x1b[37m" .. x .. "\x1b[0m"
+end
+
 ---@diagnostic disable
 local xplr = xplr -- The globally exposed configuration to be overridden.
 ---@diagnostic enable
@@ -69,7 +101,7 @@ xplr.config.general.disable_debug_error_mode = false
 -- Set it to `true` if you want to enable mouse scrolling.
 --
 -- Type: boolean
-xplr.config.general.enable_mouse = false
+xplr.config.general.enable_mouse = true
 
 -- Set it to `true` to show hidden files by default.
 --
@@ -295,7 +327,9 @@ xplr.config.general.focus_ui.suffix = "]"
 
 -- Style for focused item.
 -- Type: [Style](https://xplr.dev/en/style)
-xplr.config.general.focus_ui.style = { add_modifiers = { "Bold" } }
+xplr.config.general.focus_ui.style = {
+  add_modifiers = { "Reversed", "Bold" }
+}
 
 -- The string placed before the item name for a selected row.
 --
@@ -758,7 +792,7 @@ xplr.config.node_types.directory.style = {}
 -- xplr.config.node_types.directory.meta.foo = "foo"
 -- xplr.config.node_types.directory.meta.bar = "bar"
 -- ```
-xplr.config.node_types.directory.meta.icon = "ð"
+xplr.config.node_types.directory.meta.icon = "\u{e5ff}"
 
 -- The style for the file nodes.
 --
@@ -776,7 +810,7 @@ xplr.config.node_types.file.style = {}
 -- xplr.config.node_types.file.meta.foo = "foo"
 -- xplr.config.node_types.file.meta.bar = "bar"
 -- ```
-xplr.config.node_types.file.meta.icon = "ƒ"
+xplr.config.node_types.file.meta.icon = "\u{f15c}"
 
 -- The style for the symlink nodes.
 --
@@ -794,7 +828,7 @@ xplr.config.node_types.symlink.style = {}
 -- xplr.config.node_types.symlink.meta.foo = "foo"
 -- xplr.config.node_types.symlink.meta.bar = "bar"
 -- ```
-xplr.config.node_types.symlink.meta.icon = "§"
+xplr.config.node_types.symlink.meta.icon = ""
 
 -- Metadata and style based on mime types.
 -- It is possible to use the wildcard `*` to match all mime sub types. It will
@@ -823,7 +857,26 @@ xplr.config.node_types.symlink.meta.icon = "§"
 --   },
 -- }
 -- ```
-xplr.config.node_types.mime_essence = {}
+
+xplr.config.node_types.mime_essence = {
+  audio = {
+    ["*"] = { meta = { icon = yellow "" } },
+  },
+  video = {
+    ["*"] = { meta = { icon = "\u{f52c}" } },
+  },
+  image = {
+    ["*"] = { meta = { icon = "\u{503e}" } },
+  },
+  application = {
+    -- application/zip
+    zip = { meta = { icon = "\u{f410}" } },
+  },
+  text = {
+    ["*"] = { meta = { icon = "" } },
+  },
+}
+
 
 -- Metadata and style based on extension.
 --
@@ -839,6 +892,181 @@ xplr.config.node_types.mime_essence = {}
 -- xplr.config.node_types.extension.rs = { meta = { icon = "🦀" } }
 -- ```
 xplr.config.node_types.extension = {}
+xplr.config.node_types.extension.m3u = { meta = { icon = "" } }
+xplr.config.node_types.extension["7z"] = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.apk = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.bz2 = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.cab = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.cbr = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.cbr = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.cbz = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.cpio = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.gz = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.gzip = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.lha = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.lzh = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.lzma = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.rar = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.rpm = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.tar = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.tgz = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.txz = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.xbps = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.xz = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.zip = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.COPYING = { meta = { icon = "" } }
+xplr.config.node_types.extension.R = { meta = { icon = "ﳒ" } }
+xplr.config.node_types.extension.Rmd = { meta = { icon = "" } }
+xplr.config.node_types.extension.ai = { meta = { icon = "" } }
+xplr.config.node_types.extension.awk = { meta = { icon = "" } }
+xplr.config.node_types.extension.bash = { meta = { icon = "" } }
+xplr.config.node_types.extension.bat = { meta = { icon = "" } }
+xplr.config.node_types.extension.bmp = { meta = { icon = "" } }
+xplr.config.node_types.extension.c = { meta = { icon = "" } }
+xplr.config.node_types.extension.cc = { meta = { icon = "" } }
+xplr.config.node_types.extension.cfg = { meta = { icon = "" } }
+xplr.config.node_types.extension.clj = { meta = { icon = "" } }
+xplr.config.node_types.extension.cljc = { meta = { icon = "" } }
+xplr.config.node_types.extension.cljs = { meta = { icon = "" } }
+xplr.config.node_types.extension.cmake = { meta = { icon = "" } }
+xplr.config.node_types.extension.coffee = { meta = { icon = "" } }
+xplr.config.node_types.extension.conf = { meta = { icon = "" } }
+xplr.config.node_types.extension.cp = { meta = { icon = "" } }
+xplr.config.node_types.extension.cpp = { meta = { icon = "" } }
+xplr.config.node_types.extension.cs = { meta = { icon = "" } }
+xplr.config.node_types.extension.csh = { meta = { icon = "" } }
+xplr.config.node_types.extension.cson = { meta = { icon = "" } }
+xplr.config.node_types.extension.css = { meta = { icon = "" } }
+xplr.config.node_types.extension.cxx = { meta = { icon = "" } }
+xplr.config.node_types.extension.d = { meta = { icon = "" } }
+xplr.config.node_types.extension.dart = { meta = { icon = "" } }
+xplr.config.node_types.extension.db = { meta = { icon = "" } }
+xplr.config.node_types.extension.desktop = { meta = { icon = "" } }
+xplr.config.node_types.extension.diff = { meta = { icon = "" } }
+xplr.config.node_types.extension.doc = { meta = { icon = "\u{f1c2}" } }
+xplr.config.node_types.extension.docx = { meta = { icon = "\u{f1c2}" } }
+xplr.config.node_types.extension.dockerfile = { meta = { icon = "" } }
+xplr.config.node_types.extension.dropbox = { meta = { icon = "" } }
+xplr.config.node_types.extension.dump = { meta = { icon = "" } }
+xplr.config.node_types.extension.edn = { meta = { icon = "" } }
+xplr.config.node_types.extension.eex = { meta = { icon = "" } }
+xplr.config.node_types.extension.ejs = { meta = { icon = "" } }
+xplr.config.node_types.extension.elm = { meta = { icon = "" } }
+xplr.config.node_types.extension.erb = { meta = { icon = "" } }
+xplr.config.node_types.extension.erl = { meta = { icon = "" } }
+xplr.config.node_types.extension.ex = { meta = { icon = "" } }
+xplr.config.node_types.extension.exs = { meta = { icon = "" } }
+xplr.config.node_types.extension.fish = { meta = { icon = "" } }
+xplr.config.node_types.extension.fs = { meta = { icon = "" } }
+xplr.config.node_types.extension.fsi = { meta = { icon = "" } }
+xplr.config.node_types.extension.fsscript = { meta = { icon = "" } }
+xplr.config.node_types.extension.fsx = { meta = { icon = "" } }
+xplr.config.node_types.extension.gd = { meta = { icon = "" } }
+xplr.config.node_types.extension.gemspec = { meta = { icon = "" } }
+xplr.config.node_types.extension.git = { meta = { icon = "" } }
+xplr.config.node_types.extension.glb = { meta = { icon = "" } }
+xplr.config.node_types.extension.go = { meta = { icon = "" } }
+xplr.config.node_types.extension.godot = { meta = { icon = "" } }
+xplr.config.node_types.extension.gruntfile = { meta = { icon = "" } }
+xplr.config.node_types.extension.gulpfile = { meta = { icon = "" } }
+xplr.config.node_types.extension.h = { meta = { icon = "" } }
+xplr.config.node_types.extension.haml = { meta = { icon = "" } }
+xplr.config.node_types.extension.hbs = { meta = { icon = "" } }
+xplr.config.node_types.extension.hh = { meta = { icon = "" } }
+xplr.config.node_types.extension.hpp = { meta = { icon = "" } }
+xplr.config.node_types.extension.hrl = { meta = { icon = "" } }
+xplr.config.node_types.extension.hs = { meta = { icon = "" } }
+xplr.config.node_types.extension.htm = { meta = { icon = "" } }
+xplr.config.node_types.extension.html = { meta = { icon = "" } }
+xplr.config.node_types.extension.hxx = { meta = { icon = "" } }
+xplr.config.node_types.extension.ico = { meta = { icon = "" } }
+xplr.config.node_types.extension.import = { meta = { icon = "" } }
+xplr.config.node_types.extension.ini = { meta = { icon = "" } }
+xplr.config.node_types.extension.java = { meta = { icon = "" } }
+xplr.config.node_types.extension.jl = { meta = { icon = "" } }
+xplr.config.node_types.extension.js = { meta = { icon = "" } }
+xplr.config.node_types.extension.json = { meta = { icon = "" } }
+xplr.config.node_types.extension.jsx = { meta = { icon = "" } }
+xplr.config.node_types.extension.ksh = { meta = { icon = "" } }
+xplr.config.node_types.extension.kt = { meta = { icon = "𝙆" } }
+xplr.config.node_types.extension.leex = { meta = { icon = "" } }
+xplr.config.node_types.extension.less = { meta = { icon = "" } }
+xplr.config.node_types.extension.lhs = { meta = { icon = "" } }
+xplr.config.node_types.extension.license = { meta = { icon = "" } }
+xplr.config.node_types.extension.lock = { meta = { icon = red "" } }
+xplr.config.node_types.extension.lua = { meta = { icon = blue "" } }
+xplr.config.node_types.extension.markdown = { meta = { icon = "" } }
+xplr.config.node_types.extension.material = { meta = { icon = "" } }
+xplr.config.node_types.extension.md = { meta = { icon = yellow "" } }
+xplr.config.node_types.extension.mdx = { meta = { icon = "" } }
+xplr.config.node_types.extension.mjs = { meta = { icon = "" } }
+xplr.config.node_types.extension.ml = { meta = { icon = "λ" } }
+xplr.config.node_types.extension.mli = { meta = { icon = "λ" } }
+xplr.config.node_types.extension.mustache = { meta = { icon = "" } }
+xplr.config.node_types.extension.nix = { meta = { icon = "" } }
+xplr.config.node_types.extension.opus = { meta = { icon = "" } }
+xplr.config.node_types.extension.otf = { meta = { icon = "" } }
+xplr.config.node_types.extension.pck = { meta = { icon = "" } }
+xplr.config.node_types.extension.php = { meta = { icon = "" } }
+xplr.config.node_types.extension.pl = { meta = { icon = "" } }
+xplr.config.node_types.extension.pm = { meta = { icon = "" } }
+xplr.config.node_types.extension.png = { meta = { icon = "" } }
+xplr.config.node_types.extension.pp = { meta = { icon = "" } }
+xplr.config.node_types.extension.ppt = { meta = { icon = "" } }
+xplr.config.node_types.extension.procfile = { meta = { icon = "" } }
+xplr.config.node_types.extension.ps1 = { meta = { icon = "" } }
+xplr.config.node_types.extension.psb = { meta = { icon = "" } }
+xplr.config.node_types.extension.psd = { meta = { icon = "" } }
+xplr.config.node_types.extension.py = { meta = { icon = yellow "" } }
+xplr.config.node_types.extension.pyc = { meta = { icon = "" } }
+xplr.config.node_types.extension.pyd = { meta = { icon = "" } }
+xplr.config.node_types.extension.pyo = { meta = { icon = "" } }
+xplr.config.node_types.extension.r = { meta = { icon = "ﳒ" } }
+xplr.config.node_types.extension.rake = { meta = { icon = "" } }
+xplr.config.node_types.extension.rakefile = { meta = { icon = "" } }
+xplr.config.node_types.extension.rb = { meta = { icon = "" } }
+xplr.config.node_types.extension.rlib = { meta = { icon = "" } }
+xplr.config.node_types.extension.rmd = { meta = { icon = "" } }
+xplr.config.node_types.extension.rproj = { meta = { icon = "鉶" } }
+xplr.config.node_types.extension.rs = { meta = { icon = red "" } }
+xplr.config.node_types.extension.rss = { meta = { icon = "" } }
+xplr.config.node_types.extension.sass = { meta = { icon = "" } }
+xplr.config.node_types.extension.scala = { meta = { icon = "" } }
+xplr.config.node_types.extension.scss = { meta = { icon = "" } }
+xplr.config.node_types.extension.sh = { meta = { icon = "" } }
+xplr.config.node_types.extension.slim = { meta = { icon = "" } }
+xplr.config.node_types.extension.sln = { meta = { icon = "" } }
+xplr.config.node_types.extension.sql = { meta = { icon = "" } }
+xplr.config.node_types.extension.styl = { meta = { icon = "" } }
+xplr.config.node_types.extension.suo = { meta = { icon = "" } }
+xplr.config.node_types.extension.svelte = { meta = { icon = "" } }
+xplr.config.node_types.extension.svg = { meta = { icon = "ﰟ" } }
+xplr.config.node_types.extension.swift = { meta = { icon = "" } }
+xplr.config.node_types.extension.t = { meta = { icon = "" } }
+xplr.config.node_types.extension.terminal = { meta = { icon = "" } }
+xplr.config.node_types.extension.tex = { meta = { icon = "ﭨ" } }
+xplr.config.node_types.extension.toml = { meta = { icon = white "" } }
+xplr.config.node_types.extension.tres = { meta = { icon = "" } }
+xplr.config.node_types.extension.ts = { meta = { icon = "" } }
+xplr.config.node_types.extension.tscn = { meta = { icon = "" } }
+xplr.config.node_types.extension.tsx = { meta = { icon = "" } }
+xplr.config.node_types.extension.twig = { meta = { icon = "" } }
+xplr.config.node_types.extension.vim = { meta = { icon = "" } }
+xplr.config.node_types.extension.vue = { meta = { icon = "﵂" } }
+xplr.config.node_types.extension.webmanifest = { meta = { icon = "" } }
+xplr.config.node_types.extension.webpack = { meta = { icon = "ﰩ" } }
+xplr.config.node_types.extension.xcplayground = { meta = { icon = "" } }
+xplr.config.node_types.extension.xls = { meta = { icon = "\u{f1c3}" } }
+xplr.config.node_types.extension.xlsx = { meta = { icon = "\u{f1c3}" } }
+xplr.config.node_types.extension.csv = { meta = { icon = "\u{e64a}" } }
+xplr.config.node_types.extension.xml = { meta = { icon = "謹" } }
+xplr.config.node_types.extension.xul = { meta = { icon = "" } }
+xplr.config.node_types.extension.yaml = { meta = { icon = "" } }
+xplr.config.node_types.extension.yml = { meta = { icon = "" } }
+xplr.config.node_types.extension.zsh = { meta = { icon = "" } }
+xplr.config.node_types.extension.txt = { meta = { icon = "\u{f15c}" } }
+xplr.config.node_types.extension["c++"] = { meta = { icon = "" } }
+xplr.config.node_types.extension["f#"] = { meta = { icon = "" } }
 
 -- Metadata and style based on special file names.
 --
@@ -854,6 +1082,43 @@ xplr.config.node_types.extension = {}
 -- xplr.config.node_types.special["Downloads"] = { meta = { icon = "" }, style = { fg = "Blue" } }
 -- ```
 xplr.config.node_types.special = {}
+xplr.config.node_types.special["Desktop"] = { meta = { icon = "ﲾ" } }
+xplr.config.node_types.special["Documents"] = { meta = { icon = "" } }
+xplr.config.node_types.special["Downloads"] = { meta = { icon = "" } }
+xplr.config.node_types.special["Music"] = { meta = { icon = "" } }
+xplr.config.node_types.special["Pictures"] = { meta = { icon = "" } }
+xplr.config.node_types.special["Templates"] = { meta = { icon = "陼" } }
+xplr.config.node_types.special["Videos"] = { meta = { icon = "" } }
+xplr.config.node_types.special["Gemfile"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".vimrc"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".settings.json"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".bashrc"] = { meta = { icon = "" } }
+xplr.config.node_types.special["COMMIT_EDITMSG"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".gitconfig"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".npmignore"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".gvimrc"] = { meta = { icon = "" } }
+xplr.config.node_types.special["favicon.ico"] = { meta = { icon = "" } }
+xplr.config.node_types.special["mix.lock"] = { meta = { icon = "" } }
+xplr.config.node_types.special["node_modules"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".bashprofile"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".gitmodules"] = { meta = { icon = "" } }
+xplr.config.node_types.special["config.ru"] = { meta = { icon = "" } }
+xplr.config.node_types.special["_vimrc"] = { meta = { icon = "" } }
+xplr.config.node_types.special["_gvimrc"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".gitignore"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".babelrc"] = { meta = { icon = "ﬥ" } }
+xplr.config.node_types.special[".gitlab-ci.yml"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".gitattributes"] = { meta = { icon = "" } }
+xplr.config.node_types.special["Dockerfile"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".zshenv"] = { meta = { icon = "" } }
+xplr.config.node_types.special["CMakeLists.txt"] = { meta = { icon = "" } }
+xplr.config.node_types.special["makefile"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".zprofile"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".ds_store"] = { meta = { icon = "" } }
+xplr.config.node_types.special[".zshrc"] = { meta = { icon = "" } }
+xplr.config.node_types.special["Vagrantfile"] = { meta = { icon = "" } }
+xplr.config.node_types.special["COPYING.LESSER"] = { meta = { icon = "" } }
+xplr.config.node_types.special["LICENSE"] = { meta = { icon = red "" } }
 
 -- ### Layouts ----------------------------------------------------------------
 --
@@ -1105,7 +1370,7 @@ xplr.config.modes.builtin.default = {
           "ToggleSelectAll",
         },
       },
-      ["ctrl-f"] = {
+      ["/"] = {
         help = "search",
         messages = {
           "PopMode",
@@ -1131,7 +1396,7 @@ xplr.config.modes.builtin.default = {
           "ClearScreen",
         },
       },
-      ["ctrl-u"] = {
+      ["U"] = {
         help = "clear selection",
         messages = {
           "ClearSelection",
@@ -1156,7 +1421,7 @@ xplr.config.modes.builtin.default = {
           "FocusNext",
         },
       },
-      ["enter"] = {
+      ["space"] = {
         help = "quit with result",
         messages = {
           "PrintResultAndQuit",
@@ -1201,19 +1466,19 @@ xplr.config.modes.builtin.default = {
           },
         },
       },
-      ["ctrl-d"] = {
-        help = "duplicate as",
-        messages = {
-          "PopMode",
-          { SwitchModeBuiltin = "duplicate_as" },
-          {
-            BashExecSilently0 = [===[
-              NAME=$(basename "${XPLR_FOCUS_PATH:?}")
-              "$XPLR" -m 'SetInputBuffer: %q' "${NAME:?}"
-            ]===],
-          },
-        },
-      },
+      -- ["ctrl-d"] = {
+      --   help = "duplicate as",
+      --   messages = {
+      --     "PopMode",
+      --     { SwitchModeBuiltin = "duplicate_as" },
+      --     {
+      --       BashExecSilently0 = [===[
+      --         NAME=$(basename "${XPLR_FOCUS_PATH:?}")
+      --         "$XPLR" -m 'SetInputBuffer: %q' "${NAME:?}"
+      --       ]===],
+      --     },
+      --   },
+      -- },
       ["right"] = {
         help = "enter",
         messages = {
@@ -1227,7 +1492,7 @@ xplr.config.modes.builtin.default = {
           { SwitchModeBuiltin = "sort" },
         },
       },
-      ["space"] = {
+      ["m"] = {
         help = "toggle selection",
         messages = {
           "ToggleSelection",
@@ -1250,25 +1515,25 @@ xplr.config.modes.builtin.default = {
           },
         },
       },
-      ["page-up"] = {
+      ["ctrl-b"] = {
         help = "scroll up",
         messages = {
           "ScrollUp",
         },
       },
-      ["page-down"] = {
+      ["ctrl-f"] = {
         help = "scroll down",
         messages = {
           "ScrollDown",
         },
       },
-      ["{"] = {
+      ["ctrl-u"] = {
         help = "scroll up half",
         messages = {
           "ScrollUpHalf",
         },
       },
-      ["}"] = {
+      ["ctrl-d"] = {
         help = "scroll down half",
         messages = {
           "ScrollDownHalf",
@@ -1299,18 +1564,18 @@ xplr.config.modes.builtin.default = {
 }
 
 xplr.config.modes.builtin.default.key_bindings.on_key["v"] =
-    xplr.config.modes.builtin.default.key_bindings.on_key["space"]
-xplr.config.modes.builtin.default.key_bindings.on_key["V"] =
+    xplr.config.modes.builtin.default.key_bindings.on_key["m"]
+xplr.config.modes.builtin.default.key_bindings.on_key["t"] =
     xplr.config.modes.builtin.default.key_bindings.on_key["ctrl-a"]
-xplr.config.modes.builtin.default.key_bindings.on_key["/"] =
-    xplr.config.modes.builtin.default.key_bindings.on_key["ctrl-f"]
-xplr.config.modes.builtin.default.key_bindings.on_key["h"] =
+xplr.config.modes.builtin.default.key_bindings.on_key["-"] =
+  xplr.config.modes.builtin.default.key_bindings.on_key["left"]
+xplr.config.modes.builtin.default.key_bindings.on_key["u"] =
     xplr.config.modes.builtin.default.key_bindings.on_key["left"]
 xplr.config.modes.builtin.default.key_bindings.on_key["j"] =
     xplr.config.modes.builtin.default.key_bindings.on_key["down"]
 xplr.config.modes.builtin.default.key_bindings.on_key["k"] =
     xplr.config.modes.builtin.default.key_bindings.on_key["up"]
-xplr.config.modes.builtin.default.key_bindings.on_key["l"] =
+xplr.config.modes.builtin.default.key_bindings.on_key["enter"] =
     xplr.config.modes.builtin.default.key_bindings.on_key["right"]
 xplr.config.modes.builtin.default.key_bindings.on_key["tab"] =
     xplr.config.modes.builtin.default.key_bindings.on_key["ctrl-i"] -- compatibility workaround
@@ -3006,13 +3271,17 @@ end
 
 -- Renders the third column in the table
 xplr.fn.builtin.fmt_general_table_row_cols_2 = function(m)
-  local r = xplr.util.paint("r", { fg = "Green" })
-  local w = xplr.util.paint("w", { fg = "Yellow" })
-  local x = xplr.util.paint("x", { fg = "Red" })
-  local s = xplr.util.paint("s", { fg = "Red" })
-  local S = xplr.util.paint("S", { fg = "Red" })
-  local t = xplr.util.paint("t", { fg = "Red" })
-  local T = xplr.util.paint("T", { fg = "Red" })
+  local r = xplr.util.paint("r", { fg = "Gray" })
+  local w = xplr.util.paint("w", { fg = "Gray" })
+  local x = xplr.util.paint("x", { fg = "Gray" })
+  local s = xplr.util.paint("s", { fg = "Gray" })
+  local S = xplr.util.paint("S", { fg = "Gray" })
+  local t = xplr.util.paint("t", { fg = "Gray" })
+  local T = xplr.util.paint("T", { fg = "Gray" })
+
+  if not m.is_dir then
+    x = xplr.util.paint("x", { fg = "Green" })
+  end
 
   return xplr.util
       .permissions_rwx(m.permissions)
@@ -3036,7 +3305,7 @@ end
 
 -- Renders the fifth column in the table
 xplr.fn.builtin.fmt_general_table_row_cols_4 = function(m)
-  return tostring(os.date("%a %b %d %H:%M:%S %Y", m.last_modified / 1000000000))
+  return tostring(os.date("%F %T", m.last_modified / 1000000000))
 end
 
 -- This is where the custom functions can be added.
