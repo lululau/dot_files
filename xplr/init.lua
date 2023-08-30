@@ -1572,12 +1572,18 @@ xplr.config.modes.builtin.default.key_bindings.on_key["t"] =
     xplr.config.modes.builtin.default.key_bindings.on_key["ctrl-a"]
 xplr.config.modes.builtin.default.key_bindings.on_key["-"] =
   xplr.config.modes.builtin.default.key_bindings.on_key["left"]
+xplr.config.modes.builtin.default.key_bindings.on_key["ctrl-c"] =
+    xplr.config.modes.builtin.default.key_bindings.on_key["q"]
+xplr.config.modes.builtin.default.key_bindings.on_key["alt-a"] =
+    xplr.config.modes.builtin.default.key_bindings.on_key["left"]
 xplr.config.modes.builtin.default.key_bindings.on_key["u"] =
     xplr.config.modes.builtin.default.key_bindings.on_key["left"]
 xplr.config.modes.builtin.default.key_bindings.on_key["j"] =
     xplr.config.modes.builtin.default.key_bindings.on_key["down"]
 xplr.config.modes.builtin.default.key_bindings.on_key["k"] =
     xplr.config.modes.builtin.default.key_bindings.on_key["up"]
+xplr.config.modes.builtin.default.key_bindings.on_key["ctrl-l"] =
+    xplr.config.modes.builtin.default.key_bindings.on_key["right"]
 xplr.config.modes.builtin.default.key_bindings.on_key["enter"] =
     xplr.config.modes.builtin.default.key_bindings.on_key["right"]
 xplr.config.modes.builtin.default.key_bindings.on_key["tab"] =
@@ -2262,6 +2268,28 @@ xplr.config.modes.builtin.delete = {
   layout = "HelpMenu",
   key_bindings = {
     on_key = {
+      ["t"] = {
+        help = "trash",
+        messages = {
+          {
+            BashExec0 = [===[
+              "$XPLR" -m ExplorePwd
+              while IFS= read -r -d '' PTH; do
+                PTH_ESC=$(printf %q "$PTH")
+                if trash -- "${PTH:?}"; then
+                  "$XPLR" -m 'LogSuccess: %q' "$PTH_ESC trashed"
+                else
+                  "$XPLR" -m 'LogError: %q' "could not trash $PTH_ESC"
+                  "$XPLR" -m 'FocusPath: %q' "$PTH"
+                fi
+              done < "${XPLR_PIPE_RESULT_OUT:?}"
+              echo
+              read -p "[press enter to continue]"
+            ]===],
+          },
+          "PopMode",
+        },
+      },
       ["D"] = {
         help = "force delete",
         messages = {
@@ -2536,6 +2564,27 @@ xplr.config.modes.builtin.search = {
         help = "enter",
         messages = {
           "Enter",
+          { SetInputBuffer = "" },
+        },
+      },
+      ["ctrl-c"] = {
+        help = "cancel",
+        messages = {
+          "CancelSearch",
+          "PopMode",
+        },
+      },
+      ["ctrl-l"] = {
+        help = "enter",
+        messages = {
+          "Enter",
+          { SetInputBuffer = "" },
+        },
+      },
+      ["alt-a"] = {
+        help = "back",
+        messages = {
+          "Back",
           { SetInputBuffer = "" },
         },
       },
