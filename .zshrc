@@ -220,18 +220,19 @@ export FZF_DEFAULT_OPTS="-x -m --history=$HOME/.fzf_history --history-size=10000
 #   fi
 # }
 
+
 precmd() {
   pwd > /tmp/iterm2_pwd
 }
 
 if [[ "$TERM" == "dumb" ]]
 then
-    unsetopt zle
-    unsetopt prompt_cr
-    unsetopt prompt_subst
-    unfunction precmd
-    unfunction preexec
-    PS1='$ '
+  unsetopt zle
+  unsetopt prompt_cr
+  unsetopt prompt_subst
+  unfunction precmd
+  unfunction preexec
+  PS1='$ '
 fi
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 export ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #20 char left truncated PWD
@@ -492,14 +493,47 @@ export PATH="$TEXTRA_INSTALL/bin:$PATH"
 
 # Shell-GPT integration ZSH v0.1
 _sgpt_zsh() {
-if [[ -n "$BUFFER" ]]; then
+  if [[ -n "$BUFFER" ]]; then
     _sgpt_prev_cmd=$BUFFER
     BUFFER+="⌛"
     zle -I && zle redisplay
     BUFFER=$(sgpt --shell <<< "$_sgpt_prev_cmd")
     zle end-of-line
-fi
+  fi
 }
 zle -N _sgpt_zsh
 bindkey '^G' _sgpt_zsh
 # Shell-GPT integration ZSH v0.1
+
+function _xplr_cd() {
+  setopt localoptions pipefail 2> /dev/null
+  local result="$(<$TTY xplr)"
+  if [ -e "$result" ]; then
+    dir=$result
+    if [ -f $dir ]; then
+      dir=$(dirname "$dir")
+    fi
+    cd "$dir"
+    zle -K main
+    zle redisplay
+    local ret=$?
+    reset-prompt
+    typeset -f zle-line-init >/dev/null && zle zle-line-init
+    omz_termsupport_precmd
+    return $ret
+  fi
+}
+zle -N _xplr_cd
+bindkey $'\ex' _xplr_cd
+
+# function _xplr_cd2() {
+#   local result="$(xplr)"
+#   if [ -e "$result" ]; then
+#     dir=$result
+#     if [ -f "$dir" ]; then
+#       dir=$(dirname "$dir")
+#     fi
+#     cd "$dir"
+#   fi
+# }
+# bindkey -s $'\ex' '_xplr_cd2\n'

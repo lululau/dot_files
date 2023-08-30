@@ -1451,9 +1451,9 @@ xplr.config.modes.builtin.default = {
         },
       },
       ["q"] = {
-        help = "quit",
+        help = "quit printing pwd",
         messages = {
-          "Quit",
+          "PrintPwdAndQuit",
         },
       },
       ["r"] = {
