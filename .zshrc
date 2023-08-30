@@ -537,3 +537,5 @@ bindkey $'\ex' _xplr_cd
 #   fi
 # }
 # bindkey -s $'\ex' '_xplr_cd2\n'
+
+eval "$(luarocks path --lua-version 5.1)"

@@ -3429,6 +3429,51 @@ xplr.fn.custom = {}
 -- }
 -- ```
 
+
+local home = os.getenv("HOME")
+local xpm_path = home .. "/.local/share/xplr/dtomvan/xpm.xplr"
+local xpm_url = "https://github.com/dtomvan/xpm.xplr"
+
+package.path = os.getenv("LUA_PATH") .. ";" .. package.path
+package.cpath = os.getenv("LUA_CPATH") .. ";" .. package.cpath
+
+package.path = package.path
+  .. ";"
+  .. xpm_path
+  .. "/?.lua;"
+  .. xpm_path
+  .. "/?/init.lua"
+
+os.execute(
+  string.format(
+    "[ -e '%s' ] || git clone '%s' '%s'",
+    xpm_path,
+    xpm_url,
+    xpm_path
+  )
+)
+
+require("xpm").setup({
+    'dtomvan/xpm.xplr',
+    {
+      "lululau/fzf.xplr",
+      setup = function ()
+        require("fzf").setup {
+          key = "ctrl-t",
+          recursive = true,
+          enter_dir = true
+        }
+      end
+    },
+    {
+      "lululau/edit_with.xplr",
+      setup = function ()
+        require("edit_with").setup()
+      end
+    }
+})
+
+
 return {
   on_load = {},
   on_directory_change = {},
