@@ -3434,8 +3434,8 @@ local home = os.getenv("HOME")
 local xpm_path = home .. "/.local/share/xplr/dtomvan/xpm.xplr"
 local xpm_url = "https://github.com/dtomvan/xpm.xplr"
 
-package.path = os.getenv("LUA_PATH") .. ";" .. package.path
-package.cpath = os.getenv("LUA_CPATH") .. ";" .. package.cpath
+package.path = (os.getenv("LUA_PATH") or "") .. ";" .. package.path
+package.cpath = (os.getenv("LUA_CPATH") or "") .. ";" .. package.cpath
 
 package.path = package.path
   .. ";"
