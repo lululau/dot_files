@@ -505,37 +505,37 @@ zle -N _sgpt_zsh
 bindkey '^G' _sgpt_zsh
 # Shell-GPT integration ZSH v0.1
 
-function _xplr_cd() {
-  setopt localoptions pipefail 2> /dev/null
-  local result="$(<$TTY xplr)"
-  if [ -e "$result" ]; then
-    dir=$result
-    if [ -f $dir ]; then
-      dir=$(dirname "$dir")
-    fi
-    cd "$dir"
-    zle -K main
-    zle redisplay
-    local ret=$?
-    reset-prompt
-    typeset -f zle-line-init >/dev/null && zle zle-line-init
-    omz_termsupport_precmd
-    return $ret
-  fi
-}
-zle -N _xplr_cd
-bindkey $'\ex' _xplr_cd
-
-# function _xplr_cd2() {
-#   local result="$(xplr)"
+# function _xplr_cd() {
+#   setopt localoptions pipefail 2> /dev/null
+#   local result="$(<$TTY xplr)"
 #   if [ -e "$result" ]; then
 #     dir=$result
-#     if [ -f "$dir" ]; then
+#     if [ -f $dir ]; then
 #       dir=$(dirname "$dir")
 #     fi
 #     cd "$dir"
+#     zle -K main
+#     zle redisplay
+#     local ret=$?
+#     reset-prompt
+#     typeset -f zle-line-init >/dev/null && zle zle-line-init
+#     omz_termsupport_precmd
+#     return $ret
 #   fi
 # }
-# bindkey -s $'\ex' '_xplr_cd2\n'
+# zle -N _xplr_cd
+# bindkey $'\ex' _xplr_cd
+
+function _xplr_cd2() {
+  local result="$(xplr)"
+  if [ -e "$result" ]; then
+    dir=$result
+    if [ -f "$dir" ]; then
+      dir=$(dirname "$dir")
+    fi
+    cd "$dir"
+  fi
+}
+bindkey -s $'\ex' '_xplr_cd2\n'
 
 eval "$(luarocks path --lua-version 5.1)"
