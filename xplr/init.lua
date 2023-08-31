@@ -3681,6 +3681,15 @@ os.execute(
 require("xpm").setup({
     'dtomvan/xpm.xplr',
     {
+      "sayanarijit/registers.xplr",
+      setup = function ()
+        require("registers").setup{
+          mode = "default",
+          key = '"',
+        }
+      end
+    },
+    {
       "sayanarijit/map.xplr",
       setup = function ()
         local map = require("map")
