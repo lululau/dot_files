@@ -3762,6 +3762,15 @@ require("xpm").setup({
       end
     },
     {
+      "lululau/dua-cli.xplr",
+      setup = function ()
+        require("dua-cli").setup{
+          mode = "action",
+          key = "D",
+        }
+      end
+    },
+    {
       "lululau/map.xplr",
       setup = function ()
         local map = require("map")
