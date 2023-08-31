@@ -3762,7 +3762,7 @@ require("xpm").setup({
       end
     },
     {
-      "sayanarijit/map.xplr",
+      "lululau/map.xplr",
       setup = function ()
         local map = require("map")
         map.setup {
