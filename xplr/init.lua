@@ -3681,6 +3681,52 @@ os.execute(
 require("xpm").setup({
     'dtomvan/xpm.xplr',
     {
+      "sayanarijit/map.xplr",
+      setup = function ()
+        local map = require("map")
+        map.setup {
+          mode = "default",
+          key = "M",
+          editor = "nvim",
+          editor_key = "ctrl-o",
+          prefer_multi_map = false,
+          placeholder = "{}",
+          spacer = "{_}",
+          custom_placeholders = map.placeholders,
+        }
+      end
+    },
+    {
+      "sayanarijit/find.xplr",
+      setup = function ()
+        require("find").setup {
+          mode = "default",
+          key = "F",
+          templates = {
+            ["find all"] = {
+              key = "a",
+              find_command = "find",
+              find_args = ". -name ",
+              cursor_position = 8,
+            },
+            ["find files"] = {
+              key = "f",
+              find_command = "find",
+              find_args = ". -name  -type f",
+              cursor_position = 8,
+            },
+            ["find directories"] = {
+              key = "d",
+              find_command = "find",
+              find_args = ". -name  -type d",
+              cursor_position = 8,
+            },
+          },
+          refresh_screen_key = "ctrl-r",
+        }
+      end
+    },
+    {
       "lululau/fzf.xplr",
       setup = function ()
         require("fzf").setup {
