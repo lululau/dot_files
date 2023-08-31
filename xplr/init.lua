@@ -2639,6 +2639,42 @@ xplr.config.modes.builtin.filter = {
   name = "filter",
   key_bindings = {
     on_key = {
+      ["e"] = {
+        help = "relative path does end with extension name",
+        messages = {
+          { SwitchModeBuiltin = "relative_path_does_end_with" },
+          { SetInputBuffer = "." },
+          { AddNodeFilterFromInput = "RelativePathDoesEndWith" },
+          "ExplorePwdAsync",
+        },
+      },
+      ["E"] = {
+        help = "relative path does not end with extension name",
+        messages = {
+          { SwitchModeBuiltin = "relative_path_does_not_end_with" },
+          { SetInputBuffer = "." },
+          { AddNodeFilterFromInput = "RelativePathDoesNotEndWith" },
+          "ExplorePwdAsync",
+        },
+      },
+      ["f"] = {
+        help = "relative path does contain string",
+        messages = {
+          { SwitchModeBuiltin = "relative_path_does_contain_string" },
+          { SetInputBuffer = "" },
+          { AddNodeFilterFromInput = "RelativePathDoesContain" },
+          "ExplorePwdAsync",
+        },
+      },
+      ["F"] = {
+        help = "relative path does not contain string",
+        messages = {
+          { SwitchModeBuiltin = "relative_path_does_not_contain_string" },
+          { SetInputBuffer = "" },
+          { AddNodeFilterFromInput = "RelativePathDoesNotContain" },
+          "ExplorePwdAsync",
+        },
+      },
       ["r"] = {
         help = "relative path does match regex",
         messages = {
@@ -2678,9 +2714,149 @@ xplr.config.modes.builtin.filter = {
           "ExplorePwdAsync",
         },
       },
+      ["ctrl-c"] = {
+        help = "quit filter mode",
+        messages = {
+          "PopMode",
+          "ExplorePwdAsync",
+        },
+      },
+      ["ctrl-g"] = {
+        help = "quit filter mode",
+        messages = {
+          "PopMode",
+          "ExplorePwdAsync",
+        },
+      },
+      ["enter"] = {
+        help = "quit filter mode",
+        messages = {
+          "PopMode",
+          "ExplorePwdAsync",
+        },
+      },
     },
   },
 }
+
+xplr.config.modes.builtin.relative_path_does_end_with = {
+  name = "relative path does end with extension name",
+  key_bindings = {
+    on_key = {
+      ["enter"] = {
+        help = "submit",
+        messages = {
+          "PopMode",
+        },
+      },
+      ["esc"] = {
+        messages = {
+          { RemoveNodeFilterFromInput = "RelativePathDoesEndWith" },
+          "PopMode",
+          "ExplorePwdAsync",
+        },
+      },
+    },
+    default = {
+      messages = {
+        { RemoveNodeFilterFromInput = "RelativePathDoesEndWith" },
+        "UpdateInputBufferFromKey",
+        { AddNodeFilterFromInput = "RelativePathDoesEndWith" },
+        "ExplorePwdAsync",
+      },
+    },
+  },
+}
+
+
+xplr.config.modes.builtin.relative_path_does_not_end_with = {
+  name = "relative path does not end with extension name",
+  key_bindings = {
+    on_key = {
+      ["enter"] = {
+        help = "submit",
+        messages = {
+          "PopMode",
+        },
+      },
+      ["esc"] = {
+        messages = {
+          { RemoveNodeFilterFromInput = "RelativePathDoesNotEndWith" },
+          "PopMode",
+          "ExplorePwdAsync",
+        },
+      },
+    },
+    default = {
+      messages = {
+        { RemoveNodeFilterFromInput = "RelativePathDoesNotEndWith" },
+        "UpdateInputBufferFromKey",
+        { AddNodeFilterFromInput = "RelativePathDoesNotEndWith" },
+        "ExplorePwdAsync",
+      },
+    },
+  },
+}
+
+xplr.config.modes.builtin.relative_path_does_contain_string = {
+  name = "relative path does contain string",
+  key_bindings = {
+    on_key = {
+      ["enter"] = {
+        help = "submit",
+        messages = {
+          "PopMode",
+        },
+      },
+      ["esc"] = {
+        messages = {
+          { RemoveNodeFilterFromInput = "RelativePathDoesContain" },
+          "PopMode",
+          "ExplorePwdAsync",
+        },
+      },
+    },
+    default = {
+      messages = {
+        { RemoveNodeFilterFromInput = "RelativePathDoesContain" },
+        "UpdateInputBufferFromKey",
+        { AddNodeFilterFromInput = "RelativePathDoesContain" },
+        "ExplorePwdAsync",
+      },
+    },
+  },
+}
+
+
+xplr.config.modes.builtin.relative_path_does_not_contain_string = {
+  name = "relative path does not contain string",
+  key_bindings = {
+    on_key = {
+      ["enter"] = {
+        help = "submit",
+        messages = {
+          "PopMode",
+        },
+      },
+      ["esc"] = {
+        messages = {
+          { RemoveNodeFilterFromInput = "RelativePathDoesNotContain" },
+          "PopMode",
+          "ExplorePwdAsync",
+        },
+      },
+    },
+    default = {
+      messages = {
+        { RemoveNodeFilterFromInput = "RelativePathDoesNotContain" },
+        "UpdateInputBufferFromKey",
+        { AddNodeFilterFromInput = "RelativePathDoesNotContain" },
+        "ExplorePwdAsync",
+      },
+    },
+  },
+}
+
 
 -- The builtin relative_path_does_match_regex mode.
 --
@@ -3518,6 +3694,12 @@ require("xpm").setup({
       "lululau/edit_with.xplr",
       setup = function ()
         require("edit_with").setup()
+      end
+    },
+    {
+      "lululau/space.xplr",
+      setup = function ()
+        require("space").setup()
       end
     }
 })
