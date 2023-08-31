@@ -538,4 +538,38 @@ function _xplr_cd2() {
 }
 bindkey -s $'\ex' '_xplr_cd2\n'
 
+goto_tmux_last_pwd.widget() {
+  local value=$(tmux show-environment -g TMUX_LAST_PWD 2> /dev/null | cut -d= -f2)
+  if [ -d "$value" ]; then
+    cd "$value"
+  fi
+  zle -K main
+  local ret=$?
+  reset-prompt
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  omz_termsupport_precmd
+  return $ret
+}
+
+zle -N goto_tmux_last_pwd.widget
+
+
+goto_project_root.widget() {
+  local value=$(project_root)
+  if [ -d "$value" ]; then
+    cd "$value"
+  fi
+  zle -K main
+  local ret=$?
+  reset-prompt
+  typeset -f zle-line-init >/dev/null && zle zle-line-init
+  omz_termsupport_precmd
+  return $ret
+}
+
+zle -N goto_project_root.widget
+
+bindkey '^x^o^a' goto_tmux_last_pwd.widget
+bindkey '^x^o^b' goto_project_root.widget
+
 eval "$(luarocks path --lua-version 5.1)"
