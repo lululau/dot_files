@@ -1,5 +1,19 @@
 version = '0.21.3'
 
+function redir_execute(cmd)
+  -- Write cmd to a temp file
+  local tmpfile = os.tmpname()
+  local f = io.open(tmpfile, "w")
+  f:write(cmd)
+  f:close()
+
+  -- Execute the temp file
+  os.execute("bash " .. tmpfile .. " > /dev/tty 2>&1")
+
+  -- Clean up the temp file
+  os.remove(tmpfile)
+end
+
 local function black(x)
   return "\x1b[30m" .. x .. "\x1b[0m"
 end
