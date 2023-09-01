@@ -3843,7 +3843,9 @@ require("xpm").setup({
 
 return {
   on_load = {},
-  on_directory_change = {},
+  on_directory_change = {
+    { BashExecSilently = "autojump --add \"${PWD}\"" },
+  },
   on_focus_change = {},
   on_mode_switch = {},
   on_layout_switch = {},
