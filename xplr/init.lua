@@ -883,7 +883,7 @@ xplr.config.node_types.mime_essence = {
     ["*"] = { meta = { icon = "\u{f52c}" } },
   },
   image = {
-    ["*"] = { meta = { icon = "\u{503e}" } },
+    ["*"] = { meta = { icon = "" } },
   },
   application = {
     -- application/zip
@@ -912,6 +912,7 @@ xplr.config.node_types.extension = {}
 xplr.config.node_types.extension.m3u = { meta = { icon = "" } }
 xplr.config.node_types.extension["7z"] = { meta = { icon = "\u{f410}" } }
 xplr.config.node_types.extension.apk = { meta = { icon = "\u{f410}" } }
+xplr.config.node_types.extension.pdf = { meta = { icon = "\u{eaeb}" } }
 xplr.config.node_types.extension.bz2 = { meta = { icon = "\u{f410}" } }
 xplr.config.node_types.extension.cab = { meta = { icon = "\u{f410}" } }
 xplr.config.node_types.extension.cbr = { meta = { icon = "\u{f410}" } }
@@ -1076,6 +1077,7 @@ xplr.config.node_types.extension.xcplayground = { meta = { icon = "" } }
 xplr.config.node_types.extension.xls = { meta = { icon = "\u{f1c3}" } }
 xplr.config.node_types.extension.xlsx = { meta = { icon = "\u{f1c3}" } }
 xplr.config.node_types.extension.csv = { meta = { icon = "\u{e64a}" } }
+xplr.config.node_types.extension.log = { meta = { icon = "\u{f4ed}" } }
 xplr.config.node_types.extension.xml = { meta = { icon = "謹" } }
 xplr.config.node_types.extension.xul = { meta = { icon = "" } }
 xplr.config.node_types.extension.yaml = { meta = { icon = "" } }
@@ -1099,11 +1101,11 @@ xplr.config.node_types.extension["f#"] = { meta = { icon = "" } }
 -- xplr.config.node_types.special["Downloads"] = { meta = { icon = "" }, style = { fg = "Blue" } }
 -- ```
 xplr.config.node_types.special = {}
-xplr.config.node_types.special["Desktop"] = { meta = { icon = "ﲾ" } }
-xplr.config.node_types.special["Documents"] = { meta = { icon = "" } }
-xplr.config.node_types.special["Downloads"] = { meta = { icon = "" } }
-xplr.config.node_types.special["Music"] = { meta = { icon = "" } }
-xplr.config.node_types.special["Pictures"] = { meta = { icon = "" } }
+xplr.config.node_types.special["Desktop"] = { meta = { icon = "\u{f4a9}" } }
+xplr.config.node_types.special["Downloads"] = { meta = { icon = "\u{f409}" } }
+xplr.config.node_types.special["Documents"] = { meta = { icon = "\u{ea83}" } }
+xplr.config.node_types.special["Music"] = { meta = { icon = "\u{f075a}" } }
+xplr.config.node_types.special["Pictures"] = { meta = { icon = "\u{f03e}" } }
 xplr.config.node_types.special["Templates"] = { meta = { icon = "陼" } }
 xplr.config.node_types.special["Videos"] = { meta = { icon = "" } }
 xplr.config.node_types.special["Gemfile"] = { meta = { icon = "" } }
