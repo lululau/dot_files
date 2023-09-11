@@ -27,6 +27,7 @@ import logging
 import pathlib
 import platform
 import sys
+import base64
 
 from epc.client import EPCClient
 
@@ -43,7 +44,7 @@ def init_epc_client(emacs_server_port):
 
     if epc_client is None:
         try:
-            epc_client = EPCClient(("localhost", emacs_server_port), log_traceback=True)
+            epc_client = EPCClient(("127.0.0.1", emacs_server_port), log_traceback=True)
         except ConnectionRefusedError:
             import traceback
             logger.error(traceback.format_exc())
@@ -230,3 +231,5 @@ def string_to_base64(text):
 
     return base64_string
 
+def decode_text(buffer_content):
+    return base64.b64decode(buffer_content).decode("utf-8")
