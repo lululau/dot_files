@@ -1,5 +1,36 @@
 function! myspacevim#before() abort
 
+  if exists("g:neovide")
+    let g:spacevim_guifont = "JetBrainsMono\\ Nerd\\ Font:h13"
+    let g:neovide_transparency = 0.0
+    let g:transparency = 1.0
+    let g:neovide_background_color = '#272c36'.printf('%x', float2nr(255 * g:transparency))
+    let g:neovide_input_macos_alt_is_meta = v:true
+
+    lua <<EOF
+      vim.keymap.set('n', '<D-s>', ':w<CR>') -- Save
+      vim.keymap.set('v', '<D-c>', '"+y') -- Copy
+      vim.keymap.set('n', '<D-v>', '"+P') -- Paste normal mode
+      vim.keymap.set('v', '<D-v>', '"+P') -- Paste visual mode
+      vim.keymap.set('c', '<D-v>', '<C-R>+') -- Paste command mode
+      vim.keymap.set('i', '<D-v>', '<ESC>l"+Pli') -- Paste insert mode
+
+      vim.keymap.set('i', '<D-j>', '<C-o>10j')
+      vim.keymap.set('i', '<D-k>', '<C-o>10k')
+      vim.keymap.set('n', '<D-j>', '10j')
+      vim.keymap.set('n', '<D-k>', '10k')
+      vim.keymap.set('v', '<D-j>', '10j')
+      vim.keymap.set('v', '<D-k>', '10k')
+
+      vim.keymap.set('n', '<C-CR>', ':call SpaceVim#mapping#gd()<CR>')
+      vim.keymap.set('n', '<D-CR>', ':call SpaceVim#lsp#go_to_typedef()<CR>')
+      vim.keymap.set('n', '<S-CR>', ':call SpaceVim#lsp#references()<CR>')
+      vim.keymap.set('i', '<C-CR>', ':call SpaceVim#mapping#gd()<CR>')
+      vim.keymap.set('i', '<D-CR>', ':call SpaceVim#lsp#go_to_typedef()<CR>')
+      vim.keymap.set('i', '<S-CR>', ':call SpaceVim#lsp#references()<CR>')
+EOF
+endif
+
   let g:multi_cursor_use_default_mapping=0
   let g:multi_cursor_start_word_key      = '<A-J>'
   let g:multi_cursor_select_all_word_key = '<A-m>'
