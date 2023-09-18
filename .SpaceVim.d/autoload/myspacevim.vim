@@ -28,6 +28,19 @@ function! myspacevim#before() abort
       vim.keymap.set('i', '<C-CR>', ':call SpaceVim#mapping#gd()<CR>')
       vim.keymap.set('i', '<D-CR>', ':call SpaceVim#lsp#go_to_typedef()<CR>')
       vim.keymap.set('i', '<S-CR>', ':call SpaceVim#lsp#references()<CR>')
+
+      vim.keymap.set('n', '<D-t>', ':belowright vsplit | wincmd w<CR>')
+      vim.keymap.set('n', '<D-w>', ':close<CR>')
+      vim.keymap.set('i', '<D-t>', '<c-o>:belowright vsplit | wincmd w<CR>')
+      vim.keymap.set('i', '<D-w>', '<c-o>:close<CR>')
+
+      vim.keymap.set('n', '<D-d>', ":call SpaceVim#mapping#close_current_buffer()<cr>")
+      vim.keymap.set('n', '<D-b>', ":Telescope buffers<cr>")
+      vim.keymap.set('n', '<D-f>', ":exe 'Telescope find_files cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>")
+      vim.keymap.set('n', '<D-g>', ":Git status<cr>")
+      vim.keymap.set('n', '<D-l>', ":HopLine<cr>")
+      vim.keymap.set('n', '<D-p>', ":call SpaceVim#plugins#projectmanager#list()<cr>")
+      vim.keymap.set('n', '<D-o>', ":Telescope find_files<cr>")
 EOF
 endif
 
