@@ -173,4 +173,17 @@ EOF
   iabbrev ipdb import ipdb; ipdb.set_trace()<ESC>
   " nmap <return> ]<Space>
 
+  if exists("g:neovide")
+    nnoremap <A-1> :call SpaceVim#layers#core#statusline#jump("1")<CR>
+    nnoremap <A-2> :call SpaceVim#layers#core#statusline#jump("2")<CR>
+    nnoremap <A-3> :call SpaceVim#layers#core#statusline#jump("3")<CR>
+    nnoremap <A-4> :call SpaceVim#layers#core#statusline#jump("4")<CR>
+    nnoremap <A-5> :call SpaceVim#layers#core#statusline#jump("5")<CR>
+    nnoremap <A-6> :call SpaceVim#layers#core#statusline#jump("6")<CR>
+    nnoremap <A-7> :call SpaceVim#layers#core#statusline#jump("7")<CR>
+    nnoremap <A-8> :call SpaceVim#layers#core#statusline#jump("8")<CR>
+    nnoremap <A-9> :call SpaceVim#layers#core#statusline#jump("9")<CR>
+  endif
+
+
 endfunction
