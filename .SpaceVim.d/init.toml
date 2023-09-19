@@ -49,6 +49,7 @@ name = 'incsearch'
   name = "VersionControl"
 [[layers]]
 name = 'git'
+git_plugin = 'gina'
 [[layers]]
 name = 'github'
 
@@ -160,5 +161,7 @@ name = 'tools#dash'
     filemanager = 'nerdtree'
     filetree_direction = "left"
     relativenumber=false
+    enable_projects_cache = true
+    projects_cache_num = 200
 
 

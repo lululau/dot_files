@@ -1,5 +1,9 @@
 function! myspacevim#before() abort
 
+  set ignorecase smartcase
+
+  nnoremap <A-x> :tabonly<CR>
+
   if exists("g:neovide")
     let g:spacevim_guifont = "JetBrainsMono\\ Nerd\\ Font:h13"
     let g:neovide_transparency = 0.0
@@ -22,6 +26,8 @@ function! myspacevim#before() abort
       vim.keymap.set('v', '<D-j>', '10j')
       vim.keymap.set('v', '<D-k>', '10k')
 
+      vim.keymap.set('n', '<D-x>', ':tabonly<CR>')
+
       vim.keymap.set('n', '<C-CR>', ':call SpaceVim#mapping#gd()<CR>')
       vim.keymap.set('n', '<D-CR>', ':call SpaceVim#lsp#go_to_typedef()<CR>')
       vim.keymap.set('n', '<S-CR>', ':call SpaceVim#lsp#references()<CR>')
@@ -37,7 +43,7 @@ function! myspacevim#before() abort
       vim.keymap.set('n', '<D-d>', ":call SpaceVim#mapping#close_current_buffer()<cr>")
       vim.keymap.set('n', '<D-b>', ":Telescope buffers<cr>")
       vim.keymap.set('n', '<D-f>', ":exe 'Telescope find_files cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>")
-      vim.keymap.set('n', '<D-g>', ":Git status<cr>")
+      vim.keymap.set('n', '<D-g>', ":Gina status --opener=vsplit<cr>")
       vim.keymap.set('n', '<D-l>', ":HopLine<cr>")
       vim.keymap.set('n', '<D-p>', ":call SpaceVim#plugins#projectmanager#list()<cr>")
       vim.keymap.set('n', '<D-o>', ":Telescope find_files<cr>")
