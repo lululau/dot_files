@@ -207,5 +207,47 @@ EOF
     nnoremap <A-9> :call SpaceVim#layers#core#statusline#jump("9")<CR>
   endif
 
+  let g:_spacevim_mappings_space.o = {'name' : '+Custom'}
+  let g:_spacevim_mappings_space.o.d = {'name' : '+directory'}
+  let paths = [
+          \{"keys": ["o", "d", "A"], "path": "/Applications/", "desc": "applications-dir"},
+          \{"keys": ["o", "d", "b"], "path": "~/blog/", "desc": "blog-dir"},
+          \{"keys": ["o", "d", "B"], "path": "~/bin/", "desc": "bin-dir"},
+          \{"keys": ["o", "d", "C"], "path": "~/Cafe/", "desc": "cafe-dir"},
+          \{"keys": ["o", "d", "c"], "path": "~/.config/", "desc": "config-dir"},
+          \{"keys": ["o", "d", "<C-c>"], "path": "~/cascode/", "desc": "cascode-dir"},
+          \{"keys": ["o", "d", "d"], "path": "~/Downloads/", "desc": "downloads-dir"},
+          \{"keys": ["o", "d", "D"], "path": "~/Documents/", "desc": "documents-dir"},
+          \{"keys": ["o", "d", "f"], "path": "~/.fzf/", "desc": "fzf-dir"},
+          \{"keys": ["o", "d", "g"], "path": "~/cascode/github.com/", "desc": "github-dir"},
+          \{"keys": ["o", "d", "H"], "path": "/home", "desc": "home-dir"},
+          \{"keys": ["o", "d", "h"], "path": "~/", "desc": "user-dir"},
+          \{"keys": ["o", "d", "i"], "path": "~/Library/Mobile Documents/com~apple~CloudDocs/", "desc": "icloud-dir"},
+          \{"keys": ["o", "d", "k"], "path": "~/kt/", "desc": "kt-dir"},
+          \{"keys": ["o", "d", "l"], "path": "~/Library/Application Support/", "desc": "las-dir"},
+          \{"keys": ["o", "d", "L"], "path": "~/Library/Preferences/", "desc": "lp-dir"},
+          \{"keys": ["o", "d", "M"], "path": "~/Movies/", "desc": "movies-dir"},
+          \{"keys": ["o", "d", "m"], "path": "~/Documents/materials/", "desc": "materials-dir"},
+          \{"keys": ["o", "d", "s"], "path": "~/Documents/materials/scratches/", "desc": "scratch-dir"},
+          \{"keys": ["o", "d", "S"], "path": "~/snips/", "desc": "snips-dir"},
+          \{"keys": ["o", "d", "<C-s>"], "path": "~/Documents/materials/snippets", "desc": "snippets-dir"},
+          \{"keys": ["o", "d", "e"], "path": "~/.emacs.spacemacs.d", "desc": "emacs-dir"},
+          \{"keys": ["o", "d", "z"], "path": "~/.spacezsh/", "desc": "spacezsh-dir"},
+          \{"keys": ["o", "d", "Z"], "path": "~/.oh-my-zsh/", "desc": "ohmyzsh-dir"},
+          \{"keys": ["o", "d", "/"], "path": "/", "desc": "root-dir"},
+          \{"keys": ["o", "d", "o"], "path": "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org", "desc": "org-dir"},
+          \{"keys": ["o", "d", "j"], "path": "~/Documents/materials/journal", "desc": "journal-dir"},
+          \{"keys": ["o", "d", "J"], "path": "~/Documents/materials/jira", "desc": "jira-dir"},
+          \{"keys": ["o", "d", "n"], "path": "~/Documents/materials/notes", "desc": "notes-dir"},
+          \{"keys": ["o", "d", "N"], "path": "~/Documents/evernotes", "desc": "evernotes-dir"},
+          \{"keys": ["o", "d", "w"], "path": "~/Documents/materials/webclips", "desc": "webclips-dir"},
+          \{"keys": ["o", "d", "v"], "path": "/Volumes", "desc": "volumes-dir"},
+          \{"keys": ["o", "d", "T"], "path": "~/.tmux", "desc": "tmux-dir"},
+          \{"keys": ["o", "d", "t"], "path": "~/tmp/", "desc": "tmp-dir"}
+  \]
+
+  for entry in paths
+    call SpaceVim#mapping#space#def('nnoremap', entry.keys, 'edit ' . entry.path, entry.desc, 1, 1)
+  endfor
 
 endfunction
