@@ -59,6 +59,7 @@ endif
   let g:multi_cursor_prev_key            = '<A-K>'
   let g:multi_cursor_skip_key            = '<A-X>'
   let g:multi_cursor_quit_key            = '<Esc>'
+  let g:vim_textobj_parameter_mapping = 'a'
 
   autocmd User NerdTreeInit
   \ nnoremap <silent><buffer> <CR> :<C-u>call

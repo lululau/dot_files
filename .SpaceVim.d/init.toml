@@ -20,6 +20,13 @@
     repo = 'glacambre/firenvim'
     merged = false
 
+[[custom_plugins]]
+    repo = 'Julian/vim-textobj-variable-segment'
+    merged = false
+
+[[custom_plugins]]
+    repo = 'sgur/vim-textobj-parameter'
+    merged = false
 
 [[layers]]
 name = 'telescope'
