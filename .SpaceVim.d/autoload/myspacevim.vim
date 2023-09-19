@@ -170,6 +170,8 @@ EOF
   inoremap <A-bs> <esc><esc>caw
   cnoremap <A-bs> <c-w>
 
+  nnoremap <CR> o<esc>
+
   call SpaceVim#mapping#space#def('xnoremap', ['y'], 'call clipboard#yank()', 'copy-to-system-clipboard', 1)
 
   call SpaceVim#mapping#space#def('nnoremap', ['/'], 'call SpaceVim#plugins#flygrep#open({})',
