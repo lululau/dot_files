@@ -3,6 +3,7 @@ function! myspacevim#before() abort
   set ignorecase smartcase
 
   nnoremap <A-x> :tabonly<CR>
+  au TextYankPost * silent! lua vim.highlight.on_yank()
 
   if exists("g:neovide")
     let g:spacevim_guifont = "JetBrainsMono\\ Nerd\\ Font:h13"
