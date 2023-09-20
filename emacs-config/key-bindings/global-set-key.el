@@ -132,6 +132,8 @@
                                                                      (root-base-name (car (last (split-string root "/" t))))
                                                                      (buffer-name (format "*vterm-cmd-git-multi-branch-%s*" root-base-name)))
                                                                 (lx/run-in-vterm "git multi-branch" buffer-name root t))))
+(global-set-key (kbd "s-r s-r ga") #'(lambda () (interactive) (let* ((vterm-kill-buffer-on-exit nil))
+                                                                (lx/run-in-vterm "git remote-branches" "*git-remote-branches*" default-directory t))))
 (global-set-key (kbd "s-r s-r gl") #'(lambda () (interactive) (let* ((vterm-kill-buffer-on-exit nil)
                                                                     (root (projectile-project-root))
                                                                     (root-base-name (car (last (split-string root "/" t))))
