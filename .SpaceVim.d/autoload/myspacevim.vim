@@ -208,8 +208,11 @@ EOF
   endif
 
   let g:_spacevim_mappings_space.o = {'name' : '+Custom'}
-  let g:_spacevim_mappings_space.o.d = {'name' : '+directory'}
-  let paths = [
+  let g:_spacevim_mappings_space.o.c = {'name' : '+config files'}
+  let g:_spacevim_mappings_space.o.d = {'name' : '+directories'}
+  let g:_spacevim_mappings_space.o.e = {'name' : '+demo files'}
+  let g:_spacevim_mappings_space.o.o = {'name' : '+org-mode files'}
+  let l:directories = [
           \{"keys": ["o", "d", "A"], "path": "/Applications/", "desc": "applications-dir"},
           \{"keys": ["o", "d", "b"], "path": "~/blog/", "desc": "blog-dir"},
           \{"keys": ["o", "d", "B"], "path": "~/bin/", "desc": "bin-dir"},
@@ -243,10 +246,85 @@ EOF
           \{"keys": ["o", "d", "w"], "path": "~/Documents/materials/webclips", "desc": "webclips-dir"},
           \{"keys": ["o", "d", "v"], "path": "/Volumes", "desc": "volumes-dir"},
           \{"keys": ["o", "d", "T"], "path": "~/.tmux", "desc": "tmux-dir"},
-          \{"keys": ["o", "d", "t"], "path": "~/tmp/", "desc": "tmp-dir"}
+          \{"keys": ["o", "d", "t"], "path": "~/tmp/", "desc": "tmp-dir"},
   \]
+  for entry in directories
+    call SpaceVim#mapping#space#def('nnoremap', entry.keys, 'edit ' . entry.path . ' | cd ' . entry.path, entry.desc, 1, 1)
+  endfor
 
-  for entry in paths
+  let l:config_files = [
+          \{"keys": ["o", "c", "h"], "path": "/etc/hosts", "desc": "hosts-config"},
+          \{"keys": ["o", "c", "S"], "path": "/etc/sudoers", "desc": "sudoers"},
+          \{"keys": ["o", "c", "z"], "path": "~/.zshrc", "desc": "zshrc"},
+          \{"keys": ["o", "c", "p"], "path": "~/.pryrc", "desc": "pryrc"},
+          \{"keys": ["o", "c", "l"], "path": "~/.vrl.yml", "desc": "vrl"},
+          \{"keys": ["o", "c", "g"], "path": "~/.gitconfig", "desc": "git"},
+          \{"keys": ["o", "c", "d"], "path": "~/.docker", "desc": "docker-config"},
+          \{"keys": ["o", "c", "s"], "path": "~/.ssh/config", "desc": "ssh-config"},
+          \{"keys": ["o", "c", "A"], "path": "~/.ssh/authorized_keys", "desc": "authorized_keys"},
+          \{"keys": ["o", "c", "a"], "path": "/etc/ansible", "desc": "ansible-conf-dir"},
+          \{"keys": ["o", "c", "t"], "path": "~/.tmux.conf", "desc": "tmux-conf"},
+          \{"keys": ["o", "c", "J"], "path": "~/.jenkins-builder.yaml", "desc": "jenkins-builder"},
+          \{"keys": ["o", "c", "j"], "path": "~/.ideavimrc", "desc": "ideavimrc"},
+          \{"keys": ["o", "c", "n"], "path": "/usr/local/etc/nginx", "desc": "nginx"},
+          \{"keys": ["o", "c", "k"], "path": "~/.kube/config", "desc": "kubectl"},
+          \{"keys": ["o", "c", "K"], "path": "~/.k9s", "desc": "k9s"},
+          \{"keys": ["o", "c", "9"], "path": "~/.k9s", "desc": "k9s2"},
+          \{"keys": ["o", "c", "q"], "path": "~/.arql.d", "desc": "arql"},
+          \{"keys": ["o", "c", "m"], "path": "~/.m2/settings.xml", "desc": "maven"},
+          \{"keys": ["o", "c", "v"], "path": "~/.vimrc", "desc": "vimrc"}
+  \]
+  for entry in config_files
+    call SpaceVim#mapping#space#def('nnoremap', entry.keys, 'edit ' . entry.path, entry.desc, 1, 1)
+  endfor
+
+  let l:demo_files = [
+      \{"keys": ["o", "e", "a"], "path": "~/Documents/materials/demo/demo.art", "desc": "artist-demo"},
+      \{"keys": ["o", "e", "A"], "path": "~/cascode/github.com/prog-scala/src/main/scala/lx/demo.scala", "desc": "scala-demo"},
+      \{"keys": ["o", "e", "b"], "path": "~/Documents/materials/demo/big.txt", "desc": "bigtxt-demo"},
+      \{"keys": ["o", "e", "B"], "path": "~/Documents/materials/demo/spring-boot-init-list.org", "desc": "spring-boot-init-list"},
+      \{"keys": ["o", "e", "h"], "path": "~/Documents/materials/demo/demo-http.org", "desc": "http-demo"},
+      \{"keys": ["o", "e", "l"], "path": "~/Documents/materials/demo/demo.el", "desc": "elisp-demo"},
+      \{"keys": ["o", "e", "r"], "path": "~/Documents/materials/demo/demo.rb", "desc": "ruby-demo"},
+      \{"keys": ["o", "e", "P"], "path": "~/Documents/materials/demo/demo.py", "desc": "python-demo"},
+      \{"keys": ["o", "e", "J"], "path": "~/cascode/java/maven/simple/src/main/java/org/sonatype/mavenbook/App.java", "desc": "java-demo"},
+      \{"keys": ["o", "e", "j"], "path": "~/Documents/materials/demo/demo.js", "desc": "js-demo"},
+      \{"keys": ["o", "e", "s"], "path": "~/Documents/materials/demo/demo.sh", "desc": "shell-demo"},
+      \{"keys": ["o", "e", "S"], "path": "~/Documents/materials/demo/demo.swift", "desc": "swift-demo"},
+      \{"keys": ["o", "e", "p"], "path": "~/Documents/materials/demo/demo.pl", "desc": "perl-demo"},
+      \{"keys": ["o", "e", "o"], "path": "~/Documents/materials/demo/demo.org", "desc": "org-demo"},
+      \{"keys": ["o", "e", "m"], "path": "~/Documents/materials/demo/demo.md", "desc": "markdown-demo"},
+      \{"keys": ["o", "e", "C"], "path": "~/Documents/materials/demo/clojure/demo/src/demo/demo.clj", "desc": "coffee-demo"},
+      \{"keys": ["o", "e", "y"], "path": "~/Documents/materials/demo/demo.yaml", "desc": "yaml-demo"},
+      \{"keys": ["o", "e", "H"], "path": "~/Documents/materials/demo/demo.html", "desc": "html-demo"},
+      \{"keys": ["o", "e", "c"], "path": "~/Documents/materials/demo/demo.c", "desc": "c-demo"},
+      \{"keys": ["o", "e", "g"], "path": "~/cascode/go/src/demo/demo.go", "desc": "go-demo"},
+      \{"keys": ["o", "e", "q"], "path": "~/Documents/materials/demo/demo.sql", "desc": "sql-demo"},
+      \{"keys": ["o", "e", "E"], "path": "~/Documents/materials/demo/demo.exs", "desc": "elixir-demo"},
+      \{"keys": ["o", "e", "e"], "path": "~/Documents/materials/demo/demo.es", "desc": "es-demo"},
+      \{"keys": ["o", "e", "k"], "path": "~/Documents/materials/demo/demo.hs", "desc": "haskell-demo"},
+      \{"keys": ["o", "e", "x"], "path": "~/Documents/materials/mind-wave-chats/default.chat", "desc": "chat-demo"},
+      \{"keys": ["o", "e", "t"], "path": "~/Documents/materials/demo/demo.txt", "desc": "txt-demo"},
+  \]
+  for entry in demo_files
+    call SpaceVim#mapping#space#def('nnoremap', entry.keys, 'edit ' . entry.path, entry.desc, 1, 1)
+  endfor
+
+  let l:org_files = [
+      \{"keys": ["o", "o", "b"], "path": "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/bookmarks.org", "desc": "bookmarks-org"},
+      \{"keys": ["o", "o", "d"], "path": "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/tech_diary.org", "desc": "tech-diary-org"},
+      \{"keys": ["o", "o", "h"], "path": "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/homebrews.org", "desc": "homebrews-org"},
+      \{"keys": ["o", "o", "p"], "path": "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/projects.org", "desc": "projects-org"},
+      \{"keys": ["o", "o", "l"], "path": "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/learnings.org", "desc": "learnings-org"},
+      \{"keys": ["o", "o", "f"], "path": "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/life.org", "desc": "life-org"},
+      \{"keys": ["o", "o", "c"], "path": "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/capture.org", "desc": "capture-org"},
+      \{"keys": ["o", "o", "C"], "path": "~/Documents/materials/cheatsheets", "desc": "cheatsheet-org"},
+      \{"keys": ["o", "o", "t"], "path": "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/team-tasks.org", "desc": "team-tasks-org"},
+      \{"keys": ["o", "o", "k"], "path": "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/kbd-macros.org", "desc": "kbd-macros-org"},
+      \{"keys": ["o", "o", "j"], "path": "~/Documents/materials/jira/recent-issues.org", "desc": "jira-org"},
+      \{"keys": ["o", "o", "r"], "path": "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org", "desc": "rails-guides-org"},
+  \]
+  for entry in org_files
     call SpaceVim#mapping#space#def('nnoremap', entry.keys, 'edit ' . entry.path, entry.desc, 1, 1)
   endfor
 
