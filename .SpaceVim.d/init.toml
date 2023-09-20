@@ -21,7 +21,7 @@
     merged = false
 
 [[custom_plugins]]
-    repo = 'Julian/vim-textobj-variable-segment'
+    repo = 'lululau/vim-textobj-variable-segment'
     merged = false
 
 [[custom_plugins]]
