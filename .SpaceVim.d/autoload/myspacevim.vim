@@ -13,11 +13,14 @@ function! myspacevim#before() abort
 
     lua <<EOF
       vim.keymap.set('n', '<D-s>', ':w<CR>') -- Save
+      vim.keymap.set('n', '<D-c><D-c>', '"+yy') -- Copy line
+      vim.keymap.set('n', '<D-c>p', '"+yip') -- Copy paragraph
       vim.keymap.set('v', '<D-c>', '"+y') -- Copy
       vim.keymap.set('n', '<D-v>', '"+P') -- Paste normal mode
       vim.keymap.set('v', '<D-v>', '"+P') -- Paste visual mode
       vim.keymap.set('c', '<D-v>', '<C-R>+') -- Paste command mode
-      vim.keymap.set('i', '<D-v>', '<ESC>l"+Pli') -- Paste insert mode
+      -- vim.keymap.set('i', '<D-v>', '<ESC>l"+Pli') -- Paste insert mode
+      vim.keymap.set('i', '<D-v>', '<C-o>"+P') -- Paste insert mode
 
       vim.keymap.set('i', '<D-j>', '<C-o>10j')
       vim.keymap.set('i', '<D-k>', '<C-o>10k')
@@ -50,6 +53,8 @@ function! myspacevim#before() abort
 EOF
 endif
 
+  let g:spacevim_home_files_number = 30
+  let g:spacevim_projects_cache_num = 200
   let g:multi_cursor_use_default_mapping=0
   let g:multi_cursor_start_word_key      = '<A-J>'
   let g:multi_cursor_select_all_word_key = '<A-m>'
@@ -170,8 +175,6 @@ EOF
   inoremap <A-w> <c-w>
   inoremap <A-bs> <esc><esc>caw
   cnoremap <A-bs> <c-w>
-
-  nnoremap <CR> o<esc>
 
   call SpaceVim#mapping#space#def('xnoremap', ['y'], 'call clipboard#yank()', 'copy-to-system-clipboard', 1)
 
