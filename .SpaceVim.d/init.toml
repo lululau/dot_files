@@ -28,6 +28,13 @@
     repo = 'sgur/vim-textobj-parameter'
     merged = false
 
+[[custom_plugins]]
+    repo = 'nvim-treesitter/nvim-treesitter-textobjects'
+    merged = false
+
+[[layers]]
+name = 'treesitter'
+
 [[layers]]
 name = 'telescope'
 
