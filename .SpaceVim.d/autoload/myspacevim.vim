@@ -189,7 +189,7 @@ EOF
 
 
 
-  call SpaceVim#mapping#space#def('nnoremap', ['n', 'i'], ':NERDTreeFind<cr>', 'find-file-in-nerdtree', 1)
+  call SpaceVim#mapping#space#def('nnoremap', ['n', 'i'], ':NERDTreeFind', 'find-file-in-nerdtree', 1)
 
   call SpaceVim#mapping#space#def('nmap', ['<Space>'], 'HopChar2', 'jump-to-suite-of-two-characters', 1, 1)
 
@@ -333,6 +333,7 @@ EOF
     call SpaceVim#mapping#space#def('nnoremap', entry.keys, 'edit ' . entry.path, entry.desc, 1, 1)
   endfor
 
+  call SpaceVim#mapping#space#def('nnoremap', ['o', 'j'], 'Telescope autojump', 'find-autojump-directories', 1)
 
   lua <<EOF
     require'nvim-treesitter.configs'.setup {

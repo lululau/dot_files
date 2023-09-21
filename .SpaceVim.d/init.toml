@@ -40,6 +40,10 @@
     repo = 'lululau/dired.nvim'
     merged = false
 
+[[custom_plugins]]
+    repo = 'jreybert/vimagit'
+    merged = false
+
 [[layers]]
 name = 'treesitter'
 
