@@ -32,6 +32,14 @@
     repo = 'nvim-treesitter/nvim-treesitter-textobjects'
     merged = false
 
+[[custom_plugins]]
+    repo = 'MunifTanjim/nui.nvim'
+    merged = false
+
+[[custom_plugins]]
+    repo = 'lululau/dired.nvim'
+    merged = false
+
 [[layers]]
 name = 'treesitter'
 

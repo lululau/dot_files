@@ -254,7 +254,7 @@ EOF
           \{"keys": ["o", "d", "t"], "path": "~/tmp/", "desc": "tmp-dir"},
   \]
   for entry in directories
-    call SpaceVim#mapping#space#def('nnoremap', entry.keys, 'edit ' . entry.path . ' | cd ' . entry.path, entry.desc, 1, 1)
+    call SpaceVim#mapping#space#def('nnoremap', entry.keys, 'Dired ' . entry.path, entry.desc, 1, 1)
   endfor
 
   let l:config_files = [
@@ -379,6 +379,13 @@ EOF
         },
       },
     }
+
+    require("dired").setup {
+        path_separator = "/",
+        show_banner = false,
+        show_hidden = true
+    }
+
 EOF
 
 
