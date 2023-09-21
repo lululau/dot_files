@@ -387,6 +387,8 @@ EOF
         show_hidden = true
     }
 
+
+   require('telescope').load_extension('autojump')
 EOF
 
 
