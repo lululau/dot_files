@@ -14,7 +14,7 @@ end
 
 function aj.get_paths()
     local paths = {}
-    local f = io.popen("autojump -s | sed -n '/^_______/!p; /^_______/q' | tac")
+    local f = io.popen("AUTOJUMP_SOURCED=1 autojump -s | sed -n '/^_______/!p; /^_______/q' | tac")
     for line in f:lines() do
         local score, path = line:match("(%d+):%s+(.+)")
         table.insert(paths, {path=path, score=score})
