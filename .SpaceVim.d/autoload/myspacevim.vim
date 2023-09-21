@@ -46,11 +46,11 @@ function! myspacevim#before() abort
 
       vim.keymap.set('n', '<D-d>', ":call SpaceVim#mapping#close_current_buffer()<cr>")
       vim.keymap.set('n', '<D-b>', ":Telescope buffers<cr>")
-      vim.keymap.set('n', '<D-f>', ":exe 'Telescope find_files cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>")
+      vim.keymap.set('n', '<D-f>', ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>")
       vim.keymap.set('n', '<D-g>', ":Gina status --opener=vsplit<cr>")
       vim.keymap.set('n', '<D-l>', ":HopLine<cr>")
       vim.keymap.set('n', '<D-p>', ":call SpaceVim#plugins#projectmanager#list()<cr>")
-      vim.keymap.set('n', '<D-o>', ":Telescope find_files<cr>")
+      vim.keymap.set('n', '<D-o>', ":Telescope find_files hidden=true<cr>")
 EOF
 endif
 
@@ -335,6 +335,8 @@ EOF
 
   call SpaceVim#mapping#space#def('nnoremap', ['o', 'j'], 'Telescope autojump', 'find-autojump-directories', 1)
 
+  call SpaceVim#mapping#space#def('nnoremap', ['j', 'd'], ':Dired', 'dired', 1)
+
   lua <<EOF
     require'nvim-treesitter.configs'.setup {
       textobjects = {
@@ -389,6 +391,7 @@ EOF
 
 
    require('telescope').load_extension('autojump')
+   require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules", ".git"} } } 
 EOF
 
 
