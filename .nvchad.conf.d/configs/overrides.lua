@@ -12,6 +12,13 @@ M.treesitter = {
     "c",
     "markdown",
     "markdown_inline",
+    "ruby",
+    "python",
+    "java",
+    "go",
+    "rust",
+    "bash",
+    "vue"
   },
   indent = {
     enable = true,
@@ -37,6 +44,22 @@ M.mason = {
     -- c/cpp stuff
     "clangd",
     "clang-format",
+
+    -- python stuff
+    "pyright",
+
+    -- ruby stuff
+    "solargraph",
+    "rubocop",
+
+    -- go stuff
+    "gopls",
+
+    -- rust stuff
+    "rust-analyzer",
+
+    -- bash stuff
+    "bash-language-server",
   },
 }
 
