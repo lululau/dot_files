@@ -18,3 +18,5 @@ if vim.g.neovide then
     vim.g.neovide_background_color = string.format("#272c36%x", math.floor(255 * vim.g.transparency))
     vim.g.neovide_input_macos_alt_is_meta = true
 end
+
+require "custom.misc"
