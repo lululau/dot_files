@@ -84,8 +84,15 @@ local plugins = {
   },
 
   {
-    'charludo/projectmgr.nvim',
+    'ahmedkhalf/project.nvim',
     lazy = false,
+    config = function()
+      require("project_nvim").setup {
+        patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "Cargo.toml", ".projectile", "Gemfile", "pyproject.toml", "poetry.lock" },
+        ignore_lsp = { "efm", "null-ls" },
+        silent_chdir = false,
+      }
+    end
   },
 
   {
