@@ -5,11 +5,13 @@ local SpaceKeyMappings = require("custom.space.mappings")
 
 M.general = {
   v = {
+    ["<D-q>"] = { "<ESC>", "Enter normal mode"},
     [">"] = { ">gv", "indent"},
     ["<C-z>"] = {"<esc>", "Escape to normal mode"}
   },
 
   n = {
+    ["<D-q>"] = { "i", "Enter insert mode"},
     ["<Esc>"] = { ":noh <CR>", "Clear highlights" },
     ["<A-h>"] = { "<C-w>h", "Window left" },
     ["<A-l>"] = { "<C-w>l", "Window right" },
@@ -96,6 +98,8 @@ M.general = {
   },
 
   i = {
+    ["<D-q>"] = { "<ESC>", "Enter normal mode"},
+    ["<C-k>"] = { "<End>", "Move to end of line" },
     ["<D-j>"] = { "<C-o>10j", "Move down 10 lines" },
     ["<D-k>"] = { "<C-o>10k", "Move up 10 lines" },
     ["<C-x><C-s>"] = {"<C-o>:w<CR>", "Save"},
@@ -154,6 +158,7 @@ M.general = {
   },
 
   c = {
+    ["<D-q>"] = { "<ESC>", "Enter normal mode"},
     ["<C-n>"] = {"<C-j>", "Move to next line"},
     ["<C-p>"] = {"<C-k>", "Move to previous line"},
     ["<A-f>"] = {"<S-Right>", "Move to right"},
@@ -268,6 +273,14 @@ M.telescope = {
 
   v = {
     ["<leader>*"] = { "<cmd> Telescope grep_string <CR>", "Grep string" },
+  }
+}
+
+M.hop = {
+  n = {
+    ["<leader><leader>"] = { "<cmd> HopChar2<CR>", "Jump to char", opts = { silent = true, nowait = true}},
+    ["<leader>jl"] = { "<cmd> HopLine<CR>", "Jump to char", opts = { silent = true, nowait = true}},
+    ["<D-l>"] = { "<cmd> HopLine<CR>", "Jump to char", opts = { silent = true, nowait = true}},
   }
 }
 
