@@ -168,6 +168,11 @@ local plugins = {
   },
 
   {
+    "kana/vim-textobj-line",
+    lazy = false,
+  },
+
+  {
     "nvim-treesitter/nvim-treesitter-textobjects",
     lazy = false,
     dependencies = {
