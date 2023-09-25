@@ -248,13 +248,18 @@ local plugins = {
     end
   },
   
+
   {
     "phaazon/hop.nvim",
     lazy = false,
     config = function()
       require'hop'.setup { keys = 'asdjklwop' }
     end
-  }
+  },
+
+  {
+    "fcying/telescope-ctags-outline.nvim",
+  },
 
 }
 

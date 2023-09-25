@@ -274,6 +274,7 @@ M.telescope = {
     ["<D-i><D-b>"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
     ["<leader>w|"] = { "<C-o>:belowright vsplit | wincmd w<CR>", "Split window vertically"},
     ["<leader>w-"] = { "<C-o>:belowright split | wincmd w<CR>", "Split window horizontally"},
+    ["<leader>ji"] = { "<cmd> Telescope ctags_outline outline<CR>", "Jump to ctags outline"},
   },
 
   v = {
