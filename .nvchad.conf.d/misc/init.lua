@@ -47,3 +47,5 @@ vim.cmd("highlight CopilotSuggestion guifg=#24ead9 ctermfg=6")
 vim.api.nvim_set_keymap("n", "<leader>pp", ":ProjectMgr<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<D-p>", ":ProjectMgr<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "<D-p>", "<ESC>:ProjectMgr<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("", "<C-g>", "<C-c>:nohlsearch<CR>", { noremap = true, silent = true })

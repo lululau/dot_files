@@ -94,7 +94,25 @@ local plugins = {
     build = function()
       vim.fn["firenvim#install"](0)
     end
-  }
+  },
+
+  {
+    'X3eRo0/dired.nvim',
+    lazy = false,
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+    },
+    config = function()
+      require("dired").setup {
+        path_separator = "/",
+        show_banner = true,
+        show_hidden = true,
+        show_dot_dirs = true,
+        show_colors = true,
+      }
+    end
+  },
+
 
 }
 
