@@ -239,6 +239,7 @@ M.telescope = {
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
     ["<D-o>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
     ["<leader>/"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
+    ["<leader>*"] = { "<cmd> Telescope grep_string <CR>", "Grep string" },
     ["<leader>bb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
     ["<D-b>"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
     ["<C-x><C-b>"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
@@ -262,6 +263,10 @@ M.telescope = {
     ["<leader>w|"] = { "<C-o>:belowright vsplit | wincmd w<CR>", "Split window vertically"},
     ["<leader>w-"] = { "<C-o>:belowright split | wincmd w<CR>", "Split window horizontally"},
   },
+
+  v = {
+    ["<leader>*"] = { "<cmd> Telescope grep_string <CR>", "Grep string" },
+  }
 }
 
 
