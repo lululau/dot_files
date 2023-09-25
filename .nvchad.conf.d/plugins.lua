@@ -170,6 +170,9 @@ local plugins = {
   {
     "kana/vim-textobj-line",
     lazy = false,
+    dependencies = {
+      "kana/vim-textobj-user",
+    },
   },
 
   {
