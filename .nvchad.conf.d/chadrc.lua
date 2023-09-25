@@ -19,11 +19,11 @@ M.ui = {
     load_on_startup = true,
     buttons = {
       { "󰍉  Find File", "Spc f f", "Telescope find_files" },
-      { "󰈚  Recent Files", "Spc f o", "Telescope oldfiles" },
-      { "󰈭  Find Word", "Spc f w", "Telescope live_grep" },
-      { "  Bookmarks", "Spc m a", "Telescope marks" },
+      { "󰈚  Recent Files", "Spc f r", "Telescope oldfiles" },
+      { "󰈭  Find Word", "Spc /", "Telescope live_grep" },
+      { "  Bookmarks", "Spc f b", "Telescope marks" },
       { "  Themes", "Spc t h", "Telescope themes" },
-      { "  Mappings", "Spc c h", "NvCheatsheet" },
+      { "  Mappings", "Spc h c", "NvCheatsheet" },
     },
   }
 }

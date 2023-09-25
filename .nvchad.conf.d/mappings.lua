@@ -10,6 +10,37 @@ M.general = {
   },
 
   n = {
+    ["<Esc>"] = { ":noh <CR>", "Clear highlights" },
+    ["<A-h>"] = { "<C-w>h", "Window left" },
+    ["<A-l>"] = { "<C-w>l", "Window right" },
+    ["<A-j>"] = { "<C-w>j", "Window down" },
+    ["<A-k>"] = { "<C-w>k", "Window up" },
+
+    ["<leader>tn"] = { "<cmd> set nu! <CR>", "Toggle line number" },
+    ["<leader>bn"] = { "<cmd> enew <CR>", "New buffer" },
+    ["<leader>hc"] = { "<cmd> NvCheatsheet <CR>", "Mapping cheatsheet" },
+    ["<leader>qq"] = { "<ESC>:qa<CR>", "Force quit all" },
+    ["<leader>bd"] = { "<ESC>:bd!<CR>", "Close current buffer" },
+    ["<leader>bh"] = { ":Nvdash<CR>", "Open Dashboard" },
+
+    ["<leader>'"] = { function()
+        require("nvterm.terminal").toggle "horizontal"
+     end,
+     "Open terminal"
+    },
+
+    ["<D-'>"] = { function()
+        require("nvterm.terminal").toggle "horizontal"
+     end,
+     "Open terminal"
+    },
+
+    ["<leader>="] = {
+      function()
+        vim.lsp.buf.format { async = true }
+      end,
+      "LSP formatting",
+    },
     ["<D-j>"] = { "10j", "Move down 10 lines" },
     ["<C-x><C-s>"] = {"<ESC>:w<CR>", "Save"},
     ["<c-x><c-z>"] = {"<C-z>", "Let vim go background"},
@@ -129,6 +160,14 @@ M.general = {
 
   s = {
     ["<C-x><C-s>"] = {"<C-o>:w<CR>", "Save"},
+  },
+
+  t = {
+    ["<D-'>"] = { function()
+        require("nvterm.terminal").toggle "horizontal"
+     end,
+     "Open terminal"
+    },
   }
 }
 
@@ -170,5 +209,38 @@ M.copy_paste = {
     ["<D-v>"] = { "<C-o>\"+P", "paste insert mode", opts = { nowait = true} }
   }
 }
+
+M.telescope = {
+  plugin = true,
+
+  n = {
+    -- find
+    ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "Find files" },
+    ["<D-f>"] = { "<cmd> Telescope find_files <CR>", "Find files" },
+    ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
+    ["<D-o>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
+    ["<leader>/"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
+    ["<leader>bb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
+    ["<D-b>"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
+    ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" },
+    ["<leader>fr"] = { "<cmd> Telescope oldfiles <CR>", "Find oldfiles" },
+    ["<leader>ss"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "Find in current buffer" },
+
+    -- git
+    ["<leader>gl"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
+    ["<leader>gs"] = { "<cmd> Telescope git_status <CR>", "Git status" },
+    ["<D-g>"] = { "<cmd> Telescope git_status <CR>", "Git status" },
+
+    -- pick a hidden term
+    ["<leader>pt"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" },
+
+    -- theme switcher
+    ["<leader>th"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
+
+    ["<leader>fb"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
+    ["<D-i><D-b>"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
+  },
+}
+
 
 return vim.tbl_deep_extend("force", M, SpaceKeyMappings)
