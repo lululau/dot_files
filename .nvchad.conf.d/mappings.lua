@@ -31,8 +31,15 @@ M.general = {
 
     ["<D-'>"] = { function()
         require("nvterm.terminal").toggle "horizontal"
-     end,
-     "Open terminal"
+    end,
+      "Open terminal"
+    },
+
+
+    ["<A-'>"] = { function()
+        require("nvterm.terminal").toggle "horizontal"
+    end,
+      "Open terminal"
     },
 
     ["<leader>="] = {
@@ -168,6 +175,17 @@ M.general = {
      end,
      "Open terminal"
     },
+
+    ["<A-'>"] = { function()
+        require("nvterm.terminal").toggle "horizontal"
+     end,
+     "Open terminal"
+    },
+
+    ["<A-h>"] = { "<C-\\><C-n><C-w>h", "Move to left window"},
+    ["<A-j>"] = { "<C-\\><C-n><C-w>j", "Move to down window"},
+    ["<A-k>"] = { "<C-\\><C-n><C-w>k", "Move to up window"},
+    ["<A-l>"] = { "<C-\\><C-n><C-w>l", "Move to right window"},
   }
 }
 
@@ -217,11 +235,13 @@ M.telescope = {
     -- find
     ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "Find files" },
     ["<D-f>"] = { "<cmd> Telescope find_files <CR>", "Find files" },
+    ["<C-x><C-f>"] = { "<cmd> Telescope find_files <CR>", "Find files" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
     ["<D-o>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
     ["<leader>/"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
     ["<leader>bb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
     ["<D-b>"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
+    ["<C-x><C-b>"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" },
     ["<leader>fr"] = { "<cmd> Telescope oldfiles <CR>", "Find oldfiles" },
     ["<leader>ss"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "Find in current buffer" },
