@@ -67,6 +67,11 @@ local plugins = {
     event = "InsertEnter"
   },
 
+  {
+    'charludo/projectmgr.nvim',
+    lazy = false,
+  }
+
 }
 
 return plugins
