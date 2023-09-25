@@ -24,6 +24,11 @@ M.general = {
     ["<leader>qq"] = { "<ESC>:qa<CR>", "Force quit all" },
     ["<leader>bd"] = { "<ESC>:bd!<CR>", "Close current buffer" },
     ["<leader>bh"] = { "<cmd> Nvdash<CR>", "Open Dashboard" },
+    ["<leader>en"] = { "<cmd> lua vim.diagnostic.goto_next()<CR>", "Next Error" },
+    ["<leader>ep"] = { "<cmd> lua vim.diagnostic.goto_prev()<CR>", "previous Error" },
+    ["]e"] = { "<cmd> lua vim.diagnostic.goto_next()<CR>", "Next Error" },
+    ["[e"] = { "<cmd> lua vim.diagnostic.goto_prev()<CR>", "previous Error" },
+    ["<leader>el"] = { "<cmd> Telescope diagnostics<CR>", "All Errors" },
 
     ["<leader>fW"] = { "<cmd> w !sudo tee % > /dev/null<CR>", "Write as root" },
 
