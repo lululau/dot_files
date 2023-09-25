@@ -42,10 +42,16 @@ vim.api.nvim_set_keymap("", "<A-0>", ":call SelectTab(0)<CR>", { noremap = true,
 
 vim.api.nvim_set_keymap("", "<M-Return>", ":Copilot panel<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "<M-Return>", "<ESC>:Copilot panel<CR>", { noremap = true, silent = true })
-vim.cmd("highlight CopilotSuggestion guifg=#24ead9 ctermfg=6")
 
 vim.api.nvim_set_keymap("n", "<leader>pp", ":ProjectMgr<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<D-p>", ":ProjectMgr<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "<D-p>", "<ESC>:ProjectMgr<CR>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("", "<C-g>", "<C-c>:nohlsearch<CR>", { noremap = true, silent = true })
+
+
+vim.cmd("highlight CopilotSuggestion guifg=#24ead9 ctermfg=6")
+vim.cmd("au TextYankPost * silent! lua vim.highlight.on_yank()")
+
+-- declare vim global variables
+vim.g.vim_textobj_parameter_mapping = 'a'
