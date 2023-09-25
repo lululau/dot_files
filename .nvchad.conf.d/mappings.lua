@@ -1,6 +1,8 @@
 ---@type MappingsTable
 local M = {}
 
+local SpaceKeyMappings = require("custom.space.mappings")
+
 M.general = {
   v = {
     [">"] = { ">gv", "indent"},
@@ -169,4 +171,4 @@ M.copy_paste = {
   }
 }
 
-return M
+return vim.tbl_deep_extend("force", M, SpaceKeyMappings)

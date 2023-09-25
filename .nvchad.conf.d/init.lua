@@ -20,3 +20,4 @@ if vim.g.neovide then
 end
 
 require "custom.misc"
+require "custom.space"
