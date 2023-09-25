@@ -21,7 +21,9 @@ M.general = {
     ["<leader>hc"] = { "<cmd> NvCheatsheet <CR>", "Mapping cheatsheet" },
     ["<leader>qq"] = { "<ESC>:qa<CR>", "Force quit all" },
     ["<leader>bd"] = { "<ESC>:bd!<CR>", "Close current buffer" },
-    ["<leader>bh"] = { ":Nvdash<CR>", "Open Dashboard" },
+    ["<leader>bh"] = { "<cmd> Nvdash<CR>", "Open Dashboard" },
+
+    ["<leader>fW"] = { "<cmd> w !sudo tee % > /dev/null<CR>", "Write as root" },
 
     ["<leader>'"] = { function()
         require("nvterm.terminal").toggle "horizontal"
@@ -235,7 +237,7 @@ M.telescope = {
     -- find
     ["<leader>ff"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files" },
     ["<D-f>"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files" },
-    ["<C-x><C-f>"] = { "<cmd> Telescope find_files <CR>", "Find files" },
+    ["<C-x><C-f>"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
     ["<D-o>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
     ["<leader>/"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
