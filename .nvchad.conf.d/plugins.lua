@@ -60,6 +60,13 @@ local plugins = {
   --   "mg979/vim-visual-multi",
   --   lazy = false,
   -- }
+
+  {
+    "github/copilot.vim",
+    cmd = "Copilot",
+    event = "InsertEnter"
+  },
+
 }
 
 return plugins
