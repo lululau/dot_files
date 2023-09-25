@@ -233,8 +233,8 @@ M.telescope = {
 
   n = {
     -- find
-    ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "Find files" },
-    ["<D-f>"] = { "<cmd> Telescope find_files <CR>", "Find files" },
+    ["<leader>ff"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files" },
+    ["<D-f>"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files" },
     ["<C-x><C-f>"] = { "<cmd> Telescope find_files <CR>", "Find files" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
     ["<D-o>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
