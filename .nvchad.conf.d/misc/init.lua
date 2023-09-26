@@ -29,3 +29,37 @@ end
 -- bind <C-x><C-k> to require("nvchad.tabufline").closeOtherBufs()
 vim.api.nvim_set_keymap("n", "<C-x><C-k>", ":lua require('nvchad.tabufline').closeOtherBufs()<CR>", { noremap = true, silent = true })
 
+vim.cmd([[
+  if has('patch-7.4-2215') " && exists('*getwininfo')
+    function! Get_qf_winnr() abort
+      let wins = filter(getwininfo(), 'v:val.quickfix && !v:val.loclist')
+      " assert(len(wins) <= 1)
+      return empty(wins) ? 0 : wins[0].winnr
+    endfunction
+  else
+    function! Get_qf_winnr() abort
+      let buffers = split(self.__cmp.execute('ls!'), "\n")
+      call filter(buffers, 'v:val =~# "\\V[Quickfix List]"')
+      " :cclose removes the buffer from the list (in my config only??)
+      " assert(len(buffers) <= 1)
+      return empty(buffers) ? 0 : eval(matchstr(buffers[0], '\v^\s*\zs\d+'))
+    endfunction
+  endif
+
+  function! Close_quickfix() abort
+    if winnr() == Get_qf_winnr()
+      cclose
+    else
+      lclose
+    endif
+  endfunction
+
+  augroup SpaceVim_core
+    au!
+    autocmd BufWinEnter quickfix nnoremap <silent> <buffer>
+          \   q :call Close_quickfix()<cr>
+    autocmd BufEnter * if (winnr('$') == 1 && &buftype ==# 'quickfix' ) |
+          \   bd|
+          \   q | endif
+  augroup END
+]])
