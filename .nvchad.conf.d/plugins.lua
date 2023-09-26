@@ -261,6 +261,14 @@ local plugins = {
     "fcying/telescope-ctags-outline.nvim",
   },
 
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function()
+      return require("custom.plugins.configs.cmp")
+    end,
+  },
+
+
 }
 
 return plugins
