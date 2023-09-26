@@ -34,8 +34,8 @@ M.general = {
 
     ["<leader>'"] = { function()
         require("nvterm.terminal").toggle "horizontal"
-     end,
-     "Open terminal"
+    end,
+      "Open terminal"
     },
 
     ["<D-'>"] = { function()
@@ -49,6 +49,14 @@ M.general = {
         require("nvterm.terminal").toggle "horizontal"
     end,
       "Open terminal"
+    },
+
+    ["<leader>rr"] = {
+      function()
+        vim.lsp.buf.rename()
+      end,
+      "LSP refactor -> rename",
+      opts = { nowait = true, silent = true}
     },
 
     ["<leader>="] = {
@@ -208,7 +216,6 @@ M.general[{"n", "v", "i"}] = {
     ["<C-c>"] = { "<ESC>", "ESC"},
     ["<C-x><C-x>"] = { "<ESC>:qa!<CR>", "Force quit all"},
     ["<C-x><C-s>"] = { "<ESC>:w<CR>", "Save"},
-    ["<C-x><C-k>"] = { "<ESC>:bw!<CR>", "Close buffer"},
     ["<A-tab>"] = { ":b#<CR>", "Switch to previous buffer"},
     ["<A-w>"] = { "<C-w>", "Move to previous window"},
     ["<C-x><C-c>"] = { "<ESC>:qa<CR>", "Quit all"},
@@ -245,40 +252,40 @@ M.telescope = {
 
   n = {
     -- find
-    ["<leader>ff"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files" },
-    ["<D-f>"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files" },
-    ["<C-x><C-f>"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files" },
-    ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
-    ["<D-o>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
-    ["<leader>/"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
-    ["<leader>*"] = { "<cmd> Telescope grep_string <CR>", "Grep string" },
-    ["<leader>bb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
-    ["<D-b>"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
-    ["<C-x><C-b>"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
-    ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" },
-    ["<leader>fr"] = { "<cmd> Telescope oldfiles <CR>", "Find oldfiles" },
-    ["<leader>ss"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "Find in current buffer" },
+    ["<leader>ff"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files", opts = { nowait = true, silent = true} },
+    ["<D-f>"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files" , opts = { nowait = true, silent = true} },
+    ["<C-x><C-f>"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files" , opts = { nowait = true, silent = true} },
+    ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" , opts = { nowait = true, silent = true} },
+    ["<D-o>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" , opts = { nowait = true, silent = true} },
+    ["<leader>/"] = { "<cmd> Telescope live_grep <CR>", "Live grep" , opts = { nowait = true, silent = true} },
+    ["<leader>*"] = { "<cmd> Telescope grep_string <CR>", "Grep string" , opts = { nowait = true, silent = true} },
+    ["<leader>bb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" , opts = { nowait = true, silent = true} },
+    ["<D-b>"] = { "<cmd> Telescope buffers <CR>", "Find buffers" , opts = { nowait = true, silent = true} },
+    ["<C-x><C-b>"] = { "<cmd> Telescope buffers <CR>", "Find buffers" , opts = { nowait = true, silent = true} },
+    ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" , opts = { nowait = true, silent = true} },
+    ["<leader>fr"] = { "<cmd> Telescope oldfiles <CR>", "Find oldfiles" , opts = { nowait = true, silent = true} },
+    ["<leader>ss"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "Find in current buffer" , opts = { nowait = true, silent = true} },
 
     -- git
-    ["<leader>gl"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
-    ["<leader>gs"] = { "<cmd> Telescope git_status <CR>", "Git status" },
-    ["<D-g>"] = { "<cmd> Telescope git_status <CR>", "Git status" },
+    ["<leader>gl"] = { "<cmd> Telescope git_commits <CR>", "Git commits" , opts = { nowait = true, silent = true} },
+    ["<leader>gs"] = { "<cmd> Telescope git_status <CR>", "Git status" , opts = { nowait = true, silent = true} },
+    ["<D-g>"] = { "<cmd> Telescope git_status <CR>", "Git status" , opts = { nowait = true, silent = true} },
 
     -- pick a hidden term
-    ["<leader>pt"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" },
+    ["<leader>pt"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" , opts = { nowait = true, silent = true} },
 
     -- theme switcher
-    ["<leader>th"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
+    ["<leader>th"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" , opts = { nowait = true, silent = true} },
 
-    ["<leader>fb"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
-    ["<D-i><D-b>"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
-    ["<leader>w|"] = { "<C-o>:belowright vsplit | wincmd w<CR>", "Split window vertically"},
-    ["<leader>w-"] = { "<C-o>:belowright split | wincmd w<CR>", "Split window horizontally"},
-    ["<leader>ji"] = { "<cmd> Telescope ctags_outline outline<CR>", "Jump to ctags outline"},
+    ["<leader>fb"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" , opts = { nowait = true, silent = true} },
+    ["<D-i><D-b>"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" , opts = { nowait = true, silent = true} },
+    ["<leader>w|"] = { "<C-o>:belowright vsplit | wincmd w<CR>", "Split window vertically", opts = { nowait = true, silent = true} },
+    ["<leader>w-"] = { "<C-o>:belowright split | wincmd w<CR>", "Split window horizontally", opts = { nowait = true, silent = true} },
+    ["<leader>ji"] = { "<cmd> Telescope ctags_outline outline<CR>", "Jump to ctags outline", opts = { nowait = true, silent = true} },
   },
 
   v = {
-    ["<leader>*"] = { "<cmd> Telescope grep_string <CR>", "Grep string" },
+    ["<leader>*"] = { "<cmd> Telescope grep_string <CR>", "Grep string" , opts = { nowait = true, silent = true} },
   }
 }
 

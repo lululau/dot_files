@@ -247,7 +247,6 @@ local plugins = {
       require("nvim-surround").setup({})
     end
   },
-  
 
   {
     "phaazon/hop.nvim",

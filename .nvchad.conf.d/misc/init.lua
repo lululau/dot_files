@@ -23,5 +23,9 @@ if vim.g.neovide then
   for i = 1, 9 do
     vim.api.nvim_set_keymap('n', '<A-'..i..'>', ':'..i .. 'wincmd w<cr>', {noremap = true, silent = true})
     vim.api.nvim_set_keymap('i', '<C-o><A-'..i..'>', ':'..i .. 'wincmd w', {noremap = true, silent = true})
-   end
+  end
 end
+
+-- bind <C-x><C-k> to require("nvchad.tabufline").closeOtherBufs()
+vim.api.nvim_set_keymap("n", "<C-x><C-k>", ":lua require('nvchad.tabufline').closeOtherBufs()<CR>", { noremap = true, silent = true })
+
