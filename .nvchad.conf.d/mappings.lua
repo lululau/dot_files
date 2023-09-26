@@ -266,6 +266,24 @@ M.telescope = {
     ["<leader>fr"] = { "<cmd> Telescope oldfiles <CR>", "Find oldfiles" , opts = { nowait = true, silent = true} },
     ["<leader>ss"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "Find in current buffer" , opts = { nowait = true, silent = true} },
 
+    -- copy path of current file to system clipboard
+    ["<leader>fyy"] = { function()
+        local path = vim.fn.expand "%:p"
+        vim.fn.setreg("+", path)
+        vim.notify("Copied path to clipboard: " .. path)
+    end,
+      "Copy path to clipboard"
+    },
+
+    -- copy base name of current file to system clipboard
+    ["<leader>fyn"] = { function()
+        local path = vim.fn.expand "%:t"
+        vim.fn.setreg("+", path)
+        vim.notify("Copied base name to clipboard: " .. path)
+    end,
+      "Copy base name to clipboard"
+    },
+
     -- git
     ["<leader>gl"] = { "<cmd> Telescope git_commits <CR>", "Git commits" , opts = { nowait = true, silent = true} },
     ["<leader>gs"] = { "<cmd> Telescope git_status <CR>", "Git status" , opts = { nowait = true, silent = true} },
