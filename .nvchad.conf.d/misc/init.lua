@@ -18,6 +18,15 @@ vim.cmd("au TextYankPost * silent! lua vim.highlight.on_yank()")
 
 vim.g.vim_textobj_parameter_mapping = 'a'
 
+-- vim.g.multi_cursor_start_word_key = '<A-J>'
+-- vim.g.multi_cursor_select_all_word_key = '<A-m>'
+-- vim.g.multi_cursor_start_key = 'g<A-J>'
+-- vim.g.multi_cursor_select_all_key = 'g<A-m>'
+-- vim.g.multi_cursor_next_key = '<A-J>'
+-- vim.g.multi_cursor_prev_key = '<A-K>'
+-- vim.g.multi_cursor_skip_key = '<A-X>'
+-- vim.g.multi_cursor_quit_key = '<Esc>'
+
 
 if vim.g.neovide then
   for i = 1, 9 do
@@ -62,4 +71,12 @@ vim.cmd([[
           \   bd|
           \   q | endif
   augroup END
+]])
+
+vim.cmd([[
+  let g:VM_maps = {}
+  let g:VM_maps['Add Cursor Down']         = '<A-J>'
+  let g:VM_maps['Add Cursor Up']         = '<A-K>'
+  let g:VM_maps['Select All']         = '<A-m>'
+  let g:VM_maps['Find Under']         = '<A-n>'
 ]])

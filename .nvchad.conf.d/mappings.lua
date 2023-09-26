@@ -315,5 +315,28 @@ M.hop = {
   }
 }
 
+M.tabufline = {
+  n = { ["<leader>x"] = {""}}
+}
+
+M.tabularize = {}
+M.tabularize[{"n", "v"}] = {
+    ["<leader>xa#"] = {"<cmd> Tabularize /#<CR>", "Align by #", opts = { silent = true, nowait = true} },
+    ["<leader>xa:"] = {"<cmd> Tabularize /:<CR>", "Align by :", opts = { silent = true, nowait = true} },
+    ["<leader>xa="] = {"<cmd> Tabularize /=<CR>", "Align by =", opts = { silent = true, nowait = true} },
+    ["<leader>xa,"] = {"<cmd> Tabularize /,<CR>", "Align by ,", opts = { silent = true, nowait = true} },
+    ["<leader>xa|"] = {"<cmd> Tabularize /|<CR>", "Align by |", opts = { silent = true, nowait = true} },
+    ["<leader>xa:"] = {"<cmd> Tabularize /:<CR>", "Align by :", opts = { silent = true, nowait = true} },
+    ["<leader>xa."] = {"<cmd> Tabularize /.<CR>", "Align by .", opts = { silent = true, nowait = true} },
+    ["<leader>xa;"] = {"<cmd> Tabularize /;<CR>", "Align by ;", opts = { silent = true, nowait = true} },
+    ["<leader>xa-"] = {"<cmd> Tabularize /-<CR>", "Align by -", opts = { silent = true, nowait = true} },
+    ["<leader>xa_"] = {"<cmd> Tabularize /_<CR>", "Align by _", opts = { silent = true, nowait = true} },
+    ["<leader>xa+"] = {"<cmd> Tabularize /+<CR>", "Align by +", opts = { silent = true, nowait = true} },
+    ["<leader>xa*"] = {"<cmd> Tabularize /*<CR>", "Align by *", opts = { silent = true, nowait = true} },
+    ["<leader>xa/"] = {"<cmd> Tabularize //\\zs<CR>", "Align by /", opts = { silent = true, nowait = true} },
+    ["<leader>xa "] = {"<cmd> Tabularize /\\s\\ze\\S/l0<CR>", "Align by space", opts = { silent = true, nowait = true} },
+    ["<leader>xa\\"] = {"<cmd> Tabularize /\\\\<CR>", "Align by \\", opts = { silent = true, nowait = true} },
+}
+
 
 return vim.tbl_deep_extend("force", M, SpaceKeyMappings)
