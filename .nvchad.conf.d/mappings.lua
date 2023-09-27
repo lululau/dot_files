@@ -217,7 +217,7 @@ M.general = {
 M.general[{"n", "v", "i"}] = {
     ["<D-j>"] = { "10j", "Move down 10 lines" },
     ["<D-k>"] = { "10k", "Move up 10 lines" },
-    ["<F1>"] = { ":NvimTreeToggle<CR>", "Toggle file explorer", opts = { silent = true, nowait = true} },
+    ["<F1>"] = { '<cmd> exec "NvimTreeToggle " . getcwd()<CR>', "Toggle file explorer", opts = { silent = true, nowait = true} },
     ["<C-c>"] = { "<ESC>", "ESC"},
     ["<C-x><C-x>"] = { "<ESC>:qa!<CR>", "Force quit all"},
     ["<C-x><C-s>"] = { "<ESC>:w<CR>", "Save"},
