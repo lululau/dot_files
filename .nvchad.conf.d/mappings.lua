@@ -286,8 +286,8 @@ M.telescope = {
 
     -- git
     ["<leader>gl"] = { "<cmd> Telescope git_commits <CR>", "Git commits" , opts = { nowait = true, silent = true} },
-    ["<leader>gs"] = { "<cmd> Telescope git_status <CR>", "Git status" , opts = { nowait = true, silent = true} },
-    ["<D-g>"] = { "<cmd> Telescope git_status <CR>", "Git status" , opts = { nowait = true, silent = true} },
+    ["<leader>gs"] = { "<cmd> Neogit <CR>", "Git status" , opts = { nowait = true, silent = true} },
+    ["<D-g>"] = { "<cmd> Neogit <CR>", "Git status" , opts = { nowait = true, silent = true} },
 
     -- pick a hidden term
     ["<leader>pt"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" , opts = { nowait = true, silent = true} },
