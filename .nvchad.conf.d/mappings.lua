@@ -71,7 +71,8 @@ M.general = {
     ["<C-z>"] = {"i", "Enter insert mode"},
     ["<C-a>"] = { "^", "Move to first character"},
     ["<D-t>"] = { ":belowright vsplit | wincmd w<CR>", "Split window vertically", opts = {silent = true}},
-    ["<D-w>"] = { ":close<CR>", "Close window", opts = {silent = true}},
+    ["<D-w>"] = { ":call Close_win_or_buf()<CR>", "Close window", opts = {silent = true}},
+    ["<C-x>@sw"] = { ":call Close_win_or_buf()<CR>", "Close window", opts = {silent = true}},
     ["<C-CR>"] = {
       function()
         vim.lsp.buf.definition()
@@ -136,7 +137,8 @@ M.general = {
     ["<A-bs>"] = { "<ESC><ESC>caw", "Delete word"},
     ["<A-tab>"] = { "<ESC>:b#<CR>", "Switch to previous buffer"},
     ["<D-t>"] = { "<C-o>:belowright vsplit | wincmd w<CR>", "Split window vertically"},
-    ["<D-w>"] = { "<C-o>:close<CR>", "Close window"},
+    ["<D-w>"] = { "<C-o>:call Close_win_or_buf()<CR>", "Close window", opts = {silent = true}},
+    ["<C-x>@sw"] = { "<C-o>:call Close_win_or_buf()<CR>", "Close window", opts = {silent = true}},
     ["<C-CR>"] = {
       function()
         vim.lsp.buf.definition()
@@ -339,6 +341,7 @@ M.hop = {
     ["<leader><leader>"] = { "<cmd> HopChar2<CR>", "Jump to char", opts = { silent = true, nowait = true}},
     ["<leader>jl"] = { "<cmd> HopLine<CR>", "Jump to char", opts = { silent = true, nowait = true}},
     ["<D-l>"] = { "<cmd> HopLine<CR>", "Jump to char", opts = { silent = true, nowait = true}},
+    ["<C-x>@sl"] = { "<cmd> HopLine<CR>", "Jump to char", opts = { silent = true, nowait = true}},
   }
 }
 

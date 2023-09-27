@@ -328,6 +328,28 @@ local plugins = {
                             bg = Color.from_hex("#C3E88D"):shade(-0.72):set_saturation(0.2):to_css()
       })
     end,
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = {
+      defaults = {
+        mappings = {
+          n = {
+            ["<C-f>"] = 'results_scrolling_down',
+            ["<C-b>"] = 'results_scrolling_up',
+            ["<D-w>"] = 'close',
+            ["<C-x>@sw"] = 'close',
+          },
+
+          i = {
+            ["<C-f>"] = 'results_scrolling_down',
+            ["<C-b>"] = 'results_scrolling_up',
+            ["<D-w>"] = 'close',
+            ["<C-x>@sw"] = 'close',
+          },
+        },
+      },
+    }
   }
 
 }

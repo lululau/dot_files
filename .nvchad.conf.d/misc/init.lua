@@ -37,7 +37,6 @@ if vim.g.neovide then
   end
 end
 
--- bind <C-x><C-k> to require("nvchad.tabufline").closeOtherBufs()
 vim.api.nvim_set_keymap("n", "<C-x><C-k>", ":lua require('nvchad.tabufline').closeOtherBufs()<CR>", { noremap = true, silent = true })
 
 vim.cmd([[
@@ -81,4 +80,17 @@ vim.cmd([[
   let g:VM_maps['Add Cursor Up']         = '<A-K>'
   let g:VM_maps['Select All']         = '<A-M>'
   let g:VM_maps['Find Under']         = '<A-m>'
+]])
+
+
+vim.cmd([[
+  " function for close current win if there is more than one, else delete current buffer
+  function! Close_win_or_buf()
+    if winnr('$') > 1
+      close
+    else
+      bdelete
+      redrawtabline
+    endif
+  endfunction
 ]])
