@@ -105,7 +105,7 @@ local plugins = {
 
   {
     'X3eRo0/dired.nvim',
-    lazy = false,
+    cmd = "Dired",
     dependencies = {
       'MunifTanjim/nui.nvim',
     },
@@ -250,10 +250,10 @@ local plugins = {
 
   {
     "phaazon/hop.nvim",
-    lazy = false,
     config = function()
       require'hop'.setup { keys = 'asdjklwop' }
-    end
+    end,
+    cmd = {"HopLine", "HopChar2"}
   },
 
   {
@@ -269,12 +269,12 @@ local plugins = {
 
   {
     'mg979/vim-visual-multi',
-    lazy = false,
+    keys = { "<A-J>", "<A-n>", "<A-m>" },
   },
 
   {
     'godlygeek/tabular',
-    lazy = false,
+    cmd = "Tabularize",
   },
 
   {
@@ -286,7 +286,7 @@ local plugins = {
       "ibhagwan/fzf-lua",              -- optional
     },
     config = true,
-    lazy = false,
+    cmd = "Neogit"
   }
 
 }
