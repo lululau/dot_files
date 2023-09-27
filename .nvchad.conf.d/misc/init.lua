@@ -30,6 +30,10 @@ vim.g.vim_textobj_parameter_mapping = 'a'
 -- vim.g.multi_cursor_quit_key = '<Esc>'
 
 
+for i = 1, 9 do
+  vim.api.nvim_set_keymap('n', '<leader>'..i, ':'..i .. 'wincmd w<cr>', {noremap = true, silent = true})
+end
+
 if vim.g.neovide then
   for i = 1, 9 do
     vim.api.nvim_set_keymap('n', '<A-'..i..'>', ':'..i .. 'wincmd w<cr>', {noremap = true, silent = true})
