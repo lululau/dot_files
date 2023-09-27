@@ -308,6 +308,16 @@ local plugins = {
                             fg = Color.from_hex("#E06C75"):to_css(),
                             bg = Color.from_hex("#E06C75"):shade(-0.6):set_saturation(0.4):to_css()
       })
+
+      vim.api.nvim_set_hl(0, "NeogitDiffAdd", {
+                            fg = Color.from_hex("#C3E88D"):shade(-0.18):to_css(),
+                            bg = Color.from_hex("#C3E88D"):shade(-0.72):set_saturation(0.2):to_css()
+      })
+
+      vim.api.nvim_set_hl(0, "NeogitDiffAddHighlight", {
+                            fg = Color.from_hex("#C3E88D"):to_css(),
+                            bg = Color.from_hex("#C3E88D"):shade(-0.72):set_saturation(0.2):to_css()
+      })
     end,
   }
 
