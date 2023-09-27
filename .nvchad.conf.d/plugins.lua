@@ -283,10 +283,32 @@ local plugins = {
       "nvim-lua/plenary.nvim",         -- required
       "nvim-telescope/telescope.nvim", -- optional
       "sindrets/diffview.nvim",        -- optional
-      "ibhagwan/fzf-lua",              -- optional
     },
-    config = true,
-    cmd = "Neogit"
+    cmd = "Neogit",
+    opts = {
+      signs = {
+        hunk = { "", "" },
+        item = { "", "" },
+        section = { "", "" },
+      },
+      integrations = {
+        telescope = true,
+        diffview = true,
+      },
+    },
+    config = function(_, opts)
+      require("neogit").setup(opts)
+      local Color = require("neogit.lib.color").Color
+      vim.api.nvim_set_hl(0, "NeogitDiffDelete", {
+                            fg = Color.from_hex("#E06C75"):shade(-0.18):to_css(),
+                            bg = Color.from_hex("#E06C75"):shade(-0.6):set_saturation(0.4):to_css()
+      })
+
+      vim.api.nvim_set_hl(0, "NeogitDiffDeleteHighlight", {
+                            fg = Color.from_hex("#E06C75"):to_css(),
+                            bg = Color.from_hex("#E06C75"):shade(-0.6):set_saturation(0.4):to_css()
+      })
+    end,
   }
 
 }
