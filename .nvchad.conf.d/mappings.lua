@@ -257,15 +257,37 @@ M.telescope = {
 
   n = {
     -- find
-    ["<leader>ff"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files", opts = { nowait = true, silent = true} },
-    ["<D-f>"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files" , opts = { nowait = true, silent = true} },
-    ["<C-x><C-f>"] = { ":exe 'Telescope find_files hidden=true cwd=' . fnamemodify(bufname('%'), ':p:h')<cr>", "Find files" , opts = { nowait = true, silent = true} },
-    ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" , opts = { nowait = true, silent = true} },
-    ["<D-o>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" , opts = { nowait = true, silent = true} },
+    ["<leader>ff"] = { function()
+        require'telescope.builtin'.find_files({find_command = {'rg', '--files', '--hidden', '-g', '!.git', '-g', '!.github', '-g', '!node_modules' }, cwd = vim.fn.expand('%:p:h')})
+    end, "Find files", opts = { nowait = true, silent = true} },
+    ["<D-f>"] = { function()
+        require'telescope.builtin'.find_files({find_command = {'rg', '--files', '--hidden', '-g', '!.git', '-g', '!.github', '-g', '!node_modules' }, cwd = vim.fn.expand('%:p:h')})
+    end, "Find files", opts = { nowait = true, silent = true} },
+    ["<C-x>@sf"] = { function()
+        require'telescope.builtin'.find_files({find_command = {'rg', '--files', '--hidden', '-g', '!.git', '-g', '!.github', '-g', '!node_modules' }, cwd = vim.fn.expand('%:p:h')})
+    end, "Find files", opts = { nowait = true, silent = true} },
+    ["<C-x><C-f>"] = { function()
+        require'telescope.builtin'.find_files({find_command = {'rg', '--files', '--hidden', '-g', '!.git', '-g', '!.github', '-g', '!node_modules' }, cwd = vim.fn.expand('%:p:h')})
+    end, "Find files", opts = { nowait = true, silent = true} },
+
+    ["<leader>fa"] = { function()
+        require'telescope.builtin'.find_files({find_command = {'rg', '--files', '--hidden', '-g', '!.git', '-g', '!.github', '-g', '!node_modules' }})
+    end, "Find all", opts = { nowait = true, silent = true} },
+    ["<leader>pf"] = { function()
+        require'telescope.builtin'.find_files({find_command = {'rg', '--files', '--hidden', '-g', '!.git', '-g', '!.github', '-g', '!node_modules' }})
+    end, "Find all", opts = { nowait = true, silent = true} },
+    ["<D-o>"] = { function()
+        require'telescope.builtin'.find_files({find_command = {'rg', '--files', '--hidden', '-g', '!.git', '-g', '!.github', '-g', '!node_modules' }})
+    end, "Find all", opts = { nowait = true, silent = true} },
+    ["<C-x>@so"] = { function()
+        require'telescope.builtin'.find_files({find_command = {'rg', '--files', '--hidden', '-g', '!.git', '-g', '!.github', '-g', '!node_modules' }})
+    end, "Find all", opts = { nowait = true, silent = true} },
+
     ["<leader>/"] = { "<cmd> Telescope live_grep <CR>", "Live grep" , opts = { nowait = true, silent = true} },
     ["<leader>*"] = { "<cmd> Telescope grep_string <CR>", "Grep string" , opts = { nowait = true, silent = true} },
     ["<leader>bb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" , opts = { nowait = true, silent = true} },
     ["<D-b>"] = { "<cmd> Telescope buffers <CR>", "Find buffers" , opts = { nowait = true, silent = true} },
+    ["<C-x>@sb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" , opts = { nowait = true, silent = true} },
     ["<C-x><C-b>"] = { "<cmd> Telescope buffers <CR>", "Find buffers" , opts = { nowait = true, silent = true} },
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" , opts = { nowait = true, silent = true} },
     ["<leader>fr"] = { "<cmd> Telescope oldfiles <CR>", "Find oldfiles" , opts = { nowait = true, silent = true} },
