@@ -32,6 +32,8 @@ M.general = {
 
     ["<leader>fW"] = { "<cmd> w !sudo tee % > /dev/null<CR>", "Write as root" },
 
+    ["<leader>ac"] = { "<cmd> ChatGPT<CR>", "Open ChatGPT", opts = {silent = true}},
+
     ["<leader>'"] = { function()
         require("nvterm.terminal").toggle "horizontal"
     end,

@@ -350,6 +350,34 @@ local plugins = {
         },
       },
     }
+  },
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    config = function(_, opts)
+      require("chatgpt").setup(opts)
+    end,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    },
+    opts = {
+      api_key_cmd = "/bin/cat /Users/liuxiang/.config/secrets/.openai_api_key",
+      edit_with_instructions = {
+        keymaps = {
+          close = { "<C-c>", "<D-w>", "<C-x>@sw" },
+        }
+      },
+      chat = {
+        keymaps = {
+          close = { "<C-c>", "<D-w>", "<C-x>@sw" },
+        }
+      },
+      popup_input = {
+        submit = { "<C-Enter>", "<c-x><c-o><c-e>"}
+      }
+    }
   }
 
 }
