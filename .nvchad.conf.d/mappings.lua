@@ -108,6 +108,11 @@ M.general = {
       end,
       "LSP references"
     },
+    ["<C-x>@sg"] = {
+      "<cmd> Neogit <CR>",
+      "Open Neogit",
+      opts = {silent = true}
+    }
   },
 
   i = {
