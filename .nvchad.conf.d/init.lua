@@ -9,6 +9,9 @@
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
+vim.api.nvim_set_keymap('i', '<C-x>@S ', '<ESC><leader>', {noremap = false, silent = true})
+vim.api.nvim_set_keymap('n', '<C-x>@S ', '<ESC><leader>', {noremap = false, silent = true})
+
 -- gui font
 vim.o.guifont = "JetBrainsMono\\ Nerd\\ Font:h13"
 
