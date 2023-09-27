@@ -79,6 +79,6 @@ vim.cmd([[
   let g:VM_maps = {}
   let g:VM_maps['Add Cursor Down']         = '<A-J>'
   let g:VM_maps['Add Cursor Up']         = '<A-K>'
-  let g:VM_maps['Select All']         = '<A-m>'
-  let g:VM_maps['Find Under']         = '<A-n>'
+  let g:VM_maps['Select All']         = '<A-M>'
+  let g:VM_maps['Find Under']         = '<A-m>'
 ]])
