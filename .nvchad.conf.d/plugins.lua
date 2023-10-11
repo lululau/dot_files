@@ -106,7 +106,7 @@ local plugins = {
 
   {
     'glacambre/firenvim',
-    lazy = not vim.g.started_by_firenvim,
+    lazy = false,
     build = function()
       vim.fn["firenvim#install"](0)
     end
