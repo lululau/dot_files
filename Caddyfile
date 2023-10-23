@@ -1,0 +1,62 @@
+# Caddyfile
+
+# log
+{
+	log {
+		output file {$HOME}/tmp/caddy.log
+	}
+}
+
+## LCL
+
+http://lcl.localtest.me {
+	reverse_proxy localhost:18000
+}
+
+http://admin.lcl.localtest.me {
+	reverse_proxy localhost:18080
+}
+
+http://open.lcl.localtest.me {
+	reverse_proxy localhost:18081
+}
+
+http://task.lcl.localtest.me {
+	reverse_proxy localhost:18082
+}
+
+## Ceres
+
+http://ceres.localtest.me {
+	reverse_proxy localhost:18100
+}
+
+http://admin.ceres.localtest.me {
+	reverse_proxy localhost:18180
+}
+
+http://api.ceres.localtest.me {
+	reverse_proxy localhost:18181
+}
+
+http://job.ceres.localtest.me {
+	reverse_proxy localhost:18182
+}
+
+## Call Center
+
+http://cc.localtest.me {
+	reverse_proxy localhost:18200
+}
+
+http://admin.cc.localtest.me {
+	reverse_proxy localhost:18280
+}
+
+http://open.cc.localtest.me {
+	reverse_proxy localhost:18281
+}
+
+http://task.cc.localtest.me {
+	reverse_proxy localhost:18282
+}

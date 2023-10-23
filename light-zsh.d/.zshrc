@@ -20,7 +20,8 @@ plugins=(autopair
          safe-paste
          project-root
          zsh-autosuggestions
-         zsh-completions)
+         zsh-completions
+         poetry)
 
 source $ZSH/oh-my-zsh.sh
 

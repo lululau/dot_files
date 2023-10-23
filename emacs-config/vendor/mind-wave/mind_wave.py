@@ -24,10 +24,9 @@ import threading
 import traceback
 import os
 import sys
-import base64
 from epc.server import ThreadingEPCServer
 from functools import wraps
-from utils import (get_command_result, get_emacs_var, get_emacs_vars, init_epc_client, eval_in_emacs, logger, close_epc_client, message_emacs, string_to_base64)
+from utils import (get_command_result, get_emacs_var, get_emacs_vars, init_epc_client, eval_in_emacs, logger, close_epc_client, message_emacs, string_to_base64, decode_text)
 
 def catch_exception(func):
     @wraps(func)
@@ -53,7 +52,7 @@ class MindWave:
         init_epc_client(int(args[0]))
 
         # Build EPC server.
-        self.server = ThreadingEPCServer(('localhost', 0), log_traceback=True)
+        self.server = ThreadingEPCServer(('127.0.0.1', 0), log_traceback=True)
         # self.server.logger.setLevel(logging.DEBUG)
         self.server.allow_reuse_address = True
 
@@ -112,10 +111,15 @@ class MindWave:
         return key
 
     @catch_exception
-    def send_completion_request(self, messages):
-        response = openai.ChatCompletion.create(
-            model = "gpt-3.5-turbo",
-            messages = messages)
+    def send_completion_request(self, messages, model="gpt-3.5-turbo"):
+        if openai.api_type == 'azure':
+            response = openai.ChatCompletion.create(
+                engine = model,
+                messages = messages)
+        else:
+            response = openai.ChatCompletion.create(
+                model = model,
+                messages = messages)
 
         result = ''
         for choice in response.choices:
@@ -124,12 +128,19 @@ class MindWave:
         return (result, response)
 
     @catch_exception
-    def send_stream_request(self, messages, callback):
-        response = openai.ChatCompletion.create(
-            model = "gpt-3.5-turbo",
-            messages = messages,
-            temperature=0,
-            stream=True)
+    def send_stream_request(self, messages, callback, model="gpt-3.5-turbo"):
+        if openai.api_type == 'azure':
+            response = openai.ChatCompletion.create(
+                engine = model,
+                messages = messages,
+                temperature=0,
+                stream=True)
+        else:
+            response = openai.ChatCompletion.create(
+                model = model,
+                messages = messages,
+                temperature=0,
+                stream=True)
 
         for chunk in response:
             (result_type, result_content) = self.get_chunk_result(chunk)
@@ -137,7 +148,7 @@ class MindWave:
 
     @threaded
     def chat_ask(self, buffer_file_name, buffer_content, prompt):
-        content = self.chat_parse_content(buffer_content)
+        content, model = self.chat_parse_content(buffer_content)
 
         messages = content
         if prompt:
@@ -146,33 +157,36 @@ class MindWave:
         def callback(result_type, result_content):
             eval_in_emacs("mind-wave-chat-ask--response", buffer_file_name, result_type, result_content)
 
-        self.send_stream_request(messages, callback)
+        self.send_stream_request(messages, callback, model)
 
-    def chat_parse_content(self, buffer_content):
-        text = base64.b64decode(buffer_content).decode("utf-8")
-
+    def parse_lines(self, lines):
         messages = []
-
-        lines = text.splitlines(True) # split the text into lines, and keep newline to avoid ChatGPT send back `single-line` code
-        role = ''  # initialize the role
-        content = ''  # initialize the content
+        role = ''
+        content = ''
+        model = "gpt-3.5-turbo"
 
         for line in lines:
-            if line.startswith('# > ') or line.startswith('## > '):
-                if role:  # output the content of the previous role
-                    messages.append({ "role": role, "content": content })
-                begin = line.find('>') + 1 # add 1 to move pass the char >
+            if line.startswith('# : '):
+                begin = line.find(":") + 1
+                model_content = line[begin:].strip()
+                if model_content != "":
+                    model = model_content
+            elif line.startswith('# > ') or line.startswith('## > '):
+                if role:
+                    messages.append({"role": role, "content": content})
+                begin = line.find('>') + 1
                 end = line.find(':')
-                role = line[begin:end].strip().lower()  # get the current role
-                # reset the content for the current role
-                content = line[end + 2:]  # add 2 to move pass `: `
+                role = line[begin:end].strip().lower()
+                content = line[end + 2:]
             else:
-                content += line  # append the line to the content for the current role
+                content += line
 
-        # output the content of the last role
         if role:
-            messages.append({ "role": role, "content": content })
+            messages.append({"role": role, "content": content})
 
+        return messages, model
+
+    def add_default_system_message(self, messages):
         default_system = {"role": "system", "content": "You are a helpful assistant."}
         if len(messages) == 0:
             messages.append(default_system)
@@ -181,18 +195,28 @@ class MindWave:
 
         return messages
 
+    def chat_parse_content(self, buffer_content):
+        text = decode_text(buffer_content)
+        lines = text.splitlines(True)
+        messages, model = self.parse_lines(lines)
+        messages = self.add_default_system_message(messages)
+
+        return messages, model
+
     @threaded
     def parse_title(self, buffer_file_name, text_content, role, prompt):
-        text = base64.b64decode(text_content).decode("utf-8")
+        text = decode_text(text_content)
         (result, _) = self.send_completion_request(
             [{"role": "system", "content": role},
-             {"role": "user", "content": f"{prompt}：\n{text}"}])
+             {"role": "user", "content": f"{prompt}：\n{text}"}],
+            get_emacs_var("mind-wave-parse-title-model")
+        )
 
         eval_in_emacs("mind-wave-parse-title--response", buffer_file_name, result)
 
     @threaded
     def async_text(self, buffer_file_name, text_content, text_start, text_end, role, prompt, notify_start, notify_end):
-        text = base64.b64decode(text_content).decode("utf-8")
+        text = decode_text(text_content)
 
         if text_content == "":
             content = f"{prompt}"
@@ -212,11 +236,11 @@ class MindWave:
                           notify_start,
                           notify_end)
 
-        self.send_stream_request(messages, callback)
+        self.send_stream_request(messages, callback, get_emacs_var("mind-wave-async-text-model"))
 
     @threaded
     def action_code(self, buffer_name, major_mode, code, role, prompt, callback_template, notify_start, notify_end):
-        text = base64.b64decode(code).decode("utf-8")
+        text = decode_text(code)
 
         messages = [{"role": "system", "content": role},
                     {"role": "user", "content": f"{prompt}： \n{text}"}]
@@ -231,11 +255,11 @@ class MindWave:
                           notify_start,
                           notify_end)
 
-        self.send_stream_request(messages, callback)
+        self.send_stream_request(messages, callback, get_emacs_var("mind-wave-action-code-model"))
 
     @threaded
     def explain_word(self, buffer_name, major_mode, sentence, word, callback_template, notify_start, notify_end):
-        sentence_text = base64.b64decode(sentence).decode("utf-8")
+        sentence_text = decode_text(sentence)
 
         messages = [{"role": "system", "content": "你是一位英语词义语法专家， 你在教我英语， 我给你一句英文句子， 和这个句子中的一个单词， 请用中文帮我解释一下，这个单词在句子中的意思和句子本身的意思. 并举几个相同意思的英文例句，并用中文解释例句。如果你明白了请说同意，然后我们开始。"},
                     {"role": "assistant", "content": "好的，我明白了，请给我这个句子和单词。"},
@@ -251,7 +275,7 @@ class MindWave:
                           notify_start,
                           notify_end)
 
-        self.send_stream_request(messages, callback)
+        self.send_stream_request(messages, callback, get_emacs_var("mind-wave-explain-word-model"))
 
     def get_video_subtitle(self, video_id):
         from youtube_transcript_api import YouTubeTranscriptApi
@@ -280,12 +304,13 @@ class MindWave:
         self.summary_text(buffer_name, role, prompt, notify_start, notify_end, text, video_id)
 
     @threaded
-    def generate_git_commit_name(self, dir, role, prompt):
+    def git_commit(self, dir, role, prompt):
         diff_string = get_command_result(f"cd {dir} ; git diff")
 
         (result, _) = self.send_completion_request(
             [{"role": "system", "content": role},
-             {"role": "user", "content": f"{prompt}：\n{diff_string}"}])
+             {"role": "user", "content": f"{prompt}：\n{diff_string}"}],
+            get_emacs_var("mind-wave-git-commit-model"))
 
         eval_in_emacs("mind-wave-generate-commit-name--response", result)
 
@@ -326,11 +351,18 @@ class MindWave:
                     {"role": "user", "content": f"{prompt}： \n{text}"}]
 
         try:
-            response = openai.ChatCompletion.create(
-                model = "gpt-3.5-turbo",
-                messages = messages,
-                temperature=0,
-                stream=True)
+            if openai.api_type == 'azure':
+                response = openai.ChatCompletion.create(
+                    engine = "gpt-3.5-turbo",
+                    messages = messages,
+                    temperature=0,
+                    stream=True)
+            else:
+                response = openai.ChatCompletion.create(
+                    model = "gpt-3.5-turbo",
+                    messages = messages,
+                    temperature=0,
+                    stream=True)
 
             for chunk in response:
                 (result_type, result_content) = self.get_chunk_result(chunk)

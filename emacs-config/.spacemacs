@@ -1067,6 +1067,12 @@ This function is called at the very end of Spacemacs initialization."
 '(fill-column 120)
 '(projectile-completion-system (quote helm))
 '(mind-wave-api-key-path "~/.config/secrets/.openai_api_key")
+'(mind-wave-chat-model "gpt-4-0613")
+'(mind-wave-async-text-model "gpt-4-0613")
+'(mind-wave-action-code-model "gpt-4-0613")
+'(mind-wave-explain-word-model "gpt-4-0613")
+'(mind-wave-parse-title-model "gpt-4-0613")
+'(mind-wave-git-commit-model "gpt-4-0613")
 '(projectile-indexing-method 'hybrid)
 '(projectile-git-command "git ls-files -zco")
  '(projectile-tags-file-name "NON_EXISTS_FILE")
@@ -1188,7 +1194,10 @@ This function is called at the very end of Spacemacs initialization."
   (persp-load-state-from-file (format "%sA" spacemacs-layouts-directory))
   (face-spec-set 'header-line '((t :weight bold :foreground "grey" :background nil)))
 
-;; (custom-set-faces
+  (custom-set-faces
+   '(docker-face-active ((t (:inherit bold :foreground "SeaGreen2")))))
+
+  ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.
 ;;  ;; Your init file should contain only one such instance.

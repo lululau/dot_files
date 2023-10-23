@@ -139,6 +139,9 @@ noremap <leader>feR :source ~/.ideavimrc<cr>
 noremap <leader>fed :e ~/.ideavimrc<cr>
 noremap <leader>feD :e ~/.ideavim_actions.txt<cr>
 nnoremap <leader>fo :action Tool_Files_OpenWithEmacs<cr>
+nnoremap <leader>fx :action Tool_Files_OpenWithVSCode<cr>
+nnoremap <leader>fn :action Tool_Files_OpenWithNeovide<cr>
+nnoremap <leader>fv :action Tool_Files_OpenWithNeovide<cr>
 noremap <leader>fD :action Tool_Files_DeleteCurrentFile<cr>
 noremap <leader>fy :action Tool_Files_CopyCurrentFilePath<cr>
 noremap <leader>fY :action Tool_Files_CopyAndShowCurrentFilePath<cr>

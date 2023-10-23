@@ -79,10 +79,6 @@
 (require 'mind-wave-epc)
 (require 'markdown-mode)
 
-(when (version< emacs-version "30")
-  (defun file-name-concat (&rest parts)
-    (cl-reduce (lambda (a b) (expand-file-name b a)) parts)))
-
 (defgroup mind-wave nil
   "Mind-Wave group."
   :group 'applications)
@@ -97,7 +93,7 @@
   :type 'boolean
   :group 'mind-wave)
 
-(defcustom mind-wave-api-key-path (expand-file-name (file-name-concat user-emacs-directory "mind-wave" "chatgpt_api_key.txt"))
+(defcustom mind-wave-api-key-path (expand-file-name (concat user-emacs-directory (file-name-as-directory "mind-wave") "chatgpt_api_key.txt"))
   "The path to store OpenAI API Key."
   :type 'string
   :group 'mind-wave)
@@ -139,6 +135,36 @@
 
 (defcustom mind-wave-proofreading-role "You are a high level writer."
   "Role for proofreading."
+  :type 'string
+  :group 'mind-wave)
+
+(defcustom mind-wave-chat-model "gpt-3.5-turbo"
+  "Default model for chat."
+  :type 'string
+  :group 'mind-wave)
+
+(defcustom mind-wave-async-text-model "gpt-3.5-turbo"
+  "Default model for async_text API."
+  :type 'string
+  :group 'mind-wave)
+
+(defcustom mind-wave-action-code-model "gpt-3.5-turbo"
+  "Default model for action_code API."
+  :type 'string
+  :group 'mind-wave)
+
+(defcustom mind-wave-explain-word-model "gpt-3.5-turbo"
+  "Default model for explain_word API."
+  :type 'string
+  :group 'mind-wave)
+
+(defcustom mind-wave-parse-title-model "gpt-3.5-turbo"
+  "Default model for parse_title API."
+  :type 'string
+  :group 'mind-wave)
+
+(defcustom mind-wave-git-commit-model "gpt-3.5-turbo"
+  "Default model for git_commit API."
   :type 'string
   :group 'mind-wave)
 
@@ -320,7 +346,7 @@ Then Mind-Wave will start by gdb, please send new issue with `*mind-wave*' buffe
                                :commands (cons mind-wave-internal-process-prog mind-wave-internal-process-args)
                                :title (mapconcat 'identity (cons mind-wave-internal-process-prog mind-wave-internal-process-args) " ")
                                :port mind-wave-epc-port
-                               :connection (mind-wave-epc-connect "localhost" mind-wave-epc-port)
+                               :connection (mind-wave-epc-connect "127.0.0.1" mind-wave-epc-port)
                                ))
   (mind-wave-epc-init-epc-layer mind-wave-epc-process)
   (setq mind-wave-is-starting nil)
@@ -364,9 +390,24 @@ Then Mind-Wave will start by gdb, please send new issue with `*mind-wave*' buffe
 
 (defun mind-wave-chat-ask-with-message (prompt)
   (save-excursion
+    ;; Move to start of buffer.
+    (goto-char (point-min))
+
+    ;; Insert model if not found model in beginning of buffer.
+    (unless (search-forward-regexp "# : " nil t)
+      (goto-char (point-min))
+      (insert (format "# : %s\n\n" mind-wave-chat-model)))
+
+    ;; Move to end of buffer.
     (goto-char (point-max))
-    (unless (equal (point) (point-min))
+
+    ;; Insert return character if previous line is not blank line.
+    (when (save-excursion
+            (forward-line -1)
+            (split-string (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
       (insert "\n"))
+
+    ;; Insert prompt.
     (insert "# > User: ")
     (insert (format "%s\n\n" prompt)))
 
@@ -501,16 +542,22 @@ Then Mind-Wave will start by gdb, please send new issue with `*mind-wave*' buffe
 
 (defun mind-wave-generate-code ()
   (interactive)
-  (mind-wave-call-async "async_text"
-                        (buffer-file-name)
-                        (mind-wave--encode-string "")
-                        (point)
-                        (point)
-                        mind-wave-code-role
-                        (read-string "Prompt: ")
-                        "Generate..."
-                        "Generate code done."
-                        ))
+  (let* ((selection (if (region-active-p)
+                        (string-trim (buffer-substring-no-properties (region-beginning) (region-end)))))
+         (mode (replace-regexp-in-string "\\(-ts\\)?-mode$" "" (symbol-name major-mode)))
+         (prompt (if (= (length selection) 0)
+                     (format "%s, 只输出代码， 不要带任何解释和说明。" (read-string "Prompt: "))
+                   (format "%s, 只输出代码， 不要带任何解释和说明。" (concat mode " " selection)))))
+    (insert "\n")
+    (mind-wave-call-async "async_text"
+                          (buffer-file-name)
+                          (mind-wave--encode-string "")
+                          (point)
+                          (point)
+                          mind-wave-code-role
+                          prompt
+                          "Generate..."
+                          "Generate code done.")))
 
 (defun mind-wave-adjust-text ()
   (interactive)
@@ -541,7 +588,7 @@ Then Mind-Wave will start by gdb, please send new issue with `*mind-wave*' buffe
                           translate-start
                           translate-end
                           mind-wave-translate-role
-                          "Please translate the following paragraph, if the content includes Markdown content, the translated content should keep the same Markdown syntax"
+                          "Please translate the following paragraph, if the content includes Markdown content, the translated content should keep the same Markdown syntax, only output translation results, do not output additional instructions, don't add extra punctuation."
                           "Translate..."
                           "Translate done"
                           )))
@@ -636,6 +683,18 @@ Then Mind-Wave will start by gdb, please send new issue with `*mind-wave*' buffe
 
     (list code-start code-end (buffer-substring-no-properties code-start code-end))))
 
+(defun mind-wave-get-region-or-buffer ()
+  (let (code-start code-end)
+    (if (region-active-p)
+        (progn
+          (setq code-start (region-beginning))
+          (setq code-end (region-end)))
+      (let ((function-node (mind-wave-get-function-node)))
+        (setq code-start (point-min))
+        (setq code-end (point-max))))
+
+    (list code-start code-end (buffer-substring-no-properties code-start code-end))))
+
 (defun mind-wave-get-function-node ()
   (treesit-parent-until
    (treesit-node-at (point))
@@ -699,7 +758,7 @@ Then Mind-Wave will start by gdb, please send new issue with `*mind-wave*' buffe
                         (format "%s" major-mode)
                         (mind-wave--encode-string (nth 2 (mind-wave-get-region-or-function)))
                         mind-wave-code-role
-                        (format "Please explain in detail the meaning of the following code, in %s" (mind-wave-output-lang))
+                        (format "Please explain in detail the meaning of the following code, in %s, leave a blank line between each sentence." (mind-wave-output-lang))
                         "explain"
                         "ChatGPT explaining..."
                         "ChatGPT explain finish."))
@@ -719,13 +778,26 @@ Then Mind-Wave will start by gdb, please send new issue with `*mind-wave*' buffe
                           "ChatGPT explaining..."
                           "ChatGPT explain finish.")))
 
+(defun mind-wave-check-typos ()
+  (interactive)
+  (message "Checking...")
+  (mind-wave-call-async "action_code"
+                        (buffer-name)
+                        "text-mode"
+                        (mind-wave--encode-string (nth 2 (mind-wave-get-region-or-buffer)))
+                        mind-wave-summary-role
+                        "请检查下面内容的中文错别字。 如果没有错别字就回答 ’没有错别字‘， 如果有错别字， 请用 ```'索引': '错别字' - '修改建议'``` 的格式来回答， 其中 '索引' 是指错别字相对于下面内容的行偏移。"
+                        "typos"
+                        "ChatGPT checking..."
+                        "ChatGPT check finish."))
+
 (defun mind-wave-generate-commit-name ()
   (interactive)
   (message "Git commit name generating...")
-  (mind-wave-call-async "generate_git_commit_name"
+  (mind-wave-call-async "git_commit"
                         default-directory
                         mind-wave-code-role
-                        "Please generate a patch title for the following diff content, with a concise and informative summary instead of a mechanical list. The title should not exceed 100 characters in length, and the format of the words in the title should be: the first word capitalized, all other words lowercase, unless they are proper nouns."))
+                        "Please generate a patch title for the following diff content, mainly analyze the content starting with - or + at the beginning of the line, with a concise and informative summary instead of a mechanical list. The title should not exceed 100 characters in length, and the format of the words in the title should be: the first word capitalized, all other words lowercase, unless they are proper nouns, if the diff content starts with 'Subproject commit', you extract the submodule name 'xxx', and reply 'Update xxx modules'."))
 
 (defun mind-wave-generate-commit-name--response (patch-name)
   (when (and (active-minibuffer-window)
@@ -772,10 +844,14 @@ Your task is to summarize the text I give you in up to seven concise  bulletpoin
                           "ChatGPT summary web..."
                           "ChatGPT summary web finish.")))
 
+(defvar-local mind-wave-is-response-p nil)
+
 (defun mind-wave-chat-ask--response (filename type answer)
   (mind-wave--with-file-buffer filename
     (pcase type
       ("start"
+       (setq-local mind-wave-is-response-p t)
+
        (goto-char (point-max))
        (insert "## > Assistant: ")
        (message "ChatGPT speaking..."))
@@ -789,6 +865,9 @@ Your task is to summarize the text I give you in up to seven concise  bulletpoin
          (insert "\n\n"))
        (when mind-wave-auto-change-title
          (mind-wave-chat-parse-title nil))
+
+       (run-with-timer 1 nil (lambda() (setq-local mind-wave-is-response-p nil)))
+
        (message "ChatGPT response finish.")
        ))))
 
@@ -799,24 +878,31 @@ Your task is to summarize the text I give you in up to seven concise  bulletpoin
                                        text-end
                                        start-message
                                        end-message)
-  (pcase type
-    ("start"
-     (mind-wave--with-file-buffer
-         filename
+  (mind-wave--with-file-buffer filename
+    (pcase type
+      ("start"
+       (setq-local mind-wave-is-response-p t)
+
        (when (region-active-p)
          (deactivate-mark))
 
        (goto-char text-start)
-       (delete-region text-start text-end))
+       (delete-region
+        text-start
+        ;; Backward to end of previous line if `text-end' is at beginning of line.
+        (save-excursion
+          (goto-char text-end)
+          (if (bolp)
+              (max text-start (1- text-end))
+            text-end)))
 
-     (message start-message))
-    ("content"
-     (mind-wave--with-file-buffer
-         filename
-       (insert (mind-wave-decode-base64 answer))))
-    ("end"
-     (message end-message)
-     )))
+       (message start-message))
+      ("content"
+       (insert (mind-wave-decode-base64 answer)))
+      ("end"
+       (run-with-timer 1 nil (lambda() (setq-local mind-wave-is-response-p nil)))
+       (message end-message)
+       ))))
 
 (defun mind-wave-split-window--response (buffer
                                          buffername
@@ -827,6 +913,8 @@ Your task is to summarize the text I give you in up to seven concise  bulletpoin
                                          end-message)
   (pcase type
     ("start"
+     (setq-local mind-wave-is-response-p t)
+
      (select-window (get-buffer-window buffer))
      (mind-wave-show-chat-window buffername mode)
      (message start-message))
@@ -841,8 +929,23 @@ Your task is to summarize the text I give you in up to seven concise  bulletpoin
        (save-excursion
          (goto-char (point-max))
          (insert "\n\n")))
+
+     (run-with-timer 1 nil (lambda() (setq-local mind-wave-is-response-p nil)))
      (message end-message)
      )))
+
+(defun mind-wave-change-model ()
+  (interactive)
+  (if (string-equal (file-name-extension (buffer-file-name)) "chat")
+      (let ((model (completing-read "Choose model : " '("gpt-3.5-turbo" "gpt-4" "gpt-4-32k"))))
+        (save-excursion
+          (goto-char (point-min))
+          (if (search-forward-regexp "# : " nil t)
+              (progn
+                (kill-line)
+                (insert model))
+            (insert (format "# : %s\n\n" model)))))
+    (message "Command mind-wave-change-model is only used for *.chat file.")))
 
 (defun mind-wave--update-chat-buffer-to-new-version ()
   "Replace old markers in buffer with new ones."

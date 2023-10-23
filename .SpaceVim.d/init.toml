@@ -20,6 +20,32 @@
     repo = 'glacambre/firenvim'
     merged = false
 
+[[custom_plugins]]
+    repo = 'lululau/vim-textobj-variable-segment'
+    merged = false
+
+[[custom_plugins]]
+    repo = 'sgur/vim-textobj-parameter'
+    merged = false
+
+[[custom_plugins]]
+    repo = 'nvim-treesitter/nvim-treesitter-textobjects'
+    merged = false
+
+[[custom_plugins]]
+    repo = 'MunifTanjim/nui.nvim'
+    merged = false
+
+[[custom_plugins]]
+    repo = 'lululau/dired.nvim'
+    merged = false
+
+[[custom_plugins]]
+    repo = 'jreybert/vimagit'
+    merged = false
+
+[[layers]]
+name = 'treesitter'
 
 [[layers]]
 name = 'telescope'
@@ -49,6 +75,7 @@ name = 'incsearch'
   name = "VersionControl"
 [[layers]]
 name = 'git'
+git_plugin = 'gina'
 [[layers]]
 name = 'github'
 
@@ -160,5 +187,7 @@ name = 'tools#dash'
     filemanager = 'nerdtree'
     filetree_direction = "left"
     relativenumber=false
+    enable_projects_cache = true
+    projects_cache_num = 200
 
 
