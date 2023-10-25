@@ -102,7 +102,7 @@
 (global-set-key (kbd "s-r l 5") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "cc-devb-task")))
 (global-set-key (kbd "s-r l 6") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "cc-devb-open")))
 (global-set-key (kbd "s-r p") #'helm-vterm-prize)
-(global-set-key (kbd "s-r s-p") #'(lambda () (interactive) (lx/run-in-vterm "~/Library/Python/3.11/bin/ptipython" "*ptpython*")))
+(global-set-key (kbd "s-r s-p") #'(lambda () (interactive) (lx/run-in-vterm "~/Library/Python/3.12/bin/ptipython" "*ptpython*")))
 (global-set-key (kbd "s-r s-r s-p") #'vterm-mitmproxy-transparent-proxy)
 (global-set-key (kbd "s-r s-r p") #'vterm-mitmproxy-normal-proxy)
 (global-set-key (kbd "s-r s-s") #'helm-zsh-vterm-ssh)
