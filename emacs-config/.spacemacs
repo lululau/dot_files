@@ -1118,6 +1118,7 @@ This function is called at the very end of Spacemacs initialization."
   (elixir-enable-compilation-checking)
   (lsp-enable-file-watchers . nil)
   (org-html-head))))
+ '(lsp-semgrep-languages nil)
  '(sh-indentation 2)
  '(org-file-apps (quote ((auto-mode . emacs) (directory . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . emacs))))
  '(sp-highlight-pair-overlay nil)
