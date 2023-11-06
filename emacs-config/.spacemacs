@@ -271,7 +271,7 @@
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
                                             gptel org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
-                                            ob-swiftui
+                                            ob-swiftui evil-goggles
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el")))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
@@ -716,9 +716,9 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions "target/")
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
-
   (add-hook 'prog-mode-hook 'send-to-vterm-mode)
   (add-hook 'text-mode-hook 'send-to-vterm-mode)
+  (add-hook 'text-mode-hook 'evil-goggles-mode)
   (add-hook 'fundamental-mode-hook 'send-to-vterm-mode)
 
   (require 'python)
