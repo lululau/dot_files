@@ -3,6 +3,7 @@
 ulimit -n 200000
 ulimit -u 2128
 
+export PATH=/usr/local/bin:$PATH
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
@@ -132,3 +133,5 @@ export NVM_DIR="$HOME/.nvm"
 export STARSHIP_CONFIG=$HOME/.config/starship.bash.toml
 
 eval "$(starship init bash)"
+export BASH_SILENCE_DEPRECATION_WARNING=1
+

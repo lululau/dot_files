@@ -85,3 +85,5 @@ export SDKMAN_DIR="/Users/liuxiang/.sdkman"
 
 export EA_EDITOR='/usr/local/bin/emacsclient -a "" -c'
 complete -C /usr/local/bin/bitcomplete bit
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
