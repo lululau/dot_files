@@ -135,3 +135,18 @@ export STARSHIP_CONFIG=$HOME/.config/starship.bash.toml
 eval "$(starship init bash)"
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
+function poe() {
+  if [ "$1" = "active" -o "$1" = "a" -o "$1" = use ]; then
+    source $(poetry env info --path)/bin/activate
+  elif [ "$1" = "deactive" -o "$1" = "d" -o "$1" = unuse ]; then
+    deactivate
+  else
+    poetry "$@"
+  fi
+}
+
+function poea() {
+  poe active
+}
+
+
