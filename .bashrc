@@ -1,9 +1,17 @@
 #!/bin/bash
 
+if [ -z "$HOMEBREW_PREFIX" ]; then
+  if [ -e "/opt/homebrew/bin/brew" ]; then
+    HOMEBREW_PREFIX="/opt/homebrew"
+  else
+    HOMEBREW_PREFIX="/usr/local"
+  fi
+fi
+
 ulimit -n 200000
 ulimit -u 2128
 
-export PATH=/usr/local/bin:$PATH
+export PATH=$HOMEBREW_PREFIX/bin:$PATH
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion

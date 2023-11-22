@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [ -z "$HOMEBREW_PREFIX" ]; then
+  if [ -e "/opt/homebrew/bin/brew" ]; then
+    HOMEBREW_PREFIX="/opt/homebrew"
+  else
+    HOMEBREW_PREFIX="/usr/local"
+  fi
+fi
+
+
 # Mark sure '/usr/local/bin' have higher priority than '/usr/bin'
 PATH=${PATH/\/usr\/bin/swap_usr_local_bin_and_user_bin}
 PATH=${PATH/\/usr\/local\/bin/\/usr\/bin}
@@ -83,7 +92,7 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export SDKMAN_DIR="/Users/liuxiang/.sdkman"
 [[ -s "/Users/liuxiang/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/liuxiang/.sdkman/bin/sdkman-init.sh"
 
-export EA_EDITOR='/usr/local/bin/emacsclient -a "" -c'
-complete -C /usr/local/bin/bitcomplete bit
+export EA_EDITOR="$HOMEBREW_PREFIX/bin/emacsclient -a '' -c"
+complete -C $HOMEBREW_PREFIX/bin/bitcomplete bit
 
 export BASH_SILENCE_DEPRECATION_WARNING=1

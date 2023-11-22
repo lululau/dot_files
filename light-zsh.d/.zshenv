@@ -1,3 +1,11 @@
+if [ -z "$HOMEBREW_PREFIX" ]; then
+  if [ -e "/opt/homebrew/bin/brew" ]; then
+    HOMEBREW_PREFIX="/opt/homebrew"
+  else
+    HOMEBREW_PREFIX="/usr/local"
+  fi
+fi
+
 typeset -U path
 # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 path+=($HOME/.local/bin)
@@ -17,11 +25,11 @@ if uname | grep -q Linux ; then
 else
     export EDITOR='emacsclient'
 fi
-export GOROOT=/usr/local/opt/go/libexec/
+export GOROOT=$HOMEBREW_PREFIX/opt/go/libexec/
 export GOPATH=$HOME/.go
 export GO111MODULE=auto
 # export PYTHONPATH=$HOME/Library/Python/2.7/lib/python/site-packages
-export FPATH="$FPATH:/usr/local/share/zsh/site-functions"
+export FPATH="$FPATH:$HOMEBREW_PREFIX/share/zsh/site-functions"
 # export JAVA_HOME=/Library/Java/JavaVirtualMachines/CurrentJDK/Contents/Home
 export XAPIAN_CJK_NGRAM=1
 export SDKMAN_DIR="$HOME/.sdkman"
@@ -56,8 +64,8 @@ export NULLCMD=:
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 export HOMEBREW_BAT=1
 export VISUAL=${ZDOTDIR:-$HOME}/bin/emacsclient-for-visual
-export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
+export LESSOPEN="|$HOMEBREW_PREFIX/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 export BAT_CONFIG_PATH=$HOME/.config/.batrc
-export RUST_SRC_PATH=/usr/local/Cellar/rust/1.38.0/share/rust/rust_src
+export RUST_SRC_PATH=$HOMEBREW_PREFIX/Cellar/rust/1.38.0/share/rust/rust_src
 export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
 export curl_ca_bundle=$HOME/.mitmproxy/mitmproxy-ca.pem

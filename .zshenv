@@ -1,3 +1,11 @@
+if [ -z "$HOMEBREW_PREFIX" ]; then
+  if [ -e "/opt/homebrew/bin/brew" ]; then
+    HOMEBREW_PREFIX="/opt/homebrew"
+  else
+    HOMEBREW_PREFIX="/usr/local"
+  fi
+fi
+
 typeset -U path
 # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 path+=$(echo ~/.stack/programs/*/*/bin(NOn[1]))
@@ -17,7 +25,7 @@ if uname | grep -q Linux ; then
 else
     export EDITOR='emacsclient'
 fi
-export GOROOT=/usr/local/opt/go/libexec/
+export GOROOT=$HOMEBREW_PREFIX/opt/go/libexec/
 export GOPATH=$HOME/.go
 export GO111MODULE=auto
 export GOPROXY=https://goproxy.cn,direct
@@ -28,7 +36,7 @@ if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
     [ -n "$INSIDE_EMACS" ] && source $HOME/liuxiang/.zprofile
 else
     # export PYTHONPATH=$HOME/Library/Python/2.7/lib/python/site-packages
-    export FPATH="$FPATH:/usr/local/share/zsh/site-functions"
+    export FPATH="$FPATH:$HOMEBREW_PREFIX/share/zsh/site-functions"
     [ -n "$INSIDE_EMACS" ] && source $HOME/.zprofile
     source $HOME/.config/private/homebrew_github_api_token.sh
     # export JAVA_HOME=/Library/Java/JavaVirtualMachines/CurrentJDK/Contents/Home
@@ -67,9 +75,9 @@ export NULLCMD=:
 export HOMEBREW_BAT=1
 export VISUAL=${ZDOTDIR:-$HOME}/bin/emacsclient-for-visual
 [[ -e $HOME/.secretenv ]] && source $HOME/.secretenv
-export LESSOPEN="|/usr/local/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
+export LESSOPEN="|$HOMEBREW_PREFIX/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 export BAT_CONFIG_PATH=$HOME/.config/.batrc
-export RUST_SRC_PATH=/usr/local/Cellar/rust/1.38.0/share/rust/rust_src
+export RUST_SRC_PATH=$HOMEBREW_PREFIX/Cellar/rust/1.38.0/share/rust/rust_src
 export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
 export curl_ca_bundle=$HOME/.mitmproxy/mitmproxy-ca.pem
 export RUBY_YJIT_ENABLE=true
