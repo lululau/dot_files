@@ -73,3 +73,4 @@ export RUST_SRC_PATH=/usr/local/Cellar/rust/1.38.0/share/rust/rust_src
 export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
 export curl_ca_bundle=$HOME/.mitmproxy/mitmproxy-ca.pem
 export RUBY_YJIT_ENABLE=true
+export PATH=$PATH
