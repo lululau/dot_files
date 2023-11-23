@@ -902,7 +902,7 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-M-x-fuzzy-match t)
  '(helm-ag-command-option "-U")
  '(helm-ag-ignore-patterns (quote (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "log")))
- '(helm-ag-use-agignore t)
+ '(helm-ag-use-agignore nil)
  '(helm-buffers-fuzzy-matching t)
  '(helm-completion-in-region-fuzzy-match t)
  '(helm-dash-browser-func (quote lx/browse-url-in-safari))
