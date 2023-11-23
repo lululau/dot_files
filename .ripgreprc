@@ -1,0 +1,8 @@
+--colors
+match:fg:50,50,50
+--colors
+match:bg:yellow
+--colors
+path:fg:green
+--colors
+line:fg:yellow
