@@ -30,6 +30,7 @@
         ("from:monitor@monitor.aliyun.com" "Aliyun Alert" ?A)
         ("from:devops@ktjr.com" "Ktjr Alert" ?k)
         ("from:kibana@ktjr.com" "Kibana Alert" ?K)
+        ("from:monitor@monitor.aliyun.com or from:devops@ktjr.com or from:kibana@ktjr.com" "All Alert" ?x)
         ("from:jira@ktjr.com and m:/INBOX" "Jira" ?j)
         (,(mapconcat 'identity
                      (mapcar
