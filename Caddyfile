@@ -60,3 +60,22 @@ http://open.cc.localtest.me {
 http://task.cc.localtest.me {
 	reverse_proxy localhost:18282
 }
+
+
+## WeJumper
+
+http://wj.localtest.me {
+	reverse_proxy localhost:18300
+}
+
+http://admin.wj.localtest.me {
+	reverse_proxy localhost:18380
+}
+
+http://api.wj.localtest.me {
+	reverse_proxy localhost:18381
+}
+
+http://task.wj.localtest.me {
+	reverse_proxy localhost:18382
+}
