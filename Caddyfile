@@ -79,3 +79,21 @@ http://api.wj.localtest.me {
 http://task.wj.localtest.me {
 	reverse_proxy localhost:18382
 }
+
+
+## Regulon
+http://rlon.localtest.me {
+	reverse_proxy localhost:18400
+}
+
+http://admin.rlon.localtest.me {
+	reverse_proxy localhost:18480
+}
+
+http://open.rlon.localtest.me {
+	reverse_proxy localhost:18481
+}
+
+http://task.rlon.localtest.me {
+	reverse_proxy localhost:18482
+}
