@@ -72,3 +72,4 @@ alias dev=./bin/dev
 alias ❯=''
 alias html2pdf=wkhtmltopdf
 alias nv=open-with-neovide.sh
+alias cs='cargo search --registry=crates-io'
