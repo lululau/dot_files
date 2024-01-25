@@ -20,9 +20,11 @@ def find_code_block(value):
                 return result
         return None
     elif isinstance(value, dict) and value['t'] == 'CodeBlock':
-        return CodeBlock(value['c'])
+        return CodeBlock(*value['c'])
+    elif isinstance(value, dict) and 'c' in value and isinstance(value['c'], list):
+        return find_code_block(value['c'])
     else:
-        return value
+        return None
 
 
 # 1. insert a white space before and after the `Code` element in a paragraph
