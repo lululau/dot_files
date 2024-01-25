@@ -51,6 +51,10 @@ def code(key, value, format, meta):
     elif key == 'Header':
         header_children = [e for e in value[2] if e['t'] != 'Link']
         return Header(value[0], ["", [], []], header_children)
+    elif key == 'Div' and isinstance(value, list) and isinstance(value[0], list) and value[0][1] == ["zeroclipboard-container"]:
+        return Para([{'t': 'Space'}])
+    elif key == 'Link' and isinstance(value, list) and isinstance(value[-1], list) and value[-1][0] == "https://github.com/tefra/null":
+        return {'t': 'Space'}
     else:
         return None
 
