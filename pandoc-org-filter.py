@@ -2,7 +2,7 @@
 
 # Usage: pandoc --filter=pandoc-org-filter.py --columns=$LINE_WIDTH -t markdown -f input.md -t org
 
-from pandocfilters import toJSONFilter, Plain, Para, BlockQuote, DefinitionList, CodeBlock
+from pandocfilters import toJSONFilter, Plain, Para, BlockQuote, DefinitionList, CodeBlock, Header
 import re
 
 constructors_map = {
@@ -48,6 +48,9 @@ def code(key, value, format, meta):
         return constructors_map[key](new_elemets)
     elif key == 'Table':
         return find_code_block(value)
+    elif key == 'Header':
+        header_children = [e for e in value[2] if e['t'] != 'Link']
+        return Header(value[0], ["", [], []], header_children)
     else:
         return None
 
