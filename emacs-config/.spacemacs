@@ -443,6 +443,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;;         ("org-cn"   . "http://elpa.emacs-china.org/org/")
   ;;         ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 
+
+  (setq helm-descbinds-disable-which-key nil)
   (setq configuration-layer--elpa-archives
         '(("melpa"    . "melpa.org/packages/")
           ;; ("org"      . "orgmode.org/elpa/")
