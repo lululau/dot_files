@@ -41,7 +41,7 @@
 
 ;; SMTP
 (setq user-full-name "刘向")
-(setq user-mail-address "liuxiang@ktjr.com")
+(setq user-mail-address "liuxiang@upeast.com.cn")
 (setq send-mail-function 'smtpmail-send-it)
 (setq smtpmail-stream-type 'ssl)
 (setq smtpmail-smtp-server "smtp.exmail.qq.com")
