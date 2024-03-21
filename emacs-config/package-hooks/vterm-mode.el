@@ -121,6 +121,7 @@ Argument EVENT process event."
   (define-key vterm-mode-map (kbd "<f12>") nil)
   (define-key vterm-mode-map (kbd "C-c C-c") #'vterm--self-insert)
   (define-key vterm-mode-map (kbd "C-x C-c") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "c" nil nil t)))
+  (define-key vterm-mode-map (kbd "C-x C-g") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "g" nil nil t)))
   (define-key vterm-mode-map (kbd "C-x C-e") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "e" nil nil t)))
   (define-key vterm-mode-map (kbd "C-c e") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "e" nil nil t)))
   (define-key vterm-mode-map (kbd "C-x C-k") #'(lambda () (interactive) (vterm-send-key "x" nil nil t) (vterm-send-key "k" nil nil t)))

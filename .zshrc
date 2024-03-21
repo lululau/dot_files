@@ -502,7 +502,7 @@ _sgpt_zsh() {
   fi
 }
 zle -N _sgpt_zsh
-bindkey '^G' _sgpt_zsh
+bindkey '^X^G' _sgpt_zsh
 # Shell-GPT integration ZSH v0.1
 
 # function _xplr_cd() {
