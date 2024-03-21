@@ -497,7 +497,7 @@ _sgpt_zsh() {
     _sgpt_prev_cmd=$BUFFER
     BUFFER+="⌛"
     zle -I && zle redisplay
-    BUFFER=$(sgpt --shell <<< "$_sgpt_prev_cmd")
+    BUFFER=$(sgpt sh "$_sgpt_prev_cmd")
     zle end-of-line
   fi
 }
