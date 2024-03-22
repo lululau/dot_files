@@ -6,3 +6,5 @@ match:bg:yellow
 path:fg:green
 --colors
 line:fg:yellow
+--smart-case
+
