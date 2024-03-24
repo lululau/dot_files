@@ -406,3 +406,43 @@ function! toggle_copilot()
   endif
 endfunction
 
+sethandler <A-Tab> a:vim
+sethandler <C-2> a:vim
+sethandler <C-S-6> a:vim
+sethandler <C-A> a:vim
+sethandler <C-B> a:vim
+sethandler <C-C> a:vim
+sethandler <A-C> a:vim
+sethandler <C-D> a:vim
+sethandler <M-E> a:vim
+sethandler <A-E> a:vim
+sethandler <C-F> a:vim
+sethandler <A-F> a:vim
+sethandler <C-G> a:vim
+sethandler <C-H> a:vim
+sethandler <A-H> a:ide
+sethandler <C-I> a:vim
+sethandler <M-I> a:vim
+sethandler <A-I> a:vim
+sethandler <C-J> a:vim
+sethandler <C-K> a:vim
+sethandler <C-L> a:vim
+sethandler <C-M> a:vim
+sethandler <C-N> a:vim
+sethandler <C-O> a:vim
+sethandler <C-P> a:vim
+sethandler <A-P> a:vim
+sethandler <C-Q> a:ide
+sethandler <C-R> a:vim
+sethandler <C-S> a:vim
+sethandler <M-S> a:vim
+sethandler <A-S> a:vim
+sethandler <C-T> a:vim
+sethandler <C-U> a:vim
+sethandler <C-V> a:vim
+sethandler <C-W> a:vim
+sethandler <C-X> a:ide
+sethandler <C-Y> a:vim
+sethandler <C-[> a:vim
+sethandler <C-\> a:vim
+sethandler <C-]> a:vim
