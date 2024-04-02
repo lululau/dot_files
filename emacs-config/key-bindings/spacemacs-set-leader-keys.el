@@ -121,7 +121,7 @@
   "axjC" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1:9090/ui/dashboard/#/proxies") (if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjr" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1/cgi-bin/luci/admin/services/openclash/config")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjg" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://github.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-  "axjl" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://gitlab.ktjr.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
+  "axjl" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://gitlab.upeastscm.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjj" #'(lambda () (interactive)(xwidget-webkit-browse-url "https://jenkins.ktjr.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjJ" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://jira.ktjr.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjv" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://www.v2ex.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))

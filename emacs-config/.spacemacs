@@ -572,6 +572,7 @@ layers configuration."
   (setq org-html-doctype "html5")
   (setq git-link-remote-alist
         '(("gitlab.ktjr.com"    git-link-gitlab)
+          ("gitlab.upeastscm.com"    git-link-gitlab)
           ("gitlab.creditcloud.com"    git-link-gitlab)
           ("gitlab.tiaoyin100.com"    git-link-gitlab-no-https)
           ("github.com"    git-link-github)
@@ -581,6 +582,7 @@ layers configuration."
 
   (setq git-link-commit-remote-alist
     '(("gitlab.ktjr.com" git-link-commit-github)
+      ("gitlab.upeastscm.com" git-link-commit-github)
       ("gitlab.creditcloud.com" git-link-commit-github)
       ("gitlab.tiaoyin100.com" git-link-commit-github)
       ("github.com"    git-link-commit-github)
@@ -775,12 +777,26 @@ This function is called at the very end of Spacemacs initialization."
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(avy-keys (quote (97 115 100 106 107 108 119 111 112)))
+ '(browse-at-remote-remote-type-regexps
+   (quote (
+           (:host "^github\\.com$" :type "github")
+           (:host "^bitbucket\\.org$" :type "bitbucket")
+           (:host "^gitlab.*\\.com$" :type "gitlab")
+           (:host "^git\\.savannah\\.gnu\\.org$" :type "gnu")
+           (:host "^gist\\.github\\.com$" :type "gist")
+           (:host "^git\\.sr\\.ht$" :type "sourcehut")
+           (:host "^.*\\.visualstudio\\.com$" :type "ado")
+           (:host "^pagure\\.io$" :type "pagure")
+           (:host "^.*\\.fedoraproject\\.org$" :type "pagure")
+           (:host "^.*\\.googlesource\\.com$" :type "gitiles")
+           (:host "^gitlab\\.gnome\\.org$" :type "gitlab"))))
  '(browse-at-remote-remote-type-domains
    (quote
     (("bitbucket.org" . "bitbucket")
      ("github.com" . "github")
      ("gitlab.ktjr.com" . "gitlab")
      ("gitlab.tiaoyin100.com" . "gitlab")
+     ("gitlab.upeastscm.com" . "gitlab")
      ("gitlab.creditcloud.com" . "gitlab"))))
  '(proxy-mode-http-proxy "http://127.0.0.1:1087")
  '(proxy-mode-socks-proxy
@@ -861,6 +877,7 @@ This function is called at the very end of Spacemacs initialization."
     (("gitlab.creditcloud.com:10022" "gitlab.creditcloud.com/api/v3" "gitlab.creditcloud.com" forge-gitlab-repository)
      ("gitlab.ktjr.com:10022" "gitlab.ktjr.com/api/v4" "gitlab.ktjr.com" forge-gitlab-repository)
      ("gitlab.tiaoyin100.com" "gitlab.tiaoyin100.com/api/v3" "gitlab.tiaoyin100.com" forge-gitlab-repository)
+     ("gitlab.upeastscm.com:10022" "gitlab.upeastscm.com/api/v3" "gitlab.upeastscm.com" forge-gitlab-repository)
      ("github.com" "api.github.com" "github.com" forge-github-repository)
      ("gitlab.com" "gitlab.com/api/v4" "gitlab.com" forge-gitlab-repository)
      ("salsa.debian.org" "salsa.debian.org/api/v4" "salsa.debian.org" forge-gitlab-repository)
