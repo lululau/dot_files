@@ -113,7 +113,7 @@
         ("oor" rails-guides-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org"))))
 
 (setq lx/server-files
-      '(("os3" lcl-devb "/scp:lcl.devb:/etc/nginx/conf.d")
+      '(("os3" jicai-dev "/scp:jicai.dev:/etc/nginx/conf.d")
       ("os4" ceres-devb "/scp:ceres.devb:/etc/nginx/conf.d")
       ("os5" ll-devb "/scp:ll-devb:/etc/nginx/conf.d")
       ("os6" md-dev "/scp:md.dev:/etc/nginx/conf.d")
@@ -123,8 +123,8 @@
       ("osj" jsroot "/scp:jsroot:/data/monitor/prometheus")
       ("osJ" jenkins "/scp:jenkins:/data/jenkins_home/workspace/docker_file")
       ("os2" dev42 "/scp:dev42:~/")
-      ("os1" xym "/scp:xym:~/")
-      ("os0" lx-kt "/scp:lx.kt:~/")))
+      ("os1" lx16 "/scp:lx16:~/")
+      ("os0" lx-sd "/scp:lx.sd:~/")))
 
 ;; Cheat Sheets
 (setq lx/cheatsheets
