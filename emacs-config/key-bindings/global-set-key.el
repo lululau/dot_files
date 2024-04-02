@@ -5,7 +5,7 @@
 (global-set-key (kbd "s-t") 'split-window-right-and-focus)
 (global-set-key (kbd "s-T") 'split-window-below-and-focus)
 (global-set-key (kbd "s-O") 'helm-projectile-find-file)
-(global-set-key (kbd "s-R") 'spacemacs/safe-revert-buffer)
+(global-set-key (kbd "s-R") 'revert-buffer)
 ;; (global-set-key (kbd "s-O") 'spacemacs/helm-find-files-recursively)
 (global-set-key (kbd "s-o") 'lx/helm-find-project-files)
 (global-set-key (kbd "s-f") 'spacemacs/helm-find-files)

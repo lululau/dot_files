@@ -15,7 +15,7 @@
   (define-key dired-mode-map (kbd "-") 'dired-up-directory)
   (define-key dired-mode-map (kbd "S-SPC") nil)
   (define-key dired-mode-map (kbd "TAB") 'dired-subtree-toggle)
-  (define-key dired-mode-map (kbd "gr") #'spacemacs/safe-revert-buffer)
+  (define-key dired-mode-map (kbd "gr") #'revert-buffer)
   (define-key dired-mode-map (kbd "C-L") #'dired-do-symlink)
   (with-eval-after-load 'evil-collection-dired
     (evil-define-key 'normal dired-mode-map (kbd "f") 'spacemacs/helm-find-files)
