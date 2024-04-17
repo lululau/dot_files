@@ -536,7 +536,17 @@ function _xplr_cd2() {
     cd "$dir"
   fi
 }
-bindkey -s $'\ex' '_xplr_cd2\n'
+
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+bindkey -s $'\ex' 'yy\n'
 
 goto_tmux_last_pwd.widget() {
   local value=$(tmux show-environment -g TMUX_LAST_PWD 2> /dev/null | cut -d= -f2)
