@@ -8,3 +8,7 @@ on   = [ "u" ]
 run = "leave"
 desc = "Enter parent directory"
 
+[[manager.prepend_keymap]]
+on   = [ "-" ]
+run = "leave"
+desc = "Enter parent directory"
