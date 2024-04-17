@@ -1,11 +1,11 @@
-function Folder:linemode(area)
+function Folder:linemode(area, files)
 	local mode = cx.active.conf.linemode
 	if mode == "none" then
 		return {}
 	end
 
 	local lines = {}
-	for _, f in ipairs(self:by_kind(self.CURRENT).window) do
+	for _, f in ipairs(files) do
 		local spans = { ui.Span(" ") }
 		if mode == "size" then
 			local size = f:size()
@@ -30,3 +30,5 @@ function Folder:linemode(area)
 	end
 	return ui.Paragraph(area, lines):align(ui.Paragraph.RIGHT)
 end
+
+return Folder
