@@ -1,2 +1,8 @@
 [manager]
 linemode = 'full'
+
+[plugin]
+prepend_previewers = [
+  { name = "*.md", run = "glow" },
+  { name = "*.markdown", run = "glow" },
+]
