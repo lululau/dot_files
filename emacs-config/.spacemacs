@@ -1169,6 +1169,7 @@ This function is called at the very end of Spacemacs initialization."
  '(vterm-keymap-exceptions (quote ("C-c" "C-x" "C-u" "C-g" "C-h" "M-x" "M-o" "C-y" "M-y" "M-1" "M-2" "M-3" "M-4" "M-5" "M-6" "M-7" "M-8" "M-9" "M-0" "M-\\" "M-h" "M-l" "M-k" "M-:")))
  '(xwwp-follow-link-completion-system 'helm)
  '(helm-buffer-max-length 40)
+ '(helm-move-to-line-cycle-in-source nil)
  '(copilot-overlay-safe nil)
  '(copilot-idle-delay 0.5)
  '(copilot-node-executable "~/.nvm/versions/node/v14.21.3/bin/node")
