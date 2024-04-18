@@ -9,6 +9,11 @@ run  = "plugin fzf-autojump"
 desc = "Jump to a directory with fzf"
 
 [[manager.prepend_keymap]]
+on   = [ "z", "j" ]
+run  = "plugin fzf-autojump"
+desc = "Jump to a directory with fzf"
+
+[[manager.prepend_keymap]]
 on   = [ "T" ]
 run  = "plugin fzf"
 desc = "Jump to a directory with fzf"
