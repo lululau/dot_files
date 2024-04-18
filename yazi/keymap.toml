@@ -4,6 +4,17 @@ run  = "plugin --sync smart-enter"
 desc = "Enter the child directory, or open the file"
 
 [[manager.prepend_keymap]]
+on   = [ "z" ]
+run  = "plugin fzf-autojump"
+desc = "Jump to a directory with fzf"
+
+[[manager.prepend_keymap]]
+on   = [ "T" ]
+run  = "plugin fzf"
+desc = "Jump to a directory with fzf"
+
+
+[[manager.prepend_keymap]]
 on   = [ "u" ]
 run = "leave"
 desc = "Enter parent directory"
