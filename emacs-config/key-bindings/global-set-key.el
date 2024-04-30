@@ -85,7 +85,7 @@
                                   (if (bound-and-true-p arql-env)
                                       (lx/run-in-pry-vterm (format "~/.rvm/gems/ruby-3.2.0/bin/arql -e %s" arql-env) (format "*arql-%s*" arql-env) (projectile-project-root))
                                     (lx/run-in-pry-vterm "~/.rvm/gems/ruby-3.2.0/bin/arql -e lcldevb" "*arql-lcldevb*" (projectile-project-root) t))))
-(global-set-key (kbd "s-r j") #'(lambda () (interactive) (lx/run-in-vterm "/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/bin/jshell --class-path $HOME/.m2/final/ktjr-common.jar --start $HOME/.config/default.jsh" "*jshell*")))
+(global-set-key (kbd "s-r j") #'(lambda () (interactive) (lx/run-in-vterm "/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/bin/jshell --class-path $HOME/.m2/final/ktjr-common.jar --start $HOME/.config/default.jsh" "*jshell*")))
 (global-set-key (kbd "s-r a") #'(lambda () (interactive) (lx/run-in-vterm "as.sh" "*arthas*" default-directory)))
 (global-set-key (kbd "s-r k") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/k9s" "*k9s*" nil t)))
 (global-set-key (kbd "s-r h") #'(lambda () (interactive) (lx/run-in-vterm "htop" "*htop*" default-directory t)))
