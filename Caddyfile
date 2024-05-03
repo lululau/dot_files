@@ -7,6 +7,22 @@
 	}
 }
 
+## zhzx
+
+http://zhzx.localtest.me {
+  reverse_proxy localhost:5100
+}
+
+## jicai
+
+http://buy.localtest.me {
+  reverse_proxy localhost:3200
+}
+
+http://api.buy.localtest.me {
+  reverse_proxy localhost:5200
+}
+
 ## LCL
 
 http://lcl.localtest.me {
