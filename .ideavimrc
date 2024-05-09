@@ -371,12 +371,12 @@ noremap ,gu :action Tool_Git_RevertCurrentFile<cr>
 " RestfulTools
 noremap <leader>fya :action RestfulTool.action.OptionForEditor-CopyApiPath<cr>
 noremap <leader>fyA :action RestfulTool.action.OptionForEditor-CopyFullPath<cr>
-noremap <leader>sy :action RestfulTool.action.OptionForEditor-CopyApiPath<cr>
-noremap <leader>sY :action RestfulTool.action.OptionForEditor-CopyFullPath<cr>
+noremap <leader>sy :action GenerateRestUrl<cr>
+noremap <leader>sY :action GenerateFullRestUrl<cr>
 noremap <leader>st :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
 noremap <leader>js :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
-noremap ,sy :action RestfulTool.action.OptionForEditor-CopyApiPath<cr>
-noremap ,sY :action RestfulTool.action.OptionForEditor-CopyFullPath<cr>
+noremap ,sy :action GenerateRestUrl<cr>
+noremap ,sY :action GenerateFullRestUrl<cr>
 noremap ,st :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
 noremap ,js :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
 
