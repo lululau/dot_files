@@ -97,7 +97,7 @@
 (global-set-key (kbd "s-r 5") #'(lambda () (interactive) (helm-zsh-vterm-ssh-run "ll.devb")))
 (global-set-key (kbd "s-r l 1") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "jicai-api-open")))
 (global-set-key (kbd "s-r l 2") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "jicai-dev")))
-(global-set-key (kbd "s-r l 3") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "wj-devb-task")))
+(global-set-key (kbd "s-r l 3") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "jicai-prod")))
 (global-set-key (kbd "s-r l 4") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "cc-devb-admin")))
 (global-set-key (kbd "s-r l 5") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "cc-devb-task")))
 (global-set-key (kbd "s-r l 6") #'(lambda () (interactive) (helm-vterm-vrl-run-auto-function "cc-devb-open")))
