@@ -4,6 +4,11 @@ run  = "plugin --sync smart-enter"
 desc = "Enter the child directory, or open the file"
 
 [[manager.prepend_keymap]]
+on   = [ "M" ]
+run  = [ "select --state=none", "arrow 1"]
+desc = "Toggle the selection state of the current file"
+
+[[manager.prepend_keymap]]
 on   = [ "Z" ]
 run  = "plugin fzf-autojump"
 desc = "Jump to a directory with fzf"
@@ -12,6 +17,12 @@ desc = "Jump to a directory with fzf"
 on   = [ "z", "j" ]
 run  = "plugin fzf-autojump"
 desc = "Jump to a directory with fzf"
+
+[[manager.prepend_keymap]]
+on   = [ "<Space>", "j" ]
+run  = "plugin fzf-autojump"
+desc = "Jump to a directory with fzf"
+
 
 [[manager.prepend_keymap]]
 on   = [ "T" ]
@@ -31,142 +42,142 @@ desc = "Enter parent directory"
 
 
 [[manager.prepend_keymap]]
-on = ["z", "d", "A"]
+on = ["<Space>", "o", "d", "A"]
 run = "plugin dirs --args='/Applications/'"
 desc = "Jump to /Applications/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "b"]
+on = ["<Space>", "o", "d", "b"]
 run = "plugin dirs --args='~/blog/'"
 desc = "Jump to ~/blog/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "B"]
+on = ["<Space>", "o", "d", "B"]
 run = "plugin dirs --args='~/bin/'"
 desc = "Jump to ~/bin/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "C"]
+on = ["<Space>", "o", "d", "C"]
 run = "plugin dirs --args='~/Cafe/'"
 desc = "Jump to ~/Cafe/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "c"]
+on = ["<Space>", "o", "d", "c"]
 run = "plugin dirs --args='~/.config/'"
 desc = "Jump to ~/.config/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "<C-c>"]
+on = ["<Space>", "o", "d", "<C-c>"]
 run = "plugin dirs --args='~/cascode/'"
 desc = "Jump to ~/cascode/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "d"]
+on = ["<Space>", "o", "d", "d"]
 run = "plugin dirs --args='~/Downloads/'"
 desc = "Jump to ~/Downloads/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "D"]
+on = ["<Space>", "o", "d", "D"]
 run = "plugin dirs --args='~/Documents/'"
 desc = "Jump to ~/Documents/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "f"]
+on = ["<Space>", "o", "d", "f"]
 run = "plugin dirs --args='~/.fzf/'"
 desc = "Jump to ~/.fzf/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "g"]
+on = ["<Space>", "o", "d", "g"]
 run = "plugin dirs --args='~/cascode/github.com/'"
 desc = "Jump to ~/cascode/github.com/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "H"]
+on = ["<Space>", "o", "d", "H"]
 run = "plugin dirs --args='/home'"
 desc = "Jump to /home'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "h"]
+on = ["<Space>", "o", "d", "h"]
 run = "plugin dirs --args='~/'"
 desc = "Jump to ~/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "i"]
+on = ["<Space>", "o", "d", "i"]
 run = "plugin dirs --args='~/Library/Mobile\\ Documents/com~apple~CloudDocs/'"
 desc = "Jump to ~/Library/Mobile Documents/com~apple~CloudDocs/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "k"]
+on = ["<Space>", "o", "d", "k"]
 run = "plugin dirs --args='~/sd/'"
 desc = "Jump to ~/sd/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "K"]
+on = ["<Space>", "o", "d", "K"]
 run = "plugin dirs --args='~/kt/'"
 desc = "Jump to ~/kt/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "l"]
+on = ["<Space>", "o", "d", "l"]
 run = "plugin dirs --args=''~/Library/Application Support/''"
 desc = "Jump to '"
 [[manager.prepend_keymap]]
-on = ["z", "d", "L"]
+on = ["<Space>", "o", "d", "L"]
 run = "plugin dirs --args='~/Library/Preferences/'"
 desc = "Jump to ~/Library/Preferences/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "M"]
+on = ["<Space>", "o", "d", "M"]
 run = "plugin dirs --args='~/Movies/'"
 desc = "Jump to ~/Movies/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "m"]
+on = ["<Space>", "o", "d", "m"]
 run = "plugin dirs --args='~/Documents/materials/'"
 desc = "Jump to ~/Documents/materials/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "s"]
+on = ["<Space>", "o", "d", "s"]
 run = "plugin dirs --args='~/Documents/materials/scratches/'"
 desc = "Jump to ~/Documents/materials/scratches/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "S"]
+on = ["<Space>", "o", "d", "S"]
 run = "plugin dirs --args='~/snips/'"
 desc = "Jump to ~/snips/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "<C-s>"]
+on = ["<Space>", "o", "d", "<C-s>"]
 run = "plugin dirs --args='~/Documents/materials/snippets'"
 desc = "Jump to ~/Documents/materials/snippets'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "e"]
+on = ["<Space>", "o", "d", "e"]
 run = "plugin dirs --args='~/.emacs.spacemacs.d'"
 desc = "Jump to ~/.emacs.spacemacs.d'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "z"]
+on = ["<Space>", "o", "d", "z"]
 run = "plugin dirs --args='~/.spacezsh/'"
 desc = "Jump to ~/.spacezsh/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "Z"]
+on = ["<Space>", "o", "d", "Z"]
 run = "plugin dirs --args='~/.oh-my-zsh/'"
 desc = "Jump to ~/.oh-my-zsh/'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "/"]
+on = ["<Space>", "o", "d", "/"]
 run = "plugin dirs --args='/'"
 desc = "Jump to /'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "o"]
+on = ["<Space>", "o", "d", "o"]
 run = "plugin dirs --args='~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org'"
 desc = "Jump to ~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "j"]
+on = ["<Space>", "o", "d", "j"]
 run = "plugin dirs --args='~/Documents/materials/journal'"
 desc = "Jump to ~/Documents/materials/journal'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "J"]
+on = ["<Space>", "o", "d", "J"]
 run = "plugin dirs --args='~/Documents/materials/jira'"
 desc = "Jump to ~/Documents/materials/jira'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "n"]
+on = ["<Space>", "o", "d", "n"]
 run = "plugin dirs --args='~/Documents/materials/notes'"
 desc = "Jump to ~/Documents/materials/notes'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "N"]
+on = ["<Space>", "o", "d", "N"]
 run = "plugin dirs --args='~/Documents/evernotes'"
 desc = "Jump to ~/Documents/evernotes'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "w"]
+on = ["<Space>", "o", "d", "w"]
 run = "plugin dirs --args='~/Documents/materials/webclips'"
 desc = "Jump to ~/Documents/materials/webclips'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "v"]
+on = ["<Space>", "o", "d", "v"]
 run = "plugin dirs --args='/Volumes'"
 desc = "Jump to /Volumes'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "T"]
+on = ["<Space>", "o", "d", "T"]
 run = "plugin dirs --args='~/.tmux'"
 desc = "Jump to ~/.tmux'"
 [[manager.prepend_keymap]]
-on = ["z", "d", "t"]
+on = ["<Space>", "o", "d", "t"]
 run = "plugin dirs --args='~/tmp/'"
 desc = "Jump to ~/tmp/'"
