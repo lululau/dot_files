@@ -15,10 +15,10 @@ http://zhzx.localtest.me {
 
 ## jicai
 
-http://buy.localtest.me {
-  reverse_proxy localhost:3200
   # root * /Users/liuxiang/sd/jcfe/dist
   # file_server
+http://buy.localtest.me {
+  reverse_proxy localhost:3200
 }
 
 http://api.buy.localtest.me {
