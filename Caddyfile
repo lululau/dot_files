@@ -4,7 +4,11 @@
 {
 	log {
 		output file {$HOME}/tmp/caddy.log
-	}
+    format json {
+      time_format "iso8601"        
+    }
+    level debug
+  }
 }
 
 ## cas
