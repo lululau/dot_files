@@ -36,6 +36,11 @@ run = "leave"
 desc = "Enter parent directory"
 
 [[manager.prepend_keymap]]
+on   = [ "U" ]
+run  = "select_all --state=false"
+desc = "unselect all files"
+
+[[manager.prepend_keymap]]
 on   = [ "-" ]
 run = "leave"
 desc = "Enter parent directory"
