@@ -476,8 +476,8 @@ function recentf-add-file() {
   done
 }
 
-chpwd_functions+=(helm-dired-history-update)
-preexec_functions+=(recentf-add-file)
+# chpwd_functions+=(helm-dired-history-update)
+# preexec_functions+=(recentf-add-file)
 
 export OPENAI_API_KEY=$(cat ~/.config/secrets/.openai_api_key)
 
