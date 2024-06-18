@@ -225,6 +225,7 @@
 (global-set-key (kbd "s-k") #'(lambda () (interactive) (evil-previous-line 10)))
 
 ;; s-i
+(global-set-key (kbd "s-i s-0") 'lx/find-or-create-projectile-alternate-org)
 (global-set-key (kbd "s-i s-o") 'lx/find-or-create-projectile-snippet-org)
 (global-set-key (kbd "s-i s-p") 'lx/find-or-create-projectile-request-org)
 (global-set-key (kbd "s-i s-q") 'lx/find-or-create-projectile-sql-org)

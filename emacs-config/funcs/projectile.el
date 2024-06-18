@@ -77,6 +77,17 @@
           (find-file file))
       (message "File not exist: %s" file))))
 
+
+(defun lx/find-or-create-projectile-alternate-org (in-other-window)
+  (interactive "P")
+  (let* ((persp-project (get-current-persp-project))
+         (file (format "%s/tmp/traffagent.org"  persp-project)))
+    (if (and persp-project (file-exists-p file))
+        (if in-other-window
+            (find-file-other-window file)
+          (find-file file))
+      (message "File not exist: %s" file))))
+
 (defun projectile-find-file-in-pwd ()
   (interactive)
   (projectile-find-file-in-directory default-directory))
