@@ -1,5 +1,5 @@
 ;; Set the monospaced font size when mixed Chinese and English words, and if you use a computer with a retina display and a external display.
-(setq lx/set-monospaced-font/font-names '("Source Code Pro" "黑体-简"))
+(setq lx/set-monospaced-font/font-names '("SauceCodePro Nerd Font Mono" "黑体-简"))
 (setq lx/set-monospaced-font/iniital-font-size '(14 16))
 (defvar lx/set-monospaced-font/font-size-options '((12 14)
                                                    (13 16)
@@ -27,7 +27,7 @@
       (let* ((scale-factor 2)
              (english-size (if (> scale-factor 1) english-retina-size english-normal-size))
              (chinese-size (if (> scale-factor 1) chinese-retina-size chinese-normal-size))
-            (frames (cdr (assoc 'frames monitor-attrs))))
+             (frames (cdr (assoc 'frames monitor-attrs))))
         (dolist (frame frames)
           (set-face-attribute 'default frame :font
                               (format   "%s:pixelsize=%d"  english english-size))
@@ -42,7 +42,7 @@
            (idx (-elem-index lx/set-monospaced-font/current-font-size lx/set-monospaced-font/font-size-options))
            (next-idx (1+ idx))
            (next (nth next-idx lx/set-monospaced-font/font-size-options)))
-    (apply 'lx/set-monospaced-font (append lx/set-monospaced-font/font-names next next)))))
+      (apply 'lx/set-monospaced-font (append lx/set-monospaced-font/font-names next next)))))
 
 
 (defun lx/set-monospaced-font/decrease-font-size ()

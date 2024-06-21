@@ -21,8 +21,8 @@
   "tom" #'org-toggle-org-modern-mode
   "toM" #'org-toggle-global-org-modern-mode
   "tA" #'(lambda () (interactive) (if (bound-and-true-p annotate-mode) (annotate-mode -1) (annotate-mode)))
-  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16))
-  "s-0" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16))
+  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "SauceCodePro Nerd Font Mono" "黑体-简" 14 16 14 16))
+  "s-0" #'(lambda () (interactive) (lx/set-monospaced-font "SauceCodePro Nerd Font Mono" "黑体-简" 14 16 14 16))
   "ps" #'lx/find-or-create-projectile-snippet-file
   "aC" #'calendar
   "col" #'copy-org-links-at-point
@@ -127,7 +127,7 @@
   "axjv" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://www.v2ex.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axje" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://emacs-china.org")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjt" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://twitter.com/home")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-)
+  )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
   "h" 'dired-dotfiles-toggle
@@ -162,7 +162,7 @@
   "r." 'dired-rsync-transient)
 
 (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
-   "cb" #'byte-compile-current-buffer-file)
+  "cb" #'byte-compile-current-buffer-file)
 
 
 (spacemacs/set-leader-keys-for-major-mode 'pdf-view-mode

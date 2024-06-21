@@ -51,7 +51,7 @@
            (set (intern (format "evil-%s-state-cursor" state))
                 (list (when dotspacemacs-colorize-cursor-according-to-state color)
                       cursor)))
-  (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16))
+  (lx/set-monospaced-font "SauceCodePro Nerd Font Mono" "黑体-简" 14 16 14 16))
 
 (advice-add 'spacemacs/set-state-faces :override #'lx/optimize-theme-colors-and-font)
 
