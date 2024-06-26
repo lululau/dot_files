@@ -96,3 +96,5 @@ export EA_EDITOR="$HOMEBREW_PREFIX/bin/emacsclient -a '' -c"
 complete -C $HOMEBREW_PREFIX/bin/bitcomplete bit
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
+
+. "$HOME/.grit/bin/env"

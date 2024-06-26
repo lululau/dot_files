@@ -583,3 +583,5 @@ bindkey '^x^o^a' goto_tmux_last_pwd.widget
 bindkey '^x^o^b' goto_project_root.widget
 
 eval "$(luarocks path --lua-version 5.1)"
+
+. "$HOME/.grit/bin/env"
