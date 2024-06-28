@@ -78,3 +78,5 @@ __pycache__/
 /jgit
 /clash.meta
 /jgit/*
+/zed/*
+!/zed/*.json
