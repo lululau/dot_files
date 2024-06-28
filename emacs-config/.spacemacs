@@ -131,7 +131,7 @@
                         spacemacs-layouts-restrict-spc-tab t)
      (spacemacs-evil :variable spacemacs-evil-collection-allowed-list '(eww dired quickrun zsh-vterm pry-vterm))
      ;; lsp
-     (lsp :variables lsp-rust-server 'rust-analyzer)
+     ;; (lsp :variables lsp-rust-server 'rust-analyzer)
      ansible
      dap
      ivy helm
@@ -738,6 +738,15 @@ layers configuration."
   ;; (setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
 
   (atomic-chrome-start-server)
+
+  (add-to-list 'load-path "/Users/liuxiang/cascode/github.com/lsp-bridge")
+
+  (require 'yasnippet)
+  (yas-global-mode 1)
+
+  (require 'lsp-bridge)
+  (global-lsp-bridge-mode)
+
   ) ;;; End of config.
 
 ;; (desktop-save-mode 1)
