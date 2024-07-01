@@ -12,6 +12,7 @@
 
 
 (setq evil-want-keybinding nil)
+(setq emacs-lisp-format-on-save nil)
 
 (defun lx/system-is-linux()
   (eq system-type 'gnu/linux))
