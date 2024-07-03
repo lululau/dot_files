@@ -4,7 +4,44 @@
 {
 	log {
 		output file {$HOME}/tmp/caddy.log
-	}
+    format json {
+      time_format "iso8601"        
+    }
+    level debug
+  }
+}
+
+## cas
+
+http://cas.hackit.fun {
+  reverse_proxy http://localhost:8080
+}
+
+## zhzx
+
+http://zhzx.localtest.me {
+  reverse_proxy localhost:5100
+}
+
+http://zhzx.hackit.fun {
+  reverse_proxy localhost:5100
+}
+
+## jicai
+
+  # root * /Users/liuxiang/sd/jcfe/dist
+  # file_server
+
+http://buy.localtest.me {
+  reverse_proxy localhost:3200
+}
+
+http://buy.hackit.fun {
+  reverse_proxy localhost:3200
+}
+
+http://api.buy.localtest.me {
+  reverse_proxy localhost:5200
 }
 
 ## LCL
@@ -59,4 +96,41 @@ http://open.cc.localtest.me {
 
 http://task.cc.localtest.me {
 	reverse_proxy localhost:18282
+}
+
+
+## WeJumper
+
+http://wj.localtest.me {
+	reverse_proxy localhost:18300
+}
+
+http://admin.wj.localtest.me {
+	reverse_proxy localhost:18380
+}
+
+http://api.wj.localtest.me {
+	reverse_proxy localhost:18381
+}
+
+http://task.wj.localtest.me {
+	reverse_proxy localhost:18382
+}
+
+
+## Regulon
+http://rlon.localtest.me {
+	reverse_proxy localhost:18400
+}
+
+http://admin.rlon.localtest.me {
+	reverse_proxy localhost:18480
+}
+
+http://open.rlon.localtest.me {
+	reverse_proxy localhost:18481
+}
+
+http://task.rlon.localtest.me {
+	reverse_proxy localhost:18482
 }

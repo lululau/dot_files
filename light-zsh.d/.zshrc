@@ -130,5 +130,5 @@ function recentf-add-file() {
   done
 }
 
-chpwd_functions+=(helm-dired-history-update)
-preexec_functions+=(recentf-add-file)
+# chpwd_functions+=(helm-dired-history-update)
+# preexec_functions+=(recentf-add-file)

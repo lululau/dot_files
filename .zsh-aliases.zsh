@@ -13,9 +13,9 @@ else
 fi
 alias grep="grep --color=auto"
 alias ggrep="ggrep --color=auto"
-alias tomcat="/usr/local/opt/tomcat@7/bin/catalina run"
-alias tomcat7="/usr/local/opt/tomcat@7/bin/catalina run"
-alias tomcat8="/usr/local/opt/tomcat@8/bin/catalina run"
+alias tomcat="$HOMEBREW_PREFIX/opt/tomcat@7/bin/catalina run"
+alias tomcat7="$HOMEBREW_PREFIX/opt/tomcat@7/bin/catalina run"
+alias tomcat8="$HOMEBREW_PREFIX/opt/tomcat@8/bin/catalina run"
 alias s="screen -e^jj"
 alias -g ODX='| od -Ad -tx1'
 alias -g ODC='| od -Ad -tc'
@@ -72,3 +72,5 @@ alias dev=./bin/dev
 alias ❯=''
 alias html2pdf=wkhtmltopdf
 alias nv=open-with-neovide.sh
+alias cs='cargo search --registry=crates-io'
+alias lzd=lazydocker

@@ -7,6 +7,7 @@
                         (act2          (if (eq variant 'dark) (if (true-color-p) "#5d4d7a" "#444444") (if (true-color-p) "#d3d3e7" "#afafd7")))
                         (base          (if (eq variant 'dark) (if (true-color-p) "#b2b2b2" "#b2b2b2") (if (true-color-p) "#655370" "#5f5f87")))
                         (base-dim      (if (eq variant 'dark) (if (true-color-p) "#686868" "#585858") (if (true-color-p) "#a094a2" "#afafd7")))
+                        ;; (bg1           (if (eq variant 'dark) (if (true-color-p) "#23273b" "#303030") (if (true-color-p) "#fbf8ef" "#ffffff")))
                         (bg1           (if (eq variant 'dark) (if (true-color-p) "#292b2e" "#303030") (if (true-color-p) "#fbf8ef" "#ffffff")))
                         (bg2           (if (eq variant 'dark) (if (true-color-p) "#212026" "#1c1c1c") (if (true-color-p) "#efeae9" "#e4e4e4")))
                         (bg3           (if (eq variant 'dark) (if (true-color-p) "#100a14" "#121212") (if (true-color-p) "#e3dedd" "#d0d0d0")))

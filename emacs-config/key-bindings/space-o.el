@@ -22,7 +22,8 @@
                 ("odH" home-dir ("/home"))
                 ("odh" user-dir ("~/"))
                 ("odi" icloud-dir ("~/Library/Mobile Documents/com~apple~CloudDocs/"))
-                ("odk" kt-dir ("~/kt/"))
+                ("odk" sd-dir ("~/sd/"))
+                ("odK" kt-dir ("~/kt/"))
                 ("odl" las-dir ("~/Library/Application Support/" "/var/run/log"))
                 ("odL" lp-dir ("~/Library/Preferences/" "/data/logs"))
                 ("odM" movies-dir ("~/Movies/"))
@@ -35,6 +36,7 @@
                 ("odZ" ohmyzsh-dir ("~/.oh-my-zsh/"))
                 ("od/" root-dir ("/"))
                 ("odo" org-dir ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org"))
+                ("odO" obsidian-dir ("/Users/liuxiang/Library/Mobile Documents/iCloud~md~obsidian/Documents/Main"))
                 ("odj" org-journal-dir ("~/Documents/materials/journal"))
                 ("odJ" org-jira-dir ("~/Documents/materials/jira"))
                 ("odn" notes-dir ("~/Documents/materials/notes"))
@@ -88,7 +90,7 @@
         ("oct" tmux-conf ("~/.tmux.conf"))
         ("ocJ" jenkins-builder ("~/.jenkins-builder.yaml"))
         ("ocj" ideavimrc ("~/.ideavimrc"))
-        ("ocn" nginx ("/usr/local/etc/nginx" "/etc/nginx/conf.d" "/opt/nginx/conf"))
+        ("ocn" nginx ("/usr/local/etc/nginx" "/opt/homebrew/etc/nginx" "/etc/nginx/conf.d" "/opt/nginx/conf"))
         ("ock" kubectl ("~/.kube/config"))
         ("ocK" k9s ("~/.k9s"))
         ("oc9" k9s2 ("~/.k9s"))
@@ -112,7 +114,7 @@
         ("oor" rails-guides-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org"))))
 
 (setq lx/server-files
-      '(("os3" lcl-devb "/scp:lcl.devb:/etc/nginx/conf.d")
+      '(("os3" jicai-dev "/scp:jicai.dev:/etc/nginx/conf.d")
       ("os4" ceres-devb "/scp:ceres.devb:/etc/nginx/conf.d")
       ("os5" ll-devb "/scp:ll-devb:/etc/nginx/conf.d")
       ("os6" md-dev "/scp:md.dev:/etc/nginx/conf.d")
@@ -122,8 +124,8 @@
       ("osj" jsroot "/scp:jsroot:/data/monitor/prometheus")
       ("osJ" jenkins "/scp:jenkins:/data/jenkins_home/workspace/docker_file")
       ("os2" dev42 "/scp:dev42:~/")
-      ("os1" xym "/scp:xym:~/")
-      ("os0" lx-kt "/scp:lx.kt:~/")))
+      ("os1" lx16 "/scp:lx16:~/")
+      ("os0" lx-sd "/scp:lx.sd:~/")))
 
 ;; Cheat Sheets
 (setq lx/cheatsheets
@@ -148,9 +150,7 @@
                   (file-prefix (if remote-host (format "/scp:%s:" remote-host) ""))
                   (files (mapcar (lambda (x) (concat file-prefix x)) ',dir))
                   (existing-file (seq-find (lambda (x) (file-exists-p x)) files)))
-             (if (not is-remote)
-                 (find-file ,(car dir))
-               (find-file (or existing-file (car files)))))
+               (find-file (or existing-file (car files))))
           (let* ((existing-file (seq-find (lambda (x) (file-exists-p x)) ',dir)))
             (find-file (or existing-file (car files))))))))
 

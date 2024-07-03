@@ -21,8 +21,8 @@
   "tom" #'org-toggle-org-modern-mode
   "toM" #'org-toggle-global-org-modern-mode
   "tA" #'(lambda () (interactive) (if (bound-and-true-p annotate-mode) (annotate-mode -1) (annotate-mode)))
-  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16))
-  "s-0" #'(lambda () (interactive) (lx/set-monospaced-font "Source Code Pro" "黑体-简" 14 16 14 16))
+  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "SauceCodePro Nerd Font Mono" "黑体-简" 14 16 14 16))
+  "s-0" #'(lambda () (interactive) (lx/set-monospaced-font "SauceCodePro Nerd Font Mono" "黑体-简" 14 16 14 16))
   "ps" #'lx/find-or-create-projectile-snippet-file
   "aC" #'calendar
   "col" #'copy-org-links-at-point
@@ -41,9 +41,9 @@
   "dg" #'find-grep-dired
   "dF" #'fd-dired
   "dN" #'fd-name-dired
-  "d s-F" #'mfd-dired
-  "d s-N" #'mfd-name-dired
-  "d s-G" #'mfd-grep-dired
+  "d s-f" #'mfd-dired
+  "d s-n" #'mfd-name-dired
+  "d s-g" #'mfd-grep-dired
   "d TAB" #'(lambda () (interactive) (switch-to-buffer (--find (eq 'dired-mode (with-current-buffer it major-mode)) (buffer-list))))
   "pL" #'lx/helm-persp-replace-project
   "bL" #'lx/persp-swith-to-buffer-project
@@ -121,13 +121,13 @@
   "axjC" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1:9090/ui/dashboard/#/proxies") (if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjr" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1/cgi-bin/luci/admin/services/openclash/config")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjg" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://github.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-  "axjl" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://gitlab.ktjr.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
+  "axjl" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://gitlab.upeastscm.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjj" #'(lambda () (interactive)(xwidget-webkit-browse-url "https://jenkins.ktjr.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjJ" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://jira.ktjr.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjv" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://www.v2ex.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axje" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://emacs-china.org")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjt" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://twitter.com/home")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-)
+  )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
   "h" 'dired-dotfiles-toggle
@@ -162,7 +162,7 @@
   "r." 'dired-rsync-transient)
 
 (spacemacs/set-leader-keys-for-major-mode 'emacs-lisp-mode
-   "cb" #'byte-compile-current-buffer-file)
+  "cb" #'byte-compile-current-buffer-file)
 
 
 (spacemacs/set-leader-keys-for-major-mode 'pdf-view-mode

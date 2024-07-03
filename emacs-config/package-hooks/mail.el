@@ -30,6 +30,7 @@
         ("from:monitor@monitor.aliyun.com" "Aliyun Alert" ?A)
         ("from:devops@ktjr.com" "Ktjr Alert" ?k)
         ("from:kibana@ktjr.com" "Kibana Alert" ?K)
+        ("from:monitor@monitor.aliyun.com or from:devops@ktjr.com or from:kibana@ktjr.com" "All Alert" ?x)
         ("from:jira@ktjr.com and m:/INBOX" "Jira" ?j)
         (,(mapconcat 'identity
                      (mapcar
@@ -40,7 +41,7 @@
 
 ;; SMTP
 (setq user-full-name "刘向")
-(setq user-mail-address "liuxiang@ktjr.com")
+(setq user-mail-address "liuxiang@upeast.com.cn")
 (setq send-mail-function 'smtpmail-send-it)
 (setq smtpmail-stream-type 'ssl)
 (setq smtpmail-smtp-server "smtp.exmail.qq.com")

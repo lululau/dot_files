@@ -62,6 +62,43 @@ nnoremap Y y$
 nnoremap <c-g> :call Clear_highlight_copilot()<cr>
 inoremap <c-g> <c-o>:call Clear_highlight_copilot()<cr>
 noremap <a-x> :action RunAnything<cr>
+noremap mm :action ToggleBookmark<cr>
+noremap m :action ToggleBookmark<cr>
+noremap m0 :action ToggleBookmark0<cr>
+noremap m1 :action ToggleBookmark1<cr>
+noremap m2 :action ToggleBookmark2<cr>
+noremap m3 :action ToggleBookmark3<cr>
+noremap m4 :action ToggleBookmark4<cr>
+noremap m5 :action ToggleBookmark5<cr>
+noremap m6 :action ToggleBookmark6<cr>
+noremap m7 :action ToggleBookmark7<cr>
+noremap m8 :action ToggleBookmark8<cr>
+noremap m9 :action ToggleBookmark9<cr>
+noremap ma :action ToggleBookmarkA<cr>
+noremap mb :action ToggleBookmarkB<cr>
+noremap mc :action ToggleBookmarkC<cr>
+noremap md :action ToggleBookmarkD<cr>
+noremap me :action ToggleBookmarkE<cr>
+noremap mf :action ToggleBookmarkF<cr>
+noremap mg :action ToggleBookmarkG<cr>
+noremap mh :action ToggleBookmarkH<cr>
+noremap mi :action ToggleBookmarkI<cr>
+noremap mj :action ToggleBookmarkJ<cr>
+noremap mk :action ToggleBookmarkWithMnemonic<cr>
+noremap ml :action ToggleBookmarkL<cr>
+noremap mn :action ToggleBookmarkN<cr>
+noremap mo :action ToggleBookmarkO<cr>
+noremap mp :action ToggleBookmarkP<cr>
+noremap mq :action ToggleBookmarkQ<cr>
+noremap mr :action ToggleBookmarkR<cr>
+noremap ms :action ToggleBookmarkS<cr>
+noremap mt :action ToggleBookmarkT<cr>
+noremap mu :action ToggleBookmarkU<cr>
+noremap mv :action ToggleBookmarkV<cr>
+noremap mw :action ToggleBookmarkW<cr>
+noremap mx :action ToggleBookmarkX<cr>
+noremap my :action ToggleBookmarkY<cr>
+noremap mz :action ToggleBookmarkZ<cr>
 
 nnoremap [[ :action MethodUp<cr>
 nnoremap ]] :action MethodDown<cr>
@@ -167,6 +204,7 @@ noremap <a-tab> :action TabSwitchPlugin.SwitchTab<cr>
 noremap <leader>fnc :action NewClass<cr>
 noremap <leader>fnf :action NewFile<cr>
 noremap <leader>fb :action ShowBookmarks<cr>
+noremap m, :action ShowBookmarks<cr>
 noremap ,fnc :action NewClass<cr>
 noremap ,fnf :action NewFile<cr>
 noremap ,fb :action ShowBookmarks<cr>
@@ -371,12 +409,12 @@ noremap ,gu :action Tool_Git_RevertCurrentFile<cr>
 " RestfulTools
 noremap <leader>fya :action RestfulTool.action.OptionForEditor-CopyApiPath<cr>
 noremap <leader>fyA :action RestfulTool.action.OptionForEditor-CopyFullPath<cr>
-noremap <leader>sy :action RestfulTool.action.OptionForEditor-CopyApiPath<cr>
-noremap <leader>sY :action RestfulTool.action.OptionForEditor-CopyFullPath<cr>
+noremap <leader>sy :action GenerateRestUrl<cr>
+noremap <leader>sY :action GenerateFullRestUrl<cr>
 noremap <leader>st :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
 noremap <leader>js :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
-noremap ,sy :action RestfulTool.action.OptionForEditor-CopyApiPath<cr>
-noremap ,sY :action RestfulTool.action.OptionForEditor-CopyFullPath<cr>
+noremap ,sy :action GenerateRestUrl<cr>
+noremap ,sY :action GenerateFullRestUrl<cr>
 noremap ,st :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
 noremap ,js :action RestfulTool.action.OptionForEditor-CurrentClassTree<cr>
 
@@ -406,3 +444,43 @@ function! toggle_copilot()
   endif
 endfunction
 
+sethandler <A-Tab> a:vim
+sethandler <C-2> a:vim
+sethandler <C-S-6> a:vim
+sethandler <C-A> a:vim
+sethandler <C-B> a:vim
+sethandler <C-C> a:vim
+sethandler <A-C> a:vim
+sethandler <C-D> a:vim
+sethandler <M-E> a:vim
+sethandler <A-E> a:vim
+sethandler <C-F> a:vim
+sethandler <A-F> a:vim
+sethandler <C-G> a:vim
+sethandler <C-H> a:vim
+sethandler <A-H> a:ide
+sethandler <C-I> a:vim
+sethandler <M-I> a:vim
+sethandler <A-I> a:vim
+sethandler <C-J> a:vim
+sethandler <C-K> a:vim
+sethandler <C-L> a:vim
+sethandler <C-M> a:vim
+sethandler <C-N> a:vim
+sethandler <C-O> a:vim
+sethandler <C-P> a:vim
+sethandler <A-P> a:vim
+sethandler <C-Q> a:ide
+sethandler <C-R> a:vim
+sethandler <C-S> a:vim
+sethandler <M-S> a:vim
+sethandler <A-S> a:vim
+sethandler <C-T> a:vim
+sethandler <C-U> a:vim
+sethandler <C-V> a:vim
+sethandler <C-W> a:vim
+sethandler <C-X> a:ide
+sethandler <C-Y> a:vim
+sethandler <C-[> a:vim
+sethandler <C-\> a:vim
+sethandler <C-]> a:vim

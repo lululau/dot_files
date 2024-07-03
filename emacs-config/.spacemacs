@@ -6,7 +6,13 @@
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
+(if (file-exists-p "/opt/homebrew")
+    (setq HOMEBREW_PREFIX "/opt/homebrew")
+  (setq HOMEBREW_PREFIX "/usr/local"))
+
+
 (setq evil-want-keybinding nil)
+(setq emacs-lisp-format-on-save nil)
 
 (defun lx/system-is-linux()
   (eq system-type 'gnu/linux))
@@ -272,12 +278,12 @@
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
                                             gptel org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
-                                            ob-swiftui
+                                            ob-swiftui evil-goggles
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el")))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
-                                               logcat ido evil-escape helm-xref editorconfig drupal-mode)
+                                               logcat ido evil-escape helm-xref editorconfig drupal-mode phpcbf)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -341,7 +347,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("SauceCodePro Nerd Font Mono"
                                :size 14
                                :weight normal
                                :width normal
@@ -407,7 +413,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-persistent-server nil
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
-   dotspacemacs-search-tools '("ag" "ack" "pt" "grep")
+   dotspacemacs-search-tools '("rg" "ag" "ack" "pt" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now.
@@ -439,6 +445,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;;         ("org-cn"   . "http://elpa.emacs-china.org/org/")
   ;;         ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 
+
+  (setq helm-descbinds-disable-which-key nil)
   (setq configuration-layer--elpa-archives
         '(("melpa"    . "melpa.org/packages/")
           ;; ("org"      . "orgmode.org/elpa/")
@@ -506,7 +514,7 @@ layers configuration."
   (setq neo-vc-integration nil)
   (spacemacs/set-state-faces)
   (setenv "LANG" "zh_CN.UTF-8")
-  (setenv "PKG_CONFIG_PATH" "/usr/local/Cellar/zlib/1.2.8/lib/pkgconfig:/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig")
+  (setenv "PKG_CONFIG_PATH" (concat HOMEBREW_PREFIX "/Cellar/zlib/1.2.8/lib/pkgconfig:" HOMEBREW_PREFIX "/lib/pkgconfig:/opt/X11/lib/pkgconfig"))
   (add-hook 'prog-mode-hook 'display-line-numbers-mode)
   (setq magit-push-always-verify nil)
   ;; (add-hook 'smartparens-enabled-hook #'turn-off-sp-on-large-file)
@@ -566,6 +574,7 @@ layers configuration."
   (setq org-html-doctype "html5")
   (setq git-link-remote-alist
         '(("gitlab.ktjr.com"    git-link-gitlab)
+          ("gitlab.upeastscm.com"    git-link-gitlab)
           ("gitlab.creditcloud.com"    git-link-gitlab)
           ("gitlab.tiaoyin100.com"    git-link-gitlab-no-https)
           ("github.com"    git-link-github)
@@ -575,6 +584,7 @@ layers configuration."
 
   (setq git-link-commit-remote-alist
     '(("gitlab.ktjr.com" git-link-commit-github)
+      ("gitlab.upeastscm.com" git-link-commit-github)
       ("gitlab.creditcloud.com" git-link-commit-github)
       ("gitlab.tiaoyin100.com" git-link-commit-github)
       ("github.com"    git-link-commit-github)
@@ -633,7 +643,7 @@ layers configuration."
                                        '((swiftui . t))))
   (add-to-list 'org-src-lang-modes '("swiftui" . swift))
 
-  (setq org-plantuml-jar-path "/usr/local/libexec/plantuml.jar")
+  (setq org-plantuml-jar-path (concat HOMEBREW_PREFIX "/libexec/plantuml.jar"))
 
   (add-hook 'term-mode-hook #'(lambda () (interactive)
                                 (define-key term-raw-map (kbd "<M-backspace>") #'term-send-raw-meta)
@@ -696,7 +706,10 @@ layers configuration."
 
   (global-subword-mode)
 
-  (setq ob-mermaid-cli-path "/usr/local/bin/mmdc")
+  (setq ob-mermaid-cli-path (concat HOMEBREW_PREFIX "/bin/mmdc"))
+  (setq org-ditaa-jar-path (concat HOMEBREW_PREFIX "/libexec/ditaa.jar"))
+  (setq plantuml-jar-path (concat HOMEBREW_PREFIX "/libexec/plantuml.jar"))
+  (setq org-plantuml-jar-path (concat HOMEBREW_PREFIX "/libexec/plantuml.jar"))
 
   (define-key y-or-n-p-map (kbd "SPC") 'y-or-n-p-insert-y)
 
@@ -717,9 +730,9 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions "target/")
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
-
   (add-hook 'prog-mode-hook 'send-to-vterm-mode)
   (add-hook 'text-mode-hook 'send-to-vterm-mode)
+  (add-hook 'text-mode-hook 'evil-goggles-mode)
   (add-hook 'fundamental-mode-hook 'send-to-vterm-mode)
 
   (require 'python)
@@ -766,12 +779,26 @@ This function is called at the very end of Spacemacs initialization."
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(avy-keys (quote (97 115 100 106 107 108 119 111 112)))
+ '(browse-at-remote-remote-type-regexps
+   (quote (
+           (:host "^github\\.com$" :type "github")
+           (:host "^bitbucket\\.org$" :type "bitbucket")
+           (:host "^gitlab.*\\.com$" :type "gitlab")
+           (:host "^git\\.savannah\\.gnu\\.org$" :type "gnu")
+           (:host "^gist\\.github\\.com$" :type "gist")
+           (:host "^git\\.sr\\.ht$" :type "sourcehut")
+           (:host "^.*\\.visualstudio\\.com$" :type "ado")
+           (:host "^pagure\\.io$" :type "pagure")
+           (:host "^.*\\.fedoraproject\\.org$" :type "pagure")
+           (:host "^.*\\.googlesource\\.com$" :type "gitiles")
+           (:host "^gitlab\\.gnome\\.org$" :type "gitlab"))))
  '(browse-at-remote-remote-type-domains
    (quote
     (("bitbucket.org" . "bitbucket")
      ("github.com" . "github")
      ("gitlab.ktjr.com" . "gitlab")
      ("gitlab.tiaoyin100.com" . "gitlab")
+     ("gitlab.upeastscm.com" . "gitlab")
      ("gitlab.creditcloud.com" . "gitlab"))))
  '(proxy-mode-http-proxy "http://127.0.0.1:1087")
  '(proxy-mode-socks-proxy
@@ -852,6 +879,7 @@ This function is called at the very end of Spacemacs initialization."
     (("gitlab.creditcloud.com:10022" "gitlab.creditcloud.com/api/v3" "gitlab.creditcloud.com" forge-gitlab-repository)
      ("gitlab.ktjr.com:10022" "gitlab.ktjr.com/api/v4" "gitlab.ktjr.com" forge-gitlab-repository)
      ("gitlab.tiaoyin100.com" "gitlab.tiaoyin100.com/api/v3" "gitlab.tiaoyin100.com" forge-gitlab-repository)
+     ("gitlab.upeastscm.com:10022" "gitlab.upeastscm.com/api/v3" "gitlab.upeastscm.com" forge-gitlab-repository)
      ("github.com" "api.github.com" "github.com" forge-github-repository)
      ("gitlab.com" "gitlab.com/api/v4" "gitlab.com" forge-gitlab-repository)
      ("salsa.debian.org" "salsa.debian.org/api/v4" "salsa.debian.org" forge-gitlab-repository)
@@ -893,9 +921,10 @@ This function is called at the very end of Spacemacs initialization."
  '(dante-methods (quote (stack bare-ghci bare-cabal styx snack new-impure-nix new-nix nix impure-nix new-build nix-ghci mafia)))
  '(eww-retrieve-command (quote ("readable")))
  '(helm-M-x-fuzzy-match t)
- '(helm-ag-command-option "-U")
- '(helm-ag-ignore-patterns (quote (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "log")))
- '(helm-ag-use-agignore t)
+ ;; '(helm-ag-command-option "-U")
+ ;; '(helm-ag-ignore-patterns (quote (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "log")))
+ '(helm-ag-use-agignore nil)
+ '(helm-ag-use-grep-ignore-list nil)
  '(helm-buffers-fuzzy-matching t)
  '(helm-completion-in-region-fuzzy-match t)
  '(helm-dash-browser-func (quote lx/browse-url-in-safari))
@@ -1014,7 +1043,6 @@ This function is called at the very end of Spacemacs initialization."
    (file "")
     "* %a :website:\n\n%U %?\n\n%:initial"))))
  '(org-confirm-babel-evaluate nil)
- '(org-ditaa-jar-path "/usr/local/libexec/ditaa.jar")
  '(org-excalidraw-directory "~/Documents/materials/org-excalidraw")
  '(org-export-with-sub-superscripts (quote {}))
  '(org-pandoc-options-for-latex-pdf
@@ -1045,8 +1073,6 @@ This function is called at the very end of Spacemacs initialization."
  (lsp-vue ac-ispell ace-jump-helm-line ace-link ace-pinyin ace-window adaptive-wrap add-node-modules-path afternoon-theme aggressive-indent alchemist alect-themes alert all-the-icons ample-theme ample-zen-theme anaconda-mode anti-zenburn-theme anzu apropospriate-theme arduino-mode async auto-compile auto-complete auto-highlight-symbol auto-yasnippet avy badwolf-theme birds-of-paradise-plus-theme bm browse-at-remote bubbleberry-theme bundler busybee-theme calfw calfw-org carbon-now-sh cargo ccls centered-cursor-mode cherry-blossom-theme chinese-conv chruby cider cider-eval-sexp-fu clang-format clean-aindent-mode clj-refactor clojure-cheatsheet clojure-mode clojure-snippets clues-theme cmake-ide cmake-mode cmm-mode coffee-mode color-theme-sanityinc-solarized color-theme-sanityinc-tomorrow colorsarenice-theme column-enforce-mode company company-anaconda company-c-headers company-cabal company-emacs-eclim company-ghc company-ghci company-go company-lsp company-lua company-php company-plsense company-quickhelp company-restclient company-rtags company-shell company-statistics company-tern company-web counsel counsel-dash counsel-projectile cquery csv-mode cyberpunk-theme cython-mode dactyl-mode daemons dakrone-theme dante darkburn-theme darkmine-theme darkokai-theme darktooth-theme dash dash-at-point define-word diff-hl diminish dired-subtree disaster django-theme docker docker-tramp dockerfile-mode doom-modeline doom-one-theme doom-themes dotenv-mode dracula-theme drupal-mode dumb-jump eclim edit-indirect edit-server editorconfig edn elfeed elfeed-goodies elfeed-org elfeed-web elisp-slime-nav elixir-mode emmet-mode engine-mode enh-ruby-mode ensime es-mode esh-help eshell-prompt-extras eshell-z espresso-theme eval-sexp-fu evil evil-anzu evil-args evil-cleverparens evil-commentary evil-ediff evil-escape evil-exchange evil-goggles evil-iedit-state evil-indent-plus evil-lion evil-lisp-state evil-magit evil-matchit evil-mc evil-numbers evil-org evil-search-highlight-persist evil-surround evil-terminal-cursor-changer evil-tutor evil-unimpaired evil-visual-mark-mode evil-visualstar exec-path-from-shell expand-region eyebrowse f fancy-battery farmhouse-theme fcitx feature-mode fill-column-indicator find-by-pinyin-dired firebelly-theme fish-mode flatland-theme flatui-theme flx-ido flycheck flycheck-bashate flycheck-credo flycheck-haskell flycheck-kotlin flycheck-mix flycheck-perl6 flycheck-pos-tip flycheck-rtags flycheck-rust flymd font-lock+ fuzzy gandalf-theme geeknote ggtags gh gh-md ghc gist git-commit git-link git-messenger git-timemachine gitattributes-mode gitconfig-mode github-browse-file github-clone github-search gitignore-templates gmail-message-mode gnuplot go-dlv go-eldoc go-fill-struct go-gen-test go-guru go-impl go-mode go-rename go-tag godoctor golden-ratio google-c-style google-maps google-translate gotham-theme goto-chg gradle-mode grandshell-theme groovy-imports groovy-mode gruber-darker-theme gruvbox-theme ham-mode haml-mode haskell-mode haskell-snippets hc-zenburn-theme helm helm-ag helm-c-yasnippet helm-company helm-core helm-css-scss helm-dash helm-descbinds helm-dired-history helm-dired-recent-dirs helm-flx helm-git-grep helm-gitignore helm-gtags helm-hoogle helm-make helm-mode-manager helm-mu helm-org-rifle helm-projectile helm-purpose helm-pydoc helm-rtags helm-swoop helm-themes helm-xref help-fns+ hemisu-theme heroku-theme hide-comnt highlight highlight-indentation highlight-numbers highlight-parentheses hindent hl-todo hlint-refactor ht html-to-markdown htmlize hungry-delete hy-mode hydra ibuffer-projectile ido-vertical-mode iedit imenu-list impatient-mode importmagic indent-guide inf-ruby inflections info+ inkpot-theme insert-shebang intero ir-black-theme ivy jade-mode jazz-theme jbeans-theme jq-mode js-doc js2-mode js2-refactor json-mode json-navigator julia-mode kivy-mode know-your-http-well kotlin-mode launchctl less-css-mode levenshtein light-soap-theme link-hint linum-relative live-py-mode livid-mode load-relative loc-changes lorem-ipsum lsp-go lsp-java lsp-mode lsp-ui lush-theme macrostep magit magit-gh-pulls magit-gitflow magit-popup magit-svn magithub majapahit-theme markdown-mode markdown-toc material-theme matlab-mode maven-test-mode meghanada memoize minimal-theme minitest mmm-mode moe-theme molokai-theme monochrome-theme monokai-theme move-text mu4e-alert mu4e-maildirs-extension multi-term multiple-cursors mustang-theme mvn mwim nameless naquadah-theme neotree nginx-mode niflheim-theme noctilux-theme noflet ob-coffeescript ob-elixir ob-http ob-restclient obsidian-theme occidental-theme oldlace-theme omtose-phellack-theme open-junk-file org org-brain org-bullets org-category-capture org-download org-jira org-journal org-mime org-plus-contrib org-pomodoro org-present org-projectile org-super-agenda organic-green-theme orgit origami osx-dictionary osx-trash overseer ox-gfm ox-jira ox-pandoc ox-reveal ox-twbs packed pandoc-mode pangu-spacing paradox paredit password-generator pastels-on-dark-theme pbcopy pcache pcre2el pdf-tools peg perl6-mode persp-mode phoenix-dark-mono-theme phoenix-dark-pink-theme php-auto-yasnippets php-extras phpcbf phpunit pinyinlib pip-requirements pipenv pippel pkgbuild-mode planet-theme plantuml-mode popwin powerline prettier-js professional-theme projectile projectile-rails proxy-mode pug-mode puml-mode purple-haze-theme py-isort py-yapf pyenv-mode pyim pyim-basedict pytest pyvenv qml-mode quelpa queue racer railscasts-theme rainbow-delimiters rake ranger rbenv realgud realgud-byebug rebox2 request restart-emacs restclient restclient-helm reveal-in-osx-finder reverse-theme rjsx-mode robe rspec-mode rubocop ruby-hash-syntax ruby-refactor ruby-test-mode ruby-tools rust-mode rvm s sass-mode sayid sbt-mode scad-mode scala-mode scss-mode seeing-is-believing selectric-mode seq seti-theme shell-pop simple-httpd skewer-mode slim-mode smartparens smeargle smyx-theme soft-charcoal-theme soft-morning-theme soft-stone-theme solarized-theme soothe-theme spacegray-theme spaceline spaceline-all-the-icons spacemacs-theme sparql-mode spinner sql-indent ssass-mode stan-mode stekene-theme string-inflection subatomic-theme subatomic256-theme sublime-themes sunny-day-theme swift-mode swiper sx symon systemd tagedit tango-2-theme tango-plus-theme tangotango-theme tao-theme tern test-simple thrift toc-org toml-mode toxi-theme tronesque-theme twilight-anti-bright-theme twilight-bright-theme twilight-theme ujelly-theme underwater-theme undo-tree unfill use-package uuidgen vagrant vagrant-tramp vala-mode vala-snippets vi-tilde-fringe vimrc-mode vmd-mode volatile-highlights vue-html-mode vue-mode web-beautify web-mode which-key window-numbering window-purpose winum with-editor wolfram-mode writeroom-mode ws-butler xterm-color yaml-mode yapfify yasnippet yasnippet-snippets zen-and-art-theme zenburn-theme zonokai-theme)
  ))
 '(plantuml-default-exec-mode jar)
-'(plantuml-jar-path "/usr/local/libexec/plantuml.jar")
-'(org-plantuml-jar-path "/usr/local/libexec/plantuml.jar")
 '(imenu-list-position (quote left))
 '(evil-surround-pairs-alist
   (quote
@@ -1119,6 +1145,7 @@ This function is called at the very end of Spacemacs initialization."
   (elixir-enable-compilation-checking)
   (lsp-enable-file-watchers . nil)
   (org-html-head))))
+ '(lsp-semgrep-languages nil)
  '(sh-indentation 2)
  '(org-file-apps (quote ((auto-mode . emacs) (directory . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . emacs))))
  '(sp-highlight-pair-overlay nil)
@@ -1143,6 +1170,7 @@ This function is called at the very end of Spacemacs initialization."
  '(vterm-keymap-exceptions (quote ("C-c" "C-x" "C-u" "C-g" "C-h" "M-x" "M-o" "C-y" "M-y" "M-1" "M-2" "M-3" "M-4" "M-5" "M-6" "M-7" "M-8" "M-9" "M-0" "M-\\" "M-h" "M-l" "M-k" "M-:")))
  '(xwwp-follow-link-completion-system 'helm)
  '(helm-buffer-max-length 40)
+ '(helm-move-to-line-cycle-in-source nil)
  '(copilot-overlay-safe nil)
  '(copilot-idle-delay 0.5)
  '(copilot-node-executable "~/.nvm/versions/node/v14.21.3/bin/node")

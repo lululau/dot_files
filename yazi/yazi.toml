@@ -1,0 +1,22 @@
+[manager]
+linemode = 'full'
+sort_dir_first = false
+sort_by = 'modified'
+sort_reverse = true
+
+[opener]
+edit = [
+	{ run = 'nvim "$@"', block = true },
+]
+play = [
+	{ run = 'open "$@"' },
+]
+open = [
+	{ run = 'open "$@"', desc = "Open" },
+]
+
+[plugin]
+prepend_previewers = [
+  { name = "*.md", run = "glow" },
+  { name = "*.markdown", run = "glow" },
+]

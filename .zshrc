@@ -476,8 +476,8 @@ function recentf-add-file() {
   done
 }
 
-chpwd_functions+=(helm-dired-history-update)
-preexec_functions+=(recentf-add-file)
+# chpwd_functions+=(helm-dired-history-update)
+# preexec_functions+=(recentf-add-file)
 
 export OPENAI_API_KEY=$(cat ~/.config/secrets/.openai_api_key)
 
@@ -497,12 +497,12 @@ _sgpt_zsh() {
     _sgpt_prev_cmd=$BUFFER
     BUFFER+="⌛"
     zle -I && zle redisplay
-    BUFFER=$(sgpt --shell <<< "$_sgpt_prev_cmd")
+    BUFFER=$(sgpt sh "$_sgpt_prev_cmd")
     zle end-of-line
   fi
 }
 zle -N _sgpt_zsh
-bindkey '^G' _sgpt_zsh
+bindkey '^X^G' _sgpt_zsh
 # Shell-GPT integration ZSH v0.1
 
 # function _xplr_cd() {
@@ -536,7 +536,17 @@ function _xplr_cd2() {
     cd "$dir"
   fi
 }
-bindkey -s $'\ex' '_xplr_cd2\n'
+
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+bindkey -s $'\ex' 'yy\n'
 
 goto_tmux_last_pwd.widget() {
   local value=$(tmux show-environment -g TMUX_LAST_PWD 2> /dev/null | cut -d= -f2)
@@ -573,3 +583,5 @@ bindkey '^x^o^a' goto_tmux_last_pwd.widget
 bindkey '^x^o^b' goto_project_root.widget
 
 eval "$(luarocks path --lua-version 5.1)"
+
+. "$HOME/.grit/bin/env"
