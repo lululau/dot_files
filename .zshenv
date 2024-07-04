@@ -83,3 +83,4 @@ export curl_ca_bundle=$HOME/.mitmproxy/mitmproxy-ca.pem
 export RUBY_YJIT_ENABLE=true
 export PATH=$PATH
 export RIPGREP_CONFIG_PATH=$HOME/.config/.ripgreprc
+export QUOTING_STYLE=escape
