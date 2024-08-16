@@ -1,4 +1,4 @@
-function Folder:linemode(area, files)
+function Linemode:full(area, files)
 	local mode = cx.active.conf.linemode
 	if mode == "none" then
 		return {}
@@ -31,4 +31,3 @@ function Folder:linemode(area, files)
 	return ui.Paragraph(area, lines):align(ui.Paragraph.RIGHT)
 end
 
-return Folder
