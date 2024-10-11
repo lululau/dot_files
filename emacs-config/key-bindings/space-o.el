@@ -36,7 +36,7 @@
                 ("odZ" ohmyzsh-dir ("~/.oh-my-zsh/"))
                 ("od/" root-dir ("/"))
                 ("odo" org-dir ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org"))
-                ("odO" obsidian-dir ("/Users/liuxiang/Library/Mobile Documents/iCloud~md~obsidian/Documents/Main"))
+                ("odO" obsidian-dir ("/Users/liuxiang/Obsidian/Documents/Main"))
                 ("odj" org-journal-dir ("~/Documents/materials/journal"))
                 ("odJ" org-jira-dir ("~/Documents/materials/jira"))
                 ("odn" notes-dir ("~/Documents/materials/notes"))
