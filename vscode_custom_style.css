@@ -1,0 +1,11 @@
+.tabs-container {
+  counter-reset: tab-number 0;
+}
+
+[role='tab'] {
+  counter-increment: tab-number;
+}
+
+[role='tab'] span.monaco-icon-name-container::before {
+  content: counter(tab-number) ' ';
+}
