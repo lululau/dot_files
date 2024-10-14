@@ -9,3 +9,35 @@
 [role='tab'] span.monaco-icon-name-container::before {
   content: counter(tab-number) ' ';
 }
+
+/**
+div.split-view-view.visible:has(> div.sidebar.left) {
+  left: 36px !important;
+}
+
+div.split-view-view.visible:has(> div.activitybar.left) {
+  width: 36px !important;
+
+  .content {
+    width: 36px !important;
+  }
+
+  .action-label {
+    width: 36px !important;
+    height: 36px !important;
+    padding: 3px !important;
+    line-height: 18px !important;
+
+    .codicon::before {
+      font-size: 18px !important;
+      line-height: 18px !important;
+    }
+  }
+
+  label:not(.codicon) {
+    font-size: 15px !important;
+    line-height: 18px !important;
+    padding: 3px !important;
+  }
+}
+**/
