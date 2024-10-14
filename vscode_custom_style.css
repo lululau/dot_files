@@ -41,3 +41,9 @@ div.split-view-view.visible:has(> div.activitybar.left) {
   }
 }
 **/
+
+/**
+:root {
+  --activity-bar-action-size: 36px !important;
+}
+**/
