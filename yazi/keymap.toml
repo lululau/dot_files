@@ -46,6 +46,11 @@ run = "leave"
 desc = "Enter parent directory"
 
 [[manager.prepend_keymap]]
+on  = [ "l" ]
+run = "link"
+desc = "Symlink the absolute path of yanked files"
+
+[[manager.prepend_keymap]]
 on   = [ "c", "m" ]
 run  = "plugin chmod"
 desc = "Chmod on selected files"
