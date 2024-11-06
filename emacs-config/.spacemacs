@@ -135,7 +135,8 @@
      (lsp :variables lsp-rust-server 'rust-analyzer)
      ansible
      dap
-     ivy helm
+     ivy
+     (helm :variables helm-use-postframe nil)
      neotree
      (osx :variables osx-command-as 'super)
      (auto-completion :variables
