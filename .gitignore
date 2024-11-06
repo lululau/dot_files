@@ -80,3 +80,4 @@ __pycache__/
 /jgit/*
 /zed/*
 !/zed/*.json
+kamal-proxy.state
