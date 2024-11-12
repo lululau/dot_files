@@ -317,6 +317,11 @@ It should only modify the values of Spacemacs settings."
   ;; spacemacs settings.
  (setq-default
 
+   ;; If nil, no load-hints enabled. If t, enable the `load-hints' which will
+   ;; put the most likely path on the top of `load-path' to reduce walking
+   ;; through the whole `load-path'.
+   dotspacemacs-enable-load-hints t
+
     ;; Scale factor controls the scaling (size) of the startup banner. Default
     ;; value is `auto' for scaling the logo automatically to fit all buffer
     ;; contents, to a maximum of the full image height and a minimum of 3 line
