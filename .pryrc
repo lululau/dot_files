@@ -131,6 +131,12 @@ unless $USER_PRYRC_LOADED
 
   def pc(contents)
     p = IO.popen("pbcopy", "w")
+    p.print(contents)
+    p.close
+  end
+
+  def pcn(contents)
+    p = IO.popen("pbcopy", "w")
     p.puts(contents)
     p.close
   end
