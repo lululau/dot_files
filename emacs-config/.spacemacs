@@ -1079,6 +1079,13 @@ This function is called at the very end of Spacemacs initialization."
  ))
 '(plantuml-default-exec-mode jar)
 '(imenu-list-position (quote left))
+'(org-emphasis-alist
+      (quote (("*" bold)
+        ("/" italic)
+        ("_" (underline :background "DarkOrange2" :foreground "white"))
+        ("=" org-verbatim verbatim)
+        ("~" org-code verbatim)
+        ("+" (:strike-through t)))))
 '(evil-surround-pairs-alist
   (quote
    ((40 "( " . " )")
