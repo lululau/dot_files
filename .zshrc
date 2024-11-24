@@ -588,3 +588,6 @@ eval "$(luarocks path --lua-version 5.1)"
 
 export SCRCPY_SERVER_PATH=/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools/scrcpy-server
 export PATH=$PATH:/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/liuxiang/.cache/lm-studio/bin"
