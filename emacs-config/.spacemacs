@@ -320,11 +320,11 @@ It should only modify the values of Spacemacs settings."
    ;; If nil, no load-hints enabled. If t, enable the `load-hints' which will
    ;; put the most likely path on the top of `load-path' to reduce walking
    ;; through the whole `load-path'.
-   dotspacemacs-enable-load-hints t
+   ;; dotspacemacs-enable-load-hints t
 
    ;; If t, enable the `package-quickstart' feature to avoid full package
    ;; loading, otherwise do not try the `package-quickstart' (default nil).
-   dotspacemacs-enable-package-quickstart t
+   ;; dotspacemacs-enable-package-quickstart t
 
     ;; Scale factor controls the scaling (size) of the startup banner. Default
     ;; value is `auto' for scaling the logo automatically to fit all buffer
