@@ -294,9 +294,9 @@
 (global-set-key (kbd "TAB") #'lx/tab)
 (global-set-key (kbd "M-\\") 'copilot-complete)
 (global-set-key (kbd "M-]") 'copilot-next-completion)
-(global-set-key (kbd "M-f") 'lx/copilot-accept-or-forward-word)
-(global-set-key (kbd "C-n") 'lx/copilot-accept-or-next-line)
+;; (global-set-key (kbd "M-f") 'lx/copilot-accept-or-forward-word)
+;; (global-set-key (kbd "C-n") 'lx/copilot-accept-or-next-line)
 ;; (global-set-key (kbd "M-[") 'copilot-previous-completion) ;; Comment out this kbd due to confliction with S-TAB in terminal
-(global-set-key (kbd "<backtab>") #'copilot-accept-completion)
+;; (global-set-key (kbd "<backtab>") #'copilot-accept-completion)
 (global-set-key (kbd "M-?") 'all-buffer-completion)
 (global-set-key (kbd "s-H") 'dash-at-point)

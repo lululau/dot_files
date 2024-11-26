@@ -15,7 +15,7 @@
   "aoR" #'(lambda () (interactive) (org-refile '(4)))
   "aob" 'org-iswitchb
   "gho" #'browse-at-remote
-  "Ct" #'copilot-toggle-auto-copilot
+  ;; "Ct" #'copilot-toggle-auto-copilot
   "Cd" #'copilot-diagnose
   "tol" #'org-toggle-link-display
   "tom" #'org-toggle-org-modern-mode

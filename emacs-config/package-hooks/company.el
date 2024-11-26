@@ -15,6 +15,10 @@
 
   )
 
+(with-eval-after-load 'company
+  ;; disable inline previews
+  (delq 'company-preview-if-just-one-frontend company-frontends))
+
 (with-eval-after-load 'company-box
   (setq company-box-icons-all-the-icons
         `((Unknown . ,(all-the-icons-octicon "file-text" :height 0.8 :v-adjust -0.05))
