@@ -278,7 +278,7 @@
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
                                             gptel org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
-                                            ob-swiftui evil-goggles
+                                            ob-swiftui evil-goggles gpt-commit
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
                                             (copilot :location (recipe :fetcher github :repo "lululau/copilot.el" :files ("*.el"))))
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -602,6 +602,8 @@ layers configuration."
       ("gitorious.org" git-link-commit-gitorious)
       ("gitlab.com"    git-link-commit-github)))
 
+
+  (setq gpt-commit-openai-key (f-read-text "~/.config/secrets/.openai_api_key"))
 
   (setq org-mu4e-tmp-dir "~/tmp/mu4e")
 
