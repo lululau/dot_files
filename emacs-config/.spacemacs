@@ -743,7 +743,7 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
   (add-hook 'prog-mode-hook 'send-to-vterm-mode)
-  (add-hook 'prog-mode-hook 'copilot-mode)
+  (add-hook 'text-mode-hook 'copilot-mode)
   (add-hook 'text-mode-hook 'send-to-vterm-mode)
   (add-hook 'text-mode-hook 'evil-goggles-mode)
   (add-hook 'fundamental-mode-hook 'send-to-vterm-mode)
@@ -1227,6 +1227,7 @@ This function is called at the very end of Spacemacs initialization."
  '(vc-follow-symlinks t)
  '(docker-show-messages nil)
  '(docker-run-async-with-buffer-function (quote docker-run-async-with-buffer-vterm))
+ '(warning-display-at-bottom nil)
  '(warning-suppress-types (quote ((comp)))))
 
   (if (string-version-lessp "28.2" emacs-version)
