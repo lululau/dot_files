@@ -246,6 +246,20 @@
                                                                 (point-min)
                                                                 (point-max)))))
 
+  (defun org-obidian-link-open (slash-message-id)
+    "Handler for org-link-set-parameters that opens a obsidian:// link in obsidian"
+    ;; remove any / at the start of slash-message-id to create real note-id
+    (let ((message-id
+          (replace-regexp-in-string (rx bos (* "/"))
+                                    ""
+                                    slash-message-id)))
+      (do-applescript
+      (concat "tell application \"Obsidian\" to open location \"obsidian://"
+              message-id
+              "\" activate"))))
+
+  (org-link-set-parameters "obsidian" :follow #'org-obidian-link-open)
+
   (require 'org-mouse))
 
 ;; (eval-after-load "org"
