@@ -1227,8 +1227,8 @@ This function is called at the very end of Spacemacs initialization."
  '(vc-follow-symlinks t)
  '(docker-show-messages nil)
  '(docker-run-async-with-buffer-function (quote docker-run-async-with-buffer-vterm))
- '(warning-display-at-bottom nil)
- '(warning-suppress-types (quote ((comp)))))
+ '(warning-suppress-log-types (quote ((comp tramp copilot))))
+ '(warning-suppress-types (quote ((comp tramp copilot)))))
 
   (if (string-version-lessp "28.2" emacs-version)
       (spacemacs/toggle-maximize-frame)
