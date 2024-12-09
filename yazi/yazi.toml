@@ -1,7 +1,7 @@
 [manager]
 linemode = 'full'
 sort_dir_first = false
-sort_by = 'modified'
+sort_by = 'mtime'
 sort_reverse = true
 
 [opener]
