@@ -1,6 +1,6 @@
 return {
-  entry = function(self, args)
-    local dir = args[1]
+  entry = function(self, job)
+    local dir = job.args[1]
     ya.manager_emit("cd", {dir})
   end
 }
