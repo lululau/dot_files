@@ -5,7 +5,7 @@ desc = "Enter the child directory, or open the file"
 
 [[manager.prepend_keymap]]
 on   = [ "M" ]
-run  = [ "select --state=none", "arrow 1"]
+run  = [ "toggle", "arrow 1"]
 desc = "Toggle the selection state of the current file"
 
 [[manager.prepend_keymap]]
@@ -37,8 +37,13 @@ desc = "Enter parent directory"
 
 [[manager.prepend_keymap]]
 on   = [ "U" ]
-run  = "select_all --state=false"
+run  = "toggle_all --state=false"
 desc = "unselect all files"
+
+[[manager.prepend_keymap]]
+on   = [ "<C-a>" ]
+run  = "toggle_all"
+desc = "toggle select all files"
 
 [[manager.prepend_keymap]]
 on   = [ "-" ]
