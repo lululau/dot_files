@@ -81,3 +81,5 @@ __pycache__/
 /zed/*
 !/zed/*.json
 kamal-proxy.state
+
+emacs-config/.agenda_files
