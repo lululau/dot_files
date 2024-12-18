@@ -74,3 +74,4 @@ alias html2pdf=wkhtmltopdf
 alias nv=open-with-neovide.sh
 alias cs='cargo search --registry=crates-io'
 alias lzd=lazydocker
+alias p=pbpaste

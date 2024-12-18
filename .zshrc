@@ -543,7 +543,7 @@ function yy() {
 	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
 		cd -- "$cwd"
 	fi
-	rm -f -- "$tmp"
+	command rm -f -- "$tmp"
 }
 
 bindkey -s $'\ex' 'yy\n'
@@ -585,3 +585,9 @@ bindkey '^x^o^b' goto_project_root.widget
 eval "$(luarocks path --lua-version 5.1)"
 
 . "$HOME/.grit/bin/env"
+
+export SCRCPY_SERVER_PATH=/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools/scrcpy-server
+export PATH=$PATH:/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/liuxiang/.cache/lm-studio/bin"

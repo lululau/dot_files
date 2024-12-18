@@ -18,10 +18,10 @@ return {
 		end
 	end,
 
-	entry = function(_, args)
-		local output = Command("starship"):arg("prompt"):cwd(args[1]):env("STARSHIP_SHELL", ""):output()
+	entry = function(_, job)
+		local output = Command("starship"):arg("prompt"):cwd(job.args[1]):env("STARSHIP_SHELL", ""):output()
 		if output then
-			save(args[1], output.stdout:gsub("^%s+", ""))
+			save(job.args[1], output.stdout:gsub("^%s+", ""))
 		end
 	end,
 }

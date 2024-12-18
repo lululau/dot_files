@@ -51,7 +51,9 @@ EDGE_PATTERNS=(
 'qc.rsvp.ai'
 )
 
-FIREFOX_PATTERNS=()
+FIREFOX_PATTERNS=(
+  '^https://gitlab.upeastscm.com'
+)
 
 # echo "$URL" >> ~/tmp/link_dispatch.log
 
@@ -94,7 +96,7 @@ for pa in "${FIREFOX_PATTERNS[@]}"
 do
   if echo "$URL" | grep -q "$pa"
   then
-    open_url "Firefox" "$URL"
+    open_url "Firefox Developer Edition" "$URL"
     exit
   fi
 done

@@ -104,3 +104,5 @@ __pycache__/
 !/zed/*.json
 gtk-3.0/
 pamac/
+
+emacs-config/.agenda_files

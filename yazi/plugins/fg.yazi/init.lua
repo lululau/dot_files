@@ -13,7 +13,7 @@ local state = ya.sync(function() return tostring(cx.active.current.cwd) end)
 
 local function fail(s, ...) ya.notify { title = "Fzf", content = string.format(s, ...), timeout = 5, level = "error" } end
 
-local function entry(_, args)
+local function entry(_, job)
 	local _permit = ya.hide()
 	local cwd = state()
 	local shell_value = os.getenv("SHELL"):match(".*/(.*)")
@@ -26,9 +26,9 @@ local function entry(_, args)
 		preview_cmd = [[let line = ({2} | into int); let begin = if $line < 7 { $line - 1 } else { 6 }; bat --highlight-line={2} --color=always --line-range $'($line - $begin):($line + 10)' {1}]]
 	end
 
-	if args[1] == "fzf" then
+	if job.args[1] == "fzf" then
 		cmd_args = [[fzf --preview='bat --color=always {1}']]
-	elseif args[1] == "rg" and shell_value == "fish" then
+	elseif job.args[1] == "rg" and shell_value == "fish" then
 		cmd_args = [[
 			RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case " \
 			fzf --ansi --disabled \
@@ -39,7 +39,7 @@ local function entry(_, args)
 				--preview-window 'up,60%' \
 				--nth '3..'
 		]]
-	elseif args[1] == "rg" and (shell_value == "bash" or shell_value == "zsh")  then
+	elseif job.args[1] == "rg" and (shell_value == "bash" or shell_value == "zsh")  then
 		cmd_args = [[
 			RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
 			fzf --ansi --disabled \
@@ -50,7 +50,7 @@ local function entry(_, args)
 				--preview-window 'up,60%' \
 				--nth '3..'
 		]]
-	elseif args[1] == "rg" and shell_value == "nu" then
+	elseif job.args[1] == "rg" and shell_value == "nu" then
 		local rg_prefix = "rg --column --line-number --no-heading --color=always --smart-case "
 		cmd_args = [[fzf --ansi --disabled --bind "start:reload:]]
 			.. rg_prefix

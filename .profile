@@ -9,3 +9,6 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 
 . "$HOME/.grit/bin/env"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/liuxiang/.cache/lm-studio/bin"

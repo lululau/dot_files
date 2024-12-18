@@ -98,3 +98,6 @@ complete -C $HOMEBREW_PREFIX/bin/bitcomplete bit
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 . "$HOME/.grit/bin/env"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/liuxiang/.cache/lm-studio/bin"

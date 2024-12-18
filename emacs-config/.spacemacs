@@ -137,7 +137,8 @@
      (lsp :variables lsp-rust-server 'rust-analyzer)
      ansible
      dap
-     ivy helm
+     ivy
+     (helm :variables helm-use-postframe nil)
      neotree
      (osx :variables osx-command-as 'super)
      (auto-completion :variables
@@ -278,8 +279,9 @@
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
                                             gptel org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
-                                            ob-swiftui evil-goggles
-                                            (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el")))
+                                            ob-swiftui evil-goggles gpt-commit
+                                            (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
+                                            (copilot :location (recipe :fetcher github :repo "lululau/copilot.el" :files ("*.el"))))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -316,6 +318,15 @@ It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
  (setq-default
+
+   ;; If nil, no load-hints enabled. If t, enable the `load-hints' which will
+   ;; put the most likely path on the top of `load-path' to reduce walking
+   ;; through the whole `load-path'.
+   ;; dotspacemacs-enable-load-hints t
+
+   ;; If t, enable the `package-quickstart' feature to avoid full package
+   ;; loading, otherwise do not try the `package-quickstart' (default nil).
+   ;; dotspacemacs-enable-package-quickstart t
 
     ;; Scale factor controls the scaling (size) of the startup banner. Default
     ;; value is `auto' for scaling the logo automatically to fit all buffer
@@ -593,6 +604,8 @@ layers configuration."
       ("gitlab.com"    git-link-commit-github)))
 
 
+  (setq gpt-commit-openai-key (f-read-text "~/.config/secrets/.openai_api_key"))
+
   (setq org-mu4e-tmp-dir "~/tmp/mu4e")
 
   ;; --------- Orgcss HTML Theme for Mu4e ---------
@@ -614,7 +627,7 @@ layers configuration."
   ;; (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://gongzhitaao.org/orgcss/org.css\"/>")
 
   ;; --------- ReadTheOrg HTML Theme for Org-Mode Export ---------
-  (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.hackit.fun/org-assets/css/spacemacs-wide/htmlize.css\"/>\n <script src=\"http://www.hackit.fun/org-assets/js/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"http://www.hackit.fun/org-assets/js/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"http://www.hackit.fun/org-assets/js/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.hackit.fun/org-assets/css/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.hackit.fun/org-assets/css/spacemacs-wide/font-awesome.min.css\"/>\n")
+  (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://public-dev-assets.oss-cn-beijing.aliyuncs.com/org-assets/css/spacemacs-wide/htmlize.css\"/>\n <script src=\"https://public-dev-assets.oss-cn-beijing.aliyuncs.com/org-assets/js/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"https://public-dev-assets.oss-cn-beijing.aliyuncs.com/org-assets/js/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"https://public-dev-assets.oss-cn-beijing.aliyuncs.com/org-assets/js/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"https://public-dev-assets.oss-cn-beijing.aliyuncs.com/org-assets/css/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"https://public-dev-assets.oss-cn-beijing.aliyuncs.com/org-assets/css/spacemacs-wide/font-awesome.min.css\"/>\n")
 
   (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
   (add-to-list 'search-engine-alist '(ip138 :name "ip138" :url "http://ip138.com/ips138.asp?ip=%s&action=2") t)
@@ -731,6 +744,7 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
   (add-hook 'prog-mode-hook 'send-to-vterm-mode)
+  (add-hook 'text-mode-hook 'copilot-mode)
   (add-hook 'text-mode-hook 'send-to-vterm-mode)
   (add-hook 'text-mode-hook 'evil-goggles-mode)
   (add-hook 'fundamental-mode-hook 'send-to-vterm-mode)
@@ -1074,6 +1088,13 @@ This function is called at the very end of Spacemacs initialization."
  ))
 '(plantuml-default-exec-mode jar)
 '(imenu-list-position (quote left))
+'(org-emphasis-alist
+      (quote (("*" bold)
+        ("/" italic)
+        ("_" (underline :background "DarkOrange2" :foreground "white"))
+        ("=" org-verbatim verbatim)
+        ("~" org-code verbatim)
+        ("+" (:strike-through t)))))
 '(evil-surround-pairs-alist
   (quote
    ((40 "( " . " )")
@@ -1152,6 +1173,7 @@ This function is called at the very end of Spacemacs initialization."
  '(spacemacs-centered-buffer-mode-fringe-color "#fdf6e4")
  '(split-height-threshold 100)
  '(spacemacs-theme-comment-bg nil)
+ '(spacemacs-keep-legacy-current-buffer-delete-bindings nil)
  '(dired-filter-prefix ",f")
  '(shr-use-colors nil)
  '(org-modern-star nil)
@@ -1173,7 +1195,6 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-move-to-line-cycle-in-source nil)
  '(copilot-overlay-safe nil)
  '(copilot-idle-delay 0.5)
- '(copilot-node-executable "~/.nvm/versions/node/v14.21.3/bin/node")
  '(projectile-rails-javascript-dirs
        (quote ("app/assets/javascripts/" "lib/assets/javascripts/" "public/javascripts/" "app/javascript/" "app/javascript/controllers" "app/javascript/vue/")))
  '(projectile-rails-model-keywords (quote ("default_scope" "named_scope" "scope" "serialize" "belongs_to" "has_one"
@@ -1206,7 +1227,8 @@ This function is called at the very end of Spacemacs initialization."
  '(vc-follow-symlinks t)
  '(docker-show-messages nil)
  '(docker-run-async-with-buffer-function (quote docker-run-async-with-buffer-vterm))
- '(warning-suppress-types (quote ((comp)))))
+ '(warning-suppress-log-types (quote ((comp) (tramp) (copilot))))
+ '(warning-suppress-types (quote ((comp) (tramp) (copilot)))))
 
   (if (string-version-lessp "28.2" emacs-version)
       (spacemacs/toggle-maximize-frame)
