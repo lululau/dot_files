@@ -1,0 +1,6 @@
+#group: source block
+# key: sswift
+# --
+#+BEGIN_SRC swift
+$0
+#+END_SRC
