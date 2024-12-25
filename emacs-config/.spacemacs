@@ -194,7 +194,7 @@
      yaml
      ruby-on-rails
      projectile-bundler
-     projectile-bundler-robe
+     ;; projectile-bundler-robe
      elixir
      (shell-scripts :variables shell-scripts-backend 'shell-script-mode)
      dash
