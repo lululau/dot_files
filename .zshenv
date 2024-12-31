@@ -84,3 +84,4 @@ export RUBY_YJIT_ENABLE=true
 export PATH=$PATH
 export RIPGREP_CONFIG_PATH=$HOME/.config/.ripgreprc
 export QUOTING_STYLE=escape
+export XDG_CONFIG_HOME=$HOME/.config
