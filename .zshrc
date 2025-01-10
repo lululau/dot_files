@@ -585,11 +585,15 @@ bindkey '^x^o^b' goto_project_root.widget
 
 setopt ignore_eof
 function exit-tmux-or-shell() {
-  if [ -n "$TMUX" ]; then
-    tmux detach-client
-  else
-    exit
-  fi
+    if [ -n "$BUFFER" ]; then
+        zle delete-char
+    else
+        if [ -n "$TMUX" ]; then
+            tmux detach-client
+        else
+            exit
+        fi
+    fi
 }
 zle -N exit-tmux-or-shell
 bindkey '^d' exit-tmux-or-shell
