@@ -19,6 +19,10 @@ path+=($HOME/.fzf/bin)
 path+=($HOME/.rvm/bin) # Add RVM to PATH for scripting
 path+=($HOME/perl5/bin)
 path+=($HOME/.docker/bin)
+path+=(/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools)
+path+=($HOME/.cache/lm-studio/bin)
+
+export SCRCPY_SERVER_PATH=/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools/scrcpy-server
 
 if uname | grep -q Linux ; then
     export EDITOR='emacsclient -t'
