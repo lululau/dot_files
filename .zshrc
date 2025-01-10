@@ -582,6 +582,18 @@ zle -N goto_project_root.widget
 bindkey '^x^o^a' goto_tmux_last_pwd.widget
 bindkey '^x^o^b' goto_project_root.widget
 
+
+setopt ignore_eof
+function exit-tmux-or-shell() {
+  if [ -n "$TMUX" ]; then
+    tmux detach-client
+  else
+    exit
+  fi
+}
+zle -N exit-tmux-or-shell
+bindkey '^d' exit-tmux-or-shell
+
 eval "$(luarocks path --lua-version 5.1)"
 
 . "$HOME/.grit/bin/env"
