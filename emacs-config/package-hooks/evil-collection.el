@@ -15,6 +15,7 @@
 
 
 (with-eval-after-load 'evil-collection-magit
+  (evil-define-key 'visual magit-hunk-section-map (kbd "s") 'magit-stage)
   (evil-define-key 'normal magit-mode-map (kbd "S-SPC") nil)
   (evil-define-key 'visual magit-mode-map (kbd "S-SPC") nil)
   (evil-define-key 'motion magit-mode-map (kbd "S-SPC") nil)
