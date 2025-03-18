@@ -1116,6 +1116,7 @@ This function is called at the very end of Spacemacs initialization."
 '(projectile-completion-system (quote helm))
 '(gpt-commit-model-name "qwen-plus")
 '(gpt-commit-api-url "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions")
+'(gpt-commit-max-token 100000)
 '(mind-wave-api-key-path "~/.config/secrets/.openai_api_key")
 '(mind-wave-chat-model "gpt-4-0613")
 '(mind-wave-async-text-model "gpt-4-0613")

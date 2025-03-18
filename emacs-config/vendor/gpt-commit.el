@@ -67,6 +67,10 @@
   :type 'string
   :group 'gpt-commit)
 
+(defcustom gpt-commit-max-token 4096
+  "Maximum token length for GPT completions."
+  :type 'integer
+  :group 'gpt-commit)
 
 (defcustom gpt-commit-system-prompt-en
   "The user provides the result of running `git diff --cached`. You suggest a conventional commit message. Don't add anything else to the response. The following describes conventional commits.
@@ -124,10 +128,24 @@ Avoid vague messages like \"Fix bug\" or \"Update code\" - be specific about wha
               (lambda (&rest args &key data error-thrown &allow-other-keys)
                 (message "Error: %s %s" error-thrown data))))))
 
-(defun gpt-commit-generate-message (callback)
-  "Generate a commit message using GPT and pass it to the CALLBACK."
+(defun gpt-commit--retrieve-staged-diff ()
   (let* ((lines (magit-git-lines "diff" "--cached"))
          (changes (string-join lines "\n"))
+         (max-token gpt-commit-max-token)
+         (max-char (- (* 2 max-token) (length gpt-commit-system-prompt-en)))
+         (total (length changes)))
+    (if (> total max-char)
+        (setq changes (mapconcat
+         (lambda (line)
+           (substring line 0 (floor (* max-char (/ (length line) total)))))
+         lines "\n"))
+      (if (> (length changes) max-char)
+          (setq changes (substring changes 0 max-char)))
+    changes)))
+
+(defun gpt-commit-generate-message (callback)
+  "Generate a commit message using GPT and pass it to the CALLBACK."
+  (let* ((changes (gpt-commit--retrieve-staged-diff))
          (messages `[((role . "system")
                       (content . ,gpt-commit-system-prompt-en))
                      ((role . "user")
