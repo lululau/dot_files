@@ -118,7 +118,7 @@ Avoid vague messages like \"Fix bug\" or \"Update code\" - be specific about wha
              :headers headers
              :data payload
              :parser 'json-read
-             :timeout 10
+             :timeout 60
              :success
              (cl-function
               (lambda (&key data &allow-other-keys)
@@ -132,15 +132,10 @@ Avoid vague messages like \"Fix bug\" or \"Update code\" - be specific about wha
   (let* ((lines (magit-git-lines "diff" "--cached"))
          (changes (string-join lines "\n"))
          (max-token gpt-commit-max-token)
-         (max-char (- (* 2 max-token) (length gpt-commit-system-prompt-en)))
+         (max-char (- (* 3 max-token) (length gpt-commit-system-prompt-en)))
          (total (length changes)))
     (if (> total max-char)
-        (setq changes (mapconcat
-         (lambda (line)
-           (substring line 0 (floor (* max-char (/ (length line) total)))))
-         lines "\n"))
-      (if (> (length changes) max-char)
-          (setq changes (substring changes 0 max-char)))
+        (substring changes 0 max-char)
     changes)))
 
 (defun gpt-commit-generate-message (callback)
