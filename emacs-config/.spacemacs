@@ -278,7 +278,7 @@
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
                                             gptel org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
-                                            ob-swiftui evil-goggles gpt-commit
+                                            ob-swiftui evil-goggles
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
                                             (copilot :location (recipe :fetcher github :repo "lululau/copilot.el" :files ("*.el"))))
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -603,7 +603,7 @@ layers configuration."
       ("gitlab.com"    git-link-commit-github)))
 
 
-  (setq gpt-commit-openai-key (f-read-text "~/.config/secrets/.openai_api_key"))
+  (setq gpt-commit-openai-key (f-read-text "~/.config/secrets/.dashscope_api_key"))
 
   (setq org-mu4e-tmp-dir "~/tmp/mu4e")
 
@@ -1114,6 +1114,8 @@ This function is called at the very end of Spacemacs initialization."
     (115 "​" . "​"))))
 '(fill-column 120)
 '(projectile-completion-system (quote helm))
+'(gpt-commit-model-name "qwen-plus")
+'(gpt-commit-api-url "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions")
 '(mind-wave-api-key-path "~/.config/secrets/.openai_api_key")
 '(mind-wave-chat-model "gpt-4-0613")
 '(mind-wave-async-text-model "gpt-4-0613")

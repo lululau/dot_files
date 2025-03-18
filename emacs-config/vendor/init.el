@@ -95,3 +95,5 @@
 (autoload 'mind-wave-generate-commit-name "mind-wave.el")
 (autoload 'mind-wave-summary-video "mind-wave.el")
 (autoload 'mind-wave-summary-web "mind-wave.el")
+
+(autoload 'gpt-commit-message "gpt-commit.el")
