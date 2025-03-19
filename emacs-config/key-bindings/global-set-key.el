@@ -244,6 +244,7 @@
 (global-set-key (kbd "s-p s-s") 'lx/helm-persp-replace-project)
 (global-set-key (kbd "s-p s-a") 'spacemacs/helm-persp-switch-project)
 (global-set-key (kbd "s-p s-o") 'lx/helm-projectile-open-projects)
+(global-set-key (kbd "s-p s-w") 'lx/helm-dired-histories)
 (global-set-key (kbd "s-p s-u") 'lx/helm-projectile-other-open-projects)
 (global-set-key (kbd "s-p s-l") 'spacemacs/helm-perspectives)
 (global-set-key (kbd "s-p s-t") '(lambda (in-other-window) (interactive "P") (let ((current-persp-project (get-current-persp-project)))
