@@ -87,11 +87,11 @@ RULES:
 - Keep the title under 72 characters
 - Each bullet point should start with \"- \" followed by a present-tense action verb
 - Bullet points should be concise but informative about what changed and why
-- Keep total bullet points under 5
+- Keep total bullet points at most 3-5, for simple changes 1 bullet point
+- Organize bullet points in order of importance
 - Highlight important technical details that would be relevant to other developers
 - Do not include unnecessary details or explanations that belong in documentation
 - Focus on WHAT changed and WHY, not HOW
-- Organize bullet points in order of importance
 
 Avoid vague messages like \"Fix bug\" or \"Update code\" - be specific about what was fixed or updated."
 
