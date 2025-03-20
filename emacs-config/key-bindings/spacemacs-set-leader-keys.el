@@ -127,6 +127,9 @@
   "axjv" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://www.v2ex.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axje" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://emacs-china.org")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
   "axjt" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://twitter.com/home")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
+
+  "$m" #'mcp-hub-start
+  "$gr" #'gptel-mcp-register-tool
   )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

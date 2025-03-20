@@ -301,3 +301,4 @@
 ;; (global-set-key (kbd "<backtab>") #'copilot-accept-completion)
 (global-set-key (kbd "M-?") 'all-buffer-completion)
 (global-set-key (kbd "s-H") 'dash-at-point)
+(global-set-key (kbd "s-I") 'gptel-menu)

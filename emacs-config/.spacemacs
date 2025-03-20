@@ -264,6 +264,7 @@
      windows-scripts
      (latex :variables latex-build-command "XeLaTeX")
      terraform
+     (llm-client :variables llm-client-enable-gptel t)
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
@@ -277,9 +278,10 @@
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
-                                            gptel org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
+                                            org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
                                             ob-swiftui evil-goggles
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
+                                            (mcp :location (recipe :fetcher github :repo "lizqwerscott/mcp.el"))
                                             (copilot :location (recipe :fetcher github :repo "lululau/copilot.el" :files ("*.el"))))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
@@ -475,6 +477,10 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (add-hook 'lsp-completion-mode-hook #'lx/reset-lsp-company-backends)
 
+  (setq mcp-hub-servers
+        '(("Fetch" "/Users/liuxiang/.local/bin/mcp-server-fetch" nil)
+          ("AppleScript" "/opt/homebrew/bin/applescript-mcp" nil)
+          ("Obsidian" "/Users/liuxiang/.local/bin/mcp-obsidian-wrapper" nil)))
   )
 
 (defun dotspacemacs/user-config ()
@@ -539,6 +545,13 @@ layers configuration."
   (setq helm-locate-command "~/.rvm/gems/ruby-3.2.0/bin/mfd %s %s")
   (setq gptel-default-mode 'org-mode)
   (setq gptel-prompt-string "** ")
+  (setq gptel-model 'qwen-plus)
+  (setq gptel-backend  (gptel-make-openai "Dashscope"
+                         :host "dashscope.aliyuncs.com"
+                         :endpoint "/compatible-mode/v1/chat/completions"
+                         :stream t
+                         :key 'gptel-api-key-from-auth-source
+                         :models '(qwen-plus)))
 
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
