@@ -69,6 +69,8 @@
 
 (setq copilot--auto-copilot-on-p t)
 
+(setq-default quelpa-build-tar-executable "/opt/homebrew/bin/gtar")
+
 (setq ffap-url-regexp
   (concat
    "\\("
