@@ -283,7 +283,8 @@
                                             org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
                                             ob-swiftui evil-goggles
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
-                                            (mcp :location (recipe :fetcher github :repo "lizqwerscott/mcp.el"))
+                                            ;; (mcp :location (recipe :fetcher github :repo "lizqwerscott/mcp.el"))
+                                            (mcp :location (recipe :fetcher github :repo "lululau/mcp.el"))
                                             (copilot :location (recipe :fetcher github :repo "lululau/copilot.el" :files ("*.el"))))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
@@ -480,9 +481,9 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (add-hook 'lsp-completion-mode-hook #'lx/reset-lsp-company-backends)
 
   (setq mcp-hub-servers
-        '(("Fetch" "/Users/liuxiang/.local/bin/mcp-server-fetch" nil)
-          ("AppleScript" "/opt/homebrew/bin/applescript-mcp" nil)
-          ("Obsidian" "/Users/liuxiang/.local/bin/mcp-obsidian-wrapper" nil)))
+        '(("Fetch" . (:command "/Users/liuxiang/.local/bin/mcp-server-fetch" :args nil))
+          ("AppleScript" . (:command "/opt/homebrew/bin/applescript-mcp" :args nil))
+          ("Obsidian" . (:command "/Users/liuxiang/.local/bin/mcp-obsidian-wrapper" :args nil))))
   )
 
 (defun dotspacemacs/user-config ()
