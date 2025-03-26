@@ -45,6 +45,7 @@ else
     source $HOME/.config/private/homebrew_github_api_token.sh
     # export JAVA_HOME=/Library/Java/JavaVirtualMachines/CurrentJDK/Contents/Home
 fi
+export UV_PYTHON=3.11
 export XAPIAN_CJK_NGRAM=1
 export SDKMAN_DIR="$HOME/.sdkman"
 # export HOMEBREW_CASK_OPTS=--caskroom=/opt/homebrew-cask/Caskroom
