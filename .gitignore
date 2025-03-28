@@ -83,3 +83,4 @@ __pycache__/
 kamal-proxy.state
 
 emacs-config/.agenda_files
+/fish/
