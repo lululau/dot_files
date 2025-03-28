@@ -70,7 +70,7 @@ plugins=(autojump
          macos
          rails
          tmux
-         tmux-pane-words
+         # tmux-pane-words
          virtualenv
          project-root
          # kubectl
@@ -172,7 +172,7 @@ bindkey '^xs' perl-subs
 
 source $HOME/.space.zsh
 
-# source $ZSH/functions/zce.zsh
+source $ZSH/functions/zce.zsh
 
 export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=40%
@@ -573,7 +573,10 @@ goto_project_root.widget() {
 
 zle -N goto_project_root.widget
 
+# Also bind to alt+-
 bindkey '^x^o^a' goto_tmux_last_pwd.widget
+
+# Also bind to alt+shift+p
 bindkey '^x^o^b' goto_project_root.widget
 
 
