@@ -163,7 +163,8 @@ function jj() {
 # }
 
 set -o interactivecomments
-function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
+
+# function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
 autoload -U perl-subs
 zle -N perl-subs
@@ -171,7 +172,7 @@ bindkey '^xs' perl-subs
 
 source $HOME/.space.zsh
 
-source $ZSH/functions/zce.zsh
+# source $ZSH/functions/zce.zsh
 
 export FZF_TMUX=1
 export FZF_TMUX_HEIGHT=40%
@@ -483,18 +484,19 @@ export PATH="$TEXTRA_INSTALL/bin:$PATH"
 # bindkey '^G' create_completion
 ### Codex CLI setup - end
 
-# Shell-GPT integration ZSH v0.1
-_sgpt_zsh() {
-  if [[ -n "$BUFFER" ]]; then
-    _sgpt_prev_cmd=$BUFFER
-    BUFFER+="⌛"
-    zle -I && zle redisplay
-    BUFFER=$(sgpt sh "$_sgpt_prev_cmd")
-    zle end-of-line
-  fi
-}
-zle -N _sgpt_zsh
-bindkey '^X^G' _sgpt_zsh
+# # Shell-GPT integration ZSH v0.1
+# _sgpt_zsh() {
+#   if [[ -n "$BUFFER" ]]; then
+#     _sgpt_prev_cmd=$BUFFER
+#     BUFFER+="⌛"
+#     zle -I && zle redisplay
+#     BUFFER=$(sgpt sh "$_sgpt_prev_cmd")
+#     zle end-of-line
+#   fi
+# }
+# zle -N _sgpt_zsh
+# bindkey '^X^G' _sgpt_zsh
+
 # Shell-GPT integration ZSH v0.1
 
 # function _xplr_cd() {
@@ -592,5 +594,5 @@ bindkey '^d' exit-tmux-or-shell
 
 eval "$(luarocks path --lua-version 5.1)"
 
-. "$HOME/.grit/bin/env"
+# . "$HOME/.grit/bin/env"
 
