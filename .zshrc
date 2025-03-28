@@ -58,32 +58,27 @@ DISABLE_AUTO_UPDATE="true"
 
 UNBUNDLED_COMMANDS=(rubocop)
 
-plugins=(ack2 alibas autojump autopair
-         bd brew bundler
-         colored-man-pages colorize compleat cp cpanm common-aliases copybuffer
-         docker docker-compose docker-machine zsh-docker-aliases
-         encode64 emoji
-         funcfind
-         gem gemcd git github golang gradle
-         history httpie
-         jruby
-         lein
-         mvn
-         node npm nvm
+plugins=(autojump
+         autopair
+         brew
+         compleat
+         common-aliases
+         copybuffer
+         zsh-docker-aliases
+         gemcd
+         git
          macos
-         perl pip python
-         rails rake rsync ruby rvm
-         safe-paste sbt scala screen svn systemadmin systemd
-         terminitor themes tig tmux tmux-pane-words tmuxinator
-         vagrant virtualenv
-         xcode
-         yum
+         rails
+         tmux
+         tmux-pane-words
+         virtualenv
          project-root
-         kubectl
-         minikube
-         rust
-         zsh-autosuggestions zsh-brew-services zsh-completions
-         you-should-use poetry swiftpm)
+         # kubectl
+         zsh-autosuggestions
+         # zsh-brew-services
+         # zsh-completions
+         you-should-use
+        )
 
 [ -z "$INSIDE_EMACS" ] && plugins+=(fast-syntax-highlighting)
 
@@ -95,10 +90,7 @@ autoload -U zmv
 # Customize to your needs...
 
 [ -e $CONFIGDIR/.zsh-aliases.zsh ] && source $CONFIGDIR/.zsh-aliases.zsh || source $HOME/.zsh-aliases.zsh
-unalias ping
 # unalias fd
-unalias vd
-unalias rb
 
 # Linux Specific Config
 if uname | grep -q Linux; then
