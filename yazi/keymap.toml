@@ -43,12 +43,12 @@ desc = "Enter parent directory"
 
 [[manager.prepend_keymap]]
 on   = [ "U" ]
-run  = "toggle_all --state=false"
+run  = "toggle_all --state=off"
 desc = "unselect all files"
 
 [[manager.prepend_keymap]]
 on   = [ "<C-a>" ]
-run  = "toggle_all"
+run  = "toggle_all --state=on"
 desc = "toggle select all files"
 
 [[manager.prepend_keymap]]
