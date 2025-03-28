@@ -33,8 +33,8 @@
                                               (setq default-directory project-root)))
                                         (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*")))))))
 
-(global-set-key (kbd "s-\"") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup)))
-(global-set-key (kbd "s-'") #'(lambda () (interactive)
+(global-set-key (kbd "s-'") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup)))
+(global-set-key (kbd "s-\"") #'(lambda () (interactive)
                                 (if (eq major-mode 'zsh-vterm-mode)
                                     (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
                                         (bury-buffer)
