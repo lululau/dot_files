@@ -164,6 +164,21 @@ function jj() {
 
 set -o interactivecomments
 
+
+function poe() {
+  if [ "$1" = "active" -o "$1" = "a" -o "$1" = use ]; then
+    source $(poetry env info --path)/bin/activate
+  elif [ "$1" = "deactive" -o "$1" = "d" -o "$1" = unuse ]; then
+    deactivate
+  else
+    poetry "$@"
+  fi
+}
+
+function poea() {
+  poe active
+}
+
 # function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
 autoload -U perl-subs
