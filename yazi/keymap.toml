@@ -9,6 +9,12 @@ on   = [ "o" ]
 run  = "plugin cursor-open"
 desc = "Open the file with cursor"
 
+
+[[manager.prepend_keymap]]
+on   = [ "<A-Enter>" ]
+run  = "plugin cursor-open"
+desc = "Open the file with cursor"
+
 [[manager.prepend_keymap]]
 on   = [ "M" ]
 run  = [ "toggle", "arrow 1"]
