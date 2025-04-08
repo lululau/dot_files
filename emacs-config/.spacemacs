@@ -1194,6 +1194,7 @@ This function is called at the very end of Spacemacs initialization."
  '(spacemacs-theme-comment-bg nil)
  '(spacemacs-keep-legacy-current-buffer-delete-bindings nil)
  '(dired-filter-prefix ",f")
+ '(helm-dired-history-max 100000)
  '(shr-use-colors nil)
  '(org-modern-star nil)
  '(org-modern-hide-stars nil)
