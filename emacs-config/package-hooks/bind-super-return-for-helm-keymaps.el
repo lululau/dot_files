@@ -3,7 +3,8 @@
 
 (with-eval-after-load 'helm-buffers
 ;  (define-key helm-buffers-ido-virtual-map (kbd (if (display-graphic-p) "<s-return>" "s-RET"))   'helm-ff-run-switch-other-window)
-  (define-key helm-buffer-map (kbd (if (display-graphic-p) "<s-return>" "s-RET"))     'helm-buffer-switch-other-window))
+  (define-key helm-buffer-map (kbd (if (display-graphic-p) "<s-return>" "s-RET"))     'helm-buffer-switch-other-window)
+  (define-key helm-buffer-map (kbd "s-w") 'helm-keyboard-quit))
 
 (with-eval-after-load 'helm-grep
   (define-key helm-grep-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'helm-grep-run-other-window-action))
