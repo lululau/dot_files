@@ -239,6 +239,8 @@
 
 ;; s-p
 (global-unset-key (kbd "s-p"))
+
+(global-set-key (kbd "s-p s-w") #'helm-autojump)
 (global-set-key (kbd "s-p s-p") 'helm-projectile-switch-project)
 (global-set-key (kbd "s-p s-r") 'projectile-dired)
 (global-set-key (kbd "s-p s-s") 'lx/helm-persp-replace-project)

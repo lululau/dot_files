@@ -53,5 +53,4 @@
           :buffer "*helm autojump*"
           :ff-transformer-show-only-basename nil))
 
-  (spacemacs/set-leader-keys "oj" #'helm-autojump)
-  (global-set-key (kbd "s-p s-w") #'helm-autojump))
+  (spacemacs/set-leader-keys "oj" #'helm-autojump))
