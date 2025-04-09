@@ -1,6 +1,9 @@
 (with-eval-after-load 'transient
   (transient-bind-q-to-quit)
 
+  (keymap-set transient-base-map "s-w" #'transient-quit-one)
+  (keymap-set transient-sticky-map "s-w" #'transient-quit-seq)
+
   ;; docker.el require these transient functions from latest version of transient, which is newer t the one in emacs 28.2
   (cl-defgeneric transient-default-value (_)
     "Return the default value."
