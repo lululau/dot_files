@@ -69,7 +69,12 @@
 
 (setq copilot--auto-copilot-on-p t)
 
-(setq-default quelpa-build-tar-executable "/opt/homebrew/bin/gtar")
+
+(if (lx/system-is-mac)
+    (if (file-exists-p "/opt/homebrew/bin/gtar")
+        (setq-default quelpa-build-tar-executable "/opt/homebrew/bin/gtar")
+      (setq-default quelpa-build-tar-executable "/usr/local/bin/gtar"))
+
 
 (setq ffap-url-regexp
   (concat
