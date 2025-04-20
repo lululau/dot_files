@@ -36,6 +36,14 @@ Like `vc-mode-line' but simpler, more efficient, and less buggy."
   (add-hook 'magit-post-checkout-hooks 'magit-refresh-projectile-buffers-vc-mode-line))
 
 (with-eval-after-load 'magit-mode
+  (defun lx/git-commit-to-org-journal ()
+    (interactive)
+    (evil-visual-line)
+    (call-interactively 'org-store-link)
+    (evil-exit-visual-state)
+    (org-journal-new-entry nil)
+    (org-insert-all-links 1 "" "")
+    (org-set-tags ":Git:"))
   (define-key magit-mode-map (kbd "S-SPC") nil)
   (define-key magit-mode-map [S-tab] 'magit-section-cycle-global)
   (define-key magit-mode-map [remap org-store-link] 'orgit-store-link))
