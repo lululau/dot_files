@@ -64,7 +64,8 @@
   "xlbe" #'base64-encode-utf8-region
   "xlbd" #'base64-decode-utf8-region
   "aojo" #'org-journal-find-today-entry
-  "aojJ" #'org-journal-new-todo-entry
+  "aojj" #'org-journal-new-todo-entry
+  "aojJ" #'org-journal-new-entry
   "aht" #'helm-tramp
   "s*" #'spacemacs/helm-swoop-region-or-symbol
   "amm" #'lx/load-or-switch-to-emms
