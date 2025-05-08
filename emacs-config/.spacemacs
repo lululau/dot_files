@@ -686,6 +686,7 @@ layers configuration."
   (add-hook 'artist-mode-hook #'(lambda () (define-key artist-mode-map [(down-mouse-3)] 'artist-mouse-choose-operation)))
 
   (add-hook 'org-mode-hook #'(lambda ()
+                               (org-indent-mode)
                                (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                                (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
   (autoload 'org-ai-mode "org-ai")
