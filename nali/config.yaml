@@ -1,0 +1,88 @@
+databases:
+    - name: qqwry
+      name-alias:
+        - chunzhen
+      format: qqwry
+      file: qqwry.dat
+      languages:
+        - zh-CN
+      types:
+        - IPv4
+      download-urls:
+        - https://gh-release.zu1k.com/HMBSbige/qqwry/qqwry.dat
+    - name: zxipv6wry
+      name-alias:
+        - zxipv6
+        - zx
+      format: zxipv6wry
+      file: zxipv6wry.db
+      languages:
+        - zh-CN
+      types:
+        - IPv6
+    - name: geoip
+      name-alias:
+        - geoip2
+        - geolite
+        - geolite2
+      format: mmdb
+      file: GeoLite2-City.mmdb
+      languages:
+        - ALL
+      types:
+        - IPv4
+        - IPv6
+    - name: dbip
+      name-alias:
+        - db-ip
+      format: mmdb
+      file: dbip.mmdb
+      languages:
+        - ALL
+      types:
+        - IPv4
+        - IPv6
+    - name: ipip
+      format: ipip
+      file: ipipfree.ipdb
+      languages:
+        - zh-CN
+      types:
+        - IPv4
+        - IPv6
+    - name: ip2region
+      name-alias:
+        - i2r
+      format: ip2region
+      file: ip2region.xdb
+      languages:
+        - zh-CN
+      types:
+        - IPv4
+      download-urls:
+        - https://cdn.jsdelivr.net/gh/lionsoul2014/ip2region/data/ip2region.xdb
+        - https://raw.githubusercontent.com/lionsoul2014/ip2region/master/data/ip2region.xdb
+    - name: ip2location
+      format: ip2location
+      file: IP2LOCATION-LITE-DB3.IPV6.BIN
+      languages:
+        - en
+      types:
+        - IPv4
+        - IPv6
+    - name: cdn
+      format: cdn-yml
+      file: cdn.yml
+      languages:
+        - zh-CN
+      types:
+        - CDN
+      download-urls:
+        - https://cdn.jsdelivr.net/gh/4ft35t/cdn/src/cdn.yml
+        - https://raw.githubusercontent.com/4ft35t/cdn/master/src/cdn.yml
+        - https://raw.githubusercontent.com/SukkaLab/cdn/master/src/cdn.yml
+selected:
+    cdn: cdn
+    ipv4: qqwry
+    ipv6: zxipv6wry
+    lang: zh-CN
