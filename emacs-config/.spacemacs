@@ -153,7 +153,7 @@
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-use-company-box t
                       auto-completion-private-snippets-directory ,lx/snippets-path)
-     tabnine
+     ;; tabnine
      better-defaults
      ;; (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      emacs-lisp
