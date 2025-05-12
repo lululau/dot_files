@@ -1,0 +1,6 @@
+ruleDirs: []
+
+languageGlobs:
+  html:
+    - "*.vue"
+
