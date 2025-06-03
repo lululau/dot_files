@@ -11,7 +11,7 @@ end)
 
 return {
 	entry = function()
-		ya.manager_emit("escape", { visual = true })
+		ya.emit("escape", { visual = true })
 
 		local urls = selected_or_hovered()
 		if #urls == 0 then
@@ -26,7 +26,7 @@ return {
 			return
 		end
 
-		local status, err = Command("chmod"):arg(value):args(urls):spawn():wait()
+		local status, err = Command("chmod"):arg(value):arg(urls):spawn():wait()
 		if not status or not status.success then
 			ya.notify {
 				title = "Chmod",

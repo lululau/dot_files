@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 linemode = 'full'
 sort_dir_first = false
 sort_by = 'mtime'

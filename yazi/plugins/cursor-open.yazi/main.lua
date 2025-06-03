@@ -7,7 +7,7 @@ end)
 return {
 	entry = function()
 		local urls = hovered()
-		Command("cursor"):args(urls):spawn():wait()
-    ya.mgr_emit("quit", {})
+		Command("cursor"):arg(urls):spawn():wait()
+    ya.emit("quit", {})
 	end,
 }

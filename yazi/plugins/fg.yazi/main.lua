@@ -64,7 +64,7 @@ local function entry(_, job)
 	end
 
 	local child, err =
-		Command(shell_value):args({"-c", cmd_args}):cwd(cwd):stdin(Command.INHERIT):stdout(Command.PIPED):stderr(Command.INHERIT):spawn()
+		Command(shell_value):arg({"-c", cmd_args}):cwd(cwd):stdin(Command.INHERIT):stdout(Command.PIPED):stderr(Command.INHERIT):spawn()
 
 	if not child then
 		return fail("Spawn `rfzf` failed with error code %s. Do you have it installed?", err)
@@ -82,7 +82,7 @@ local function entry(_, job)
     local file_url = splitAndGetFirst(target,":")
 
 	if file_url ~= "" then
-		ya.manager_emit(file_url:match("[/\\]$") and "cd" or "reveal", { file_url })
+		ya.emit(file_url:match("[/\\]$") and "cd" or "reveal", { file_url })
 	end
 end
 
