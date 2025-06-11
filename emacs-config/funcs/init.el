@@ -246,30 +246,30 @@ Read a timestamp from the user and insert it at point." t)
 
 ;;;***
 
-;;;### (autoloads nil "emms" "emms.el" (0 0 0 0))
-;;; Generated autoloads from emms.el
+;;;### (autoloads nil "emms-ext" "emms-ext.el" (0 0 0 0))
+;;; Generated autoloads from emms-ext.el
 
-(autoload 'lx/load-emms-libs "emms")
+(autoload 'lx/load-emms-libs "emms-ext")
 
-(autoload 'lx/load-or-switch-to-emms "emms" nil t)
+(autoload 'lx/load-or-switch-to-emms "emms-ext" nil t)
 
 ;;;***
 
-;;;### (autoloads nil "evil-commands" "evil-commands.el" (0 0 0 0))
-;;; Generated autoloads from evil-commands.el
+;;;### (autoloads nil "evil-commands-ext" "evil-commands-ext.el" (0 0 0 0))
+;;; Generated autoloads from evil-commands-ext.el
 
-(autoload 'vi/del-org-props "evil-commands" nil t)
+(autoload 'vi/del-org-props "evil-commands-ext" nil t)
 
-(autoload 'vi/convert-org-example-to-src "evil-commands" "\
+(autoload 'vi/convert-org-example-to-src "evil-commands-ext" "\
 
 
 \(fn LANG)" t)
 
-(autoload 'vi/convert-org-src-to-example "evil-commands" nil t)
+(autoload 'vi/convert-org-src-to-example "evil-commands-ext" nil t)
 
-(autoload 'vi/strip-ansi-code "evil-commands" nil t)
+(autoload 'vi/strip-ansi-code "evil-commands-ext" nil t)
 
-(autoload 'vi/del-github-data-uri "evil-commands" nil t)
+(autoload 'vi/del-github-data-uri "evil-commands-ext" nil t)
 
 ;;;***
 
@@ -436,33 +436,33 @@ Prompt for module, method, and jump to its definition." t)
 
 ;;;***
 
-;;;### (autoloads nil "mcp" "mcp.el" (0 0 0 0))
-;;; Generated autoloads from mcp.el
+;;;### (autoloads nil "mcp-ext" "mcp-ext.el" (0 0 0 0))
+;;; Generated autoloads from mcp-ext.el
 
-(autoload 'gptel-mcp-register-tool "mcp" nil t)
+(autoload 'gptel-mcp-register-tool "mcp-ext" nil t)
 
-(autoload 'mcp-hub-start "mcp" nil t)
-
-;;;***
-
-;;;### (autoloads nil "mu4e" "mu4e.el" (0 0 0 0))
-;;; Generated autoloads from mu4e.el
-
-(autoload 'lx/open-mail-custom-layout-or-mu4e-main "mu4e" nil t)
-
-(autoload 'lx/force-update-mu4e "mu4e" nil t)
+(autoload 'mcp-hub-start "mcp-ext" nil t)
 
 ;;;***
 
-;;;### (autoloads nil "org-jira" "org-jira.el" (0 0 0 0))
-;;; Generated autoloads from org-jira.el
+;;;### (autoloads nil "mu4e-ext" "mu4e-ext.el" (0 0 0 0))
+;;; Generated autoloads from mu4e-ext.el
 
-(autoload 'org-jira-cleanup-get-issues-from-custom-jql "org-jira" "\
+(autoload 'lx/open-mail-custom-layout-or-mu4e-main "mu4e-ext" nil t)
+
+(autoload 'lx/force-update-mu4e "mu4e-ext" nil t)
+
+;;;***
+
+;;;### (autoloads nil "org-jira-ext" "org-jira-ext.el" (0 0 0 0))
+;;; Generated autoloads from org-jira-ext.el
+
+(autoload 'org-jira-cleanup-get-issues-from-custom-jql "org-jira-ext" "\
 
 
 \(fn ARG)" t)
 
-(autoload 'org-jira-progress-issue-to-resolved "org-jira" nil t)
+(autoload 'org-jira-progress-issue-to-resolved "org-jira-ext" nil t)
 
 ;;;***
 
@@ -476,20 +476,20 @@ Prompt for module, method, and jump to its definition." t)
 
 ;;;***
 
-;;;### (autoloads nil "processes" "processes.el" (0 0 0 0))
-;;; Generated autoloads from processes.el
+;;;### (autoloads nil "processes-ext" "processes-ext.el" (0 0 0 0))
+;;; Generated autoloads from processes-ext.el
 
-(autoload 'lx/kill-processes "processes" "\
+(autoload 'lx/kill-processes "processes-ext" "\
 
 
-\(fn PROCESSES)" t)
+\(fn PROCESSES-EXT)" t)
 
-(autoload 'lx/get-all-processes-except "processes" "\
+(autoload 'lx/get-all-processes-except "processes-ext" "\
 
 
 \(fn KEEP-PROCESS-NAMES)" t)
 
-(autoload 'lx/kill-except-default-processes "processes" nil t)
+(autoload 'lx/kill-except-default-processes "processes-ext" nil t)
 
 ;;;***
 
@@ -552,45 +552,45 @@ Remove empty lines
 
 ;;;***
 
-;;;### (autoloads nil "ruby" "ruby.el" (0 0 0 0))
-;;; Generated autoloads from ruby.el
+;;;### (autoloads nil "ruby-ext" "ruby-ext.el" (0 0 0 0))
+;;; Generated autoloads from ruby-ext.el
 
-(autoload 'binding-pry-filter "ruby" "\
+(autoload 'binding-pry-filter "ruby-ext" "\
 
 
 \(fn TEXT)")
 
-(autoload 'enh-ruby-toggle-block "ruby" nil t)
+(autoload 'enh-ruby-toggle-block "ruby-ext" nil t)
 
-(autoload 'current-line-has-pry-breakpoint-p "ruby")
+(autoload 'current-line-has-pry-breakpoint-p "ruby-ext")
 
-(autoload 'delete-pry-breakpoints "ruby")
+(autoload 'delete-pry-breakpoints "ruby-ext")
 
-(autoload 'toggle-pry-breakpoint "ruby" nil t)
+(autoload 'toggle-pry-breakpoint "ruby-ext" nil t)
 
-(autoload 'cleanup-pry-breakpoints "ruby" nil t)
+(autoload 'cleanup-pry-breakpoints "ruby-ext" nil t)
 
-(autoload 'lx/jump-to-code-at-point "ruby" nil t)
+(autoload 'lx/jump-to-code-at-point "ruby-ext" nil t)
 
-(autoload 'lx/ruby-send-line "ruby" nil t)
+(autoload 'lx/ruby-send-line "ruby-ext" nil t)
 
-(autoload 'lx/ruby-send-line-and-go "ruby" nil t)
+(autoload 'lx/ruby-send-line-and-go "ruby-ext" nil t)
 
-(autoload 'lx/ruby-send-reload "ruby" nil t)
+(autoload 'lx/ruby-send-reload "ruby-ext" nil t)
 
-(autoload 'lx/ruby-send-paragraph "ruby" nil t)
+(autoload 'lx/ruby-send-paragraph "ruby-ext" nil t)
 
-(autoload 'lx/ruby-send-paragraph-and-go "ruby" nil t)
+(autoload 'lx/ruby-send-paragraph-and-go "ruby-ext" nil t)
 
-(autoload 'lx/ruby-send-region "ruby")
+(autoload 'lx/ruby-send-region "ruby-ext")
 
-(autoload 'lx/ruby-send-region-and-go "ruby")
+(autoload 'lx/ruby-send-region-and-go "ruby-ext")
 
-(autoload 'lx/ruby-send-babel-block "ruby" nil t)
+(autoload 'lx/ruby-send-babel-block "ruby-ext" nil t)
 
-(autoload 'lx/ruby-send-babel-block-and-go "ruby" nil t)
+(autoload 'lx/ruby-send-babel-block-and-go "ruby-ext" nil t)
 
-(autoload 'lx/find-pry-vterm-buffer "ruby")
+(autoload 'lx/find-pry-vterm-buffer "ruby-ext")
 
 ;;;***
 
