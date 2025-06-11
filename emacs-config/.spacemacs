@@ -357,7 +357,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-startup-banner lx/spacemacs-banner
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
-   dotspacemacs-startup-lists '((recents . 10) (bookmarks . 20))
+   dotspacemacs-startup-lists '((recents . 25))
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -670,10 +670,11 @@ layers configuration."
 
   (defvar org-babel-tangle-lang-exts '())
   (add-to-list 'org-babel-tangle-lang-exts '("swiftui" . "swift"))
-  (org-babel-do-load-languages 'org-babel-load-languages
-                               (append org-babel-load-languages
-                                       '((swiftui . t))))
-  (add-to-list 'org-src-lang-modes '("swiftui" . swift))
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages 'org-babel-load-languages
+                                 (append org-babel-load-languages
+                                         '((swiftui . t))))
+    (add-to-list 'org-src-lang-modes '("swiftui" . swift)))
 
   (setq org-plantuml-jar-path (concat HOMEBREW_PREFIX "/libexec/plantuml.jar"))
 

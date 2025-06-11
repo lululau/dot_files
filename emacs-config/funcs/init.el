@@ -493,40 +493,40 @@ Prompt for module, method, and jump to its definition." t)
 
 ;;;***
 
-;;;### (autoloads nil "projectile" "projectile.el" (0 0 0 0))
-;;; Generated autoloads from projectile.el
+;;;### (autoloads nil "projectile-ext" "projectile-ext.el" (0 0 0 0))
+;;; Generated autoloads from projectile-ext.el
 
-(autoload 'get-current-persp-project "projectile")
+(autoload 'get-current-persp-project "projectile-ext")
 
-(autoload 'projectile-project-alternate-buffer "projectile")
+(autoload 'projectile-project-alternate-buffer "projectile-ext")
 
-(autoload 'projectile-project-switch-to-alternate-buffer "projectile" nil t)
+(autoload 'projectile-project-switch-to-alternate-buffer "projectile-ext" nil t)
 
-(autoload 'lx/find-or-create-projectile-snippet-file "projectile" nil t)
+(autoload 'lx/find-or-create-projectile-snippet-file "projectile-ext" nil t)
 
-(autoload 'lx/find-or-create-projectile-request-file "projectile" nil t)
+(autoload 'lx/find-or-create-projectile-request-file "projectile-ext" nil t)
 
-(autoload 'lx/find-or-create-projectile-snippet-org "projectile" "\
-
-
-\(fn IN-OTHER-WINDOW)" t)
-
-(autoload 'lx/find-or-create-projectile-request-org "projectile" "\
+(autoload 'lx/find-or-create-projectile-snippet-org "projectile-ext" "\
 
 
 \(fn IN-OTHER-WINDOW)" t)
 
-(autoload 'lx/find-or-create-projectile-sql-org "projectile" "\
+(autoload 'lx/find-or-create-projectile-request-org "projectile-ext" "\
 
 
 \(fn IN-OTHER-WINDOW)" t)
 
-(autoload 'lx/find-or-create-projectile-alternate-org "projectile" "\
+(autoload 'lx/find-or-create-projectile-sql-org "projectile-ext" "\
 
 
 \(fn IN-OTHER-WINDOW)" t)
 
-(autoload 'projectile-find-file-in-pwd "projectile" nil t)
+(autoload 'lx/find-or-create-projectile-alternate-org "projectile-ext" "\
+
+
+\(fn IN-OTHER-WINDOW)" t)
+
+(autoload 'projectile-find-file-in-pwd "projectile-ext" nil t)
 
 ;;;***
 
