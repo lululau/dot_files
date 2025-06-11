@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/save-scratch ()
   (interactive)
   (let* ((now (format-time-string "%Y%m%d-%H%M%S" (current-time)))

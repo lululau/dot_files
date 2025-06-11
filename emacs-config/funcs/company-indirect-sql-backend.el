@@ -1,3 +1,4 @@
+;;;###autoload
 (defun company-indirect-sql-backend (command &optional arg &rest ignored)
   "dabbrev-like `company-mode' backend for code.
 The backend looks for all symbols in the current buffer that aren't in

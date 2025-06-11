@@ -1,29 +1,35 @@
+;;;###autoload
 (defun lx/keyboard-quit ()
   (interactive)
   (spacemacs/evil-search-clear-highlight) (copilot-clear-overlay) (keyboard-quit))
 
+;;;###autoload
 (defun lx/tab (arg)
   (interactive "P")
   (or (copilot-accept-completion) (indent-for-tab-command arg)))
 
+;;;###autoload
 (defun lx/reset-hybrid-state-cursor-type-after-tab ()
   (interactive)
   (when (and (eq 'lx/tab this-command) (eq 'hybrid evil-state))
     (setq cursor-type '(bar . 2))
     (set-cursor-color "SkyBlue2")))
 
+;;;###autoload
 (defun lx/copilot-accept-or-forward-word (arg)
   (interactive "P")
   (if (and (bound-and-true-p copilot--overlay) (copilot--overlay-visible))
       (copilot-accept-completion-by-word 1)
     (call-interactively 'forward-word)))
 
+;;;###autoload
 (defun lx/copilot-accept-or-next-line (arg)
   (interactive "P")
   (if (and (bound-and-true-p copilot--overlay) (copilot--overlay-visible))
       (copilot-accept-completion-by-line 1)
     (call-interactively (if (eq major-mode 'cider-repl-mode) 'cider-repl-next-input 'next-line))))
 
+;;;###autoload
 (defun lx/switch-to-buffer ()
   (interactive)
   (condition-case nil
@@ -36,17 +42,20 @@
              (setq ido-make-buffer-list-hook saved-ido-make-buffer-list-hook)
              (helm-keyboard-quit)))))
 
+;;;###autoload
 (defun lx/switch-to-project-or-all-buffer ()
   (interactive)
   (cond ((lx/is-remote-buffer) (helm-remote-buffers))
         ((projectile-project-p) (helm-projectile-switch-to-buffer))
         (t (lx/switch-to-buffer))))
 
+;;;###autoload
 (defun lx/is-remote-buffer ()
   (or (eq 'ssh-zsh-vterm-mode major-mode)
       (string-prefix-p "/scp:" default-directory)
       (string-prefix-p "/ssh:" default-directory)))
 
+;;;###autoload
 (defun lx/get-remote-buffer-host ()
   (cond ((eq 'ssh-zsh-vterm-mode major-mode) (plist-get ssh-zsh-vterm-ssh-options :host))
         ((or (string-prefix-p "/scp:" default-directory) (string-prefix-p "/ssh:" default-directory))

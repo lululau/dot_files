@@ -1,3 +1,4 @@
+;;;###autoload
 (defun xwidget-webkit-browse-mu4e-msg (url &rest args)
   (require 'xwidget)
   (if (buffer-live-p xwidget-webkit-last-session-buffer)
@@ -5,6 +6,7 @@
   (xwidget-webkit-browse-url url)
   (switch-to-buffer xwidget-webkit-last-session-buffer))
 
+;;;###autoload
 (defun my-mu4e-action-view-with-xwidget (msg)
   "View the body of the message inside xwidget-webkit."
   (unless (fboundp 'xwidget-webkit-browse-url)

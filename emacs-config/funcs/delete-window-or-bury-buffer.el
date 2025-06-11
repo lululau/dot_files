@@ -1,3 +1,4 @@
+;;;###autoload
 (defun delete-window-or-bury-buffer ()
   (interactive)
   (let* ((window-list (window-list))

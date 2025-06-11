@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/indent-paste ()
   (interactive)
   (evil-normal-state)

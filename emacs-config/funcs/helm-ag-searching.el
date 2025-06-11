@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/helm-ag-search-prefilled-pattern (keyword)
   (require 'helm-ag)
   (cl-letf* (((symbol-value 'helm-ag-insert-at-point) 'symbol)
@@ -7,6 +8,7 @@
               (lambda (thing) keyword)))
     (helm-do-ag (projectile-project-root))))
 
+;;;###autoload
 (defun lx/helm-ag-search-pry-breakpoints ()
   (interactive)
   (lx/helm-ag-search-prefilled-pattern "binding\.pry"))

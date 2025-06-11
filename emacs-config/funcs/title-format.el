@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/layout-format-name (name pos)
   "Format the layout name given by NAME for display in mode-line."
   (let* ((layout-name (car (last (split-string name "/" t))))
@@ -11,6 +12,7 @@
       caption)))
 
 
+;;;###autoload
 (defun lx/layouts-for-title-bar ()
   "Return a one liner string containing all the layout names."
   (let* ((persp-list (or (persp-names-current-frame-fast-ordered)
@@ -26,11 +28,13 @@
                              persp-list spaces))))
     formatted-persp-list))
 
+;;;###autoload
 (defun lx/default-title-bar ()
   (format "%s     -      %s"
           (car (last (split-string (or (spacemacs//current-layout-name) "") "/" t)))
           (or (buffer-file-name) (buffer-name))))
 
+;;;###autoload
 (defun lx/toggle-title-format()
   (interactive)
   (if (equal frame-title-format '(:eval (lx/layouts-for-title-bar)))

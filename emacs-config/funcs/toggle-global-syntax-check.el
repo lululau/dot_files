@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/toggle-global-syntax-check ()
   (interactive)
   (if (bound-and-true-p flycheck-global-modes)

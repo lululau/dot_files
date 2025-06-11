@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/remove-empty-lines (arg)
   "Remove empty lines"
   (interactive "P")

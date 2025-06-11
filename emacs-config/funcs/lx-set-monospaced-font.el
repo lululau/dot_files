@@ -1,24 +1,4 @@
-;; Set the monospaced font size when mixed Chinese and English words, and if you use a computer with a retina display and a external display.
-(setq lx/set-monospaced-font/font-names '("SauceCodePro Nerd Font Mono" "黑体-简"))
-(setq lx/set-monospaced-font/iniital-font-size '(14 16))
-(defvar lx/set-monospaced-font/font-size-options '((12 14)
-                                                   (13 16)
-                                                   (14 16)
-                                                   (15 18)
-                                                   (16 20)
-                                                   (17 20)
-                                                   (18 22)
-                                                   (19 22)
-                                                   (20 24)
-                                                   (21 26)
-                                                   (22 26)
-                                                   (23 28)
-                                                   (24 28)))
-
-(defvar lx/set-monospaced-font/current-font-size lx/set-monospaced-font/iniital-font-size)
-(setq lx/set-monospaced-font/min-font-size (car lx/set-monospaced-font/font-size-options))
-(setq lx/set-monospaced-font/max-font-size (last lx/set-monospaced-font/font-size-options))
-
+;;;###autoload
 (defun lx/set-monospaced-font (english chinese english-retina-size chinese-retina-size english-normal-size chinese-normal-size)
   (setq lx/set-monospaced-font/current-font-size (list english-retina-size chinese-retina-size))
   (when window-system
@@ -35,6 +15,7 @@
             (set-fontset-font (frame-parameter frame 'font) charset
                               (font-spec :family chinese :size chinese-size) frame)))))))
 
+;;;###autoload
 (defun lx/set-monospaced-font/increase-font-size ()
   (interactive)
   (when (not (equal lx/set-monospaced-font/current-font-size lx/set-monospaced-font/max-font-size))
@@ -45,6 +26,7 @@
       (apply 'lx/set-monospaced-font (append lx/set-monospaced-font/font-names next next)))))
 
 
+;;;###autoload
 (defun lx/set-monospaced-font/decrease-font-size ()
   (interactive)
   (when (not (equal lx/set-monospaced-font/current-font-size lx/set-monospaced-font/min-font-size))

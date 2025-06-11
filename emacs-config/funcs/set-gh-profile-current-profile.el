@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/set-gh-profile-current-profile ()
   (-each gh-profile-alist #'(lambda (e)
                               (let ((regexp (plist-get (cdr e) :remote-regexp))

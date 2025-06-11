@@ -1,5 +1,5 @@
-(setq mcp-started nil)
 
+;;;###autoload
 (defun gptel-mcp-register-tool ()
   (interactive)
   (let ((tools (mcp-hub-get-all-tool :asyncp t :categoryp t)))
@@ -21,6 +21,7 @@
 ;;                         gptel-tools)))
 ;;             tools)))
 
+;;;###autoload
 (defun mcp-hub-start ()
   (interactive)
   (unless mcp-started

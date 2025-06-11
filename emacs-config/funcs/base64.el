@@ -1,3 +1,4 @@
+;;;###autoload
 (defun base64-decode-utf8-region (start end)
   (interactive "r")
   (save-restriction
@@ -5,6 +6,7 @@
     (base64-decode-region (point-min) (point-max))
     (decode-coding-region (point-min) (point-max) 'utf-8)))
 
+;;;###autoload
 (defun base64-encode-utf8-region (start end)
   (interactive "r")
   (save-restriction

@@ -1,3 +1,4 @@
+;;;###autoload
 (defun jump-to-definition-of-symbol-at-point ()
   (interactive)
   (if (and (symbol-at-point) (zerop (call-process "bash" nil nil nil "-c" (concat "[ -z $(global --result=grep -i " (thing-at-point 'symbol) ") ]"))))
@@ -12,6 +13,7 @@
     (evil--jumps-push)
     (call-interactively 'helm-gtags-find-tag)))
 
+;;;###autoload
 (defun jump-to-definition-of-symbol-at-point-other-window ()
   (interactive)
   (if (and (symbol-at-point) (zerop (call-process "bash" nil nil nil "-c" (concat "[ -z $(global --result=grep -i " (thing-at-point 'symbol) ") ]"))))
@@ -26,6 +28,7 @@
     (evil--jumps-push)
     (call-interactively 'helm-gtags-find-tag-other-window)))
 
+;;;###autoload
 (defun robe-jump-other-window (arg)
   "Jump to the method or module at point, prompt for module or file if necessary.
 If invoked with a prefix or no symbol at point, delegate to `robe-ask'."
@@ -41,6 +44,7 @@ If invoked with a prefix or no symbol at point, delegate to `robe-ask'."
      (t
       (robe-jump-to (robe-jump-prompt thing) t)))))
 
+;;;###autoload
 (defun robe-jump-to-module-other-window (name)
   "Prompt for module, jump to a file where it has method definitions."
   (interactive `(,(robe-completing-read "Module: " (robe-request "modules"))))
@@ -63,6 +67,7 @@ If invoked with a prefix or no symbol at point, delegate to `robe-ask'."
                                    "\\_>")))
       (back-to-indentation))))
 
+;;;###autoload
 (defun robe-ask-other-window ()
   "Prompt for module, method, and jump to its definition."
   (interactive)
