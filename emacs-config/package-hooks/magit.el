@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (spacemacs|use-package-add-hook magit-status
   :post-config
   (defun magit-refresh-vc-mode-line (rev)

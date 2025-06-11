@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'helm-bookmark
   (define-key helm-bookmark-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'helm-bookmark-run-jump-other-window))
 

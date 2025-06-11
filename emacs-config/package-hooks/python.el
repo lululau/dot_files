@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (spacemacs|use-package-add-hook python
   :post-config
   (defun python-shell-send-line (&optional send-main)

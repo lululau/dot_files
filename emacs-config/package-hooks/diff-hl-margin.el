@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'diff-hl-margin
   (define-minor-mode diff-hl-margin-minor-mode
     "Toggle displaying `diff-hl-mode' highlights on the margin locally.

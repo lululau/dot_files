@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (setq helm-projectile-rails-macro-file-name load-file-name)
 (with-eval-after-load 'projectile-rails
 

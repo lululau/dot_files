@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;;;;;;  1. Replace kubernetes-kubectl in kubernetes-kubectl.el
 ;;;;;;;  2. Move kubernetes-utils--save-window-state from kubernetes-utils.el to kubernetes-core.el
 

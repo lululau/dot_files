@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (advice-add 'spacemacs/open-file-or-directory-in-external-app :override #'(lambda (arg)
   "Open current file in external application.
 If the universal prefix argument is used then open the folder

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;;###autoload
 (defun lx/autojump-add ()
   (if (eq 'dired-mode major-mode)

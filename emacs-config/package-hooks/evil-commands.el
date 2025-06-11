@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'evil-commands
   (evil-define-command evil-exit-hybrid-state (&optional buffer message)
     "Exit Emacs state.

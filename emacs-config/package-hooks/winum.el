@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (spacemacs|use-package-add-hook winum
   :post-config
   (define-key winum-keymap (kbd "M-0") 'nil)

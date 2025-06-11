@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'cider-repl
   (define-key cider-repl-mode-map (kbd "C-p") 'cider-repl-previous-input)
   (define-key cider-repl-mode-map (kbd "C-n") 'cider-repl-next-input)

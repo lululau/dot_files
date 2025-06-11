@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;;###autoload
 (defun lx/helm-find-project-files ()
   (interactive)

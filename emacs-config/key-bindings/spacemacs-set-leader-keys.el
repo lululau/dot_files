@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (spacemacs|create-align-repeat-x "hash" "#")
 
 (spacemacs/set-leader-keys

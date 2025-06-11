@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (evil-define-text-object evil-a-line (count &optional beg end type)
   (list (line-beginning-position) (line-end-position)))
 

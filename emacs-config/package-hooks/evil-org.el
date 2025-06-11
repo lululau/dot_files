@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (spacemacs|use-package-add-hook evil-org
   :post-config
   (progn

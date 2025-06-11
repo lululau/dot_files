@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'inf-ruby
 
   (defun lx/last-pry-proc ()

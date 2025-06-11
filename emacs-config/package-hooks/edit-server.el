@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (unless (display-graphic-p)
   (with-eval-after-load 'edit-server
     (defun edit-server-start (&optional verbose)

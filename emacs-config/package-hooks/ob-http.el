@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'ob-http
   (setq org-babel-header-args:http
     '((pretty . :any)

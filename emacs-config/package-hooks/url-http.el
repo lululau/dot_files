@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'url-http
   (defun url-http-create-request (&optional ref-url)
   "Create an HTTP request for `url-http-target-url', referred to by REF-URL."

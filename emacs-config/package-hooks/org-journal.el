@@ -1,3 +1,6 @@
+;; -*- lexical-binding: t; -*-
+
+
 (with-eval-after-load 'org-journal
   (defun org-journal--insert-entry (time org-extend-today-until-active-p &optional todo)
     "Insert a new entry."

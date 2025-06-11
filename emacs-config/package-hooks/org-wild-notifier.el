@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'org-wild-notifier
   (defun org-wild-notifier--get-hh-mm-from-org-time-string (time-string)
     "Convert given org time-string TIME-STRING into string with 'hh:mm' format."

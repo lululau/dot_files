@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (setq scratch-buffer-content nil)
 
 (defun save-buffer-advice (origfunc &rest args)

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'smartparens-ruby
   (defun sp-ruby-pre-pipe-handler (id action context)
     (when (equal action 'insert)

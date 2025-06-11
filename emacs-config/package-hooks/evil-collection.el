@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defun lx/override-dired-subtree-kbd (&rest args)
   (with-eval-after-load 'dired-subtree
     (evil-collection-define-key 'normal 'dired-mode-map

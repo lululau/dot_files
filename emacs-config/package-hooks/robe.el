@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'robe
   (defun robe-find-file (file &optional pop-to-buffer)
     (let ((file (and file (s-chomp file))))

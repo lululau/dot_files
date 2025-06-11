@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; mu4e config
 ;; Set up some common mu4e variables
 

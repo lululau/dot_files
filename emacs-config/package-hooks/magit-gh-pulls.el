@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'magit-gh-pulls
 
   (defun magit-gh-pulls-get-remote-branch (local-branch)

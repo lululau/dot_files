@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (let ((current-dir (file-name-directory load-file-name)))
   (load-file (format "%s/funcs/init.el" current-dir))
   (dolist (dir '(

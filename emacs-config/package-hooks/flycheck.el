@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (setq rubocop-wrapper-path (format "%srubocop" (file-name-directory load-file-name)))
 
 (with-eval-after-load 'flycheck

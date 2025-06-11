@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'helm-files
   (defun helm-substitute-in-filename (fname)
     (cond ((and ffap-url-regexp

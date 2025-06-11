@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;;###autoload
 (defun lx/kill-buffers (buffers)
   (interactive)

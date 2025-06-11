@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'magit-status
   (require 'gpt-commit)
   (define-key magit-status-mode-map (kbd "C-c C-j") 'lx/git-commit-to-org-journal)

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'ctable
 
   (evilified-state-evilify-map ctbl:table-mode-map :mode ctbl:table-mode :bindings "k" 'ctbl:navi-move-up)

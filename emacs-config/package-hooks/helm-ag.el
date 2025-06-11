@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'helm-ag
   (defun helm-ag--show-result-p (options has-query)
     "Not documented, OPTIONS, HAS-QUERY."

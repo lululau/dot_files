@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (advice-add 'neotree-find-project-root :override (lambda ()
   (interactive)
   (if (neo-global--window-exists-p)

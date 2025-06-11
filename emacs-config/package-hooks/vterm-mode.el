@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'vterm
   (require 'shell-pop)
 ;;   (defvar-local vterm--undecoded-bytes nil)

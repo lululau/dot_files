@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (advice-add 'magit-blame-format-time-string :override #'(lambda (time tz)
                                                           (setq time (string-to-number time))
                                                           (format-time-string

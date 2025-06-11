@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'evil-core
   (with-eval-after-load 'info
     (evil-define-key 'motion Info-mode-map

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (spacemacs|use-package-add-hook helm
   :post-config
   (define-key helm-map (kbd "s-m") 'helm-toggle-visible-mark)

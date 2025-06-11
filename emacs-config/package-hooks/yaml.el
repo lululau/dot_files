@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (spacemacs|use-package-add-hook yaml-mode
   :post-config
   (defun lx/yaml-leading-spaces (line)

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'org
   (define-key org-mode-map [M-tab] 'spacemacs/alternate-buffer)
   (define-key org-mode-map (kbd "C-M-i") nil)

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'ob-tmux
   (defun ob-tmux--window-alive-p (ob-session)
     "Check if WINDOW exists in tmux session.

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'ox-reveal
   (defun org-reveal-export-to-html
       (&optional async subtreep visible-only body-only ext-plist)

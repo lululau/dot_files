@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'markdown-mode
   (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "'" 'markdown-edit-code-block)
   (evil-define-key 'motion markdown-mode-map (kbd "C-i") 'markdown-cycle)

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'xwidget
   (define-key xwidget-webkit-mode-map (kbd "s-f") 'xwwp-follow-link)
   (define-key xwidget-webkit-mode-map (kbd "s-c") 'xwidget-webkit-copy-selection-as-kill)

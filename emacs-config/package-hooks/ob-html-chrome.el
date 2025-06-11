@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'ob-html-chrome
   (defun org-babel-execute:html-chrome (body params)
     "Render the HTML in BODY using PARAMS."

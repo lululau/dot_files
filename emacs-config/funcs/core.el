@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;;###autoload
 (defun lx/keyboard-quit ()
   (interactive)

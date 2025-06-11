@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'helm-ls-git
   (evilified-state-evilify-map helm-ls-git-rebase-todo-mode-map
     :mode helm-ls-git-rebase-todo-mode
