@@ -82,7 +82,7 @@
 
 (with-eval-after-load 'kubernetes-kubectl
   (defun kubernetes-kubectl--flags-from-state (state)
-    (append (when-let (ns (kubernetes-state--get state 'current-namespace))
+    (append (when-let* ((ns (kubernetes-state--get state 'current-namespace)))
               (if (string= ns "all")
                   '("--all-namespaces")
                 (list (format "--namespace=%s" ns))))

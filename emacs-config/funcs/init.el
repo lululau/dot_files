@@ -317,16 +317,16 @@ Read a timestamp from the user and insert it at point." t)
 
 ;;;***
 
-;;;### (autoloads nil "helm-files" "helm-files.el" (0 0 0 0))
+;;;### (autoloads nil "helm-files-ext" "helm-files-ext.el" (0 0 0 0))
 ;;; Generated autoloads from helm-files.el
 
-(autoload 'lx/helm-find-project-files "helm-files" nil t)
+(autoload 'lx/helm-find-project-files "helm-files-ext" nil t)
 
-(autoload 'lx/helm-dired-histories "helm-files" nil t)
+(autoload 'lx/helm-dired-histories "helm-files-ext" nil t)
 
-(autoload 'lx/projectile-dired-histories "helm-files")
+(autoload 'lx/projectile-dired-histories "helm-files-ext")
 
-(autoload 'lx/helm-projectile-dired-histories "helm-files" nil t)
+(autoload 'lx/helm-projectile-dired-histories "helm-files-ext" nil t)
 
 ;;;***
 

@@ -10,8 +10,8 @@
     nil)
 
   (cl-defmethod transient-default-value ((obj transient-prefix))
-    (if-let ((default (and (slot-boundp obj 'default-value)
-                           (oref obj default-value))))
+    (if-let* ((default (and (slot-boundp obj 'default-value)
+                            (oref obj default-value))))
         (if (functionp default)
             (funcall default)
           default)
