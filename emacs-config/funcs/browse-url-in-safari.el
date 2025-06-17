@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/browse-url-in-safari (url)
   (interactive)
   (call-process-shell-command (format "echo 'tell app \"Safari\"

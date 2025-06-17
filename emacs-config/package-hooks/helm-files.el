@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'helm-files
   (defun helm-substitute-in-filename (fname)
     (cond ((and ffap-url-regexp
@@ -41,12 +43,16 @@
                               map))
 
   (defclass helm-autojump-source (helm-source-sync)
-     ((candidates :initform 'helm-autojump-candidates)
-      (action :initform 'find-file)))
+    ((candidates :initform 'helm-autojump-candidates)
+     (action :initform 'find-file)))
 
   (defvar helm-source-autojump (helm-make-source "Autojump" 'helm-autojump-source))
 
-  (spacemacs/set-leader-keys "oj" #'(lambda () (interactive)
-                                      (helm :sources 'helm-source-autojump
-                                            :buffer "*helm autojump*"
-                                            :ff-transformer-show-only-basename nil))))
+  (defun helm-autojump ()
+    "Jump to a directory using autojump."
+    (interactive)
+    (helm :sources 'helm-source-autojump
+          :buffer "*helm autojump*"
+          :ff-transformer-show-only-basename nil))
+
+  (spacemacs/set-leader-keys "oj" #'helm-autojump))

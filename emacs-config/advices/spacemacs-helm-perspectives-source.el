@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (advice-add
  'spacemacs//helm-perspectives-source
  :override

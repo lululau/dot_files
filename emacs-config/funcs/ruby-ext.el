@@ -1,6 +1,8 @@
+;;;###autoload
 (defun binding-pry-filter (text)
   (if (string-match "^ => [0-9]+:" text) (pop-to-buffer (current-buffer))))
 
+;;;###autoload
 (defun enh-ruby-toggle-block ()
   (interactive)
   (let ((start (point)) beg end)
@@ -18,15 +20,18 @@
               (ruby-do-end-to-brace beg end)))
       (goto-char start))))
 
+;;;###autoload
 (defun current-line-has-pry-breakpoint-p ()
   (string-match-p "binding\\.pry" (buffer-substring-no-properties (line-beginning-position) (line-end-position))))
 
+;;;###autoload
 (defun delete-pry-breakpoints ()
   (save-excursion
     (goto-char (point-min))
     (while (/= (point) (point-max))
       (if (current-line-has-pry-breakpoint-p) (kill-whole-line) (forward-line)))))
 
+;;;###autoload
 (defun toggle-pry-breakpoint ()
   (interactive)
   (let ((buf-changed (buffer-modified-p)) (saved-evil-state evil-state))
@@ -38,6 +43,7 @@
     (unless buf-changed (save-buffer))
     (call-interactively (intern (concat "evil-" (symbol-name saved-evil-state) "-state")))))
 
+;;;###autoload
 (defun cleanup-pry-breakpoints ()
   (interactive)
   (let ((buf-changed (buffer-modified-p)) (saved-evil-state evil-state))
@@ -45,6 +51,7 @@
     (unless buf-changed (save-buffer))
     (call-interactively (intern (concat "evil-" (symbol-name saved-evil-state) "-state")))))
 
+;;;###autoload
 (defun lx/jump-to-code-at-point ()
   (interactive)
   (let((str (ffap-string-at-point)) path line)
@@ -56,42 +63,50 @@
     (org-open-file path t line)))
 
 
+;;;###autoload
 (defun lx/ruby-send-line ()
   (interactive)
   (ruby-send-region (line-beginning-position) (line-end-position))
   (comint-send-string (inf-ruby-proc) "\n"))
 
+;;;###autoload
 (defun lx/ruby-send-line-and-go ()
   (interactive)
   (ruby-send-region (line-beginning-position) (line-end-position))
   (comint-send-string (inf-ruby-proc) "\n")
   (ruby-switch-to-inf t))
 
+;;;###autoload
 (defun lx/ruby-send-reload ()
   (interactive)
   (comint-send-string (inf-ruby-proc) "reload!\n")
   (ruby-switch-to-inf t))
 
+;;;###autoload
 (defun lx/ruby-send-paragraph ()
   (interactive)
   (ruby-send-region (save-excursion (backward-paragraph) (point)) (save-excursion (forward-paragraph) (point))))
 
 
+;;;###autoload
 (defun lx/ruby-send-paragraph-and-go ()
   (interactive)
   (ruby-send-region (save-excursion (backward-paragraph) (point)) (save-excursion (forward-paragraph) (point)))
   (ruby-switch-to-inf t))
 
 
+;;;###autoload
 (defun lx/ruby-send-region ()
   (ruby-send-region (region-beginning) (region-end)))
 
 
+;;;###autoload
 (defun lx/ruby-send-region-and-go ()
   (ruby-send-region (region-beginning) (region-end))
   (ruby-switch-to-inf t))
 
 
+;;;###autoload
 (defun lx/ruby-send-babel-block ()
   (interactive)
   (if (lx/find-inf-buffer)
@@ -105,6 +120,7 @@
               (vterm-send-return)))))))
 
 
+;;;###autoload
 (defun lx/ruby-send-babel-block-and-go ()
   (interactive)
   (if (lx/find-inf-buffer)
@@ -119,6 +135,7 @@
               (vterm-send-return))
             (select-window (get-buffer-window pry-buffer)))))))
 
+;;;###autoload
 (defun lx/find-pry-vterm-buffer ()
   (let* ((window-buffers (mapcar #'window-buffer (window-list))))
     (--find (with-current-buffer it (eq major-mode 'pry-vterm-mode)) window-buffers)))

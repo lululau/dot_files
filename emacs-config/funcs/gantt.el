@@ -1,3 +1,4 @@
+;;;###autoload
 (defun gantt ()
   (interactive)
   (require 'ox-taskjuggler)

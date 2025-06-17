@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'artist
   (spacemacs/set-leader-keys-for-minor-mode 'artist-mode
     "C-e" 'artist-select-erase-char

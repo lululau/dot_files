@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (evil-define-text-object evil-a-defun (count &optional beg end type)
   (evil-select-an-object 'evil-defun beg end type count))
 

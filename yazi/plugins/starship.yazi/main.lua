@@ -11,7 +11,7 @@ return {
 			local cwd = cx.active.current.cwd
 			if st.cwd ~= cwd then
 				st.cwd = cwd
-				ya.manager_emit("plugin", { st._name, args = ya.quote(tostring(cwd)) })
+				ya.emit("plugin", { st._name, args = ya.quote(tostring(cwd)) })
 			end
 
 			return ui.Line.parse(st.output or "")

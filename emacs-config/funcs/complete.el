@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/reset-lsp-company-backends ()
   (interactive)
   (let ((preferred '(company-files company-capf company-tabnine :with company-yasnippet))

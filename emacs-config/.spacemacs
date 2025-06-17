@@ -1,4 +1,6 @@
 ;; -*- mode: emacs-lisp -*-
+;; -*- lexical-binding: t; -*-
+
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -70,6 +72,13 @@
 (setq company-shell--cache '(""))
 
 (setq copilot--auto-copilot-on-p t)
+
+
+(if (lx/system-is-mac)
+    (if (file-exists-p "/opt/homebrew/bin/gtar")
+        (setq-default quelpa-build-tar-executable "/opt/homebrew/bin/gtar")
+      (setq-default quelpa-build-tar-executable "/usr/local/bin/gtar")))
+
 
 (setq ffap-url-regexp
   (concat
@@ -148,7 +157,7 @@
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-use-company-box t
                       auto-completion-private-snippets-directory ,lx/snippets-path)
-     tabnine
+     ;; tabnine
      better-defaults
      ;; (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      emacs-lisp
@@ -195,7 +204,7 @@
      yaml
      ruby-on-rails
      projectile-bundler
-     projectile-bundler-robe
+     ;; projectile-bundler-robe
      elixir
      (shell-scripts :variables shell-scripts-backend 'shell-script-mode)
      dash
@@ -265,6 +274,7 @@
      windows-scripts
      (latex :variables latex-build-command "XeLaTeX")
      terraform
+     (llm-client :variables llm-client-enable-gptel t)
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
@@ -278,9 +288,10 @@
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
-                                            gptel org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
-                                            ob-swiftui evil-goggles gpt-commit
+                                            org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
+                                            ob-swiftui evil-goggles
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
+                                            (mcp :location (recipe :fetcher github :repo "lizqwerscott/mcp.el"))
                                             (copilot :location (recipe :fetcher github :repo "lululau/copilot.el" :files ("*.el"))))
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
@@ -349,7 +360,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-startup-banner lx/spacemacs-banner
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
-   dotspacemacs-startup-lists '((recents . 10) (bookmarks . 20))
+   dotspacemacs-startup-lists '((recents . 25))
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -476,6 +487,10 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (add-hook 'lsp-completion-mode-hook #'lx/reset-lsp-company-backends)
 
+  (setq mcp-hub-servers
+        '(("Fetch" . (:command "/Users/liuxiang/.local/bin/mcp-server-fetch" :args nil))
+          ("AppleScript" . (:command "/opt/homebrew/bin/applescript-mcp" :args nil))
+          ("Obsidian" . (:command "/Users/liuxiang/.local/bin/mcp-obsidian-wrapper" :args nil))))
   )
 
 (defun dotspacemacs/user-config ()
@@ -540,6 +555,13 @@ layers configuration."
   (setq helm-locate-command "~/.rvm/gems/ruby-3.2.0/bin/mfd %s %s")
   (setq gptel-default-mode 'org-mode)
   (setq gptel-prompt-string "** ")
+  (setq gptel-model 'qwen-plus)
+  (setq gptel-backend  (gptel-make-openai "Dashscope"
+                         :host "dashscope.aliyuncs.com"
+                         :endpoint "/compatible-mode/v1/chat/completions"
+                         :stream t
+                         :key 'gptel-api-key-from-auth-source
+                         :models '(qwen-plus)))
 
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
@@ -604,7 +626,7 @@ layers configuration."
       ("gitlab.com"    git-link-commit-github)))
 
 
-  (setq gpt-commit-openai-key (f-read-text "~/.config/secrets/.openai_api_key"))
+  (setq gpt-commit-openai-key (f-read-text "~/.config/secrets/.dashscope_api_key"))
 
   (setq org-mu4e-tmp-dir "~/tmp/mu4e")
 
@@ -651,10 +673,11 @@ layers configuration."
 
   (defvar org-babel-tangle-lang-exts '())
   (add-to-list 'org-babel-tangle-lang-exts '("swiftui" . "swift"))
-  (org-babel-do-load-languages 'org-babel-load-languages
-                               (append org-babel-load-languages
-                                       '((swiftui . t))))
-  (add-to-list 'org-src-lang-modes '("swiftui" . swift))
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages 'org-babel-load-languages
+                                 (append org-babel-load-languages
+                                         '((swiftui . t))))
+    (add-to-list 'org-src-lang-modes '("swiftui" . swift)))
 
   (setq org-plantuml-jar-path (concat HOMEBREW_PREFIX "/libexec/plantuml.jar"))
 
@@ -667,6 +690,7 @@ layers configuration."
   (add-hook 'artist-mode-hook #'(lambda () (define-key artist-mode-map [(down-mouse-3)] 'artist-mouse-choose-operation)))
 
   (add-hook 'org-mode-hook #'(lambda ()
+                               (org-indent-mode)
                                (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n\"'")
                                (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)))
   (autoload 'org-ai-mode "org-ai")
@@ -743,7 +767,9 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions "target/")
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
+  (add-hook 'prog-mode-hook 'copilot-mode)
   (add-hook 'prog-mode-hook 'send-to-vterm-mode)
+  (add-hook 'prog-mode-hook 'evil-goggles-mode)
   (add-hook 'text-mode-hook 'copilot-mode)
   (add-hook 'text-mode-hook 'send-to-vterm-mode)
   (add-hook 'text-mode-hook 'evil-goggles-mode)
@@ -1113,6 +1139,9 @@ This function is called at the very end of Spacemacs initialization."
     (115 "​" . "​"))))
 '(fill-column 120)
 '(projectile-completion-system (quote helm))
+'(gpt-commit-model-name "qwen-plus")
+'(gpt-commit-api-url "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions")
+'(gpt-commit-max-token 98304)
 '(mind-wave-api-key-path "~/.config/secrets/.openai_api_key")
 '(mind-wave-chat-model "gpt-4-0613")
 '(mind-wave-async-text-model "gpt-4-0613")
@@ -1175,6 +1204,7 @@ This function is called at the very end of Spacemacs initialization."
  '(spacemacs-theme-comment-bg nil)
  '(spacemacs-keep-legacy-current-buffer-delete-bindings nil)
  '(dired-filter-prefix ",f")
+ '(helm-dired-history-max 100000)
  '(shr-use-colors nil)
  '(org-modern-star nil)
  '(org-modern-hide-stars nil)
@@ -1227,6 +1257,7 @@ This function is called at the very end of Spacemacs initialization."
  '(vc-follow-symlinks t)
  '(docker-show-messages nil)
  '(docker-run-async-with-buffer-function (quote docker-run-async-with-buffer-vterm))
+ '(warning-minimum-level :emergency)
  '(warning-suppress-log-types (quote ((comp) (tramp) (copilot))))
  '(warning-suppress-types (quote ((comp) (tramp) (copilot)))))
 

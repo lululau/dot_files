@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'jdecomp
 
   (defun jdecomp--fernflower-decompile-file (file &optional extracted-p)

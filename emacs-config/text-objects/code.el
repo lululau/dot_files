@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (evil-define-text-object evil-a-code (count &optional beg end type)
   (list
    (save-excursion (mwim-beginning-of-code-or-line) (point))

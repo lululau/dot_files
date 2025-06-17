@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'helm-tramp
   (defun helm-tramp ()
     "Open your ~/.ssh/config with helm interface.

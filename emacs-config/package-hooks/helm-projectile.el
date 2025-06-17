@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defun projectile-switch-to-project-last-buffer (project)
   (interactive)
   (let* ((default-directory project)

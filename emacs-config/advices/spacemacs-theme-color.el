@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (advice-add 'create-spacemacs-theme :override
             (lambda (variant theme-name)
               (let ((class '((class color) (min-colors 89))) ;;              ~~ Dark ~~                              ~~ Light ~~

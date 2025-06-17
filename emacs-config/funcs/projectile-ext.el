@@ -1,3 +1,4 @@
+;;;###autoload
 (defun get-current-persp-project ()
   (let ((persp (get-current-persp))
         persp-name)
@@ -6,6 +7,7 @@
       (when (-contains? (projectile-open-projects) (replace-regexp-in-string "^/[^/]*/[^/]*/" "~/" persp-name))
         persp-name))))
 
+;;;###autoload
 (defun projectile-project-alternate-buffer ()
   (car
    (--remove
@@ -14,6 +16,7 @@
      (s-matches? "^[* ]" (buffer-name it)))
     (projectile-project-buffers))))
 
+;;;###autoload
 (defun projectile-project-switch-to-alternate-buffer ()
   (interactive)
   (let ((project (get-current-persp-project)))
@@ -26,6 +29,7 @@
             (switch-to-buffer buf)))
       (call-interactively #'spacemacs/alternate-buffer-in-persp))))
 
+;;;###autoload
 (defun lx/find-or-create-projectile-snippet-file ()
   (interactive)
   ;; (find-file (format "%s/tmp/snippets.rb" (projectile-project-root))))
@@ -35,6 +39,7 @@
         (find-file file)
       (message "File not exist: %s" file))))
 
+;;;###autoload
 (defun lx/find-or-create-projectile-request-file ()
   (interactive)
   ;; (find-file (format "%s/tmp/requests.http" (projectile-project-root))))
@@ -44,6 +49,7 @@
         (find-file file)
       (message "File not exist: %s" file))))
 
+;;;###autoload
 (defun lx/find-or-create-projectile-snippet-org (in-other-window)
   (interactive "P")
   ;; (find-file (format "%s/tmp/snippets.org" (projectile-project-root))))
@@ -55,6 +61,7 @@
           (find-file file))
       (message "File not exist: %s" file))))
 
+;;;###autoload
 (defun lx/find-or-create-projectile-request-org (in-other-window)
   (interactive "P")
   ;; (find-file (format "%s/tmp/requests.org" (projectile-project-root))))
@@ -66,6 +73,7 @@
           (find-file file))
       (message "File not exist: %s" file))))
 
+;;;###autoload
 (defun lx/find-or-create-projectile-sql-org (in-other-window)
   (interactive "P")
   ;; (find-file (format "%s/tmp/sql.org" (projectile-project-root))))
@@ -78,6 +86,7 @@
       (message "File not exist: %s" file))))
 
 
+;;;###autoload
 (defun lx/find-or-create-projectile-alternate-org (in-other-window)
   (interactive "P")
   (let* ((persp-project (get-current-persp-project))
@@ -88,6 +97,7 @@
           (find-file file))
       (message "File not exist: %s" file))))
 
+;;;###autoload
 (defun projectile-find-file-in-pwd ()
   (interactive)
   (projectile-find-file-in-directory default-directory))

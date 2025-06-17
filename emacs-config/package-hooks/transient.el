@@ -1,5 +1,10 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'transient
   (transient-bind-q-to-quit)
+
+  (keymap-set transient-base-map "s-w" #'transient-quit-one)
+  (keymap-set transient-sticky-map "s-w" #'transient-quit-seq)
 
   ;; docker.el require these transient functions from latest version of transient, which is newer t the one in emacs 28.2
   (cl-defgeneric transient-default-value (_)
@@ -7,8 +12,8 @@
     nil)
 
   (cl-defmethod transient-default-value ((obj transient-prefix))
-    (if-let ((default (and (slot-boundp obj 'default-value)
-                           (oref obj default-value))))
+    (if-let* ((default (and (slot-boundp obj 'default-value)
+                            (oref obj default-value))))
         (if (functionp default)
             (funcall default)
           default)

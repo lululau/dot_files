@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'ob-http
   (setq org-babel-header-args:http
     '((pretty . :any)
@@ -18,6 +20,7 @@
       (bin . :any)
       (authorization . :any)
       (x-auth-token . :any)
+      (x-access-token . :any)
       (json . :any)
       (form . :any)
       (upload . :any)
@@ -89,6 +92,7 @@
          (content-type (cdr (assoc :content-type params)))
          (authorization (cdr (assoc :authorization params)))
          (x-auth-token (cdr (assoc :x-auth-token params)))
+         (x-access-token (cdr (assoc :x-access-token params)))
          (json (cdr (assoc :json params)))
          (form (cdr (assoc :form params)))
          (upload (cdr (assoc :upload params)))
@@ -108,6 +112,7 @@
                      (when upload `("-H" "Content-Type: multipart/form-data"))
                      (when authorization `("-H" ,(format "Authorization: %s" (ob-http-expand-var-in-header authorization params))))
                      (when x-auth-token `("-H" ,(format "X-Auth-Token: %s" (ob-http-expand-var-in-header x-auth-token params))))
+                     (when x-access-token `("-H" ,(format "X-Access-Token: %s" (string-chop-newline (ob-http-expand-var-in-header x-access-token params)))))
                      (when h `("-H" ,(replace-regexp-in-string ":" ": " (ob-http-expand-var-in-header h params))))
                      (when content-type `("-H" ,(format "Content-Type: %s" content-type)))
                      (when (and (assoc :username params) (assoc :password params))

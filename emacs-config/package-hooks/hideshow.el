@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (spacemacs|use-package-add-hook hideshow
   :post-config
   (add-to-list 'hs-special-modes-alist

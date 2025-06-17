@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'clojure-mode
   (defun lx/clojure-ctrl-j ()
     (interactive)

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'tramp-sh
   (defun tramp-get-ls-command (vec)
     (with-tramp-connection-property vec "ls"

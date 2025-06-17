@@ -8,6 +8,7 @@
 ;;       (call-interactively 'cider-switch-to-repl-buffer))))
 
 
+;;;###autoload
 (defun lx/clojure-repl ()
   (interactive)
   (require 'cider)

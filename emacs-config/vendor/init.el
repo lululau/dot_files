@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (add-to-list 'load-path (file-name-directory load-file-name))
 (add-to-list 'load-path (concat (file-name-directory load-file-name) "/xwwp"))
 (add-to-list 'load-path (concat (file-name-directory load-file-name) "/oh-my-github"))
@@ -95,3 +97,5 @@
 (autoload 'mind-wave-generate-commit-name "mind-wave.el")
 (autoload 'mind-wave-summary-video "mind-wave.el")
 (autoload 'mind-wave-summary-web "mind-wave.el")
+
+(autoload 'gpt-commit-message "gpt-commit.el")

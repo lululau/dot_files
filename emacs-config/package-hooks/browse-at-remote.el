@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (spacemacs|use-package-add-hook browse-at-remote
   :post-config
   (defun browse-at-remote/parse-git-prefixed (remote-url)

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'ensime-sbt
   (defun ensime-sbt-switch ()
     (interactive)

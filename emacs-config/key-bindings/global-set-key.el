@@ -33,8 +33,8 @@
                                               (setq default-directory project-root)))
                                         (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*")))))))
 
-(global-set-key (kbd "s-\"") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup)))
-(global-set-key (kbd "s-'") #'(lambda () (interactive)
+(global-set-key (kbd "s-'") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup)))
+(global-set-key (kbd "s-\"") #'(lambda () (interactive)
                                 (if (eq major-mode 'zsh-vterm-mode)
                                     (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
                                         (bury-buffer)
@@ -239,6 +239,8 @@
 
 ;; s-p
 (global-unset-key (kbd "s-p"))
+
+(global-set-key (kbd "s-p s-w") #'helm-autojump)
 (global-set-key (kbd "s-p s-p") 'helm-projectile-switch-project)
 (global-set-key (kbd "s-p s-r") 'projectile-dired)
 (global-set-key (kbd "s-p s-s") 'lx/helm-persp-replace-project)
@@ -301,3 +303,4 @@
 ;; (global-set-key (kbd "<backtab>") #'copilot-accept-completion)
 (global-set-key (kbd "M-?") 'all-buffer-completion)
 (global-set-key (kbd "s-H") 'dash-at-point)
+(global-set-key (kbd "s-I") 'gptel-menu)

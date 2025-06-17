@@ -1,3 +1,4 @@
+;;;###autoload
 (defun git-link-gitlab-no-https (hostname dirname filename branch commit start end)
   (format "http://%s/%s/blob/%s/%s"
           hostname

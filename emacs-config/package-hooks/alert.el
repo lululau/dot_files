@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'alert
   (defun alert-notifier-notify (info)
     (if alert-notifier-command

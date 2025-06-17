@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/current-buffer-dir-name ()
   (let* ((buffer (current-buffer))
          (buffer-file-name (buffer-file-name buffer)))
@@ -9,6 +10,7 @@
         ))
     buffer-file-directory))
 
+;;;###autoload
 (defun lx/open-current-bufffer-dir-in-finder ()
   (interactive)
   (shell-command (format "open -a Finder %s" (shell-quote-argument (lx/current-buffer-dir-name)))))

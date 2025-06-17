@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (evil-define-text-object evil-same-match-lines (count &optional beg end type)
   (let* ((line (buffer-substring-no-properties (line-beginning-position) (line-end-position)))
          (regexp (read-regexp "Regexp: "))

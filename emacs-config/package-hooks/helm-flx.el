@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'helm-flx
   (cl-defun helm-flx-fuzzy-highlight-match (candidate
                                          &optional (pattern helm-pattern) diacritics file-comp)

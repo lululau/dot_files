@@ -58,32 +58,27 @@ DISABLE_AUTO_UPDATE="true"
 
 UNBUNDLED_COMMANDS=(rubocop)
 
-plugins=(ack2 alibas autojump autopair
-         bd brew bundler
-         colored-man-pages colorize compleat cp cpanm common-aliases copybuffer
-         docker docker-compose docker-machine zsh-docker-aliases
-         encode64 emoji
-         funcfind
-         gem gemcd git github golang gradle
-         history httpie
-         jruby
-         lein
-         mvn
-         node npm nvm
+plugins=(autojump
+         autopair
+         # brew
+         compleat
+         common-aliases
+         copybuffer
+         zsh-docker-aliases
+         gemcd
+         git
          # macos
-         perl pip python
-         rails rake rsync ruby rvm
-         safe-paste sbt scala screen svn systemadmin systemd
-         terminitor themes tig tmux tmux-pane-words tmuxinator
-         vagrant virtualenv
-         xcode
-         yum
+         rails
+         tmux
+         # tmux-pane-words
+         virtualenv
          project-root
-         kubectl
-         minikube
-         rust
-         zsh-autosuggestions zsh-brew-services zsh-completions
-         you-should-use poetry swiftpm)
+         # kubectl
+         zsh-autosuggestions
+         # zsh-brew-services
+         # zsh-completions
+         you-should-use
+        )
 
 [ -z "$INSIDE_EMACS" ] && plugins+=(fast-syntax-highlighting)
 
@@ -95,10 +90,7 @@ autoload -U zmv
 # Customize to your needs...
 
 [ -e $CONFIGDIR/.zsh-aliases.zsh ] && source $CONFIGDIR/.zsh-aliases.zsh || source $HOME/.zsh-aliases.zsh
-unalias ping
 # unalias fd
-unalias vd
-unalias rb
 
 # Linux Specific Config
 if uname | grep -q Linux; then
@@ -171,7 +163,23 @@ function jj() {
 # }
 
 set -o interactivecomments
-function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
+
+
+function poe() {
+  if [ "$1" = "active" -o "$1" = "a" -o "$1" = use ]; then
+    source $(poetry env info --path)/bin/activate
+  elif [ "$1" = "deactive" -o "$1" = "d" -o "$1" = unuse ]; then
+    deactivate
+  else
+    poetry "$@"
+  fi
+}
+
+function poea() {
+  poe active
+}
+
+# function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
 autoload -U perl-subs
 zle -N perl-subs
@@ -491,18 +499,19 @@ export PATH="$TEXTRA_INSTALL/bin:$PATH"
 # bindkey '^G' create_completion
 ### Codex CLI setup - end
 
-# Shell-GPT integration ZSH v0.1
-_sgpt_zsh() {
-  if [[ -n "$BUFFER" ]]; then
-    _sgpt_prev_cmd=$BUFFER
-    BUFFER+="⌛"
-    zle -I && zle redisplay
-    BUFFER=$(sgpt sh "$_sgpt_prev_cmd")
-    zle end-of-line
-  fi
-}
-zle -N _sgpt_zsh
-bindkey '^X^G' _sgpt_zsh
+# # Shell-GPT integration ZSH v0.1
+# _sgpt_zsh() {
+#   if [[ -n "$BUFFER" ]]; then
+#     _sgpt_prev_cmd=$BUFFER
+#     BUFFER+="⌛"
+#     zle -I && zle redisplay
+#     BUFFER=$(sgpt sh "$_sgpt_prev_cmd")
+#     zle end-of-line
+#   fi
+# }
+# zle -N _sgpt_zsh
+# bindkey '^X^G' _sgpt_zsh
+
 # Shell-GPT integration ZSH v0.1
 
 # function _xplr_cd() {
@@ -579,15 +588,29 @@ goto_project_root.widget() {
 
 zle -N goto_project_root.widget
 
+# Also bind to alt+-
 bindkey '^x^o^a' goto_tmux_last_pwd.widget
+
+# Also bind to alt+shift+p
 bindkey '^x^o^b' goto_project_root.widget
+
+
+setopt ignore_eof
+function exit-tmux-or-shell() {
+    if [ -n "$BUFFER" ]; then
+        zle delete-char
+    else
+        if [ -n "$TMUX" ]; then
+            tmux detach-client
+        else
+            exit
+        fi
+    fi
+}
+zle -N exit-tmux-or-shell
+bindkey '^d' exit-tmux-or-shell
 
 eval "$(luarocks path --lua-version 5.1)"
 
-. "$HOME/.grit/bin/env"
+# . "$HOME/.grit/bin/env"
 
-export SCRCPY_SERVER_PATH=/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools/scrcpy-server
-export PATH=$PATH:/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/liuxiang/.cache/lm-studio/bin"

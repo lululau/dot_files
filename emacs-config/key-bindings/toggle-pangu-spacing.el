@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defun lx/toggle-pangu-space-mode()
   (interactive)
   (if (bound-and-true-p pangu-spacing-mode)

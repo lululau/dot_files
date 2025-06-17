@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'ssh-tunnels
   (evilified-state-evilify-map ssh-tunnels-mode-map
     :mode ssh-tunnels-mode

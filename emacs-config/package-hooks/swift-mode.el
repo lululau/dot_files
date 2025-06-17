@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (spacemacs|use-package-add-hook swift-mode
   :post-config
   (defun swift-mode:send-line ()

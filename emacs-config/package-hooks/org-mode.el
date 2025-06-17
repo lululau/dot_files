@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'org
   (define-key org-mode-map [M-tab] 'spacemacs/alternate-buffer)
   (define-key org-mode-map (kbd "C-M-i") nil)
@@ -7,6 +9,8 @@
     (define-key org-mode-map (kbd "M-S-RET") 'org-insert-todo-heading))
   (evil-define-key 'normal org-mode-map (kbd "RET") #'(lambda () (interactive) (condition-case nil (call-interactively 'org-open-at-point) (user-error (evil-insert-newline-below)))))
   (define-key org-mode-map (kbd "<tab>") #'copilot-accept-or-org-cycel)
+  ;; (evil-define-key '(normal visual) 'evil-org-mode (kbd "<tab>") 'org-cycle)
+  ;; (evil-define-key 'hybrid 'evil-org-mode (kbd "<tab>") 'lx/tab)
 
   (defun copilot-accept-or-org-cycel ()
     (interactive)

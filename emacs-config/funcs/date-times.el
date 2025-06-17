@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/insert-timestamp ()
   "Read a timestamp from the user and insert it at point."
   (interactive)
@@ -31,6 +32,7 @@
              (action . ,insert-func)
              (volatile))))))
 
+;;;###autoload
 (defun lx/parse-timestamp ()
   (interactive)
   (let* ((time-string (thing-at-point 'word))

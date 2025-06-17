@@ -1,3 +1,6 @@
+;; -*- lexical-binding: t; -*-
+
+;;;###autoload
 (defun lx/helm-find-project-files ()
   (interactive)
   (require 'helm-find)
@@ -5,6 +8,7 @@
          (projectile-project-root)))
     (helm-find-1 directory)))
 
+;;;###autoload
 (defun lx/helm-dired-histories ()
   (interactive)
   (helm :prompt "Dired Histories: "
@@ -20,6 +24,7 @@
                 :fuzzy-match t
                 :action 'find-file))))
 
+;;;###autoload
 (defun lx/projectile-dired-histories ()
   (cond ((with-helm-current-buffer (lx/is-remote-buffer))
          (with-helm-current-buffer (let ((remote-host (lx/get-remote-buffer-host)))
@@ -28,6 +33,7 @@
                                   (seq-filter (lambda (dir) (s-starts-with? project-root dir)) helm-dired-history-variable)))
         (t helm-dired-history-variable)))
 
+;;;###autoload
 (defun lx/helm-projectile-dired-histories ()
   (interactive)
   (helm :prompt "Project Dired Histories: "

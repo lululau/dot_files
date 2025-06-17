@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (add-hook 'evil-collection-setup-hook #'(lambda (&rest args)
                                           (evil-define-key 'normal dired-mode-map [?\S-\ ] nil)))
 

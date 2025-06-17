@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defun projectile-project-root-remote (origfunc &rest args)
   (let* ((dir (car args))
          (dir (or dir default-directory)))

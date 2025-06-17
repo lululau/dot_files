@@ -1,3 +1,6 @@
+;; -*- lexical-binding: t; -*-
+
+
 (add-hook 'ruby-mode-hook #'(lambda () (setq-local indent-line-function 'ruby-indent-line)))
 
 (with-eval-after-load 'ruby-mode

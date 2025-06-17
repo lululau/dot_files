@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (spacemacs/declare-prefix "o" "user key bindings")
 (spacemacs/declare-prefix "oo" "open org files")
 (spacemacs/declare-prefix "oi" "open info nodes")

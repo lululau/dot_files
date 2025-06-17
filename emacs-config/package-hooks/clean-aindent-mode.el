@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'clean-aindent-mode
   (defun clean-aindent--bsunindent(arg)
     "Unindents.

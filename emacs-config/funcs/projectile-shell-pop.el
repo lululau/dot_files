@@ -1,3 +1,4 @@
+;;;###autoload
 (defun projectile-shell-pop (prefix)
   (interactive "P")
   (if prefix

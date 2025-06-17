@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'iedit
   (add-hook 'iedit-mode-hook #'(lambda ()
                                  (when (boundp 'ggtags-mode)

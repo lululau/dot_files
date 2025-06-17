@@ -17,7 +17,7 @@ local function entry()
   end
   local command = "sort -n -r '" .. autojump_db_file .. "' | cut -f2 | sed 's/$/\\//' | fzf"
 	local child, err = Command("bash")
-                      :args({"-c", command})
+                      :arg({"-c", command})
                       :cwd(cwd)
                       :stdin(Command.INHERIT)
                       :stdout(Command.PIPED)
@@ -37,7 +37,7 @@ local function entry()
 
 	local target = output.stdout:gsub("\n$", "")
 	if target ~= "" then
-		ya.manager_emit(target:match("[/\\]$") and "cd" or "reveal", { target })
+		ya.emit(target:match("[/\\]$") and "cd" or "reveal", { target })
 	end
 end
 

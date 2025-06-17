@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/cleanup-text-properties ()
   (interactive)
   (if (use-region-p)

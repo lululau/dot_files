@@ -1,3 +1,6 @@
+;; -*- lexical-binding: t; -*-
+
+
 (with-eval-after-load 'org-journal
   (defun org-journal--insert-entry (time org-extend-today-until-active-p &optional todo)
     "Insert a new entry."
@@ -40,5 +43,9 @@ With non-nil prefix argument create a regular entry instead of a TODO entry."
         (insert "SCHEDULED: ")
         (org-insert-time-stamp (current-time) t)
         (org-cycle))))
+
+  (spacemacs/set-leader-keys-for-major-mode 'org-journal-mode
+    "j" 'org-journal-new-todo-entry
+    "J" 'org-journal-new-entry)
 
   (advice-add 'org-journal-new-entry :after #'org-journal-new-entry-after-advice))

@@ -22,6 +22,10 @@ if [ -e /snap/bin ]; then
   path+=(/snap/bin)
 fi
 path+=($HOME/.docker/bin)
+path+=(/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools)
+path+=($HOME/.cache/lm-studio/bin)
+
+export SCRCPY_SERVER_PATH=/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools/scrcpy-server
 
 if uname | grep -q Linux ; then
     export EDITOR='emacsclient -t'
@@ -44,6 +48,7 @@ else
     [ -e $HOME/.config/private/homebrew_github_api_token.sh ] && source $HOME/.config/private/homebrew_github_api_token.sh
     # export JAVA_HOME=/Library/Java/JavaVirtualMachines/CurrentJDK/Contents/Home
 fi
+export UV_PYTHON=3.11
 export XAPIAN_CJK_NGRAM=1
 export SDKMAN_DIR="$HOME/.sdkman"
 # export HOMEBREW_CASK_OPTS=--caskroom=/opt/homebrew-cask/Caskroom
@@ -65,7 +70,8 @@ export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
 export LESS_TERMCAP_so=$'\E[44;33m'       # begin standout-mode
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;33m'       # begin underline
-export PAGER='less -R'
+# export PAGER='less -R'
+export PAGER='nvim +Man!'
 export RI='-f ansi'
 export LSCOLORS=exfxcxdxcxegedabagacad
 export LS_COLORS='di=01;36'
@@ -87,3 +93,4 @@ export RUBY_YJIT_ENABLE=true
 export PATH=$PATH
 export RIPGREP_CONFIG_PATH=$HOME/.config/.ripgreprc
 export QUOTING_STYLE=escape
+export XDG_CONFIG_HOME=$HOME/.config

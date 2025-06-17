@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;;;;;;  1. Replace kubernetes-kubectl in kubernetes-kubectl.el
 ;;;;;;;  2. Move kubernetes-utils--save-window-state from kubernetes-utils.el to kubernetes-core.el
 
@@ -82,7 +84,7 @@
 
 (with-eval-after-load 'kubernetes-kubectl
   (defun kubernetes-kubectl--flags-from-state (state)
-    (append (when-let (ns (kubernetes-state--get state 'current-namespace))
+    (append (when-let* ((ns (kubernetes-state--get state 'current-namespace)))
               (if (string= ns "all")
                   '("--all-namespaces")
                 (list (format "--namespace=%s" ns))))

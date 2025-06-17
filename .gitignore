@@ -106,3 +106,6 @@ gtk-3.0/
 pamac/
 
 emacs-config/.agenda_files
+/op/
+/tmuxai/
+/swiftpm/

@@ -1,3 +1,4 @@
+;;;###autoload
 (defun lx/toggle-global-evil-mc-mode ()
   (interactive)
   (if (bound-and-true-p global-evil-mc-mode)
@@ -9,18 +10,21 @@
     (message "global evil-mc-mode enabled.")))
 
 
+;;;###autoload
 (defun lx/evil-mc-make-cursors-by-regexp ()
   (interactive)
   (require 'evil-mc)
   (call-interactively 'evil-mc-make-cursors-by-regexp))
 
 
+;;;###autoload
 (defun lx/evil-mc-make-cursors-on-paragraph ()
   (interactive)
   (require 'evil-mc)
   (call-interactively 'evil-mc-make-cursors-on-paragraph))
 
 
+;;;###autoload
 (defun lx/evil-mc-make-cursors-on-region ()
   (interactive)
   (require 'evil-mc)

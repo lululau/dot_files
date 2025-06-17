@@ -1,18 +1,23 @@
+;;;###autoload
 (defun lx/nbsp-to-space (s)
   "Convert HTML non-breaking spaces to plain spaces in S."
   ;; Not sure why sometimes these are in the HTML and Pandoc converts
   ;; them to underlines instead of spaces, but this fixes it.
   (replace-regexp-in-string (rx "&nbsp;") " " s t t))
 
+;;;###autoload
 (defun lx/conform-filename (filename)
   (replace-regexp-in-string "^_" "" (replace-regexp-in-string "[[:punct:] \t]\+" "_" filename)))
 
+;;;###autoload
 (defun lx/refine-web-string (str)
   (lx/nbsp-to-space (string-trim (org-link-decode str))))
 
+;;;###autoload
 (defun lx/refine-filename (filename)
   (lx/conform-filename (lx/refine-web-string filename)))
 
+;;;###autoload
 (defun lx/capture-note (title link body)
   ;; (let* ((filename (format "~/Documents/materials/webclips/%s.org" (lx/refine-filename title)))
   (let* ((dir (with-current-buffer (window-buffer) default-directory))
@@ -34,6 +39,7 @@
       (save-buffer)
       t)))
 
+;;;###autoload
 (defun lx/download-org-images ()
   (interactive)
   (with-current-buffer (current-buffer)
