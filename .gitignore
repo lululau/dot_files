@@ -88,3 +88,5 @@ emacs-config/.agenda_files
 /tmuxai/
 /swiftpm/
 /claude/
+/configstore/
+/wireshark/
