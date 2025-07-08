@@ -78,6 +78,7 @@ plugins=(autojump
          # zsh-brew-services
          # zsh-completions
          you-should-use
+         fzf-tab
         )
 
 [ -z "$INSIDE_EMACS" ] && plugins+=(fast-syntax-highlighting)
@@ -492,6 +493,10 @@ export OPENAI_API_KEY=$(cat ~/.config/secrets/.openai_api_key)
 # textra
 export TEXTRA_INSTALL="$HOME/.textra"
 export PATH="$TEXTRA_INSTALL/bin:$PATH"
+
+
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
 
 ### Codex CLI setup - start
 # export CODEX_CLI_PATH=$HOME/.cli-co-pilot
