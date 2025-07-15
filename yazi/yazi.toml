@@ -17,6 +17,6 @@ open = [
 
 [plugin]
 prepend_previewers = [
-  { name = "*.md", run = "glow" },
-  { name = "*.markdown", run = "glow" },
+  { name = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
+  { name = "*.markdown", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' }
 ]
