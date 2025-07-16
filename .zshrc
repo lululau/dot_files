@@ -619,3 +619,5 @@ eval "$(luarocks path --lua-version 5.1)"
 
 # . "$HOME/.grit/bin/env"
 
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
