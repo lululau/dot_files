@@ -24,11 +24,17 @@ path+=($HOME/.cache/lm-studio/bin)
 
 export SCRCPY_SERVER_PATH=/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools/scrcpy-server
 
-if uname | grep -q Linux ; then
-    export EDITOR='emacsclient -t'
+if (( $+commands[nvim] )); then
+  export EDITOR=nvim
+  export VISUAL=nvim
+elif (( $+commands[vim] )); then
+  export EDITOR=vim
+  export VISUAL=vim
 else
-    export EDITOR='emacsclient'
+  export EDITOR=vi
+  export VISUAL=vi
 fi
+
 export GOROOT=$HOMEBREW_PREFIX/opt/go/libexec/
 export GOPATH=$HOME/.go
 export GO111MODULE=auto
@@ -79,7 +85,6 @@ export NULLCMD=:
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 export HOMEBREW_BAT=1
-export VISUAL=${ZDOTDIR:-$HOME}/bin/emacsclient-for-visual
 [[ -e $HOME/.secretenv ]] && source $HOME/.secretenv
 export LESSOPEN="|$HOMEBREW_PREFIX/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 export BAT_CONFIG_PATH=$HOME/.config/.batrc
