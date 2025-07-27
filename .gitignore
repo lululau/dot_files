@@ -91,3 +91,5 @@ emacs-config/.agenda_files
 /configstore/
 /wireshark/
 /mods/mods.yml
+/freeze/
+/gh-dash/
