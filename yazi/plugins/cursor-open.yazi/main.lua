@@ -7,7 +7,8 @@ end)
 return {
 	entry = function()
 		local urls = hovered()
-		Command("cursor"):arg(urls):spawn():wait()
+    local editor = os.getenv("CALLING_EDITOR") or "cursor"
+    Command(editor):arg(urls):spawn():wait()
     ya.emit("quit", {})
 	end,
 }
