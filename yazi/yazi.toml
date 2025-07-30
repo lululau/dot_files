@@ -19,6 +19,8 @@ open = [
 prepend_previewers = [
   { name = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
   { name = "*.markdown", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
+  { name = "*.docx", run = 'piper -- markitdown "$1" | CLICOLOR_FORCE=1 glow -w=$w -s=dark' },
+  { name = "*.doc", run = 'piper -- markitdown "$1" | CLICOLOR_FORCE=1 glow -w=$w -s=dark' },
   { name = "*.csv", run = 'duckdb' },
   { name = "*.xlsx", run = 'duckdb' }
 ]
