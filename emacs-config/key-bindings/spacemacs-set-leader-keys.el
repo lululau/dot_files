@@ -134,6 +134,8 @@
 
   "$m" #'mcp-hub-start
   "$gr" #'gptel-mcp-register-tool
+
+  "acc" #'claude-code-transient
   )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

@@ -96,6 +96,8 @@
 
 (setq arthas-class-reload-k8s-list '((:context "aliyun" :namespace-filter "prod|test" :deployment-filter ".*")))
 
+(setq claude-code-terminal-backend 'vterm)
+
 (setq vterm-eval-cmds '(("find-file" find-file)
                         ("message" message)
                         ("download" lx/run-in-vterm/download)
@@ -291,7 +293,8 @@
                                             ob-swiftui evil-goggles
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
                                             (mcp :location (recipe :fetcher github :repo "lizqwerscott/mcp.el"))
-                                            (copilot :location (recipe :fetcher github :repo "lululau/copilot.el" :files ("*.el"))))
+                                            (copilot :location (recipe :fetcher github :repo "lululau/copilot.el" :files ("*.el")))
+                                            claude-code)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
