@@ -491,7 +491,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (setq mcp-hub-servers
         '(("Fetch" . (:command "/Users/liuxiang/.local/bin/mcp-server-fetch" :args nil))
-          ("AppleScript" . (:command "/opt/homebrew/bin/applescript-mcp" :args nil))
+          ;; ("AppleScript" . (:command "/opt/homebrew/bin/applescript-mcp" :args nil))
+          ("Apple" . (:command "/opt/homebrew/bin/bunx" :args ("@dhravya/apple-mcp@latest")))
           ("Obsidian" . (:command "/Users/liuxiang/.local/bin/mcp-obsidian-wrapper" :args nil))))
   )
 
