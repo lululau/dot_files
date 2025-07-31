@@ -489,6 +489,9 @@ function recentf-add-file() {
 # preexec_functions+=(recentf-add-file)
 
 export OPENAI_API_KEY=$(cat ~/.config/secrets/.openai_api_key)
+export ANTHROPIC_AUTH_TOKEN=$(cat ~/.config/secrets/.anthropic_auth_token)
+
+export ANTHROPIC_BASE_URL=https://api.moonshot.cn/anthropic
 
 # textra
 export TEXTRA_INSTALL="$HOME/.textra"
@@ -621,3 +624,6 @@ eval "$(luarocks path --lua-version 5.1)"
 
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+export SCRCPY_SERVER_PATH=/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools/scrcpy-server
+export PATH=$PATH:/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools
