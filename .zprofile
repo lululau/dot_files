@@ -37,7 +37,11 @@ if [ "$USER" = vagrant ]; then
 fi
 
 # Added by OrbStack: command-line tools and integration
-source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+if [ -e ~/.orbstack/shell/init.zsh ]; then
+  source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+fi
 
 # Added by swiftly
-. ~/.swiftly/env.sh
+if [ -e ~/.swiftly/env.sh ]; then
+  source ~/.swiftly/env.sh
+fi
