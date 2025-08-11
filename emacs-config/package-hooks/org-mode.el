@@ -4,6 +4,7 @@
   (define-key org-mode-map [M-tab] 'spacemacs/alternate-buffer)
   (define-key org-mode-map (kbd "C-M-i") nil)
   (define-key org-mode-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'code-archive-goto-src)
+  (define-key org-mode-map (kbd "C-c SPC") #'org-table-blank-field)
   (unless (display-graphic-p)
     (define-key org-mode-map (kbd "C-RET") 'org-insert-heading-respect-content)
     (define-key org-mode-map (kbd "M-S-RET") 'org-insert-todo-heading))
