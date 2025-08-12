@@ -19,6 +19,7 @@
   (define-key dired-mode-map (kbd "TAB") 'dired-subtree-toggle)
   (define-key dired-mode-map (kbd "gr") #'revert-buffer)
   (define-key dired-mode-map (kbd "C-L") #'dired-do-symlink)
+  (evil-define-key 'normal dired-mode-map (kbd "g1") 'dired-jump-to-latest-file)
   (with-eval-after-load 'evil-collection-dired
     (evil-define-key 'normal dired-mode-map (kbd "f") 'spacemacs/helm-find-files)
     (evil-define-key 'normal dired-mode-map (kbd "F") 'spacemacs/helm-find-files-recursively)
@@ -28,6 +29,38 @@
   (unless (or (display-graphic-p) (lx/system-is-linux))
     (defun dired-delete-file (file &optional recursive trash)
       (call-process "trash" nil nil nil file)))
+
+  (defun dired-sort-by-date ()
+    ;; Toggle between sort by date/name.  Reverts the buffer.
+    (let ((sorting-by-date (string-match-p dired-sort-by-date-regexp
+                                          dired-actual-switches))
+    ;; Regexp for finding (possibly embedded) -t switches.
+    (switch-regexp "\\(\\`\\| \\)-\\([a-su-zA-Z]*\\)\\(t\\)\\([^ ]*\\)")
+    case-fold-search)
+      ;; Remove the -t switch.
+      (while (string-match switch-regexp dired-actual-switches)
+        (if (and (equal (match-string 2 dired-actual-switches) "")
+          (equal (match-string 4 dired-actual-switches) ""))
+      ;; Remove a stand-alone -t switch.
+      (setq dired-actual-switches
+      (replace-match "" t t dired-actual-switches))
+    ;; Remove a switch of the form -XtY for some X and Y.
+    (setq dired-actual-switches
+          (replace-match "" t t dired-actual-switches 3))))
+
+      (setq dired-actual-switches
+            (concat dired-actual-switches
+                    (if (string-match-p "\\`-[[:alnum:]]+\\'"
+                                        dired-actual-switches)
+                        "t"
+                      " -t"))))
+    (dired-sort-set-mode-line)
+    (revert-buffer))
+
+  (defun dired-jump-to-latest-file()
+    (interactive)
+    (dired-sort-by-date)
+    (evil-goto-first-line 4))
 
   (defun dired-dotfiles-toggle ()
     "Show/hide dot-files"
