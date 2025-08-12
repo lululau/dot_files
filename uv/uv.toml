@@ -1,0 +1,4 @@
+[[index]]
+name = "Aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple/"
+default = true
