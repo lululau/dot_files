@@ -19,12 +19,13 @@
   (define-key dired-mode-map (kbd "TAB") 'dired-subtree-toggle)
   (define-key dired-mode-map (kbd "gr") #'revert-buffer)
   (define-key dired-mode-map (kbd "C-L") #'dired-do-symlink)
-  (evil-define-key 'normal dired-mode-map (kbd "g1") 'dired-jump-to-latest-file)
+
   (with-eval-after-load 'evil-collection-dired
     (evil-define-key 'normal dired-mode-map (kbd "f") 'spacemacs/helm-find-files)
     (evil-define-key 'normal dired-mode-map (kbd "F") 'spacemacs/helm-find-files-recursively)
     (evil-define-key 'normal dired-mode-map (kbd "s") 'dired-sort-toggle-or-edit)
-    (evil-define-key 'normal dired-mode-map (kbd "S") 'hydra-dired-quick-sort/body))
+    (evil-define-key 'normal dired-mode-map (kbd "S") 'hydra-dired-quick-sort/body)
+    (evil-define-key 'normal dired-mode-map (kbd "g1") 'dired-jump-to-latest-file))
 
   (unless (or (display-graphic-p) (lx/system-is-linux))
     (defun dired-delete-file (file &optional recursive trash)
