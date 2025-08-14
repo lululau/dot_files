@@ -1,6 +1,22 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "provider": {
+    "qwen": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Qwen",
+      "options": {
+        "baseURL": "https://dashscope.aliyuncs.com/compatible-mode/v1"
+      },
+      "models": {
+        "qwen-plus": {
+          "name": "Qwen Plus",
+          "limit": {
+            "output": 16384,
+            "context": 131072
+          }
+        }
+      }
+    },
     "moonshot": {
       "npm": "@ai-sdk/openai-compatible",
       "options": {
@@ -11,5 +27,5 @@
       }
     }
   },
-  "model": "moonshot/kimi-k2-0711-preview"
+  "model": "qwen/qwen-plus"
 }
