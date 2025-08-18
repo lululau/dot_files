@@ -76,3 +76,7 @@ alias cs='cargo search --registry=crates-io'
 alias lzd=lazydocker
 alias p=pbpaste
 alias oc='TERM=xterm-256color opencode'
+alias -g L="| view"
+alias -g M="| view"
+alias -g V="| view"
+alias -g LL="2>&1 | view"
