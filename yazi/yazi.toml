@@ -6,7 +6,11 @@ sort_reverse = true
 
 [opener]
 edit = [
-	{ run = 'nvim "$@"', block = true },
+	{ run = 'nvim "$@"', block = true, desc = "Edit with nvim" },
+	{ run = 'ee "$@"', block = false, desc = "Edit with Emacs" },
+	{ run = 'cursor "$@"', block = false, desc = "Edit with Cursor" },
+  { run = 'code "$@"', block = false, desc = "Edit with VS Code" },
+  { run = 'trae "$@"', block = false, desc = "Edit with Trae" },
 ]
 play = [
 	{ run = 'open "$@"' },
