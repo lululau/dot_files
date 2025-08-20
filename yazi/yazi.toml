@@ -8,6 +8,7 @@ sort_reverse = true
 edit = [
 	{ run = 'nvim "$@"', block = true, desc = "Edit with nvim" },
 	{ run = 'ee "$@"', block = false, desc = "Edit with Emacs" },
+	{ run = 'open-with-neovide.sh "$@"', block = false, desc = "Edit with Neovide" },
 	{ run = 'cursor "$@"', block = false, desc = "Edit with Cursor" },
   { run = 'code "$@"', block = false, desc = "Edit with VS Code" },
   { run = 'trae "$@"', block = false, desc = "Edit with Trae" },
