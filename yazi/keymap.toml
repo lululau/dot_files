@@ -88,6 +88,14 @@ on   = [ "f","f" ]
 run  = "filter --smart"
 desc = "filter"
 [[mgr.prepend_keymap]]
+on   = [ "<A-c>" ]
+run  = "plugin fg -- fzf_cwd"
+desc = "find file in cwd"
+[[mgr.prepend_keymap]]
+on   = [ "<C-t>" ]
+run  = "plugin fg -- fzf_all"
+desc = "find file or dir by filename"
+[[mgr.prepend_keymap]]
 on = ["<Space>", "o", "d", "A"]
 run = "plugin dirs -- /Applications/"
 desc = "Jump to /Applications/'"
