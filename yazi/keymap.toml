@@ -47,6 +47,7 @@ on   = [ "u" ]
 run = "leave"
 desc = "Enter parent directory"
 
+
 [[mgr.prepend_keymap]]
 on   = [ "U" ]
 run  = "toggle_all --state=off"
@@ -61,6 +62,16 @@ desc = "toggle select all files"
 on   = [ "-" ]
 run = "leave"
 desc = "Enter parent directory"
+
+[[mgr.prepend_keymap]]
+on   = [ "<A-->" ]
+run  = "plugin dir-hist toggle"
+desc = "Toggle between current and previous directory"
+
+[[mgr.prepend_keymap]]
+on   = [ "<A-p>" ]
+run  = "plugin dir-hist previous"
+desc = "Switch to previous directory in history"
 
 [[mgr.prepend_keymap]]
 on  = [ "l" ]
