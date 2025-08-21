@@ -1,3 +1,7 @@
 [aliases]
+rb = ["ruby"]
+vscode = ["visualstudiocode"]
+py = ["python"]
+idea = ["intellij"]
 
 [templates]
