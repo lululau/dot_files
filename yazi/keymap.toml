@@ -9,6 +9,10 @@ on   = [ "o" ]
 run  = "plugin cursor-open"
 desc = "Open the file with cursor"
 
+[[mgr.prepend_keymap]]
+on   = [ "A" ]
+run  = "hidden toggle"
+desc = "Toggle hidden files"
 
 [[mgr.prepend_keymap]]
 on   = [ "<A-Enter>" ]
