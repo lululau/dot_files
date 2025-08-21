@@ -251,3 +251,24 @@ desc = "Jump to ~/tmp/'"
 on = ["q"]
 run = [ "close" ]
 desc = "Close the picker"
+
+[[mgr.prepend_keymap]]
+on = ["<C-o>", "c"]
+run = "shell 'cursor .'"
+desc = "Open current directory in Cursor"
+
+
+[[mgr.prepend_keymap]]
+on = ["<C-o>", "t"]
+run = "shell 'trae .'"
+desc = "Open current directory in Trae"
+
+[[mgr.prepend_keymap]]
+on = ["<C-o>", "v"]
+run = "shell 'code .'"
+desc = "Open current directory in VSCode"
+
+[[mgr.prepend_keymap]]
+on = ["<C-o>", "e"]
+run = "shell 'ee .'"
+desc = "Open current directory in Emacs"
