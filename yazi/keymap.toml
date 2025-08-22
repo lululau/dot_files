@@ -276,3 +276,8 @@ desc = "Open current directory in VSCode"
 on = ["<C-o>", "e"]
 run = "shell 'ee .'"
 desc = "Open current directory in Emacs"
+
+[[mgr.prepend_keymap]]
+on = [ "<A-g>"]
+run = "plugin lazygit"
+desc = "Open lazygit"
