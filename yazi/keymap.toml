@@ -279,5 +279,5 @@ desc = "Open current directory in Emacs"
 
 [[mgr.prepend_keymap]]
 on = [ "<A-g>"]
-run = "plugin lazygit"
-desc = "Open lazygit"
+run = "plugin magit"
+desc = "Open magit"
