@@ -2,6 +2,7 @@ set colorfulmodewidget
 set idearefactormode=keep
 set NERDTree
 set surround
+set mini-ai
 set argtextobj
 set smartcase
 set hlsearch
