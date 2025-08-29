@@ -80,4 +80,4 @@ alias -g L="| view"
 alias -g M="| view"
 alias -g V="| view"
 alias -g LL="2>&1 | view"
-alias pl='pbpaste | view'
+alias pp='pbpaste | view'
