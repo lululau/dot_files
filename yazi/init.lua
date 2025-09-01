@@ -1,5 +1,4 @@
 -- require("full-linemode")
-require("dirs")
 require("starship"):setup()
 require("duckdb"):setup({mode = "standard"})
 require("dir-hist"):setup({})
