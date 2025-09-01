@@ -3,6 +3,9 @@ require("dirs")
 require("starship"):setup()
 require("duckdb"):setup({mode = "standard"})
 require("dir-hist"):setup({})
+require("session"):setup {
+	sync_yanked = true,
+}
 
 function Linemode:full()
 	local year = os.date("%Y")
