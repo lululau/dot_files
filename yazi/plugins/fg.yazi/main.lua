@@ -86,6 +86,10 @@ local function entry(_, job)
     local file_url = splitAndGetFirst(target,":")
 
 	if file_url ~= "" then
+		local basename = file_url:match("([^/\\]+)$") or file_url
+		if basename:sub(1, 1) == "." then
+			ya.emit("hidden", { hide = true })
+		end
 		ya.emit(file_url:match("[/\\]$") and "cd" or "reveal", { file_url })
 	end
 end
