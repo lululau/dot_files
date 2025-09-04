@@ -81,3 +81,5 @@ alias -g M="| view"
 alias -g V="| view"
 alias -g LL="2>&1 | view"
 alias pp='pbpaste | view'
+alias pj='pbpaste | jless'
+alias yless="jless --yaml"
