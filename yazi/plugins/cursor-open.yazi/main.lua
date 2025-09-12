@@ -7,7 +7,7 @@ end)
 return {
 	entry = function()
 		local urls = hovered()
-    local editor = os.getenv("CALLING_EDITOR") or "cursor"
+    local editor = os.getenv("CALLING_EDITOR") or "/Applications/Cursor.app/Contents/MacOS/Cursor"
     Command(editor):arg(urls):spawn():wait()
     ya.emit("quit", {})
 	end,
