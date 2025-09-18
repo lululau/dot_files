@@ -489,6 +489,7 @@ function recentf-add-file() {
 # preexec_functions+=(recentf-add-file)
 
 export OPENAI_API_KEY=$(cat ~/.config/secrets/.openai_api_key)
+export DASHSCOPE_API_KEY=$(cat ~/.config/secrets/.dashscope_api_key)
 export ANTHROPIC_AUTH_TOKEN=$(cat ~/.config/secrets/.anthropic_auth_token)
 
 export ANTHROPIC_BASE_URL=https://api.moonshot.cn/anthropic
