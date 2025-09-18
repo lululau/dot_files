@@ -89,7 +89,8 @@ export HOMEBREW_BAT=1
 export LESSOPEN="|$HOMEBREW_PREFIX/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 export BAT_CONFIG_PATH=$HOME/.config/.batrc
 export RUST_SRC_PATH=$HOMEBREW_PREFIX/Cellar/rust/1.38.0/share/rust/rust_src
-export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
 export curl_ca_bundle=$HOME/.mitmproxy/mitmproxy-ca.pem
 export RUBY_YJIT_ENABLE=true
 export PATH=$PATH
