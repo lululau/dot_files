@@ -294,6 +294,7 @@
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
                                             (mcp :location (recipe :fetcher github :repo "lizqwerscott/mcp.el"))
                                             (copilot :location (recipe :fetcher github :repo "lululau/copilot.el" :files ("*.el")))
+                                            (claude-code-ide :location (recipe :fetcher github :repo "manzaltu/claude-code-ide.el" :files ("*.el")))
                                             claude-code)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
