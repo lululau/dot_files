@@ -1,0 +1,980 @@
+// Zed keymap - Migrated from Cursor
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+//
+// Note: base_keymap is set to "Cursor" in settings.json
+// This file contains custom overrides and vim leader key bindings
+
+// ============================================================================
+// MIGRATION NOTES FROM CURSOR VIM BINDINGS:
+// ============================================================================
+//
+// UNAVAILABLE VIM FEATURES (no Zed equivalent):
+// - Vim easymotion plugin (ctrl-l, <leader>jl, <leader>jw)
+// - Command-bridge extension for external tool integration
+//   - All <leader>o c <key> bindings (quick open config files)
+//   - All <leader>o d <key> bindings (yazi directory navigation)
+//   - <leader>jd, <leader>jD (yazi in current/workspace dir)
+// - ProjectManager extension (<leader>pp, <leader>ps)
+// - FileUtils extension (<leader>fc duplicate, <leader>fR rename, <leader>fD delete)
+// - Scratchpads extension (<leader>bs)
+// - Specific extensions:
+//   - openInGitHub (<leader>gho)
+//   - remove-empty-lines (<leader>xle)
+//   - trailing-spaces (<leader>xdw)
+//   - composer.showComposerHistory (<leader>ch)
+// - GitHub Copilot specific commands (<leader>ct, <leader>cd, <leader>cf)
+// - External command execution with rg-for-cursor (<leader>sl, <leader>ss, <leader>sS)
+// - Docker command shortcuts (<leader>dk)
+// - Demo file shortcuts (<leader>oe <key>)
+//
+// AVAILABLE ALTERNATIVES IN ZED:
+// - File operations: Use Zed's built-in file finder and project panel
+// - Git operations: Use Zed's native git integration
+// - Search: Use Zed's project-wide search (cmd-shift-f)
+// - Terminal: Use Zed's integrated terminal (cmd-')
+// - Tasks: Define custom tasks in tasks.json for external commands
+//
+// LEADER KEY: Space (matching Cursor vim.leader setting)
+//
+// ============================================================================
+
+[
+  // ============================================================================
+  // CORE EDITOR - Go to Definition, References, Implementations
+  // ============================================================================
+  {
+    "context": "Editor",
+    "bindings": {
+      // Go to definition
+      "cmd-enter": "editor::GoToDefinition",
+      
+      // Go to type definition
+      "ctrl-cmd-enter": "editor::GoToTypeDefinition",
+      
+      // Go to implementation
+      "ctrl-enter": "editor::GoToImplementation",
+      
+      // Find all references
+      "shift-enter": "editor::FindAllReferences",
+      
+      // Quick fix / code actions
+      "alt-enter": "editor::ToggleCodeActions",
+      
+      // Rename symbol
+      "shift-cmd-r": "editor::Rename"
+    }
+  },
+
+  // ============================================================================
+  // COMMAND PALETTE & QUICK ACTIONS
+  // ============================================================================
+  {
+    "context": "Workspace",
+    "bindings": {
+      // Command palette (custom bindings)
+      "cmd-x": "command_palette::Toggle",
+      "alt-x": "command_palette::Toggle"
+    }
+  },
+  
+  // Disable cmd-q quit (prevent accidental quit)
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-q": null
+    }
+  },
+
+  // ============================================================================
+  // MULTI-CURSOR & SELECTION
+  // ============================================================================
+  {
+    "context": "Editor && !menu",
+    "bindings": {
+      // Add cursor below
+      "alt-j": "editor::AddSelectionBelow",
+      
+      // Select next occurrence
+      "shift-alt-j": "editor::SelectNext",
+      
+      // Select all occurrences
+      "alt-m": "editor::SelectAllMatches"
+    }
+  },
+
+  // ============================================================================
+  // VIM INSERT MODE - Custom keybindings
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // Delete to end of line (Cursor: ctrl-k -> ctrl-o C)
+      "ctrl-k": "editor::DeleteToEndOfLine",
+      
+      // Multi-line movement (10 lines at a time)
+      "cmd-j": [
+        "workspace::SendKeystrokes",
+        "down down down down down down down down down down"
+      ],
+      "cmd-k": [
+        "workspace::SendKeystrokes",
+        "up up up up up up up up up up"
+      ],
+      
+      // Emacs-like navigation in insert mode
+      "ctrl-a": "editor::MoveToBeginningOfLine",
+      "ctrl-e": "editor::MoveToEndOfLine",
+      "ctrl-d": "editor::Delete",
+      "ctrl-f": "vim::Right"
+    }
+  },
+
+  // ============================================================================
+  // VIM VISUAL MODE - Custom keybindings
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      // Inner/around word motions (io, ao mapped to i<space>w)
+      // Note: Zed's vim mode may not support custom text objects exactly like VSCodeVim
+      // These are documented but may need adjustment
+      
+      // Sort lines (Cursor: <leader>xs -> editor.action.sortLinesAscending)
+      // Documented - use command palette or external tool
+      
+      // Comment toggle
+      "space ; ;": "editor::ToggleComments"
+    }
+  },
+
+  // ============================================================================
+  // VIM OPERATOR PENDING MODE - Custom keybindings  
+  // ============================================================================
+  {
+    "context": "Editor && vim_operator == waiting",
+    "bindings": {
+      // Inner/around word motions
+      // Note: Custom text objects have limited support in Zed
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - Navigation & History
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // Navigate back/forward
+      "ctrl-o": "pane::GoBack",
+      "ctrl-i": "pane::GoForward",
+      
+      // Yank to end of line (Y -> yg_)
+      "shift-y": ["workspace::SendKeystrokes", "y g _"],
+      
+      // Multi-line movement (10 lines down with cmd-j)
+      "cmd-j": ["workspace::SendKeystrokes", "1 0 j"],
+      
+      // Insert line below and return to normal (enter -> o<ESC>)
+      "enter": ["workspace::SendKeystrokes", "o escape"],
+      
+      // Easymotion alternative (ctrl-l)
+      // Note: Zed doesn't have easymotion; use vim's native f/F/t/T or search (/)
+      // "ctrl-l": null  // Documented as unavailable
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - FILE OPERATIONS (<leader>f prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>fed - Open settings
+      "space f e d": "zed::OpenSettings",
+      
+      // <leader>feD - Open default settings  
+      "space f e shift-d": "zed::OpenDefaultSettings",
+      
+      // <leader>fek - Open keymap
+      "space f e k": "zed::OpenKeymap",
+      
+      // <leader>feK - Open default keymap
+      "space f e shift-k": "zed::OpenDefaultKeymap",
+      
+      // <leader>ff - Open file/folder
+      "space f f": "file_finder::Toggle",
+      
+      // <leader>fr - Recent files
+      "space f r": "projects::OpenRecent",
+      
+      // <leader>fs - Save file
+      "space f s": "workspace::Save",
+      
+      // <leader>ft - Toggle file tree
+      "space f t": "project_panel::ToggleFocus",
+      
+      // <leader>fy - Copy file path
+      "space f y": "editor::CopyPath",
+      
+      // <leader>fc - Duplicate file (fileutils - UNAVAILABLE)
+      // Use project panel or file finder instead
+      
+      // <leader>fR - Rename file (fileutils - UNAVAILABLE)
+      // Use project panel instead
+      
+      // <leader>fD - Delete file (fileutils - UNAVAILABLE)
+      // Use project panel instead
+      
+      // <leader>fv - Open with external editor (command-bridge - UNAVAILABLE)
+      // <leader>fo - Open with emacs (command-bridge - UNAVAILABLE)
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - BUFFER MANAGEMENT (<leader>b prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>bb - Show all buffers/editors
+      "space b b": "tab_switcher::Toggle",
+      
+      // <leader>bd - Close buffer
+      "space b d": "pane::CloseActiveItem",
+      
+      // <leader>bn - Next buffer
+      "space b n": "pane::ActivateNextItem",
+      
+      // <leader>bp - Previous buffer
+      "space b p": "pane::ActivatePrevItem",
+      
+      // <leader><tab> - Switch to last buffer
+      "space tab": "pane::ActivateLastItem",
+      
+      // <leader>bs - Scratchpad (extension UNAVAILABLE)
+      // Use new file or temp files instead
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - WINDOW MANAGEMENT (<leader>w prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>w- - Split horizontal
+      "space w -": "pane::SplitDown",
+      
+      // <leader>w/ - Split vertical  
+      "space w /": "pane::SplitRight",
+      
+      // <leader>wd - Close all editors in group
+      "space w d": "pane::CloseAllItems",
+      
+      // <leader>wh - Focus left pane
+      "space w h": ["workspace::ActivatePaneInDirection", "Left"],
+      
+      // <leader>wj - Focus down pane
+      "space w j": ["workspace::ActivatePaneInDirection", "Down"],
+      
+      // <leader>wk - Focus up pane
+      "space w k": ["workspace::ActivatePaneInDirection", "Up"],
+      
+      // <leader>wl - Focus right pane
+      "space w l": ["workspace::ActivatePaneInDirection", "Right"],
+      
+      // <leader>wH - Move pane left (UNAVAILABLE - use drag and drop)
+      // <leader>wL - Move pane right (UNAVAILABLE - use drag and drop)
+      
+      // <leader>wm - Maximize editor
+      "space w m": "workspace::ToggleCenteredLayout",
+      
+      // <leader>wv - Split editor (duplicate in split)
+      "space w v": "pane::SplitRight",
+      
+      // <leader>ww - Cycle to next pane
+      "space w w": "workspace::ActivateNextPane",
+      
+      // <leader>wW - Cycle to previous pane
+      "space w shift-w": "workspace::ActivatePreviousPane",
+      
+      // <leader>wxj - Toggle panel (bottom dock)
+      "space w x j": "workspace::ToggleBottomDock"
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - PROJECT/WORKSPACE (<leader>p prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>pf - Quick open file (fuzzy find)
+      "space p f": "file_finder::Toggle",
+      
+      // <leader>pl - Open folder
+      "space p l": "workspace::Open",
+      
+      // <leader>pp - Project manager (extension UNAVAILABLE)
+      // Use Zed's built-in recent projects instead
+      "space p p": "projects::OpenRecent",
+      
+      // <leader>ps - Save project (projectManager - UNAVAILABLE)
+      
+      // <leader>pt - Project file tree
+      "space p t": "project_panel::ToggleFocus"
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - SEARCH (<leader>s, <leader>r, <leader>/ prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>/ - Global search (open new editor)
+      "space /": "pane::DeploySearch",
+      
+      // <leader>* - Search word under cursor
+      "space *": ["workspace::SendKeystrokes", "* shift-n"],
+      
+      // <leader>sp - Search in files (project-wide)
+      "space s p": "pane::DeploySearch",
+      
+      // <leader>sP - Search selected text in files
+      "space s shift-p": "pane::DeploySearch",
+      
+      // <leader>sj - Go to symbol in buffer
+      "space s j": "outline::Toggle",
+      
+      // <leader>se - Rename symbol
+      "space s e": "editor::Rename",
+      
+      // <leader>rs - Search in files (alternative binding)
+      "space r s": "pane::DeploySearch",
+      
+      // <leader>sl - Search with ripgrep (rg-for-cursor - UNAVAILABLE)
+      // Use Zed's built-in search instead
+      
+      // <leader>ss - Search in buffer (rg-for-cursor - UNAVAILABLE)
+      // Use Zed's buffer search (cmd-f) instead
+      
+      // <leader>sS - Search word in buffer (rg-for-cursor - UNAVAILABLE)
+      // Use Zed's buffer search with selection
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - GIT OPERATIONS (<leader>g prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>gs - Git status/SCM
+      "space g s": "editor::ToggleGitBlame",
+      
+      // <leader>gb - Git checkout branch (UNAVAILABLE - use terminal)
+      // Run: git checkout <branch>
+      
+      // <leader>gc - Git commit (UNAVAILABLE - use terminal)
+      // Run: git commit
+      
+      // <leader>gd - Git delete branch (UNAVAILABLE - use terminal)
+      // Run: git branch -d <branch>
+      
+      // <leader>gf - Git fetch (UNAVAILABLE - use terminal)
+      // Run: git fetch
+      
+      // <leader>gi - Git init (UNAVAILABLE - use terminal)
+      // Run: git init
+      
+      // <leader>gm - Git merge (UNAVAILABLE - use terminal)
+      // Run: git merge <branch>
+      
+      // <leader>gp - Git publish/push (UNAVAILABLE - use terminal)
+      // Run: git push
+      
+      // <leader>gS - Git stage (UNAVAILABLE - use terminal)
+      // Run: git add
+      
+      // <leader>gU - Git unstage (UNAVAILABLE - use terminal)
+      // Run: git reset
+      
+      // <leader>gho - Open in GitHub (extension UNAVAILABLE)
+      // Use browser manually or configure as task
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - CODE ACTIONS (<leader>c prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>co - Organize imports
+      "space c o": "editor::Format",  // Zed's format includes organize imports
+      
+      // <leader>ch - Composer/Chat history
+      "space c h": "assistant::ToggleFocus",
+      
+      // <leader>ct - Generate tests (Copilot - UNAVAILABLE)
+      // Use assistant panel instead
+      
+      // <leader>cd - Generate docs (Copilot - UNAVAILABLE)
+      // Use assistant panel instead
+      
+      // <leader>cf - Fix issues (Copilot - UNAVAILABLE)
+      // Use code actions (alt-enter) instead
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - DIAGNOSTICS/ERRORS (<leader>e, [ , ] prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>el - Toggle diagnostics/problems
+      "space e l": "diagnostics::Deploy",
+      
+      // <leader>en - Next diagnostic
+      "space e n": "editor::GoToDiagnostic",
+      
+      // <leader>ep - Previous diagnostic
+      "space e p": "editor::GoToPrevDiagnostic",
+      
+      // [e - Previous error
+      "[ e": "editor::GoToPrevDiagnostic",
+      
+      // ]e - Next error
+      "] e": "editor::GoToDiagnostic",
+      
+      // [c - Previous git change
+      "[ c": "editor::GoToPrevHunk",
+      
+      // ]c - Next git change
+      "] c": "editor::GoToHunk"
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - TERMINAL (<leader>' )
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>' - Toggle terminal
+      "space '": "terminal_panel::ToggleFocus"
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - TOGGLES (<leader>T, <leader>t prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>TF - Toggle fullscreen/zoom (maximize window)
+      "space shift-t shift-f": "workspace::ToggleZoom",
+      
+      // <leader>Ts - Select theme
+      "space shift-t s": "theme_selector::Toggle",
+      
+      // <leader>Tm - Toggle menu bar (UNAVAILABLE on macOS)
+      
+      // <leader>Tt - Toggle activity bar (UNAVAILABLE)
+      
+      // <leader>tw - Toggle whitespace
+      "space t w": ["workspace::SendKeystrokes", ": set list ! enter"]
+      // Note: Zed doesn't have direct whitespace toggle; use vim command
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - JUMPING/NAVIGATION (<leader>j prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>ji - Go to symbol in buffer
+      "space j i": "outline::Toggle",
+      
+      // <leader>jI - Go to symbol in workspace
+      "space j shift-i": "project_symbols::Toggle",
+      
+      // <leader>j= - Format document
+      "space j =": "editor::Format",
+      
+      // <leader>jd - Open file browser in current dir (yazi - UNAVAILABLE)
+      // Use project panel or terminal instead
+      
+      // <leader>jD - Open file browser in workspace (yazi - UNAVAILABLE)
+      // Use project panel instead
+      
+      // Easymotion jump bindings (UNAVAILABLE)
+      // <leader>jl, <leader>jw, ctrl-l - Use vim's native f/F/t/T or search
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - QUICK ACTIONS (<leader> shortcuts)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>, - Command palette
+      "space ,": "command_palette::Toggle",
+      
+      // <leader>;; - Toggle comment
+      "space ; ;": "editor::ToggleComments",
+      
+      // <leader>v - Expand selection
+      "space v": "editor::SelectLargerSyntaxNode",
+      
+      // <leader>V - Shrink selection
+      "space shift-v": "editor::SelectSmallerSyntaxNode",
+      
+      // <leader>1-8 - Focus editor tabs
+      "space 1": ["pane::ActivateItem", 0],
+      "space 2": ["pane::ActivateItem", 1],
+      "space 3": ["pane::ActivateItem", 2],
+      "space 4": ["pane::ActivateItem", 3],
+      "space 5": ["pane::ActivateItem", 4],
+      "space 6": ["pane::ActivateItem", 5],
+      "space 7": ["pane::ActivateItem", 6],
+      "space 8": ["pane::ActivateItem", 7]
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - QUIT/RELOAD (<leader>q prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>qq - Close window
+      "space q q": "workspace::CloseWindow",
+      
+      // <leader>qf - Close window (alternative)
+      "space q f": "workspace::CloseWindow",
+      
+      // <leader>qQ - Quit application
+      "space q shift-q": "zed::Quit",
+      
+      // <leader>qr - Reload window
+      "space q r": "workspace::Reload"
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - LAYOUT (<leader>l prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>ld - Close window (layout delete)
+      "space l d": "workspace::CloseWindow"
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - INSERT/TEXT MANIPULATION (<leader>i, <leader>x prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>is - Insert snippet
+      "space i s": "editor::ShowCompletions",
+      
+      // <leader>xle - Remove empty lines (extension UNAVAILABLE)
+      // Use find/replace or external tool
+      
+      // <leader>xdw - Delete trailing spaces (extension UNAVAILABLE)
+      // Configure remove_trailing_whitespace_on_save in settings instead
+      
+      // <leader>xs - Sort lines (in visual mode)
+      // Use command palette or external tool
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - HELP/KEYBINDINGS (<leader>h prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>hd - Show keybindings
+      "space h d": "zed::OpenKeymap"
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - APPLICATION/SYNC (<leader>a prefix)
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // <leader>asd - Show synced data (Settings Sync - UNAVAILABLE)
+      // <leader>asl - Show sync log (Settings Sync - UNAVAILABLE)
+      // Zed has built-in sync; check Zed's sync status in settings
+    }
+  },
+
+  // ============================================================================
+  // VIM NORMAL MODE - CONFIG FILES (<leader>oc prefix)
+  // ============================================================================
+  // NOTE: All these bindings use command-bridge.openFile which is UNAVAILABLE
+  // Use file finder (cmd-p) and type the path instead
+  // Reference paths from Cursor config:
+  // - <leader>ocz: ~/.zshrc
+  // - <leader>ocp: ~/.pryrc
+  // - <leader>ocl: ~/.vrl.yml
+  // - <leader>ocg: ~/.gitconfig
+  // - <leader>ocd: ~/.docker
+  // - <leader>ocs: ~/.ssh/config
+  // - <leader>ocA: ~/.ssh/authorized_keys
+  // - <leader>oca: /etc/ansible
+  // - <leader>oct: ~/.tmux.conf
+  // - <leader>ocJ: ~/.jenkins-builder.yaml
+  // - <leader>ocj: ~/.ideavimrc
+  // - <leader>ocn: /opt/homebrew/etc/nginx
+  // - <leader>ock: ~/.kube/config
+  // - <leader>ocK: ~/.k9s
+  // - <leader>oc9: ~/.k9s
+  // - <leader>ocmp: {workspaceFolder}/.cursor/mcp.json
+  // - <leader>ocmg: ~/.cursor/mcp.json
+  // - <leader>ocme: ~/.cursor/mcp.bak.json
+  // - <leader>ocv: ~/.vimrc
+  // - <leader>ocq: ~/.arql.d (yazi)
+  //
+  // To open these quickly in Zed:
+  // 1. Use cmd-p and type the path
+  // 2. Or configure as Zed tasks
+  // 3. Or use terminal: zed ~/.zshrc
+
+  // ============================================================================
+  // VIM NORMAL MODE - EXAMPLE FILES (<leader>oe prefix)
+  // ============================================================================
+  // NOTE: These open demo/example files using command-bridge (UNAVAILABLE)
+  // Create bookmarks or use file finder instead
+  // Paths from Cursor config for reference:
+  // - <leader>oea: ~/Documents/materials/demo/demo.art
+  // - <leader>oeA: ~/cascode/github.com/prog-scala/src/main/scala/lx/demo.scala
+  // - <leader>oeb: ~/Documents/materials/demo/big.txt
+  // - <leader>oeB: ~/Documents/materials/demo/spring-boot-init-list.org
+  // - <leader>oeh: ~/Documents/materials/demo/demo-http.org
+  // - <leader>oel: ~/Documents/materials/demo/demo.el
+  // - <leader>oer: ~/Documents/materials/demo/demo.rb
+  // - <leader>oeP: ~/Documents/materials/demo/demo.py
+  // - <leader>oeJ: ~/cascode/java/maven/simple/src/main/java/org/sonatype/mavenbook/App.java
+  // - <leader>oej: ~/Documents/materials/demo/demo.js
+  // - <leader>oes: ~/Documents/materials/demo/demo.sh
+  // - <leader>oeS: ~/Documents/materials/demo/demo.swift
+  // - <leader>oep: ~/Documents/materials/demo/demo.pl
+  // - <leader>oeo: ~/Documents/materials/demo/demo.org
+  // - <leader>oem: ~/Documents/materials/demo/demo.md
+  // - <leader>oeC: ~/Documents/materials/demo/clojure/demo/src/demo/demo.clj
+  // - <leader>oey: ~/Documents/materials/demo/demo.yaml
+  // - <leader>oeH: ~/Documents/materials/demo/demo.html
+  // - <leader>oec: ~/Documents/materials/demo/demo.c
+  // - <leader>oeg: ~/cascode/go/src/demo/demo.go
+  // - <leader>oeq: ~/Documents/materials/demo/demo.sql
+  // - <leader>oeE: ~/Documents/materials/demo/demo.exs
+  // - <leader>oee: ~/Documents/materials/demo/demo.es
+  // - <leader>oek: ~/Documents/materials/demo/demo.hs
+  // - <leader>oex: ~/Documents/materials/mind-wave-chats/default.chat
+  // - <leader>oet: ~/Documents/materials/demo/demo.txt
+
+  // ============================================================================
+  // VIM NORMAL MODE - DIRECTORY NAVIGATION (<leader>od prefix)
+  // ============================================================================
+  // NOTE: All these bindings use yazi terminal integration (UNAVAILABLE)
+  // Use project panel, terminal, or file finder instead
+  // Paths from Cursor config for reference:
+  // - <leader>odd: ~/Downloads
+  // - <leader>odA: /Applications/
+  // - <leader>odb: ~/blog/
+  // - <leader>odB: ~/bin/
+  // - <leader>odC: ~/Cafe/
+  // - <leader>odc: ~/.config/
+  // - <leader>odC-c: ~/cascode/
+  // - <leader>odD: ~/Documents/
+  // - <leader>odf: ~/.fzf/
+  // - <leader>odg: ~/cascode/github.com/
+  // - <leader>odH: /home
+  // - <leader>odh: ~/
+  // - <leader>odi: ~/Library/Mobile Documents/com~apple~CloudDocs/
+  // - <leader>odk: ~/sd/
+  // - <leader>odK: ~/kt/
+  // - <leader>odl: ~/Library/Application Support/
+  // - <leader>odL: ~/Library/Preferences/
+  // - <leader>odM: ~/Movies/
+  // - <leader>odm: ~/Documents/materials/
+  // - <leader>ods: ~/Documents/materials/scratches/
+  // - <leader>odS: ~/snips/
+  // - <leader>odC-s: ~/Documents/materials/snippets
+  // - <leader>ode: ~/.spacemacs.d/
+  // - <leader>odz: ~/.spacezsh/
+  // - <leader>odZ: ~/.oh-my-zsh/
+  // - <leader>od/: /
+  // - <leader>odo: ~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org
+  // - <leader>odO: /Users/liuxiang/Obsidian/Documents/Main
+  // - <leader>odj: ~/Documents/materials/journal
+  // - <leader>odJ: ~/Documents/materials/jira
+  // - <leader>odn: ~/Documents/materials/notes
+  // - <leader>odN: ~/Documents/evernotes
+  // - <leader>odw: ~/Documents/materials/webclips
+  // - <leader>odv: /Volumes
+  // - <leader>odT: ~/.tmux
+  // - <leader>odt: ~/tmp/
+
+  // ============================================================================
+  // VIM NORMAL MODE - DOCKER (<leader>dk)
+  // ============================================================================
+  // NOTE: Docker command (fdkc) uses command-bridge terminal (UNAVAILABLE)
+  // Create as Zed task or run in terminal instead
+
+  // ============================================================================
+  // NON-VIM CONTEXTS - Continue from existing keybindings
+  // ============================================================================
+
+  // Multi-line movement in insert mode (already included above)
+  
+  // ============================================================================
+  // TAB & EDITOR GROUP NAVIGATION
+  // ============================================================================
+  {
+    "context": "Workspace",
+    "bindings": {
+      // Switch to specific tabs
+      "cmd-1": ["pane::ActivateItem", 0],
+      "cmd-2": ["pane::ActivateItem", 1],
+      "cmd-3": ["pane::ActivateItem", 2],
+      "cmd-4": ["pane::ActivateItem", 3],
+      "cmd-5": ["pane::ActivateItem", 4],
+      "cmd-6": ["pane::ActivateItem", 5],
+      "cmd-7": ["pane::ActivateItem", 6],
+      "cmd-8": ["pane::ActivateItem", 7],
+      "cmd-9": ["pane::ActivateItem", 8],
+      
+      // Focus project panel
+      "cmd-0": "project_panel::ToggleFocus",
+      
+      // Navigate between tabs
+      "alt-tab": "pane::ActivateNextItem",
+      "alt-`": "pane::ActivatePrevItem"
+    }
+  },
+
+  // ============================================================================
+  // SPLIT / PANE NAVIGATION
+  // ============================================================================
+  {
+    "context": "Workspace",
+    "bindings": {
+      // Focus specific panes/groups
+      "alt-0": "project_panel::ToggleFocus",
+      "alt-1": ["workspace::ActivatePaneInDirection", "Left"],
+      "alt-2": ["workspace::ActivatePaneInDirection", "Right"],
+      "alt-3": ["workspace::ActivatePaneInDirection", "Down"]
+    }
+  },
+  
+  {
+    "context": "Editor",
+    "bindings": {
+      // Navigate between splits
+      "alt-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "alt-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "alt-k": ["workspace::ActivatePaneInDirection", "Up"]
+    }
+  },
+
+  // ============================================================================
+  // SIDEBAR & PANEL TOGGLES
+  // ============================================================================
+  {
+    "context": "Workspace",
+    "bindings": {
+      // Toggle sidebar
+      "f1": "workspace::ToggleLeftDock",
+      
+      // Toggle panel/terminal
+      "cmd-'": "terminal_panel::ToggleFocus",
+      
+      // Close editor
+      "cmd-w": "pane::CloseActiveItem",
+      
+      // Close all editors
+      "ctrl-x ctrl-c": "pane::CloseAllItems",
+      
+      // Close other editors
+      "ctrl-x ctrl-k": "pane::CloseInactiveItems",
+      
+      // Maximize editor group
+      "shift-cmd-enter": "workspace::ToggleCenteredLayout",
+      
+      // Toggle auxiliary bar
+      "f12": "workspace::ToggleRightDock"
+    }
+  },
+
+  // ============================================================================
+  // TERMINAL INTEGRATION
+  // ============================================================================
+  {
+    "context": "Terminal",
+    "bindings": {
+      // Send Ctrl-Z to terminal
+      "cmd-q": ["terminal::SendText", "\\u001a"],
+      
+      // Navigate between terminal tabs
+      "cmd-]": "pane::ActivateNextItem",
+      "cmd-[": "pane::ActivatePrevItem",
+      
+      // Close terminal
+      "cmd-w": "workspace::ToggleBottomDock",
+      
+      // Terminal suggestion navigation
+      "ctrl-n": "menu::SelectNext",
+      "ctrl-p": "menu::SelectPrev"
+    }
+  },
+
+  // ============================================================================
+  // GIT OPERATIONS (non-vim)
+  // ============================================================================
+  {
+    "context": "Workspace",
+    "bindings": {
+      // Git blame toggle
+      "cmd-g": "editor::ToggleGitBlame",
+      
+      // Generate commit message with AI
+      "alt-\\": "assistant::InlineAssist",
+      "cmd-\\": "assistant::InlineAssist"
+    }
+  },
+
+  // ============================================================================
+  // PROJECT PANEL & FILE EXPLORER
+  // ============================================================================
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      // Rename file
+      "cmd-enter": "project_panel::Rename",
+      "shift-cmd-r": "project_panel::Rename",
+      
+      // Navigate in project panel
+      "tab": "project_panel::ExpandSelectedEntry",
+      "u": "project_panel::CollapseSelectedEntry",
+      "enter": "project_panel::Open"
+    }
+  },
+
+  // ============================================================================
+  // SEARCH & REPLACE
+  // ============================================================================
+  {
+    "context": "Workspace",
+    "bindings": {
+      // Project-wide search
+      "shift-cmd-/": "pane::DeploySearch",
+      
+      // Search for selection
+      "shift-cmd-8": [
+        "workspace::SendKeystrokes",
+        "cmd-c shift-cmd-f cmd-v"
+      ]
+    }
+  },
+
+  // ============================================================================
+  // INLINE ASSIST & AI FEATURES
+  // ============================================================================
+  {
+    "context": "Editor",
+    "bindings": {
+      // Inline assistant
+      "cmd-i": "assistant::InlineAssist",
+      
+      // Accept partial suggestion
+      "shift-tab": "editor::AcceptPartialCopilotSuggestion",
+      "alt-f": "editor::AcceptPartialCopilotSuggestion",
+      
+      // Generate with AI
+      "shift-alt-enter": "assistant::InlineAssist"
+    }
+  },
+  
+  {
+    "context": "AssistantPanel || Assistant",
+    "bindings": {
+      // New chat/composer
+      "cmd-n": "assistant::Assist",
+      "cmd-t": "assistant::Assist",
+      
+      // Emacs-like navigation
+      "ctrl-a": "editor::MoveToBeginningOfLine",
+      "ctrl-e": "editor::MoveToEndOfLine",
+      "ctrl-f": "editor::MoveRight",
+      "ctrl-k": "editor::DeleteToEndOfLine",
+      "ctrl-d": "editor::Delete",
+      "ctrl-p": "menu::SelectPrev",
+      "ctrl-n": "menu::SelectNext",
+      "alt-f": "editor::MoveToNextWordEnd",
+      "alt-d": "editor::DeleteToNextWordEnd"
+    }
+  },
+
+  // ============================================================================
+  // AUTOCOMPLETE & SUGGESTIONS
+  // ============================================================================
+  {
+    "context": "Editor && showing_completions",
+    "bindings": {
+      // Accept completion
+      "cmd-enter": "editor::ConfirmCompletion",
+      
+      // Navigate completions
+      "ctrl-n": "editor::ContextMenuNext",
+      "ctrl-p": "editor::ContextMenuPrev"
+    }
+  },
+  
+  {
+    "context": "Editor",
+    "bindings": {
+      // Trigger completion
+      "alt-/": "editor::ShowCompletions",
+      
+      // Format document
+      "shift-alt-f": "editor::Format"
+    }
+  },
+
+  // ============================================================================
+  // WORKSPACE & WINDOW MANAGEMENT
+  // ============================================================================
+  {
+    "context": "Workspace",
+    "bindings": {
+      // Toggle centered layout
+      "shift-cmd-enter": "workspace::ToggleCenteredLayout",
+      
+      // Switch project/workspace
+      "cmd-p cmd-p": "workspace::Open",
+      "cmd-p cmd-w": "workspace::Open",
+      "cmd-p cmd-o": "workspace::Open",
+      
+      // Select all
+      "cmd-a cmd-a": "editor::SelectAll"
+    }
+  }
+]
