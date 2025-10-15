@@ -7,13 +7,14 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "agent": {
+  "assistant": {
     "default_model": {
       "provider": "copilot_chat",
       "model": "gpt-4o"
     },
+    "version": "2"
   },
-  "theme": "Catppuccin Macchiato (Blur) [Light]",
+  "theme": "Catppuccin Macchiato (Blur) [Heavy]",
   "telemetry": {
     "diagnostics": true,
     "metrics": false
