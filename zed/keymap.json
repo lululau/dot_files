@@ -52,19 +52,19 @@
     "bindings": {
       // Go to definition
       "cmd-enter": "editor::GoToDefinition",
-      
+
       // Go to type definition
       "ctrl-cmd-enter": "editor::GoToTypeDefinition",
-      
+
       // Go to implementation
       "ctrl-enter": "editor::GoToImplementation",
-      
+
       // Find all references
       "shift-enter": "editor::FindAllReferences",
-      
+
       // Quick fix / code actions
       "alt-enter": "editor::ToggleCodeActions",
-      
+
       // Rename symbol
       "shift-cmd-r": "editor::Rename"
     }
@@ -81,7 +81,7 @@
       "alt-x": "command_palette::Toggle"
     }
   },
-  
+
   // Disable cmd-q quit (prevent accidental quit)
   {
     "context": "Workspace",
@@ -98,10 +98,10 @@
     "bindings": {
       // Add cursor below
       "alt-j": "editor::AddSelectionBelow",
-      
+
       // Select next occurrence
       "shift-alt-j": "editor::SelectNext",
-      
+
       // Select all occurrences
       "alt-m": "editor::SelectAllMatches"
     }
@@ -115,17 +115,14 @@
     "bindings": {
       // Delete to end of line (Cursor: ctrl-k -> ctrl-o C)
       "ctrl-k": "editor::DeleteToEndOfLine",
-      
+
       // Multi-line movement (10 lines at a time)
       "cmd-j": [
         "workspace::SendKeystrokes",
         "down down down down down down down down down down"
       ],
-      "cmd-k": [
-        "workspace::SendKeystrokes",
-        "up up up up up up up up up up"
-      ],
-      
+      "cmd-k": ["workspace::SendKeystrokes", "up up up up up up up up up up"],
+
       // Emacs-like navigation in insert mode
       "ctrl-a": "editor::MoveToBeginningOfLine",
       "ctrl-e": "editor::MoveToEndOfLine",
@@ -143,17 +140,17 @@
       // Inner/around word motions (io, ao mapped to i<space>w)
       // Note: Zed's vim mode may not support custom text objects exactly like VSCodeVim
       // These are documented but may need adjustment
-      
+
       // Sort lines (Cursor: <leader>xs -> editor.action.sortLinesAscending)
       // Documented - use command palette or external tool
-      
+
       // Comment toggle
       "space ; ;": "editor::ToggleComments"
     }
   },
 
   // ============================================================================
-  // VIM OPERATOR PENDING MODE - Custom keybindings  
+  // VIM OPERATOR PENDING MODE - Custom keybindings
   // ============================================================================
   {
     "context": "Editor && vim_operator == waiting",
@@ -172,16 +169,16 @@
       // Navigate back/forward
       "ctrl-o": "pane::GoBack",
       "ctrl-i": "pane::GoForward",
-      
+
       // Yank to end of line (Y -> yg_)
       "shift-y": ["workspace::SendKeystrokes", "y g _"],
-      
+
       // Multi-line movement (10 lines down with cmd-j)
       "cmd-j": ["workspace::SendKeystrokes", "1 0 j"],
-      
+
       // Insert line below and return to normal (enter -> o<ESC>)
-      "enter": ["workspace::SendKeystrokes", "o escape"],
-      
+      "enter": ["workspace::SendKeystrokes", "o escape"]
+
       // Easymotion alternative (ctrl-l)
       // Note: Zed doesn't have easymotion; use vim's native f/F/t/T or search (/)
       // "ctrl-l": null  // Documented as unavailable
@@ -196,40 +193,40 @@
     "bindings": {
       // <leader>fed - Open settings
       "space f e d": "zed::OpenSettings",
-      
-      // <leader>feD - Open default settings  
+
+      // <leader>feD - Open default settings
       "space f e shift-d": "zed::OpenDefaultSettings",
-      
+
       // <leader>fek - Open keymap
       "space f e k": "zed::OpenKeymap",
-      
+
       // <leader>feK - Open default keymap
       "space f e shift-k": "zed::OpenDefaultKeymap",
-      
+
       // <leader>ff - Open file/folder
       "space f f": "file_finder::Toggle",
-      
+
       // <leader>fr - Recent files
       "space f r": "projects::OpenRecent",
-      
+
       // <leader>fs - Save file
       "space f s": "workspace::Save",
-      
+
       // <leader>ft - Toggle file tree
       "space f t": "project_panel::ToggleFocus",
-      
+
       // <leader>fy - Copy file path
-      "space f y": "editor::CopyPath",
-      
+      "space f y": "editor::CopyPath"
+
       // <leader>fc - Duplicate file (fileutils - UNAVAILABLE)
       // Use project panel or file finder instead
-      
+
       // <leader>fR - Rename file (fileutils - UNAVAILABLE)
       // Use project panel instead
-      
+
       // <leader>fD - Delete file (fileutils - UNAVAILABLE)
       // Use project panel instead
-      
+
       // <leader>fv - Open with external editor (command-bridge - UNAVAILABLE)
       // <leader>fo - Open with emacs (command-bridge - UNAVAILABLE)
     }
@@ -243,19 +240,19 @@
     "bindings": {
       // <leader>bb - Show all buffers/editors
       "space b b": "tab_switcher::Toggle",
-      
+
       // <leader>bd - Close buffer
       "space b d": "pane::CloseActiveItem",
-      
+
       // <leader>bn - Next buffer
       "space b n": "pane::ActivateNextItem",
-      
+
       // <leader>bp - Previous buffer
       "space b p": "pane::ActivatePrevItem",
-      
+
       // <leader><tab> - Switch to last buffer
-      "space tab": "pane::ActivateLastItem",
-      
+      "space tab": "pane::ActivateLastItem"
+
       // <leader>bs - Scratchpad (extension UNAVAILABLE)
       // Use new file or temp files instead
     }
@@ -269,40 +266,40 @@
     "bindings": {
       // <leader>w- - Split horizontal
       "space w -": "pane::SplitDown",
-      
-      // <leader>w/ - Split vertical  
+
+      // <leader>w/ - Split vertical
       "space w /": "pane::SplitRight",
-      
+
       // <leader>wd - Close all editors in group
       "space w d": "pane::CloseAllItems",
-      
+
       // <leader>wh - Focus left pane
       "space w h": ["workspace::ActivatePaneInDirection", "Left"],
-      
+
       // <leader>wj - Focus down pane
       "space w j": ["workspace::ActivatePaneInDirection", "Down"],
-      
+
       // <leader>wk - Focus up pane
       "space w k": ["workspace::ActivatePaneInDirection", "Up"],
-      
+
       // <leader>wl - Focus right pane
       "space w l": ["workspace::ActivatePaneInDirection", "Right"],
-      
+
       // <leader>wH - Move pane left (UNAVAILABLE - use drag and drop)
       // <leader>wL - Move pane right (UNAVAILABLE - use drag and drop)
-      
+
       // <leader>wm - Maximize editor
       "space w m": "workspace::ToggleCenteredLayout",
-      
+
       // <leader>wv - Split editor (duplicate in split)
       "space w v": "pane::SplitRight",
-      
+
       // <leader>ww - Cycle to next pane
       "space w w": "workspace::ActivateNextPane",
-      
+
       // <leader>wW - Cycle to previous pane
       "space w shift-w": "workspace::ActivatePreviousPane",
-      
+
       // <leader>wxj - Toggle panel (bottom dock)
       "space w x j": "workspace::ToggleBottomDock"
     }
@@ -316,16 +313,16 @@
     "bindings": {
       // <leader>pf - Quick open file (fuzzy find)
       "space p f": "file_finder::Toggle",
-      
+
       // <leader>pl - Open folder
       "space p l": "workspace::Open",
-      
+
       // <leader>pp - Project manager (extension UNAVAILABLE)
       // Use Zed's built-in recent projects instead
       "space p p": "projects::OpenRecent",
-      
+
       // <leader>ps - Save project (projectManager - UNAVAILABLE)
-      
+
       // <leader>pt - Project file tree
       "space p t": "project_panel::ToggleFocus"
     }
@@ -339,31 +336,31 @@
     "bindings": {
       // <leader>/ - Global search (open new editor)
       "space /": "pane::DeploySearch",
-      
+
       // <leader>* - Search word under cursor
       "space *": ["workspace::SendKeystrokes", "* shift-n"],
-      
+
       // <leader>sp - Search in files (project-wide)
       "space s p": "pane::DeploySearch",
-      
+
       // <leader>sP - Search selected text in files
       "space s shift-p": "pane::DeploySearch",
-      
+
       // <leader>sj - Go to symbol in buffer
       "space s j": "outline::Toggle",
-      
+
       // <leader>se - Rename symbol
       "space s e": "editor::Rename",
-      
+
       // <leader>rs - Search in files (alternative binding)
-      "space r s": "pane::DeploySearch",
-      
+      "space r s": "pane::DeploySearch"
+
       // <leader>sl - Search with ripgrep (rg-for-cursor - UNAVAILABLE)
       // Use Zed's built-in search instead
-      
+
       // <leader>ss - Search in buffer (rg-for-cursor - UNAVAILABLE)
       // Use Zed's buffer search (cmd-f) instead
-      
+
       // <leader>sS - Search word in buffer (rg-for-cursor - UNAVAILABLE)
       // Use Zed's buffer search with selection
     }
@@ -376,35 +373,35 @@
     "context": "Editor && vim_mode == normal",
     "bindings": {
       // <leader>gs - Git status/SCM
-      "space g s": "editor::ToggleGitBlame",
-      
+      "space g s": "editor::ToggleGitBlame"
+
       // <leader>gb - Git checkout branch (UNAVAILABLE - use terminal)
       // Run: git checkout <branch>
-      
+
       // <leader>gc - Git commit (UNAVAILABLE - use terminal)
       // Run: git commit
-      
+
       // <leader>gd - Git delete branch (UNAVAILABLE - use terminal)
       // Run: git branch -d <branch>
-      
+
       // <leader>gf - Git fetch (UNAVAILABLE - use terminal)
       // Run: git fetch
-      
+
       // <leader>gi - Git init (UNAVAILABLE - use terminal)
       // Run: git init
-      
+
       // <leader>gm - Git merge (UNAVAILABLE - use terminal)
       // Run: git merge <branch>
-      
+
       // <leader>gp - Git publish/push (UNAVAILABLE - use terminal)
       // Run: git push
-      
+
       // <leader>gS - Git stage (UNAVAILABLE - use terminal)
       // Run: git add
-      
+
       // <leader>gU - Git unstage (UNAVAILABLE - use terminal)
       // Run: git reset
-      
+
       // <leader>gho - Open in GitHub (extension UNAVAILABLE)
       // Use browser manually or configure as task
     }
@@ -417,17 +414,17 @@
     "context": "Editor && vim_mode == normal",
     "bindings": {
       // <leader>co - Organize imports
-      "space c o": "editor::Format",  // Zed's format includes organize imports
-      
+      "space c o": "editor::Format", // Zed's format includes organize imports
+
       // <leader>ch - Composer/Chat history
-      "space c h": "assistant::ToggleFocus",
-      
+      "space c h": "assistant::ToggleFocus"
+
       // <leader>ct - Generate tests (Copilot - UNAVAILABLE)
       // Use assistant panel instead
-      
+
       // <leader>cd - Generate docs (Copilot - UNAVAILABLE)
       // Use assistant panel instead
-      
+
       // <leader>cf - Fix issues (Copilot - UNAVAILABLE)
       // Use code actions (alt-enter) instead
     }
@@ -441,22 +438,22 @@
     "bindings": {
       // <leader>el - Toggle diagnostics/problems
       "space e l": "diagnostics::Deploy",
-      
+
       // <leader>en - Next diagnostic
       "space e n": "editor::GoToDiagnostic",
-      
+
       // <leader>ep - Previous diagnostic
       "space e p": "editor::GoToPrevDiagnostic",
-      
+
       // [e - Previous error
       "[ e": "editor::GoToPrevDiagnostic",
-      
+
       // ]e - Next error
       "] e": "editor::GoToDiagnostic",
-      
+
       // [c - Previous git change
       "[ c": "editor::GoToPrevHunk",
-      
+
       // ]c - Next git change
       "] c": "editor::GoToHunk"
     }
@@ -481,14 +478,14 @@
     "bindings": {
       // <leader>TF - Toggle fullscreen/zoom (maximize window)
       "space shift-t shift-f": "workspace::ToggleZoom",
-      
+
       // <leader>Ts - Select theme
       "space shift-t s": "theme_selector::Toggle",
-      
+
       // <leader>Tm - Toggle menu bar (UNAVAILABLE on macOS)
-      
+
       // <leader>Tt - Toggle activity bar (UNAVAILABLE)
-      
+
       // <leader>tw - Toggle whitespace
       "space t w": ["workspace::SendKeystrokes", ": set list ! enter"]
       // Note: Zed doesn't have direct whitespace toggle; use vim command
@@ -503,19 +500,19 @@
     "bindings": {
       // <leader>ji - Go to symbol in buffer
       "space j i": "outline::Toggle",
-      
+
       // <leader>jI - Go to symbol in workspace
       "space j shift-i": "project_symbols::Toggle",
-      
+
       // <leader>j= - Format document
-      "space j =": "editor::Format",
-      
+      "space j =": "editor::Format"
+
       // <leader>jd - Open file browser in current dir (yazi - UNAVAILABLE)
       // Use project panel or terminal instead
-      
+
       // <leader>jD - Open file browser in workspace (yazi - UNAVAILABLE)
       // Use project panel instead
-      
+
       // Easymotion jump bindings (UNAVAILABLE)
       // <leader>jl, <leader>jw, ctrl-l - Use vim's native f/F/t/T or search
     }
@@ -529,16 +526,16 @@
     "bindings": {
       // <leader>, - Command palette
       "space ,": "command_palette::Toggle",
-      
+
       // <leader>;; - Toggle comment
       "space ; ;": "editor::ToggleComments",
-      
+
       // <leader>v - Expand selection
       "space v": "editor::SelectLargerSyntaxNode",
-      
+
       // <leader>V - Shrink selection
       "space shift-v": "editor::SelectSmallerSyntaxNode",
-      
+
       // <leader>1-8 - Focus editor tabs
       "space 1": ["pane::ActivateItem", 0],
       "space 2": ["pane::ActivateItem", 1],
@@ -559,13 +556,13 @@
     "bindings": {
       // <leader>qq - Close window
       "space q q": "workspace::CloseWindow",
-      
+
       // <leader>qf - Close window (alternative)
       "space q f": "workspace::CloseWindow",
-      
+
       // <leader>qQ - Quit application
       "space q shift-q": "zed::Quit",
-      
+
       // <leader>qr - Reload window
       "space q r": "workspace::Reload"
     }
@@ -589,14 +586,14 @@
     "context": "Editor && vim_mode == normal",
     "bindings": {
       // <leader>is - Insert snippet
-      "space i s": "editor::ShowCompletions",
-      
+      "space i s": "editor::ShowCompletions"
+
       // <leader>xle - Remove empty lines (extension UNAVAILABLE)
       // Use find/replace or external tool
-      
+
       // <leader>xdw - Delete trailing spaces (extension UNAVAILABLE)
       // Configure remove_trailing_whitespace_on_save in settings instead
-      
+
       // <leader>xs - Sort lines (in visual mode)
       // Use command palette or external tool
     }
@@ -744,7 +741,7 @@
   // ============================================================================
 
   // Multi-line movement in insert mode (already included above)
-  
+
   // ============================================================================
   // TAB & EDITOR GROUP NAVIGATION
   // ============================================================================
@@ -761,10 +758,10 @@
       "cmd-7": ["pane::ActivateItem", 6],
       "cmd-8": ["pane::ActivateItem", 7],
       "cmd-9": ["pane::ActivateItem", 8],
-      
+
       // Focus project panel
       "cmd-0": "project_panel::ToggleFocus",
-      
+
       // Navigate between tabs
       "alt-tab": "pane::ActivateNextItem",
       "alt-`": "pane::ActivatePrevItem"
@@ -784,7 +781,7 @@
       "alt-3": ["workspace::ActivatePaneInDirection", "Down"]
     }
   },
-  
+
   {
     "context": "Editor",
     "bindings": {
@@ -803,22 +800,22 @@
     "bindings": {
       // Toggle sidebar
       "f1": "workspace::ToggleLeftDock",
-      
+
       // Toggle panel/terminal
       "cmd-'": "terminal_panel::ToggleFocus",
-      
+
       // Close editor
       "cmd-w": "pane::CloseActiveItem",
-      
+
       // Close all editors
       "ctrl-x ctrl-c": "pane::CloseAllItems",
-      
+
       // Close other editors
       "ctrl-x ctrl-k": "pane::CloseInactiveItems",
-      
+
       // Maximize editor group
       "shift-cmd-enter": "workspace::ToggleCenteredLayout",
-      
+
       // Toggle auxiliary bar
       "f12": "workspace::ToggleRightDock"
     }
@@ -832,14 +829,14 @@
     "bindings": {
       // Send Ctrl-Z to terminal
       "cmd-q": ["terminal::SendText", "\\u001a"],
-      
+
       // Navigate between terminal tabs
       "cmd-]": "pane::ActivateNextItem",
       "cmd-[": "pane::ActivatePrevItem",
-      
+
       // Close terminal
       "cmd-w": "workspace::ToggleBottomDock",
-      
+
       // Terminal suggestion navigation
       "ctrl-n": "menu::SelectNext",
       "ctrl-p": "menu::SelectPrev"
@@ -854,7 +851,7 @@
     "bindings": {
       // Git blame toggle
       "cmd-g": "editor::ToggleGitBlame",
-      
+
       // Generate commit message with AI
       "alt-\\": "assistant::InlineAssist",
       "cmd-\\": "assistant::InlineAssist"
@@ -870,7 +867,7 @@
       // Rename file
       "cmd-enter": "project_panel::Rename",
       "shift-cmd-r": "project_panel::Rename",
-      
+
       // Navigate in project panel
       "tab": "project_panel::ExpandSelectedEntry",
       "u": "project_panel::CollapseSelectedEntry",
@@ -886,12 +883,9 @@
     "bindings": {
       // Project-wide search
       "shift-cmd-/": "pane::DeploySearch",
-      
+
       // Search for selection
-      "shift-cmd-8": [
-        "workspace::SendKeystrokes",
-        "cmd-c shift-cmd-f cmd-v"
-      ]
+      "shift-cmd-8": ["workspace::SendKeystrokes", "cmd-c shift-cmd-f cmd-v"]
     }
   },
 
@@ -903,23 +897,23 @@
     "bindings": {
       // Inline assistant
       "cmd-i": "assistant::InlineAssist",
-      
+
       // Accept partial suggestion
       "shift-tab": "editor::AcceptPartialCopilotSuggestion",
       "alt-f": "editor::AcceptPartialCopilotSuggestion",
-      
+
       // Generate with AI
       "shift-alt-enter": "assistant::InlineAssist"
     }
   },
-  
+
   {
     "context": "AssistantPanel || Assistant",
     "bindings": {
       // New chat/composer
       "cmd-n": "assistant::Assist",
       "cmd-t": "assistant::Assist",
-      
+
       // Emacs-like navigation
       "ctrl-a": "editor::MoveToBeginningOfLine",
       "ctrl-e": "editor::MoveToEndOfLine",
@@ -941,19 +935,19 @@
     "bindings": {
       // Accept completion
       "cmd-enter": "editor::ConfirmCompletion",
-      
+
       // Navigate completions
       "ctrl-n": "editor::ContextMenuNext",
       "ctrl-p": "editor::ContextMenuPrev"
     }
   },
-  
+
   {
     "context": "Editor",
     "bindings": {
       // Trigger completion
       "alt-/": "editor::ShowCompletions",
-      
+
       // Format document
       "shift-alt-f": "editor::Format"
     }
@@ -967,14 +961,19 @@
     "bindings": {
       // Toggle centered layout
       "shift-cmd-enter": "workspace::ToggleCenteredLayout",
-      
+
       // Switch project/workspace
       "cmd-p cmd-p": "workspace::Open",
       "cmd-p cmd-w": "workspace::Open",
       "cmd-p cmd-o": "workspace::Open",
-      
+
       // Select all
       "cmd-a cmd-a": "editor::SelectAll"
+    }
+  },
+  {
+    "bindings": {
+      "cmd-o": "file_finder::Toggle"
     }
   }
 ]
