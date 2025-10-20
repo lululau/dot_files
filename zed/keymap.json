@@ -802,8 +802,6 @@
       "f1": "workspace::ToggleLeftDock",
 
       // Toggle panel/terminal
-      "cmd-'": "terminal_panel::ToggleFocus",
-
       // Close editor
       "cmd-w": "pane::CloseActiveItem",
 
@@ -974,6 +972,11 @@
   {
     "bindings": {
       "cmd-o": "file_finder::Toggle"
+    }
+  },
+  {
+    "bindings": {
+      "cmd-'": "terminal_panel::Toggle"
     }
   }
 ]
