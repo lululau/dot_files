@@ -185,6 +185,6 @@ Example usage:
        (when commit-message
          (with-current-buffer buffer
            (delete-region (point-min) (point-max))
-           (insert commit-message))))))))
+           (insert commit-message)))))))
 
 ;;; gpt-commit.el ends here
