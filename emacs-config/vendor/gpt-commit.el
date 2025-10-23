@@ -139,11 +139,15 @@ Avoid vague messages like \"Fix bug\" or \"Update code\" - be specific about wha
         (substring changes 0 max-char)
     changes)))
 
-(defun gpt-commit-generate-message (callback)
-  "Generate a commit message using GPT and pass it to the CALLBACK."
+(defun gpt-commit-generate-message (existing-prefix callback)
+  "Generate a commit message using GPT and pass it to the CALLBACK.
+EXISTING-PREFIX is text that should be used as a prefix for the generated message."
   (let* ((changes (gpt-commit--retrieve-staged-diff))
+         (prompt (if (and existing-prefix (not (string-empty-p existing-prefix)))
+                     (concat "Existing prefix: " existing-prefix "\n\n" gpt-commit-system-prompt-en "\n\nIMPORTANT: The generated message MUST start with the exact existing prefix provided above.")
+                   gpt-commit-system-prompt-en))
          (messages `[((role . "system")
-                      (content . ,gpt-commit-system-prompt-en))
+                      (content . ,prompt))
                      ((role . "user")
                       (content . ,changes))]))
     (gpt-commit-openai-chat-completions-api messages callback)))
@@ -154,6 +158,9 @@ Avoid vague messages like \"Fix bug\" or \"Update code\" - be specific about wha
 This function is a hook intended to be added to `git-commit-setup-hook'.
 When called, it analyzes the changes in the Git repository and generates
 a conventional commit message using the GPT model.
+
+If there's already existing text in the commit buffer, that text will be
+used as a prefix for the generated commit message.
 
 The generated commit message follows the conventional commit format,
 providing a structured description of the changes made in the commit.
@@ -170,12 +177,14 @@ Example usage:
   (add-hook 'git-commit-setup-hook 'gpt-commit-message)"
 
   (interactive)
-  (unless (git-commit-buffer-message)
-    (let ((buffer (current-buffer)))
-      (gpt-commit-generate-message
-       (lambda (commit-message)
-	 (when commit-message
-           (with-current-buffer buffer
-             (insert commit-message))))))))
+  (let ((existing-prefix (git-commit-buffer-message))
+        (buffer (current-buffer)))
+    (gpt-commit-generate-message
+     existing-prefix
+     (lambda (commit-message)
+       (when commit-message
+         (with-current-buffer buffer
+           (delete-region (point-min) (point-max))
+           (insert commit-message))))))))
 
 ;;; gpt-commit.el ends here
