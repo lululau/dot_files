@@ -83,3 +83,4 @@ alias -g LL="2>&1 | view"
 alias pp='pbpaste | view'
 alias pj='pbpaste | jless'
 alias yless="jless --yaml"
+alias claude!='claude --dangerously-skip-permissions'
