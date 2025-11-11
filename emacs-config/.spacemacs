@@ -385,11 +385,10 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-major-mode-leader-key ","
    ;; Major mode leader key accessible in `emacs state' and `insert state'
    dotspacemacs-major-mode-emacs-leader-key "s-,"
-   ;; The command key used for Evil commands (ex-commands) and
-   ;; Emacs commands (M-x).
-   ;; By default the command key is `:' so ex-commands are executed like in Vim
-   ;; with `:' and Emacs commands are executed with `<leader> :'.
-   dotspacemacs-command-key ":"
+   ;; The key used for Emacs commands `M-x' (after pressing on the leader key).
+   ;; (default "SPC")
+   dotspacemacs-emacs-command-key "SPC"
+
    ;; If non nil then `ido' replaces `helm' for some commands. For now only
    ;; `find-files' (SPC f f) is replaced.
    dotspacemacs-use-ido nil
@@ -442,7 +441,7 @@ It should only modify the values of Spacemacs settings."
    ;; specified with an installed package.
    ;; Not used for now.
    dotspacemacs-default-package-repository nil
-   dotspacemacs-helm-use-fuzzy 'always
+   helm-use-fuzzy 'always
    dotspacemacs-swith-to-buffer-prefers-purpose nil
    dotspacemacs-folding-method 'origami
    dotspacemacs-pretty-docs t
