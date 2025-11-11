@@ -1260,6 +1260,7 @@ This function is called at the very end of Spacemacs initialization."
    (sql-server "")))))
  '(vc-follow-symlinks t)
  '(docker-show-messages nil)
+ '(claude-code-ide-cli-extra-flags "--dangerously-skip-permissions")
  '(docker-run-async-with-buffer-function (quote docker-run-async-with-buffer-vterm))
  '(warning-minimum-level :emergency)
  '(warning-suppress-log-types (quote ((comp) (tramp) (copilot))))
