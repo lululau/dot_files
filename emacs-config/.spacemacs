@@ -387,7 +387,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-major-mode-emacs-leader-key "s-,"
    ;; The key used for Emacs commands `M-x' (after pressing on the leader key).
    ;; (default "SPC")
-   dotspacemacs-emacs-command-key "SPC"
+   dotspacemacs-emacs-command-key ":"
 
    ;; If non nil then `ido' replaces `helm' for some commands. For now only
    ;; `find-files' (SPC f f) is replaced.
