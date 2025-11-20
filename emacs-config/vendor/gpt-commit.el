@@ -152,6 +152,21 @@ EXISTING-PREFIX is text that should be used as a prefix for the generated messag
                       (content . ,changes))]))
     (gpt-commit-openai-chat-completions-api messages callback)))
 
+(defun gpt-commit--extract-comment-lines ()
+  "Extract all comment lines (starting with #) from current buffer."
+  (save-excursion
+    (goto-char (point-min))
+    (let ((comment-lines '()))
+      (while (not (eobp))
+        (when (looking-at "^#")
+          (push (buffer-substring-no-properties (point) (line-end-position)) comment-lines))
+        (forward-line 1))
+      (nreverse comment-lines))))
+
+(defun gpt-commit--clear-buffer ()
+  "Clear entire buffer content."
+  (delete-region (point-min) (point-max)))
+
 (defun gpt-commit-message ()
   "Automatically generate a conventional commit message using GPT-Commit.
 
@@ -184,7 +199,14 @@ Example usage:
      (lambda (commit-message)
        (when commit-message
          (with-current-buffer buffer
-           (delete-region (point-min) (point-max))
-           (insert commit-message)))))))
+           (let ((comment-lines (gpt-commit--extract-comment-lines)))
+             (gpt-commit--clear-buffer)
+             (insert commit-message)
+             (when comment-lines
+               (insert "\n\n\n")
+               (dolist (line comment-lines)
+                 (insert line "\n")))
+             (goto-char (point-min))
+             )))))))
 
 ;;; gpt-commit.el ends here
