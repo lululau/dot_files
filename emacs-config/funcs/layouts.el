@@ -49,13 +49,14 @@
 ;;;###autoload
 (defun lx/persp-swith-to-buffer-project ()
   (interactive)
-  (save-window-excursion
-    (let ((current-index (lx/current-layout-index)))
-      (spacemacs/layouts-ts-close)
-      (persp-switch (projectile-project-root))
-      (while (not (eq current-index (lx/current-layout-index)))
-        (lx/move-layout-backward))
-      (keyboard-quit))))
+  (let ((project-root (projectile-project-root)))
+    (save-window-excursion
+      (let ((current-index (lx/current-layout-index)))
+        (spacemacs/layouts-ts-close)
+        (persp-switch project-root)
+        (while (not (eq current-index (lx/current-layout-index)))
+          (lx/move-layout-backward))
+        (keyboard-quit)))))
 
 ;;;###autoload
 (defun lx/kill-all-non-default-layouts ()
