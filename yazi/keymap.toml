@@ -67,6 +67,12 @@ on   = [ "-" ]
 run = "leave"
 desc = "Enter parent directory"
 
+
+[[mgr.prepend_keymap]]
+on = "0"
+run = "plugin toggle-layout"
+desc = "Toggle between current-only and full layout"
+
 [[mgr.prepend_keymap]]
 on   = [ "<A-->" ]
 run  = "plugin dir-hist toggle"

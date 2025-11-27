@@ -4,6 +4,7 @@ require("dir-hist"):setup({})
 require("session"):setup {
 	sync_yanked = true,
 }
+require("toggle-layout"):setup()
 
 function Linemode:full()
 	local year = os.date("%Y")
