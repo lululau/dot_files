@@ -79,6 +79,7 @@ alias oc='opencode'
 alias -g L="| view"
 alias -g M='| nvim +Man!'
 alias -g V="| view"
+alias -g C='| wc -l'
 alias -g LL="2>&1 | view"
 alias pp='pbpaste | view'
 alias pj='pbpaste | jless'
