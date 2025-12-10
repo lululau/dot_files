@@ -78,7 +78,7 @@ Argument EVENT process event."
                                                                  (let ((remote-host (lx/get-remote-buffer-host)))
                                                                    (if remote-host
                                                                        (replace-regexp-in-string (message "^/\\(scp\\|ssh\\):%s:" remote-host) "" default-directory)
-                                                                     (projectile-project-root))))))))
+                                                                     (or (projectile-project-root) default-directory))))))))
 
   (define-key vterm-mode-map
     (kbd (if (display-graphic-p) "<s-return>" "s-RET")) #'(lambda ()
