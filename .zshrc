@@ -3,7 +3,7 @@ ulimit -u 2128
 
 setopt +o nomatch
 
-[[ $TERM == "tramp" ]] && unsetopt zle && PS1='$ ' && return
+[[ $TERM == "tramp" || $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
 # Path to your oh-my-zsh configuration.
 if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
