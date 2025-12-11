@@ -16,7 +16,7 @@
 (global-set-key (kbd "s-b") 'lx/switch-to-project-or-all-buffer)
 (global-set-key (kbd "s-L") 'spacemacs/helm-perspectives)
 (global-set-key (kbd "M-.") 'company-complete)
-(global-set-key (kbd "s-:") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*")))
+(global-set-key (kbd "s-:") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create emacs" "*tmux-emacs*")))
 (global-set-key (kbd "s-;") #'(lambda () (interactive)
                                 (let* ((remote-host (lx/get-remote-buffer-host)))
                                   (if remote-host
@@ -31,9 +31,9 @@
                                             (lx/run-in-zsh-vterm cmd buffer-name)
                                             (with-current-buffer buffer-name
                                               (setq default-directory project-root)))
-                                        (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*")))))))
+                                        (lx/run-in-zsh-vterm "tmux-attach-or-create emacs" "*tmux-emacs*")))))))
 
-(global-set-key (kbd "s-'") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup)))
+(global-set-key (kbd "s-'") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create emacs" "*tmux-emacs*" nil 'popup)))
 (global-set-key (kbd "s-\"") #'(lambda () (interactive)
                                 (if (eq major-mode 'zsh-vterm-mode)
                                     (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
@@ -52,7 +52,7 @@
                                               (lx/run-in-zsh-vterm cmd buffer-name nil 'popup)
                                               (with-current-buffer buffer-name
                                                 (setq default-directory project-root)))
-                                          (lx/run-in-zsh-vterm "tmux-attach-or-create main" "*tmux-main*" nil 'popup))))))))
+                                          (lx/run-in-zsh-vterm "tmux-attach-or-create emacs" "*tmux-emacs*" nil 'popup))))))))
 
 (global-set-key (kbd "s-r s-;") #'(lambda () (interactive) (lx/run-in-pry-vterm (cdr (assoc "pry" inf-ruby-implementations)) "*pry*")))
 (global-set-key (kbd "s-[") 'previous-buffer)
