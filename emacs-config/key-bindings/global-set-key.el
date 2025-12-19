@@ -255,7 +255,7 @@
                                                                            (when current-persp-project (if in-other-window (find-file-other-window current-persp-project)(find-file current-persp-project))))))
 (global-set-key (kbd "s-p s-g") '(lambda (in-other-window) (interactive "P") (if in-other-window (find-file-other-window (magit-toplevel))(find-file (magit-toplevel)))))
 
-(global-set-key (kbd "s-<backspace>") 'evil-change-whole-line)
+(global-set-key (kbd "s-<backspace>") 'kill-whole-line)
 
 (global-set-key (kbd "s-s")
                 (lambda ()
