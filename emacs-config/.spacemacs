@@ -965,6 +965,7 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-M-x-fuzzy-match t)
  ;; '(helm-ag-command-option "-U")
  ;; '(helm-ag-ignore-patterns (quote (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "log")))
+ '(helm-ag-base-command "rg --smart-case --no-heading --color=never --line-number --max-columns=150")
  '(helm-ag-use-agignore nil)
  '(helm-ag-use-grep-ignore-list nil)
  '(helm-buffers-fuzzy-matching t)
