@@ -98,3 +98,7 @@ export PATH=$PATH
 export RIPGREP_CONFIG_PATH=$HOME/.config/.ripgreprc
 export QUOTING_STYLE=escape
 export XDG_CONFIG_HOME=$HOME/.config
+
+if [ -e $HOME/.zshenv.local ]; then
+  source $HOME/.zshenv.local
+fi
