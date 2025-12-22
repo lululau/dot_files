@@ -1043,7 +1043,7 @@ This function is called at the very end of Spacemacs initialization."
  '(magit-diff-use-overlays nil)
  '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
  '(magit-revision-show-gravatars nil)
- '(magit-section-visibility-indicator nil)
+ '(magit-section-visibility-indicators nil)
  '(markdown-command "~/bin/markdown")
  '(mu4e-alert-interesting-mail-query "flag:unread AND NOT flag:trashed AND NOT f:kibana AND NOT f:devops")
  '(mu4e-attachment-dir "~/Downloads/")
