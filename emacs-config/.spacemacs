@@ -558,13 +558,6 @@ layers configuration."
   (setq gptel-default-mode 'org-mode)
   (setq gptel-prompt-string "** ")
   (setq gptel-model 'qwen-plus)
-  (setq gptel-backend  (gptel-make-openai "Dashscope"
-                         :host "dashscope.aliyuncs.com"
-                         :endpoint "/compatible-mode/v1/chat/completions"
-                         :stream t
-                         :key 'gptel-api-key-from-auth-source
-                         :models '(qwen-plus)))
-
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
         '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) ("jira\\.creditcloud\\.com" . confluence-edit-mode) ("jira\\.ktjr\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
