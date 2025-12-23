@@ -22,10 +22,10 @@
 ;;             tools)))
 
 ;;;###autoload
-(defun mcp-hub-start ()
+(defun mcp-hub-start (&optional callback)
   (interactive)
   (unless mcp-started
-    (mcp-hub-start-all-server)
+      (mcp-hub-start-all-server callback)
     ;; (gptel-mcp-register-tool)
     ;; (gptel-mcp-use-tool)
     (setq mcp-started t))

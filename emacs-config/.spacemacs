@@ -290,7 +290,7 @@
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
                                             org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
-                                            ob-swiftui evil-goggles
+                                            ob-swiftui evil-goggles gptel-agent
                                             (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
                                             (mcp :location (recipe :fetcher github :repo "lizqwerscott/mcp.el"))
                                             (copilot :location (recipe :fetcher github :repo "lululau/copilot.el" :files ("*.el")))
@@ -489,10 +489,12 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (add-hook 'lsp-completion-mode-hook #'lx/reset-lsp-company-backends)
 
   (setq mcp-hub-servers
-        '(("Fetch" . (:command "/Users/liuxiang/.local/bin/mcp-server-fetch" :args nil))
+        '(
+          ;; ("Fetch" . (:command "/Users/liuxiang/.local/bin/mcp-server-fetch" :args nil))
           ;; ("AppleScript" . (:command "/opt/homebrew/bin/applescript-mcp" :args nil))
-          ("Apple" . (:command "/opt/homebrew/bin/bunx" :args ("@dhravya/apple-mcp@latest")))
-          ("Obsidian" . (:command "/Users/liuxiang/.local/bin/mcp-obsidian-wrapper" :args nil))))
+          ("Apple" . (:command "bunx" :args ("@dhravya/apple-mcp@latest")))
+          ("Context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp")))
+          ("Obsidian" . (:command "mcp-obsidian-wrapper" :args nil))))
   )
 
 (defun dotspacemacs/user-config ()
