@@ -1173,7 +1173,8 @@ This function is called at the very end of Spacemacs initialization."
  '(org-noter-notes-search-path (quote ("~/Documents/materials/org-notes")))
 '(safe-local-variable-values
 (quote
- ((arql-env . "lcldevb")
+ ((copilot-mode)
+  (arql-env . "lcldevb")
   (arql-env . "mddev")
   (arql-env . "mddev2")
   (arql-env . "ermasdevb")
