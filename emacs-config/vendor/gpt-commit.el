@@ -194,10 +194,14 @@ Example usage:
   (interactive)
   (let ((existing-prefix (git-commit-buffer-message))
         (buffer (current-buffer)))
+    (when (bound-and-true-p copilot-mode)
+      (copilot-mode -1))
+    (message "Generating commit message with GPT-Commit...")
     (gpt-commit-generate-message
      existing-prefix
      (lambda (commit-message)
        (when commit-message
+         (message "Commit message generation completed.")
          (with-current-buffer buffer
            (let ((comment-lines (gpt-commit--extract-comment-lines)))
              (gpt-commit--clear-buffer)
@@ -206,7 +210,6 @@ Example usage:
                (insert "\n\n\n")
                (dolist (line comment-lines)
                  (insert line "\n")))
-             (goto-char (point-min))
-             )))))))
+             (mwim-beginning-of-code-or-line))))))))
 
 ;;; gpt-commit.el ends here
