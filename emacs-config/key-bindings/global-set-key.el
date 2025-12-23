@@ -237,6 +237,7 @@
 (global-set-key (kbd "s-i s-i") 'spacemacs/helm-jump-in-buffer)
 (global-set-key (kbd "s-i a") 'claude-code-ide-menu)
 (global-set-key (kbd "s-i s-a") 'claude-code-ide-menu)
+(global-set-key (kbd "s-a c") 'claude-code-ide-menu)
 
 ;; s-p
 (global-unset-key (kbd "s-p"))
@@ -304,3 +305,12 @@
 (global-set-key (kbd "M-?") 'all-buffer-completion)
 (global-set-key (kbd "s-H") 'dash-at-point)
 (global-set-key (kbd "s-I") 'gptel-menu)
+
+;; Customization of command-a
+(global-unset-key (kbd-mac-command "a"))
+(global-set-key (kbd "s-a s-a") 'mark-whole-buffer)
+(global-set-key (kbd "s-a s-c") #'(lambda () (interactive) (save-excursion (progn (call-interactively 'mark-whole-buffer) (call-interactively 'evil-yank)))))
+(global-set-key (kbd "s-a s-d") #'(lambda () (interactive) (save-excursion (progn (call-interactively 'mark-whole-buffer) (call-interactively 'evil-delete)))))
+(global-set-key (kbd "s-a j o") 'org-journal-find-today-entry)
+(global-set-key (kbd "s-a j j") 'org-journal-new-todo-entry)
+(global-set-key (kbd "s-a j J") 'org-journal-new-entry)
