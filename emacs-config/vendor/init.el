@@ -99,3 +99,4 @@
 (autoload 'mind-wave-summary-web "mind-wave.el")
 
 (autoload 'gpt-commit-message "gpt-commit.el")
+(autoload 'helm-get-file "helm-get-file.el")
