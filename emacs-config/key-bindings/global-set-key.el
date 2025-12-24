@@ -308,8 +308,8 @@
 ;; Customization of command-a
 (global-unset-key (kbd-mac-command "a"))
 (global-set-key (kbd "s-a s-a") 'mark-whole-buffer)
-(global-set-key (kbd "s-a s-c") #'(lambda () (interactive) (save-excursion (progn (call-interactively 'mark-whole-buffer) (call-interactively 'evil-yank)))))
-(global-set-key (kbd "s-a s-d") #'(lambda () (interactive) (save-excursion (progn (call-interactively 'mark-whole-buffer) (call-interactively 'evil-delete)))))
+(global-set-key (kbd "s-a s-c") #'lx/mark-and-yank-whole-buffer)
+(global-set-key (kbd "s-a s-d") #'lx/mark-and-delete-whole-buffer)
 (global-set-key (kbd "s-a j o") 'org-journal-find-today-entry)
 (global-set-key (kbd "s-a j j") 'org-journal-new-todo-entry)
 (global-set-key (kbd "s-a j J") 'org-journal-new-entry)

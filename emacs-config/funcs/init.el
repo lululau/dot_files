@@ -774,6 +774,23 @@ View the body of the message inside xwidget-webkit.
 
 ;;;***
 
+
+;;;### (autoloads nil "lx/mark-and-yank-whole-buffer" "util-funcs.el" (0 0 0 0))
+;;; Generated autoloads from autojump.el
+
+(autoload 'lx/mark-and-yank-whole-buffer "util-funcs")
+
+;;;***
+
+
+;;;### (autoloads nil "lx/mark-and-delete-whole-buffer" "util-funcs.el" (0 0 0 0))
+;;; Generated autoloads from autojump.el
+
+(autoload 'lx/mark-and-delete-whole-buffer "util-funcs")
+
+;;;***
+
+
 ;;; End of scraped data
 
 ;; Local Variables:
