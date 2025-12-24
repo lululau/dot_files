@@ -117,6 +117,10 @@ on   = [ "<C-t>" ]
 run  = "plugin fg -- fzf_all"
 desc = "find file or dir by filename"
 [[mgr.prepend_keymap]]
+on = ["<Space>", "o", "d", "a"]
+run = "cd -- ~/global-claude/"
+desc = "Jump to ~/global-claude/'"
+[[mgr.prepend_keymap]]
 on = ["<Space>", "o", "d", "A"]
 run = "cd -- /Applications/"
 desc = "Jump to /Applications/'"

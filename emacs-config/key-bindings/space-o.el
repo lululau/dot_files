@@ -12,6 +12,7 @@
 
 ;; Common used directories
 (setq lx/dirs `(("odA" applications-dir ("/Applications/" "/server"))
+                ("oda" global-claude-dir ("~/global-claude/"))
                 ("odb" blog-dir ("~/blog/"))
                 ("odB" bin-dir ("~/bin/"))
                 ("odC" cafe-dir ("~/Cafe/"))
