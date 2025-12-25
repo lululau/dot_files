@@ -46,6 +46,7 @@ With non-nil prefix argument create a regular entry instead of a TODO entry."
 
   (spacemacs/set-leader-keys-for-major-mode 'org-journal-mode
     "j" 'org-journal-new-todo-entry
-    "J" 'org-journal-new-entry)
+    "J" 'org-journal-new-entry
+    "ya" 'yas-reload-all)
 
   (advice-add 'org-journal-new-entry :after #'org-journal-new-entry-after-advice))
