@@ -226,8 +226,6 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ei" 'org-excalidraw-initialize)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "di" 'org-redisplay-inline-images)
 
-  (spacemacs/set-leader-keys-for-major-mode 'org-mode "ya" 'yas-reload-all)
-
   ;; (add-hook 'org-mode-hook #'turn-company-english-helper-on 100)
 
 
