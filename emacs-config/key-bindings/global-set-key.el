@@ -87,6 +87,8 @@
                                     (lx/run-in-pry-vterm "~/.rvm/gems/ruby-3.2.0/bin/arql -e lcldevb" "*arql-lcldevb*" (projectile-project-root) t))))
 (global-set-key (kbd "s-r j") #'(lambda () (interactive) (lx/run-in-vterm "/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/bin/jshell --class-path $HOME/.m2/final/ktjr-common.jar --start $HOME/.config/default.jsh" "*jshell*")))
 (global-set-key (kbd "s-r a") #'(lambda () (interactive) (lx/run-in-vterm "as.sh" "*arthas*" default-directory)))
+(global-set-key (kbd "s-r d") #'(lambda () (interactive) (lx/run-in-vterm "alidash" "*alidash*" nil t)))
+(global-set-key (kbd "s-r f") #'(lambda () (interactive) (lx/run-in-vterm "flo" "*flo*" nil t)))
 (global-set-key (kbd "s-r k") #'(lambda () (interactive) (lx/run-in-vterm "~/bin/k9s" "*k9s*" nil t)))
 (global-set-key (kbd "s-r h") #'(lambda () (interactive) (lx/run-in-vterm "htop" "*htop*" default-directory t)))
 (global-set-key (kbd "s-r 0") #'(lambda () (interactive) (helm-zsh-vterm-ssh-run "lx.sd")))
