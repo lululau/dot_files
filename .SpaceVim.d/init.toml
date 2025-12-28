@@ -138,7 +138,7 @@ name = 'lang#php'
 name = 'lang#plantuml'
 [[layers]]
 name = 'lang#ruby'
-repl_command = '~/.rvm/gems/ruby-3.2.0/bin/pry'
+repl_command = '~/.rvm/gems/default/bin/pry'
 [[layers]]
 name = 'lang#rust'
 [[layers]]
