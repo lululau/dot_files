@@ -30,5 +30,5 @@
       }
     }
   },
-  "model": "qwen/qwen-plus"
+  "model": "zai/glm-4.7"
 }
