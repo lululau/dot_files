@@ -96,7 +96,7 @@
 
 (setq arthas-class-reload-k8s-list '((:context "aliyun" :namespace-filter "prod|test" :deployment-filter ".*")))
 
-(setq claude-code-terminal-backend 'vterm)
+(setq claude-code-ide-terminal-backend 'vterm)
 
 (setq vterm-eval-cmds '(("find-file" find-file)
                         ("message" message)
