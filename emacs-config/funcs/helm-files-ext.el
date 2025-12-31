@@ -3,10 +3,10 @@
 ;;;###autoload
 (defun lx/helm-find-project-files ()
   (interactive)
-  (require 'helm-find)
+  (require 'helm-fd)
   (let ((directory
          (projectile-project-root)))
-    (helm-find-1 directory)))
+    (helm-fd-1 directory)))
 
 ;;;###autoload
 (defun lx/helm-dired-histories ()
