@@ -36,3 +36,7 @@ prepend_preloaders = [
   { url = "*.tsv", run = "duckdb", multi = false },  
   { url = "*.xlsx", run = "duckdb", multi = false }
 ]
+
+[preview]
+max_width = 1600
+max_height = 2560
