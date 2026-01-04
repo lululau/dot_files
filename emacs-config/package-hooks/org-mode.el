@@ -193,6 +193,12 @@
     (org-remove-inline-images)
     (org-display-inline-images include-linked))
 
+  (defun lx/org-toggle-same-level-heading ()
+    (interactive)
+    (org-toggle-heading '(4)))
+
+  (define-key org-mode-map (kbd "C-c C-8") 'lx/org-toggle-same-level-heading)
+
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "DI" #'lx/download-org-images)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "tR" #'lx/org-table-recalculate-multi-formulas)
 
