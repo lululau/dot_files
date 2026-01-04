@@ -55,5 +55,5 @@ alias -g P='| pbcopy'
 alias pp='pbpaste | view'
 alias pj='pbpaste | jless'
 alias yless="jless --yaml"
-alias claude!='claude --dangerously-skip-permissions'
+alias claude!='echo -ne '"'"'\e[?1049h\033[H'"'"'; claude --dangerously-skip-permissions; echo -ne '"'"'\e[?1049l'"'";
 alias cursor='env -u TMUX -u TMUX_PANE command cursor'
