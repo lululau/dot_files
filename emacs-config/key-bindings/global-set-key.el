@@ -316,3 +316,12 @@
 (global-set-key (kbd "s-a j j") 'org-journal-new-todo-entry)
 (global-set-key (kbd "s-a j J") 'org-journal-new-entry)
 (global-set-key (kbd "s-a c") 'claude-code-ide-menu)
+
+(global-unset-key (kbd "s-y"))
+(global-set-key (kbd "s-y s-y") 'agent-shell)
+(global-set-key (kbd "s-y y") 'agent-shell)
+(global-set-key (kbd "s-y s f") 'agent-shell-send-current-file)
+(global-set-key (kbd "s-y s s") 'agent-shell-send-dwim)
+(global-set-key (kbd "s-y s F") 'agent-shell-send-other-file)
+(global-set-key (kbd "s-y s r") 'agent-shell-send-region)
+(global-set-key (kbd "s-y @") 'agent-shell-send-file)

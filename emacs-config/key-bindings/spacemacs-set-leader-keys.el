@@ -138,7 +138,8 @@
   ;; "acc" #'claude-code-transient
   "ac" #'claude-code-ide-menu
 
-  "ay" #'yas-reload-all
+  "aY" #'yas-reload-all
+  "ay" #'agent-shell
   )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
