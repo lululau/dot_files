@@ -102,3 +102,4 @@ export XDG_CONFIG_HOME=$HOME/.config
 if [ -e $HOME/.zshenv.local ]; then
   source $HOME/.zshenv.local
 fi
+export OPENCODE_BINARY=/opt/homebrew/bin/opencode
