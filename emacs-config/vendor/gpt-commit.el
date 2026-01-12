@@ -99,6 +99,34 @@ Avoid vague messages like \"Fix bug\" or \"Update code\" - be specific about wha
 :type 'string
 :group 'gpt-commit)
 
+
+(defcustom gpt-commit-system-prompt-zh
+  "用户提供 `git diff --cached` 的运行结果。你需要生成一个符合规范的中文提交信息。回复中不要包含其他内容。以下是关于规范提交的说明。
+
+你是一个专门的 Git 提交信息生成器。用户提供 `git diff --cached` 的运行结果。你的任务是创建清晰、结构化且信息丰富的中文提交信息，遵循以下格式：
+
+1. 第一行：简明扼要的标题（60-72 字符），概括变更内容，使用祈使语气
+2. 后跟一个空行
+3. 然后是具体变更的列表，每项以现在时的动作动词开头
+
+规则：
+- 标题必须具体且具有描述性
+- 标题使用祈使语气（例如：\"添加\"、\"修复\"、\"更新\"，而不是\"添加了\"、\"修复了\"、\"更新了\"）
+- 标题保持在 72 字符以内
+- 每个要点应以 \"- \" 开头，后跟现在时的动作动词
+- 要点应简洁但能说明改变了什么以及为什么改变
+- 总要点数最多 3-5 个，简单变更只需 1 个要点
+- 按重要性组织要点
+- 突出对其他开发者相关的重要技术细节
+- 不要包含不必要的细节或不属于文档的解释
+- 专注于改变了什么（WHAT）和为什么（WHY），而不是如何（HOW）
+
+避免使用模糊的消息，如\"修复错误\"或\"更新代码\"——要具体说明修复或更新了什么。"
+
+  "System prompt for GPT chat completions in Chinese."
+:type 'string
+:group 'gpt-commit)
+
 (defun gpt-commit-parse-response (data)
   "Parse the GPT response DATA."
   (let* ((choices (cdr (assoc 'choices data)))
@@ -202,6 +230,65 @@ Example usage:
      (lambda (commit-message)
        (when commit-message
          (message "Commit message generation completed.")
+         (with-current-buffer buffer
+           (let ((comment-lines (gpt-commit--extract-comment-lines)))
+             (gpt-commit--clear-buffer)
+             (insert commit-message)
+             (when comment-lines
+               (insert "\n\n\n")
+               (dolist (line comment-lines)
+                 (insert line "\n")))
+             (mwim-beginning-of-code-or-line))))))))
+
+(defun gpt-commit-generate-message-zh (existing-prefix callback)
+  "Generate a Chinese commit message using GPT and pass it to the CALLBACK.
+EXISTING-PREFIX is text that should be used as a prefix for the generated message."
+  (let* ((changes (gpt-commit--retrieve-staged-diff))
+         (prompt (if (and existing-prefix (not (string-empty-p existing-prefix)))
+                     (concat "已存在的前缀: " existing-prefix "\n\n" gpt-commit-system-prompt-zh "\n\n重要提示：生成的消息必须以上面提供的已存在前缀开头。")
+                   gpt-commit-system-prompt-zh))
+         (messages `[((role . "system")
+                      (content . ,prompt))
+                     ((role . "user")
+                      (content . ,changes))]))
+    (gpt-commit-openai-chat-completions-api messages callback)))
+
+(defun gpt-commit-message-in-zh ()
+  "Automatically generate a conventional commit message in Chinese using GPT-Commit.
+
+This function is similar to `gpt-commit-message', but generates commit messages
+in Chinese instead of English. It is intended to be added to `git-commit-setup-hook'.
+When called, it analyzes the changes in the Git repository and generates
+a conventional commit message using the GPT model.
+
+If there's already existing text in the commit buffer, that text will be
+used as a prefix for the generated commit message.
+
+The generated commit message follows the conventional commit format,
+providing a structured description of the changes made in the commit.
+
+To use this feature, make sure you have set the OpenAI API key and
+GPT model name in the respective variables:
+- `gpt-commit-openai-key'
+- `gpt-commit-model-name'
+
+Example usage:
+  (require 'gpt-commit)
+  (setq gpt-commit-openai-key \"YOUR_OPENAI_API_KEY\")
+  (setq gpt-commit-model-name \"gpt-3.5-turbo-16k\")
+  (add-hook 'git-commit-setup-hook 'gpt-commit-message-in-zh)"
+
+  (interactive)
+  (let ((existing-prefix (git-commit-buffer-message))
+        (buffer (current-buffer)))
+    (when (bound-and-true-p copilot-mode)
+      (copilot-mode -1))
+    (message "正在使用 GPT-Commit 生成中文提交信息...")
+    (gpt-commit-generate-message-zh
+     existing-prefix
+     (lambda (commit-message)
+       (when commit-message
+         (message "提交信息生成完成。")
          (with-current-buffer buffer
            (let ((comment-lines (gpt-commit--extract-comment-lines)))
              (gpt-commit--clear-buffer)
