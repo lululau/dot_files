@@ -16,8 +16,8 @@
 (global-set-key (kbd "s-b") 'lx/switch-to-project-or-all-buffer)
 (global-set-key (kbd "s-L") 'spacemacs/helm-perspectives)
 (global-set-key (kbd "M-.") 'company-complete)
-(global-set-key (kbd "s-:") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create emacs" "*tmux-emacs*")))
-(global-set-key (kbd "s-;") #'(lambda () (interactive)
+(global-set-key (kbd "s-;") #'(lambda () (interactive) (lx/run-in-zsh-vterm "tmux-attach-or-create emacs" "*tmux-emacs*")))
+(global-set-key (kbd "s-:") #'(lambda () (interactive)
                                 (let* ((remote-host (lx/get-remote-buffer-host)))
                                   (if remote-host
                                       (let* ((process-environment '("SSH_INTERACTIVE=1"))
