@@ -45,6 +45,7 @@ With non-nil prefix argument create a regular entry instead of a TODO entry."
         (org-cycle))))
 
   (spacemacs/set-leader-keys-for-major-mode 'org-journal-mode
+    "oy" #'lx/yank-babel-src
     "j" 'org-journal-new-todo-entry
     "J" 'org-journal-new-entry)
 
