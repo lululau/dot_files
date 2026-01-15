@@ -664,6 +664,7 @@ layers configuration."
                                   ("^/tmp/zsh[a-zA-Z0-9]\\{6\\}$" . sh-mode)
                                   ("\\.es$" . es-mode)
                                   ("\\.class" . jdecomp-mode)
+                                  ("\\.jsonc" . jsonc-mode)
                                   ("\\.d$" . dtrace-script-mode)
                                   ("\\.xlsx$" . visidata-mode)
                                   ("\\.chat$" . mind-wave-chat-mode)
