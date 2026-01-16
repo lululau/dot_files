@@ -8,6 +8,7 @@ show_hidden = true
 [opener]
 edit = [
 	{ run = 'nvim "$@"', block = true, desc = "Edit with nvim" },
+	{ run = 'open "$@"', block = true, desc = "Open" },
 	{ run = 'ee "$@"', block = false, desc = "Edit with Emacs" },
 	{ run = 'open-with-neovide.sh "$@"', block = false, desc = "Edit with Neovide" },
 	{ run = '/Applications/Cursor.app/Contents/MacOS/Cursor "$@"', block = false, desc = "Edit with Cursor" },
