@@ -1,0 +1,728 @@
+---
+name: mdfind
+description: Efficient macOS system-wide file search using Spotlight index
+license: MIT
+compatibility: opencode
+metadata:
+  audience: agents
+  workflow: file search
+---
+
+## What I do
+
+- Perform instant system-wide file searches on macOS
+- Search files by metadata (type, date, size, author, etc.)
+- Filter searches by file attributes and content
+- Integrate with macOS tools for batch operations
+
+## When to use me
+
+Use this when you need to:
+- Search across the entire macOS filesystem or large directories
+- Find files by metadata attributes (creation date, file type, size, etc.)
+- Perform performance-critical searches where speed is essential
+
+**CRITICAL**: Never use me for hidden directories (files/directories starting with `.`) or git repositories.
+
+---
+
+# mdfind - macOS Spotlight Search
+
+## Description
+
+`mdfind` is the command-line interface to macOS Spotlight's metadata store. It provides extremely fast file searching across the entire filesystem by leveraging indexed metadata. It's significantly faster than traditional tools like `find`, `ripgrep`, or `grep` for system-wide and large directory searches.
+
+**Key Advantage**: mdfind searches are instant because they query a pre-built index, not the filesystem directly.
+
+## When to Use
+
+Use mdfind when:
+
+- **System-wide searches**: Need to find files anywhere on macOS
+- **Large directory trees**: Searching non-git repositories with thousands of files
+- **Metadata-based searches**: Need to filter by file type, creation date, modification date, author, etc.
+- **Multi-location searches**: Searching across multiple directories or the entire filesystem
+- **Performance-critical searches**: When speed is essential (e.g., searching ~/Downloads, ~/Documents)
+- **Fuzzy content searches**: Searching file contents when exact text matching isn't required
+- **Finding files by attributes**: When you know file attributes (kind, date, size) but not exact name
+
+## When NOT to Use
+
+### HARD BLOCKS (Never Use mdfind for These)
+
+- **Hidden directories**: mdfind CANNOT search in hidden directories (files/directories starting with `.`)
+  - This includes `.git`, `.config`, `.env`, `.npm`, etc.
+  - This is a fundamental limitation of Spotlight indexing
+  - **For hidden directory searches**: Use `find` or `ripgrep`
+
+- **Git repositories**: Git repos often contain hidden files and version-specific content
+  - Use `git` tools, `ripgrep`, or `find` instead
+  - mdfind may miss untracked or recently added files
+
+### Soft Blocks (Use Other Tools When)
+
+- **Unindexed files**: Files recently created or in temporary directories
+  - mdfind only searches Spotlight's index; unindexed files won't appear
+
+- **Build artifacts and temp directories**: Spotlight excludes many build/cache directories
+  - Use `find` or `ripgrep` for these locations
+
+- **Version control operations**: When searching git history or untracked files
+  - Use `git grep`, `git ls-files`, or git-specific tools
+
+## Core Concepts
+
+### How mdfind Works
+
+1. **Index-based search**: Queries Spotlight's metadata store (instant results)
+2. **Metadata-rich**: Searches file attributes, not just names
+3. **Natural language**: Supports natural language queries (similar to Spotlight UI)
+4. **Spotlight integration**: Uses the same index as macOS Spotlight
+
+### Query Language
+
+mdfind uses Spotlight's natural language query format:
+
+- Simple terms: `mdfind "report"`
+- Multiple terms: `mdfind "project report"`
+- Specific attributes: `mdfind "kMDItemKind == 'Folder'"`
+- Boolean operators: `mdfind "(kMDItemFSName == '*test*') && (kMDItemKind == 'Folder')"`
+
+### Common Metadata Attributes
+
+| Attribute | Description | Example |
+|-----------|-------------|---------|
+| `kMDItemKind` | File type/folder | `"Image"`, `"Folder"`, `"PDF文稿"` |
+| `kMDItemFSName` | Filename | `"filename.txt"` |
+| `kMDItemContentCreationDate` | Creation date | `$time.today(-7)` |
+| `kMDItemContentModificationDate` | Modification date | `$time.today(-1)` |
+| `kMDItemFSSize` | File size | `$file.size > 1024` |
+| `kMDItemContentType` | MIME type | `"public.jpeg"`, `"public.folder"` |
+| `kMDItemAuthorEmailAddresses` | Author email | `"user@example.com"` |
+| `kMDItemPixelWidth` | Image width | `1920` |
+| `kMDItemDurationSeconds` | Audio/video duration | `300` |
+
+## Common Patterns
+
+### Basic File Name Search
+
+```bash
+# Find files by name
+mdfind "filename"
+mdfind "myproject"
+
+# Case-insensitive (default behavior)
+mdfind "MyProject"  # finds myproject, MyProject, MYPROJECT
+
+# Search in specific directory (limit scope)
+mdfind -onlyin ~/Documents "report"
+mdfind -onlyin ~/Downloads "installer"
+```
+
+### Search by File Type
+
+```bash
+# Find all PDFs
+mdfind "kMDItemKind == 'PDF文稿'"
+
+# Find all images
+mdfind "kMDItemKind contains 'Image'"
+
+# Find all folders
+mdfind "kMDItemKind == 'Folder'"
+
+# Find specific file types by content type
+mdfind "kMDItemContentType == 'public.jpeg'"
+mdfind "kMDItemContentType == 'public.folder'"
+mdfind "kMDItemContentType == 'public.plain-text'"
+
+# Find code files
+mdfind "kMDItemContentType == 'public.source-code'"
+```
+
+### Search by Date
+
+```bash
+# Files modified in the last 24 hours
+mdfind "kMDItemContentModificationDate > $time.today(-1)"
+
+# Files created in the last 7 days
+mdfind "kMDItemContentCreationDate > $time.today(-7)"
+
+# Files modified between two dates
+mdfind "kMDItemContentModificationDate > $time.today(-30) && kMDItemContentModificationDate < $time.today(-7)"
+
+# Files from specific date
+mdfind "kMDItemContentModificationDate == $time.today(0)"
+```
+
+### Search by File Size
+
+```bash
+# Files larger than 1MB
+mdfind "kMDItemFSSize > 1048576"
+
+# Files smaller than 10KB
+mdfind "kMDItemFSSize < 10240"
+
+# Files between 1MB and 100MB
+mdfind "kMDItemFSSize > 1048576 && kMDItemFSSize < 104857600"
+
+# Find large files (useful for cleanup)
+mdfind "kMDItemFSSize > 104857600"  # Files > 100MB
+```
+
+### Search by Content
+
+```bash
+# Search file contents (supports natural language)
+mdfind "important meeting notes"
+mdfind "configuration file database"
+
+# Find files containing specific text
+mdfind "\"TODO\""
+
+# Note: Content search is not as precise as ripgrep/grep
+```
+
+### Boolean Logic
+
+```bash
+# AND operation
+mdfind "(kMDItemKind == 'PDF文稿') && (kMDItemFSName == '*report*')"
+
+# OR operation
+mdfind "(kMDItemKind == 'PDF文稿') || (kMDItemKind == '*Document*')"
+
+# NOT operation
+mdfind "kMDItemFSName == '*project*' && !(kMDItemFSName == '*test*')"
+
+# Complex queries
+mdfind "((kMDItemKind == 'PNG图像' || kMDItemKind == 'JPEG图像') && (kMDItemPixelWidth > 1920)) || (kMDItemFSName == '*screenshot*')"
+```
+
+### Real-World Examples
+
+```bash
+# Find all Python scripts in Documents
+mdfind -onlyin ~/Documents "kMDItemKind == '*Python script*cdw'"
+
+# Find recent screenshots (modified in last hour)
+mdfind "kMDItemKind contains 'screenshot' && kMDItemContentModificationDate > $time.today(-0.0417)"
+
+# Find all large video files in Downloads
+mdfind -onlyin ~/Downloads "kMDItemFSSize > 104857600 && kMDItemKind contains 'Movie'"
+
+# Find all configuration files (not hidden!)
+mdfind "kMDItemFSName == '*config*' && kMDItemKind == '*Plain Text*cdw'"
+
+# Find presentations created last month
+mdfind "kMDItemKind contains 'Presentation' && kMDItemContentCreationDate > $time.today(-30)"
+
+# Find duplicate files by size (search, then manually dedupe)
+mdfind "kMDItemFSSize == 1048576"
+```
+
+## Performance Notes
+
+### Performance Comparison
+
+| Tool | 10,000 files | 100,000 files | 1M+ files | Search Type |
+|------|--------------|----------------|-----------|-------------|
+| mdfind | <1s | <1s | <1s | Indexed metadata |
+| find | 2-5s | 20-30s | 2-5 min | Filesystem traversal |
+| ripgrep | 3-5s | 30-60s | 5-10 min | Content search |
+| grep | 10-20s | 2-5 min | 20-30 min | Content search |
+
+**Key Insight**: mdfind's performance is constant regardless of dataset size because it queries a pre-built index.
+
+### Performance Characteristics
+
+- **Speed**: Instant results (sub-second for virtually any query)
+- **Scaling**: Constant time complexity (O(1)) for search operations
+- **Memory**: Minimal memory usage (queries the Spotlight daemon)
+- **Index update**: Files appear in search as Spotlight indexes them (usually seconds to minutes)
+
+### When Performance Matters
+
+Use mdfind when:
+- Searching user directories (~/Documents, ~/Downloads, ~/Desktop)
+- Quick lookups before running more intensive searches
+- Searching across multiple volumes/drives
+- Performance is blocking other operations
+
+Avoid mdfind when:
+- Searching git repositories (use ripgrep)
+- Searching hidden directories (use find)
+- Working with recently created/unindexed files
+
+## Integration
+
+### Combining with xargs
+
+```bash
+# Batch delete old files (be careful!)
+mdfind "kMDItemKind == 'Folder' && kMDItemContentModificationDate < $time.today(-90)" | \
+  xargs -I {} rm -rf {}
+
+# Compress large files
+mdfind "kMDItemFSSize > 104857600" | \
+  xargs -I {} zip -r {}.zip {}
+
+# Count files by type
+mdfind "kMDItemKind == 'PDF文稿'" | \
+  xargs -I {} wc -c {} | \
+  awk '{sum+=$1} END {print "Total:", sum, "bytes"}'
+```
+
+### Combining with mdls (Inspect Metadata)
+
+```bash
+# Find files, then inspect their metadata
+mdfind "kMDItemKind contains 'Image'" | \
+  head -5 | \
+  while read file; do
+    echo "=== $file ==="
+    mdls "$file" | grep -E "(kMDItemKind|kMDItemPixelWidth|kMDItemPixelHeight)"
+  done
+
+# Find files with specific metadata
+mdfind "kMDItemAuthorEmailAddresses == '*@company.com'" | \
+  while read file; do
+    echo "Found: $file"
+  done
+```
+
+### Fallback Strategies
+
+```bash
+# Try mdfind first, fall back to find if no results
+results=$(mdfind -onlyin ~/project "config")
+if [ -z "$results" ]; then
+  echo "mdfind returned no results, falling back to find..."
+  find ~/project -name "*config*" -type f
+else
+  echo "$results"
+fi
+
+# Use mdfind for quick preview, then ripgrep for details
+mdfind -onlyin ~/project "kMDItemKind contains 'source-code'" | \
+  while read file; do
+    echo "File: $file"
+    rg "function" "$file"  # Fast content search within results
+  done
+
+# Hidden directory pattern (CRITICAL: mdfind cannot do this)
+# Use find instead:
+find ~/.config -name "*.json" -type f
+find ~/project -name ".*" -type f  # Find all dotfiles
+```
+
+### Integration with Other macOS Tools
+
+```bash
+# Combine with open to launch files
+mdfind "kMDItemFSName == '*presentation*' && kMDItemKind contains 'Keynote'" | \
+  head -1 | \
+  xargs open
+
+# Find and copy files
+mdfind "kMDItemKind == 'Image' && kMDItemFSName == '*vacation*'" | \
+  xargs -I {} cp {} ~/Pictures/Vacation/
+
+# Find files and get paths for scripts
+mdfind "kMDItemKind contains 'source-code'" > /tmp/source_files.txt
+# Process /tmp/source_files.txt in another script
+
+# Use with qlmanage (Quick Look) for preview
+mdfind "kMDItemFSName == '*screenshot*'" | \
+  head -5 | \
+  xargs -I {} qlmanage -p {} 2>/dev/null
+```
+
+### Practical Workflow Example
+
+```bash
+#!/bin/bash
+# Example: Clean up old downloads safely
+
+# Find large files in Downloads older than 90 days
+echo "Finding large old files in Downloads..."
+old_files=$(mdfind -onlyin ~/Downloads \
+  "kMDItemFSSize > 104857600 && kMDItemContentModificationDate < $time.today(-90)")
+
+if [ -z "$old_files" ]; then
+  echo "No large old files found."
+  exit 0
+fi
+
+echo "Found the following files:"
+echo "$old_files"
+echo ""
+read -p "Move these files to Trash? (y/N) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  echo "$old_files" | xargs -I {} mv {} ~/.Trash/
+  echo "Files moved to Trash."
+else
+  echo "Operation cancelled."
+fi
+```
+
+## Best Practices
+
+### DO
+
+1. **Use mdfind for system-wide searches** - It's incredibly fast
+2. **Limit scope with `-onlyin`** - Reduces noise for targeted searches
+3. **Combine with metadata filters** - More precise than simple text searches
+4. **Use natural language queries** - Often easier to write and understand
+5. **Inspect metadata with mdls** - Verify what attributes are available
+6. **Fall back to find/ripgrep when needed** - Especially for hidden directories
+
+### DON'T
+
+1. **Never use mdfind for hidden directories** - It won't work, period
+2. **Don't rely on mdfind for git repos** - Use git tools instead
+3. **Don't assume immediate indexing** - New files may not appear immediately
+4. **Don't use for exact content matching** - ripgrep is better for that
+5. **Don't use in cross-platform scripts** - mdfind is macOS-only
+6. **Don't ignore privacy settings** - Spotlight may exclude certain directories
+
+## Troubleshooting
+
+### mdfind Returns No Results
+
+**Cause**: Files not indexed by Spotlight
+**Solution**:
+```bash
+# Force Spotlight to reindex a directory
+sudo mdutil -E /path/to/directory
+
+# Check indexing status
+mdutil -s /
+```
+
+### Files Don't Appear in Search
+
+**Cause**: File in excluded location or temporary directory
+**Solution**: Use `find` or `ripgrep` instead
+```bash
+# Alternative for unindexed files
+find /path/to/dir -name "pattern"
+rg "pattern" /path/to/dir
+```
+
+### Query Returns Too Many Results
+
+**Solution**: Add more filters or use `-onlyin` to scope
+```bash
+# Too broad
+mdfind "report"
+
+# More specific
+mdfind "kMDItemKind == 'PDF文稿' && kMDItemFSName == '*report*'"
+mdfind -onlyin ~/Documents "report"
+```
+
+## Real-World Implementation: mfd Ruby Gem
+
+The `mfd` Ruby gem (https://github.com/lululau/mfd) is a production-quality wrapper around mdfind that demonstrates advanced usage patterns. Key insights from this project:
+
+### Advanced mdfind Options Used
+
+| Option | Purpose | Example |
+|--------|---------|---------|
+| `-onlyin` | Scope search to directory | `mdfind -onlyin ~/Documents` |
+| `-0` | NUL-terminated output (xargs -0 compatible) | `mdfind -0 ... \| xargs -0 rm` |
+| `-live` | Live-updating results | `mdfind -live` |
+| `-count` | Count matches only | `mdfind -count "kind == 'PDF'"` |
+
+### Metadata Attributes (Production-Tested)
+
+**Time-Based Attributes:**
+```bash
+kMDItemFSContentChangeDate  # Last modified date
+kMDItemFSCreationDate        # Creation date
+```
+
+**File Type & Name:**
+```bash
+kMDItemContentType          # MIME type (e.g., "public.jpeg")
+kMDItemKind                  # User-friendly type (e.g., "PDF文稿")
+kMDItemFSName                # Filename (supports wildcards)
+kMDItemWhereFroms            # Download URL source
+```
+
+**File Size:**
+```bash
+kMDItemFSSize                # File size in bytes
+```
+
+**Text Content:**
+```bash
+kMDItemTextContent           # File contents (supports fuzzy search)
+```
+
+### Query Modifiers (Critical for Fuzzy Matching)
+
+The `cdw` suffix is essential for case-insensitive, fuzzy matching:
+
+```bash
+# Without cdw: exact match only
+kMDItemKind == "PDF文稿"        # Must match exactly
+
+# With cdw: case-insensitive, diacritic-insensitive, word-match
+kMDItemKind == "*PDF*cdw  # Matches "PDF文稿", "PDF Document" (use 'PDF文稿' for exact match)
+kMDItemContentType == "ruby"cdw      # Matches "public.ruby-script"
+kMDItemFSName == "report"cdw         # Matches "my-report.txt", "report.pdf"
+```
+
+**Modifier Breakdown:**
+- `c`: Case-insensitive
+- `d`: Diacritic-insensitive (ignores accents)
+- `w`: Word-based matching (supports partial matches)
+
+### Practical Query Patterns
+
+**File Type Detection (Extension OR Kind):**
+```bash
+# Search by extension OR kind (mfd pattern)
+(kMDItemFSName == "*.pdf" || kMDItemKind == "PDF文稿"cdw)
+```
+
+**Time Range Queries (Relative Time):**
+```bash
+# Last 7 days (production-calculated)
+kMDItemFSContentChangeDate >= $(expr $(date +%s) - $(expr 7 \* 86400))
+```
+
+**Size Units (Supports t/g/m/k):**
+```bash
+# 1MB (1024² bytes)
+kMDItemFSSize >= 1048576
+
+# 1GB (1024³ bytes)
+kMDItemFSSize >= 1073741824
+```
+
+### Time Calculation Formulas (From mfd)
+
+When calculating relative time queries, use these constants:
+
+| Unit | Seconds | Calculation |
+|------|---------|-------------|
+| Second (S) | 1 | `1` |
+| Minute (M) | 60 | `1 * 60` |
+| Hour (H) | 3,600 | `1 * 60 * 60` |
+| Day (d) | 86,400 | `1 * 24 * 60 * 60` |
+| Month (m) | 2,592,000 | `30 * 24 * 60 * 60` |
+| Year (Y) | 946,080,000 | `365 * 24 * 60 * 60` |
+
+**Example: Find files modified in last 10 days:**
+```bash
+# Using $time.today() (modern mdfind)
+mdfind "kMDItemContentModificationDate > $time.today(-10)"
+
+# Manual calculation (older approach)
+BASE_TIME=$(date -j -f "%Y-%m-%d %H:%M:%S" "2001-01-01 00:00:00" +%s)
+CURRENT_TIME=$(date +%s)
+TIME_DIFF=$(expr $CURRENT_TIME - $BASE_TIME - 864000)  # 10 days * 86400 sec
+mdfind "kMDItemFSContentChangeDate >= $TIME_DIFF"
+```
+
+### Size Unit Conversions
+
+| Suffix | Multiplier | Example |
+|--------|------------|---------|
+| k | 1024¹ | 1k = 1,024 bytes |
+| m | 1024² | 1m = 1,048,576 bytes (1MB) |
+| g | 1024³ | 1g = 1,073,741,824 bytes (1GB) |
+| t | 1024⁴ | 1t = 1,099,511,627,776 bytes (1TB) |
+
+### Common File Types (From mfd's KIND_MAP)
+
+**Extensions to Kinds Mapping (from mfd's KIND_MAP):**
+
+| Extension | kMDItemKind Value |
+|-----------|-------------------|
+| .pdf | "PDF文稿" |
+| .png | "PNG图像" |
+| .jpeg | "JPEG图像" |
+| .gif | "GIF图像" |
+| .tif | "TIFF图像" |
+| .bmp | "Windows BMP图像" |
+| .rb | "Ruby script" |
+| .js | "JavaScript script" |
+| .mjs | "JavaScript script" |
+| .css | "CSS样式表" |
+| .bash | "Bash Shell Script" |
+| .zsh | "Terminal scripts" |
+| .command | "终端shell脚本" |
+| .dmg | "磁盘映像" |
+| .zip | "ZIP归档" |
+| .app | "应用程序" |
+| .php | "PHP script" |
+| .lua | "Lua script" |
+| .swift | "Swift Script" |
+| .cpp | "C++ Source File" |
+| .cc | "C++ Source File" |
+| .cxx | "C++ Source File" |
+| .hh | "C++ Header Source File" |
+| .csh | "Shell script" |
+| .yaml | "YAML document" |
+| .yml | "YAML document" |
+| .markdown | "Markdown document" |
+| .mdown | "Markdown" |
+| .org | "Org document" |
+| .docx | "Microsoft Word document (.docx)" |
+| .xls | "Microsoft Excel 97-2004 Workbook (.xls)" |
+| .xlsm | "Microsoft Excel Macro-Enabled Workbook (.xlsm)" |
+| .xltx | "Microsoft Excel Template (.xltx)" |
+| .mp4 | "MPEG-4影片" |
+| .flac | "FLAC Audio File" |
+| .m4a | "Apple MPEG-4音频" |
+| .ogg | "HTML5 Audio (Ogg)" |
+| .gz | "gzip压缩归档" |
+| .bz2 | "bzip2压缩归档" |
+| .tgz | "gzip压缩tar归档" |
+| .xz | "xz compressed archive" |
+| .sqlite | "SQLite" |
+| .db | "SQLite" |
+| .vcf | "vCard" |
+| .ics | "ICS文件" |
+| .epub | "电子出版物(EPUB)" |
+| .svg | (无定义，需使用 kMDItemContentType) |
+| .ts | "Qt Translation Source" |
+| .json | (无定义，需使用 kMDItemContentType) |
+| .xml | "XML document" |
+| .dtd | "XML document" |
+| .xsd | "XML document" |
+| .hs | "Haskell Source File" |
+| .for | "Fortran Source File" |
+| .asm | "Assembly Source File" |
+| .s | "Assembly Source File" |
+| .el | "Emacs Lisp Source File" |
+| .lisp | (无定义) |
+| .py | (无定义) |
+| .java | "Java类文件" |
+| .class | "Java类文件" |
+| .go | (无定义) |
+| .rs | (无定义) |
+| .ts | "Qt Translation Source" (注意：不是 TypeScript) |
+| .tsx | (无定义) |
+
+**Important Notes:**
+
+1. **Types with no kMDItemKind definition**: Some common file types (like `.svg`, `.json`, `.ts` for TypeScript, `.py`, `.go`, `.rs`, `.jsx`, `.vue`) don't have kMDItemKind mappings in mfd's KIND_MAP. For these types:
+   ```bash
+   # Use kMDItemContentType instead
+   mdfind "kMDItemContentType == 'public.svg-image'"
+   mdfind "kMDItemContentType == 'public.json'"
+   mdfind "kMDItemContentType == 'public.source-code'"  # For code files
+
+   # Or search by extension only
+   mdfind "kMDItemFSName == '*.svg'"
+   ```
+
+2. **Language localization**: kMDItemKind values are in Chinese on Chinese macOS systems (as shown in mfd's KIND_MAP). The same file type may have different kMDItemKind values on different system locales:
+   - Chinese system: `"PDF文稿"`, `"PNG图像"`
+   - English system: `"PDF Document"`, `"PNG Image"`
+
+   To ensure cross-locale compatibility, prefer:
+   ```bash
+   # Use extension (locale-independent)
+   kMDItemFSName == "*.pdf"
+
+   # Use kMDItemContentType (locale-independent)
+   kMDItemContentType == "com.adobe.pdf"
+
+    # Use 'cdw' modifier for fuzzy, case-insensitive matching
+    kMDItemKind == "*PDF*cdw"  # Matches "PDF文稿", "PDF Document" (use 'PDF文稿' for exact match)
+   ```
+
+3. **Finding kMDItemContentType values**: Use `mdls` to discover the exact content type:
+   ```bash
+   mdls /path/to/file.pdf | grep kMDItemContentType
+   # Output: kMDItemContentType = "com.adobe.pdf"
+   ```
+
+**Note:** mfd includes 150+ file type mappings in its `KIND_MAP` constant, showing real-world diversity of macOS file types. This table shows the most common ones with their exact Chinese kMDItemKind values.
+
+### Advanced Patterns from mfd
+
+**Combining Multiple Criteria:**
+```bash
+# All criteria are AND-ed by default
+kMDItemKind == "PDF文稿 && kMDItemFSSize >= 1048576 && kMDItemFSContentChangeDate >= $time.today(-7)
+```
+
+**Property-Based Comparisons (Generic Pattern):**
+```bash
+# Generic comparison operators
+kMDItemPropertyName == value
+kMDItemPropertyName != value
+kMDItemPropertyName <= value
+kMDItemPropertyName >= value
+
+# Example: Compare against another file's property
+# (Use mdls to get property values from reference file)
+kMDItemFSSize == 1234567  # Match files with exact size
+```
+
+**Using mdls for Property Discovery:**
+```bash
+# Inspect any file's metadata to discover available properties
+mdls /path/to/file
+
+# Sample output:
+# kMDItemFSSize = 1234567
+# kMDItemKind = "PDF文稿"
+# kMDItemContentType = "com.adobe.pdf"
+```
+
+### Production Tips
+
+1. **Always escape quotes in queries:**
+   ```bash
+   # Correct: escape double quotes
+   mdfind 'kMDItemKind == "%s"cdw' "PDF文稿"
+   ```
+
+2. **Use wildcards for flexible matching:**
+   ```bash
+   kMDItemFSName == "*.pdf"          # Any .pdf file
+   kMDItemWhereFroms == "*github*"   # Downloaded from any GitHub URL
+   ```
+
+3. **Combine with mdls for property inspection:**
+   ```bash
+   # Find files with specific metadata value
+   file=/path/to/reference.pdf
+   size=$(mdls "$file" | grep kMDItemFSSize | awk '{print $3}')
+   mdfind "kMDItemFSSize == $size"
+   ```
+
+4. **Use -0 for safe piping to xargs:**
+   ```bash
+   # Safe: handles filenames with spaces
+   mdfind "kMDItemKind == 'PDF'" -0 | xargs -0 -I {} cp {} ~/Archive/
+   ```
+
+5. **Debug queries with --count first:**
+   ```bash
+   # Quick validation before listing
+   mdfind -count "kMDItemKind == 'PDF'"
+   mdfind "kMDItemKind == 'PDF'"  # Then list actual files
+   ```
+
+## Summary
+
+- **Use mdfind for**: Fast system-wide searches, metadata-based searches, large directories (non-git)
+- **Never use mdfind for**: Hidden directories, git repositories, exact content searches
+- **Speed**: Instant results due to indexed search
+- **Limitations**: Cannot search hidden files, requires Spotlight indexing
+- **Best practice**: Start with mdfind for quick lookups, fall back to find/ripgrep when needed
+- **Production patterns**: Use `cdw` modifiers for fuzzy matching, combine criteria with `&&`, use `-0` for safe piping
+
+Remember: **mdfind is a powerful tool for macOS-specific workflows, but always be aware of its limitations, especially regarding hidden directories. The mfd gem demonstrates production-grade usage patterns that scale to complex queries.**

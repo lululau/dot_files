@@ -1,0 +1,207 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    // "oh-my-opencode",
+    "file:///Users/liuxiang/cascode/github.com/oh-my-opencode/dist/index.js",
+    // "opencode-synced",
+    "opencode-antigravity-auth@beta",
+    "@franlol/opencode-md-table-formatter@0.0.3",
+  ],
+
+  "provider": {
+    "google": {
+      "models": {
+        "antigravity-gemini-3-pro": {
+          "name": "Gemini 3 Pro (Antigravity)",
+          "limit": { "context": 1048576, "output": 65535 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+          "variants": {
+            "low": { "thinkingLevel": "low" },
+            "high": { "thinkingLevel": "high" }
+          }
+        },
+        "antigravity-gemini-3-flash": {
+          "name": "Gemini 3 Flash (Antigravity)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+          "variants": {
+            "minimal": { "thinkingLevel": "minimal" },
+            "low": { "thinkingLevel": "low" },
+            "medium": { "thinkingLevel": "medium" },
+            "high": { "thinkingLevel": "high" }
+          }
+        },
+        "antigravity-claude-sonnet-4-5": {
+          "name": "Claude Sonnet 4.5 (Antigravity)",
+          "limit": { "context": 200000, "output": 64000 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "antigravity-claude-sonnet-4-5-thinking": {
+          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
+          "limit": { "context": 200000, "output": 64000 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+          "variants": {
+            "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
+            "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
+          }
+        },
+        "antigravity-claude-opus-4-5-thinking": {
+          "name": "Claude Opus 4.5 Thinking (Antigravity)",
+          "limit": { "context": 200000, "output": 64000 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+          "variants": {
+            "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
+            "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
+          }
+        },
+        "gemini-2.5-flash": {
+          "name": "Gemini 2.5 Flash (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "gemini-2.5-pro": {
+          "name": "Gemini 2.5 Pro (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "gemini-3-flash-preview": {
+          "name": "Gemini 3 Flash Preview (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "gemini-3-pro-preview": {
+          "name": "Gemini 3 Pro Preview (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65535 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        }
+      }
+    }
+  },
+
+  "mcp": {
+    "obsidian": {
+      "type": "local",
+      "command": [
+        "/Users/liuxiang/.local/bin/mcp-obsidian-wrapper"
+      ],
+      "enabled": false
+    },
+    "sequential-thinking": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "enabled": false
+    },
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "enabled": false
+    },
+    "clipboard": {
+      "type": "local",
+      "command": [
+        "go",
+        "run",
+        "github.com/oxplot/clipboard-mcp@latest"
+      ],
+      "enabled": false
+    },
+    "zai": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@z_ai/mcp-server"
+      ],
+      "environment": {
+        "Z_AI_MODE": "ZHIPU",
+        "Z_AI_API_KEY": "{env:ANTHROPIC_AUTH_TOKEN}"
+      }
+    },
+    "zread": {
+      "type": "remote",
+      "url": "https://open.bigmodel.cn/api/mcp/zread/mcp",
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
+      }
+    },
+    "chrome": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ],
+      "enabled": false
+    },
+    "macos": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "apple-mcp"
+      ],
+      "enabled": false
+    },
+    "peekabook": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@steipete/peekaboo",
+        "mcp"
+      ],
+      "enabled": false
+    },
+    "macos_automator": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@steipete/macos-automator-mcp@latest"
+      ],
+      "enabled": false
+    },
+    "iMCP": {
+      "type": "local",
+      "command": ["/Applications/iMCP.app/Contents/MacOS/imcp-server"],
+      "enabled": false
+    },
+    "web-search-prime": {
+      "type": "remote",
+      "url": "https://open.bigmodel.cn/api/mcp/web_search_prime/mcp",
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
+      }
+    },
+    "web-reader": {
+      "type": "remote",
+      "url": "https://open.bigmodel.cn/api/mcp/web_reader/mcp",
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
+      }
+    }
+  },
+  "permission": "allow",
+  "disabled_providers": ["alibaba", "openai"],
+  "model": "zhipuai-coding-plan/glm-4.7",
+  "small_model": "alibaba-cn/qwen-flash",
+  "agent": {
+    "title": {
+      "prompt": "请为这段对话生成一个简洁的中文标题，直接描述内容，不要使用\"对话文本摘要\"、\"仅含\"等描述性前缀；保持简洁，一般不超过 15 个字。\n\n示例：\n1. 问候语：如\"hello\"、\"你好\"，生成\"简单的问候词\"\n2. Shell命令：如\"ls\"，生成\"Shell命令：列出当前目录\"\n3. 代码相关：如\"修复bug\"，生成\"修复代码bug\"\n4. 问题咨询：如\"如何使用git\"，生成\"如何使用git\"",
+      "description": "用于生成中文对话标题"
+    }
+  },
+  "autoupdate": false
+}

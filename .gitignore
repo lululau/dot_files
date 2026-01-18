@@ -101,7 +101,7 @@ emacs-config/.agenda_files
 /avante.nvim/
 /alma/
 
-/opencode/
+/opencode/*-accounts.json
 /.agent-shell/
 /opencode.bak/
 /openchamber/
