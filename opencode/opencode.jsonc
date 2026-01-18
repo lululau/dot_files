@@ -191,6 +191,11 @@
       "headers": {
         "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
       }
+    },
+    "serpapi": {
+      "type": "remote",
+      "enabled": false,
+      "url": "https://mcp.serpapi.com/{env:SERPAPI_KEY}/mcp"
     }
   },
   "permission": "allow",

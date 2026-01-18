@@ -496,6 +496,8 @@ export ANTHROPIC_AUTH_TOKEN=$(cat ~/.config/secrets/.anthropic_auth_token)
 # export ANTHROPIC_BASE_URL=https://api.moonshot.cn/anthropic
 export ANTHROPIC_BASE_URL=https://open.bigmodel.cn/api/anthropic
 
+export SERPAPI_KEY=$(cat ~/.config/secrets/.serpapi_api_key)
+
 # textra
 export TEXTRA_INSTALL="$HOME/.textra"
 export PATH="$TEXTRA_INSTALL/bin:$PATH"
