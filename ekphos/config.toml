@@ -1,0 +1,16 @@
+notes_dir = "~/Documents/ekphos"
+welcome_shown = true
+theme = "ekphos-dawn"
+show_empty_dir = true
+syntax_theme = "base16-ocean.dark"
+sidebar_collapsed = false
+outline_collapsed = false
+folders_first = true
+
+[editor]
+line_wrap = true
+tab_width = 4
+left_padding = 0
+right_padding = 1
+line_numbers = "absolute"
+scrolloff = 0
