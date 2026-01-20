@@ -1,7 +1,6 @@
 ---
 name: commit
 description: Create git commit following best practices
-agent: build
 arguments:
   - name: message
     description: Custom commit message (optional - if not provided, will draft one based on changes)

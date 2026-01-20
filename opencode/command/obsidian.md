@@ -1,7 +1,6 @@
 ---
 name: obsidian
 description: Save content from current Claude session to Obsidian notes
-agent: build
 ---
 
 # Save to Obsidian

@@ -1,7 +1,6 @@
 ---
 name: commit-push
 description: Create git commit and push to default tracking branch
-agent: build
 arguments:
   - name: message
     description: Custom commit message (optional - if not provided, will draft one based on changes)

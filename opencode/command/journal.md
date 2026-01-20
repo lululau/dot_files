@@ -1,6 +1,5 @@
 ---
 name: journal
-agent: build
 description: Save content from current Claude session to org-journal
 ---
 
