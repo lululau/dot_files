@@ -191,7 +191,7 @@
     "web-search-prime": {
       "type": "remote",
       "url": "https://open.bigmodel.cn/api/mcp/web_search_prime/mcp",
-      "enabled": true,
+      "enabled": false,
       "headers": {
         "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
       }
