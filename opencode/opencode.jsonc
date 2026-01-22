@@ -105,7 +105,7 @@
         "-y",
         "@upstash/context7-mcp"
       ],
-      "enabled": false
+      "enabled": true
     },
     // MCP server for retrieving clipboard content. At the moment, only image content on MacOS clipboard is supported. https://github.com/oxplot/clipboard-mcp
     "clipboard": {
@@ -119,7 +119,7 @@
     },
     // 视觉理解 MCP Server 是一个基于模型上下文协议 (Model Context Protocol) 的 Z.AI GLM-4.6V 能力实现. https://docs.bigmodel.cn/cn/coding-plan/mcp/vision-mcp-server
     "zai": {
-      "enabled": true,
+      "enabled": false,
       "type": "local",
       "command": [
         "npx",
@@ -135,7 +135,7 @@
     "zread": {
       "type": "remote",
       "url": "https://open.bigmodel.cn/api/mcp/zread/mcp",
-      "enabled": true,
+      "enabled": false,
       "headers": {
         "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
       }
@@ -200,7 +200,7 @@
     "web-reader": {
       "type": "remote",
       "url": "https://open.bigmodel.cn/api/mcp/web_reader/mcp",
-      "enabled": true,
+      "enabled": false,
       "headers": {
         "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
       }
