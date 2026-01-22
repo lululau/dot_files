@@ -79,6 +79,7 @@
   },
 
   "mcp": {
+    // MCP server that interacts with Obsidian via the Obsidian rest API community plugin. https://github.com/MarkusPfundstein/mcp-obsidian
     "obsidian": {
       "type": "local",
       "command": [
@@ -86,6 +87,7 @@
       ],
       "enabled": false
     },
+    // An MCP server implementation that provides a tool for dynamic and reflective problem-solving through a structured thinking process. https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking
     "sequential-thinking": {
       "type": "local",
       "command": [
@@ -95,6 +97,7 @@
       ],
       "enabled": false
     },
+    // Up-to-date code documentation for LLMs and AI code editors. https://github.com/upstash/context7
     "context7": {
       "type": "local",
       "command": [
@@ -104,6 +107,7 @@
       ],
       "enabled": false
     },
+    // MCP server for retrieving clipboard content. At the moment, only image content on MacOS clipboard is supported. https://github.com/oxplot/clipboard-mcp
     "clipboard": {
       "type": "local",
       "command": [
@@ -113,6 +117,7 @@
       ],
       "enabled": false
     },
+    // 视觉理解 MCP Server 是一个基于模型上下文协议 (Model Context Protocol) 的 Z.AI GLM-4.6V 能力实现. https://docs.bigmodel.cn/cn/coding-plan/mcp/vision-mcp-server
     "zai": {
       "enabled": true,
       "type": "local",
@@ -126,6 +131,7 @@
         "Z_AI_API_KEY": "{env:ANTHROPIC_AUTH_TOKEN}"
       }
     },
+    // 开源仓库 MCP. https://docs.bigmodel.cn/cn/coding-plan/mcp/zread-mcp-server
     "zread": {
       "type": "remote",
       "url": "https://open.bigmodel.cn/api/mcp/zread/mcp",
@@ -134,6 +140,7 @@
         "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
       }
     },
+    // Chrome DevTools for coding agents. https://github.com/ChromeDevTools/chrome-devtools-mcp
     "chrome": {
       "type": "local",
       "command": [
@@ -143,6 +150,7 @@
       ],
       "enabled": false
     },
+    // Collection of apple-native tools for the model context protocol. https://github.com/supermemoryai/apple-mcp
     "macos": {
       "type": "local",
       "command": [
@@ -152,7 +160,8 @@
       ],
       "enabled": false
     },
-    "peekabook": {
+    // Mac automation that sees the screen and does the clicks.  https://github.com/steipete/Peekaboo
+    "peekaboo": {
       "type": "local",
       "command": [
         "npx",
@@ -162,6 +171,7 @@
       ],
       "enabled": false
     },
+    // An MCP server to run AppleScript and JXA (JavaScript for Automation) to macOS. https://github.com/steipete/macos-automator-mcp
     "macos_automator": {
       "type": "local",
       "command": [
@@ -171,11 +181,13 @@
       ],
       "enabled": false
     },
+    // A macOS app that provides an MCP server to your Messages, Contacts, Reminders and more. https://github.com/mattt/iMCP
     "iMCP": {
       "type": "local",
       "command": ["/Applications/iMCP.app/Contents/MacOS/imcp-server"],
       "enabled": false
     },
+    // 联网搜索 MCP. https://docs.bigmodel.cn/cn/coding-plan/mcp/search-mcp-server
     "web-search-prime": {
       "type": "remote",
       "url": "https://open.bigmodel.cn/api/mcp/web_search_prime/mcp",
@@ -184,6 +196,7 @@
         "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
       }
     },
+    // 网页读取 MCP. https://docs.bigmodel.cn/cn/coding-plan/mcp/reader-mcp-server
     "web-reader": {
       "type": "remote",
       "url": "https://open.bigmodel.cn/api/mcp/web_reader/mcp",
@@ -192,6 +205,7 @@
         "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
       }
     },
+    // SerpApi MCP Server for Google and other search engine results. https://github.com/serpapi/serpapi-mcp
     "serpapi": {
       "type": "remote",
       "enabled": false,
