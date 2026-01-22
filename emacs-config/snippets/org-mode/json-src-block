@@ -1,0 +1,6 @@
+#group: source block
+# key: sjson
+# --
+#+BEGIN_SRC json
+$0
+#+END_SRC
