@@ -249,7 +249,7 @@
   // ============================================================================
   // THEME & UI
   // ============================================================================
-  "theme": "Catppuccin Macchiato (Blur) [Light]",
+  "theme": "Catppuccin Mocha",
   "tabs": {
     "file_icons": true,
     "git_status": true
