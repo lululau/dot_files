@@ -84,6 +84,7 @@
       '(("och" hosts-config ("/sudo:root@localhost:/etc/hosts" "/etc/hosts"))
         ("ocS" sudoers ("/sudo:root@localhost:/etc/sudoers" "/etc/sudoers"))
         ("ocz" zshrc ("~/.zshrc"))
+        ("oco" opencode ("~/.config/opencode/opencode.jsonc"))
         ("ocp" pryrc ("~/.pryrc"))
         ("ocl" vrl ("~/.vrl.yml"))
         ("ocg" git ("~/.gitconfig"))
