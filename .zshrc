@@ -245,6 +245,9 @@ then
 fi
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 export ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #20 char left truncated PWD
+# White background, black text for global aliases
+FAST_HIGHLIGHT_STYLES[global-alias]='bg=green,fg=black'
+
 
 # for shell-pop
 if [ -n "$INSIDE_EMACS" ]
