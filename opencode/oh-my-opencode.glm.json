@@ -8,7 +8,7 @@
       "model": "zhipuai-coding-plan/glm-4.7"
     },
     "explore": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-4.5-air"
     },
     "oracle": {
       "model": "zhipuai-coding-plan/glm-4.7"
@@ -17,10 +17,10 @@
       "model": "zhipuai-coding-plan/glm-4.7"
     },
     "document-writer": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-4.5-air"
     },
     "multimodal-looker": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-4.6v"
     }
   },
   "sisyphus_agent": {

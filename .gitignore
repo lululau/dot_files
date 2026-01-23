@@ -102,6 +102,7 @@ emacs-config/.agenda_files
 /alma/
 
 /opencode/*-accounts.json
+/opencode/oh-my-opencode.json
 /.agent-shell/
 /opencode.bak/
 /openchamber/

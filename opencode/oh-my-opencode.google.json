@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "Sisyphus": {
+      "model": "google/antigravity-claude-opus-4-5-thinking"
+    },
+    "librarian": {
+      "model": "google/antigravity-claude-opus-4-5-thinking"
+    },
+    "explore": {
+      "model": "google/antigravity-gemini-3-flash"
+    },
+    "oracle": {
+      "model": "zhipuai-coding-plan/glm-4.7"
+    },
+    "frontend-ui-ux-engineer": {
+      "model": "google/gemini-3-pro-preview"
+    },
+    "document-writer": {
+      "model": "google/gemini-3-flash-preview"
+    },
+    "multimodal-looker": {
+      "model": "google/antigravity-gemini-3-flash"
+    }
+  },
+  "sisyphus_agent": {
+    "disabled": false,
+    "default_builder_enabled": true,
+    "planner_enabled": true,
+    "replace_plan": false
+  },
+  "claude_code": {
+    "mcp": false,
+    "commands": false,
+    "skills": false,
+    "agents": false,
+    "hooks": false,
+    "plugins": false
+  }
+}
