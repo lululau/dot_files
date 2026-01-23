@@ -5,6 +5,7 @@
     "file:///Users/liuxiang/cascode/github.com/oh-my-opencode/dist/index.js",
     // "opencode-synced",
     "opencode-antigravity-auth@beta",
+    "opencode-antigravity-quota@0.1.6",
     "@franlol/opencode-md-table-formatter@0.0.3",
   ],
 
