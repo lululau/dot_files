@@ -14,15 +14,16 @@
       "model": "zhipuai-coding-plan/glm-4.7"
     },
     "frontend-ui-ux-engineer": {
-      "model": "google/gemini-3-pro-preview"
+      "model": "google/antigravity-gemini-3-pro"
     },
     "document-writer": {
-      "model": "google/gemini-3-flash-preview"
+      "model": "google/antigravity-gemini-3-flash"
     },
     "multimodal-looker": {
       "model": "google/antigravity-gemini-3-flash"
     }
   },
+  "google_auth": false,
   "sisyphus_agent": {
     "disabled": false,
     "default_builder_enabled": true,
