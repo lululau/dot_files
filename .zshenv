@@ -76,7 +76,6 @@ export LESS_TERMCAP_so=$'\E[44;33m'       # begin standout-mode
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;33m'       # begin underline
 # export PAGER='less -R'
-export PAGER='nvim +Man!'
 export RI='-f ansi'
 export LSCOLORS=exfxcxdxcxegedabagacad
 export LS_COLORS='di=01;36'
