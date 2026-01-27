@@ -159,7 +159,7 @@
                       auto-completion-private-snippets-directory ,lx/snippets-path)
      ;; tabnine
      better-defaults
-     ;; (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
+     (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      emacs-lisp
      git
      ;; github ;; layer deprecated
@@ -283,7 +283,7 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu
                                             jq-mode helm-dired-history go-dlv realgud-byebug
-                                            dired-subtree carbon-now-sh sx daemons evil-mc
+                                            dired-subtree carbon-now-sh sx daemons
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
