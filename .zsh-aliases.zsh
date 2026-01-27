@@ -58,4 +58,3 @@ alias yless="jless --yaml"
 alias claude!='clear; claude --dangerously-skip-permissions'
 alias cursor='env -u TMUX -u TMUX_PANE command cursor'
 alias mdui=ekphos
-alias man=$HOME/bin/man-wrapper.sh
