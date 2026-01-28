@@ -1,0 +1,6 @@
+#group: source block
+# key: stoml
+# --
+#+BEGIN_SRC toml
+$0
+#+END_SRC
