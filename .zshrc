@@ -500,6 +500,7 @@ export ANTHROPIC_AUTH_TOKEN=$(cat ~/.config/secrets/.anthropic_auth_token)
 export ANTHROPIC_BASE_URL=https://open.bigmodel.cn/api/anthropic
 
 export SERPAPI_KEY=$(cat ~/.config/secrets/.serpapi_api_key)
+export ZHIPU_API_KEY=$(cat ~/.config/secrets/.zhipu_api_key)
 
 # textra
 export TEXTRA_INSTALL="$HOME/.textra"
