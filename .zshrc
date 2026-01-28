@@ -491,17 +491,6 @@ function recentf-add-file() {
 # chpwd_functions+=(helm-dired-history-update)
 # preexec_functions+=(recentf-add-file)
 
-export OPENAI_API_KEY=$(cat ~/.config/secrets/.openai_api_key)
-export DASHSCOPE_API_KEY=$(cat ~/.config/secrets/.dashscope_api_key)
-
-export ANTHROPIC_AUTH_TOKEN=$(cat ~/.config/secrets/.anthropic_auth_token)
-
-# export ANTHROPIC_BASE_URL=https://api.moonshot.cn/anthropic
-export ANTHROPIC_BASE_URL=https://open.bigmodel.cn/api/anthropic
-
-export SERPAPI_KEY=$(cat ~/.config/secrets/.serpapi_api_key)
-export ZHIPU_API_KEY=$(cat ~/.config/secrets/.zhipu_api_key)
-
 # textra
 export TEXTRA_INSTALL="$HOME/.textra"
 export PATH="$TEXTRA_INSTALL/bin:$PATH"
