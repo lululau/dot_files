@@ -33,7 +33,7 @@ description: Save content from current Claude session to Obsidian notes
 3. **确定笔记信息**：
    - 询问用户想要的笔记标题（如果没有明确说明）
    - 建议一个合适的文件名（基于内容主题）
-   - 使用 serpapi MCP 搜索一个和和内容相关的封面图片 URL
+   - 使用 `google-images` 工具搜索一个与内容相关的封面图片 URL（命令：`google-images <关键词> -n 1`）
 
 4. **保存到 Obsidian**：
    - 使用 Obsidian MCP 工具创建或追加笔记
