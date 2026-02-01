@@ -620,6 +620,7 @@ eval "$(luarocks path --lua-version 5.1)"
 
 # . "$HOME/.grit/bin/env"
 
+# [ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
