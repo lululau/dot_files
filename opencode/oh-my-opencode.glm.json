@@ -24,6 +24,9 @@
     },
     "atlas": {
       "model": "zhipuai-coding-plan/glm-4.7"
+    },
+    "hephaestus": {
+      "model": "zhipuai-coding-plan/glm-4.7"
     }
   },
   "sisyphus_agent": {
