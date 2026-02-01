@@ -21,6 +21,9 @@
     },
     "multimodal-looker": {
       "model": "zhipuai-coding-plan/glm-4.6v"
+    },
+    "atlas": {
+      "model": "zhipuai-coding-plan/glm-4.7"
     }
   },
   "sisyphus_agent": {
