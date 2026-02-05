@@ -1,8 +1,7 @@
 {
     "SYNTAX_HIGHLIGHTING_THEME": "dark-plus",
     "DEFAULT_COLOR": {
-        "color": "#cad3f5",
-        "backgroundColor": "#24273a"
+        "color": "#cad3f5"
     },
     "COMMIT_HEADER_COLOR": {
         "color": "#b8c0e0"
