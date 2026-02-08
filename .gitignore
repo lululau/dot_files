@@ -106,3 +106,4 @@ emacs-config/.agenda_files
 /.agent-shell/
 /opencode.bak/
 /openchamber/
+/ralph-tui/sessions.json
