@@ -2,19 +2,19 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-5"
     },
     "librarian": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-5"
     },
     "explore": {
       "model": "zhipuai-coding-plan/glm-4.5-air"
     },
     "oracle": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-5"
     },
     "frontend-ui-ux-engineer": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-5"
     },
     "document-writer": {
       "model": "zhipuai-coding-plan/glm-4.5-air"
@@ -23,10 +23,10 @@
       "model": "zhipuai-coding-plan/glm-4.6v"
     },
     "atlas": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-5"
     },
     "hephaestus": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-5"
     }
   },
 
@@ -38,13 +38,13 @@
       "model": "zhipuai-coding-plan/glm-4.6v"
     },
     "ultrabrain": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-5"
     },
     "deep": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-5"
     },
     "artistry": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-5"
     },
     "quick": {
       "model": "zhipuai-coding-plan/glm-4.5-air"
@@ -53,7 +53,7 @@
       "model": "zhipuai-coding-plan/glm-4.5-air"
     },
     "unspecified-high": {
-      "model": "zhipuai-coding-plan/glm-4.7"
+      "model": "zhipuai-coding-plan/glm-5"
     }
   },
 

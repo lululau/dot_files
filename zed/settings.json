@@ -48,7 +48,7 @@
         "api_url": "https://open.bigmodel.cn/api/coding/paas/v4",
         "available_models": [
           {
-            "name": "glm-4.7",
+            "name": "glm-5",
             "max_tokens": 200000,
             "max_output_tokens": 32000,
             "max_completion_tokens": 200000,
@@ -342,7 +342,7 @@
   "agent": {
     "default_model": {
       "provider": "zhipu",
-      "model": "glm-4.7"
+      "model": "glm-5"
     },
     "button": true,
     "dock": "right"
