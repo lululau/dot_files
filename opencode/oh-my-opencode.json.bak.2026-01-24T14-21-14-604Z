@@ -2,19 +2,19 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
   "agents": {
     "Sisyphus": {
-      "model": "zhipuai-coding-plan/glm-5"
+      "model": "zhipuai-coding-plan/glm-4.7"
     },
     "librarian": {
-      "model": "zhipuai-coding-plan/glm-5"
+      "model": "zhipuai-coding-plan/glm-4.7"
     },
     "explore": {
       "model": "zhipuai-coding-plan/glm-4.5-air"
     },
     "oracle": {
-      "model": "zhipuai-coding-plan/glm-5"
+      "model": "zhipuai-coding-plan/glm-4.7"
     },
     "frontend-ui-ux-engineer": {
-      "model": "zhipuai-coding-plan/glm-5"
+      "model": "zhipuai-coding-plan/glm-4.7"
     },
     "document-writer": {
       "model": "zhipuai-coding-plan/glm-4.5-air"

@@ -11,7 +11,7 @@
       "model": "google/antigravity-gemini-3-flash"
     },
     "oracle": {
-      "model": "zhipuai-coding-plan/glm-5"
+      "model": "zhipuai-coding-plan/glm-4.7"
     },
     "frontend-ui-ux-engineer": {
       "model": "google/antigravity-gemini-3-pro"
