@@ -135,6 +135,17 @@ Avoid vague messages like \"Fix bug\" or \"Update code\" - be specific about wha
          (content (cdr (assoc 'content message))))
     (decode-coding-string content 'utf-8)))
 
+(defun gpt-commit--trim-commit-message (commit-message)
+  "Trim COMMIT-MESSAGE to ensure the second line is an empty line with no spaces or tabs.
+If the second line is an empty line, it should not contain any whitespace characters."
+  (let* ((lines (split-string commit-message "\n"))
+         (len (length lines)))
+    (when (>= len 2)
+      (let ((second-line (nth 1 lines)))
+        (when (string-match-p "^\\s-*$" second-line)
+          (setf (nth 1 lines) ""))))
+    (string-join lines "\n")))
+
 (defun gpt-commit-openai-chat-completions-api (messages callback)
   "Call OpenAI's Chat Completions API with MESSAGES and CALLBACK."
   (let* ((headers `(("Content-Type" . "application/json")
@@ -229,6 +240,7 @@ Example usage:
      existing-prefix
      (lambda (commit-message)
        (when commit-message
+         (setq commit-message (gpt-commit--trim-commit-message commit-message))
          (message "Commit message generation completed.")
          (with-current-buffer buffer
            (let ((comment-lines (gpt-commit--extract-comment-lines)))
@@ -288,6 +300,7 @@ Example usage:
      existing-prefix
      (lambda (commit-message)
        (when commit-message
+         (setq commit-message (gpt-commit--trim-commit-message commit-message))
          (message "提交信息生成完成。")
          (with-current-buffer buffer
            (let ((comment-lines (gpt-commit--extract-comment-lines)))
