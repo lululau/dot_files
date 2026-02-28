@@ -8,6 +8,7 @@ fi
 
 typeset -U path
 # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+path+=(/Applications/Obsidian.app/Contents/MacOS)
 path+=($HOME/.bun/bin)
 path+=$(echo ~/.stack/programs/*/*/bin(NOn[1]))
 path+=($HOME/.cargo/bin)
