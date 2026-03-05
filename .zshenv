@@ -22,6 +22,7 @@ path+=($HOME/.docker/bin)
 path+=(/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools)
 path+=($HOME/.cache/lm-studio/bin)
 path+=($HOME/.antigravity/antigravity/bin)
+path+=($HOME/.agent-view/bin)
 
 export SCRCPY_SERVER_PATH=/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools/scrcpy-server
 
