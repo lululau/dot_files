@@ -28,6 +28,10 @@ local function entry(_, job)
 
 	if job.args[1] == "fzf" then
 		cmd_args = [[fzf --preview='bat --color=always {1}']]
+	elseif job.args[1] == "fzf_all" then
+		cmd_args = [[fzf --walker=file,dir,follow,hidden --preview='bat --color=always {1}']]
+	elseif job.args[1] == "fzf_cwd" then
+		cmd_args = [[gls -Atp --group-directories-first --color=no | fzf --preview='if [ -f {1} ]; then bat --color=always {1}; else lsd -la --color=always {1}; fi']]
 	elseif job.args[1] == "rg" and shell_value == "fish" then
 		cmd_args = [[
 			RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case " \
@@ -82,6 +86,10 @@ local function entry(_, job)
     local file_url = splitAndGetFirst(target,":")
 
 	if file_url ~= "" then
+		local basename = file_url:match("([^/\\]+)$") or file_url
+		if basename:sub(1, 1) == "." then
+			ya.emit("hidden", { hide = true })
+		end
 		ya.emit(file_url:match("[/\\]$") and "cd" or "reveal", { file_url })
 	end
 end

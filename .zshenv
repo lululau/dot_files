@@ -8,11 +8,11 @@ fi
 
 typeset -U path
 # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+path+=(/Applications/Obsidian.app/Contents/MacOS)
+path+=($HOME/.bun/bin)
 path+=$(echo ~/.stack/programs/*/*/bin(NOn[1]))
 path+=($HOME/.cargo/bin)
 path+=(/usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin)
-# export PATH=$PATH:$HOME/cascode/github.com/xiki/bin:/usr/local/sbin
-path+=($HOME/cascode/github.com/xiki/bin /usr/local/sbin)
 # export PATH="$PATH:$HOME/.fzf/bin"
 path+=($HOME/.fzf/bin)
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
@@ -24,14 +24,22 @@ fi
 path+=($HOME/.docker/bin)
 path+=(/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools)
 path+=($HOME/.cache/lm-studio/bin)
+path+=($HOME/.antigravity/antigravity/bin)
+path+=($HOME/.agent-view/bin)
 
 export SCRCPY_SERVER_PATH=/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools/scrcpy-server
 
-if uname | grep -q Linux ; then
-    export EDITOR='emacsclient -t'
+if (( $+commands[nvim] )); then
+  export EDITOR=nvim
+  export VISUAL=nvim
+elif (( $+commands[vim] )); then
+  export EDITOR=vim
+  export VISUAL=vim
 else
-    export EDITOR='emacsclient'
+  export EDITOR=vi
+  export VISUAL=vi
 fi
+
 export GOROOT=$HOMEBREW_PREFIX/opt/go/libexec/
 export GOPATH=$HOME/.go
 export GO111MODULE=auto
@@ -48,7 +56,7 @@ else
     [ -e $HOME/.config/private/homebrew_github_api_token.sh ] && source $HOME/.config/private/homebrew_github_api_token.sh
     # export JAVA_HOME=/Library/Java/JavaVirtualMachines/CurrentJDK/Contents/Home
 fi
-export UV_PYTHON=3.11
+# export UV_PYTHON=3.11
 export XAPIAN_CJK_NGRAM=1
 export SDKMAN_DIR="$HOME/.sdkman"
 # export HOMEBREW_CASK_OPTS=--caskroom=/opt/homebrew-cask/Caskroom
@@ -71,7 +79,6 @@ export LESS_TERMCAP_so=$'\E[44;33m'       # begin standout-mode
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;33m'       # begin underline
 # export PAGER='less -R'
-export PAGER='nvim +Man!'
 export RI='-f ansi'
 export LSCOLORS=exfxcxdxcxegedabagacad
 export LS_COLORS='di=01;36'
@@ -82,15 +89,41 @@ export NULLCMD=:
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 export HOMEBREW_BAT=1
-export VISUAL=${ZDOTDIR:-$HOME}/bin/emacsclient-for-visual
 [[ -e $HOME/.secretenv ]] && source $HOME/.secretenv
 export LESSOPEN="|$HOMEBREW_PREFIX/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 export BAT_CONFIG_PATH=$HOME/.config/.batrc
 export RUST_SRC_PATH=$HOMEBREW_PREFIX/Cellar/rust/1.38.0/share/rust/rust_src
-export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
 export curl_ca_bundle=$HOME/.mitmproxy/mitmproxy-ca.pem
 export RUBY_YJIT_ENABLE=true
 export PATH=$PATH
 export RIPGREP_CONFIG_PATH=$HOME/.config/.ripgreprc
 export QUOTING_STYLE=escape
 export XDG_CONFIG_HOME=$HOME/.config
+
+if [ -e $HOME/.zshenv.local ]; then
+  source $HOME/.zshenv.local
+fi
+export OPENCODE_BINARY=/opt/homebrew/bin/opencode
+
+if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
+  path=($HOME/liuxiang/bin $HOME/liuxiang/local/bin $HOME/.local/bin $path)
+else
+  path=($HOME/ServerApps/bin $HOME/bin $HOME/.local/bin $HOME/Library/Python/3.14/bin $HOME/Library/Python/2.7/bin $HOMEBREW_PREFIX/bin $HOMEBREW_PREFIX/sbin $path)
+fi
+
+alias man=$HOME/bin/man-wrapper.sh
+
+export OPENAI_API_KEY=$(cat ~/.config/secrets/.openai_api_key)
+export DASHSCOPE_API_KEY=$(cat ~/.config/secrets/.dashscope_api_key)
+
+export ANTHROPIC_AUTH_TOKEN=$(cat ~/.config/secrets/.anthropic_auth_token)
+
+# export ANTHROPIC_BASE_URL=https://api.moonshot.cn/anthropic
+export ANTHROPIC_BASE_URL=https://open.bigmodel.cn/api/anthropic
+
+export SERPAPI_KEY=$(cat ~/.config/secrets/.serpapi_api_key)
+export ZHIPU_API_KEY=$(cat ~/.config/secrets/.zhipu_api_key)
+export DASHSCOPE_CODING_PLAN_API_KEY=$(cat ~/.config/secrets/.dashscope_coding_plan_api_key)
+

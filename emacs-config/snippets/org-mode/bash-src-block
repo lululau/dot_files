@@ -1,0 +1,6 @@
+#group: source block
+# key: sbash
+# --
+#+BEGIN_SRC bash
+$0
+#+END_SRC

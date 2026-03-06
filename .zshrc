@@ -3,7 +3,7 @@ ulimit -u 2128
 
 setopt +o nomatch
 
-[[ $TERM == "tramp" ]] && unsetopt zle && PS1='$ ' && return
+[[ $TERM == "tramp" || $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
 # Path to your oh-my-zsh configuration.
 if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
@@ -78,6 +78,7 @@ plugins=(autojump
          # zsh-brew-services
          # zsh-completions
          you-should-use
+         fzf-tab
         )
 
 [ -z "$INSIDE_EMACS" ] && plugins+=(fast-syntax-highlighting)
@@ -244,6 +245,9 @@ then
 fi
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 export ZSH_THEME_TERM_TAB_TITLE_IDLE="%20<..<%~%<<" #20 char left truncated PWD
+# White background, black text for global aliases
+FAST_HIGHLIGHT_STYLES[global-alias]='bg=green,fg=black'
+
 
 # for shell-pop
 if [ -n "$INSIDE_EMACS" ]
@@ -487,11 +491,13 @@ function recentf-add-file() {
 # chpwd_functions+=(helm-dired-history-update)
 # preexec_functions+=(recentf-add-file)
 
-export OPENAI_API_KEY=$(cat ~/.config/secrets/.openai_api_key)
-
 # textra
 export TEXTRA_INSTALL="$HOME/.textra"
 export PATH="$TEXTRA_INSTALL/bin:$PATH"
+
+
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
 
 ### Codex CLI setup - start
 # export CODEX_CLI_PATH=$HOME/.cli-co-pilot
@@ -614,3 +620,16 @@ eval "$(luarocks path --lua-version 5.1)"
 
 # . "$HOME/.grit/bin/env"
 
+# [ -f $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh ] && source $HOMEBREW_PREFIX/share/forgit/forgit.plugin.zsh
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+export SCRCPY_SERVER_PATH=/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools/scrcpy-server
+export PATH=$PATH:/Applications/极空间.app/Contents/Resources/app.asar.unpacked/bin/platform-tools
+export PAGER='nvim +Man!'
+
+if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
+  path=($HOME/liuxiang/bin $HOME/liuxiang/local/bin $HOME/.local/bin $path)
+else
+  path=($HOME/ServerApps/bin $HOME/bin $HOME/.local/bin $HOME/Library/Python/3.14/bin $HOME/Library/Python/2.7/bin $HOMEBREW_PREFIX/bin $HOMEBREW_PREFIX/sbin $path)
+fi

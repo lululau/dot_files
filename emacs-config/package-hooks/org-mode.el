@@ -4,6 +4,7 @@
   (define-key org-mode-map [M-tab] 'spacemacs/alternate-buffer)
   (define-key org-mode-map (kbd "C-M-i") nil)
   (define-key org-mode-map (kbd (if (display-graphic-p) "<s-return>" "s-RET")) 'code-archive-goto-src)
+  (define-key org-mode-map (kbd "C-c SPC") #'org-table-blank-field)
   (unless (display-graphic-p)
     (define-key org-mode-map (kbd "C-RET") 'org-insert-heading-respect-content)
     (define-key org-mode-map (kbd "M-S-RET") 'org-insert-todo-heading))
@@ -192,6 +193,12 @@
     (org-remove-inline-images)
     (org-display-inline-images include-linked))
 
+  (defun lx/org-toggle-same-level-heading ()
+    (interactive)
+    (org-toggle-heading '(4)))
+
+  (define-key org-mode-map (kbd "C-c C-8") 'lx/org-toggle-same-level-heading)
+
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "DI" #'lx/download-org-images)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "tR" #'lx/org-table-recalculate-multi-formulas)
 
@@ -224,7 +231,6 @@
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ed" 'org-excalidraw-create-drawing)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "ei" 'org-excalidraw-initialize)
   (spacemacs/set-leader-keys-for-major-mode 'org-mode "di" 'org-redisplay-inline-images)
-
 
   ;; (add-hook 'org-mode-hook #'turn-company-english-helper-on 100)
 

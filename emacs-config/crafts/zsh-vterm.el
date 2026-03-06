@@ -229,8 +229,18 @@ value of `vterm-buffer-name'."
     (evil-define-key 'hybrid map (kbd "C-M-s-^") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "6")))
     (evil-define-key 'hybrid map (kbd "C-M-s-|") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-C-j)))
 
+    (evil-define-key 'normal map (kbd "C-M-s-!") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "1")))
+    (evil-define-key 'normal map (kbd "C-M-s-@") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "2")))
+    (evil-define-key 'normal map (kbd "C-M-s-#") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "3")))
+    (evil-define-key 'normal map (kbd "C-M-s-$") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "4")))
+    (evil-define-key 'normal map (kbd "C-M-s-%") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "5")))
+    (evil-define-key 'normal map (kbd "C-M-s-^") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "6")))
+    (evil-define-key 'normal map (kbd "C-M-s-|") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-C-j)))
+
     (evil-define-key 'hybrid map (kbd "s-]") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string ">")))
     (evil-define-key 'hybrid map (kbd "s-[") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "<")))
+    (evil-define-key 'normal map (kbd "s-]") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string ">")))
+    (evil-define-key 'normal map (kbd "s-[") #'(lambda () (interactive) (vterm-send-C-j) (vterm-send-string "<")))
 
     (evil-define-key 'hybrid map (kbd "M-h") #'(lambda () (interactive) (vterm--self-insert)))
 

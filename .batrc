@@ -1,2 +1,2 @@
---theme=OneHalfDark
+--theme='Catppuccin Macchiato'
 --pager='less --RAW-CONTROL-CHARS --no-init -RF'

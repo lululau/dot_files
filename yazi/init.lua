@@ -1,6 +1,10 @@
--- require("full-linemode")
-require("dirs")
 require("starship"):setup()
+require("duckdb"):setup({mode = "standard"})
+require("dir-hist"):setup({})
+require("session"):setup {
+	sync_yanked = true,
+}
+require("toggle-layout"):setup()
 
 function Linemode:full()
 	local year = os.date("%Y")

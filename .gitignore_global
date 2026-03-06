@@ -16,3 +16,5 @@ GRTAGS
 .classpath
 .factorypath
 .settings
+.crush
+.agent-shell

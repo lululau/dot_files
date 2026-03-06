@@ -6,20 +6,377 @@
 // To see all of Zed's default settings without changing your
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
+
+// ============================================================================
+// MIGRATION NOTES FROM CURSOR:
+// ============================================================================
+// 
+// Unavailable features (no Zed equivalent):
+// - Extensions: command-bridge, projectManager, GitLens, scratchpads, fileutils
+// - Vim easymotion visual customization (colors, fonts, marker keys)
+// - Custom CSS styling (APC extension for tab numbers, custom fonts per UI part)
+// - Exact cursor/ghost text color customization (editorCursor.foreground, etc.)
+// - Specific Java/Maven terminal profiles with custom JAVA_HOME per version
+// - VSCode-specific: activity bar orientation, command center, status bar colors
+// - Custom sync settings (Settings Sync extension)
+// - Trailing spaces background highlighting
+// - Custom icon theme opacity settings
+// 
+// Partial support:
+// - Vim highlighted yank (Zed uses flash on yank, but color not customizable)
+// - Unicode character highlighting (Zed has some support but limited config)
+// - Ruler/wrap guides (Zed supports columns but not custom colors per guide)
+// - Minimap (Zed doesn't have minimap feature)
+// - Workspace trust (Zed doesn't have this concept)
+//
+// Alternative approaches:
+// - File browser: Use Zed's built-in project panel instead of yazi
+// - Config file opening: Use file finder (cmd-p) or bookmarks
+// - Git operations: Use Zed's built-in git integration
+// - Terminal commands: Use Zed tasks instead of command-bridge
+// - Tab numbering: Not available in Zed
+// - Easymotion: Zed has vim-mode support but easymotion styling unavailable
+// ============================================================================
+
 {
-  "assistant": {
+  // ============================================================================
+  // BASE CONFIGURATION
+  // ============================================================================
+  "language_models": {
+    "openai_compatible": {
+      "zhipu": {
+        "api_url": "https://open.bigmodel.cn/api/coding/paas/v4",
+        "available_models": [
+          {
+            "name": "glm-4.7",
+            "max_tokens": 200000,
+            "max_output_tokens": 32000,
+            "max_completion_tokens": 200000,
+            "capabilities": {
+              "tools": true,
+              "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": false,
+              "chat_completions": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  "base_keymap": "Cursor",
+  "vim_mode": true,
+  
+  // ============================================================================
+  // AI AGENT SETTINGS
+  // ============================================================================
+  /* Duplicated key auto-commented: "agent": {
     "default_model": {
       "provider": "copilot_chat",
       "model": "gpt-4o"
-    },
-    "version": "2"
+    }
+  }, */
+
+  // ============================================================================
+  // FONTS & TYPOGRAPHY
+  // ============================================================================
+  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_size": 13,
+  "buffer_font_weight": 600,
+  "buffer_line_height": "comfortable",
+  "ui_font_family": "JetBrainsMono Nerd Font",
+  "ui_font_size": 14,
+  "ui_font_features": {
+    "calt": true
   },
-  "theme": "Catppuccin Macchiato",
+
+  // ============================================================================
+  // VIM CONFIGURATION
+  // ============================================================================
+  "vim": {
+    "use_system_clipboard": "always",
+    "use_multiline_find": true,
+    "toggle_relative_line_numbers": true
+  },
+
+  // ============================================================================
+  // EDITOR BEHAVIOR
+  // ============================================================================
+  "show_whitespaces": "none",
+  "show_edit_predictions": true,
+  "tab_bar": {
+    "show_nav_history_buttons": false
+  },
+  "scrollbar": {
+    "show": "auto"
+  },
+  "vertical_scroll_margin": 3,
+  "wrap_guides": [80, 100, 120],
+  "linked_edits": true,
+  "relative_line_numbers": "disabled",
+  "scroll_beyond_last_line": "one_page",
+  "cursor_blink": false,
+  "show_completions_on_input": true,
+  "use_autoclose": true,
+  "auto_update": true,
+  "preview_tabs": {
+    "enabled": false,
+    "enable_preview_from_file_finder": false
+  },
+  "confirm_quit": false,
+
+  // ============================================================================
+  // LANGUAGE-SPECIFIC SETTINGS
+  // ============================================================================
+  "languages": {
+    "Python": {
+      "format_on_save": "off",
+      "formatter": {
+        "external": {
+          "command": "ruff",
+          "arguments": ["format", "--stdin-filename", "{buffer_path}", "-"]
+        }
+      },
+      "tab_size": 4,
+      "preferred_line_length": 120,
+      "enable_language_server": true,
+      "show_edit_predictions": true
+    },
+    "Ruby": {
+      "format_on_save": "on",
+      "formatter": "language_server",
+      "tab_size": 2,
+      "preferred_line_length": 120
+    },
+    "Rust": {
+      "format_on_save": "on",
+      "formatter": "language_server",
+      "preferred_line_length": 100,
+      "tab_size": 4
+    },
+    "TypeScript": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"]
+        }
+      },
+      "tab_size": 2,
+      "preferred_line_length": 120
+    },
+    "JavaScript": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"]
+        }
+      },
+      "tab_size": 2,
+      "preferred_line_length": 120
+    },
+    "JSON": {
+      "format_on_save": "on",
+      "tab_size": 2
+    },
+    "JSONC": {
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}", "--parser", "json"]
+        }
+      },
+      "tab_size": 2
+    },
+    "Markdown": {
+      "soft_wrap": "preferred_line_length",
+      "preferred_line_length": 80,
+      "format_on_save": "off"
+    },
+    "Vue": {
+      "format_on_save": "on",
+      "tab_size": 2
+    },
+    "C": {
+      "tab_size": 4
+    },
+    "C++": {
+      "tab_size": 4
+    },
+    "Go": {
+      "tab_size": 4,
+      "format_on_save": "on",
+      "hard_tabs": true
+    }
+  },
+
+  // ============================================================================
+  // FILE MANAGEMENT & EXCLUSIONS
+  // ============================================================================
+  "file_types": {
+    "Dockerfile": ["Dockerfile*"],
+    "JSON": ["*.json", "*.jsonc"],
+    "YAML": ["*.yml", "*.yaml"]
+  },
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.venv",
+    "**/venv",
+    "**/node_modules",
+    "**/__pycache__",
+    "**/.mypy_cache",
+    "**/.pytest_cache",
+    "**/target",
+    "**/.idea",
+    "**/*.pyc",
+    "**/dist",
+    "**/build"
+  ],
+  "default_line_ending": "line_feed",
+
+  // ============================================================================
+  // TERMINAL CONFIGURATION
+  // ============================================================================
+  "terminal": {
+    "font_family": "JetBrainsMono Nerd Font",
+    "font_size": 13,
+    "line_height": "comfortable",
+    "alternate_scroll": "off",
+    "blinking": "off",
+    "copy_on_select": false,
+    "dock": "bottom",
+    // "detect_venv": {
+    //   "directories": [".venv", "venv", "env"],
+    //   "activate_script": "default"
+    // },
+    "env": {},
+    "option_as_meta": true,
+    "button": false
+    // "toolbar": {
+    //   "title": true
+    // },
+    // "shell": {
+    //   "program": "zsh",
+    //   "args": ["-l"]
+    // }
+  },
+
+  // ============================================================================
+  // THEME & UI
+  // ============================================================================
+  "theme": "Catppuccin Latte",
+  "tabs": {
+    "file_icons": true,
+    "git_status": true
+  },
+  "toolbar": {
+    "breadcrumbs": true,
+    "quick_actions": true
+  },
+  "project_panel": {
+    "button": true,
+    "dock": "left",
+    "git_status": true
+  },
+  "outline_panel": {
+    "dock": "right"
+  },
+
+  // ============================================================================
+  // GIT CONFIGURATION  
+  // ============================================================================
+  "git": {
+    "git_gutter": "tracked_files",
+    "inline_blame": {
+      "enabled": false
+    }
+  },
+
+  // ============================================================================
+  // LSP & CODE INTELLIGENCE
+  // ============================================================================
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "check": {
+          "command": "clippy"
+        }
+      }
+    },
+    "pyright": {
+      "initialization_options": {
+        "python.analysis.typeCheckingMode": "basic",
+        "python.analysis.autoImportCompletions": true
+      }
+    }
+  },
+  // "code_actions_on_format": ["source.organizeImports"],
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": true
+  },
+
+  // ============================================================================
+  // COLLABORATION & TELEMETRY
+  // ============================================================================
   "telemetry": {
     "diagnostics": true,
     "metrics": false
   },
-  "vim_mode": true,
-  "ui_font_size": 14,
-  "buffer_font_size": 14
+
+  // ============================================================================
+  // FEATURES & ASSISTANT
+  // ============================================================================
+  "edit_predictions": {
+    "provider": "copilot"
+  },
+  "agent": {
+    "default_model": {
+      "provider": "zhipu",
+      "model": "glm-4.7"
+    },
+    "button": true,
+    "dock": "right"
+  },
+
+  // ============================================================================
+  // SEARCH & DIAGNOSTICS
+  // ============================================================================
+  "search": {
+    "whole_word": false,
+    "case_sensitive": false,
+    "include_ignored": false,
+    "regex": false
+  },
+  "diagnostics": {
+    "include_warnings": true
+  },
+
+  // ============================================================================
+  // PERFORMANCE & BEHAVIOR
+  // ============================================================================
+  "restore_on_startup": "last_workspace",
+  "when_closing_with_no_tabs": "keep_window_open",
+  "autosave": "off",
+  "format_on_save": "off",
+  "remove_trailing_whitespace_on_save": false,
+  "ensure_final_newline_on_save": true,
+  "tab_size": 4,
+  "hard_tabs": false,
+  "preferred_line_length": 100,
+  "soft_wrap": "none",
+
+  // ============================================================================
+  // EXPERIMENTAL & MISC
+  // ============================================================================
+  "seed_search_query_from_cursor": "always"
 }

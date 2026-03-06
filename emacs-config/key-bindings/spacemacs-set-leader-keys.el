@@ -134,6 +134,12 @@
 
   "$m" #'mcp-hub-start
   "$gr" #'gptel-mcp-register-tool
+
+  ;; "acc" #'claude-code-transient
+  "ac" #'claude-code-ide-menu
+
+  "aY" #'yas-reload-all
+  "ay" #'agent-shell
   )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

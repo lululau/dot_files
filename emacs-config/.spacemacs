@@ -98,6 +98,8 @@
 
 (setq arthas-class-reload-k8s-list '((:context "aliyun" :namespace-filter "prod|test" :deployment-filter ".*")))
 
+(setq claude-code-ide-terminal-backend 'vterm)
+
 (setq vterm-eval-cmds '(("find-file" find-file)
                         ("message" message)
                         ("download" lx/run-in-vterm/download)
@@ -159,7 +161,7 @@
                       auto-completion-private-snippets-directory ,lx/snippets-path)
      ;; tabnine
      better-defaults
-     ;; (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
+     (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      emacs-lisp
      git
      ;; github ;; layer deprecated
@@ -282,17 +284,22 @@
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu
                                             jq-mode helm-dired-history go-dlv realgud-byebug
-                                            dired-subtree carbon-now-sh sx daemons evil-mc
+                                            dired-subtree carbon-now-sh sx daemons
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
                                             org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
-                                            ob-swiftui evil-goggles
-                                            (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
+                                            ob-swiftui evil-goggles gptel-agent
+                                            ;; (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
                                             (mcp :location (recipe :fetcher github :repo "lizqwerscott/mcp.el"))
-                                            (copilot :location (recipe :fetcher github :repo "lululau/copilot.el" :files ("*.el"))))
+                                            (copilot :location (recipe :fetcher github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+                                            ;; (opencode :location (recipe :fetcher github :repo "colobas/opencode.el" :files ("*.el")))
+                                            agent-shell
+                                            ;; (claude-code-ide :location (recipe :fetcher github :repo "manzaltu/claude-code-ide.el" :files ("*.el")))
+                                            )
+
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
@@ -383,11 +390,10 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-major-mode-leader-key ","
    ;; Major mode leader key accessible in `emacs state' and `insert state'
    dotspacemacs-major-mode-emacs-leader-key "s-,"
-   ;; The command key used for Evil commands (ex-commands) and
-   ;; Emacs commands (M-x).
-   ;; By default the command key is `:' so ex-commands are executed like in Vim
-   ;; with `:' and Emacs commands are executed with `<leader> :'.
-   dotspacemacs-command-key ":"
+   ;; The key used for Emacs commands `M-x' (after pressing on the leader key).
+   ;; (default "SPC")
+   dotspacemacs-emacs-command-key ":"
+
    ;; If non nil then `ido' replaces `helm' for some commands. For now only
    ;; `find-files' (SPC f f) is replaced.
    dotspacemacs-use-ido nil
@@ -435,12 +441,12 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-persistent-server nil
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
-   dotspacemacs-search-tools '("rg" "ag" "ack" "pt" "grep")
+   dotspacemacs-search-tools '("rg" "ag" "ack" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now.
    dotspacemacs-default-package-repository nil
-   dotspacemacs-helm-use-fuzzy 'always
+   helm-use-fuzzy 'always
    dotspacemacs-swith-to-buffer-prefers-purpose nil
    dotspacemacs-folding-method 'origami
    dotspacemacs-pretty-docs t
@@ -488,9 +494,12 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (add-hook 'lsp-completion-mode-hook #'lx/reset-lsp-company-backends)
 
   (setq mcp-hub-servers
-        '(("Fetch" . (:command "/Users/liuxiang/.local/bin/mcp-server-fetch" :args nil))
-          ("AppleScript" . (:command "/opt/homebrew/bin/applescript-mcp" :args nil))
-          ("Obsidian" . (:command "/Users/liuxiang/.local/bin/mcp-obsidian-wrapper" :args nil))))
+        '(
+          ;; ("Fetch" . (:command "/Users/liuxiang/.local/bin/mcp-server-fetch" :args nil))
+          ;; ("AppleScript" . (:command "/opt/homebrew/bin/applescript-mcp" :args nil))
+          ("Apple" . (:command "bunx" :args ("@dhravya/apple-mcp@latest")))
+          ("Context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp")))
+          ("Obsidian" . (:command "mcp-obsidian-wrapper" :args nil))))
   )
 
 (defun dotspacemacs/user-config ()
@@ -552,17 +561,10 @@ layers configuration."
   (setq mac-option-modifier 'meta)
   (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
   (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
-  (setq helm-locate-command "~/.rvm/gems/ruby-3.2.0/bin/mfd %s %s")
+  (setq helm-locate-command "~/.rvm/gems/default/bin/mfd %s %s")
   (setq gptel-default-mode 'org-mode)
   (setq gptel-prompt-string "** ")
   (setq gptel-model 'qwen-plus)
-  (setq gptel-backend  (gptel-make-openai "Dashscope"
-                         :host "dashscope.aliyuncs.com"
-                         :endpoint "/compatible-mode/v1/chat/completions"
-                         :stream t
-                         :key 'gptel-api-key-from-auth-source
-                         :models '(qwen-plus)))
-
   (setq edit-server-new-frame nil)
   (setq edit-server-url-major-mode-alist
         '(("docs\\.alibaba-inc\\.com" . confluence-edit-mode) ("jira\\.creditcloud\\.com" . confluence-edit-mode) ("jira\\.ktjr\\.com" . confluence-edit-mode) (".*" . markdown-mode)))
@@ -664,6 +666,7 @@ layers configuration."
                                   ("^/tmp/zsh[a-zA-Z0-9]\\{6\\}$" . sh-mode)
                                   ("\\.es$" . es-mode)
                                   ("\\.class" . jdecomp-mode)
+                                  ("\\.jsonc" . jsonc-mode)
                                   ("\\.d$" . dtrace-script-mode)
                                   ("\\.xlsx$" . visidata-mode)
                                   ("\\.chat$" . mind-wave-chat-mode)
@@ -963,6 +966,7 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-M-x-fuzzy-match t)
  ;; '(helm-ag-command-option "-U")
  ;; '(helm-ag-ignore-patterns (quote (".cache" "GPATH" "GRTAGS" "GTAGS" "TAGS" "log")))
+ '(helm-ag-base-command "rg --smart-case --no-heading --color=never --line-number --max-columns=150")
  '(helm-ag-use-agignore nil)
  '(helm-ag-use-grep-ignore-list nil)
  '(helm-buffers-fuzzy-matching t)
@@ -1040,7 +1044,7 @@ This function is called at the very end of Spacemacs initialization."
  '(magit-diff-use-overlays nil)
  '(magit-log-arguments (quote ("--graph" "--decorate" "-n256")))
  '(magit-revision-show-gravatars nil)
- '(magit-section-visibility-indicator nil)
+ '(magit-section-visibility-indicators nil)
  '(markdown-command "~/bin/markdown")
  '(mu4e-alert-interesting-mail-query "flag:unread AND NOT flag:trashed AND NOT f:kibana AND NOT f:devops")
  '(mu4e-attachment-dir "~/Downloads/")
@@ -1175,7 +1179,8 @@ This function is called at the very end of Spacemacs initialization."
  '(org-noter-notes-search-path (quote ("~/Documents/materials/org-notes")))
 '(safe-local-variable-values
 (quote
- ((arql-env . "lcldevb")
+ ((copilot-mode)
+  (arql-env . "lcldevb")
   (arql-env . "mddev")
   (arql-env . "mddev2")
   (arql-env . "ermasdevb")
@@ -1256,9 +1261,15 @@ This function is called at the very end of Spacemacs initialization."
    (sql-server "")))))
  '(vc-follow-symlinks t)
  '(docker-show-messages nil)
+ '(claude-code-ide-cli-extra-flags "--dangerously-skip-permissions")
  '(docker-run-async-with-buffer-function (quote docker-run-async-with-buffer-vterm))
  '(warning-minimum-level :emergency)
  '(warning-suppress-log-types (quote ((comp) (tramp) (copilot))))
+ '(gptel-confirm-tool-calls nil)
+ '(gptel-directives (quote ((default     . "You are a large language model living in Emacs and a helpful assistant. Respond concisely. When you need to save content to Obsidian, please use Obsidian MCP tools (such as append_content, patch_content) rather than Write or other file operation tools. Obsidian MCP tools automatically handle vault paths.")
+   (programming . "You are a large language model and a careful programmer. Provide code and only code as output without any additional text, prompt or note. When you need to save content to Obsidian, please use Obsidian MCP tools (such as append_content, patch_content) rather than Write or other file operation tools. Obsidian MCP tools automatically handle vault paths.")
+   (writing     . "You are a large language model and a writing assistant. Respond concisely. When you need to save content to Obsidian, please use Obsidian MCP tools (such as append_content, patch_content) rather than Write or other file operation tools. Obsidian MCP tools automatically handle vault paths.")
+   (chat        . "You are a large language model and a conversation partner. Respond concisely. When you need to save content to Obsidian, please use Obsidian MCP tools (such as append_content, patch_content) rather than Write or other file operation tools. Obsidian MCP tools automatically handle vault paths."))))
  '(warning-suppress-types (quote ((comp) (tramp) (copilot)))))
 
   (if (string-version-lessp "28.2" emacs-version)

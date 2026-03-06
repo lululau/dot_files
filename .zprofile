@@ -1,24 +1,3 @@
-# export PATH=$HOME/ServerApps/bin:$HOME/bin:$HOME/Library/Python/2.7/bin:$PATH
-if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
-    _new_path=($HOME/liuxiang/bin $HOME/liuxiang/local/bin $HOME/.local/bin)
-    for i in "${path[@]}"
-    do
-        if [ $HOME/liuxiang/bin != "$i" -a $HOME/liuxiang/local/bin != "$i" -a $HOME/.local/bin != "$i" ]; then
-            _new_path+=$i
-        fi
-    done
-else
-  _new_path=($HOME/ServerApps/bin $HOME/bin $HOME/.local/bin $HOME/Library/Python/3.12/bin $HOME/Library/Python/2.7/bin)
-    for i in "${path[@]}"
-    do
-      if [ $HOME/ServerApps/bin != "$i" -a $HOME/bin != "$i" -a $HOME/Library/Python/2.7/bin != "$i" -a $HOME/Library/Python/3.12/bin != "$i" ]; then
-            _new_path+=$i
-        fi
-    done
-fi
-
-path=(${_new_path})
-
 # GPG configuration
 # Check for the gpg-agent socket, and set SSH_AUTH_SOCK and GPG_TTY
 # environment variables accordingly:
@@ -37,4 +16,11 @@ if [ "$USER" = vagrant ]; then
 fi
 
 # Added by OrbStack: command-line tools and integration
-source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+if [ -e ~/.orbstack/shell/init.zsh ]; then
+  source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+fi
+
+# Added by swiftly
+if [ -e ~/.swiftly/env.sh ]; then
+  source ~/.swiftly/env.sh
+fi

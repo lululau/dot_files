@@ -161,3 +161,5 @@ function poea() {
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/liuxiang/.cache/lm-studio/bin"
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"

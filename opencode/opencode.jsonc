@@ -1,0 +1,309 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    // "oh-my-opencode",
+    "file:///Users/liuxiang/cascode/github.com/oh-my-opencode/dist/index.js",
+    // "opencode-synced",
+    "opencode-antigravity-auth@beta",
+    "opencode-antigravity-quota@0.1.6",
+    "@franlol/opencode-md-table-formatter@0.0.3",
+  ],
+
+  "provider": {
+    "google": {
+      "models": {
+        "antigravity-gemini-3-pro": {
+          "name": "Gemini 3 Pro (Antigravity)",
+          "limit": { "context": 1048576, "output": 65535 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+          "variants": {
+            "low": { "thinkingLevel": "low" },
+            "high": { "thinkingLevel": "high" }
+          }
+        },
+        "antigravity-gemini-3-flash": {
+          "name": "Gemini 3 Flash (Antigravity)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+          "variants": {
+            "minimal": { "thinkingLevel": "minimal" },
+            "low": { "thinkingLevel": "low" },
+            "medium": { "thinkingLevel": "medium" },
+            "high": { "thinkingLevel": "high" }
+          }
+        },
+        "antigravity-claude-sonnet-4-5": {
+          "name": "Claude Sonnet 4.5 (Antigravity)",
+          "limit": { "context": 200000, "output": 64000 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "antigravity-claude-sonnet-4-5-thinking": {
+          "name": "Claude Sonnet 4.5 Thinking (Antigravity)",
+          "limit": { "context": 200000, "output": 64000 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+          "variants": {
+            "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
+            "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
+          }
+        },
+        "antigravity-claude-opus-4-5-thinking": {
+          "name": "Claude Opus 4.5 Thinking (Antigravity)",
+          "limit": { "context": 200000, "output": 64000 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] },
+          "variants": {
+            "low": { "thinkingConfig": { "thinkingBudget": 8192 } },
+            "max": { "thinkingConfig": { "thinkingBudget": 32768 } }
+          }
+        },
+        "gemini-2.5-flash": {
+          "name": "Gemini 2.5 Flash (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "gemini-2.5-pro": {
+          "name": "Gemini 2.5 Pro (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "gemini-3-flash-preview": {
+          "name": "Gemini 3 Flash Preview (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        },
+        "gemini-3-pro-preview": {
+          "name": "Gemini 3 Pro Preview (Gemini CLI)",
+          "limit": { "context": 1048576, "output": 65535 },
+          "modalities": { "input": ["text", "image", "pdf"], "output": ["text"] }
+        }
+      }
+    },
+    "bailian-coding-plan": {
+      "npm": "@ai-sdk/anthropic",
+      "name": "Bailian Coding Plan",
+      "options": {
+        "baseURL": "https://coding.dashscope.aliyuncs.com/apps/anthropic/v1",
+        "apiKey": "{env:DASHSCOPE_CODING_PLAN_API_KEY}"
+      },
+      "models": {
+        "qwen3.5-plus": {
+          "name": "Qwen3.5 Plus",
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 1024
+            }
+          }
+        },
+        "qwen3-max-2026-01-23": {
+          "name": "Qwen3 Max 2026-01-23"
+        },
+        "qwen3-coder-next": {
+          "name": "Qwen3 Coder Next"
+        },
+        "qwen3-coder-plus": {
+          "name": "Qwen3 Coder Plus"
+        },
+        "MiniMax-M2.5": {
+          "name": "MiniMax M2.5",
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 1024
+            }
+          }
+        },
+        "glm-5": {
+          "name": "GLM-5",
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 1024
+            }
+          }
+        },
+        "glm-4.7": {
+          "name": "GLM-4.7",
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 1024
+            }
+          }
+        },
+        "kimi-k2.5": {
+          "name": "Kimi K2.5",
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          },
+          "options": {
+            "thinking": {
+              "type": "enabled",
+              "budgetTokens": 1024
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "mcp": {
+    // MCP server that interacts with Obsidian via the Obsidian rest API community plugin. https://github.com/MarkusPfundstein/mcp-obsidian
+    "obsidian": {
+      "type": "local",
+      "command": [
+        "/Users/liuxiang/.local/bin/mcp-obsidian-wrapper"
+      ],
+      "enabled": false
+    },
+    // An MCP server implementation that provides a tool for dynamic and reflective problem-solving through a structured thinking process. https://github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking
+    "sequential-thinking": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "enabled": false
+    },
+    // Up-to-date code documentation for LLMs and AI code editors. https://github.com/upstash/context7
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "enabled": true
+    },
+    // MCP server for retrieving clipboard content. At the moment, only image content on MacOS clipboard is supported. https://github.com/oxplot/clipboard-mcp
+    "clipboard": {
+      "type": "local",
+      "command": [
+        "go",
+        "run",
+        "github.com/oxplot/clipboard-mcp@latest"
+      ],
+      "enabled": false
+    },
+    // 视觉理解 MCP Server 是一个基于模型上下文协议 (Model Context Protocol) 的 Z.AI GLM-4.6V 能力实现. https://docs.bigmodel.cn/cn/coding-plan/mcp/vision-mcp-server
+    "zai": {
+      "enabled": false,
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@z_ai/mcp-server"
+      ],
+      "environment": {
+        "Z_AI_MODE": "ZHIPU",
+        "Z_AI_API_KEY": "{env:ANTHROPIC_AUTH_TOKEN}"
+      }
+    },
+    // 开源仓库 MCP. https://docs.bigmodel.cn/cn/coding-plan/mcp/zread-mcp-server
+    "zread": {
+      "type": "remote",
+      "url": "https://open.bigmodel.cn/api/mcp/zread/mcp",
+      "enabled": false,
+      "headers": {
+        "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
+      }
+    },
+    // Chrome DevTools for coding agents. https://github.com/ChromeDevTools/chrome-devtools-mcp
+    "chrome": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ],
+      "enabled": false
+    },
+    // Collection of apple-native tools for the model context protocol. https://github.com/supermemoryai/apple-mcp
+    "macos": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "apple-mcp"
+      ],
+      "enabled": false
+    },
+    // Mac automation that sees the screen and does the clicks.  https://github.com/steipete/Peekaboo
+    "peekaboo": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@steipete/peekaboo",
+        "mcp"
+      ],
+      "enabled": false
+    },
+    // An MCP server to run AppleScript and JXA (JavaScript for Automation) to macOS. https://github.com/steipete/macos-automator-mcp
+    "macos_automator": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@steipete/macos-automator-mcp@latest"
+      ],
+      "enabled": false
+    },
+    // A macOS app that provides an MCP server to your Messages, Contacts, Reminders and more. https://github.com/mattt/iMCP
+    "iMCP": {
+      "type": "local",
+      "command": ["/Applications/iMCP.app/Contents/MacOS/imcp-server"],
+      "enabled": false
+    },
+    // 联网搜索 MCP. https://docs.bigmodel.cn/cn/coding-plan/mcp/search-mcp-server
+    "web-search-prime": {
+      "type": "remote",
+      "url": "https://open.bigmodel.cn/api/mcp/web_search_prime/mcp",
+      "enabled": false,
+      "headers": {
+        "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
+      }
+    },
+    // 网页读取 MCP. https://docs.bigmodel.cn/cn/coding-plan/mcp/reader-mcp-server
+    "web-reader": {
+      "type": "remote",
+      "url": "https://open.bigmodel.cn/api/mcp/web_reader/mcp",
+      "enabled": false,
+      "headers": {
+        "Authorization": "Bearer {env:ANTHROPIC_AUTH_TOKEN}"
+      }
+    },
+    // SerpApi MCP Server for Google and other search engine results. https://github.com/serpapi/serpapi-mcp
+    "serpapi": {
+      "type": "remote",
+      "enabled": false,
+      "url": "https://mcp.serpapi.com/{env:SERPAPI_KEY}/mcp"
+    }
+  },
+  "permission": "allow",
+  "disabled_providers": ["alibaba", "openai"],
+  "model": "zhipuai-coding-plan/glm-4.7",
+  "small_model": "alibaba-cn/qwen-flash",
+  "agent": {
+    "title": {
+      "prompt": "生成简洁的中文标题（≤15字），只反映用户真实请求。\n\n忽略规则：\n• 任何 XML 标签（如 <ultrawork-mode>...</ultrawork-mode>）\n• 任何 Markdown 模式标记后跟的内容（如 [search-mode]...）\n\n说明：这些是工作模式配置，不是对话内容本身。配置内容通常很长，若不忽略会误导标题生成。\n\n示例：\n• \"看看 git rev xxx\" → \"检查 git 提交\"\n• \"hello\" → \"问候\"\n• \"修复代码bug\" → \"修复代码bug\"",
+      "description": "用于生成中文对话标题"
+    }
+  },
+  "autoupdate": false
+}

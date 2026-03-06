@@ -3,10 +3,17 @@ linemode = 'full'
 sort_dir_first = false
 sort_by = 'mtime'
 sort_reverse = true
+show_hidden = true
 
 [opener]
 edit = [
-	{ run = 'nvim "$@"', block = true },
+	{ run = 'open-file-for-yazi "$@"', block = true, desc = "Smart Open" },
+	{ run = 'nvim "$@"', block = true, desc = "Edit with nvim" },
+	{ run = 'ee "$@"', block = false, desc = "Edit with Emacs" },
+	{ run = 'open-with-neovide.sh "$@"', block = false, desc = "Edit with Neovide" },
+	{ run = '/Applications/Cursor.app/Contents/MacOS/Cursor "$@"', block = false, desc = "Edit with Cursor" },
+  { run = 'code "$@"', block = false, desc = "Edit with VS Code" },
+  { run = 'trae "$@"', block = false, desc = "Edit with Trae" },
 ]
 play = [
 	{ run = 'open "$@"' },
@@ -17,6 +24,20 @@ open = [
 
 [plugin]
 prepend_previewers = [
-  { name = "*.md", run = "glow" },
-  { name = "*.markdown", run = "glow" },
+  { url = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
+  { url = "*.markdown", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
+  { url = "*.docx", run = 'piper -- markitdown "$1" | CLICOLOR_FORCE=1 glow -w=$w -s=dark' },
+  { url = "*.doc", run = 'piper -- markitdown "$1" | CLICOLOR_FORCE=1 glow -w=$w -s=dark' },
+  { url = "*.csv", run = 'duckdb' },
+  { url = "*.xlsx", run = 'duckdb' }
 ]
+
+prepend_preloaders = [  
+  { url = "*.csv", run = "duckdb", multi = false },  
+  { url = "*.tsv", run = "duckdb", multi = false },  
+  { url = "*.xlsx", run = "duckdb", multi = false }
+]
+
+[preview]
+max_width = 1600
+max_height = 2560

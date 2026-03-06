@@ -12,6 +12,7 @@
 
 ;; Common used directories
 (setq lx/dirs `(("odA" applications-dir ("/Applications/" "/server"))
+                ("oda" global-claude-dir ("~/global-claude/"))
                 ("odb" blog-dir ("~/blog/"))
                 ("odB" bin-dir ("~/bin/"))
                 ("odC" cafe-dir ("~/Cafe/"))
@@ -26,8 +27,9 @@
                 ("odi" icloud-dir ("~/Library/Mobile Documents/com~apple~CloudDocs/"))
                 ("odk" sd-dir ("~/sd/"))
                 ("odK" kt-dir ("~/kt/"))
-                ("odl" las-dir ("~/Library/Application Support/" "/var/run/log"))
-                ("odL" lp-dir ("~/Library/Preferences/" "/data/logs"))
+                ("odl" lab-dir ("~/lab/" "/var/run/log"))
+                ("odp" las-dir ("~/Library/Application Support/"))
+                ("odP" lp-dir ("~/Library/Preferences/"))
                 ("odM" movies-dir ("~/Movies/"))
                 ("odm" materials-dir ("~/Documents/materials/"))
                 ("ods" scratch-dir ("~/Documents/materials/scratches/"))
@@ -82,6 +84,7 @@
       '(("och" hosts-config ("/sudo:root@localhost:/etc/hosts" "/etc/hosts"))
         ("ocS" sudoers ("/sudo:root@localhost:/etc/sudoers" "/etc/sudoers"))
         ("ocz" zshrc ("~/.zshrc"))
+        ("oco" opencode ("~/.config/opencode/opencode.jsonc"))
         ("ocp" pryrc ("~/.pryrc"))
         ("ocl" vrl ("~/.vrl.yml"))
         ("ocg" git ("~/.gitconfig"))
