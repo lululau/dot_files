@@ -633,3 +633,8 @@ if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
 else
   path=($HOME/ServerApps/bin $HOME/bin $HOME/.local/bin $HOME/Library/Python/3.14/bin $HOME/Library/Python/2.7/bin $HOMEBREW_PREFIX/bin $HOMEBREW_PREFIX/sbin $path)
 fi
+
+# OpenClaw Completion
+if [ -f "$HOME/.openclaw/completions/openclaw.zsh" ]; then
+  source "$HOME/.openclaw/completions/openclaw.zsh"
+fi
