@@ -123,4 +123,5 @@ export ANTHROPIC_BASE_URL=https://open.bigmodel.cn/api/anthropic
 export SERPAPI_KEY=$(cat ~/.config/secrets/.serpapi_api_key)
 export ZHIPU_API_KEY=$(cat ~/.config/secrets/.zhipu_api_key)
 export DASHSCOPE_CODING_PLAN_API_KEY=$(cat ~/.config/secrets/.dashscope_coding_plan_api_key)
+export VOLCENGINE_CODING_PLAN_API_KEY=$(cat ~/.config/secrets/.volcengine_coding_plan_api_key)
 
