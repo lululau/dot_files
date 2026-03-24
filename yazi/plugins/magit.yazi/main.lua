@@ -9,7 +9,7 @@ return {
                 timeout = 5,
             })
         else
-            permit = ya.hide()
+            permit = ui.hide()
             local status, err = Command("magit")
 							:stdin(Command.INHERIT)
 							:stdout(Command.INHERIT)

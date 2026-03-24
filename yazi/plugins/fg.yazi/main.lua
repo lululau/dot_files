@@ -14,7 +14,7 @@ local state = ya.sync(function() return tostring(cx.active.current.cwd) end)
 local function fail(s, ...) ya.notify { title = "Fzf", content = string.format(s, ...), timeout = 5, level = "error" } end
 
 local function entry(_, job)
-	local _permit = ya.hide()
+	local _permit = ui.hide()
 	local cwd = state()
 	local shell_value = os.getenv("SHELL"):match(".*/(.*)")
 	local cmd_args = ""

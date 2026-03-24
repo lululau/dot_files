@@ -8,7 +8,7 @@ local file_exists = function(name)
 end
 
 local function entry()
-	local _permit = ya.hide()
+	local _permit = ui.hide()
 	local cwd = state()
 
   local autojump_db_file = os.getenv("HOME") .. "/.local/share/autojump/autojump.txt"
