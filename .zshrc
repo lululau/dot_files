@@ -638,3 +638,8 @@ fi
 if [ -f "$HOME/.openclaw/completions/openclaw.zsh" ]; then
   source "$HOME/.openclaw/completions/openclaw.zsh"
 fi
+
+# opencli completion
+if [ -f "$HOME/.zsh/completions/_opencli" ]; then
+  fpath=($HOME/.zsh/completions $fpath)
+fi
