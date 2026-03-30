@@ -79,3 +79,9 @@ Like `vc-mode-line' but simpler, more efficient, and less buggy."
     (interactive)
     (s-lines (concat (lx/git-commit-get-diff)
             (lx/git-commit-get-message)))))
+
+(with-eval-after-load 'magit-merge
+  (advice-add 'magit-read-other-branches-or-commits
+              :override
+              (lambda (prompt &optional exclude secondary-default)
+                (magit-read-other-branch-or-commit prompt exclude secondary-default))))
