@@ -669,6 +669,7 @@ layers configuration."
                                   ("\\.d$" . dtrace-script-mode)
                                   ("\\.xlsx$" . visidata-mode)
                                   ("\\.chat$" . mind-wave-chat-mode)
+                                  ("\\.env\\..*\\'" . dotenv-mode)
                                   ("\\.sc$" . scala-mode)) auto-mode-alist))
 
   ;; (add-to-list 'magic-mode-alist '("import.+from\s+['\"]react['\"]" . rjsx-mode))
