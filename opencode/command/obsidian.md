@@ -43,7 +43,9 @@ description: Save content from current Claude session to Obsidian notes
    - 格式化内容为清晰的 Markdown 格式
    - 添加适当的标题、标签、日期等元数据
 
-5. **确认结果**：告诉用户笔记已保存，并提供文件路径
+5. **同步笔记**：保存完成后，执行 `/obsidian-sync` 同步 Obsidian 笔记到远程仓库和 Self-Host LiveSync 服务器
+
+6. **确认结果**：告诉用户笔记已保存并同步，并提供文件路径
 
 ## 内容格式建议
 
