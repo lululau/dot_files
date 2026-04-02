@@ -56,5 +56,6 @@ alias pp='pbpaste | view'
 alias pj='pbpaste | jless'
 alias yless="jless --yaml"
 alias claude!='clear; claude --dangerously-skip-permissions'
+alias cl='clear; claude --dangerously-skip-permissions'
 alias cursor='env -u TMUX -u TMUX_PANE command cursor'
 alias mdui=ekphos
