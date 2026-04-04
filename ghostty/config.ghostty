@@ -1,0 +1,4 @@
+theme = Catppuccin Macchiato
+macos-titlebar-style = tabs
+macos-titlebar-proxy-icon = hidden
+macos-option-as-alt = true
