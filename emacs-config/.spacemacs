@@ -481,6 +481,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (load-file lx/emacs-config-init-el)
 
+  (setq agent-shell-permission-responder-function #'agent-shell-permission-allow-always)
   (setq-default ruby-version-manager 'rvm)
   (setq-default ruby-enable-ruby-on-rails-support t)
   (setq evil-want-C-i-jump t)
@@ -1227,6 +1228,7 @@ This function is called at the very end of Spacemacs initialization."
  '(vterm-max-scrollback 10000)
  '(vterm-keymap-exceptions (quote ("C-c" "C-x" "C-u" "C-g" "C-h" "M-x" "M-o" "C-y" "M-y" "M-1" "M-2" "M-3" "M-4" "M-5" "M-6" "M-7" "M-8" "M-9" "M-0" "M-\\" "M-h" "M-l" "M-k" "M-:")))
  '(xwwp-follow-link-completion-system 'helm)
+ '(agent-shell-preferred-agent-config 'claude-code)
  '(helm-buffer-max-length 40)
  '(helm-move-to-line-cycle-in-source nil)
  '(copilot-overlay-safe nil)
