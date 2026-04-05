@@ -1,5 +1,7 @@
 (with-eval-after-load 'agent-shell
 
+  (define-key agent-shell-mode-map (kbd "C-v") 'agent-shell-send-clipboard-image)
+
   (cl-defun lx/agent-shell--buffer-files ()
     "Return buffer file(s) or `dired' selected file(s)."
     (if (buffer-file-name)
