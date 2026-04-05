@@ -320,6 +320,7 @@
 (global-unset-key (kbd "s-y"))
 (global-set-key (kbd "s-y s-y") 'agent-shell)
 (global-set-key (kbd "s-y y") 'agent-shell)
+(global-set-key (kbd "s-a y") 'agent-shell)
 (global-set-key (kbd "s-y s f") 'agent-shell-send-current-file)
 (global-set-key (kbd "s-y s s") 'agent-shell-send-dwim)
 (global-set-key (kbd "s-y s F") 'agent-shell-send-other-file)
