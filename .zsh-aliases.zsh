@@ -59,3 +59,4 @@ alias claude!='clear; claude --dangerously-skip-permissions'
 alias cl='clear; claude --dangerously-skip-permissions'
 alias cursor='env -u TMUX -u TMUX_PANE command cursor'
 alias mdui=ekphos
+alias oc=opencode
