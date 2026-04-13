@@ -39,7 +39,7 @@ description: Save content from current Claude session to Obsidian notes
    - 使用 `google-images` 命令搜索一个与内容相关的封面图片 URL（命令：`google-images <关键词> -n 1`）
 
 4. **保存到 Obsidian**：
-   - 使用 obsidian skill 创建或追加笔记
+   - 使用 obsidian-cli skill 创建或追加笔记
    - 格式化内容为清晰的 Markdown 格式
    - 添加适当的标题、标签、日期等元数据
 
