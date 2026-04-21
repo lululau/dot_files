@@ -35,6 +35,7 @@ set ideajoin
 let mapleader = " "
 
 " System/Global
+imap <S-tab> <Action>(InsertInlineCompletionAction)
 nnoremap s s<tab>
 nnoremap <leader>qq :action Exit<cr>
 nnoremap ,qq :action Exit<cr>
@@ -446,6 +447,7 @@ function! toggle_copilot()
   endif
 endfunction
 
+sethandler <Tab> a:ide
 sethandler <A-Tab> a:vim
 sethandler <C-2> a:vim
 sethandler <C-S-6> a:vim
