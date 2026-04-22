@@ -36,6 +36,7 @@ let mapleader = " "
 
 " System/Global
 imap <S-tab> <Action>(InsertInlineCompletionAction)
+imap <tab> <Action>(EmacsStyleIndent)
 nnoremap s s<tab>
 nnoremap <leader>qq :action Exit<cr>
 nnoremap ,qq :action Exit<cr>
