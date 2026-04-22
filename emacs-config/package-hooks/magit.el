@@ -78,10 +78,15 @@ Like `vc-mode-line' but simpler, more efficient, and less buggy."
   (defun lx/git-commit-get-doc ()
     (interactive)
     (s-lines (concat (lx/git-commit-get-diff)
-            (lx/git-commit-get-message)))))
+                     (lx/git-commit-get-message)))))
 
 (with-eval-after-load 'magit-merge
   (advice-add 'magit-read-other-branches-or-commits
               :override
               (lambda (prompt &optional exclude secondary-default)
                 (magit-read-other-branch-or-commit prompt exclude secondary-default))))
+
+
+(with-eval-after-load 'magit-status
+  (require 'git-fire)
+  (define-key magit-status-mode-map (kbd "C-c f") #'git-fire))
