@@ -62,8 +62,8 @@ noremap <D-k> 10k
 inoremap <D-j> <c-o>10j
 inoremap <D-k> <c-o>10k
 nnoremap Y y$
-" nnoremap <c-g> :call Clear_highlight_copilot()<cr>
-" inoremap <c-g> <c-o>:call Clear_highlight_copilot()<cr>
+nnoremap <c-g> :call Clear_highlight_copilot()<cr>
+inoremap <c-g> <c-o>:call Clear_highlight_copilot()<cr>
 noremap <a-x> :action RunAnything<cr>
 noremap mm :action ToggleBookmark<cr>
 noremap m :action ToggleBookmark<cr>
@@ -432,10 +432,10 @@ vnoremap <leader>bm    :action ActivateNotificationsToolWindow<CR>
 
 let g:copilot_on = 'true'
 
-" function! Clear_highlight_copilot()
-"   :noh
-"   :action copilot.disposeInlays
-" endfunction
+function! Clear_highlight_copilot()
+  :noh
+  :action copilot.nes.escape
+endfunction
 
 function! toggle_copilot()
   if g:copilot_on == 'true'
