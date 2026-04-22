@@ -89,4 +89,5 @@ Like `vc-mode-line' but simpler, more efficient, and less buggy."
 
 (with-eval-after-load 'magit-status
   (require 'git-fire)
-  (define-key magit-status-mode-map (kbd "C-c f") #'git-fire))
+  (define-key magit-status-mode-map (kbd "C-c f") #'git-fire)
+  (define-key magit-status-mode-map (kbd "C-c C-f") #'git-fire-and-push))
