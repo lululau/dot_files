@@ -133,6 +133,21 @@
             ]
           }
         },
+        "glm-5.1": {
+          "name": "glm-5.1",
+          "limit": {
+            "context": 200000,
+            "output": 4096
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
         "deepseek-v3.2": {
           "name": "deepseek-v3.2",
           "limit": {
@@ -203,8 +218,39 @@
             ]
           }
         },
+        "minimax-m2.7": {
+          "name": "minimax-m2.7",
+          "limit": {
+            "context": 200000,
+            "output": 4096
+          },
+          "modalities": {
+            "input": [
+              "text"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
         "kimi-k2.5": {
           "name": "kimi-k2.5",
+          "limit": {
+            "context": 256000,
+            "output": 4096
+          },
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
+        },
+        "kimi-k2.6": {
+          "name": "kimi-k2.6",
           "limit": {
             "context": 256000,
             "output": 4096
