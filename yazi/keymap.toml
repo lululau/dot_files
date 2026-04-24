@@ -189,6 +189,10 @@ on = ["<Space>", "o", "d", "p"]
 run = "cd -- ~/Library/Application Support/"
 desc = "Jump to ~/Library/Application Support/'"
 [[mgr.prepend_keymap]]
+on = ["<Space>", "o", "d", "L"]
+run = "cd -- ~/Library/Application Support/"
+desc = "Jump to ~/Library/Application Support/'"
+[[mgr.prepend_keymap]]
 on = ["<Space>", "o", "d", "P"]
 run = "cd -- ~/Library/Preferences/"
 desc = "Jump to ~/Library/Preferences/'"
