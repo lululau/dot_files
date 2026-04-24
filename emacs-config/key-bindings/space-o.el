@@ -30,6 +30,7 @@
                 ("odl" lab-dir ("~/lab/" "/var/run/log"))
                 ("odp" las-dir ("~/Library/Application Support/"))
                 ("odP" lp-dir ("~/Library/Preferences/"))
+                ("odL" lp2-dir ("~/Library/Preferences/"))
                 ("odM" movies-dir ("~/Movies/"))
                 ("odm" materials-dir ("~/Documents/materials/"))
                 ("ods" scratch-dir ("~/Documents/materials/scratches/"))
