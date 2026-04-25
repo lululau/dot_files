@@ -175,7 +175,7 @@ run = "cd -- ~/"
 desc = "Jump to ~/'"
 [[mgr.prepend_keymap]]
 on = ["<Space>", "o", "d", "i"]
-run = "cd -- ~/Library/Mobile\\ Documents/com~apple~CloudDocs/"
+run = "cd -- ~/Library/Mobile Documents/com~apple~CloudDocs/"
 desc = "Jump to ~/Library/Mobile Documents/com~apple~CloudDocs/'"
 [[mgr.prepend_keymap]]
 on = ["<Space>", "o", "d", "k"]
