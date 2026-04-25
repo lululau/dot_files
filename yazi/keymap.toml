@@ -1,4 +1,9 @@
 [[mgr.prepend_keymap]]
+on   = [ "q" ]
+run  = "plugin smart-quit"
+desc = "Quit or send close shortcut"
+
+[[mgr.prepend_keymap]]
 on   = [ "<Enter>" ]
 run  = "plugin smart-enter"
 desc = "Enter the child directory, or open the file"
