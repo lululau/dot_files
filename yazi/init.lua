@@ -20,3 +20,16 @@ function Linemode:full()
 	local size = self._file:size()
 	return ui.Line(string.format("%s %s %s ", perms, size and ya.readable_size(size) or "-", time))
 end
+
+function Status:name()
+	local h = cx.active.current.hovered
+	if not h then
+		return ui.Line("")
+	end
+	local path = tostring(h.url)
+	local home = os.getenv("HOME") or ""
+	if home ~= "" then
+		path = path:gsub("^" .. home, "~")
+	end
+	return ui.Line(" " .. path .. " ")
+end
