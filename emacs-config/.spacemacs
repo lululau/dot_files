@@ -291,7 +291,7 @@
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
                                             org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
-                                            ob-swiftui evil-goggles gptel-agent
+                                            ob-swiftui evil-goggles gptel-agent pg
                                             ;; (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
                                             (mcp :location (recipe :fetcher github :repo "lizqwerscott/mcp.el"))
                                             (copilot :location (recipe :fetcher github :repo "copilot-emacs/copilot.el" :files ("*.el")))
@@ -299,6 +299,7 @@
                                             ;; (opencode :location (recipe :fetcher github :repo "colobas/opencode.el" :files ("*.el")))
                                             agent-shell
                                             ;; (claude-code-ide :location (recipe :fetcher github :repo "manzaltu/claude-code-ide.el" :files ("*.el")))
+                                            (clutch :location (recipe :fetcher github :repo "LuciusChen/clutch" :branch "main" :files ("*.el")))
                                             )
 
    ;; A list of packages and/or extensions that will not be install and loaded.

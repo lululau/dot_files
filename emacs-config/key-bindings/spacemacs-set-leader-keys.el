@@ -140,6 +140,7 @@
 
   "aY" #'yas-reload-all
   "ay" #'agent-shell
+  "aq" #'clutch-query-console
   )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
