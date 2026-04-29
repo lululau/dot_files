@@ -276,6 +276,7 @@
      (latex :variables latex-build-command "XeLaTeX")
      terraform
      (llm-client :variables llm-client-enable-gptel t)
+     spacemacs-misc
      )
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
@@ -779,6 +780,8 @@ layers configuration."
   (add-hook 'text-mode-hook 'send-to-vterm-mode)
   (add-hook 'text-mode-hook 'evil-goggles-mode)
   (add-hook 'fundamental-mode-hook 'send-to-vterm-mode)
+
+  (add-to-list 'spacemacs-default-jump-handlers '(dumb-jump-go :async t) t)
 
   (require 'python)
   (setq python-interpreter "python")
