@@ -295,6 +295,7 @@
                                             ;; (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
                                             (mcp :location (recipe :fetcher github :repo "lizqwerscott/mcp.el"))
                                             (copilot :location (recipe :fetcher github :repo "copilot-emacs/copilot.el" :files ("*.el")))
+                                            (remoto :location (recipe :fetcher github :repo "agzam/remoto.el" :files ("*.el")))
                                             (tramp-rpc :location (recipe :fetcher github :repo "ArthurHeymans/emacs-tramp-rpc" :files ("lisp/*.el")))
                                             ;; (opencode :location (recipe :fetcher github :repo "colobas/opencode.el" :files ("*.el")))
                                             agent-shell

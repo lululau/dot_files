@@ -86,13 +86,14 @@
   "dk" #'docker
   "qk" #'lx/kill-all-except-default
   "bM" #'lx/switch-to-warning-buffer
-  "agu" #'omg-sync
-  "ags" #'omg-repo-list-starred
-  "agr" #'omg-repo-list-created
-  "agt" #'omg-trending-list
-  "agg" #'omg-gist-list-created
-  "agG" #'omg-gist-list-starred
-  "agi" #'omg-whoami
+  "ag" #'remoto-browse
+  ;; "agu" #'omg-sync
+  ;; "ags" #'omg-repo-list-starred
+  ;; "agr" #'omg-repo-list-created
+  ;; "agt" #'omg-trending-list
+  ;; "agg" #'omg-gist-list-created
+  ;; "agG" #'omg-gist-list-starred
+  ;; "agi" #'omg-whoami
   "man" #'helm-man-woman
   "mai" #'helm-info
   "xit" #'lx/insert-timestamp
