@@ -126,6 +126,7 @@
       ("os6" jicai-prod1 "/rpc:jicai.prod1:/data")
       ("os7" jicai-prod2 "/rpc:jicai.prod2:/data")
       ("os8" jicai-prod3 "/rpc:jicai.prod3:/data")
+      ("os9" ueos-dev "/rpc:ueos.dev:/data")
       ("osm" manjaro "/rpc:manjaro.z4:~/")
       ("os1" lx16 "/rpc:lx16:~/")
       ("os0" lx-sd "/rpc:lx.sd:~/")))
@@ -242,6 +243,8 @@
                 :fuzzy-match  t
                 :candidates  (list (cons (format "%-20s%s" "lx.sd" "~") "/rpc:lx.sd:~/")
                                    (cons (format "%-20s%s" "lx.sd16" "~") "/rpc:lx.sd16:~")
+                                   (cons (format "%-20s%s" "ueos.dev" "~") "/rpc:ueos.dev:~")
+                                   (cons (format "%-20s%s" "ueos.dev" "/data") "/rpc:ueos.dev:/data")
                                    (cons (format "%-20s%s" "manjaro.z4" "~") "/rpc:manjaro.z4:~")
                                    (cons (format "%-20s%s" "manjaro.z4" "~/.openclaw") "/rpc:manjaro.z4:~/.openclaw")
                                    (cons (format "%-20s%s" "jicai.dev" "/data") "/rpc:jicai.dev:/data")
