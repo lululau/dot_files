@@ -102,4 +102,4 @@ Temporarily registers the file in `clutch-connection-alist' so that
         (if existing
             (setcdr existing params)
           (push (cons name params) clutch-connection-alist))
-        (clutch-query-console name)))
+        (clutch-query-console name))))
