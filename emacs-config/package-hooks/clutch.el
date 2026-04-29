@@ -82,4 +82,24 @@
       "C-c C-l" 'clutch-switch-schema
       "C-c C-p" 'clutch-preview-execution-sql
       "C-c C-s" 'clutch-refresh-schema
-      "C-c ?"   'clutch-dispatch))
+      "C-c ?"   'clutch-dispatch)
+
+    (defun lx/clutch-open-sqlite (file)
+      "Interactively open a SQLite file in clutch.
+When called from a dired buffer, default to the file at point.
+Temporarily registers the file in `clutch-connection-alist' so that
+`clutch-query-console' can find it."
+      (interactive
+       (list
+        (let ((default
+               (when (derived-mode-p 'dired-mode)
+                 (dired-get-file-for-visit))))
+          (read-file-name "SQLite file: " nil default t (when default (file-name-nondirectory default))))))
+      (let* ((name (file-name-nondirectory (file-name-sans-extension file)))
+             (params `(:backend sqlite :database ,file))
+             (existing (assoc name clutch-connection-alist)))
+        ;; Register connection so clutch-query-console can find it
+        (if existing
+            (setcdr existing params)
+          (push (cons name params) clutch-connection-alist))
+        (clutch-query-console name)))
