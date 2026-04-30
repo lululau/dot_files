@@ -43,7 +43,7 @@
   // BASE CONFIGURATION
   // ============================================================================
   "which_key": {
-    "enabled": false
+    "enabled": true
   },
   "agent_servers": {
     "claude-acp": {
