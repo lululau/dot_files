@@ -248,7 +248,7 @@
       "space b n": "pane::ActivateNextItem",
 
       // <leader>bp - Previous buffer
-      "space b p": "pane::ActivatePreviousItem",
+      "space b p": "pane::ActivatePrevItem",
 
       // <leader><tab> - Switch to last buffer
       "space tab": "pane::ActivateLastItem"
@@ -274,16 +274,16 @@
       "space w d": "pane::CloseAllItems",
 
       // <leader>wh - Focus left pane
-      "space w h": "workspace::ActivatePaneLeft",
+      "space w h": ["workspace::ActivatePaneInDirection", "Left"],
 
       // <leader>wj - Focus down pane
-      "space w j": "workspace::ActivatePaneDown",
+      "space w j": ["workspace::ActivatePaneInDirection", "Down"],
 
       // <leader>wk - Focus up pane
-      "space w k": "workspace::ActivatePaneUp",
+      "space w k": ["workspace::ActivatePaneInDirection", "Up"],
 
       // <leader>wl - Focus right pane
-      "space w l": "workspace::ActivatePaneRight",
+      "space w l": ["workspace::ActivatePaneInDirection", "Right"],
 
       // <leader>wH - Move pane left (UNAVAILABLE - use drag and drop)
       // <leader>wL - Move pane right (UNAVAILABLE - use drag and drop)
@@ -443,16 +443,16 @@
       "space e n": "editor::GoToDiagnostic",
 
       // <leader>ep - Previous diagnostic
-      "space e p": "editor::GoToPreviousDiagnostic",
+      "space e p": "editor::GoToPrevDiagnostic",
 
       // [e - Previous error
-      "[ e": "editor::GoToPreviousDiagnostic",
+      "[ e": "editor::GoToPrevDiagnostic",
 
       // ]e - Next error
       "] e": "editor::GoToDiagnostic",
 
       // [c - Previous git change
-      "[ c": "editor::GoToPreviousHunk",
+      "[ c": "editor::GoToPrevHunk",
 
       // ]c - Next git change
       "] c": "editor::GoToHunk"
@@ -764,7 +764,7 @@
 
       // Navigate between tabs
       "alt-tab": "pane::ActivateNextItem",
-      "alt-`": "pane::ActivatePreviousItem"
+      "alt-`": "pane::ActivatePrevItem"
     }
   },
 
@@ -776,9 +776,9 @@
     "bindings": {
       // Focus specific panes/groups
       "alt-0": "project_panel::ToggleFocus",
-      "alt-1": "workspace::ActivatePaneLeft",
-      "alt-2": "workspace::ActivatePaneRight",
-      "alt-3": "workspace::ActivatePaneDown"
+      "alt-1": ["workspace::ActivatePaneInDirection", "Left"],
+      "alt-2": ["workspace::ActivatePaneInDirection", "Right"],
+      "alt-3": ["workspace::ActivatePaneInDirection", "Down"]
     }
   },
 
@@ -786,9 +786,9 @@
     "context": "Editor",
     "bindings": {
       // Navigate between splits
-      "alt-h": "workspace::ActivatePaneLeft",
-      "alt-l": "workspace::ActivatePaneRight",
-      "alt-k": "workspace::ActivatePaneUp"
+      "alt-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "alt-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "alt-k": ["workspace::ActivatePaneInDirection", "Up"]
     }
   },
 
@@ -830,14 +830,14 @@
 
       // Navigate between terminal tabs
       "cmd-]": "pane::ActivateNextItem",
-      "cmd-[": "pane::ActivatePreviousItem",
+      "cmd-[": "pane::ActivatePrevItem",
 
       // Close terminal
       "cmd-w": "workspace::ToggleBottomDock",
 
       // Terminal suggestion navigation
       "ctrl-n": "menu::SelectNext",
-      "ctrl-p": "menu::SelectPrevious"
+      "ctrl-p": "menu::SelectPrev"
     }
   },
 
@@ -909,8 +909,8 @@
     "context": "AssistantPanel || Assistant",
     "bindings": {
       // New chat/composer
-      // "cmd-n": "assistant::Assist",
-      // "cmd-t": "assistant::Assist",
+      "cmd-n": "assistant::Assist",
+      "cmd-t": "assistant::Assist",
 
       // Emacs-like navigation
       "ctrl-a": "editor::MoveToBeginningOfLine",
@@ -918,7 +918,7 @@
       "ctrl-f": "editor::MoveRight",
       "ctrl-k": "editor::DeleteToEndOfLine",
       "ctrl-d": "editor::Delete",
-      "ctrl-p": "menu::SelectPrevious",
+      "ctrl-p": "menu::SelectPrev",
       "ctrl-n": "menu::SelectNext",
       "alt-f": "editor::MoveToNextWordEnd",
       "alt-d": "editor::DeleteToNextWordEnd"
@@ -936,7 +936,7 @@
 
       // Navigate completions
       "ctrl-n": "editor::ContextMenuNext",
-      "ctrl-p": "editor::ContextMenuPrevious"
+      "ctrl-p": "editor::ContextMenuPrev"
     }
   },
 
