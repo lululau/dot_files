@@ -42,6 +42,14 @@
   // ============================================================================
   // BASE CONFIGURATION
   // ============================================================================
+  "which_key": {
+    "enabled": false
+  },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
   "language_models": {
     "openai_compatible": {
       "zhipu": {
@@ -96,7 +104,7 @@
   "vim": {
     "use_system_clipboard": "always",
     "use_multiline_find": true,
-    "toggle_relative_line_numbers": true
+    "toggle_relative_line_numbers": false
   },
 
   // ============================================================================
