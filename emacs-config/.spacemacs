@@ -776,6 +776,7 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
   (add-hook 'prog-mode-hook 'copilot-mode)
+  (add-hook 'clutch-mode-hook (lambda () (copilot-mode -1)))
   (add-hook 'prog-mode-hook 'send-to-vterm-mode)
   (add-hook 'prog-mode-hook 'evil-goggles-mode)
   (add-hook 'text-mode-hook 'copilot-mode)
