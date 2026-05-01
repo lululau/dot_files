@@ -42,6 +42,12 @@
   // ============================================================================
   // BASE CONFIGURATION
   // ============================================================================
+  "collaboration_panel": {
+    "dock": "right"
+  },
+  "git_panel": {
+    "dock": "right"
+  },
   "which_key": {
     "enabled": true
   },
@@ -290,7 +296,7 @@
   },
   "project_panel": {
     "button": true,
-    "dock": "left",
+    "dock": "right",
     "git_status": true
   },
   "outline_panel": {
@@ -353,7 +359,7 @@
       "model": "glm-4.7"
     },
     "button": true,
-    "dock": "right"
+    "dock": "left"
   },
 
   // ============================================================================
