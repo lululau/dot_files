@@ -764,6 +764,8 @@ layers configuration."
 
   (setq calc-window-height 26)
 
+  (setq clutch-console-directory (expand-file-name "~/Documents/.clutch"))
+
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
 
