@@ -406,7 +406,7 @@
   },
   "permission": "allow",
   "disabled_providers": ["alibaba", "openai"],
-  "model": "zhipuai-coding-plan/glm-5-turbo",
+  "model": "zhipuai-coding-plan/glm-5.1",
   "small_model": "alibaba-cn/qwen-flash",
   "agent": {
     "title": {
