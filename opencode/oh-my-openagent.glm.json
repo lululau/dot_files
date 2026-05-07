@@ -1,33 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
-  "agents": {
-    "explore": {
-      "model": "zhipuai-coding-plan/glm-4.7-flash"
-    },
-    "document-writer": {
-      "model": "zhipuai-coding-plan/glm-4.7-flash"
-    },
-    "multimodal-looker": {
-      "model": "zhipuai-coding-plan/glm-4.6v"
-    }
-  },
-
   "categories": {
-    "writing": {
-      "model": "zhipuai-coding-plan/glm-4.7-flash"
-    },
-    "visual-engineering": {
-      "model": "zhipuai-coding-plan/glm-4.6v"
-    },
-    "ultrabrain": {
-      "model": "zhipuai-coding-plan/glm-5-turbo"
-    },
-    "deep": {
-      "model": "zhipuai-coding-plan/glm-5-turbo"
-    },
-    "artistry": {
-      "model": "zhipuai-coding-plan/glm-5-turbo"
-    },
     "quick": {
       "model": "zhipuai-coding-plan/glm-4.7-flash"
     },
@@ -35,8 +7,38 @@
       "model": "zhipuai-coding-plan/glm-4.7-flash"
     },
     "unspecified-high": {
+      "model": "zhipuai-coding-plan/glm-5.1"
+    },
+    "writing": {
       "model": "zhipuai-coding-plan/glm-5-turbo"
+    },
+    "visual-engineering": {
+      "model": "zhipuai-coding-plan/glm-4.6v"
+    },
+    "ultrabrain": {
+      "model": "zhipuai-coding-plan/glm-5.1"
+    },
+    "deep": {
+      "model": "zhipuai-coding-plan/glm-5.1"
+    },
+    "artistry": {
+      "model": "zhipuai-coding-plan/glm-5.1"
     }
+  },
+
+  "agents": {
+    "sisyphus": { "model": "zhipuai-coding-plan/glm-5.1" },
+    "oracle": { "model": "zhipuai-coding-plan/glm-5.1" },
+    "prometheus": { "model": "zhipuai-coding-plan/glm-5.1" },
+    "metis": { "model": "zhipuai-coding-plan/glm-5.1" },
+    "momus": { "model": "zhipuai-coding-plan/glm-5.1" },
+    "sisyphus-junior": { "model": "zhipuai-coding-plan/glm-5.1" },
+    "atlas": { "model": "zhipuai-coding-plan/glm-5.1" },
+    "explore": { "model": "zhipuai-coding-plan/glm-5-turbo" },
+    "librarian": { "model": "zhipuai-coding-plan/glm-5-turbo" },
+    "multimodal-looker": { "model": "zhipuai-coding-plan/glm-4.6v" },
+    "build": { "model": "zhipuai-coding-plan/glm-5.1" },
+    "hephaestus": { "model": "zhipuai-coding-plan/glm-5.1" }
   },
 
   "sisyphus_agent": {
