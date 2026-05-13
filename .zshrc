@@ -346,74 +346,25 @@ zle-keymap-select () {
 }
 zle -N zle-keymap-select
 
-vterm_printf(){
-  if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
-    # Tell tmux to pass the escape sequences through
-    printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-  elif [ "${TERM%%-*}" = "screen" ]; then
-    # GNU screen (screen, screen-256color, screen-256color-bce)
-    printf "\eP\e]%s\007\e\\" "$1"
-  else
-    printf "\e]%s\e\\" "$1"
-  fi
-}
-
-
-vterm_cmd() {
-  local vterm_elisp
-  vterm_elisp=""
-  while [ $# -gt 0 ]; do
-    vterm_elisp="$vterm_elisp""$(printf '"%s" ' "$(printf "%s" "$1" | sed -e 's|\\|\\\\|g' -e 's|"|\\"|g')")"
-    shift
-  done
-  vterm_printf "51;E$vterm_elisp"
-}
-
-vterm_set_directory() {
-  vterm_cmd update-pwd "$PWD/"
-}
 
 me() {
-  local file=$1
-  if [ -n "$file" ]; then
-    if [ "$file[1]" != "/" ]; then
-      file="$PWD/$file"
-    fi
-  else
+  local file="$1"
+  if [ -z "$file" ]; then
     file="$PWD"
   fi
   local host_name=$HOST
-  vterm_cmd find-remote-file "$file" "$host_name"
+  printf "\e]51;E\"find-remote-file\" \"%s\" \"%s\"\e\\" "$file" "$host_name"
 }
 
 sme() {
-  local file=$1
-  if [ -n "$file" ]; then
-    if [ "$file[1]" != "/" ]; then
-      file="$PWD/$file"
-    fi
-  else
+  local file="$1"
+  if [ -z "$file" ]; then
     file="$PWD"
   fi
   local host_name=$HOST
-  vterm_cmd sudo-find-remote-file "$file" "$host_name"
+  printf "\e]51;E\"sudo-find-remote-file\" \"%s\" \"%s\"\e\\" "$file" "$host_name"
 }
 
-
-# if is_inside_emacs | grep -q true; then
-#   # zle-keymap-select () {
-#   #   starship_render
-#   #   zle reset-prompt
-#   #   case $KEYMAP in
-#   #     vicmd) printf "\e]51;Elx/run-in-vterm/set-green-box-cursor\e\\";;
-#   #     viins|main) printf "\e]51;Elx/run-in-vterm/set-blue-bar-cursor\e\\";;
-#   #   esac
-#   # }
-# fi
-
-autoload -U add-zsh-hook
-add-zsh-hook -Uz chpwd (){ vterm_set_directory }
-add-zsh-hook -Uz precmd (){ vterm_set_directory }
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bitcomplete bit
@@ -431,45 +382,41 @@ function set_vim_cursor_type() {
 
 preexec_functions+=(set_vim_cursor_type)
 
-HISTDB_VTERM_SESSION=$RANDOM
+HISTDB_GHOSTEL_SESSION=$RANDOM
 
-function save_history_to_vterm() {
+function save_history_to_ghostel() {
   local cmd="${1[0, -2]}"
-
   for boring in "${_BORING_COMMANDS[@]}"; do
-    if [[ "$cmd" =~ $boring ]]; then
-      return 0
-    fi
+    [[ "$cmd" == "$boring"* ]] && return 0
   done
-
   local pwd=$PWD
   local started=$(date +%s)
   local host_name=$HOST
-  vterm_cmd save-zsh-history "$HISTDB_VTERM_SESSION" "$host_name" "$cmd" "$pwd" "$started"
+  printf "\e]51;E\"save-zsh-history\" \"%s\" \"%s\" \"%s\" \"%s\" \"%s\"\e\\" "$HISTDB_GHOSTEL_SESSION" "$host_name" "$cmd" "$pwd" "$started"
   return 0
 }
 
-function update_history_outcome_to_vterm() {
+function update_history_outcome_to_ghostel() {
   local retval=$?
   local finished=$(date +%s)
   local host_name=$HOST
-  vterm_cmd update-zsh-history-outcome "$HISTDB_VTERM_SESSION" "$host_name" "$retval" "$finished"
+  printf "\e]51;E\"update-zsh-history-outcome\" \"%s\" \"%s\" \"%s\" \"%s\"\e\\" "$HISTDB_GHOSTEL_SESSION" "$host_name" "$retval" "$finished"
 }
 
 # autoload -Uz add-zsh-hook
-add-zsh-hook precmd update_history_outcome_to_vterm
-zshaddhistory_functions+=(save_history_to_vterm)
+add-zsh-hook precmd update_history_outcome_to_ghostel
+zshaddhistory_functions+=(save_history_to_ghostel)
 
 function download() {
   local file=$1
   if [ "$file[1]" != "/" ]; then
     file="$PWD/$file"
   fi
-  vterm_cmd download "$file"
+  printf "\e]51;E\"download\" \"%s\"\e\\" "$file"
 }
 
 function upload() {
-  vterm_cmd upload "$PWD"
+  printf "\e]51;E\"upload\" \"%s\"\e\\" "$PWD"
 }
 
 function helm-dired-history-update() {
