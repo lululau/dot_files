@@ -111,7 +111,7 @@
   "cg" #'chatgpt-query
   "ct" #'gptel
   "cs" #'chatgpt-shell
-  "CS" #'(lambda () (interactive) (lx/run-in-pry-vterm "chatsh 4" "*chatsh*"))
+  "CS" #'(lambda () (interactive) (lx/run-in-pry-ghostel "chatsh 4" "*chatsh*"))
 
   "cxg" #'mind-wave-generate-code
   "cxr" #'mind-wave-refactory-code

@@ -637,19 +637,19 @@
                         `(term-color-yellow ((,class (:foreground ,yellow))))
 
 
-;;;;; vterm
-                        `(vterm-color-default ((,class (:foreground ,base :background ,bg1))))
-                        ;; vterm-color-black used to render black color code.
+;;;;; ghostel
+                        `(ghostel-default ((,class (:foreground ,base :background ,bg1))))
+                        ;; ghostel-color-black used to render black color code.
                         ;; The foreground color is used as ANSI color 0 and the background
                         ;; color is used as ANSI color 8.
-                        `(vterm-color-black ((,class (:foreground "#6c7890" :background "#6c7890"))))
-                        `(vterm-color-blue ((,class (:foreground ,blue :background ,blue))))
-                        `(vterm-color-cyan ((,class (:foreground ,cyan :background ,cyan))))
-                        `(vterm-color-green ((,class (:foreground ,green :background ,green))))
-                        `(vterm-color-magenta ((,class (:foreground ,magenta :background ,magenta))))
-                        `(vterm-color-red ((,class (:foreground ,red  :background ,red))))
-                        `(vterm-color-white ((,class (:foreground ,base  :background ,base))))
-                        `(vterm-color-yellow ((,class (:foreground ,yellow   :background ,yellow))))
+                        `(ghostel-color-black ((,class (:foreground "#6c7890" :background "#6c7890"))))
+                        `(ghostel-color-blue ((,class (:foreground ,blue :background ,blue))))
+                        `(ghostel-color-cyan ((,class (:foreground ,cyan :background ,cyan))))
+                        `(ghostel-color-green ((,class (:foreground ,green :background ,green))))
+                        `(ghostel-color-magenta ((,class (:foreground ,magenta :background ,magenta))))
+                        `(ghostel-color-red ((,class (:foreground ,red  :background ,red))))
+                        `(ghostel-color-white ((,class (:foreground ,base  :background ,base))))
+                        `(ghostel-color-yellow ((,class (:foreground ,yellow   :background ,yellow))))
 
 ;;;;; web-mode
                         `(web-mode-builtin-face ((,class (:inherit ,font-lock-builtin-face))))
