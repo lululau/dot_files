@@ -21,7 +21,7 @@
     (with-current-buffer buf
       (unless (derived-mode-p 'ssh-zsh-ghostel-mode)
         (ssh-zsh-ghostel-mode)
-        (setq-local ssh-zsh-ghostel-ssh-options ssh-options))))
+        (setq-local ssh-zsh-ghostel-ssh-options ssh-options)))
     buf))
 
 (defun  lx/run-ssh-in-zsh-ghostel (command buffer-name &optional ssh-options directory window-type)
