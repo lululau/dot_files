@@ -243,6 +243,7 @@
                 :fuzzy-match  t
                 :candidates  (list (cons (format "%-20s%s" "lx.sd" "~") "/rpc:lx.sd:~/")
                                    (cons (format "%-20s%s" "lx.sd16" "~") "/rpc:lx.sd16:~")
+                                   (cons (format "%-20s%s" "lx.local" "~") "/rpc:lx:~")
                                    (cons (format "%-20s%s" "ueos.dev" "~") "/rpc:ueos.dev:~")
                                    (cons (format "%-20s%s" "ueos.dev" "/data") "/rpc:ueos.dev:/data")
                                    (cons (format "%-20s%s" "manjaro.z4" "~") "/rpc:manjaro.z4:~")
