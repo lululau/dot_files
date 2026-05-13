@@ -601,28 +601,28 @@ Remove empty lines
 
 ;;;***
 
-;;;### (autoloads nil "send-to-vterm" "send-to-vterm.el" (0 0 0 0))
-;;; Generated autoloads from send-to-vterm.el
+;;;### (autoloads nil "send-to-ghostel" "send-to-ghostel.el" (0 0 0 0))
+;;; Generated autoloads from send-to-ghostel.el
 
-(autoload 'lx/vterm-send-line "send-to-vterm" nil t)
+(autoload 'lx/ghostel-send-line "send-to-ghostel" nil t)
 
-(autoload 'lx/vterm-send-line-and-go "send-to-vterm" nil t)
+(autoload 'lx/ghostel-send-line-and-go "send-to-ghostel" nil t)
 
-(autoload 'lx/vterm-send-paragraph "send-to-vterm" nil t)
+(autoload 'lx/ghostel-send-paragraph "send-to-ghostel" nil t)
 
-(autoload 'lx/vterm-send-paragraph-and-go "send-to-vterm" nil t)
+(autoload 'lx/ghostel-send-paragraph-and-go "send-to-ghostel" nil t)
 
-(autoload 'lx/vterm-send-region "send-to-vterm" nil t)
+(autoload 'lx/ghostel-send-region "send-to-ghostel" nil t)
 
-(autoload 'lx/vterm-send-region-and-go "send-to-vterm" nil t)
+(autoload 'lx/ghostel-send-region-and-go "send-to-ghostel" nil t)
 
-(autoload 'lx/vterm-send-babel-block "send-to-vterm" nil t)
+(autoload 'lx/ghostel-send-babel-block "send-to-ghostel" nil t)
 
-(autoload 'lx/vterm-send-babel-block-and-go "send-to-vterm" nil t)
+(autoload 'lx/ghostel-send-babel-block-and-go "send-to-ghostel" nil t)
 
-(autoload 'lx/find-vterm-buffer "send-to-vterm")
+(autoload 'lx/find-ghostel-buffer "send-to-ghostel")
 
-(register-definition-prefixes "send-to-vterm" '("send-to-vterm-mode"))
+(register-definition-prefixes "send-to-ghostel" '("send-to-ghostel-mode"))
 
 ;;;***
 
@@ -831,23 +831,23 @@ View the body of the message inside xwidget-webkit.
 
 (setq mcp-started nil)
 
-(defvar send-to-vterm-mode-keymap (make-sparse-keymap))
+(defvar send-to-ghostel-mode-keymap (make-sparse-keymap))
 
-(define-minor-mode send-to-vterm-mode
-  "Send to vterm mode"
-  :lighter " Send to vterm"
-  :keymap send-to-vterm-mode-keymap
-  :group 'send-to-vterm-mode
+(define-minor-mode send-to-ghostel-mode
+  "Send to ghostel mode"
+  :lighter " Send to ghostel"
+  :keymap send-to-ghostel-mode-keymap
+  :group 'send-to-ghostel-mode
 
-  (spacemacs/set-leader-keys-for-minor-mode 'send-to-vterm-mode
-    "Sl" 'lx/vterm-send-line
-    "SL" 'lx/vterm-send-line-and-go
-    "Sr" 'lx/vterm-send-region
-    "SR" 'lx/vterm-send-region-and-go
-    "Sp" 'lx/vterm-send-paragraph
-    "SP" 'lx/vterm-send-paragraph-and-go
-    "Sb" 'lx/vterm-send-babel-block
-    "SB" 'lx/vterm-send-babel-block-and-go))
+  (spacemacs/set-leader-keys-for-minor-mode 'send-to-ghostel-mode
+    "Sl" 'lx/ghostel-send-line
+    "SL" 'lx/ghostel-send-line-and-go
+    "Sr" 'lx/ghostel-send-region
+    "SR" 'lx/ghostel-send-region-and-go
+    "Sp" 'lx/ghostel-send-paragraph
+    "SP" 'lx/ghostel-send-paragraph-and-go
+    "Sb" 'lx/ghostel-send-babel-block
+    "SB" 'lx/ghostel-send-babel-block-and-go))
 
 
 (add-hook 'persp-before-deactivate-functions 'lx/remember-previous-persp)

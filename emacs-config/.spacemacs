@@ -96,20 +96,20 @@
 
 (setq arthas-class-reload-k8s-list '((:context "aliyun" :namespace-filter "prod|test" :deployment-filter ".*")))
 
-(setq claude-code-ide-terminal-backend 'vterm)
+(setq claude-code-ide-terminal-backend 'ghostel)
 
-(setq vterm-eval-cmds '(("find-file" find-file)
+(setq ghostel-eval-cmds '(("find-file" find-file)
                         ("message" message)
-                        ("download" lx/run-in-vterm/download)
-                        ("upload" lx/run-in-vterm/upload)
-                        ("vterm-clear-scrollback" vterm-clear-scrollback)
-                        ("lx/run-in-vterm/set-green-box-cursor" lx/run-in-vterm/set-green-box-cursor)
-                        ("lx/run-in-vterm/set-blue-bar-cursor" lx/run-in-vterm/set-blue-bar-cursor)
-                        ("update-pwd" lx/run-in-vterm/set-default-directory)
-                        ("find-remote-file" lx/run-in-vterm/find-remote-file)
-                        ("sudo-find-remote-file" lx/run-in-vterm/sudo-find-remote-file)
-                        ("save-zsh-history" lx/run-in-vterm/save-history-to-vterm)
-                        ("update-zsh-history-outcome" lx/run-in-vterm/update-history-outcome-to-vterm)))
+                        ("download" lx/run-in-ghostel/download)
+                        ("upload" lx/run-in-ghostel/upload)
+                        ("ghostel-clear-scrollback" ghostel-clear-scrollback)
+                        ("lx/run-in-ghostel/set-green-box-cursor" lx/run-in-ghostel/set-green-box-cursor)
+                        ("lx/run-in-ghostel/set-blue-bar-cursor" lx/run-in-ghostel/set-blue-bar-cursor)
+                        ("update-pwd" lx/run-in-ghostel/set-default-directory)
+                        ("find-remote-file" lx/run-in-ghostel/find-remote-file)
+                        ("sudo-find-remote-file" lx/run-in-ghostel/sudo-find-remote-file)
+                        ("save-zsh-history" lx/run-in-ghostel/save-history-to-ghostel)
+                        ("update-zsh-history-outcome" lx/run-in-ghostel/update-history-outcome-to-ghostel)))
 
 (setq mu4e-view-highlights '(("com\\.\\(ktjr\\|creditcloud\\|ibg\\)" . hi-yellow)
                              ("^[^ ]*Exception: " . hi-red-b)
@@ -141,7 +141,7 @@
      ;; ----------------------------------------------------------------
      (spacemacs-layouts :variables
                         spacemacs-layouts-restrict-spc-tab t)
-     (spacemacs-evil :variable spacemacs-evil-collection-allowed-list '(eww dired quickrun zsh-vterm pry-vterm))
+     (spacemacs-evil :variable spacemacs-evil-collection-allowed-list '(eww dired quickrun zsh-ghostel pry-ghostel))
      ;; lsp
      (lsp :variables lsp-rust-server 'rust-analyzer)
      ansible
@@ -188,7 +188,7 @@
      (shell :variables
             shell-default-height 38
             shell-default-position 'bottom
-            shell-default-shell 'vterm
+            shell-default-shell 'ghostel
             shell-default-term-shell ,lx/default-shell)
      syntax-checking
      (version-control :variables
@@ -771,7 +771,7 @@ layers configuration."
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
 
-  (make-shell-pop-command "zsh-vterm" zsh-vterm)
+  (make-shell-pop-command "zsh-ghostel" zsh-ghostel)
 
   (add-hook 'post-command-hook #'lx/reset-hybrid-state-cursor-type-after-tab)
 
@@ -781,12 +781,12 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions "site-packages/")
   (add-hook 'prog-mode-hook 'copilot-mode)
   (add-hook 'clutch-mode-hook (lambda () (copilot-mode -1)))
-  (add-hook 'prog-mode-hook 'send-to-vterm-mode)
+  (add-hook 'prog-mode-hook 'send-to-ghostel-mode)
   (add-hook 'prog-mode-hook 'evil-goggles-mode)
   (add-hook 'text-mode-hook 'copilot-mode)
-  (add-hook 'text-mode-hook 'send-to-vterm-mode)
+  (add-hook 'text-mode-hook 'send-to-ghostel-mode)
   (add-hook 'text-mode-hook 'evil-goggles-mode)
-  (add-hook 'fundamental-mode-hook 'send-to-vterm-mode)
+  (add-hook 'fundamental-mode-hook 'send-to-ghostel-mode)
 
   (add-to-list 'spacemacs-default-jump-handlers '(dumb-jump-go :async t) t)
 
@@ -1236,8 +1236,8 @@ This function is called at the very end of Spacemacs initialization."
  '(jdecomp-decompiler-paths (quote ((fernflower . "/Applications/IntelliJ IDEA.app/Contents/plugins/java-decompiler/lib/java-decompiler.jar"))))
  '(cargo-process--enable-rust-backtrace t)
  '(org-journal-enable-agenda-integration t)
- '(vterm-max-scrollback 10000)
- '(vterm-keymap-exceptions (quote ("C-c" "C-x" "C-u" "C-g" "C-h" "M-x" "M-o" "C-y" "M-y" "M-1" "M-2" "M-3" "M-4" "M-5" "M-6" "M-7" "M-8" "M-9" "M-0" "M-\\" "M-h" "M-l" "M-k" "M-:")))
+ '(ghostel-max-scrollback 10000)
+ '(ghostel-keymap-exceptions (quote ("C-c" "C-x" "C-u" "C-g" "C-h" "M-x" "M-o" "C-y" "M-y" "M-1" "M-2" "M-3" "M-4" "M-5" "M-6" "M-7" "M-8" "M-9" "M-0" "M-\\" "M-h" "M-l" "M-k" "M-:")))
  '(xwwp-follow-link-completion-system 'helm)
  '(agent-shell-preferred-agent-config 'claude-code)
  '(helm-buffer-max-length 40)
@@ -1276,7 +1276,7 @@ This function is called at the very end of Spacemacs initialization."
  '(vc-follow-symlinks t)
  '(docker-show-messages nil)
  '(claude-code-ide-cli-extra-flags "--dangerously-skip-permissions")
- '(docker-run-async-with-buffer-function (quote docker-run-async-with-buffer-vterm))
+ '(docker-run-async-with-buffer-function (quote docker-run-async-with-buffer-ghostel))
  '(warning-minimum-level :emergency)
  '(warning-suppress-log-types (quote ((comp) (tramp) (copilot))))
  '(gptel-confirm-tool-calls nil)
