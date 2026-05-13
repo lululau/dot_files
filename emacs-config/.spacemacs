@@ -299,6 +299,7 @@
                                             (tramp-rpc :location (recipe :fetcher github :repo "ArthurHeymans/emacs-tramp-rpc" :files ("lisp/*.el")))
                                             ;; (opencode :location (recipe :fetcher github :repo "colobas/opencode.el" :files ("*.el")))
                                             agent-shell
+                                            ghostel
                                             ;; (claude-code-ide :location (recipe :fetcher github :repo "manzaltu/claude-code-ide.el" :files ("*.el")))
                                             (clutch :location (recipe :fetcher github :repo "LuciusChen/clutch" :branch "main" :files ("*.el")))
                                             ;; (appine :location (recipe :fetcher github :repo "chaoswork/appine" :files ("*.el")))
