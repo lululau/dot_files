@@ -146,10 +146,10 @@
                   (is-remote (or (string-prefix-p "/scp:" pwd)
                                  (string-prefix-p "/ssh:" pwd)
                                  (string-prefix-p "/rpc:" pwd)
-                                 (eq major-mode 'ssh-zsh-vterm-mode)))
+                                 (eq major-mode 'ssh-zsh-ghostel-mode)))
                   (remote-host (if is-remote
-                                   (if (eq major-mode 'ssh-zsh-vterm-mode)
-                                       (plist-get ssh-zsh-vterm-ssh-options :host)
+                                   (if (eq major-mode 'ssh-zsh-ghostel-mode)
+                                       (plist-get ssh-zsh-ghostel-ssh-options :host)
                                      (seq--elt-safe (split-string pwd ":") 1))
                                   nil))
                   (file-prefix (if remote-host (format "/rpc:%s:" remote-host) ""))

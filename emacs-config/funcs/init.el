@@ -590,7 +590,7 @@ Remove empty lines
 
 (autoload 'lx/ruby-send-babel-block-and-go "ruby-ext" nil t)
 
-(autoload 'lx/find-pry-vterm-buffer "ruby-ext")
+(autoload 'lx/find-pry-ghostel-buffer "ruby-ext")
 
 ;;;***
 

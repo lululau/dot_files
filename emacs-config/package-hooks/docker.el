@@ -127,19 +127,19 @@
       (apply docker-run-async-with-buffer-function program args))))
 
 (with-eval-after-load 'docker-container
-  (defun docker-container-vterm (container)
-    "Open `vterm' in CONTAINER."
+  (defun docker-container-ghostel (container)
+    "Open `ghostel' in CONTAINER."
     (interactive (list (docker-container-read-name)))
-    (require 'vterm nil 'noerror)
-    (if (fboundp 'vterm-other-window)
+    (require 'ghostel nil 'noerror)
+    (if (fboundp 'ghostel)
         (let* ((container-address (format "docker:%s:/" container))
                (file-prefix (let ((ssh-host (seq--elt-safe (s-split " " docker-command) 1)))
                               (if ssh-host
                                   (format "/ssh:%s|" (s-chop-suffix ":" ssh-host))
                                 "/")))
                (default-directory (format "%s%s" file-prefix container-address)))
-          (zsh-vterm (docker-utils-generate-new-buffer-name "docker" "vterm:" default-directory)))
-      (error "The vterm package is not installed"))))
+          (zsh-ghostel (docker-utils-generate-new-buffer-name "docker" "ghostel:" default-directory)))
+      (error "The ghostel package is not installed"))))
 
 
 (with-eval-after-load 'docker-image

@@ -112,12 +112,12 @@
   (if (lx/find-inf-buffer)
       (progn
         (comint-send-string (inf-ruby-proc) (concat (lx/get-babel-src) "\n")))
-    (let ((pry-buffer (lx/find-pry-vterm-buffer)))
+    (let ((pry-buffer (lx/find-pry-ghostel-buffer)))
       (if pry-buffer
           (let ((str (concat (lx/get-babel-src) "\n")))
             (with-current-buffer pry-buffer
-              (vterm-send-string str t)
-              (vterm-send-return)))))))
+              (ghostel-send-string str)
+              (ghostel-send-string "\n")))))))
 
 
 ;;;###autoload
@@ -127,15 +127,15 @@
       (progn
         (comint-send-string (inf-ruby-proc) (concat (lx/get-babel-src) "\n"))
         (ruby-switch-to-inf t))
-    (let ((pry-buffer (lx/find-pry-vterm-buffer)))
+    (let ((pry-buffer (lx/find-pry-ghostel-buffer)))
       (if pry-buffer
           (let ((str (concat (lx/get-babel-src) "\n")))
             (with-current-buffer pry-buffer
-              (vterm-send-string str t)
-              (vterm-send-return))
+              (ghostel-send-string str)
+              (ghostel-send-string "\n"))
             (select-window (get-buffer-window pry-buffer)))))))
 
 ;;;###autoload
-(defun lx/find-pry-vterm-buffer ()
+(defun lx/find-pry-ghostel-buffer ()
   (let* ((window-buffers (mapcar #'window-buffer (window-list))))
-    (--find (with-current-buffer it (eq major-mode 'pry-vterm-mode)) window-buffers)))
+    (--find (with-current-buffer it (eq major-mode 'pry-ghostel-mode)) window-buffers)))

@@ -65,5 +65,5 @@
                                                           (set-frame-parameter frame 'left 0.0)
                                                           (select-frame frame)
                                                           (delete-frame old-frame t)
-                                                          (if (bound-and-true-p vterm-mode-map)
-                                                              (define-key vterm-mode-map (kbd "C-c C-c") #'vterm--self-insert)))))
+                                                          (if (bound-and-true-p ghostel-mode-map)
+                                                              (define-key ghostel-mode-map (kbd "C-c C-c") #'ghostel--self-insert)))))
