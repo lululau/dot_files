@@ -68,14 +68,20 @@ value of `ghostel-buffer-name'."
 
 (defvar pry-ghostel-mode-map
   (let ((map (make-sparse-keymap)))
-    (set-keymap-parent map ghostel-mode-map)
+    (set-keymap-parent map ghostel-semi-char-mode-map)
     (define-key map (kbd "<backtab>") #'copilot-accept-completion)
     (define-key map (kbd "<tab>") #'pry-ghostel-accept-copilot-or-send-tab-to-term)
     map))
 
 (define-derived-mode pry-ghostel-mode ghostel-mode "Pry"
-  "Major mode for pry ghostel buffer.")
+  "Major mode for pry ghostel buffer."
+  (use-local-map pry-ghostel-mode-map))
 
-(setplist 'pry-ghostel-mode (plist-put (symbol-plist 'pry-ghostel-mode) 'insert-function 'ghostel-send-string))
+(defun pry-ghostel--restore-keymap (&rest _)
+  "Restore `pry-ghostel-mode-map' after ghostel switches back to semi-char mode."
+  (when (derived-mode-p 'pry-ghostel-mode)
+    (use-local-map pry-ghostel-mode-map)))
+
+(advice-add 'ghostel-semi-char-mode :after #'pry-ghostel--restore-keymap)
 
 (provide 'pry-ghostel)

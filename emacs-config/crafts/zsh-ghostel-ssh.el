@@ -154,6 +154,4 @@
 (define-derived-mode ssh-zsh-ghostel-mode zsh-ghostel-mode "ssh"
   "Major mode for ssh zsh ghostel buffer.")
 
-(setplist 'ssh-zsh-ghostel-mode (plist-put (symbol-plist 'ssh-zsh-ghostel-mode) 'insert-function 'ghostel-send-string))
-
 (provide 'zsh-ghostel-ssh)
