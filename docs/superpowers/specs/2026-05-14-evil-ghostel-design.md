@@ -107,7 +107,7 @@
          (input-end (cdr bounds))
          (beg (max (or beg (point)) input-start))
          (end (min (or end beg) input-end)))
-    (when (and (< beg end) bounds)
+    (when (and bounds (< beg end))
       (evil-yank beg end type register yank-handler)
       (evil-ghostel--delete-region-in-terminal beg end))))
 ```
@@ -146,11 +146,11 @@ X: `ghostel-send-key "backspace"`
 | 键 | 实现 |
 |---|---|
 | `^` | `ghostel-input-start-point` |
-| `[[` | `ghostel-previous-prompt` |
-| `]]` | `ghostel-next-prompt` |
+| `[[` | `ghostel--navigate-previous-prompt`（直接调用内部函数，避免触发 emacs-mode 切换） |
+| `]]` | `ghostel--navigate-next-prompt`（同上） |
 | `j` | `evil-next-line` + guard（不过最后一个 prompt） |
 | `G` | `ghostel-cursor-point`（重置到 terminal cursor 位置） |
-| `u` | `ghostel-send-key "/" "ctrl"`（readline undo） |
+| `u` | `(ghostel-send-string "\x1f")`（发送 0x1F = Ctrl+_，readline undo） |
 
 ## Visual 模式
 
@@ -205,11 +205,18 @@ C-a, C-d, C-e, C-k, C-n, C-o, C-p, C-r, C-t, C-w, C-y, C-z, <delete>
 
 保留非 evil 功能：kill-on-exit hook、DnD 支持、RVM 激活。
 **删除所有** `evil-define-key 'hybrid` 绑定（由 evil-ghostel.el 接管）。
+**清理** `comint-send-string` / `get-buffer-process` 残留调用（lines 53-56, 70），替换为 ghostel API。
 
 ### zsh-ghostel.el (crafts)
 
 `zsh-ghostel-mode-map` 继承 `ghostel-semi-char-mode-map`，evil-ghostel 的绑定通过继承传播。
-`zsh-ghostel-mode` 中的 hybrid 状态逻辑需适配为 insert/normal 模型。
+`zsh-ghostel-mode` 中的 hybrid 状态逻辑需适配为 insert/normal 模型：
+
+1. `evil-define-key 'hybrid` → `evil-define-key 'insert`（所有键绑定）
+2. `evil-hybrid-state` → `evil-insert-state`（所有状态切换调用）
+3. `evil-yank-for-zsh-ghostel` 中的 `(evil-hybrid-state)` 改为 `(evil-insert-state)`
+4. `ghostel-enter-hybrid-state-decently` 改为进入 insert 状态
+5. shell-pop 和 s-j/s-k 等导航绑定从 hybrid 迁移到 insert
 
 ### evil-collection.el (package-hooks)
 
@@ -222,6 +229,11 @@ C-a, C-d, C-e, C-k, C-n, C-o, C-p, C-r, C-t, C-w, C-y, C-z, <delete>
 - `d + block motion`：块选择删除（终端序列无法表达块操作）
 - 行级 `d + line motion` 的复杂行处理（只处理当前输入行）
 - `vterm-reset-cursor-point` 等效功能（ghostel 使用 `ghostel-cursor-point` 替代）
+
+## 说明
+
+- **yank (y)**：不实现自定义 operator，标准 evil 的 `evil-yank` 可直接使用（buffer 可读）
+- **`ghostel-send-key` 签名**：`(ghostel-send-key KEY-NAME &optional MODS)`，MODS 为逗号分隔字符串如 `"ctrl"`、`"shift,ctrl"`
 
 ## 约束和边界
 
