@@ -299,7 +299,7 @@
                                             (tramp-rpc :location (recipe :fetcher github :repo "ArthurHeymans/emacs-tramp-rpc" :files ("lisp/*.el")))
                                             ;; (opencode :location (recipe :fetcher github :repo "colobas/opencode.el" :files ("*.el")))
                                             agent-shell
-                                            ghostel evil-ghostel
+                                            ghostel
                                             ;; (claude-code-ide :location (recipe :fetcher github :repo "manzaltu/claude-code-ide.el" :files ("*.el")))
                                             (clutch :location (recipe :fetcher github :repo "LuciusChen/clutch" :branch "main" :files ("*.el")))
                                             ;; (appine :location (recipe :fetcher github :repo "chaoswork/appine" :files ("*.el")))
@@ -787,8 +787,6 @@ layers configuration."
   (add-hook 'text-mode-hook 'send-to-ghostel-mode)
   (add-hook 'text-mode-hook 'evil-goggles-mode)
   (add-hook 'fundamental-mode-hook 'send-to-ghostel-mode)
-
-  (add-hook 'ghostel-mode-hook 'evil-ghostel-mode)
 
   (add-to-list 'spacemacs-default-jump-handlers '(dumb-jump-go :async t) t)
 
