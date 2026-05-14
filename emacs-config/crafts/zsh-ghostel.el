@@ -58,22 +58,34 @@ value of `ghostel-buffer-name'."
   (interactive "P")
   (zsh-ghostel--internal #'pop-to-buffer-same-window arg))
 
+(defun zsh-ghostel--prepare-buffer (buffer &optional identity)
+  "Put BUFFER into `ghostel-mode' and record its terminal identity.
+IDENTITY, if given, is stored as `ghostel--buffer-identity' so the
+buffer can be found again after title-tracking renames it."
+  (with-current-buffer buffer
+    (unless (derived-mode-p 'zsh-ghostel-mode)
+      (zsh-ghostel-mode)
+      (setq ghostel--managed-buffer-name (buffer-name))
+      (setq ghostel--buffer-identity (or identity (buffer-name))))))
+
 (defun zsh-ghostel--internal (pop-to-buf-fun &optional arg)
-  (cl-assert ghostel-buffer-name)
-  (let ((buf (cond ((numberp arg)
-                    (get-buffer-create (format "%s<%d>"
-                                               ghostel-buffer-name
-                                               arg)))
-                   ((stringp arg) (generate-new-buffer arg))
-                   (arg (generate-new-buffer ghostel-buffer-name))
-                   (t
-                    (get-buffer-create ghostel-buffer-name)))))
-    (cl-assert (and buf (buffer-live-p buf)))
-    (funcall pop-to-buf-fun buf)
-    (with-current-buffer buf
-      (unless (derived-mode-p 'zsh-ghostel-mode)
-        (zsh-ghostel-mode)))
-    buf))
+  (interactive "P")
+  (ghostel--load-module t)
+  (let* ((fresh (and arg (not (numberp arg))))
+         (identity (cond (fresh nil)
+                         ((numberp arg)
+                          (format "%s<%d>" ghostel-buffer-name arg))
+                         (t ghostel-buffer-name)))
+         (buffer (if fresh
+                     (generate-new-buffer ghostel-buffer-name)
+                   (or (ghostel--find-buffer-by-identity identity)
+                       (get-buffer-create identity)))))
+    (unless (with-current-buffer buffer (derived-mode-p 'zsh-ghostel-mode))
+      (zsh-ghostel--prepare-buffer buffer identity))
+    (pop-to-buffer buffer (append display-buffer--same-window-action
+                                  '((category . comint))))
+    (ghostel--init-buffer buffer identity)
+    buffer))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
