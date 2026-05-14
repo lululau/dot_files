@@ -19,7 +19,13 @@
       (let* ((default-directory (or directory user-home-directory))
              (ghostel-shell command))
         (unless exclusive-window (split-window-right-and-focus))
-        (ghostel buffer-name)))))
+        (let ((buffer (generate-new-buffer buffer-name)))
+          (with-current-buffer buffer
+            (ghostel-mode))
+          (pop-to-buffer buffer (append display-buffer--same-window-action
+                                        '((category . comint))))
+          (ghostel--init-buffer buffer (buffer-name buffer))
+          buffer)))))
 
 (defun lx/run-in-ghostel/rerun ()
   (interactive)

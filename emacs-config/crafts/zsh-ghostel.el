@@ -70,13 +70,13 @@ buffer can be found again after title-tracking renames it."
 
 (defun zsh-ghostel--internal (pop-to-buf-fun &optional arg)
   (ghostel--load-module t)
-  (let* ((fresh (and arg (not (numberp arg))))
-         (identity (cond (fresh nil)
+  (let* ((identity (cond ((stringp arg) arg)
                          ((numberp arg)
                           (format "%s<%d>" ghostel-buffer-name arg))
                          (t ghostel-buffer-name)))
-         (buffer (if fresh
-                     (generate-new-buffer ghostel-buffer-name)
+         (buffer (if (and arg (not (numberp arg)))
+                     (or (ghostel--find-buffer-by-identity identity)
+                         (generate-new-buffer (if (stringp arg) arg ghostel-buffer-name)))
                    (or (ghostel--find-buffer-by-identity identity)
                        (get-buffer-create identity)))))
     (unless (with-current-buffer buffer (derived-mode-p 'zsh-ghostel-mode))
