@@ -21,7 +21,8 @@
              (buffer (generate-new-buffer buffer-name)))
         (unless exclusive-window (split-window-right-and-focus))
         (with-current-buffer buffer
-          (ghostel-mode))
+          (ghostel-mode)
+          (setq ghostel--managed-buffer-name ""))
         (pop-to-buffer buffer (append display-buffer--same-window-action
                                       '((category . comint))))
         (ghostel-exec buffer (car command-parts) (cdr command-parts))

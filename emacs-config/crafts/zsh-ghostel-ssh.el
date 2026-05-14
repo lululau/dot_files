@@ -58,7 +58,8 @@
         (setq zsh-ghostel-last-buffer (current-buffer))
         (with-current-buffer buffer
           (ssh-zsh-ghostel-mode)
-          (setq-local ssh-zsh-ghostel-ssh-options ssh-options))
+          (setq-local ssh-zsh-ghostel-ssh-options ssh-options)
+          (setq ghostel--managed-buffer-name ""))
         (pop-to-buffer buffer (append display-buffer--same-window-action
                                       '((category . comint))))
         (ghostel-exec buffer (car command-parts) (cdr command-parts))))))

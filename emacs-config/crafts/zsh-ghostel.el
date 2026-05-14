@@ -41,7 +41,7 @@
         (setq zsh-ghostel-last-buffer (current-buffer))
         (with-current-buffer buffer
           (zsh-ghostel-mode)
-          (setq ghostel--managed-buffer-name (buffer-name))
+          (setq ghostel--managed-buffer-name "")  ;; prevent title tracking from renaming
           (setq ghostel--buffer-identity (buffer-name)))
         (pop-to-buffer buffer (append display-buffer--same-window-action
                                       '((category . comint))))
