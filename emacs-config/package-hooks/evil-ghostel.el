@@ -143,7 +143,7 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
       (evil-ghostel--position-terminal-cursor beg)
       (ghostel-send-key "k" '(control)))))
 
-(evil-define-operator evil-ghostel-delete-backward-char (beg end type register)
+(evil-define-operator evil-ghostel-delete-backward-char (beg end type register yank-handler)
   "Delete previous character by sending Backspace."
   :motion evil-backward-char
   (when (evil-ghostel--point-in-input-p)
@@ -153,13 +153,13 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
           (unless (string-match-p "\n" text)
             (evil-set-register ?- text))))
       (let ((evil-was-yanked-without-register nil))
-        (evil-yank beg end type register))
+        (evil-yank beg end type register yank-handler))
       (ghostel-send-key "backspace"))))
 
-(evil-define-operator evil-ghostel-delete-char (beg end type register)
+(evil-define-operator evil-ghostel-delete-char (beg end type register yank-handler)
   "Delete current character."
   :motion evil-forward-char
-  (evil-ghostel-delete beg end type register))
+  (evil-ghostel-delete beg end type register yank-handler))
 
 (evil-define-operator evil-ghostel-replace (beg end type register yank-handler)
   "Replace character at point."
@@ -181,10 +181,10 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
   (evil-ghostel-delete-line beg end type register yank-handler)
   (call-interactively #'evil-insert))
 
-(evil-define-operator evil-ghostel-substitute (beg end type register)
+(evil-define-operator evil-ghostel-substitute (beg end type register yank-handler)
   "Replace character and enter insert."
   :motion evil-forward-char
-  (evil-ghostel-change beg end type register))
+  (evil-ghostel-change beg end type register yank-handler))
 
 (evil-define-operator evil-ghostel-substitute-line (beg end register yank-handler)
   "Replace entire line and enter insert."
@@ -230,9 +230,11 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
 ;; ---------------------------------------------------------------------------
 
 (defun evil-ghostel-paste-after (&optional arg)
-  "Paste after cursor."
+  "Paste after cursor, clamped to input region end."
   (interactive "P")
-  (evil-ghostel--position-terminal-cursor (1+ (point)))
+  (let* ((bounds (evil-ghostel--input-bounds))
+         (target (if bounds (min (1+ (point)) (cdr bounds)) (1+ (point)))))
+    (evil-ghostel--position-terminal-cursor target))
   (ghostel-paste-string (current-kill 0)))
 
 ;; ---------------------------------------------------------------------------
@@ -249,8 +251,10 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
 (evil-define-motion evil-ghostel-next-line (count)
   "Move COUNT lines down, but not past the last prompt line."
   :type line
-  (when (> (count-words (point) (point-max)) 0)
-    (evil-next-line count)))
+  (save-excursion
+    (forward-line (or count 1))
+    (unless (eobp)
+      (evil-next-line count))))
 
 (defun evil-ghostel-goto-cursor ()
   "Reset point to the terminal cursor position."
@@ -262,6 +266,16 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
   "Send readline undo (Ctrl+_)."
   (interactive)
   (ghostel-send-string "\x1f"))
+
+(defun evil-ghostel-previous-prompt (&optional n)
+  "Navigate to Nth previous prompt."
+  (interactive "p")
+  (ghostel--navigate-previous-prompt n))
+
+(defun evil-ghostel-next-prompt (&optional n)
+  "Navigate to Nth next prompt."
+  (interactive "p")
+  (ghostel--navigate-next-prompt n))
 
 ;; ---------------------------------------------------------------------------
 ;; Setup
@@ -296,8 +310,8 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
 
   ;; Normal state bindings
   (evil-define-key 'normal 'ghostel-mode-map
-    "[[" #'(lambda (&optional n) (interactive "p") (ghostel--navigate-previous-prompt n))
-    "]]" #'(lambda (&optional n) (interactive "p") (ghostel--navigate-next-prompt n))
+    "[[" #'evil-ghostel-previous-prompt
+    "]]" #'evil-ghostel-next-prompt
     "p" 'evil-ghostel-paste-after
     "P" 'ghostel-yank
     "a" 'evil-ghostel-append
