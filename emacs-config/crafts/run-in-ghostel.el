@@ -17,15 +17,15 @@
               (switch-to-buffer buffer)
             (pop-to-buffer buffer 'display-buffer-pop-up-window)))
       (let* ((default-directory (or directory user-home-directory))
-             (ghostel-shell command))
+             (command-parts (split-string-and-unquote command))
+             (buffer (generate-new-buffer buffer-name)))
         (unless exclusive-window (split-window-right-and-focus))
-        (let ((buffer (generate-new-buffer buffer-name)))
-          (with-current-buffer buffer
-            (ghostel-mode))
-          (pop-to-buffer buffer (append display-buffer--same-window-action
-                                        '((category . comint))))
-          (ghostel--init-buffer buffer (buffer-name buffer))
-          buffer)))))
+        (with-current-buffer buffer
+          (ghostel-mode))
+        (pop-to-buffer buffer (append display-buffer--same-window-action
+                                      '((category . comint))))
+        (ghostel-exec buffer (car command-parts) (cdr command-parts))
+        buffer))))
 
 (defun lx/run-in-ghostel/rerun ()
   (interactive)

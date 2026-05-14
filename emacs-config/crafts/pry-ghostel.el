@@ -15,9 +15,14 @@
               (switch-to-buffer buffer)
             (pop-to-buffer buffer 'display-buffer-pop-up-window)))
       (let* ((default-directory (or directory user-home-directory))
-             (ghostel-shell command))
+             (command-parts (split-string-and-unquote command))
+             (buffer (generate-new-buffer buffer-name)))
         (unless exclusive-window (split-window-right-and-focus))
-        (pry-ghostel buffer-name)))))
+        (with-current-buffer buffer
+          (pry-ghostel-mode))
+        (pop-to-buffer buffer (append display-buffer--same-window-action
+                                      '((category . comint))))
+        (ghostel-exec buffer (car command-parts) (cdr command-parts))))))
 
 (defun pry-ghostel (&optional arg)
   "Create an interactive Ghostel buffer.
@@ -52,6 +57,7 @@ value of `ghostel-buffer-name'."
     (with-current-buffer buf
       (unless (derived-mode-p 'pry-ghostel-mode)
         (pry-ghostel-mode)))
+    (ghostel--init-buffer buf (buffer-name buf))
     buf))
 
 (defun pry-ghostel-get-current-line ()

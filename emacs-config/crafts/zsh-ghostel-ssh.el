@@ -22,6 +22,7 @@
       (unless (derived-mode-p 'ssh-zsh-ghostel-mode)
         (ssh-zsh-ghostel-mode)
         (setq-local ssh-zsh-ghostel-ssh-options ssh-options)))
+    (ghostel--init-buffer buf (buffer-name buf))
     buf))
 
 (defun  lx/run-ssh-in-zsh-ghostel (command buffer-name &optional ssh-options directory window-type)
@@ -48,13 +49,19 @@
             (_ (switch-to-buffer buffer))))
 
       (let* ((default-directory (or directory user-home-directory))
-             (ghostel-shell command))
+             (command-parts (split-string-and-unquote command))
+             (buffer (generate-new-buffer buffer-name)))
         (pcase window-type
           ('split (split-window-right-and-focus))
           ('popup (select-window (shell-pop-split-window))))
 
         (setq zsh-ghostel-last-buffer (current-buffer))
-        (ssh-zsh-ghostel buffer-name ssh-options)))))
+        (with-current-buffer buffer
+          (ssh-zsh-ghostel-mode)
+          (setq-local ssh-zsh-ghostel-ssh-options ssh-options))
+        (pop-to-buffer buffer (append display-buffer--same-window-action
+                                      '((category . comint))))
+        (ghostel-exec buffer (car command-parts) (cdr command-parts))))))
 
 
 (defun helm-zsh-ghostel-ssh-buffers-list--init ()
