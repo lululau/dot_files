@@ -98,7 +98,8 @@ Positions the terminal cursor to BEG, then sends Delete for each character."
 ;; ---------------------------------------------------------------------------
 
 (evil-define-operator evil-ghostel-delete (beg end type register yank-handler)
-  "Delete text from BEG to END, clamped to the input region."
+  "Delete text from BEG to END, clamped to the input region.
+Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
   :motion nil
   (let* ((bounds (evil-ghostel--input-bounds))
          (input-start (car bounds))
@@ -112,7 +113,11 @@ Positions the terminal cursor to BEG, then sends Delete for each character."
             (evil-set-register ?- text))))
       (let ((evil-was-yanked-without-register nil))
         (evil-yank beg end type register yank-handler))
-      (evil-ghostel--delete-region-in-terminal beg end))))
+      (if (and (= beg input-start) (= end input-end))
+          (progn
+            (ghostel-send-key "a" '(control))
+            (ghostel-send-key "k" '(control)))
+        (evil-ghostel--delete-region-in-terminal beg end)))))
 
 (evil-define-operator evil-ghostel-delete-line (beg end type register yank-handler)
   "Delete to end of line in the terminal."
@@ -139,9 +144,17 @@ Positions the terminal cursor to BEG, then sends Delete for each character."
       (ghostel-send-key "k" '(control)))))
 
 (evil-define-operator evil-ghostel-delete-backward-char (beg end type register)
-  "Delete previous character."
+  "Delete previous character by sending Backspace."
   :motion evil-backward-char
-  (evil-ghostel-delete beg end type register))
+  (when (evil-ghostel--point-in-input-p)
+    (when (and beg end (< beg end))
+      (unless register
+        (let ((text (filter-buffer-substring beg end)))
+          (unless (string-match-p "\n" text)
+            (evil-set-register ?- text))))
+      (let ((evil-was-yanked-without-register nil))
+        (evil-yank beg end type register))
+      (ghostel-send-key "backspace"))))
 
 (evil-define-operator evil-ghostel-delete-char (beg end type register)
   "Delete current character."
