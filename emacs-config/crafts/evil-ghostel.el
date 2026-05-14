@@ -42,9 +42,9 @@ This is needed for programs that use ESC, e.g. vim or an ssh'd emacs that
 also uses `evil-mode'."
   (interactive)
   (if evil-ghostel-send-escape-to-vterm-p
-      (evil-define-key 'insert 'ghostel-mode-map (kbd "<escape>")
+      (evil-define-key 'insert ghostel-mode-map (kbd "<escape>")
         (lookup-key evil-insert-state-map (kbd "<escape>")))
-    (evil-define-key 'insert 'ghostel-mode-map
+    (evil-define-key 'insert ghostel-mode-map
       (kbd "<escape>") 'ghostel--self-insert))
   (setq evil-ghostel-send-escape-to-vterm-p
         (not evil-ghostel-send-escape-to-vterm-p))
@@ -289,11 +289,11 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
   (add-hook 'ghostel-mode-hook #'evil-ghostel-escape-stay)
 
   ;; ESC toggle
-  (evil-define-key '(normal insert) 'ghostel-mode-map
+  (evil-define-key '(normal insert) ghostel-mode-map
     (kbd "C-c C-z") 'evil-ghostel-toggle-send-escape)
 
   ;; C- key passthrough in insert state
-  (evil-define-key 'insert 'ghostel-mode-map
+  (evil-define-key 'insert ghostel-mode-map
     (kbd "C-a") 'ghostel--self-insert
     (kbd "C-d") 'ghostel--self-insert
     (kbd "C-e") 'ghostel--self-insert
@@ -309,7 +309,7 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
     (kbd "<delete>") 'ghostel-send-C-d)
 
   ;; Normal state bindings
-  (evil-define-key 'normal 'ghostel-mode-map
+  (evil-define-key 'normal ghostel-mode-map
     "[[" #'evil-ghostel-previous-prompt
     "]]" #'evil-ghostel-next-prompt
     "p" 'evil-ghostel-paste-after
@@ -333,7 +333,7 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
     "G" 'evil-ghostel-goto-cursor)
 
   ;; Visual state bindings
-  (evil-define-key 'visual 'ghostel-mode-map
+  (evil-define-key 'visual ghostel-mode-map
     "d" 'evil-ghostel-delete
     "x" 'evil-ghostel-delete))
 
