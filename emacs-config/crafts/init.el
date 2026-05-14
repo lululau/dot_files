@@ -60,4 +60,6 @@
 (autoload 'ghostel-rails/rails-dev "ghostel-rails")
 (autoload 'ghostel-rails/sidekiq "ghostel-rails")
 
+(autoload 'evil-ghostel-setup "evil-ghostel")
+
 (load-file (format "%s/%s" (file-name-directory load-file-name) "spacemacs-override.el"))
