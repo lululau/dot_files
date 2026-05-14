@@ -69,7 +69,6 @@ buffer can be found again after title-tracking renames it."
       (setq ghostel--buffer-identity (or identity (buffer-name))))))
 
 (defun zsh-ghostel--internal (pop-to-buf-fun &optional arg)
-  (interactive "P")
   (ghostel--load-module t)
   (let* ((fresh (and arg (not (numberp arg))))
          (identity (cond (fresh nil)
@@ -206,7 +205,7 @@ buffer can be found again after title-tracking renames it."
 
 (defvar zsh-ghostel-mode-map
   (let ((map (make-sparse-keymap)))
-    (set-keymap-parent map ghostel-mode-map)
+    (set-keymap-parent map ghostel-semi-char-mode-map)
     (define-key map (kbd "<backtab>") #'zsh-ghostel-accept-copilot-or-send-shift-tab-to-term)
     (define-key map (kbd "<tab>") #'zsh-ghostel-accept-copilot-or-send-tab-to-term)
     (define-key map (kbd "s-C") #'zsh-ghostel-previous-cli)
@@ -261,8 +260,14 @@ buffer can be found again after title-tracking renames it."
     map))
 
 (define-derived-mode zsh-ghostel-mode ghostel-mode "zsh"
-  "Major mode for zsh ghostel buffer.")
+  "Major mode for zsh ghostel buffer."
+  (use-local-map zsh-ghostel-mode-map))
 
-(setplist 'zsh-ghostel-mode (plist-put (symbol-plist 'zsh-ghostel-mode) 'insert-function 'ghostel-send-string))
+(defun zsh-ghostel--restore-keymap (&rest _)
+  "Restore `zsh-ghostel-mode-map' after ghostel switches back to semi-char mode."
+  (when (derived-mode-p 'zsh-ghostel-mode)
+    (use-local-map zsh-ghostel-mode-map)))
+
+(advice-add 'ghostel-semi-char-mode :after #'zsh-ghostel--restore-keymap)
 
 (provide 'zsh-ghostel)
