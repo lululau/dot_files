@@ -32,13 +32,20 @@
             (_ (switch-to-buffer buffer))))
 
       (let* ((default-directory (or directory user-home-directory))
-             (ghostel-shell command))
+             (command-parts (split-string-and-unquote command))
+             (buffer (generate-new-buffer buffer-name)))
         (pcase window-type
           ('split (split-window-right-and-focus))
           ('popup (select-window (shell-pop-split-window))))
 
         (setq zsh-ghostel-last-buffer (current-buffer))
-        (zsh-ghostel buffer-name)))))
+        (with-current-buffer buffer
+          (zsh-ghostel-mode)
+          (setq ghostel--managed-buffer-name (buffer-name))
+          (setq ghostel--buffer-identity (buffer-name)))
+        (pop-to-buffer buffer (append display-buffer--same-window-action
+                                      '((category . comint))))
+        (ghostel-exec buffer (car command-parts) (cdr command-parts))))))
 
 (defun zsh-ghostel (&optional arg)
   "Create an interactive Ghostel buffer.
