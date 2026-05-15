@@ -8,11 +8,49 @@
     :type 'boolean
     :group 'ghostel)
 
-  (add-hook 'ghostel-exit-functions
-    (lambda (buf event)
-      (when (and ghostel-kill-buffer-on-normal-exit (buffer-live-p buf)
-                 (string= "finished\n" event))
-        (kill-buffer buf))))
+  ;; Replace the built-in sentinel with two-level kill logic (mirrors the
+  ;; vterm--sentinel pattern from the old config).  When
+  ;; `ghostel-kill-buffer-on-normal-exit' is t, only kill on normal ("finished")
+  ;; exits so that abnormal exits are kept for inspection.  When nil, fall
+  ;; through to `ghostel-kill-buffer-on-exit'.
+  (defun ghostel--sentinel (process event)
+    "Process sentinel: clean up when shell exits.
+PROCESS is the shell process, EVENT describes the state change."
+    (let ((buf (process-buffer process)))
+      (when (buffer-live-p buf)
+        (with-current-buffer buf
+          (when ghostel--term
+            (ghostel--flush-pending-output))
+          ;; Force final render so the buffer shows complete output
+          ;; when kept alive (ghostel-kill-buffer-on-exit is nil).
+          ;; Without this the redraw timer is cancelled below and the
+          ;; terminal state is never written to the Emacs buffer.
+          (setq ghostel--force-next-redraw t)
+          (ghostel--delayed-redraw (current-buffer))
+          (when ghostel--redraw-timer
+            (cancel-timer ghostel--redraw-timer)
+            (setq ghostel--redraw-timer nil))
+          (when ghostel--input-timer
+            (cancel-timer ghostel--input-timer)
+            (setq ghostel--input-timer nil))
+          (when ghostel--plain-link-detection-timer
+            (cancel-timer ghostel--plain-link-detection-timer)
+            (setq ghostel--plain-link-detection-begin nil
+                  ghostel--plain-link-detection-end nil))
+          (ghostel--cancel-password-confirm-timer)
+          (ghostel--spinner-stop)
+          (remove-hook 'pre-redisplay-functions #'ghostel--fake-cursor-update t)
+          (ghostel--fake-cursor-clear)
+          (run-hook-with-args 'ghostel-exit-functions buf event)
+          (when (buffer-live-p buf)
+            (if (and ghostel-kill-buffer-on-normal-exit
+                     (string= "finished\n" event))
+                (kill-buffer buf)
+              (if ghostel-kill-buffer-on-exit
+                  (kill-buffer buf)
+                (let ((inhibit-read-only t))
+                  (goto-char (point-max))
+                  (insert "\n[Process exited]\n")))))))))
 
   (defun ghostel-enter-insert-state-decently ()
     (interactive)
