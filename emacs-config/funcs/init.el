@@ -293,6 +293,14 @@ Read a timestamp from the user and insert it at point." t)
 
 (autoload 'lx/evil-previous-10-lines "evil-commands-ext" nil t)
 
+(autoload 'lx/evil-substitute-and-indent "evil-commands-ext" nil t)
+
+(autoload 'lx/evil-smart-toggle-fold "evil-commands-ext" nil t)
+
+(autoload 'lx/evil-smart-goto-file "evil-commands-ext" nil t)
+
+(autoload 'lx/evil-insert-newline-below "evil-commands-ext" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "gantt" "gantt.el" (0 0 0 0))

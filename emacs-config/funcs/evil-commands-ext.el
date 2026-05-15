@@ -46,3 +46,38 @@
   "Move cursor up 10 lines"
   (interactive)
   (evil-previous-line 10))
+
+;;;###autoload
+(defun lx/evil-next-10-lines ()
+  "Move cursor down 10 lines"
+  (interactive)
+  (evil-next-line 10))
+
+;;;###autoload
+(defun lx/evil-substitute-and-indent ()
+  "Evil substitute then indent"
+  (interactive)
+  (call-interactively 'evil-substitute)
+  (call-interactively 'indent-for-tab-command))
+
+;;;###autoload
+(defun lx/evil-smart-toggle-fold ()
+  "Toggle fold. Use web-mode-fold-or-unfold in web-mode"
+  (interactive)
+  (if (eq major-mode 'web-mode)
+      (web-mode-fold-or-unfold)
+    (evil-toggle-fold)))
+
+;;;###autoload
+(defun lx/evil-smart-goto-file ()
+  "Goto file at point. Use projectile-rails in ruby-mode"
+  (interactive)
+  (if (and (eq 'ruby-mode major-mode) projectile-rails-mode)
+      (call-interactively 'projectile-rails-goto-file-at-point)
+    (call-interactively 'ffap-other-window)))
+
+;;;###autoload
+(defun lx/evil-insert-newline-below ()
+  "Insert newline below in evil"
+  (interactive)
+  (evil-insert-newline-below))
