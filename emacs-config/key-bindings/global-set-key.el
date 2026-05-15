@@ -85,7 +85,7 @@
                                   (if (bound-and-true-p arql-env)
                                       (lx/run-in-pry-ghostel (format "~/.rvm/gems/default/bin/arql -e %s" arql-env) (format "*arql-%s*" arql-env) (projectile-project-root))
                                     (lx/run-in-pry-ghostel "~/.rvm/gems/default/bin/arql -e lcldevb" "*arql-lcldevb*" (projectile-project-root) t))))
-(global-set-key (kbd "s-r j") #'(lambda () (interactive) (lx/run-in-ghostel "/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/bin/jshell --class-path $HOME/.m2/final/ktjr-common.jar --start $HOME/.config/default.jsh" "*jshell*")))
+(global-set-key (kbd "s-r j") #'(lambda () (interactive) (lx/run-in-ghostel "/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/bin/jshell --class-path ~/.m2/final/ktjr-common.jar --start ~/.config/default.jsh" "*jshell*")))
 (global-set-key (kbd "s-r a") #'(lambda () (interactive) (lx/run-in-ghostel "as.sh" "*arthas*" default-directory)))
 (global-set-key (kbd "s-r d") #'(lambda () (interactive) (lx/run-in-ghostel "alidash" "*alidash*" nil t)))
 (global-set-key (kbd "s-r f") #'(lambda () (interactive) (lx/run-in-ghostel "flo" "*flo*" nil t)))
