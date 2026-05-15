@@ -101,3 +101,21 @@
 (defun projectile-find-file-in-pwd ()
   (interactive)
   (projectile-find-file-in-directory default-directory))
+
+;;;###autoload
+(defun lx/open-persp-project-file (in-other-window)
+  "Open current persp project file"
+  (interactive "P")
+  (let ((current-persp-project (get-current-persp-project)))
+    (when current-persp-project
+      (if in-other-window
+          (find-file-other-window current-persp-project)
+        (find-file current-persp-project)))))
+
+;;;###autoload
+(defun lx/open-magit-toplevel-file (in-other-window)
+  "Open file in magit toplevel directory"
+  (interactive "P")
+  (if in-other-window
+      (find-file-other-window (magit-toplevel))
+    (find-file (magit-toplevel))))

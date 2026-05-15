@@ -84,6 +84,12 @@ containing the current file by the default explorer.
 
 (autoload 'lx/delete-window-or-bury-buffer "buffers" nil t)
 
+(autoload 'lx/new-untitled-buffer "buffers" nil t)
+
+(autoload 'lx/new-untitled-buffer-same-window "buffers" nil t)
+
+(autoload 'lx/kill-buffer-and-delete-window "buffers" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "byte-compile-current-buffer-file" "byte-compile-current-buffer-file.el"
@@ -198,6 +204,12 @@ comments or strings.
 
 (autoload 'lx/get-remote-buffer-host "core")
 
+(autoload 'lx/make-frame "core" nil t)
+
+(autoload 'lx/switch-to-project-3rd-buffer "core" nil t)
+
+(autoload 'lx/save-buffer "core" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "current-dir-name" "current-dir-name.el" (0
@@ -271,12 +283,23 @@ Read a timestamp from the user and insert it at point." t)
 
 (autoload 'vi/del-github-data-uri "evil-commands-ext" nil t)
 
+(autoload 'lx/evil-next-10-lines "evil-commands-ext" nil t)
+
+(autoload 'lx/evil-previous-10-lines "evil-commands-ext" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "gantt" "gantt.el" (0 0 0 0))
 ;;; Generated autoloads from gantt.el
 
 (autoload 'gantt "gantt" nil t)
+
+;;;***
+
+;;;### (autoloads nil "git-funcs" "git-funcs.el" (0 0 0 0))
+;;; Generated autoloads from git-funcs.el
+
+(autoload 'lx/magit-status-smart "git-funcs" nil t)
 
 ;;;***
 
@@ -528,6 +551,10 @@ Prompt for module, method, and jump to its definition." t)
 
 (autoload 'projectile-find-file-in-pwd "projectile-ext" nil t)
 
+(autoload 'lx/open-persp-project-file "projectile-ext" nil t)
+
+(autoload 'lx/open-magit-toplevel-file "projectile-ext" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "projectile-shell-pop" "projectile-shell-pop.el"
@@ -738,6 +765,8 @@ Remove empty lines
 
 (autoload 'lx/run-git-remote-branches "term-funcs" nil t)
 
+(autoload 'lx/pop-to-arql-console "term-funcs" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "title-format" "title-format.el" (0 0 0 0))
@@ -800,6 +829,23 @@ Return a one liner string containing all the layout names.")
 ;;; Generated autoloads from update-tags.el
 
 (autoload 'update-tags "update-tags" nil t)
+
+;;;***
+
+;;;### (autoloads nil "ui-funcs" "ui-funcs.el" (0 0 0 0))
+;;; Generated autoloads from ui-funcs.el
+
+(autoload 'lx/neotree-find-or-toggle "ui-funcs" nil t)
+
+(autoload 'lx/neotree-toggle "ui-funcs" nil t)
+
+(autoload 'lx/mouse-scroll-down "ui-funcs" nil t)
+
+(autoload 'lx/mouse-scroll-up "ui-funcs" nil t)
+
+(autoload 'lx/regenerate-tags "ui-funcs" nil t)
+
+(autoload 'lx/enable-imenu-list "ui-funcs" nil t)
 
 ;;;***
 

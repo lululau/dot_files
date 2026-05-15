@@ -40,3 +40,22 @@
   (if (window-parent (selected-window))
       (delete-window)
     (bury-buffer)))
+
+;;;###autoload
+(defun lx/new-untitled-buffer ()
+  "Create a new untitled buffer in other window"
+  (interactive)
+  (switch-to-buffer-other-window (generate-new-buffer "*Untitled*")))
+
+;;;###autoload
+(defun lx/new-untitled-buffer-same-window ()
+  "Create a new untitled buffer in current window"
+  (interactive)
+  (switch-to-buffer (generate-new-buffer "*Untitled*")))
+
+;;;###autoload
+(defun lx/kill-buffer-and-delete-window ()
+  "Kill current buffer and delete window"
+  (interactive)
+  (kill-current-buffer)
+  (delete-window))

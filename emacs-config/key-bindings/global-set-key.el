@@ -28,26 +28,16 @@
 (global-set-key (kbd "s-\\") 'lx/switch-to-previous-perp)
 (global-set-key (kbd "s-M-'") #'lx/split-right-and-ghostel)
 
-(global-set-key (kbd "s-n") '(lambda () (interactive) (switch-to-buffer-other-window (generate-new-buffer "*Untitled*")) (undo-tree-mode)))
-(global-set-key (kbd "s-N") '(lambda () (interactive) (switch-to-buffer (generate-new-buffer "*Untitled*")) (undo-tree-mode)))
+(global-set-key (kbd "s-n") #'lx/new-untitled-buffer)
+(global-set-key (kbd "s-N") #'lx/new-untitled-buffer-same-window)
 (global-set-key (kbd "s-w") 'lx/delete-window-or-bury-buffer)
-(global-set-key (kbd "s-W") '(lambda () (interactive) (kill-current-buffer) (delete-window)))
+(global-set-key (kbd "s-W") #'lx/kill-buffer-and-delete-window)
 (global-set-key (kbd "s-D") 'spacemacs/kill-this-buffer)
-(global-set-key (kbd "M-s-n") '(lambda () (interactive) (make-frame-command)))
+(global-set-key (kbd "M-s-n") #'lx/make-frame)
 (global-set-key (kbd "M-s-w") 'delete-frame)
 ;; (global-set-key (kbd "s-C") 'bzg-big-fringe-mode)
-(global-set-key (kbd "s-g") #'(lambda (arg)
-                                (interactive "P")
-                                (if arg
-                                    (progn
-                                      (require 'magit-mode)
-                                      (let ((magit-buf (--find (s-starts-with? "magit:" (buffer-name it)) (magit-mode-get-buffers))))
-                                        (if magit-buf (switch-to-buffer magit-buf) (magit-status))))
-                                  (magit-status))))
-(global-set-key (kbd "s-r s-a") #'(lambda (arg) (interactive "P") (let ((console (get-buffer (format "*%s-arql*" (projectile-project-name)))))
-                                                           (if console
-                                                               (pop-to-buffer console)
-                                                             (message "Buffer `%s' not found." console)))))
+(global-set-key (kbd "s-g") #'lx/magit-status-smart)
+(global-set-key (kbd "s-r s-a") #'lx/pop-to-arql-console)
 (global-set-key (kbd "s-r q") #'lx/run-arql)
 (global-set-key (kbd "s-r j") #'lx/run-jshell)
 (global-set-key (kbd "s-r a") #'lx/run-arthas)
@@ -98,20 +88,20 @@
 (define-key universal-argument-map (kbd "s-u") 'universal-argument-more)
 (global-set-key [M-s-tab] #'spacemacs/alternate-buffer-in-persp)
 ;; (global-set-key [M-S-tab] #'projectile-project-switch-to-alternate-buffer)
-(global-set-key [M-S-tab] #'(lambda () (interactive) (switch-to-buffer (nth 2 (projectile-project-buffers)))))
+(global-set-key [M-S-tab] #'lx/switch-to-project-3rd-buffer)
 
 (global-set-key (kbd "C-g") 'lx/keyboard-quit)
 (global-set-key [M-tab] 'spacemacs/alternate-buffer)
 (global-set-key (kbd "C-M-i") 'spacemacs/alternate-buffer)
 (unless (display-graphic-p) (global-set-key (kbd "C-M-i") 'spacemacs/alternate-buffer) (global-set-key (kbd "<f10>") 'spacemacs/alternate-buffer))
-(global-set-key (kbd "<f5>") #'(lambda () (interactive) (unless (boundp 'ggtags-mode) (ggtags-mode)) (projectile-regenerate-tags)))
+(global-set-key (kbd "<f5>") #'lx/regenerate-tags)
 (global-set-key (kbd "M-@") 'set-mark-command)
 (global-set-key (kbd "s-m") 'set-mark-command)
 (global-set-key (kbd "C-x s-m") 'pop-global-mark)
-(global-set-key (kbd "<f1>") #'(lambda () (interactive) (condition-case nil (neotree-find-project-root) (error (neotree-toggle)))))
-(global-set-key (kbd "<S-f1>") #'(lambda () (interactive) (neotree-toggle)))
-(global-set-key [mouse-4] '(lambda () (interactive) (scroll-down 1)))
-(global-set-key [mouse-5] '(lambda () (interactive) (scroll-up 1)))
+(global-set-key (kbd "<f1>") #'lx/neotree-find-or-toggle)
+(global-set-key (kbd "<S-f1>") #'lx/neotree-toggle)
+(global-set-key [mouse-4] #'lx/mouse-scroll-down)
+(global-set-key [mouse-5] #'lx/mouse-scroll-up)
 
 (global-set-key (kbd "M-h") #'evil-window-left)
 (global-set-key (kbd "M-l") #'evil-window-right)
@@ -166,8 +156,8 @@
 (global-set-key (kbd (if (display-graphic-p) "<C-return>" "C-RET")) #'spacemacs/jump-to-definition)
 (global-set-key (kbd (if (display-graphic-p) "<s-return>" "s-RET")) #'spacemacs/jump-to-definition-other-window)
 
-(global-set-key (kbd "s-j") #'(lambda () (interactive) (evil-next-line 10)))
-(global-set-key (kbd "s-k") #'(lambda () (interactive) (evil-previous-line 10)))
+(global-set-key (kbd "s-j") #'lx/evil-next-10-lines)
+(global-set-key (kbd "s-k") #'lx/evil-previous-10-lines)
 
 ;; s-i
 (global-set-key (kbd "s-i s-0") 'lx/find-or-create-projectile-alternate-org)
@@ -196,18 +186,13 @@
 (global-set-key (kbd "s-p s-o") 'lx/helm-projectile-open-projects)
 (global-set-key (kbd "s-p s-u") 'lx/helm-projectile-other-open-projects)
 (global-set-key (kbd "s-p s-l") 'spacemacs/helm-perspectives)
-(global-set-key (kbd "s-p s-t") '(lambda (in-other-window) (interactive "P") (let ((current-persp-project (get-current-persp-project)))
-                                                            (when current-persp-project (if in-other-window (find-file-other-window current-persp-project)(find-file current-persp-project))))))
-(global-set-key (kbd "s-e") '(lambda (in-other-window) (interactive "P") (let ((current-persp-project (get-current-persp-project)))
-                                                                           (when current-persp-project (if in-other-window (find-file-other-window current-persp-project)(find-file current-persp-project))))))
-(global-set-key (kbd "s-p s-g") '(lambda (in-other-window) (interactive "P") (if in-other-window (find-file-other-window (magit-toplevel))(find-file (magit-toplevel)))))
+(global-set-key (kbd "s-p s-t") #'lx/open-persp-project-file)
+(global-set-key (kbd "s-e") #'lx/open-persp-project-file)
+(global-set-key (kbd "s-p s-g") #'lx/open-magit-toplevel-file)
 
 (global-set-key (kbd "s-<backspace>") 'kill-whole-line)
 
-(global-set-key (kbd "s-s")
-                (lambda ()
-                  (interactive)
-                  (call-interactively (key-binding "\C-x\C-s"))))
+(global-set-key (kbd "s-s") #'lx/save-buffer)
 
 (global-set-key (kbd "M-s-b") 'helm-cwd-buffers)
 (global-set-key (kbd "s-V") 'lx/indent-paste)
@@ -234,7 +219,7 @@
 (global-set-key (kbd "s-i s-j cu") #'org-jira-update-comment)
 (global-set-key (kbd "s-i s-j tj") #'org-jira-todo-to-jira)
 
-(global-set-key (kbd "s-i TAB") #'(lambda () (interactive) (imenu-list-minor-mode 1)))
+(global-set-key (kbd "s-i TAB") #'lx/enable-imenu-list)
 
 (global-set-key (kbd "s-?") #'lx/clojure-repl)
 

@@ -34,3 +34,15 @@
     (evil-ex-execute  "%s/\\[\\[data:image[^]]+\\]\\]//g")
     (evil-ex-execute  "%s/^\\(\\*+\\s-+\\)\\[\\[.*\\]/\\1/")
     (evil-ex-execute  "%s/\\[\\[\\([^]]+\\)\\]\\[\\[\\[\\([^]]+\\)\\]\\]\\]\\]/[[\\2]]/g")))
+
+;;;###autoload
+(defun lx/evil-next-10-lines ()
+  "Move cursor down 10 lines"
+  (interactive)
+  (evil-next-line 10))
+
+;;;###autoload
+(defun lx/evil-previous-10-lines ()
+  "Move cursor up 10 lines"
+  (interactive)
+  (evil-previous-line 10))

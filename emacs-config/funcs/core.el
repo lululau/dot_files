@@ -62,3 +62,21 @@
   (cond ((eq 'ssh-zsh-ghostel-mode major-mode) (plist-get ssh-zsh-ghostel-ssh-options :host))
         ((or (string-prefix-p "/scp:" default-directory) (string-prefix-p "/ssh:" default-directory))
          (seq--elt-safe (split-string default-directory ":") 1))))
+
+;;;###autoload
+(defun lx/make-frame ()
+  "Create a new frame"
+  (interactive)
+  (make-frame-command))
+
+;;;###autoload
+(defun lx/switch-to-project-3rd-buffer ()
+  "Switch to the 3rd buffer in current project"
+  (interactive)
+  (switch-to-buffer (nth 2 (projectile-project-buffers))))
+
+;;;###autoload
+(defun lx/save-buffer ()
+  "Call C-x C-s interactively"
+  (interactive)
+  (call-interactively (key-binding "\C-x\C-s")))

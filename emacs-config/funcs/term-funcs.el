@@ -251,3 +251,12 @@
          (remote (if arg (magit-read-remote "Remote") "")))
     (lx/run-in-ghostel (format "git remote-branches %s" remote) buffer-name (magit-toplevel) t)))
 
+;;;###autoload
+(defun lx/pop-to-arql-console (arg)
+  "Pop to arql console buffer for current project"
+  (interactive "P")
+  (let ((console (get-buffer (format "*%s-arql*" (projectile-project-name)))))
+    (if console
+        (pop-to-buffer console)
+      (message "Buffer `%s' not found." console))))
+
