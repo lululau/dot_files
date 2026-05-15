@@ -28,6 +28,7 @@
 (autoload 'helm-ghostel-jenkins "ghostel-jenkins")
 (autoload 'ghostel-mitmproxy-transparent-proxy "ghostel-mitmproxy")
 (autoload 'ghostel-mitmproxy-normal-proxy "ghostel-mitmproxy")
+(autoload 'ghostel-mitmproxy-local-proxy "ghostel-mitmproxy")
 (autoload 'helm-ghostel-maven-deploy "ghostel-maven")
 (autoload 'helm-ghostel-maven-deploy-current-artifact "ghostel-maven")
 (autoload 'helm-ghostel-maven-deploy-parent-artifact "ghostel-maven")
