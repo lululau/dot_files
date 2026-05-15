@@ -227,25 +227,41 @@ buffer can be found again after title-tracking renames it."
     (evil-define-key 'visual map (kbd "<return>") #'evil-yank-for-zsh-ghostel)
 
     (evil-define-key 'insert map (kbd "M-C") #'(lambda () (interactive) (ghostel-send-key "C" "shift,meta")))
+    (evil-define-key 'hybrid map (kbd "M-C") #'(lambda () (interactive) (ghostel-send-key "C" "shift,meta")))
     (evil-define-key 'insert map (kbd "M-V") #'(lambda () (interactive) (ghostel-send-key "V" "shift,meta")))
     (evil-define-key 'insert map (kbd "M-N") #'(lambda () (interactive) (ghostel-send-key "N" "shift,meta")))
+    (evil-define-key 'hybrid map (kbd "M-N") #'(lambda () (interactive) (ghostel-send-key "N" "shift,meta")))
     (evil-define-key 'insert map (kbd "M-P") #'(lambda () (interactive) (ghostel-send-key "P" "shift,meta")))
+    (evil-define-key 'hybrid map (kbd "M-P") #'(lambda () (interactive) (ghostel-send-key "P" "shift,meta")))
 
 
     (evil-define-key 'insert map (kbd "M-!") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "7")))
+    (evil-define-key 'hybrid map (kbd "M-!") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "7")))
     (evil-define-key 'insert map (kbd "M-@") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "8")))
+    (evil-define-key 'hybrid map (kbd "M-@") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "8")))
     (evil-define-key 'insert map (kbd "M-#") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "9")))
+    (evil-define-key 'hybrid map (kbd "M-#") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "9")))
     (evil-define-key 'insert map (kbd "M-$") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "0")))
+    (evil-define-key 'hybrid map (kbd "M-$") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "0")))
     (evil-define-key 'insert map (kbd "s-z") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "z")))
+    (evil-define-key 'hybrid map (kbd "s-z") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "z")))
     (evil-define-key 'insert map (kbd "s-j") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl")))
+    (evil-define-key 'hybrid map (kbd "s-j") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl")))
 
     (evil-define-key 'insert map (kbd "C-M-s-!") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "1")))
+    (evil-define-key 'hybrid map (kbd "C-M-s-!") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "1")))
     (evil-define-key 'insert map (kbd "C-M-s-@") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "2")))
+    (evil-define-key 'hybrid map (kbd "C-M-s-@") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "2")))
     (evil-define-key 'insert map (kbd "C-M-s-#") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "3")))
+    (evil-define-key 'hybrid map (kbd "C-M-s-#") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "3")))
     (evil-define-key 'insert map (kbd "C-M-s-$") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "4")))
+    (evil-define-key 'hybrid map (kbd "C-M-s-$") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "4")))
     (evil-define-key 'insert map (kbd "C-M-s-%") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "5")))
+    (evil-define-key 'hybrid map (kbd "C-M-s-%") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "5")))
     (evil-define-key 'insert map (kbd "C-M-s-^") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "6")))
+    (evil-define-key 'hybrid map (kbd "C-M-s-^") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "6")))
     (evil-define-key 'insert map (kbd "C-M-s-|") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-key "j" "ctrl")))
+    (evil-define-key 'hybrid map (kbd "C-M-s-|") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-key "j" "ctrl")))
 
     (evil-define-key 'normal map (kbd "C-M-s-!") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "1")))
     (evil-define-key 'normal map (kbd "C-M-s-@") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "2")))
@@ -256,11 +272,14 @@ buffer can be found again after title-tracking renames it."
     (evil-define-key 'normal map (kbd "C-M-s-|") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-key "j" "ctrl")))
 
     (evil-define-key 'insert map (kbd "s-]") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string ">")))
+    (evil-define-key 'hybrid map (kbd "s-]") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string ">")))
     (evil-define-key 'insert map (kbd "s-[") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "<")))
+    (evil-define-key 'hybrid map (kbd "s-[") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "<")))
     (evil-define-key 'normal map (kbd "s-]") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string ">")))
     (evil-define-key 'normal map (kbd "s-[") #'(lambda () (interactive) (ghostel-send-key "j" "ctrl") (ghostel-send-string "<")))
 
     (evil-define-key 'insert map (kbd "M-h") #'(lambda () (interactive) (ghostel--self-insert)))
+    (evil-define-key 'hybrid map (kbd "M-h") #'(lambda () (interactive) (ghostel--self-insert)))
 
     (define-key map (kbd "<s-S-return>") #'(lambda () (interactive) (if (window-parent) (spacemacs/toggle-maximize-buffer) (ghostel-send-key "j" "ctrl") (ghostel-send-string "z"))))
 

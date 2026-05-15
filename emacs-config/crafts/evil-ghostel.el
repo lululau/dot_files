@@ -100,7 +100,6 @@ Positions the terminal cursor to BEG, then sends Delete for each character."
 (evil-define-operator evil-ghostel-delete (beg end type register yank-handler)
   "Delete text from BEG to END, clamped to the input region.
 Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
-  :motion nil
   (let* ((bounds (evil-ghostel--input-bounds))
          (input-start (car bounds))
          (input-end (cdr bounds))
@@ -115,8 +114,8 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
         (evil-yank beg end type register yank-handler))
       (if (and (= beg input-start) (= end input-end))
           (progn
-            (ghostel-send-key "a" '(control))
-            (ghostel-send-key "k" '(control)))
+            (ghostel-send-key "a" "ctrl")
+            (ghostel-send-key "k" "ctrl"))
         (evil-ghostel--delete-region-in-terminal beg end)))))
 
 (evil-define-operator evil-ghostel-delete-line (beg end type register yank-handler)
@@ -128,20 +127,28 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
          (input-end (cdr bounds))
          (beg (or beg (point)))
          (end (or end beg))
-         (line-end (if (and evil-respect-visual-line-mode visual-line-mode)
+         (visual-line-mode (and evil-respect-visual-line-mode visual-line-mode))
+         (line-end (if visual-line-mode
                        (save-excursion (end-of-visual-line) (point))
-                     (line-end-position))))
-    (when (and bounds (< beg (min end input-end)))
+                     (line-end-position)))
+         (effective-end (min line-end (or input-end line-end))))
+    (when (and bounds (< beg effective-end))
       (when (evil-visual-state-p)
+        (unless (memq type '(line screen-line block))
+          (let ((range (evil-expand beg end
+                                    (if visual-line-mode 'screen-line 'line))))
+            (setq beg (evil-range-beginning range)
+                  end (evil-range-end range)
+                  type (evil-type range))))
         (evil-exit-visual-state))
       (unless register
-        (let ((text (filter-buffer-substring beg (min end input-end))))
+        (let ((text (filter-buffer-substring beg effective-end)))
           (unless (string-match-p "\n" text)
             (evil-set-register ?- text))))
       (let ((evil-was-yanked-without-register nil))
-        (evil-yank beg (min end input-end) type register yank-handler))
+        (evil-yank beg effective-end type register yank-handler))
       (evil-ghostel--position-terminal-cursor beg)
-      (ghostel-send-key "k" '(control)))))
+      (ghostel-send-key "k" "ctrl"))))
 
 (evil-define-operator evil-ghostel-delete-backward-char (beg end type register yank-handler)
   "Delete previous character by sending Backspace."
@@ -329,7 +336,6 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
     "C" 'evil-ghostel-change-line
     "s" 'evil-ghostel-substitute
     "S" 'evil-ghostel-substitute-line
-    "j" 'evil-ghostel-next-line
     "G" 'evil-ghostel-goto-cursor)
 
   ;; Visual state bindings
