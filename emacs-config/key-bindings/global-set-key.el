@@ -123,7 +123,7 @@
 (global-set-key (kbd "s-r m k") #'ghostel-maven-kill-local-artifact)
 (global-set-key (kbd "s-r s-j") #'helm-ghostel-jenkins)
 (global-set-key (kbd "s-r s-r bw") #'(lambda () (interactive) (let ((ghostel-kill-buffer-on-exit t)) (lx/run-in-ghostel "bandwhich" "*ghostel-bandwhich*" nil t))))
-(global-set-key (kbd "s-r s-r bu") #'(lambda () (interactive) (let ((ghostel-kill-buffer-on-exit nil)) (lx/run-in-ghostel "bash -c \"brew update; brew upgrade ; brew post-update ; brew cleanup ; brew list --casks | xargs -I {} brew upgrade --cask {}; brew post-update; brew cleanup;\"" "*ghostel-cmd-brew-upgrade-cleanup*" nil t))))
+(global-set-key (kbd "s-r s-r ua") #'(lambda () (interactive) (let ((ghostel-kill-buffer-on-exit nil)) (lx/run-in-ghostel "update-all" "*ghostel-cmd-update-all*" nil t))))
 (global-set-key (kbd "s-r s-r lp") #'(lambda () (interactive) (let ((ghostel-kill-buffer-on-exit nil)) (lx/run-in-ghostel "sudo lsof -Pn -iTCP -sTCP:LISTEN" "*ghostel-cmd-listening-ports*" default-directory t))))
 (global-set-key (kbd "s-r s-r df") #'(lambda () (interactive) (let ((ghostel-kill-buffer-on-exit nil)) (lx/run-in-ghostel "sudo duf --only local" "*ghostel-cmd-duf*" default-directory t))))
 (global-set-key (kbd "s-r s-r j") #'(lambda () (interactive) (let ((ghostel-kill-buffer-on-exit t)) (lx/run-in-ghostel "jira issue list -q 'assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\") and project != XYC'" "*ghostel-cmd-jira-cli*" nil t))))
