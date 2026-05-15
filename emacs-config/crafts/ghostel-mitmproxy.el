@@ -16,4 +16,16 @@
            (buffer-name "*mitmproxy*"))
       (lx/run-in-ghostel cmd buffer-name nil t))))
 
+
+(defvar ghostel-mitmproxy-local-proxy-history nil)
+
+(defun ghostel-mitmproxy-local-proxy (arg)
+  (interactive "P")
+  (let ((default-directory "~"))
+    (let* ((local-spec (read-string "mitmproxy local mode spec: " nil
+                                    '(ghostel-mitmproxy-local-proxy-history . 1)))
+           (cmd (format "mitmproxy --showhost -k --mode local:%s" local-spec))
+           (buffer-name "*mitmproxy*"))
+      (lx/run-in-ghostel cmd buffer-name nil t))))
+
 (provide 'ghostel-mitmproxy)

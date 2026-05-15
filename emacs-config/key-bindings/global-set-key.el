@@ -109,7 +109,7 @@
 (global-set-key (kbd "s-r p") #'helm-ghostel-prize)
 (global-set-key (kbd "s-r s-p") #'(lambda () (interactive) (lx/run-in-ghostel "~/Library/Python/3.12/bin/ptipython" "*ptpython*")))
 (global-set-key (kbd "s-r s-r s-p") #'ghostel-mitmproxy-transparent-proxy)
-(global-set-key (kbd "s-r s-r p") #'ghostel-mitmproxy-normal-proxy)
+(global-set-key (kbd "s-r s-r p") #'ghostel-mitmproxy-local-proxy)
 (global-set-key (kbd "s-r s-s") #'helm-zsh-ghostel-ssh)
 (global-set-key (kbd "s-r s-q") #'helm-pry-ghostel-arql)
 (global-set-key (kbd "s-r s-l") #'helm-ghostel-vrl)
