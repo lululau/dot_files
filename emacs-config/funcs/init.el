@@ -668,7 +668,78 @@ Remove empty lines
 (autoload 'lx/cleanup-text-properties "text" nil t)
 
 ;;;***
-
+
+;;;### (autoloads nil "term-funcs" "term-funcs.el" (0 0 0 0))
+;;; Generated autoloads from term-funcs.el
+
+(autoload 'lx/toggle-emacs-tmux "term-funcs" nil t)
+
+(autoload 'lx/toggle-emacs-tmux-popup "term-funcs" nil t)
+
+(autoload 'lx/toggle-project-tmux-session "term-funcs" nil t)
+
+(autoload 'lx/toggle-project-tmux-session-popup "term-funcs" nil t)
+
+(autoload 'lx/toggle-pry-window "term-funcs" nil t)
+
+(autoload 'lx/split-right-and-ghostel "term-funcs" nil t)
+
+(autoload 'lx/run-arql "term-funcs" nil t)
+
+(autoload 'lx/run-jshell "term-funcs" nil t)
+
+(autoload 'lx/run-arthas "term-funcs" nil t)
+
+(autoload 'lx/run-alidash "term-funcs" nil t)
+
+(autoload 'lx/run-flo "term-funcs" nil t)
+
+(autoload 'lx/run-tuinnel "term-funcs" nil t)
+
+(autoload 'lx/run-k9s "term-funcs" nil t)
+
+(autoload 'lx/run-htop "term-funcs" nil t)
+
+(autoload 'lx/run-ptpython "term-funcs" nil t)
+
+(autoload 'lx/ssh-to-lx-sd "term-funcs" nil t)
+
+(autoload 'lx/ssh-to-jicai-prod1 "term-funcs" nil t)
+
+(autoload 'lx/ssh-to-jicai-prod2 "term-funcs" nil t)
+
+(autoload 'lx/ssh-to-jicai-prod3 "term-funcs" nil t)
+
+(autoload 'lx/ssh-to-jicai-uat "term-funcs" nil t)
+
+(autoload 'lx/ssh-to-jicai-dev "term-funcs" nil t)
+
+(autoload 'lx/vrl-jicai-api-open "term-funcs" nil t)
+
+(autoload 'lx/vrl-jicai-dev "term-funcs" nil t)
+
+(autoload 'lx/vrl-jicai-prod "term-funcs" nil t)
+
+(autoload 'lx/run-bandwhich "term-funcs" nil t)
+
+(autoload 'lx/run-update-all "term-funcs" nil t)
+
+(autoload 'lx/run-listening-ports "term-funcs" nil t)
+
+(autoload 'lx/run-duf "term-funcs" nil t)
+
+(autoload 'lx/run-jira-cli "term-funcs" nil t)
+
+(autoload 'lx/run-git-multi-status "term-funcs" nil t)
+
+(autoload 'lx/run-git-multi-branch "term-funcs" nil t)
+
+(autoload 'lx/run-git-multi-pull "term-funcs" nil t)
+
+(autoload 'lx/run-git-remote-branches "term-funcs" nil t)
+
+;;;***
+
 ;;;### (autoloads nil "title-format" "title-format.el" (0 0 0 0))
 ;;; Generated autoloads from title-format.el
 
