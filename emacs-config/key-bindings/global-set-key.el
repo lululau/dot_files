@@ -89,6 +89,7 @@
 (global-set-key (kbd "s-r a") #'(lambda () (interactive) (lx/run-in-ghostel "as.sh" "*arthas*" default-directory)))
 (global-set-key (kbd "s-r d") #'(lambda () (interactive) (lx/run-in-ghostel "alidash" "*alidash*" nil t)))
 (global-set-key (kbd "s-r f") #'(lambda () (interactive) (lx/run-in-ghostel "flo" "*flo*" nil t)))
+(global-set-key (kbd "s-r t") #'(lambda () (interactive) (lx/run-in-ghostel "tuinnel" "*tuinnel*" nil t)))
 (global-set-key (kbd "s-r k") #'(lambda () (interactive) (lx/run-in-ghostel "~/bin/k9s" "*k9s*" nil t)))
 (global-set-key (kbd "s-r h") #'(lambda () (interactive) (lx/run-in-ghostel "htop" "*htop*" default-directory t)))
 (global-set-key (kbd "s-r 0") #'(lambda () (interactive) (helm-zsh-ghostel-ssh-run "lx.sd")))
