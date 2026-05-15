@@ -9,10 +9,13 @@
     :group 'ghostel)
 
   ;; Replace the built-in sentinel with two-level kill logic (mirrors the
-  ;; vterm--sentinel pattern from the old config).  When
-  ;; `ghostel-kill-buffer-on-normal-exit' is t, only kill on normal ("finished")
-  ;; exits so that abnormal exits are kept for inspection.  When nil, fall
-  ;; through to `ghostel-kill-buffer-on-exit'.
+  ;; vterm--sentinel pattern).  When `ghostel-kill-buffer-on-normal-exit' is
+  ;; t, only kill on normal ("finished") exits so that abnormal exits are
+  ;; kept for inspection.  When nil, fall through to
+  ;; `ghostel-kill-buffer-on-exit'.  A force-full-redraw is added before
+  ;; timer cancellation so the terminal state is rendered to the Emacs
+  ;; buffer when kept alive (the original sentinel only flushes without
+  ;; rendering, so the last pending chunk would be invisible).
   (defun ghostel--sentinel (process event)
     "Process sentinel: clean up when shell exits.
 PROCESS is the shell process, EVENT describes the state change."
@@ -21,10 +24,7 @@ PROCESS is the shell process, EVENT describes the state change."
         (with-current-buffer buf
           (when ghostel--term
             (ghostel--flush-pending-output))
-          ;; Force final render so the buffer shows complete output
-          ;; when kept alive (ghostel-kill-buffer-on-exit is nil).
-          ;; Without this the redraw timer is cancelled below and the
-          ;; terminal state is never written to the Emacs buffer.
+          (setq-local ghostel-full-redraw t)
           (setq ghostel--force-next-redraw t)
           (ghostel--delayed-redraw (current-buffer))
           (when ghostel--redraw-timer
