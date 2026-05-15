@@ -59,3 +59,15 @@
   (interactive)
   (kill-current-buffer)
   (delete-window))
+
+;;;###autoload
+(defun lx/kill-buffer-interactively ()
+  "Kill buffer interactively"
+  (interactive)
+  (call-interactively 'kill-buffer))
+
+;;;###autoload
+(defun lx/switch-to-dired-buffer ()
+  "Switch to a dired mode buffer"
+  (interactive)
+  (switch-to-buffer (--find (eq 'dired-mode (with-current-buffer it major-mode)) (buffer-list))))

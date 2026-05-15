@@ -8,3 +8,42 @@
         (let ((magit-buf (--find (s-starts-with? "magit:" (buffer-name it)) (magit-mode-get-buffers))))
           (if magit-buf (switch-to-buffer magit-buf) (magit-status))))
     (magit-status)))
+
+;;;###autoload
+(defun lx/magit-smart-checkout (arg)
+  "Checkout branch. With prefix arg, create and checkout"
+  (interactive "P")
+  (call-interactively (if arg 'magit-branch-and-checkout 'magit-checkout)))
+
+;;;###autoload
+(defun lx/magit-status-async-and-show ()
+  "Run git status async and show process buffer"
+  (interactive)
+  (magit-run-git-async "status")
+  (magit-process-buffer))
+
+;;;###autoload
+(defun lx/magit-file-undo-checkout ()
+  "Checkout current file from current branch"
+  (interactive)
+  (magit-file-checkout (magit-get-current-branch) (buffer-file-name)))
+
+;;;###autoload
+(defun lx/magit-pull-and-show ()
+  "Pull from upstream and show process buffer"
+  (interactive)
+  (call-interactively 'magit-pull-from-upstream)
+  (magit-process-buffer))
+
+;;;###autoload
+(defun lx/magit-push-and-show ()
+  "Push to upstream and show process buffer"
+  (interactive)
+  (call-interactively 'magit-push-current-to-upstream)
+  (magit-process-buffer))
+
+;;;###autoload
+(defun lx/magit-merge-interactive ()
+  "Call magit merge interactively"
+  (interactive)
+  (call-interactively 'magit-merge))

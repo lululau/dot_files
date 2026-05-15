@@ -3,18 +3,18 @@
 (spacemacs|create-align-repeat-x "hash" "#")
 
 (spacemacs/set-leader-keys
-  "bk" #'(lambda () (interactive) (call-interactively 'kill-buffer))
+  "bk" #'lx/kill-buffer-interactively
   "gC" 'magit-commit
-  "gc" #'(lambda (arg) (interactive "P") (call-interactively (if arg 'magit-branch-and-checkout 'magit-checkout)))
-  "gS" #'(lambda () (interactive) (magit-run-git-async "status") (magit-process-buffer))
-  "gu" #'(lambda () (interactive) (magit-file-checkout (magit-get-current-branch) (buffer-file-name)))
+  "gc" #'lx/magit-smart-checkout
+  "gS" #'lx/magit-status-async-and-show
+  "gu" #'lx/magit-file-undo-checkout
   "gr" 'diff-hl-revert-hunk
   "gd" 'magit-diff-buffer-file
-  "gp" #'(lambda () (interactive) (call-interactively 'magit-pull-from-upstream) (magit-process-buffer))
-  "gP" #'(lambda () (interactive) (call-interactively 'magit-push-current-to-upstream) (magit-process-buffer))
-  "gM" #'(lambda () (interactive) (call-interactively 'magit-merge))
-  "aoA" #'(lambda () (interactive) (require 'calfw-org) (cfw:open-org-calendar))
-  "aoR" #'(lambda () (interactive) (org-refile '(4)))
+  "gp" #'lx/magit-pull-and-show
+  "gP" #'lx/magit-push-and-show
+  "gM" #'lx/magit-merge-interactive
+  "aoA" #'lx/open-org-calendar
+  "aoR" #'lx/org-refile
   "aob" 'org-iswitchb
   "gho" #'browse-at-remote
   ;; "Ct" #'copilot-toggle-auto-copilot
@@ -22,20 +22,20 @@
   "tol" #'org-toggle-link-display
   "tom" #'org-toggle-org-modern-mode
   "toM" #'org-toggle-global-org-modern-mode
-  "tA" #'(lambda () (interactive) (if (bound-and-true-p annotate-mode) (annotate-mode -1) (annotate-mode)))
-  "s-f" #'(lambda () (interactive) (lx/set-monospaced-font "SauceCodePro Nerd Font Mono" "黑体-简" 14 16 14 16))
-  "s-0" #'(lambda () (interactive) (lx/set-monospaced-font "SauceCodePro Nerd Font Mono" "黑体-简" 14 16 14 16))
+  "tA" #'lx/toggle-annotate-mode
+  "s-f" #'lx/set-default-font
+  "s-0" #'lx/set-default-font
   "ps" #'lx/find-or-create-projectile-snippet-file
   "aC" #'calendar
   "col" #'copy-org-links-at-point
   "xa#" #'spacemacs/align-repeat-hash
   "w|"  #'split-window-right-and-focus
-  "wxj" #'(lambda () (interactive) (let ((wind (windmove-find-other-window 'down))) (when (and wind (not (minibufferp (window-buffer wind)))) (delete-window wind))))
-  "wxk" #'(lambda () (interactive) (let ((wind (windmove-find-other-window 'up))) (when (and wind (not (minibufferp (window-buffer wind)))) (delete-window wind))))
-  "wxh" #'(lambda () (interactive) (let ((wind (windmove-find-other-window 'left))) (when (and wind (not (minibufferp (window-buffer wind)))) (delete-window wind))))
-  "wxl" #'(lambda () (interactive) (let ((wind (windmove-find-other-window 'right))) (when (and wind (not (minibufferp (window-buffer wind)))) (delete-window wind))))
+  "wxj" #'lx/delete-window-below
+  "wxk" #'lx/delete-window-above
+  "wxh" #'lx/delete-window-left
+  "wxl" #'lx/delete-window-right
   ;; "wpl" #'(lambda () (interactive) (call-interactively 'popwin:popup-last-buffer) (call-interactively 'popwin:select-popup-window))
-  "wpl" #'(lambda () (interactive) (popwin:pop-to-buffer (get-buffer "*rspec-compilation*")) (delete-window (get-buffer-window " *popwin-dummy*")) (select-window (get-buffer-window "*rspec-compilation*")))
+  "wpl" #'lx/popwin-rspec-buffer
   "ael" #'geeknote-notebook-list
   "tt" #'lx/toggle-title-format
   "df" #'find-dired
@@ -46,7 +46,7 @@
   "d s-f" #'mfd-dired
   "d s-n" #'mfd-name-dired
   "d s-g" #'mfd-grep-dired
-  "d TAB" #'(lambda () (interactive) (switch-to-buffer (--find (eq 'dired-mode (with-current-buffer it major-mode)) (buffer-list))))
+  "d TAB" #'lx/switch-to-dired-buffer
   "pL" #'lx/helm-persp-replace-project
   "bL" #'lx/persp-swith-to-buffer-project
   "jw" #'evil-avy-goto-word-0
@@ -56,7 +56,7 @@
   "it" #'lx/insert-timestamp
   "fi" 'lx/open-with-idea
   "fa" 'lx/browse-file-or-directory-in-alfred
-  "fei" #'(lambda () (interactive) (find-file (format "%sinit.el" user-emacs-directory)))
+  "fei" #'lx/open-emacs-init-file
   "te" #'toggle-company-english-helper
   "t C-s" #'lx/toggle-global-syntax-check
   "tP" #'proxy-mode
@@ -104,14 +104,14 @@
   "hhr" #'highlight-regexp
   "hhp" #'highlight-phrase
   "hhw" #'highlight-symbol-at-point
-  "hhu" #'(lambda () (interactive) (unhighlight-regexp t))
+  "hhu" #'lx/unhighlight-all
 
   "hdd" #'dash-at-point
 
   "cg" #'chatgpt-query
   "ct" #'gptel
   "cs" #'chatgpt-shell
-  "CS" #'(lambda () (interactive) (lx/run-in-pry-ghostel "chatsh 4" "*chatsh*"))
+  "CS" #'lx/run-chatsh
 
   "cxg" #'mind-wave-generate-code
   "cxr" #'mind-wave-refactory-code
@@ -122,16 +122,16 @@
 
   "axx" #'xwidget-webkit-browse-url
   "axh" #'xwwp-history-show
-  "axjc" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://127.0.0.1:9090/ui/#/proxies") (if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-  "axjC" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1:9090/ui/dashboard/#/proxies") (if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-  "axjr" #'(lambda () (interactive) (xwidget-webkit-browse-url "http://10.10.10.1/cgi-bin/luci/admin/services/openclash/config")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-  "axjg" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://github.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-  "axjl" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://gitlab.upeastscm.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-  "axjj" #'(lambda () (interactive)(xwidget-webkit-browse-url "https://jenkins.ktjr.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-  "axjJ" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://jira.ktjr.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-  "axjv" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://www.v2ex.com")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-  "axje" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://emacs-china.org")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
-  "axjt" #'(lambda () (interactive) (xwidget-webkit-browse-url "https://twitter.com/home")(if (bound-and-true-p xwidget-webkit-last-session-buffer) (switch-to-buffer xwidget-webkit-last-session-buffer)))
+  "axjc" #'lx/xwidget-open-local-clash
+  "axjC" #'lx/xwidget-open-remote-clash
+  "axjr" #'lx/xwidget-open-openclash
+  "axjg" #'lx/xwidget-open-github
+  "axjl" #'lx/xwidget-open-gitlab
+  "axjj" #'lx/xwidget-open-jenkins
+  "axjJ" #'lx/xwidget-open-jira
+  "axjv" #'lx/xwidget-open-v2ex
+  "axje" #'lx/xwidget-open-emacs-china
+  "axjt" #'lx/xwidget-open-twitter
 
   "$m" #'mcp-hub-start
   "$gr" #'gptel-mcp-register-tool

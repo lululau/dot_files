@@ -80,3 +80,9 @@
   "Call C-x C-s interactively"
   (interactive)
   (call-interactively (key-binding "\C-x\C-s")))
+
+;;;###autoload
+(defun lx/open-emacs-init-file ()
+  "Open Emacs init.el"
+  (interactive)
+  (find-file (format "%sinit.el" user-emacs-directory)))

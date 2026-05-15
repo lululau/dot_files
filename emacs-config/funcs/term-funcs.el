@@ -260,3 +260,9 @@
         (pop-to-buffer console)
       (message "Buffer `%s' not found." console))))
 
+;;;###autoload
+(defun lx/run-chatsh ()
+  "Run chatsh in pry ghostel"
+  (interactive)
+  (lx/run-in-pry-ghostel "chatsh 4" "*chatsh*"))
+

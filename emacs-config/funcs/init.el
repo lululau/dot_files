@@ -90,6 +90,10 @@ containing the current file by the default explorer.
 
 (autoload 'lx/kill-buffer-and-delete-window "buffers" nil t)
 
+(autoload 'lx/kill-buffer-interactively "buffers" nil t)
+
+(autoload 'lx/switch-to-dired-buffer "buffers" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "byte-compile-current-buffer-file" "byte-compile-current-buffer-file.el"
@@ -210,6 +214,8 @@ comments or strings.
 
 (autoload 'lx/save-buffer "core" nil t)
 
+(autoload 'lx/open-emacs-init-file "core" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "current-dir-name" "current-dir-name.el" (0
@@ -300,6 +306,18 @@ Read a timestamp from the user and insert it at point." t)
 ;;; Generated autoloads from git-funcs.el
 
 (autoload 'lx/magit-status-smart "git-funcs" nil t)
+
+(autoload 'lx/magit-smart-checkout "git-funcs" nil t)
+
+(autoload 'lx/magit-status-async-and-show "git-funcs" nil t)
+
+(autoload 'lx/magit-file-undo-checkout "git-funcs" nil t)
+
+(autoload 'lx/magit-pull-and-show "git-funcs" nil t)
+
+(autoload 'lx/magit-push-and-show "git-funcs" nil t)
+
+(autoload 'lx/magit-merge-interactive "git-funcs" nil t)
 
 ;;;***
 
@@ -472,6 +490,15 @@ Prompt for module, method, and jump to its definition." t)
 ;;; Generated autoloads from mu4e-ext.el
 
 (autoload 'lx/open-mail-custom-layout-or-mu4e-main "mu4e-ext" nil t)
+
+;;;***
+
+;;;### (autoloads nil "org-funcs" "org-funcs.el" (0 0 0 0))
+;;; Generated autoloads from org-funcs.el
+
+(autoload 'lx/open-org-calendar "org-funcs" nil t)
+
+(autoload 'lx/org-refile "org-funcs" nil t)
 
 (autoload 'lx/force-update-mu4e "mu4e-ext" nil t)
 
@@ -767,6 +794,8 @@ Remove empty lines
 
 (autoload 'lx/pop-to-arql-console "term-funcs" nil t)
 
+(autoload 'lx/run-chatsh "term-funcs" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "title-format" "title-format.el" (0 0 0 0))
@@ -846,6 +875,52 @@ Return a one liner string containing all the layout names.")
 (autoload 'lx/regenerate-tags "ui-funcs" nil t)
 
 (autoload 'lx/enable-imenu-list "ui-funcs" nil t)
+
+(autoload 'lx/toggle-annotate-mode "ui-funcs" nil t)
+
+(autoload 'lx/set-default-font "ui-funcs" nil t)
+
+(autoload 'lx/unhighlight-all "ui-funcs" nil t)
+
+;;;***
+
+;;;### (autoloads nil "window-funcs" "window-funcs.el" (0 0 0 0))
+;;; Generated autoloads from window-funcs.el
+
+(autoload 'lx/delete-window-below "window-funcs" nil t)
+
+(autoload 'lx/delete-window-above "window-funcs" nil t)
+
+(autoload 'lx/delete-window-left "window-funcs" nil t)
+
+(autoload 'lx/delete-window-right "window-funcs" nil t)
+
+(autoload 'lx/popwin-rspec-buffer "window-funcs" nil t)
+
+;;;***
+
+;;;### (autoloads nil "xwidget-funcs" "xwidget-funcs.el" (0 0 0 0))
+;;; Generated autoloads from xwidget-funcs.el
+
+(autoload 'lx/xwidget-open-local-clash "xwidget-funcs" nil t)
+
+(autoload 'lx/xwidget-open-remote-clash "xwidget-funcs" nil t)
+
+(autoload 'lx/xwidget-open-openclash "xwidget-funcs" nil t)
+
+(autoload 'lx/xwidget-open-github "xwidget-funcs" nil t)
+
+(autoload 'lx/xwidget-open-gitlab "xwidget-funcs" nil t)
+
+(autoload 'lx/xwidget-open-jenkins "xwidget-funcs" nil t)
+
+(autoload 'lx/xwidget-open-jira "xwidget-funcs" nil t)
+
+(autoload 'lx/xwidget-open-v2ex "xwidget-funcs" nil t)
+
+(autoload 'lx/xwidget-open-emacs-china "xwidget-funcs" nil t)
+
+(autoload 'lx/xwidget-open-twitter "xwidget-funcs" nil t)
 
 ;;;***
 
