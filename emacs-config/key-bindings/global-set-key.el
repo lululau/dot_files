@@ -73,6 +73,7 @@
 (global-set-key (kbd "s-r s-j") #'helm-ghostel-jenkins)
 (global-set-key (kbd "s-r s-r bw") #'lx/run-bandwhich)
 (global-set-key (kbd "s-r s-r ua") #'lx/run-update-all)
+(global-set-key (kbd "s-r s-r os") #'lx/run-obsidian-sync)
 (global-set-key (kbd "s-r s-r lp") #'lx/run-listening-ports)
 (global-set-key (kbd "s-r s-r df") #'lx/run-duf)
 (global-set-key (kbd "s-r s-r j") #'lx/run-jira-cli)

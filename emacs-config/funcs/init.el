@@ -786,6 +786,8 @@ Remove empty lines
 
 (autoload 'lx/run-update-all "term-funcs" nil t)
 
+(autoload 'lx/run-obsidian-sync "term-funcs" nil t)
+
 (autoload 'lx/run-listening-ports "term-funcs" nil t)
 
 (autoload 'lx/run-duf "term-funcs" nil t)

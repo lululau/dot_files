@@ -192,6 +192,13 @@
     (lx/run-in-ghostel "update-all" "*ghostel-cmd-update-all*" nil t)))
 
 ;;;###autoload
+(defun lx/run-obsidian-sync ()
+  "Run obsidian-sync.sh in ghostel"
+  (interactive)
+  (let ((ghostel-kill-buffer-on-exit nil))
+    (lx/run-in-ghostel "obsidian-sync.sh" "*ghostel-cmd-obsidian-sync*" nil t)))
+
+;;;###autoload
 (defun lx/run-listening-ports ()
   "Run lsof listening ports in ghostel"
   (interactive)
