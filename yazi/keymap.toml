@@ -1,4 +1,24 @@
 [[mgr.prepend_keymap]]
+on   = [ "t", "t" ]
+run  = "noop"
+desc = "Disabled: use 't' instead"
+
+[[mgr.prepend_keymap]]
+on   = [ "t", "r" ]
+run  = "noop"
+desc = "Disabled: use 'T' instead"
+
+[[mgr.prepend_keymap]]
+on   = [ "t" ]
+run  = "tab_create --current"
+desc = "Create a new tab in CWD"
+
+[[mgr.prepend_keymap]]
+on   = [ "T" ]
+run  = "tab_rename --interactive"
+desc = "Rename current tab"
+
+[[mgr.prepend_keymap]]
 on   = [ "q" ]
 run  = "plugin smart-quit"
 desc = "Quit or send close shortcut"
@@ -45,10 +65,10 @@ run  = "plugin fzf-autojump"
 desc = "Jump to a directory with fzf"
 
 
-[[mgr.prepend_keymap]]
-on   = [ "T" ]
-run  = "plugin fzf"
-desc = "Jump to a directory with fzf"
+# [[mgr.prepend_keymap]]
+# on   = [ "T" ]
+# run  = "plugin fzf"
+# desc = "Jump to a directory with fzf"
 
 
 [[mgr.prepend_keymap]]
