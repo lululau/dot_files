@@ -97,9 +97,9 @@ Uses marked processes, or the process at point."
         (lambda ()
           (add-hook 'post-command-hook
                     (lambda ()
-                      (with-current-buffer proced-buffer
-                        (proced-enhanced--apply-filter
-                         (minibuffer-contents))))
+                      (let ((text (minibuffer-contents)))
+                        (with-current-buffer proced-buffer
+                          (proced-enhanced--apply-filter text))))
                     nil t))
       (read-from-minibuffer "Filter: "))))
 
