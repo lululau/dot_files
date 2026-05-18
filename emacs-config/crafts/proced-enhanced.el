@@ -93,22 +93,13 @@ Uses marked processes, or the process at point."
            (delete-overlay ov)))
        (setq proced-enhanced--overlays nil)))))
 
-(defun proced-enhanced--update-prompt (prompt-text)
-  "Update the minibuffer prompt to PROMPT-TEXT."
-  (when (minibufferp)
-    (let ((inhibit-read-only t)
-          (prompt-end (minibuffer-prompt-end)))
-      (save-excursion
-        (goto-char (point-min))
-        (delete-region (point-min) prompt-end)
-        (insert (propertize prompt-text 'face 'minibuffer-prompt))))))
-
 (defun proced-enhanced-filter ()
   "Incremental filter proced buffer by process name/args.
 Supports M-r to toggle between plain text and regexp matching."
   (interactive nil proced-mode)
   (let ((proced-buffer (current-buffer))
         (regex-mode nil)
+        (prompt-end nil)
         (minibuffer-local-map (copy-keymap minibuffer-local-map)))
     ;; M-r toggles regex mode
     (define-key minibuffer-local-map "\M-r"
@@ -116,9 +107,8 @@ Supports M-r to toggle between plain text and regexp matching."
         "Toggle plain/regex filter mode."
         (interactive)
         (setq regex-mode (not regex-mode))
-        (proced-enhanced--update-prompt
-         (if regex-mode "Filter/regexp (M-r: plain): " "Filter (M-r: regexp): "))
-        (let ((text (minibuffer-contents)))
+        (message "%s mode" (if regex-mode "Regexp" "Plain text"))
+        (let ((text (buffer-substring-no-properties prompt-end (point-max))))
           (with-current-buffer proced-buffer
             (setq proced-enhanced--regex-mode regex-mode)
             (proced-enhanced--apply-filter text)))))
@@ -133,9 +123,10 @@ Supports M-r to toggle between plain text and regexp matching."
         (abort-recursive-edit)))
     (minibuffer-with-setup-hook
         (lambda ()
+          (setq prompt-end (minibuffer-prompt-end))
           (add-hook 'post-command-hook
                     (lambda ()
-                      (let ((text (minibuffer-contents)))
+                      (let ((text (buffer-substring-no-properties prompt-end (point-max))))
                         (with-current-buffer proced-buffer
                           (setq proced-enhanced--regex-mode regex-mode)
                           (proced-enhanced--apply-filter text))))
