@@ -62,5 +62,6 @@
 (autoload 'ghostel-rails/sidekiq "ghostel-rails")
 
 (autoload 'evil-ghostel-setup "evil-ghostel")
+(autoload 'proced-enhanced-mode "proced-enhanced")
 
 (load-file (format "%s/%s" (file-name-directory load-file-name) "spacemacs-override.el"))

@@ -16,8 +16,6 @@
   :lighter " Proced+"
   :keymap proced-enhanced-mode-map)
 
-(add-hook 'proced-mode-hook #'proced-enhanced-mode)
-
 (defun proced-enhanced--get-pids ()
   "Return a list of PIDs: marked processes first, fall back to PID at point."
   (if-let ((marked (proced-marked-processes)))
@@ -30,15 +28,17 @@
 Uses marked processes, or the process at point."
   (interactive (list (proced-enhanced--get-pids)) proced-mode)
   (if pids
-      (lx/run-in-ghostel (format "~/bin/pstree %s" (mapconcat #'number-to-string pids " "))
-                         "*pstree*")
+      (let ((ghostel-kill-buffer-on-exit nil))
+        (lx/run-in-ghostel (format "~/bin/pstree %s" (mapconcat #'number-to-string pids " "))
+                           "*pstree*" nil t))
     (message "No process at point")))
 
 (defun proced-enhanced-lsof (pid)
   "Show open files for the process at point via lsof."
   (interactive (list (proced-pid-at-point)) proced-mode)
   (if pid
-      (lx/run-in-ghostel (format "lsof -Pnp %d" pid) (format "*lsof-%d*" pid))
+      (let ((ghostel-kill-buffer-on-exit nil))
+        (lx/run-in-ghostel (format "lsof -Pnp %d" pid) (format "*lsof-%d*" pid) nil t))
     (message "No process at point")))
 
 (defun proced-enhanced-sigkill (pids)
@@ -112,5 +112,12 @@ Uses marked processes, or the process at point."
 
 (advice-add 'proced-update :before
             #'proced-enhanced--clear-overlays-on-update)
+
+(evil-define-key 'normal proced-enhanced-mode-map
+  "f" #'proced-enhanced-filter
+  "C-f" #'proced-enhanced-filter-clear
+  "t" #'proced-enhanced-pstree
+  "l" #'proced-enhanced-lsof
+  "K" #'proced-enhanced-sigkill)
 
 (provide 'proced-enhanced)
