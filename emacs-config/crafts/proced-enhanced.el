@@ -22,29 +22,34 @@
   "Return a list of PIDs: marked processes first, fall back to PID at point."
   (if-let ((marked (proced-marked-processes)))
       (mapcar #'car marked)
-    (list (proced-pid-at-point))))
+    (when-let ((pid (proced-pid-at-point)))
+      (list pid))))
 
 (defun proced-enhanced-pstree (pids)
   "Show pstree for PID(s).
 Uses marked processes, or the process at point."
   (interactive (list (proced-enhanced--get-pids)) proced-mode)
-  (let* ((command (format "~/bin/pstree %s" (mapconcat #'number-to-string pids " "))))
-    (lx/run-in-ghostel command "*pstree*")))
+  (if pids
+      (lx/run-in-ghostel (format "~/bin/pstree %s" (mapconcat #'number-to-string pids " "))
+                         "*pstree*")
+    (message "No process at point")))
 
 (defun proced-enhanced-lsof (pid)
   "Show open files for the process at point via lsof."
   (interactive (list (proced-pid-at-point)) proced-mode)
-  (lx/run-in-ghostel (format "lsof -Pnp %d" pid) (format "*lsof-%d*" pid)))
+  (if pid
+      (lx/run-in-ghostel (format "lsof -Pnp %d" pid) (format "*lsof-%d*" pid))
+    (message "No process at point")))
 
 (defun proced-enhanced-sigkill (pids)
   "Send SIGKILL to marked processes or the process at point."
   (interactive (list (proced-enhanced--get-pids)) proced-mode)
-  (when (y-or-n-p (format "Kill %s? " (mapconcat #'number-to-string pids " ")))
-    (dolist (pid pids)
-      (signal-process pid 9))
-    (proced-update t)))
-
-;; --- Task 6: Incremental Filter ---
+  (if pids
+      (when (y-or-n-p (format "Kill %s? " (mapconcat #'number-to-string pids " ")))
+        (dolist (pid pids)
+          (signal-process pid 9))
+        (proced-update t))
+    (message "No process at point")))
 
 (defvar-local proced-enhanced-filter-string nil
   "Current filter string for proced-enhanced.")
@@ -100,8 +105,6 @@ Uses marked processes, or the process at point."
   "Clear the proced-enhanced filter."
   (interactive nil proced-mode)
   (proced-enhanced--apply-filter ""))
-
-;; --- Task 7: Integration Polish ---
 
 (defun proced-enhanced--clear-overlays-on-update (&rest _args)
   "Reset overlay list when proced updates (buffer is erased)."
