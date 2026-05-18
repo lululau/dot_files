@@ -57,6 +57,9 @@ Uses marked processes, or the process at point."
 (defvar-local proced-enhanced--overlays nil
   "List of filter overlays in current proced buffer.")
 
+(defvar-local proced-enhanced--regex-mode nil
+  "Whether filter is in regex mode.")
+
 (defun proced-enhanced--apply-filter (filter-str)
   "Apply FILTER-STR to proced buffer using overlays."
   (setq proced-enhanced-filter-string
@@ -68,29 +71,64 @@ Uses marked processes, or the process at point."
   (setq proced-enhanced--overlays nil)
   ;; If empty filter, show all
   (when (and filter-str (not (string= filter-str "")))
-    (let ((case-fold-search t))
+    (condition-case nil
+        (let ((case-fold-search t)
+              (pattern (if proced-enhanced--regex-mode
+                           filter-str
+                         (regexp-quote filter-str))))
+          (save-excursion
+            (goto-char (point-min))
+            (while (not (eobp))
+              (let ((line-text (buffer-substring-no-properties
+                                (line-beginning-position) (line-end-position))))
+                (unless (string-match-p pattern line-text)
+                  (let ((ov (make-overlay (line-beginning-position)
+                                          (1+ (line-end-position)))))
+                    (overlay-put ov 'invisible t)
+                    (push ov proced-enhanced--overlays))))
+              (forward-line))))
+      (invalid-regexp
+       (dolist (ov proced-enhanced--overlays)
+         (when (overlay-buffer ov)
+           (delete-overlay ov)))
+       (setq proced-enhanced--overlays nil)))))
+
+(defun proced-enhanced--update-prompt (prompt-text)
+  "Update the minibuffer prompt to PROMPT-TEXT."
+  (when (minibufferp)
+    (let ((inhibit-read-only t)
+          (prompt-end (minibuffer-prompt-end)))
       (save-excursion
         (goto-char (point-min))
-        (while (not (eobp))
-          (let ((line-text (buffer-substring-no-properties
-                            (line-beginning-position) (line-end-position))))
-            (unless (string-match-p (regexp-quote filter-str) line-text)
-              (let ((ov (make-overlay (line-beginning-position)
-                                      (1+ (line-end-position)))))
-                (overlay-put ov 'invisible t)
-                (push ov proced-enhanced--overlays))))
-          (forward-line))))))
+        (delete-region (point-min) prompt-end)
+        (insert (propertize prompt-text 'face 'minibuffer-prompt))))))
 
 (defun proced-enhanced-filter ()
-  "Incremental filter proced buffer by process name/args."
+  "Incremental filter proced buffer by process name/args.
+Supports M-r to toggle between plain text and regexp matching."
   (interactive nil proced-mode)
   (let ((proced-buffer (current-buffer))
+        (regex-mode nil)
         (minibuffer-local-map (copy-keymap minibuffer-local-map)))
+    ;; M-r toggles regex mode
+    (define-key minibuffer-local-map "\M-r"
+      (lambda ()
+        "Toggle plain/regex filter mode."
+        (interactive)
+        (setq regex-mode (not regex-mode))
+        (proced-enhanced--update-prompt
+         (if regex-mode "Filter/regexp (M-r: plain): " "Filter (M-r: regexp): "))
+        (let ((text (minibuffer-contents)))
+          (with-current-buffer proced-buffer
+            (setq proced-enhanced--regex-mode regex-mode)
+            (proced-enhanced--apply-filter text)))))
+    ;; C-g cancels and clears filter
     (define-key minibuffer-local-map [remap abort-recursive-edit]
       (lambda ()
         "Cancel filter and show all."
         (interactive)
         (with-current-buffer proced-buffer
+          (setq proced-enhanced--regex-mode nil)
           (proced-enhanced--apply-filter ""))
         (abort-recursive-edit)))
     (minibuffer-with-setup-hook
@@ -99,9 +137,10 @@ Uses marked processes, or the process at point."
                     (lambda ()
                       (let ((text (minibuffer-contents)))
                         (with-current-buffer proced-buffer
+                          (setq proced-enhanced--regex-mode regex-mode)
                           (proced-enhanced--apply-filter text))))
                     nil t))
-      (read-from-minibuffer "Filter: "))))
+      (read-from-minibuffer "Filter (M-r: regexp): "))))
 
 (defun proced-enhanced-filter-clear ()
   "Clear the proced-enhanced filter."
