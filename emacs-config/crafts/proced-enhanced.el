@@ -60,6 +60,22 @@ Uses marked processes, or the process at point."
 (defvar-local proced-enhanced--regex-mode nil
   "Whether filter is in regex mode.")
 
+(defun proced-enhanced--line-command-text (bol eol)
+  "Extract command/args text from proced line between BOL and EOL."
+  (let (parts)
+    (save-excursion
+      (goto-char bol)
+      (while (< (point) eol)
+        (let ((key (get-text-property (point) 'proced-key)))
+          (if (memq key '(comm args))
+              (let ((next (or (next-single-property-change
+                               (point) 'proced-key nil eol) eol)))
+                (push (buffer-substring-no-properties (point) next) parts)
+                (goto-char next))
+            (goto-char (or (next-single-property-change
+                            (point) 'proced-key nil eol) eol))))))
+    (mapconcat #'identity (nreverse parts) " ")))
+
 (defun proced-enhanced--apply-filter (filter-str)
   "Apply FILTER-STR to proced buffer using overlays."
   (setq proced-enhanced-filter-string
@@ -79,11 +95,13 @@ Uses marked processes, or the process at point."
           (save-excursion
             (goto-char (point-min))
             (while (not (eobp))
-              (let ((line-text (buffer-substring-no-properties
-                                (line-beginning-position) (line-end-position))))
-                (unless (string-match-p pattern line-text)
-                  (let ((ov (make-overlay (line-beginning-position)
-                                          (1+ (line-end-position)))))
+              (let* ((bol (line-beginning-position))
+                     (eol (line-end-position))
+                     (match-text (if proced-enhanced--regex-mode
+                                     (proced-enhanced--line-command-text bol eol)
+                                   (buffer-substring-no-properties bol eol))))
+                (unless (string-match-p pattern match-text)
+                  (let ((ov (make-overlay bol (1+ eol))))
                     (overlay-put ov 'invisible t)
                     (push ov proced-enhanced--overlays))))
               (forward-line))))
