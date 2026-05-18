@@ -63,17 +63,18 @@ Uses marked processes, or the process at point."
   (setq proced-enhanced--overlays nil)
   ;; If empty filter, show all
   (when (and filter-str (not (string= filter-str "")))
-    (save-excursion
-      (goto-char (point-min))
-      (while (not (eobp))
-        (let ((line-text (buffer-substring-no-properties
-                          (line-beginning-position) (line-end-position))))
-          (unless (string-match-p (regexp-quote filter-str) line-text)
-            (let ((ov (make-overlay (line-beginning-position)
-                                    (1+ (line-end-position)))))
-              (overlay-put ov 'invisible t)
-              (push ov proced-enhanced--overlays))))
-        (forward-line)))))
+    (let ((case-fold-search t))
+      (save-excursion
+        (goto-char (point-min))
+        (while (not (eobp))
+          (let ((line-text (buffer-substring-no-properties
+                            (line-beginning-position) (line-end-position))))
+            (unless (string-match-p (regexp-quote filter-str) line-text)
+              (let ((ov (make-overlay (line-beginning-position)
+                                      (1+ (line-end-position)))))
+                (overlay-put ov 'invisible t)
+                (push ov proced-enhanced--overlays))))
+          (forward-line))))))
 
 (defun proced-enhanced-filter ()
   "Incremental filter proced buffer by process name/args."
