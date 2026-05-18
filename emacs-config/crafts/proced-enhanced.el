@@ -117,7 +117,6 @@ Uses marked processes, or the process at point."
 
 (evil-define-key 'normal proced-enhanced-mode-map
   "f" #'proced-enhanced-filter
-  "C-S-f" #'proced-enhanced-filter-clear
   "t" #'proced-enhanced-pstree
   "l" #'proced-enhanced-lsof
   "K" #'proced-enhanced-sigkill)
