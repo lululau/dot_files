@@ -115,6 +115,21 @@ Uses marked processes, or the process at point."
 (advice-add 'proced-update :before
             #'proced-enhanced--clear-overlays-on-update)
 
+(defun proced-enhanced--do-mark-all (fn mark)
+  "Advice on `proced-do-mark-all' to skip invisible lines when filter is active."
+  (if (not proced-enhanced-filter-string)
+      (funcall fn mark)
+    (let ((buffer-read-only nil))
+      (goto-char (point-min))
+      (while (not (eobp))
+        (unless (get-char-property (line-beginning-position) 'invisible)
+          (insert (char-to-string mark))
+          (delete-char 1))
+        (forward-line)))))
+
+(advice-add 'proced-do-mark-all :around
+            #'proced-enhanced--do-mark-all)
+
 (evil-define-key 'normal proced-enhanced-mode-map
   "f" #'proced-enhanced-filter
   "t" #'proced-enhanced-pstree
