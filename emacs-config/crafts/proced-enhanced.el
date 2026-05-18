@@ -119,7 +119,8 @@ Uses marked processes, or the process at point."
   "Advice on `proced-do-mark-all' to skip invisible lines when filter is active."
   (if (not proced-enhanced-filter-string)
       (funcall fn mark)
-    (let ((buffer-read-only nil))
+    (let ((buffer-read-only nil)
+          (mark (if (eq mark t) ?* mark)))
       (goto-char (point-min))
       (while (not (eobp))
         (unless (get-char-property (line-beginning-position) 'invisible)
