@@ -84,20 +84,22 @@ Uses marked processes, or the process at point."
 (defun proced-enhanced-filter ()
   "Incremental filter proced buffer by process name/args."
   (interactive nil proced-mode)
-  (let ((minibuffer-local-map (copy-keymap minibuffer-local-map)))
-    ;; C-g cancels and clears filter
+  (let ((proced-buffer (current-buffer))
+        (minibuffer-local-map (copy-keymap minibuffer-local-map)))
     (define-key minibuffer-local-map [remap abort-recursive-edit]
       (lambda ()
         "Cancel filter and show all."
         (interactive)
-        (proced-enhanced--apply-filter "")
+        (with-current-buffer proced-buffer
+          (proced-enhanced--apply-filter ""))
         (abort-recursive-edit)))
     (minibuffer-with-setup-hook
         (lambda ()
           (add-hook 'post-command-hook
                     (lambda ()
-                      (proced-enhanced--apply-filter
-                       (minibuffer-contents)))
+                      (with-current-buffer proced-buffer
+                        (proced-enhanced--apply-filter
+                         (minibuffer-contents))))
                     nil t))
       (read-from-minibuffer "Filter: "))))
 
