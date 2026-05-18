@@ -44,4 +44,69 @@ Uses marked processes, or the process at point."
       (signal-process pid 9))
     (proced-update t)))
 
+;; --- Task 6: Incremental Filter ---
+
+(defvar-local proced-enhanced-filter-string nil
+  "Current filter string for proced-enhanced.")
+
+(defvar-local proced-enhanced--overlays nil
+  "List of filter overlays in current proced buffer.")
+
+(defun proced-enhanced--apply-filter (filter-str)
+  "Apply FILTER-STR to proced buffer using overlays."
+  (setq proced-enhanced-filter-string
+        (if (string= filter-str "") nil filter-str))
+  ;; Remove old overlays
+  (dolist (ov proced-enhanced--overlays)
+    (when (overlay-buffer ov)
+      (delete-overlay ov)))
+  (setq proced-enhanced--overlays nil)
+  ;; If empty filter, show all
+  (when (and filter-str (not (string= filter-str "")))
+    (save-excursion
+      (goto-char (point-min))
+      (while (not (eobp))
+        (let ((line-text (buffer-substring-no-properties
+                          (line-beginning-position) (line-end-position))))
+          (unless (string-match-p (regexp-quote filter-str) line-text)
+            (let ((ov (make-overlay (line-beginning-position)
+                                    (1+ (line-end-position)))))
+              (overlay-put ov 'invisible t)
+              (push ov proced-enhanced--overlays))))
+        (forward-line)))))
+
+(defun proced-enhanced-filter ()
+  "Incremental filter proced buffer by process name/args."
+  (interactive nil proced-mode)
+  (let ((minibuffer-local-map (copy-keymap minibuffer-local-map)))
+    ;; C-g cancels and clears filter
+    (define-key minibuffer-local-map [remap abort-recursive-edit]
+      (lambda ()
+        "Cancel filter and show all."
+        (interactive)
+        (proced-enhanced--apply-filter "")
+        (abort-recursive-edit)))
+    (minibuffer-with-setup-hook
+        (lambda ()
+          (add-hook 'post-command-hook
+                    (lambda ()
+                      (proced-enhanced--apply-filter
+                       (minibuffer-contents)))
+                    nil t))
+      (read-from-minibuffer "Filter: "))))
+
+(defun proced-enhanced-filter-clear ()
+  "Clear the proced-enhanced filter."
+  (interactive nil proced-mode)
+  (proced-enhanced--apply-filter ""))
+
+;; --- Task 7: Integration Polish ---
+
+(defun proced-enhanced--clear-overlays-on-update (&rest _args)
+  "Reset overlay list when proced updates (buffer is erased)."
+  (setq proced-enhanced--overlays nil))
+
+(advice-add 'proced-update :before
+            #'proced-enhanced--clear-overlays-on-update)
+
 (provide 'proced-enhanced)
