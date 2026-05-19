@@ -60,14 +60,19 @@
   (set-cursor-color "#6db2e9"))
 
 (defun lx/run-in-ghostel/set-default-directory (dir)
+  "Update `default-directory' from shell (OSC 51 \"update-pwd\")."
   (interactive)
-  (let* ((remote-host (if (eq major-mode 'ssh-zsh-ghostel-mode)
-                          (plist-get ssh-zsh-ghostel-ssh-options :host)
-                        nil))
-         (file-prefix (if remote-host (format "/scp:%s:" remote-host) ""))
-         (dir (concat file-prefix dir)))
+  (let ((dir
+         (if (eq major-mode 'ssh-zsh-ghostel-mode)
+             (progn
+               (require 'zsh-ghostel-ssh)
+               (ssh-zsh-ghostel--tramp-default-directory
+                (plist-get ssh-zsh-ghostel-ssh-options :host)
+                dir))
+           dir)))
     (helm-dired-history--update dir)
-    (setq default-directory dir)))
+    (setq default-directory dir
+          list-buffers-directory dir)))
 
 (defun lx/run-in-ghostel/download (file)
   (interactive)

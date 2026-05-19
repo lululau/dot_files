@@ -2,6 +2,67 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defconst ssh-zsh-ghostel-tramp-method "rpc"
+  "TRAMP method for all `ssh-zsh-ghostel-mode' buffers (OSC 7 and initial seed).")
+
+(defun ssh-zsh-ghostel--tramp-method ()
+  "TRAMP method name for `ssh-zsh-ghostel' remote paths."
+  ssh-zsh-ghostel-tramp-method)
+
+(defun ssh-zsh-ghostel--remote-host (ssh-options &optional command)
+  "Return remote host from SSH-OPTIONS plist or parse COMMAND (e.g. \"ssh host\")."
+  (or (plist-get ssh-options :host)
+      (when (and (stringp command)
+                 (string-match "ssh\\(?:\\s-+[^\\s-]+\\)*\\s-+\\([^\\s-]+\\)" command))
+        (match-string 1 command))))
+
+(defun ssh-zsh-ghostel--tramp-default-directory (host &optional dir)
+  "Build TRAMP `default-directory' for HOST; remote DIR defaults to \"/\"."
+  (file-name-as-directory
+   (format "/%s:%s:%s"
+           ssh-zsh-ghostel-tramp-method
+           host
+           (or dir "/"))))
+
+(defun ssh-zsh-ghostel--rpc-prefix-p (path)
+  "Non-nil when PATH is a remote file name using `ssh-zsh-ghostel-tramp-method'."
+  (and (stringp path)
+       (string-match (format "\\`/%s:" (regexp-quote ssh-zsh-ghostel-tramp-method))
+                     path)))
+
+(defun ssh-zsh-ghostel--prepare-for-directory-update ()
+  "Before `ghostel--update-directory': force rpc and a reusable TRAMP prefix.
+
+`ghostel--update-directory' reuses `(file-remote-p default-directory)' when
+set; otherwise it builds a path from `ghostel-tramp-default-method' or
+`tramp-default-method' (often \"scp\").  OSC 7 can arrive before our seed
+runs, or while `default-directory' is still local — then the path flips to
+/scp:.  This hook keeps ssh ghostel buffers on /rpc:."
+  (when (derived-mode-p 'ssh-zsh-ghostel-mode)
+    (setq-local ghostel-tramp-default-method (intern ssh-zsh-ghostel-tramp-method))
+    (when-let ((host (ssh-zsh-ghostel--remote-host ssh-zsh-ghostel-ssh-options)))
+      (let ((dd default-directory))
+        (cond
+         ((and (file-remote-p dd) (ssh-zsh-ghostel--rpc-prefix-p dd))
+          nil)
+         ((file-remote-p dd)
+          ;; e.g. /scp:lx:/foo from a prior OSC 7 — rewrite method, keep path.
+          (with-parsed-tramp-file-name dd nil
+            (setq default-directory
+                  (ssh-zsh-ghostel--tramp-default-directory host localname))))
+         (t
+          (setq default-directory
+                (ssh-zsh-ghostel--tramp-default-directory host "/"))))))))
+
+(defun ssh-zsh-ghostel--apply-default-directory (ssh-options &optional remote-dir command)
+  "Set buffer `default-directory' to a TRAMP path for the SSH session host.
+Uses the same \"/METHOD:HOST:DIR\" shape as `ghostel--update-directory' (OSC 7).
+Does nothing when no host can be determined.  REMOTE-DIR defaults to \"/\"."
+  (when-let ((host (ssh-zsh-ghostel--remote-host ssh-options command)))
+    (let ((tramp-dir (ssh-zsh-ghostel--tramp-default-directory host remote-dir)))
+      (setq default-directory tramp-dir
+            list-buffers-directory tramp-dir))))
+
 (defun ssh-zsh-ghostel (&optional arg ssh-options)
   (interactive "P")
   (ssh-zsh-ghostel--internal #'pop-to-buffer-same-window arg ssh-options))
@@ -23,6 +84,9 @@
         (ssh-zsh-ghostel-mode)
         (setq-local ssh-zsh-ghostel-ssh-options ssh-options)))
     (ghostel--init-buffer buf (buffer-name buf))
+    (with-current-buffer buf
+      ;; OSC 7 may never arrive; seed TRAMP cwd for docker, find-file, etc.
+      (ssh-zsh-ghostel--apply-default-directory ssh-options))
     buf))
 
 (defun  lx/run-ssh-in-zsh-ghostel (command buffer-name &optional ssh-options directory window-type)
@@ -48,7 +112,7 @@
              (select-window (shell-pop-split-window)) (switch-to-buffer buffer)))
             (_ (switch-to-buffer buffer))))
 
-      (let* ((default-directory (or directory user-home-directory))
+      (let* ((remote-dir directory)
              (command-parts (split-string-and-unquote command))
              (buffer (generate-new-buffer buffer-name)))
         (pcase window-type
@@ -62,7 +126,12 @@
           (setq ghostel--managed-buffer-name ""))
         (pop-to-buffer buffer (append display-buffer--same-window-action
                                       '((category . comint))))
-        (ghostel-exec buffer (car command-parts) (cdr command-parts))))))
+        ;; Keep local `default-directory' during spawn: remote TRAMP path would
+        ;; make `ghostel-exec' run PROGRAM on the remote host instead of `ssh'.
+        (let ((default-directory user-home-directory))
+          (ghostel-exec buffer (car command-parts) (cdr command-parts)))
+        (with-current-buffer buffer
+          (ssh-zsh-ghostel--apply-default-directory ssh-options remote-dir command))))))
 
 
 (defun helm-zsh-ghostel-ssh-buffers-list--init ()
@@ -160,6 +229,10 @@
     map))
 
 (define-derived-mode ssh-zsh-ghostel-mode zsh-ghostel-mode "ssh"
-  "Major mode for ssh zsh ghostel buffer.")
+  "Major mode for ssh zsh ghostel buffer."
+  (setq-local ghostel-tramp-default-method (intern ssh-zsh-ghostel-tramp-method)))
+
+(with-eval-after-load 'ghostel
+  (advice-add #'ghostel--update-directory :before #'ssh-zsh-ghostel--prepare-for-directory-update))
 
 (provide 'zsh-ghostel-ssh)
