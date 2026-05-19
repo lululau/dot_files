@@ -52,6 +52,7 @@
   (defun ghostel-send-ctrl-u () (interactive) (ghostel-send-key "u" "ctrl"))
   (defun ghostel-send-exit-program () (interactive) (ghostel-send-string "exit-program\n"))
   (defun ghostel-send-meta-return () (interactive) (ghostel-send-string "\e\C-m"))
+  (defun ghostel-send-meta-period () (interactive) (ghostel-send-string "\e."))
   (defun ghostel-send-ctrl-h () (interactive) (ghostel-send-key "h" "ctrl"))
   (defun ghostel-send-C-x-C-c () (interactive) (ghostel-send-ctrl-x "c" t))
   (defun ghostel-send-C-x-C-g () (interactive) (ghostel-send-ctrl-x "g" t))
@@ -110,6 +111,7 @@
   (define-key ghostel-semi-char-mode-map (kbd "<M-return>") #'ghostel-send-meta-return)
   (define-key ghostel-semi-char-mode-map (kbd "C-h") #'ghostel-send-ctrl-h)
   (define-key ghostel-semi-char-mode-map (kbd "M-/") 'current-buffer-completion)
+  (define-key ghostel-semi-char-mode-map (kbd "M-.") #'ghostel-send-meta-period)
 
   (let ((map (lookup-key ghostel-semi-char-mode-map "\e")))
     (define-key map "k" #'lx/window-up-fallback-to-switch-frame)
