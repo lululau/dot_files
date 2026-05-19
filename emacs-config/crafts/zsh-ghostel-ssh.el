@@ -30,7 +30,7 @@
        (string-match (format "\\`/%s:" (regexp-quote ssh-zsh-ghostel-tramp-method))
                      path)))
 
-(defun ssh-zsh-ghostel--prepare-for-directory-update ()
+(defun ssh-zsh-ghostel--prepare-for-directory-update (&rest _)
   "Before `ghostel--update-directory': force rpc and a reusable TRAMP prefix.
 
 `ghostel--update-directory' reuses `(file-remote-p default-directory)' when
