@@ -160,16 +160,16 @@
   (helm-zsh-ghostel-ssh-run "jicai.dev"))
 
 ;;;###autoload
-(defun lx/vrl-jicai-api-open ()
-  "Run vrl jicai-api-open"
-  (interactive)
-  (helm-ghostel-vrl-run-auto-function "jicai-api-open"))
-
-;;;###autoload
 (defun lx/vrl-jicai-dev ()
   "Run vrl jicai-dev"
   (interactive)
   (helm-ghostel-vrl-run-auto-function "jicai-dev"))
+
+;;;###autoload
+(defun lx/vrl-jicai-uat ()
+  "Run vrl jicai-uat"
+  (interactive)
+  (helm-ghostel-vrl-run-auto-function "jicai-uat"))
 
 ;;;###autoload
 (defun lx/vrl-jicai-prod ()

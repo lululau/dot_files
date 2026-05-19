@@ -776,9 +776,9 @@ Remove empty lines
 
 (autoload 'lx/ssh-to-jicai-dev "term-funcs" nil t)
 
-(autoload 'lx/vrl-jicai-api-open "term-funcs" nil t)
-
 (autoload 'lx/vrl-jicai-dev "term-funcs" nil t)
+
+(autoload 'lx/vrl-jicai-uat "term-funcs" nil t)
 
 (autoload 'lx/vrl-jicai-prod "term-funcs" nil t)
 
