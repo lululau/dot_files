@@ -499,6 +499,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (add-hook 'lsp-completion-mode-hook #'lx/reset-lsp-company-backends)
 
+  (add-hook 'dired-mode-hook #'lx/dired-rpc-switches-fix)
+
   (setq mcp-hub-servers
         '(
           ;; ("Fetch" . (:command "/Users/liuxiang/.local/bin/mcp-server-fetch" :args nil))
