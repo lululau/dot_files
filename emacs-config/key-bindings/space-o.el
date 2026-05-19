@@ -120,16 +120,16 @@
         ("oor" rails-guides-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org"))))
 
 (setq lx/server-files
-      '(("os3" jicai-dev "/rpc:jicai.dev:/data")
-      ("os4" jicai-uat "/rpc:jicai.uat:/data")
-      ("os5" ubuntu-sd "/rpc:ubuntu.sd:/data")
-      ("os6" jicai-prod1 "/rpc:jicai.prod1:/data")
-      ("os7" jicai-prod2 "/rpc:jicai.prod2:/data")
-      ("os8" jicai-prod3 "/rpc:jicai.prod3:/data")
-      ("os9" ueos-dev "/rpc:ueos.dev:/data")
-      ("osm" manjaro "/rpc:manjaro.z4:~/")
-      ("os1" lx16 "/rpc:lx16:~/")
-      ("os0" lx-sd "/rpc:lx.sd:~/")))
+      '(("os0" lx-sd "/rpc:lx.sd:~/")
+        ("os1" jicai-prod1 "/rpc:jicai.prod1:/data")
+        ("os2" jicai-prod2 "/rpc:jicai.prod2:/data")
+        ("os3" jicai-prod3 "/rpc:jicai.prod3:/data")
+        ("os4" jicai-dev "/rpc:jicai.dev:/data")
+        ("os5" jicai-uat "/rpc:jicai.uat:/data")
+        ("os6" ueos-dev "/rpc:ueos.dev:/data")
+        ("os8" manjaro "/rpc:manjaro.z4:~/")
+        ("os9" lx16 "/rpc:lx:~/")
+      ))
 
 ;; Cheat Sheets
 (setq lx/cheatsheets

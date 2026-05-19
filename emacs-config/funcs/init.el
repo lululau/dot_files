@@ -778,6 +778,10 @@ Remove empty lines
 
 (autoload 'lx/ssh-to-ueos-dev "term-funcs" nil t)
 
+(autoload 'lx/ssh-to-manjaro-z4 "term-funcs" nil t)
+
+(autoload 'lx/ssh-to-lx "term-funcs" nil t)
+
 (autoload 'lx/vrl-jicai-dev "term-funcs" nil t)
 
 (autoload 'lx/vrl-jicai-uat "term-funcs" nil t)

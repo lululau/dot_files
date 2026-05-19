@@ -154,6 +154,18 @@
   (helm-zsh-ghostel-ssh-run "jicai.uat"))
 
 ;;;###autoload
+(defun lx/ssh-to-manjaro-z4 ()
+  "ssh to manjaro.z4 via ghostel"
+  (interactive)
+  (helm-zsh-ghostel-ssh-run "manjaro.z4"))
+
+;;;###autoload
+(defun lx/ssh-to-lx ()
+  "ssh to lx.local via ghostel"
+  (interactive)
+  (helm-zsh-ghostel-ssh-run "lx"))
+
+;;;###autoload
 (defun lx/ssh-to-ueos-dev ()
   "ssh to ueos.dev via ghostel"
   (interactive)
