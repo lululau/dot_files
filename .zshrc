@@ -232,6 +232,7 @@ export FZF_DEFAULT_OPTS="-x -m --history=$HOME/.fzf_history --history-size=10000
 
 precmd() {
   pwd > /tmp/iterm2_pwd
+  printf '\e]51;E"update-pwd" "%s/"\e\\' "$PWD"
 }
 
 if [[ "$TERM" == "dumb" ]]
