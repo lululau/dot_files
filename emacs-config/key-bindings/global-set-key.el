@@ -50,6 +50,7 @@
 (global-set-key (kbd "s-r 1") #'lx/ssh-to-jicai-prod1)
 (global-set-key (kbd "s-r 2") #'lx/ssh-to-jicai-prod2)
 (global-set-key (kbd "s-r 3") #'lx/ssh-to-jicai-prod3)
+(global-set-key (kbd "s-r 4") #'lx/ssh-to-ueos-dev)
 (global-set-key (kbd "s-r 8") #'lx/ssh-to-jicai-uat)
 (global-set-key (kbd "s-r 9") #'lx/ssh-to-jicai-dev)
 (global-set-key (kbd "s-r l 1") #'lx/vrl-jicai-dev)

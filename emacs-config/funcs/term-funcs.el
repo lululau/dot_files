@@ -154,6 +154,12 @@
   (helm-zsh-ghostel-ssh-run "jicai.uat"))
 
 ;;;###autoload
+(defun lx/ssh-to-ueos-dev ()
+  "ssh to ueos.dev via ghostel"
+  (interactive)
+  (helm-zsh-ghostel-ssh-run "ueos.dev"))
+
+;;;###autoload
 (defun lx/ssh-to-jicai-dev ()
   "ssh to jicai.dev via ghostel"
   (interactive)
