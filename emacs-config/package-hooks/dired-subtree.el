@@ -2,7 +2,7 @@
   (require 'cl-lib)
 
   (defface my-dired-subtree-guide-face
-    '((t :inherit shadow))
+    '((t :inherit shadow :weight normal :slant normal :underline nil))
     "Face used for drawing dired subtree guide lines."
     :group 'dired-subtree)
 
