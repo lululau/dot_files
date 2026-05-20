@@ -44,10 +44,10 @@
                     (insert-char 32 distance 'inherit))))
               (forward-line 1)))))))
 
-  ;; 1. 禁用 dired-subtree 默认的统一缩进，交由我们的自定义画树函数来绘制
+  ;; 1. 禁用 dired-subtree 默认的统一缩进
   (setq dired-subtree-line-prefix "")
 
-  ;; 2. 获取某一位置的子树嵌套深度
+  ;; 2. 获取 POS 处的子树嵌套深度
   (defun my-dired-subtree-get-depth-at-pos (pos)
     "获取 POS 处的子树嵌套深度。"
     (let ((ovs (cl-remove-if-not
@@ -64,65 +64,59 @@
       (when (overlay-get ov 'my-dired-tree-overlay)
         (delete-overlay ov))))
 
-  ;; 4. 自底向上 O(N) 高效画树核心函数
+  ;; 4. 自底向上 O(N) 高效画树函数（在每个文件名之前精准绘制树形前缀）
   (defun my-dired-subtree-draw-tree ()
-    "自底向上扫描 dired buffer，为所有行精准绘制树形前缀。"
+    "自底向上扫描 dired buffer，在每个文件名之前精准绘制树形前缀。"
     (interactive)
     (when (derived-mode-p 'dired-mode)
       (let ((inhibit-read-only t)
-            (has-siblings (make-vector 64 nil)) ; 记录各深度下方是否还有同级节点，支持到 63 层嵌套
+            (has-siblings (make-vector 64 nil))
             (lines-to-draw nil))
         (my-dired-subtree-clear-tree-overlays)
 
-        ;; 第一步：自顶向下收集所有代表文件的行以及它们的深度
+        ;; 第一步：自顶向下收集每行的范围、文件名起始位置和嵌套深度
         (save-excursion
           (goto-char (point-min))
           (while (not (eobp))
-            (when (dired-get-filename nil t)
-              (let ((depth (min (my-dired-subtree-get-depth-at-pos (point)) 63)))
-                ;; 记录行开头位置、结尾位置和深度。由于使用 push，列表将自然呈“自底向上”的反向顺序
-                (push (list (line-beginning-position) (line-end-position) depth) lines-to-draw)))
+            (let ((fn-beg (dired-move-to-filename)))
+              (when fn-beg
+                (let ((depth (min (my-dired-subtree-get-depth-at-pos (point)) 63)))
+                  (push (list (line-beginning-position) fn-beg depth) lines-to-draw))))
             (forward-line 1)))
 
-        ;; 第二步：自底向上反向处理每一行 (高效 O(N))
+        ;; 第二步：自底向上反向处理每一行 (O(N))
         (dolist (line-info lines-to-draw)
           (let* ((beg (car line-info))
-                 (end (cadr line-info))
+                 (fn-beg (cadr line-info))
                  (depth (caddr line-info))
                  (parts nil))
 
-            ;; 构造当前行的树状前缀
-            (dotimes (i (1+ depth))
-              (if (< i depth)
-                  ;; 如果是父级列：根据下方是否还有该父级的同级节点决定画“│”还是留空
-                  (if (aref has-siblings i)
-                      (push "│ " parts)
-                    (push "  " parts))
-                ;; 如果是当前级列：根据下方是否还有同级节点决定画“├──”还是“└──”
-                (if (aref has-siblings i)
-                    (push "├──" parts)
-                  (push "└──" parts))))
+            ;; 只有深度大于 0 的子节点才绘制树形前缀
+            (when (> depth 0)
+              (dotimes (i depth)
+                (if (< i (1- depth))
+                    (if (aref has-siblings (1+ i))
+                        (push "│   " parts)
+                      (push "    " parts))
+                  (if (aref has-siblings (1+ i))
+                      (push "├── " parts)
+                    (push "└── " parts))))
 
-            ;; 更新兄弟节点状态：当前行之上的行在当前深度（以及更浅深度）都有同级节点了
-            ;; 重置比当前深度更深的所有状态
-            (let ((d-idx (1+ depth)))
-              (while (< d-idx (length has-siblings))
-                (aset has-siblings d-idx nil)
-                (setq d-idx (1+ d-idx))))
-            ;; 标记当前深度有同级节点
-            (aset has-siblings depth t)
+              (let ((d-idx depth))
+                (while (< d-idx (length has-siblings))
+                  (aset has-siblings d-idx nil)
+                  (setq d-idx (1+ d-idx))))
+              (aset has-siblings depth t)
 
-            ;; 创建 overlay 并应用计算好的 line-prefix
-            (let ((prefix (apply #'concat (nreverse parts)))
-                  (ov (make-overlay beg end)))
-              (overlay-put ov 'my-dired-tree-overlay t)
-              (overlay-put ov 'line-prefix prefix)
-              (overlay-put ov 'evaporate t)))))))
+              (let ((prefix (apply #'concat (nreverse parts))))
+                ;; 在文件名开头创建 1 字符宽的 overlay，将树状前缀插入其 before-string
+                (let ((ov-prefix (make-overlay fn-beg (1+ fn-beg))))
+                  (overlay-put ov-prefix 'my-dired-tree-overlay t)
+                  (overlay-put ov-prefix 'before-string prefix)
+                  (overlay-put ov-prefix 'evaporate t)))))))))
 
-  ;; 将自动对齐函数加入钩子中
+  ;; 将自动对齐函数和画树函数绑定到 dired-subtree 的操作钩子上
   (add-hook 'dired-subtree-after-insert-hook #'my-dired-subtree-align-all)
-
-  ;; 5. 将画树函数绑定到 dired-subtree 的操作钩子上
   (add-hook 'dired-subtree-after-insert-hook #'my-dired-subtree-draw-tree)
   (add-hook 'dired-subtree-after-remove-hook #'my-dired-subtree-draw-tree)
   (add-hook 'dired-after-readin-hook #'my-dired-subtree-draw-tree))
