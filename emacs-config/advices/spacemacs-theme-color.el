@@ -127,10 +127,10 @@
                         `(ac-completion-face ((,class (:background ,ttip-bg :foreground ,ttip))))
 
 ;;;;; avy
-                        `(avy-lead-face   ((,class (:background ,blue-bg :foreground ,magenta))))
-                        `(avy-lead-face-0 ((,class (:background ,blue-bg :foreground ,blue))))
-                        `(avy-lead-face-1 ((,class (:background ,blue-bg :foreground ,magenta))))
-                        `(avy-lead-face-2 ((,class (:background ,blue-bg :foreground ,blue))))
+                        `(avy-lead-face   ((t (:foreground "white" :background "#e52b50"))))
+                        `(avy-lead-face-0 ((t (:foreground "white" :background "#4f57f9"))))
+                        `(avy-lead-face-1 ((t (:foreground "white" :background "gray"))))
+                        `(avy-lead-face-2 ((t (:foreground "white" :background "#f86bf3"))))
 
 ;;;;; cider
                         `(cider-enlightened ((,class (:background nil :box (:color ,yellow :line-width -1 :style nil) :foreground ,yellow))))
