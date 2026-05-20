@@ -1,6 +1,11 @@
 (with-eval-after-load 'dired-subtree
   (require 'cl-lib)
 
+  (defface my-dired-subtree-guide-face
+    '((t :inherit shadow))
+    "Face used for drawing dired subtree guide lines."
+    :group 'dired-subtree)
+
   (defun my-dired-subtree-align-all ()
     "在 dired-subtree 展开时，强制将 Dired 缓冲区中的所有文件属性列对齐到最大宽度。"
     (interactive)
@@ -108,7 +113,8 @@
                   (setq d-idx (1+ d-idx))))
               (aset has-siblings depth t)
 
-              (let ((prefix (apply #'concat (nreverse parts))))
+              (let ((prefix (propertize (apply #'concat (nreverse parts))
+                                        'face 'my-dired-subtree-guide-face)))
                 ;; 在文件名开头创建 1 字符宽的 overlay，将树状前缀插入其 before-string
                 (let ((ov-prefix (make-overlay fn-beg (1+ fn-beg))))
                   (overlay-put ov-prefix 'my-dired-tree-overlay t)
