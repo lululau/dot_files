@@ -114,3 +114,6 @@ emacs-config/.agenda_files
 /qmd/
 /t1code/
 /tuinnel/
+
+/.lsp/.cache
+/.clj-kondo/.cache
