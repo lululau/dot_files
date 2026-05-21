@@ -1195,6 +1195,8 @@ This function is called at the very end of Spacemacs initialization."
 (quote
  ((copilot-mode)
   (spacemacs-helm-rg-addtional-args . "-L")
+  (helm-fd-switches . ("--no-ignore" "--hidden" "--type" "f" "--type" "d" "--color" "always" "-L"))
+  (projectile-git-fd-args . "-H -0 -E .git -tf --strip-cwd-prefix -c never -L")
   (arql-env . "lcldevb")
   (arql-env . "mddev")
   (arql-env . "mddev2")

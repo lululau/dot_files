@@ -4,8 +4,8 @@
 (defun lx/helm-find-project-files ()
   (interactive)
   (require 'helm-fd)
-  (let ((directory
-         (projectile-project-root)))
+  (let ((directory (projectile-project-root)))
+    (helm-set-local-variable 'helm-fd-switches helm-fd-switches)
     (helm-fd-1 directory)))
 
 ;;;###autoload
