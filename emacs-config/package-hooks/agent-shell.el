@@ -60,8 +60,6 @@ With \\[universal-argument] \\[universal-argument] prefix ARG, prompt to pick an
           (agent-shell--dwim)))
       (quit (setq lx/agent-shell--display-in-other-window nil))))
 
-  (define-key agent-shell-mode-map (kbd "C-v") 'agent-shell-send-clipboard-image)
-
   (cl-defun lx/agent-shell--buffer-files ()
     "Return buffer file(s) or `dired' selected file(s)."
     (if (buffer-file-name)
@@ -92,4 +90,22 @@ With prefix argument PROMPT-FOR-FILE, always prompt for file selection."
                           (user-error "No file to send")))))
         (agent-shell--insert-to-shell-buffer
          :text (agent-shell--processed-files :files files)))))
-  )
+
+  (evil-define-key 'normal agent-shell-mode-map (kbd ".") 'agent-shell-help-menu)
+  (evil-define-key 'normal agent-shell-mode-map (kbd "<tab>") 'agent-shell-next-item)
+  (evil-define-key 'normal agent-shell-mode-map [S-tab] 'agent-shell-previous-item)
+  (evil-define-key 'normal agent-shell-mode-map (kbd "@") 'agent-shell-insert-file)
+  (evil-define-key 'normal agent-shell-mode-map (kbd "!") 'agent-shell-insert-shell-command-output)
+  (spacemacs/set-leader-keys-for-major-mode 'agent-shell-mode
+    "@" 'agent-shell-insert-file
+    "!" 'agent-shell-insert-shell-command-output
+    "d" 'agent-shell-send-dwim
+    "m" 'agent-shell-cycle-session-mode
+    "M" 'agent-shell-set-session-mode
+    "v" 'agent-shell-set-session-model
+    "o" 'agent-shell-set-session-config-option
+    "C" 'agent-shell-interrupt
+    "b" 'agent-shell-toggle
+    "N" 'agent-shell-new-shell)
+
+  (define-key agent-shell-mode-map (kbd "C-v") 'agent-shell-send-clipboard-image))
