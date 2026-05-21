@@ -900,6 +900,8 @@ Return a one liner string containing all the layout names.")
 
 (autoload 'lx/dired-rpc-switches-fix "dired-rpc-switches-fix" nil t)
 
+(autoload 'lx/agent-shell-select-session "agent-shell-enhanced" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "window-funcs" "window-funcs.el" (0 0 0 0))
