@@ -39,27 +39,6 @@ When multiple windows exist, reuse another window instead of splitting again."
                            'agent-shell--emit-event)
     (advice-add 'agent-shell--emit-event :around #'lx/agent-shell--emit-event-advice))
 
-  (defun lx/agent-shell-in-other-window (&optional arg)
-    "Start or reuse an agent shell in another window.
-
-Same as `agent-shell', but always displays the shell in another window.
-When the current frame has only one window, split it first.
-
-With \\[universal-argument] prefix ARG, force start a new shell.
-
-With \\[universal-argument] \\[universal-argument] prefix ARG, prompt to pick an existing shell."
-    (interactive "P")
-    (setq lx/agent-shell--display-in-other-window t)
-    (condition-case-unless-debug err
-        (cond
-         ((equal arg '(16))
-          (agent-shell--dwim :switch-to-shell t))
-         ((equal arg '(4))
-          (agent-shell--dwim :new-shell t))
-         (t
-          (agent-shell--dwim)))
-      (quit (setq lx/agent-shell--display-in-other-window nil))))
-
   (cl-defun lx/agent-shell--buffer-files ()
     "Return buffer file(s) or `dired' selected file(s)."
     (if (buffer-file-name)
