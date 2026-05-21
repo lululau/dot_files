@@ -44,7 +44,7 @@
                 ("odO" obsidian-dir ("/Users/liuxiang/Obsidian/Documents/Main"))
                 ("odj" org-journal-dir ("~/Documents/materials/journal"))
                 ("odJ" org-jira-dir ("~/Documents/materials/jira"))
-                ("odn" notes-dir ("~/Documents/materials/notes"))
+                ("odn" notes-dir ("~/notebase"))
                 ("odN" evernotes-dir ("~/Documents/evernotes"))
                 ("odw" webclips-dir ("~/Documents/materials/webclips"))
                 ("odv" volumes-dir ("/Volumes"))
