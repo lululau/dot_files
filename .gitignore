@@ -117,3 +117,7 @@ emacs-config/.agenda_files
 
 /.lsp/.cache
 /.clj-kondo/.cache
+/openchamber.bak/
+/abtop/abtop-receipt.json
+/htop/htop_history
+/zentty/
