@@ -31,6 +31,7 @@ set exchange
 set vim-paragraph-motion
 set textobj-entire
 set highlightedyank
+set anyobject
 " 共享系统粘贴板
 set clipboard=unnamed
 " set expandtab
