@@ -1,4 +1,21 @@
-set colorfulmodewidget
+set showmode
+
+" Mode widget — Catppuccin Macchiato 完全自定义（Dark）
+let g:widget_mode_is_full_customization_dark = 1
+let g:widget_mode_normal_background_dark = '#f2ca44'
+let g:widget_mode_insert_background_dark = '#8dbeea'
+let g:widget_mode_replace_background_dark = '#f5a97f'
+let g:widget_mode_command_background_dark = '#a6da95'
+let g:widget_mode_visual_background_dark = '#8087a2'
+let g:widget_mode_select_background_dark = '#8087a2'
+
+let g:widget_mode_normal_foreground_dark = '#3a3a3a'
+let g:widget_mode_insert_foreground_dark = '#3a3a3a'
+let g:widget_mode_replace_foreground_dark = '#3a3a3a'
+let g:widget_mode_command_foreground_dark = '#3a3a3a'
+let g:widget_mode_visual_foreground_dark = '#3a3a3a'
+let g:widget_mode_select_foreground_dark = '#3a3a3a'
+
 set idearefactormode=keep
 set NERDTree
 set surround
@@ -27,10 +44,10 @@ set clipboard=unnamed
 " set fileencodings=utf-8,ucs-bom,chinese
 " set formatoptions+=mM
 " set ambiwidth=double
-set noshowmode
 set multiple-cursors
 set textobj-indent
 set ideajoin
+set VimEverywhere
 
 let mapleader = " "
 
