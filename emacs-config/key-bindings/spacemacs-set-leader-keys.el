@@ -144,7 +144,7 @@
   "aq" #'clutch-query-console
 
   "aP"  'list-processes
-  "ap"  'proced
+  "ap"  'lx/proced-same-window
   )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode

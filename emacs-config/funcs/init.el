@@ -904,6 +904,8 @@ Return a one liner string containing all the layout names.")
 
 (autoload 'lx/agent-shell-in-other-window "agent-shell-enhanced" nil t)
 
+(autoload 'lx/proced-same-window "proced-enhanced-funcs" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "window-funcs" "window-funcs.el" (0 0 0 0))
