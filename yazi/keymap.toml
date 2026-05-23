@@ -271,8 +271,8 @@ run = "cd -- ~/Documents/materials/jira"
 desc = "Jump to ~/Documents/materials/jira'"
 [[mgr.prepend_keymap]]
 on = ["<Space>", "o", "d", "n"]
-run = "cd -- ~/Documents/materials/notes"
-desc = "Jump to ~/Documents/materials/notes'"
+run = "cd -- ~/notebase"
+desc = "Jump to ~/notebase'"
 [[mgr.prepend_keymap]]
 on = ["<Space>", "o", "d", "N"]
 run = "cd -- ~/Documents/evernotes"
