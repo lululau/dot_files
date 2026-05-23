@@ -6,7 +6,7 @@
     // "opencode-synced",
     // "opencode-antigravity-auth@beta",
     // "opencode-antigravity-quota@0.1.6",
-    "@franlol/opencode-md-table-formatter@0.0.3",
+    // "@franlol/opencode-md-table-formatter@0.0.6",
   ],
 
   "provider": {
