@@ -49,6 +49,70 @@ If INTERACTIVE is nil, fall back to shell mode since ghostel is interactive."
 
 (with-eval-after-load 'docker-container
   (require 'ghostel)
+
+  (defun docker-container--detect-shell (container)
+    "Return the best available shell in CONTAINER, preferring zsh > bash > sh."
+    (docker-with-sudo
+      (let* ((script "for s in zsh bash sh; do p=$(command -v $s 2>/dev/null); if [ -n \"$p\" ]; then echo $p; exit 0; fi; done; echo /bin/sh")
+             (process-args (append (docker-arguments)
+                                   (list "exec" container "sh" "-c" script)))
+             (command-args (mapconcat #'shell-quote-argument process-args " "))
+             (command (if (string-match-p "ssh" docker-command)
+                          (format "%s '%s'" docker-command command-args)
+                        (format "%s %s" docker-command command-args)))
+             (result (string-trim (shell-command-to-string command))))
+        (when docker-show-messages
+          (message "Using shell %s in container %s" result container))
+        (if (string-empty-p result)
+            docker-container-shell-file-name
+          result))))
+
+  (defun docker-container--inspect-config (container)
+    "Return the Config alist for CONTAINER via synchronous docker inspect."
+    (docker-with-sudo
+      (let* ((process-args (append (docker-arguments) (list "inspect" container)))
+             (command-args (mapconcat #'shell-quote-argument process-args " "))
+             (command (if (string-match-p "ssh" docker-command)
+                          (format "%s '%s'" docker-command command-args)
+                        (format "%s %s" docker-command command-args))))
+        (cdr (assq 'Config (aref (json-read-from-string (shell-command-to-string command)) 0))))))
+
+  (defun docker-container--apply-remote-shell (container-shell)
+    "Configure TRAMP and shell to use CONTAINER-SHELL on `default-directory'."
+    (tramp-set-connection-property default-directory "remote-shell" container-shell)
+    (with-connection-local-variables
+      (setq-connection-local
+       tramp-remote-shell container-shell
+       shell-file-name container-shell
+       explicit-shell-file-name container-shell)))
+
+  (defun docker-container-shell-env-auto (container)
+    "Open `shell' in CONTAINER with env and auto-detected shell (zsh > bash > sh)."
+    (interactive (list (docker-container-read-name)))
+    (docker-container-assert-tramp-docker)
+    (let* ((container-shell (docker-container--detect-shell container))
+           (container-address (format "%s:%s:" docker-container-tramp-method container))
+           (file-prefix (let ((prefix (file-remote-p default-directory)))
+                          (if prefix
+                              (format "%s|" (s-chop-suffix ":" prefix))
+                            "/")))
+           (container-config (docker-container--inspect-config container))
+           (container-workdir (cdr (assq 'WorkingDir container-config)))
+           (container-env (cdr (assq 'Env container-config)))
+           (default-directory (format "%s%s%s" file-prefix container-address container-workdir))
+           (tramp-remote-process-environment
+            (append container-env (list (format "SHELL=%s" container-shell)) nil))
+           (buffer (docker-utils-generate-new-buffer "docker" "shell-env-auto:" default-directory)))
+      (docker-container--apply-remote-shell container-shell)
+      (shell buffer container-shell)))
+
+  (defun docker-container-shell-env-auto-selection ()
+    "Run `docker-container-shell-env-auto' on the containers selection."
+    (interactive)
+    (docker-utils-ensure-items)
+    (--each (docker-utils-get-marked-items-ids)
+      (docker-container-shell-env-auto it)))
+
   (defun docker-container-ghostel (container)
     "Open `ghostel' in CONTAINER."
     (interactive (list (docker-container-read-name)))
@@ -61,7 +125,9 @@ If INTERACTIVE is nil, fall back to shell mode since ghostel is interactive."
                                 "/")))
                (default-directory (format "%s%s" file-prefix container-address)))
           (zsh-ghostel (docker-utils-generate-new-buffer-name "docker" "ghostel:" default-directory)))
-      (error "The ghostel package is not installed"))))
+      (error "The ghostel package is not installed")))
+
+  (evilified-state-evilify-map docker-container-mode-map :mode docker-container-mode :bindings (kbd "RET") 'docker-container-shell-env-auto-selection))
 
 (with-eval-after-load 'docker-image
   (defun docker-image-run-selection (command)
