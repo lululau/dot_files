@@ -87,9 +87,12 @@ If INTERACTIVE is nil, fall back to shell mode since ghostel is interactive."
        explicit-shell-file-name container-shell)))
 
   (defun docker-container-shell-env-auto (container)
-    "Open `shell' in CONTAINER with env and auto-detected shell (zsh > bash > sh)."
+    "Open `ghostel' in CONTAINER with env and auto-detected shell (zsh > bash > sh)."
     (interactive (list (docker-container-read-name)))
     (docker-container-assert-tramp-docker)
+    (require 'zsh-ghostel nil 'noerror)
+    (unless (fboundp 'zsh-ghostel--internal)
+      (error "The ghostel package is not installed"))
     (let* ((container-shell (docker-container--detect-shell container))
            (container-address (format "%s:%s:" docker-container-tramp-method container))
            (file-prefix (let ((prefix (file-remote-p default-directory)))
@@ -102,9 +105,13 @@ If INTERACTIVE is nil, fall back to shell mode since ghostel is interactive."
            (default-directory (format "%s%s%s" file-prefix container-address container-workdir))
            (tramp-remote-process-environment
             (append container-env (list (format "SHELL=%s" container-shell)) nil))
-           (buffer (docker-utils-generate-new-buffer "docker" "shell-env-auto:" default-directory)))
+           (buffer-name (docker-utils-generate-new-buffer-name "docker" "ghostel-env-auto:" default-directory))
+           ;; ghostel-tramp-shells hardcodes docker => /bin/sh; override per container.
+           (ghostel-tramp-shells (cons (list "docker" container-shell)
+                                       (assq-delete-all "docker" ghostel-tramp-shells))))
       (docker-container--apply-remote-shell container-shell)
-      (shell buffer container-shell)))
+      (let ((ghostel-kill-buffer-on-exit nil))
+        (zsh-ghostel--internal #'pop-to-buffer buffer-name))))
 
   (defun docker-container-shell-env-auto-selection ()
     "Run `docker-container-shell-env-auto' on the containers selection."
@@ -121,7 +128,7 @@ If INTERACTIVE is nil, fall back to shell mode since ghostel is interactive."
         (let* ((container-address (format "docker:%s:/" container))
                (file-prefix (let ((ssh-host (seq--elt-safe (s-split " " docker-command) 1)))
                               (if ssh-host
-                                  (format "/ssh:%s|" (s-chop-suffix ":" ssh-host))
+                                  (format "/rpc:%s|" (s-chop-suffix ":" ssh-host))
                                 "/")))
                (default-directory (format "%s%s" file-prefix container-address)))
           (zsh-ghostel (docker-utils-generate-new-buffer-name "docker" "ghostel:" default-directory)))
