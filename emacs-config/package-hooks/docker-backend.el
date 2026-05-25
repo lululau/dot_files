@@ -137,6 +137,18 @@ If INTERACTIVE is nil, fall back to shell mode since ghostel is interactive."
   (evilified-state-evilify-map docker-container-mode-map :mode docker-container-mode :bindings (kbd "RET") 'docker-container-shell-env-auto-selection))
 
 (with-eval-after-load 'docker-image
+  (defun lx/docker-image-run-selection (command)
+    "Run \"docker container run -i -t --rm COMMAND\" on the images selection.
+Skips the `docker-image-run' transient menu."
+    (interactive "sCommand: ")
+    (docker-utils-ensure-items)
+    (let* ((run-args '("-i" "-t" "--rm"))
+           (docker-command (if (seq-contains-p run-args "-t")
+                               (replace-regexp-in-string "^ssh" "ssh -t" docker-command)
+                             docker-command)))
+      (--each (docker-utils-get-marked-items-ids)
+        (docker-run-docker-async-with-buffer-interactive "container" "run" run-args it command))))
+
   (defun docker-image-run-selection (command)
     "Run \"docker image run\" with COMMAND on the images selection."
     (interactive "sCommand: ")
@@ -146,4 +158,5 @@ If INTERACTIVE is nil, fall back to shell mode since ghostel is interactive."
                                (replace-regexp-in-string "^ssh" "ssh -t" docker-command)
                              docker-command)))
       (--each (docker-utils-get-marked-items-ids)
-        (docker-run-docker-async-with-buffer-interactive "container" "run" run-args it command)))))
+        (docker-run-docker-async-with-buffer-interactive "container" "run" run-args it command))))
+  (evilified-state-evilify-map docker-image-mode-map :mode docker-image-mode :bindings (kbd "RET") 'lx/docker-image-run-selection))
