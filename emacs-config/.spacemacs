@@ -203,8 +203,8 @@
      ;; raku
      json
      yaml
-     ruby-on-rails
-     projectile-bundler
+     ;; ruby-on-rails
+     ;; projectile-bundler
      ;; projectile-bundler-robe
      ;; elixir
      (shell-scripts :variables shell-scripts-backend 'shell-script-mode)
@@ -281,7 +281,7 @@
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu
-                                            jq-mode helm-dired-history go-dlv realgud-byebug
+                                            jq-mode helm-dired-history go-dlv
                                             dired-subtree carbon-now-sh sx daemons
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
@@ -591,7 +591,9 @@ layers configuration."
   (setq comint-input-ring-file-name "~/.pry_history")
   (setq comint-input-ring-size 100000)
   (remove-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)
-  (add-hook 'after-change-major-mode-hook 'projectile-rails-on)
+
+  ;; (add-hook 'after-change-major-mode-hook 'projectile-rails-on)
+
   (setq inf-ruby-default-implementation "pry")
   (setq inf-ruby-eval-binding "Pry.toplevel_binding")
   (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
