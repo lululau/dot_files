@@ -284,7 +284,7 @@
                                             jq-mode helm-dired-history go-dlv
                                             dired-subtree carbon-now-sh sx daemons
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
-                                            ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
+                                            ob-tmux org-tree-slide helm-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
                                             mermaid-mode grip-mode dired-rsync dired-rsync-transient
