@@ -49,16 +49,26 @@
                (lx/run-in-projectile-ghostel--buffer-in-scope-p buffer scope-root))
       buffer)))
 
+(defun lx/run-in-projectile-ghostel--scope-root ()
+  (or (and (fboundp 'projectile-project-p) (projectile-project-p)
+           (projectile-project-root))
+      (and (buffer-file-name) (file-name-directory (buffer-file-name)))
+      user-home-directory))
+
+(defun lx/run-in-projectile-ghostel--scope-label ()
+  (or (and (fboundp 'projectile-project-p) (projectile-project-p)
+           (projectile-project-name))
+      (and (buffer-file-name)
+           (let ((dir (file-name-directory (buffer-file-name))))
+             (and dir (file-name-nondirectory (directory-file-name dir)))))
+      "~"))
+
 (defun lx/run-in-projectile-ghostel (command buffer-name &optional directory exclusive-window)
   (interactive)
-  (let* ((scope-root (if (and (fboundp 'projectile-project-p) (projectile-project-p))
-                         (projectile-project-root)
-                       user-home-directory))
+  (let* ((scope-root (lx/run-in-projectile-ghostel--scope-root))
          (buffer-name (replace-regexp-in-string
                        "%p"
-                       (if (and (fboundp 'projectile-project-p) (projectile-project-p))
-                           (projectile-project-name)
-                         "~")
+                       (lx/run-in-projectile-ghostel--scope-label)
                        buffer-name))
          (directory (or directory scope-root))
          (buffer (lx/run-in-projectile-ghostel--find-buffer buffer-name scope-root))
