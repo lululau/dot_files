@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'gptel
 
   (gptel-make-openai "Dashscope"

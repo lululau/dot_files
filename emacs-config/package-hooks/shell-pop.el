@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'shell-pop
   (defun shell-pop--cd-to-cwd-ghostel (cwd)
     "Change the terminal's directory to CWD and clear the screen in ghostel."

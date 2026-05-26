@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'agent-shell
 
   (defvar lx/agent-shell--display-in-other-window nil

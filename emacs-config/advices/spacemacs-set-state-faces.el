@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
                                  ("insert" "chartreuse3" (bar . 2))
                                  ("emacs" "SkyBlue2" box)
@@ -42,12 +44,11 @@
 
   (cl-loop for (state color cursor) in spacemacs-evil-cursors
            do
-           (eval `(face-spec-set ',(intern (format "spacemacs-%s-face" state))
-                                 `((t (:background ,color
-                                                   :foreground ,(face-background 'mode-line)
-                                                   :box ,(face-attribute 'mode-line :box)
-                                                   :inherit 'mode-line)))
-                                 ))
+           (face-spec-set (intern (format "spacemacs-%s-face" state))
+                          `((t (:background ,color
+                                            :foreground ,(face-background 'mode-line)
+                                            :box ,(face-attribute 'mode-line :box)
+                                            :inherit 'mode-line))))
            (set (intern (format "evil-%s-state-cursor" state))
                 (list (when dotspacemacs-colorize-cursor-according-to-state color)
                       cursor)))

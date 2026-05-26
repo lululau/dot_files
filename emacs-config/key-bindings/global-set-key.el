@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (global-unset-key (kbd "s-q"))
 (global-unset-key (kbd "<f10>"))
 (global-set-key (kbd "s-l") 'evil-avy-goto-line)

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'claude-code-ide
 
   (defun claude-code-ide-mcp-send-file (&optional file-path)

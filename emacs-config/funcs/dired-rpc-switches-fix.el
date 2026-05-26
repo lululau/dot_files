@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defun lx/dired-rpc-switches-fix ()
   "tramp-rpc uses ls-lisp; --quoting-style=literal breaks switch parsing."
   (when (and (derived-mode-p 'dired-mode)

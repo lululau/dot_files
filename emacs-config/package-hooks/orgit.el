@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'orgit
 
   (defun orgit-status-store () nil)

@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defun lx/mark-and-yank-whole-buffer ()
   "Mark and yank(copy) whole buffer."
   (interactive)

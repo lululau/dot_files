@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;;;###autoload
 (defun lx/layout-format-name (name pos)
   "Format the layout name given by NAME for display in mode-line."
