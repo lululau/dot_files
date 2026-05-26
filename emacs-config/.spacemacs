@@ -794,7 +794,7 @@ layers configuration."
 
   (add-to-list 'spacemacs-default-jump-handlers '(dumb-jump-go :async t) t)
 
-  (require 'python)
+  ;; (require 'python)
   (setq python-interpreter "python")
   ;; (setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
 
