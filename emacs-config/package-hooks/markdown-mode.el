@@ -16,6 +16,44 @@
   (define-key markdown-mode-map (kbd "S-<tab>") 'markdown-shifttab)
   ;; (add-hook 'markdown-mode-hook #'turn-company-english-helper-on 100)
 
+  (defun markdown-before-first-heading-p ()
+    "Return non-nil if point is before the first heading."
+    (save-excursion
+      (let ((pos (point)))
+        (goto-char (point-min))
+        (let ((first-heading (markdown-next-heading)))
+          (or (not first-heading) (< pos first-heading))))))
+
+  (defun markdown-show-branches-buffer ()
+    "Show all branches in the buffer."
+    (outline-hide-sublevels 1)
+    (save-excursion
+      (goto-char (point-min))
+      (when (markdown-next-heading)
+        (outline-show-branches)
+        (while (outline-get-next-sibling)
+          (outline-show-branches))))
+    (goto-char (point-min))
+    (markdown-outline-fix-visibility))
+
+  (defun markdown-show-branches ()
+    "Hide subtree body but show child headings, like `org-kill-note-or-show-branches'.
+When before the first heading, show all branches in the buffer."
+    (interactive)
+    (cond
+     ((markdown-before-first-heading-p)
+      (markdown-show-branches-buffer)
+      (message "BRANCHES"))
+     (t
+      (markdown-back-to-heading)
+      (outline-hide-subtree)
+      (outline-show-children 1000)
+      (setq markdown-cycle-subtree-status 'children)
+      (message "CHILDREN"))))
+
+  (define-key markdown-mode-map (kbd "C-c C-k") #'markdown-show-branches)
+  (define-key markdown-mode-map [remap outline-show-branches] #'markdown-show-branches)
+
   (defun markdown-cycle (&optional arg)
     "Visibility cycling for Markdown mode.
   This function is called with a `\\[universal-argument]' or if ARG is t, perform
