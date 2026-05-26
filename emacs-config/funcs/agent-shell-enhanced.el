@@ -19,11 +19,8 @@ With \\[universal-argument] \\[universal-argument] prefix ARG, prompt to pick an
   (interactive "P")
   (setq lx/agent-shell--display-in-other-window t)
   (condition-case-unless-debug err
-      (cond
-       ((equal arg '(16))
-        (agent-shell--dwim :switch-to-shell t))
-       ((equal arg '(4))
-        (agent-shell--dwim :new-shell t))
-       (t
-        (agent-shell--dwim)))
+      (if arg
+          (agent-shell--dwim)
+        (let ((agent-shell-preferred-agent-config 'claude-code))
+          (agent-shell--dwim)))
     (quit (setq lx/agent-shell--display-in-other-window nil))))
