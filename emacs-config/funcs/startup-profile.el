@@ -10,6 +10,9 @@
 (defvar lx/startup-profile--events nil
   "Collected startup events as (LABEL . SECS-SINCE-ORIGIN) pairs.")
 
+(defvar lx/startup-profile--package-times nil
+  "Alist of (PKG-SYMBOL . SECONDS) for slow package configuration.")
+
 (defvar lx/startup-profile--origin nil
   "Wall-clock time when profiling started.")
 
@@ -55,6 +58,15 @@
     (push (cons label (- (lx/startup-profile--now) total-start))
           lx/startup-profile--events)))
 
+(defun lx/startup-profile--format-slow-packages ()
+  (when lx/startup-profile--package-times
+    (let* ((sorted (sort (copy-sequence lx/startup-profile--package-times)
+                         (lambda (a b) (> (cdr a) (cdr b)))))
+           (lines (mapcar (lambda (e)
+                            (format "pkg/%s %7.3f" (car e) (cdr e)))
+                          sorted)))
+      (cons "Slow packages (>15ms configure):" lines))))
+
 (defun lx/startup-profile-write-report (&optional sync)
   "Write collected events to `lx/startup-profile--log-file'."
   (lx/startup-profile--ensure-origin)
@@ -74,19 +86,49 @@
       (insert "---------------------------------------- -------\n")
       (dolist (event events)
         (insert (format "%-40s %7.3f\n" (car event) (cdr event))))
+      (when-let* ((slow (lx/startup-profile--format-slow-packages)))
+        (insert (format "\n%s\n" (car slow)))
+        (dolist (line (cdr slow))
+          (insert (format "%-40s\n" line))))
       (insert (format "\nReport written at %s\n" lx/startup-profile--log-file))
       (write-region (point-min) (point-max) lx/startup-profile--log-file nil 'nomessage))
     (when sync
       (redisplay t))
     lx/startup-profile--log-file))
 
+(defun lx/startup-profile--package-label (pkg)
+  (cond
+   ((and (object-of-class-p pkg 'cfgl-package) (fboundp 'oref))
+    (symbol-name (oref pkg name)))
+   ((symbolp pkg) (symbol-name pkg))
+   (t (format "%s" pkg))))
+
+(defun lx/startup-profile--around-configure-package (orig pkg)
+  (let ((start (lx/startup-profile--now))
+        (result (funcall orig pkg)))
+    (let ((duration (- (lx/startup-profile--now) start)))
+      (when (> duration 0.015)
+        (push (cons (lx/startup-profile--package-label pkg) duration)
+              lx/startup-profile--package-times)))
+    result))
+
+(defun lx/startup-profile-install-package-hooks ()
+  (when (fboundp 'configuration-layer//configure-package)
+    (advice-remove #'configuration-layer//configure-package
+                   #'lx/startup-profile--around-configure-package)
+    (advice-add #'configuration-layer//configure-package :around
+                #'lx/startup-profile--around-configure-package)))
+
 (defun lx/startup-profile-install-hooks ()
   "Register standard Spacemacs lifecycle marks."
   (lx/startup-profile-mark "profile-hooks-installed")
+  (lx/startup-profile-install-package-hooks)
   (add-hook 'configuration-layer-pre-load-hook
             (lambda () (lx/startup-profile-mark "layers-pre-load")) t)
   (add-hook 'configuration-layer-post-load-hook
             (lambda () (lx/startup-profile-mark "layers-post-load")) t)
+  (add-hook 'emacs-startup-hook
+            (lambda () (lx/startup-profile-mark "emacs-startup-hook-begin")) -100)
   (add-hook 'emacs-startup-hook
             (lambda ()
               (lx/startup-profile-mark "emacs-startup-hook")
@@ -107,10 +149,7 @@
     (package-initialize 'no-activate)))
 
 (defun lx/package-quickstart-setup ()
-  "Make package-quickstart compatible with Spacemacs package sync.
-
-Without populating `package-alist', Spacemacs thinks packages like org and
-transient are missing and reinstalls them on every startup."
+  "Make package-quickstart compatible with Spacemacs package sync."
   (when (fboundp 'configuration-layer//install-packages)
     (advice-remove #'configuration-layer//install-packages
                    #'lx/package-quickstart--populate-package-alist)

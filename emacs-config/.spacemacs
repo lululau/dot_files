@@ -29,8 +29,10 @@
 
 ;; (if (lx/system-is-mac) (setenv "PATH" ""))
 
-(if (file-exists-p "~/.config/secrets/secret-emacs-config.el")
-    (load-file "~/.config/secrets/secret-emacs-config.el"))
+(run-at-time 0 nil
+             (lambda ()
+               (when (file-exists-p "~/.config/secrets/secret-emacs-config.el")
+                 (load-file "~/.config/secrets/secret-emacs-config.el"))))
 
 (if (display-graphic-p)
     (progn
@@ -377,7 +379,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-startup-banner lx/spacemacs-banner
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
-   dotspacemacs-startup-lists '((recents . 10))
+   dotspacemacs-startup-lists nil
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -480,6 +482,9 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
         (expand-file-name "package-quickstart.el" user-emacs-directory))
   (lx/package-quickstart-setup)
 
+  (load-file (expand-file-name "funcs/ruby-on-rails-defer.el"
+                               (file-name-directory lx/emacs-config-init-el)))
+
   (setq inhibit-compacting-font-definitions t)
 
   ;; (setq configuration-layer-elpa-archives
@@ -523,6 +528,16 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
           ("Apple" . (:command "bunx" :args ("@dhravya/apple-mcp@latest")))
           ("Context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp")))
           ("Obsidian" . (:command "mcp-obsidian-wrapper" :args nil))))
+  (when (and dotspacemacs-enable-server (not noninteractive))
+    (setq dotspacemacs-enable-server nil)
+    (add-hook 'emacs-startup-hook
+              (lambda ()
+                (require 'server)
+                (when dotspacemacs-server-socket-dir
+                  (setq server-socket-dir dotspacemacs-server-socket-dir))
+                (unless (or (daemonp) (server-running-p))
+                  (server-start)))
+              t))
   (lx/startup-profile-mark "user-init-end"))
 
 (defun dotspacemacs/user-config ()
@@ -1343,9 +1358,9 @@ This function is called at the very end of Spacemacs initialization."
   (if (autoloadp (symbol-function 'pixel-scroll-precision-mode))
       (run-at-time 0 nil #'pixel-scroll-precision-mode))
 
-  (persp-mode)
   (run-at-time 0 nil
                (lambda ()
+                 (persp-mode)
                  (persp-load-state-from-file
                   (format "%sA" spacemacs-layouts-directory))))
   (face-spec-set 'header-line '((t :weight bold :foreground "grey" :background unspecified)))
