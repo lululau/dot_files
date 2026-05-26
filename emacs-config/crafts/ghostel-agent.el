@@ -63,7 +63,7 @@ releases, passing `windowp t'-style errors when given `t'."
       (while (not (eobp))
         (let ((line (buffer-substring-no-properties (point) (line-end-position))))
           (forward-line 1)
-          (when-let ((obj (ghostel-agent--json-parse-line line)))
+          (when-let* ((obj (ghostel-agent--json-parse-line line)))
             (funcall fn obj)))))))
 
 (defun ghostel-agent--truncate-title (title &optional max-len)
@@ -256,7 +256,7 @@ Return a `ghostel-agent-session' struct, or nil for a new session."
     (when (file-directory-p dir)
       (dolist (file (directory-files dir "\\`.jsonl\\'" nil t))
         (when (file-regular-p file)
-          (when-let ((session (ghostel-agent--parse-claude-session-file file project-root)))
+          (when-let* ((session (ghostel-agent--parse-claude-session-file file project-root)))
             (push session sessions)))))
     (ghostel-agent--sort-sessions sessions)))
 
@@ -371,7 +371,7 @@ Return a `ghostel-agent-session' struct, or nil for a new session."
     (when (file-directory-p dir)
       (dolist (file (directory-files dir "\\`session-.+\\.jsonl\\'" nil t))
         (when (file-regular-p file)
-          (when-let ((session (ghostel-agent--parse-antigravity-session-file file)))
+          (when-let* ((session (ghostel-agent--parse-antigravity-session-file file)))
             (push session sessions)))))
     (ghostel-agent--sort-sessions sessions)))
 
@@ -478,7 +478,7 @@ After sending, deactivate the region when applicable and select the agent buffer
         (ghostel-send-string str))
       (when had-region
         (deactivate-mark))
-      (if-let ((win (get-buffer-window agent-buffer 'visible)))
+      (if-let* ((win (get-buffer-window agent-buffer 'visible)))
           (select-window win)
         (pop-to-buffer agent-buffer)))))
 

@@ -40,7 +40,7 @@ runs, or while `default-directory' is still local — then the path flips to
 /scp:.  This hook keeps ssh ghostel buffers on /rpc:."
   (when (derived-mode-p 'ssh-zsh-ghostel-mode)
     (setq-local ghostel-tramp-default-method (intern ssh-zsh-ghostel-tramp-method))
-    (when-let ((host (ssh-zsh-ghostel--remote-host ssh-zsh-ghostel-ssh-options)))
+    (when-let* ((host (ssh-zsh-ghostel--remote-host ssh-zsh-ghostel-ssh-options)))
       (let ((dd default-directory))
         (cond
          ((and (file-remote-p dd) (ssh-zsh-ghostel--rpc-prefix-p dd))
@@ -58,7 +58,7 @@ runs, or while `default-directory' is still local — then the path flips to
   "Set buffer `default-directory' to a TRAMP path for the SSH session host.
 Uses the same \"/METHOD:HOST:DIR\" shape as `ghostel--update-directory' (OSC 7).
 Does nothing when no host can be determined.  REMOTE-DIR defaults to \"/\"."
-  (when-let ((host (ssh-zsh-ghostel--remote-host ssh-options command)))
+  (when-let* ((host (ssh-zsh-ghostel--remote-host ssh-options command)))
     (let ((tramp-dir (ssh-zsh-ghostel--tramp-default-directory host remote-dir)))
       (setq default-directory tramp-dir
             list-buffers-directory tramp-dir))))

@@ -73,7 +73,7 @@
          (directory (or directory scope-root))
          (buffer (lx/run-in-projectile-ghostel--find-buffer buffer-name scope-root))
          (real-get-buffer (symbol-function 'get-buffer)))
-    (when-let ((wrong (and (not buffer) (get-buffer buffer-name))))
+    (when-let* ((wrong (and (not buffer) (get-buffer buffer-name))))
       (when (and (derived-mode-p 'ghostel-mode wrong)
                  (not (lx/run-in-projectile-ghostel--buffer-in-scope-p wrong scope-root)))
         (kill-buffer wrong)))
