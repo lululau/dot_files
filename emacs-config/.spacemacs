@@ -268,7 +268,7 @@
      ob-arql
      ;; bm
      translator
-     k8s
+     ;; k8s
      ;; spotify
      windows-scripts
      (latex :variables latex-build-command "XeLaTeX")
