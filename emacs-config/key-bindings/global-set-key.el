@@ -86,8 +86,9 @@
 (global-set-key (kbd "s-r s-r ga") #'lx/run-git-remote-branches)
 (global-set-key (kbd "s-r s-r ad") #'arthas-class-reload-docker)
 (global-set-key (kbd "s-r s-r ak") #'arthas-class-reload-k8s)
-(global-set-key (kbd "s-r s-a") #'ghostel-agent-run-agy)
+(global-set-key (kbd "s-r s-a") #'ghostel-agent-run-claude)
 (global-set-key (kbd "s-r s-c") #'ghostel-agent-run-cursor)
+(global-set-key (kbd "s-r s-g") #'ghostel-agent-run-agy)
 (global-set-key (kbd "s-r s-o") #'ghostel-agent-run-opencode)
 (global-set-key (kbd "s-r b") #'helm-ghostel-buffers)
 
