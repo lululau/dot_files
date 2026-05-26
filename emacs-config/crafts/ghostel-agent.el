@@ -73,7 +73,7 @@ Otherwise sends \"ABSOLUTE_FILE_PATH 中的第 M-N 行:\" plus a newline and the
                        (selection (buffer-substring-no-properties lo hi)))
                   (concat abs-path " 中的第 "
                           (number-to-string m) "-" (number-to-string n)
-                          " 行:\n" selection "\n"))
+                          " 行:\n\n" selection "\n"))
               (concat "@" abs-path "\n"))))
       (with-current-buffer agent-buffer
         (ghostel-send-string str)))))
