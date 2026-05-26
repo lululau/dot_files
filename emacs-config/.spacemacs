@@ -145,7 +145,7 @@
      ;; lsp
      (lsp :variables lsp-rust-server 'rust-analyzer)
      ansible
-     dap
+     ;; dap
      ivy
      (helm :variables helm-use-postframe nil)
      neotree
@@ -166,7 +166,7 @@
      gtags
      (markdown :variables markdown-live-preview-engine 'vmd)
      pandoc
-     epub
+     ;; epub
      (org :variables
           org-enable-notifications nil
           org-start-notification-daemon-on-startup ,enable-org-notification
@@ -200,17 +200,17 @@
            ruby-test-runner 'rspec
            ruby-enable-enh-ruby-mode nil)
      perl5
-     raku
+     ;; raku
      json
      yaml
      ruby-on-rails
      projectile-bundler
      ;; projectile-bundler-robe
-     elixir
+     ;; elixir
      (shell-scripts :variables shell-scripts-backend 'shell-script-mode)
-     dash
+     ;; dash
      (clojure :variables clojure-backend 'cider clojure-enable-clj-refactor t)
-     (haskell :variables haskell-enable-hindent t haskell-completion-backend 'dante)
+     ;; (haskell :variables haskell-enable-hindent t haskell-completion-backend 'dante)
      emacs-lisp
      ;; evernote
      evil-commentary
@@ -225,57 +225,55 @@
      typescript
      (node :variable node-add-modules-path)
      (vue :variables vue-backend 'lsp)
-     coffeescript
+     ;; coffeescript
      react
      (python :variables python-test-runner '(pytest) python-backend 'lsp python-lsp-server 'pyright)
      php
      restclient
      (rust :variables rust-backend 'lsp)
-     (crystal :variables crystal-backend 'lsp)
-     (scala :variables scala-backend 'scala-metals)
+     ;; (crystal :variables crystal-backend 'lsp)
+     ;; (scala :variables scala-backend 'scala-metals)
      swift
      (kotlin :variables kotlin-lsp-jar-path "/Users/liuxiang/Documents/shared_config/kotlin-lsp-server/bin/kotlin-language-server")
-     groovy
      (go :variables go-tab-width 4)
      lua
-     vagrant
+     ;; vagrant
      docker
-     protobuf
+     ;; protobuf
      ;; chrome
-     (ibuffer :variables
-              ibuffer-group-buffers-by 'projects)
-     search-engine
-     gnus
+     (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     ;; search-engine
+     ;; gnus
      chinese
-     selectric
+     ;; selectric
      ; evil-easymotion
      ;; (elfeed :variables
      ;;         rmh-elfeed-org-files (list "~/.config/emacs-config/elfeeds.org"))
      pdf
      csv
      sql
-     plantuml
+     ;; plantuml
      nginx
-     vimscript
-     (mu4e :variables mu4e-enable-notifications ,enable-mu4e-notification mu4e-enable-mode-line t)
-     confluence-lx
-     ragtag
+     ;; vimscript
+     ;; (mu4e :variables mu4e-enable-notifications ,enable-mu4e-notification mu4e-enable-mode-line t)
+     ;; confluence-lx
+     ;; ragtag
      org-yank-image
      imenu-list
      ;; rebox  ; comment out due to auto-fill-mode auto-enable of rebox
      systemd
      ;; org-jira
-     lorem-ipsum-zh
-     ob-rails
+     ;; lorem-ipsum-zh
+     ;; ob-rails
      ob-arql
-     bm
+     ;; bm
      translator
      k8s
-     spotify
+     ;; spotify
      windows-scripts
      (latex :variables latex-build-command "XeLaTeX")
-     terraform
-     (llm-client :variables llm-client-enable-gptel t)
+     ;; terraform
+     ;; (llm-client :variables llm-client-enable-gptel t)
      spacemacs-misc
      )
    ;; List of additional packages that will be installed wihout being
@@ -663,8 +661,8 @@ layers configuration."
   ;; --------- ReadTheOrg HTML Theme for Org-Mode Export ---------
   (setq org-html-head "<link rel=\"stylesheet\" type=\"text/css\" href=\"https://public-dev-assets.oss-cn-beijing.aliyuncs.com/org-assets/css/spacemacs-wide/htmlize.css\"/>\n <script src=\"https://public-dev-assets.oss-cn-beijing.aliyuncs.com/org-assets/js/spacemacs-wide/jquery.min.js\"></script>\n <script src=\"https://public-dev-assets.oss-cn-beijing.aliyuncs.com/org-assets/js/spacemacs-wide/bootstrap.min.js\"></script>\n <script src=\"https://public-dev-assets.oss-cn-beijing.aliyuncs.com/org-assets/js/spacemacs-wide/readtheorg.js\"></script>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"https://public-dev-assets.oss-cn-beijing.aliyuncs.com/org-assets/css/spacemacs-wide/readtheorg.css\"/>\n <link rel=\"stylesheet\" type=\"text/css\" href=\"https://public-dev-assets.oss-cn-beijing.aliyuncs.com/org-assets/css/spacemacs-wide/font-awesome.min.css\"/>\n")
 
-  (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
-  (add-to-list 'search-engine-alist '(ip138 :name "ip138" :url "http://ip138.com/ips138.asp?ip=%s&action=2") t)
+  ;; (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
+  ;; (add-to-list 'search-engine-alist '(ip138 :name "ip138" :url "http://ip138.com/ips138.asp?ip=%s&action=2") t)
 
   (setq auto-mode-alist (append '(("\\.pryrc\\'" . ruby-mode)
                                   ("\\.rexerc\\'" . ruby-mode)
