@@ -4,6 +4,11 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+(defvar lx/startup-profile--origin (float-time))
+(let ((lx/emacs-config-root (file-name-directory (file-truename load-file-name))))
+  (load-file (expand-file-name "funcs/startup-profile.el" lx/emacs-config-root))
+  (lx/startup-profile-mark "dotspacemacs-top"))
+
 ;; Add these two lines for transparent-titlebar in emacs-plus
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
@@ -289,7 +294,7 @@
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
-                                            mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
+                                            mermaid-mode grip-mode dired-rsync dired-rsync-transient
                                             org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
                                             ob-swiftui evil-goggles gptel-agent pg
                                             ;; (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
@@ -345,11 +350,11 @@ It should only modify the values of Spacemacs settings."
    ;; If nil, no load-hints enabled. If t, enable the `load-hints' which will
    ;; put the most likely path on the top of `load-path' to reduce walking
    ;; through the whole `load-path'.
-   ;; dotspacemacs-enable-load-hints t
+   dotspacemacs-enable-load-hints t
 
    ;; If t, enable the `package-quickstart' feature to avoid full package
    ;; loading, otherwise do not try the `package-quickstart' (default nil).
-   ;; dotspacemacs-enable-package-quickstart t
+   dotspacemacs-enable-package-quickstart t
 
     ;; Scale factor controls the scaling (size) of the startup banner. Default
     ;; value is `auto' for scaling the logo automatically to fit all buffer
@@ -468,6 +473,13 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
+  (lx/startup-profile-mark "user-init-begin")
+  (lx/startup-profile-install-hooks)
+
+  (setq package-quickstart-file
+        (expand-file-name "package-quickstart.el" user-emacs-directory))
+  (lx/package-quickstart-setup)
+
   ;; (setq configuration-layer-elpa-archives
   ;;       '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
   ;;         ("org-cn"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
@@ -495,7 +507,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
                                             (define-key spacemacs-buffer-mode-map (kbd "s-r s-u") #'configuration-layer/update-packages)
                                             (define-key spacemacs-buffer-mode-map (kbd "s-r s-b") #'configuration-layer/rollback)))
   (setq projectile-keymap-prefix (kbd "C-c p"))
-  (load-library "autoinsert")
 
   (add-hook 'lsp-completion-mode-hook #'lx/reset-lsp-company-backends)
 
@@ -510,17 +521,22 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
           ("Apple" . (:command "bunx" :args ("@dhravya/apple-mcp@latest")))
           ("Context7" . (:command "npx" :args ("-y" "@upstash/context7-mcp")))
           ("Obsidian" . (:command "mcp-obsidian-wrapper" :args nil))))
-  )
+  (lx/startup-profile-mark "user-init-end"))
 
 (defun dotspacemacs/user-config ()
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
+  (lx/startup-profile-mark "user-config-begin")
   (setq powerline-default-separator 'slant)
-  (load-file lx/emacs-text-objects-init-el)
-  (load-file lx/emacs-key-bindings-init-el)
-  (load-file lx/emacs-vendor-init-el)
-  (load-file lx/emacs-crafts-init-el)
+  (lx/startup-profile-time "user-config/text-objects"
+                           (lambda () (load-file lx/emacs-text-objects-init-el)))
+  (lx/startup-profile-time "user-config/key-bindings"
+                           (lambda () (load-file lx/emacs-key-bindings-init-el)))
+  (lx/startup-profile-time "user-config/vendor"
+                           (lambda () (load-file lx/emacs-vendor-init-el)))
+  (lx/startup-profile-time "user-config/crafts"
+                           (lambda () (load-file lx/emacs-crafts-init-el)))
   ;; (load-file "~/.config/emacs-config/doom-themes.el")
 
   (setq recentf-save-file (format "%srecentf.%s" spacemacs-cache-directory server-name))
@@ -570,7 +586,10 @@ layers configuration."
   (setq rvm--gemset-default "default")
   (setq mac-option-modifier 'meta)
   (setq frame-title-format '(:eval (lx/layouts-for-title-bar)))
-  (when (lx/system-is-mac) (load-file "~/.config/secrets/paradox-github-token.el"))
+  (run-at-time 0 nil
+               (lambda ()
+                 (when (lx/system-is-mac)
+                   (load-file "~/.config/secrets/paradox-github-token.el"))))
   (setq helm-locate-command "~/.rvm/gems/default/bin/mfd %s %s")
   (setq gptel-default-mode 'org-mode)
   (setq gptel-prompt-string "** ")
@@ -638,7 +657,10 @@ layers configuration."
       ("gitlab.com"    git-link-commit-github)))
 
 
-  (setq gpt-commit-openai-key (f-read-text "~/.config/secrets/.dashscope_api_key"))
+  (run-at-time 0 nil
+               (lambda ()
+                 (setq gpt-commit-openai-key
+                       (f-read-text "~/.config/secrets/.dashscope_api_key"))))
 
   (setq org-mu4e-tmp-dir "~/tmp/mu4e")
 
@@ -741,9 +763,11 @@ layers configuration."
   ;; (spaceline-all-the-icons--setup-paradox)         ;; Enable Paradox mode line
   ;; (spaceline-all-the-icons--setup-neotree)         ;; Enable Neotree mode line
 
-  (require 'savehist)
-  (add-to-list 'savehist-additional-variables 'helm-dired-history-variable)
-  (savehist-mode 1)
+  (run-at-time 0 nil
+               (lambda ()
+                 (require 'savehist)
+                 (add-to-list 'savehist-additional-variables 'helm-dired-history-variable)
+                 (savehist-mode 1)))
 
   (with-eval-after-load 'dired
     (require 'helm-dired-history))
@@ -775,30 +799,42 @@ layers configuration."
   (if (lx/system-is-linux)
       (setq find-ls-option '("-printf '%i  %k %M  %n %u  %g  %016s %TF %TH:%TM  %p\\n'" . "-dils")))
 
-  (make-shell-pop-command "zsh-ghostel" zsh-ghostel)
-
   (add-hook 'post-command-hook #'lx/reset-hybrid-state-cursor-type-after-tab)
 
   (add-to-list 'completion-ignored-extensions "node_modules/")
   (add-to-list 'completion-ignored-extensions "target/")
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
-  (add-hook 'prog-mode-hook 'copilot-mode)
+
+  (run-at-time 2 nil
+               (lambda ()
+                 (make-shell-pop-command "zsh-ghostel" zsh-ghostel)
+                 (unless (boundp 'python-mode-map)
+                   (require 'python))
+                 (setq python-interpreter "python")
+                 (dolist (spec '((prog-mode-hook copilot-mode)
+                                 (text-mode-hook copilot-mode)
+                                 (prog-mode-hook send-to-ghostel-mode)
+                                 (prog-mode-hook evil-goggles-mode)
+                                 (text-mode-hook send-to-ghostel-mode)
+                                 (text-mode-hook evil-goggles-mode)
+                                 (fundamental-mode-hook send-to-ghostel-mode)))
+                   (add-hook (car spec) (cadr spec)))
+                 (dolist (buf (buffer-list))
+                   (with-current-buffer buf
+                     (when (derived-mode-p 'prog-mode 'text-mode 'fundamental-mode)
+                       (when (derived-mode-p 'prog-mode 'text-mode)
+                         (copilot-mode))
+                       (when (derived-mode-p 'prog-mode 'text-mode 'fundamental-mode)
+                         (send-to-ghostel-mode))
+                       (when (derived-mode-p 'prog-mode 'text-mode)
+                         (evil-goggles-mode)))))))
+
   (add-hook 'clutch-mode-hook (lambda () (copilot-mode -1)))
-  (add-hook 'prog-mode-hook 'send-to-ghostel-mode)
-  (add-hook 'prog-mode-hook 'evil-goggles-mode)
-  (add-hook 'text-mode-hook 'copilot-mode)
-  (add-hook 'text-mode-hook 'send-to-ghostel-mode)
-  (add-hook 'text-mode-hook 'evil-goggles-mode)
-  (add-hook 'fundamental-mode-hook 'send-to-ghostel-mode)
 
   (add-to-list 'spacemacs-default-jump-handlers '(dumb-jump-go :async t) t)
 
-  (require 'python)
-  (setq python-interpreter "python")
-  ;; (setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
-
-  (atomic-chrome-start-server)
+  (lx/startup-profile-mark "user-config-end")
   ) ;;; End of config.
 
 ;; (desktop-save-mode 1)
