@@ -112,6 +112,7 @@
   (define-key ghostel-semi-char-mode-map (kbd "C-h") #'ghostel-send-ctrl-h)
   (define-key ghostel-semi-char-mode-map (kbd "M-/") 'current-buffer-completion)
   (define-key ghostel-semi-char-mode-map (kbd "M-.") #'ghostel-send-meta-period)
+  (define-key ghostel-semi-char-mode-map (kbd "<escape>") #'ghostel-send-escape-key)
 
   (let ((map (lookup-key ghostel-semi-char-mode-map "\e")))
     (define-key map "k" #'lx/window-up-fallback-to-switch-frame)
