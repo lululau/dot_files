@@ -207,6 +207,7 @@ PROCESS is the shell process, EVENT describes the state change."
   (define-key ghostel-semi-char-mode-map (kbd "<escape>") #'ghostel-send-escape-key)
 
   (evil-define-key 'hybrid ghostel-semi-char-mode-map (kbd "C-z") #'ghostel-send-C-z)
+  (evil-define-key 'hybrid ghostel-mode-map (kbd "<escape>") #'ghostel-send-escape-key)
   (evil-define-key 'hybrid ghostel-semi-char-mode-map (kbd "<escape>") #'ghostel-send-escape-key)
   (evil-define-key 'motion ghostel-semi-char-mode-map (kbd "s-q") #'ghostel-enter-hybrid-state-decently)
   (evil-define-key 'hybrid ghostel-semi-char-mode-map (kbd "s-k") #'ghostel-send-10-up)
