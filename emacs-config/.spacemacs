@@ -289,7 +289,7 @@
                                             ob-tmux org-tree-slide helm-tramp kubernetes-tramp emms
                                             ssh-tunnels dired-filter dired-ranger dired-narrow jdecomp
                                             code-archive dtrace-script-mode edit-indirect annotate
-                                            mermaid-mode grip-mode atomic-chrome dired-rsync dired-rsync-transient
+                                            mermaid-mode grip-mode dired-rsync dired-rsync-transient
                                             org-ai sqlite3 chatgpt-shell dall-e-shell ob-chatgpt-shell ob-dall-e-shell shell-maker
                                             ob-swiftui evil-goggles gptel-agent pg
                                             ;; (chatgpt :location (recipe :fetcher github :repo "joshcho/ChatGPT.el"))
@@ -798,7 +798,6 @@ layers configuration."
   (setq python-interpreter "python")
   ;; (setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
 
-  (atomic-chrome-start-server)
   ) ;;; End of config.
 
 ;; (desktop-save-mode 1)
