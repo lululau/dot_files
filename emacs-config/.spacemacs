@@ -377,7 +377,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-startup-banner lx/spacemacs-banner
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
-   dotspacemacs-startup-lists '((recents . 25))
+   dotspacemacs-startup-lists '((recents . 10))
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -415,8 +415,8 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-guide-key-delay 0.4
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
-   ;; nil ;; to boost the loading time.
-   dotspacemacs-loading-progress-bar t
+   ;; nil to boost the loading time.
+   dotspacemacs-loading-progress-bar nil
    ;; If non nil the frame is fullscreen when Emacs starts up.
    ;; (Emacs 24.4+ only)
    dotspacemacs-fullscreen-at-startup nil
@@ -479,6 +479,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq package-quickstart-file
         (expand-file-name "package-quickstart.el" user-emacs-directory))
   (lx/package-quickstart-setup)
+
+  (setq inhibit-compacting-font-definitions t)
 
   ;; (setq configuration-layer-elpa-archives
   ;;       '(("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
@@ -1033,7 +1035,7 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-mu-default-search-string "(m:/INBOX or m:/\"Sent Messages\" or m:/Archive)")
  '(helm-mu-gnu-sed-program "gsed")
  '(helm-recentf-fuzzy-match t)
- '(recentf-max-saved-items 10000)
+ '(recentf-max-saved-items 500)
  '(helm-source-projectile-projects-actions
    (quote
     (("Switch to project" .
@@ -1330,17 +1332,22 @@ This function is called at the very end of Spacemacs initialization."
  '(warning-suppress-types (quote ((comp) (tramp) (copilot)))))
 
   (if (string-version-lessp "28.2" emacs-version)
-      (spacemacs/toggle-maximize-frame)
-    (set-frame-parameter (selected-frame) 'width 1.0)
-    (set-frame-parameter (selected-frame) 'height 1.0)
-    (set-frame-parameter (selected-frame) 'top 0.0)
-    (set-frame-parameter (selected-frame) 'left 0.0))
+      (run-at-time 0 nil #'spacemacs/toggle-maximize-frame)
+    (run-at-time 0 nil
+                 (lambda ()
+                   (set-frame-parameter (selected-frame) 'width 1.0)
+                   (set-frame-parameter (selected-frame) 'height 1.0)
+                   (set-frame-parameter (selected-frame) 'top 0.0)
+                   (set-frame-parameter (selected-frame) 'left 0.0))))
 
   (if (autoloadp (symbol-function 'pixel-scroll-precision-mode))
-      (pixel-scroll-precision-mode))
+      (run-at-time 0 nil #'pixel-scroll-precision-mode))
 
   (persp-mode)
-  (persp-load-state-from-file (format "%sA" spacemacs-layouts-directory))
+  (run-at-time 0 nil
+               (lambda ()
+                 (persp-load-state-from-file
+                  (format "%sA" spacemacs-layouts-directory))))
   (face-spec-set 'header-line '((t :weight bold :foreground "grey" :background unspecified)))
 
   (custom-set-faces

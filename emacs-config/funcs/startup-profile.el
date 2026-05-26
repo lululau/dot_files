@@ -90,6 +90,7 @@
   (add-hook 'emacs-startup-hook
             (lambda ()
               (lx/startup-profile-mark "emacs-startup-hook")
+              (setq inhibit-compacting-font-definitions nil)
               (when (boundp 'emacs-start-time)
                 (lx/startup-profile-mark
                  (format "startup-total %.3fs"
