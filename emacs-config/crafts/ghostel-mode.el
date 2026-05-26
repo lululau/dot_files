@@ -158,4 +158,5 @@
 
   (ghostel-dnd-enable)
 
-  (rvm-activate-corresponding-ruby))
+  ;; (rvm-activate-corresponding-ruby)
+  )
