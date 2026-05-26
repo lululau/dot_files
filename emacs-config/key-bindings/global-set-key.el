@@ -37,7 +37,7 @@
 (global-set-key (kbd "M-s-w") 'delete-frame)
 ;; (global-set-key (kbd "s-C") 'bzg-big-fringe-mode)
 (global-set-key (kbd "s-g") #'lx/magit-status-smart)
-(global-set-key (kbd "s-r s-a") #'lx/pop-to-arql-console)
+;; (global-set-key (kbd "s-r s-a") #'lx/pop-to-arql-console)
 (global-set-key (kbd "s-r q") #'lx/run-arql)
 (global-set-key (kbd "s-r j") #'lx/run-jshell)
 (global-set-key (kbd "s-r a") #'lx/run-arthas)
@@ -86,6 +86,9 @@
 (global-set-key (kbd "s-r s-r ga") #'lx/run-git-remote-branches)
 (global-set-key (kbd "s-r s-r ad") #'arthas-class-reload-docker)
 (global-set-key (kbd "s-r s-r ak") #'arthas-class-reload-k8s)
+(global-set-key (kbd "s-r s-a") #'ghostel-agent-run-agy)
+(global-set-key (kbd "s-r s-c") #'ghostel-agent-run-cursor)
+(global-set-key (kbd "s-r s-o") #'ghostel-agent-run-opencode)
 (global-set-key (kbd "s-r b") #'helm-ghostel-buffers)
 
 (global-set-key (kbd "s-u") 'universal-argument)

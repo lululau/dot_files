@@ -32,6 +32,48 @@
         (ghostel-exec buffer (car command-parts) (cdr command-parts))
         buffer))))
 
+
+(defun lx/run-in-projectile-ghostel--buffer-directory (buffer)
+  (let ((sym (intern (format "%s-command" (buffer-name buffer)))))
+    (or (and (boundp sym) (nth 2 (symbol-value sym)))
+        (with-current-buffer buffer default-directory))))
+
+(defun lx/run-in-projectile-ghostel--buffer-in-scope-p (buffer scope-root)
+  (let* ((scope (file-name-as-directory (expand-file-name scope-root)))
+         (dir (lx/run-in-projectile-ghostel--buffer-directory buffer)))
+    (and dir (string-prefix-p scope (expand-file-name dir)))))
+
+(defun lx/run-in-projectile-ghostel--find-buffer (buffer-name scope-root)
+  (let ((buffer (get-buffer buffer-name)))
+    (when (and buffer (buffer-live-p buffer)
+               (lx/run-in-projectile-ghostel--buffer-in-scope-p buffer scope-root))
+      buffer)))
+
+(defun lx/run-in-projectile-ghostel (command buffer-name &optional directory exclusive-window)
+  (interactive)
+  (let* ((scope-root (if (and (fboundp 'projectile-project-p) (projectile-project-p))
+                         (projectile-project-root)
+                       user-home-directory))
+         (buffer-name (replace-regexp-in-string
+                       "%p"
+                       (if (and (fboundp 'projectile-project-p) (projectile-project-p))
+                           (projectile-project-name)
+                         "~")
+                       buffer-name))
+         (directory (or directory scope-root))
+         (buffer (lx/run-in-projectile-ghostel--find-buffer buffer-name scope-root))
+         (real-get-buffer (symbol-function 'get-buffer)))
+    (when-let ((wrong (and (not buffer) (get-buffer buffer-name))))
+      (when (and (derived-mode-p 'ghostel-mode wrong)
+                 (not (lx/run-in-projectile-ghostel--buffer-in-scope-p wrong scope-root)))
+        (kill-buffer wrong)))
+    (cl-letf (((symbol-function 'get-buffer)
+               (lambda (name)
+                 (if (equal name buffer-name)
+                     buffer
+                   (funcall real-get-buffer name)))))
+      (lx/run-in-ghostel command buffer-name directory exclusive-window))))
+
 (defun lx/run-in-ghostel/rerun ()
   (interactive)
   (let* ((buffer-name (buffer-name))

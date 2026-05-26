@@ -37,6 +37,7 @@
 (autoload 'ghostel-maven-update-local-artifact "ghostel-maven")
 (autoload 'ghostel-maven-kill-local-artifact "ghostel-maven")
 (autoload 'lx/run-in-ghostel "run-in-ghostel")
+(autoload 'lx/run-in-projectile-ghostel "run-in-ghostel")
 (autoload 'lx/run-ssh-in-zsh-ghostel "zsh-ghostel-ssh")
 (autoload 'lx/run-in-ghostel/set-green-box-cursor "run-in-ghostel")
 (autoload 'lx/run-in-ghostel/set-blue-bar-cursor "run-in-ghostel")
@@ -60,6 +61,10 @@
 (autoload 'ghostel-rails/rails-server "ghostel-rails")
 (autoload 'ghostel-rails/rails-dev "ghostel-rails")
 (autoload 'ghostel-rails/sidekiq "ghostel-rails")
+(autoload 'ghostel-agent-run-claude "ghostel-agent")
+(autoload 'ghostel-agent-run-opencode "ghostel-agent")
+(autoload 'ghostel-agent-run-cursor "ghostel-agent")
+(autoload 'ghostel-agent-run-agy "ghostel-agent")
 
 (autoload 'evil-ghostel-setup "evil-ghostel")
 (autoload 'proced-enhanced-mode "proced-enhanced")
