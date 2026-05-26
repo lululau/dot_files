@@ -85,7 +85,7 @@
                         `(eval-sexp-fu-flash ((,class (:background ,suc :foreground ,bg1))))
                         `(eval-sexp-fu-flash-error ((,class (:background ,err :foreground ,bg1))))
                         `(font-lock-builtin-face ((,class (:foreground ,keyword))))
-                        `(font-lock-comment-face ((,class (:foreground ,comment :background ,(when spacemacs-theme-comment-bg comment-bg)))))
+                        `(font-lock-comment-face ((,class (:foreground ,comment :background ,(if spacemacs-theme-comment-bg comment-bg 'unspecified)))))
                         `(font-lock-constant-face ((,class (:foreground ,const))))
                         `(font-lock-doc-face ((,class (:foreground ,comment))))
                         `(font-lock-function-name-face ((,class (:foreground ,func :inherit bold))))
@@ -133,10 +133,10 @@
                         `(avy-lead-face-2 ((t (:foreground "white" :background "#f86bf3"))))
 
 ;;;;; cider
-                        `(cider-enlightened ((,class (:background nil :box (:color ,yellow :line-width -1 :style nil) :foreground ,yellow))))
+                        `(cider-enlightened ((,class (:background unspecified :box (:color ,yellow :line-width -1 :style nil) :foreground ,yellow))))
                         `(cider-enlightened-local ((,class (:foreground ,yellow))))
-                        `(cider-instrumented-face ((,class (:background nil :box (:color ,red :line-width -1 :style nil) :foreground ,red))))
-                        `(cider-result-overlay-face ((,class (:background nil :box (:color ,blue :line-width -1 :style nil) :foreground ,blue))))
+                        `(cider-instrumented-face ((,class (:background unspecified :box (:color ,red :line-width -1 :style nil) :foreground ,red))))
+                        `(cider-result-overlay-face ((,class (:background unspecified :box (:color ,blue :line-width -1 :style nil) :foreground ,blue))))
                         `(cider-test-error-face ((,class (:background ,war :foreground ,bg1))))
                         `(cider-test-failure-face ((,class (:background ,err :foreground ,bg1))))
                         `(cider-test-success-face ((,class (:background ,suc :foreground ,bg1))))
@@ -159,17 +159,17 @@
                         `(company-tooltip-selection ((,class (:background ,ttip-sl-tui :foreground ,base))))
 
 ;;;;; diff
-                        `(diff-added             ((,class :background nil :foreground ,green)))
-                        `(diff-changed           ((,class :background nil :foreground ,keyword)))
+                        `(diff-added             ((,class :background unspecified :foreground ,green)))
+                        `(diff-changed           ((,class :background unspecified :foreground ,keyword)))
                         `(diff-header            ((,class :background ,cblk-ln-bg :foreground ,func)))
                         `(diff-file-header       ((,class :background ,cblk-ln-bg :foreground ,cblk)))
-                        `(diff-indicator-added   ((,class :background nil :foreground ,green)))
-                        `(diff-indicator-changed ((,class :background nil :foreground ,keyword)))
-                        `(diff-indicator-removed ((,class :background nil :foreground ,red)))
+                        `(diff-indicator-added   ((,class :background unspecified :foreground ,green)))
+                        `(diff-indicator-changed ((,class :background unspecified :foreground ,keyword)))
+                        `(diff-indicator-removed ((,class :background unspecified :foreground ,red)))
                         `(diff-refine-added      ((,class :background ,green :foreground ,bg4)))
                         `(diff-refine-changed    ((,class :background ,keyword :foreground ,bg4)))
                         `(diff-refine-removed    ((,class :background ,red :foreground ,bg4)))
-                        `(diff-removed           ((,class :background nil :foreground ,red)))
+                        `(diff-removed           ((,class :background unspecified :foreground ,red)))
 
 ;;;;; diff-hl
                         `(diff-hl-change ((,class :background ,blue-bg :foreground ,blue)))
@@ -196,10 +196,10 @@
                         `(ediff-even-diff-Ancestor ((,class(:background ,bg3))))
                         `(ediff-even-diff-B ((,class(:background ,bg3))))
                         `(ediff-even-diff-C ((,class(:background ,bg3))))
-                        `(ediff-fine-diff-A ((,class(:background nil :inherit bold))))
-                        `(ediff-fine-diff-Ancestor ((,class(:background nil :inherit bold))))
-                        `(ediff-fine-diff-B ((,class(:background nil :inherit bold))))
-                        `(ediff-fine-diff-C ((,class(:background nil :inherit bold))))
+                        `(ediff-fine-diff-A ((,class(:background unspecified :inherit bold))))
+                        `(ediff-fine-diff-Ancestor ((,class(:background unspecified :inherit bold))))
+                        `(ediff-fine-diff-B ((,class(:background unspecified :inherit bold))))
+                        `(ediff-fine-diff-C ((,class(:background unspecified :inherit bold))))
                         `(ediff-odd-diff-A ((,class(:background ,bg4))))
                         `(ediff-odd-diff-Ancestor ((,class(:background ,bg4))))
                         `(ediff-odd-diff-B ((,class(:background ,bg4))))
@@ -335,9 +335,9 @@
                         `(helm-grep-file ((,class (:foreground ,base :background ,bg1))))
                         `(helm-grep-finish ((,class (:foreground ,base :background ,bg1))))
                         `(helm-grep-lineno ((,class (:foreground ,type :background ,bg1 :inherit bold))))
-                        `(helm-grep-match ((,class (:foreground nil :background nil :inherit helm-match))))
+                        `(helm-grep-match ((,class (:foreground unspecified :background unspecified :inherit helm-match))))
                         `(helm-header ((,class (:foreground ,base :background ,bg1 :underline nil :box nil))))
-                        `(helm-header-line-left-margin ((,class (:foreground ,keyword :background ,nil))))
+                        `(helm-header-line-left-margin ((,class (:foreground ,keyword :background unspecified))))
                         `(helm-match ((,class (:background ,head1-bg :foreground ,head1))))
                         `(helm-match-item ((,class (:background ,head1-bg :foreground ,head1))))
                         `(helm-moccur-buffer ((,class (:foreground ,var :background ,bg1))))
@@ -379,7 +379,7 @@
                         `(info-menu ((,class (:foreground ,suc))))
                         `(info-node ((,class (:foreground ,func :inherit bold))))
                         `(info-quoted-name ((,class (:foreground ,keyword))))
-                        `(info-reference-item ((,class (:background nil :underline t :inherit bold))))
+                        `(info-reference-item ((,class (:background unspecified :underline t :inherit bold))))
                         `(info-string ((,class (:foreground ,str))))
                         `(info-title-1 ((,class (:height 1.4 :inherit bold))))
                         `(info-title-2 ((,class (:height 1.3 :inherit bold))))
@@ -597,7 +597,7 @@
                         `(show-paren-mismatch ((,class (:background ,red-bg-s))))
 
 ;;;;; smartparens
-                        `(sp-pair-overlay-face ((,class (:background ,highlight :foreground nil))))
+                        `(sp-pair-overlay-face ((,class (:background ,highlight :foreground unspecified))))
                         `(sp-show-pair-match-face ((,class (:foreground ,mat :inherit bold :underline t))))
 
 ;;;;; spaceline
@@ -607,7 +607,7 @@
                         `(spaceline-python-venv ((,class (:foreground ,comp))))
 
 ;;;;; spacemacs-specific
-                        `(spacemacs-transient-state-title-face ((,class (:background nil :foreground ,comp :box nil :inherit bold))))
+                        `(spacemacs-transient-state-title-face ((,class (:background unspecified :foreground ,comp :box nil :inherit bold))))
 
 ;;;;; swiper
                         `(swiper-line-face ((,class (:background ,highlight :inherit bold))))
@@ -670,21 +670,21 @@
                         `(which-key-command-description-face ((,class (:foreground ,base))))
                         `(which-key-group-description-face ((,class (:foreground ,keyword))))
                         `(which-key-key-face ((,class (:foreground ,func :inherit bold))))
-                        `(which-key-separator-face ((,class (:background nil :foreground ,str))))
+                        `(which-key-separator-face ((,class (:background unspecified :foreground ,str))))
                         `(which-key-special-key-face ((,class (:background ,func :foreground ,bg1))))
 
 ;;;;; which-function-mode
                         `(which-func ((,class (:foreground ,func))))
 
 ;;;;; whitespace-mode
-                        `(whitespace-empty ((,class (:background nil :foreground ,yellow))))
-                        `(whitespace-indentation ((,class (:background nil :foreground ,war))))
-                        `(whitespace-line ((,class (:background nil :foreground ,comp))))
-                        `(whitespace-newline ((,class (:background nil :foreground ,comp))))
-                        `(whitespace-space ((,class (:background nil :foreground ,act2))))
-                        `(whitespace-space-after-tab ((,class (:background nil :foreground ,yellow))))
-                        `(whitespace-space-before-tab ((,class (:background nil :foreground ,yellow))))
-                        `(whitespace-tab ((,class (:background nil))))
+                        `(whitespace-empty ((,class (:background unspecified :foreground ,yellow))))
+                        `(whitespace-indentation ((,class (:background unspecified :foreground ,war))))
+                        `(whitespace-line ((,class (:background unspecified :foreground ,comp))))
+                        `(whitespace-newline ((,class (:background unspecified :foreground ,comp))))
+                        `(whitespace-space ((,class (:background unspecified :foreground ,act2))))
+                        `(whitespace-space-after-tab ((,class (:background unspecified :foreground ,yellow))))
+                        `(whitespace-space-before-tab ((,class (:background unspecified :foreground ,yellow))))
+                        `(whitespace-tab ((,class (:background unspecified))))
                         `(whitespace-trailing ((,class (:background ,err :foreground ,war))))
 
 ;;;;; other, need more work
@@ -706,7 +706,7 @@
                         `(js3-jsdoc-tag-face ((,class (:foreground ,keyword))))
                         `(js3-warning-face ((,class (:underline ,keyword))))
                         `(slime-repl-inputed-output-face ((,class (:foreground ,comp))))
-                        `(trailing-whitespace ((,class :foreground nil :background ,err)))
+                        `(trailing-whitespace ((,class :foreground unspecified :background ,err)))
                         `(undo-tree-visualizer-current-face ((,class :foreground ,keyword)))
                         `(undo-tree-visualizer-default-face ((,class :foreground ,base)))
                         `(undo-tree-visualizer-register-face ((,class :foreground ,comp)))

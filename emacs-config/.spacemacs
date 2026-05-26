@@ -1305,7 +1305,7 @@ This function is called at the very end of Spacemacs initialization."
 
   (persp-mode)
   (persp-load-state-from-file (format "%sA" spacemacs-layouts-directory))
-  (face-spec-set 'header-line '((t :weight bold :foreground "grey" :background nil)))
+  (face-spec-set 'header-line '((t :weight bold :foreground "grey" :background unspecified)))
 
   (custom-set-faces
    '(docker-face-active ((t (:inherit bold :foreground "SeaGreen2")))))
