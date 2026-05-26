@@ -7,7 +7,9 @@
         (require 'magit-mode)
         (let ((magit-buf (--find (s-starts-with? "magit:" (buffer-name it)) (magit-mode-get-buffers))))
           (if magit-buf (switch-to-buffer magit-buf) (magit-status))))
-    (magit-status)))
+    (if (bound-and-true-p main-git-directory)
+        (magit-status main-git-directory)
+      (magit-status))))
 
 ;;;###autoload
 (defun lx/magit-smart-checkout (arg)

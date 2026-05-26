@@ -501,6 +501,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   (add-hook 'dired-mode-hook #'lx/dired-rpc-switches-fix)
 
+  (put 'main-git-directory 'safe-local-variable 'stringp)
+
   (setq mcp-hub-servers
         '(
           ;; ("Fetch" . (:command "/Users/liuxiang/.local/bin/mcp-server-fetch" :args nil))
