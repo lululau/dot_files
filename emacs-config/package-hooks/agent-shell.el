@@ -9,7 +9,7 @@
 When the current frame has only one window, split it once.
 When multiple windows exist, reuse another window instead of splitting again."
     (setq lx/agent-shell--display-in-other-window nil)
-    (if-let ((window (get-buffer-window shell-buffer (selected-frame))))
+    (if-let* ((window (get-buffer-window shell-buffer (selected-frame))))
         (select-window window)
       (let* ((frame (selected-frame))
              (windows (window-list frame))
