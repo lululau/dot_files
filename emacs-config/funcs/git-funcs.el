@@ -7,9 +7,14 @@
         (require 'magit-mode)
         (let ((magit-buf (--find (s-starts-with? "magit:" (buffer-name it)) (magit-mode-get-buffers))))
           (if magit-buf (switch-to-buffer magit-buf) (magit-status))))
-    (if (bound-and-true-p main-git-directory)
-        (magit-status main-git-directory)
-      (magit-status))))
+    (cond
+     ;; Matches `magit-status' interactive logic: `(not (magit-toplevel))' means out of repo.
+     ((and (require 'magit nil t) (magit-toplevel))
+      (magit-status))
+     ((bound-and-true-p main-git-directory)
+      (magit-status main-git-directory))
+     (t
+      (magit-status)))))
 
 ;;;###autoload
 (defun lx/magit-smart-checkout (arg)
