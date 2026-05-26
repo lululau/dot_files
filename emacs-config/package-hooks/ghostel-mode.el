@@ -165,7 +165,9 @@ PROCESS is the shell process, EVENT describes the state change."
 
   (ghostel-dnd-enable)
 
-  (rvm-activate-corresponding-ruby))
+  ;; (rvm-activate-corresponding-ruby)
+
+  )
 
 (spacemacs|use-package-add-hook ghostel
   :post-config
