@@ -53,16 +53,18 @@ releases, passing `windowp t`-style errors when given `t'."
 (defun ghostel-agent-send ()
   "Send the current file or selection to a visible Ghostel agent shell.
 If the region is not active, sends @ABSOLUTE_FILE_PATH.
-Otherwise sends \"ABSOLUTE_FILE_PATH 中的第 M-N 行:\" plus a newline and the region text."
+Otherwise sends \"ABSOLUTE_FILE_PATH 中的第 M-N 行:\" plus a newline and the region text.
+After sending, deactivate the region when applicable and select the agent buffer window."
   (interactive)
   (unless (buffer-file-name)
     (user-error "Current buffer is not visiting a file"))
-  (let ((agent-buffer (ghostel-agent--first-visible-agent-buffer)))
+  (let* ((had-region (use-region-p))
+         (agent-buffer (ghostel-agent--first-visible-agent-buffer)))
     (unless agent-buffer
       (user-error "No visible Ghostel agent buffer; show claude/opencode/cursor/agy Ghostel first"))
     (let* ((abs-path (expand-file-name (buffer-file-name)))
            (str
-            (if (use-region-p)
+            (if had-region
                 (let* ((beg (region-beginning))
                        (end (region-end))
                        (lo (min beg end))
@@ -76,6 +78,11 @@ Otherwise sends \"ABSOLUTE_FILE_PATH 中的第 M-N 行:\" plus a newline and the
                           " 行:\n\n" selection "\n"))
               (concat "@" abs-path "\n"))))
       (with-current-buffer agent-buffer
-        (ghostel-send-string str)))))
+        (ghostel-send-string str))
+      (when had-region
+        (deactivate-mark))
+      (if-let ((win (get-buffer-window agent-buffer 'visible)))
+          (select-window win)
+        (pop-to-buffer agent-buffer)))))
 
 (provide 'ghostel-agent)
