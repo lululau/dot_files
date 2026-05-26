@@ -1063,7 +1063,8 @@ View the body of the message inside xwidget-webkit.
     "Sp" 'lx/ghostel-send-paragraph
     "SP" 'lx/ghostel-send-paragraph-and-go
     "Sb" 'lx/ghostel-send-babel-block
-    "SB" 'lx/ghostel-send-babel-block-and-go))
+    "SB" 'lx/ghostel-send-babel-block-and-go
+    "ss" 'ghostel-agent-send))
 
 
 (add-hook 'persp-before-deactivate-functions 'lx/remember-previous-persp)
