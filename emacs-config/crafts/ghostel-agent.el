@@ -13,7 +13,7 @@
 
 (defun ghostel-agent--agent-buffer-name-p (name)
   "Return non-nil if NAME looks like an agent Ghostel buffer from `ghostel-agent-run-*`."
-  (string-match-p "\\`\\*ghostel-\\(?:claude\\|opencode\\|cursor\\|agy\\)\\[" name))
+  (string-match-p "\\`\\*ghostel-\\(?:claude\\|opencode\\|cursor\\|agy\\|aliyun-tp-claude\\)\\[" name))
 
 (defun ghostel-agent--agent-buffer-p (buffer)
   "Return non-nil if BUFFER is a live Ghostel agent shell."
