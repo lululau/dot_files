@@ -1004,6 +1004,9 @@ View the body of the message inside xwidget-webkit.
 
 (autoload 'lx/mark-and-delete-whole-buffer "util-funcs")
 
+
+(autoload 'copilot-ensure-and-complete "copilot-enhanced")
+
 ;;;***
 
 

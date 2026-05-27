@@ -238,7 +238,7 @@
 (global-set-key (kbd "s--") #'lx/set-monospaced-font/decrease-font-size)
 
 (global-set-key (kbd "TAB") #'lx/tab)
-(global-set-key (kbd "M-\\") 'copilot-complete)
+(global-set-key (kbd "M-\\") 'copilot-ensure-and-complete)
 (global-set-key (kbd "M-]") 'copilot-next-completion)
 ;; (global-set-key (kbd "M-f") 'lx/copilot-accept-or-forward-word)
 ;; (global-set-key (kbd "C-n") 'lx/copilot-accept-or-next-line)
