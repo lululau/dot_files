@@ -1297,11 +1297,12 @@ This function is called at the very end of Spacemacs initialization."
   (persp-load-state-from-file (format "%sA" spacemacs-layouts-directory))
   (face-spec-set 'header-line '((t :weight bold :foreground "grey" :background unspecified)))
 
-  (add-hook 'prog-mode-hook 'send-to-ghostel-mode)
-  (add-hook 'prog-mode-hook 'evil-goggles-mode)
-  (add-hook 'text-mode-hook 'send-to-ghostel-mode)
-  (add-hook 'text-mode-hook 'evil-goggles-mode)
-  (add-hook 'fundamental-mode-hook 'send-to-ghostel-mode)
+  (run-at-time 1 nil (lambda ()
+    (add-hook 'prog-mode-hook 'send-to-ghostel-mode)
+    (add-hook 'prog-mode-hook 'evil-goggles-mode)
+    (add-hook 'text-mode-hook 'send-to-ghostel-mode)
+    (add-hook 'text-mode-hook 'evil-goggles-mode)
+    (add-hook 'fundamental-mode-hook 'send-to-ghostel-mode)))
 
   (custom-set-faces
    '(docker-face-active ((t (:inherit bold :foreground "SeaGreen2")))))
