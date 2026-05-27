@@ -274,6 +274,13 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
   (interactive)
   (ghostel-send-string "\x1f"))
 
+(defun evil-ghostel-send-C-x ()
+  "Send a single C-x to the ghostel terminal.
+Bound to \"C-x C-x\" so the prefix can be forwarded without being
+intercepted by Emacs' own `C-x' keymap."
+  (interactive)
+  (ghostel-send-key "x" "ctrl"))
+
 (defun evil-ghostel-previous-prompt (&optional n)
   "Navigate to Nth previous prompt."
   (interactive "p")
@@ -313,7 +320,11 @@ Uses Ctrl+a + Ctrl+k fast path for whole-line deletions (dd, S, cc)."
     (kbd "C-w") 'ghostel--self-insert
     (kbd "C-y") 'ghostel--self-insert
     (kbd "C-z") 'ghostel--self-insert
-    (kbd "<delete>") 'ghostel-send-C-d)
+    (kbd "<delete>") 'ghostel-send-C-d
+    (kbd "C-x C-x") 'evil-ghostel-send-C-x)
+
+  (evil-define-key 'hybrid ghostel-mode-map
+    (kbd "C-x C-x") 'evil-ghostel-send-C-x)
 
   ;; Normal state bindings
   (evil-define-key 'normal ghostel-mode-map
