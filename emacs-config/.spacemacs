@@ -782,14 +782,6 @@ layers configuration."
   (add-to-list 'completion-ignored-extensions "target/")
   (add-to-list 'completion-ignored-extensions ".idea/")
   (add-to-list 'completion-ignored-extensions "site-packages/")
-  (add-hook 'prog-mode-hook 'copilot-mode)
-  (add-hook 'clutch-mode-hook (lambda () (copilot-mode -1)))
-  (add-hook 'prog-mode-hook 'send-to-ghostel-mode)
-  (add-hook 'prog-mode-hook 'evil-goggles-mode)
-  (add-hook 'text-mode-hook 'copilot-mode)
-  (add-hook 'text-mode-hook 'send-to-ghostel-mode)
-  (add-hook 'text-mode-hook 'evil-goggles-mode)
-  (add-hook 'fundamental-mode-hook 'send-to-ghostel-mode)
 
   (add-to-list 'spacemacs-default-jump-handlers '(dumb-jump-go :async t) t)
 
@@ -1304,6 +1296,15 @@ This function is called at the very end of Spacemacs initialization."
   (persp-mode)
   (persp-load-state-from-file (format "%sA" spacemacs-layouts-directory))
   (face-spec-set 'header-line '((t :weight bold :foreground "grey" :background unspecified)))
+
+  (add-hook 'prog-mode-hook 'copilot-mode)
+  (add-hook 'clutch-mode-hook (lambda () (copilot-mode -1)))
+  (add-hook 'prog-mode-hook 'send-to-ghostel-mode)
+  (add-hook 'prog-mode-hook 'evil-goggles-mode)
+  (add-hook 'text-mode-hook 'copilot-mode)
+  (add-hook 'text-mode-hook 'send-to-ghostel-mode)
+  (add-hook 'text-mode-hook 'evil-goggles-mode)
+  (add-hook 'fundamental-mode-hook 'send-to-ghostel-mode)
 
   (custom-set-faces
    '(docker-face-active ((t (:inherit bold :foreground "SeaGreen2")))))
