@@ -124,4 +124,4 @@ export SERPAPI_KEY=$(cat ~/.config/secrets/.serpapi_api_key)
 export ZHIPU_API_KEY=$(cat ~/.config/secrets/.zhipu_api_key)
 export DASHSCOPE_CODING_PLAN_API_KEY=$(cat ~/.config/secrets/.dashscope_coding_plan_api_key)
 export VOLCENGINE_CODING_PLAN_API_KEY=$(cat ~/.config/secrets/.volcengine_coding_plan_api_key)
-
+export ALIYUN_TOKEN_PLAN_API_KEY=$(cat ~/.config/secrets/.aliyun_token_plan_api_key)
