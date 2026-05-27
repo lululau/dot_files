@@ -62,6 +62,7 @@
 (autoload 'ghostel-rails/rails-dev "ghostel-rails")
 (autoload 'ghostel-rails/sidekiq "ghostel-rails")
 (autoload 'ghostel-agent-run-claude "ghostel-agent")
+(autoload 'ghostel-agent-run-aliyun-token-plan-claude "ghostel-agent")
 (autoload 'ghostel-agent-run-opencode "ghostel-agent")
 (autoload 'ghostel-agent-run-cursor "ghostel-agent")
 (autoload 'ghostel-agent-run-agy "ghostel-agent")

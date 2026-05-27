@@ -410,9 +410,19 @@ session id (for example \"--resume\")."
   (ghostel-agent--run-with-session
    :agent-name "Claude"
    :list-fn #'ghostel-agent--list-claude-sessions
-   :base-command "claude --dangerously-skip-permissions"
+   :base-command (format "env DISABLE_INSTALLATION_CHECKS=1 ANTHROPIC_BASE_URL=https://open.bigmodel.cn/api/anthropic ANTHROPIC_MODEL=glm-5.1 ANTHROPIC_DEFAULT_OPUS_MODEL=glm-5.1 ANTHROPIC_DEFAULT_SONNET_MODEL=glm-5-turbo ANTHROPIC_DEFAULT_HAIKU_MODEL=glm-4.7 ANTHROPIC_AUTH_TOKEN=%s claude --dangerously-skip-permissions" (getenv "ZHIPU_API_KEY"))
    :resume-arg "--resume"
    :buffer-pattern "*ghostel-claude[%p]*"))
+
+(defun ghostel-agent-run-aliyun-token-plan-claude ()
+  "Start a Aliyun Token Plan Claude agent shell in Ghostel."
+  (interactive)
+  (ghostel-agent--run-with-session
+   :agent-name "Aliyun Token Plan"
+   :list-fn #'ghostel-agent--list-claude-sessions
+   :base-command (format "env DISABLE_INSTALLATION_CHECKS=1 ANTHROPIC_BASE_URL=https://token-plan.cn-beijing.maas.aliyuncs.com/apps/anthropic ANTHROPIC_MODEL=qwen3.7-max ANTHROPIC_DEFAULT_OPUS_MODEL=qwen3.7-max ANTHROPIC_DEFAULT_SONNET_MODEL=qwen3.6-plus ANTHROPIC_DEFAULT_HAIKU_MODEL=qwen3.6-flash ANTHROPIC_AUTH_TOKEN=%s claude --dangerously-skip-permissions" (getenv "ALIYUN_TOKEN_PLAN_API_KEY"))
+   :resume-arg "--resume"
+   :buffer-pattern "*ghostel-aliyun-tp-claude[%p]*"))
 
 (defun ghostel-agent-run-opencode ()
   "Start an Opencode agent shell in Ghostel."
