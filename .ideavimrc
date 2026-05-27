@@ -2,7 +2,7 @@ set showmode
 
 " Mode widget — Catppuccin Macchiato 完全自定义（Dark）
 let g:widget_mode_is_full_customization_dark = 1
-let g:widget_mode_normal_background_dark = '#f2ca44'
+let g:widget_mode_normal_background_dark = '#e3af3e'
 let g:widget_mode_insert_background_dark = '#8dbeea'
 let g:widget_mode_replace_background_dark = '#f5a97f'
 let g:widget_mode_command_background_dark = '#a6da95'
