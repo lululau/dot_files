@@ -39,7 +39,8 @@
 ;; (autoload 'copilot-complete "copilot.el")
 ;; (autoload 'copilot-next-completion "copilot.el")
 ;; (autoload 'copilot-previous-completion "copilot.el")
-;; (autoload 'copilot-accept-completion "copilot.el")
+
+(autoload 'copilot-accept-completion "copilot.el")
 
 (autoload 'omg-sync "omg.el")
 (autoload 'omg-setup "omg.el")
