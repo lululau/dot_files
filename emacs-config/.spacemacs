@@ -253,7 +253,7 @@
      sql
      ;; plantuml
      nginx
-     ;; vimscript
+     vimscript
      ;; (mu4e :variables mu4e-enable-notifications ,enable-mu4e-notification mu4e-enable-mode-line t)
      ;; confluence-lx
      ;; ragtag
