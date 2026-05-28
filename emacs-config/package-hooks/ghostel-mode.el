@@ -1,7 +1,40 @@
 ;; -*- lexical-binding: t; -*-
 
+;; Defer the whole ghostel-mode customization until BOTH:
+;;   (a) ghostel itself is loaded, and
+;;   (b) evil is loaded (we use `evil-define-key' etc.), and
+;;   (c) shell-pop is loadable (used by ghostel-cd-to-{cwd,file-dir}).
+;;
+;; Reason: when ghostel is force-activated during a fresh install/update
+;; (Spacemacs runs `package--load-files-for-activation' on the freshly
+;; built package), this hook would otherwise fire synchronously -- before
+;; evil's / shell-pop's elpa directories are even on `load-path' -- and
+;; throw things like (void-function evil-define-key) or
+;; (file-missing ... shell-pop). We instead apply the configuration once,
+;; from whichever of these fires first:
+;;   * `with-eval-after-load' chain ghostel -> evil, or
+;;   * `emacs-startup-hook' (after Spacemacs user-config finishes).
+
+(defvar lx/ghostel-mode--applied nil
+  "Non-nil once the ghostel-mode customizations below have been applied.")
+
+(defun lx/ghostel-mode--apply ()
+  "Apply ghostel-mode customizations when all deps are ready."
+  (when (and (not lx/ghostel-mode--applied)
+             (featurep 'ghostel)
+             (featurep 'evil))
+    (setq lx/ghostel-mode--applied t)
+    (require 'shell-pop nil 'noerror)
+    (lx/ghostel-mode--configure)))
+
 (with-eval-after-load 'ghostel
-  (require 'shell-pop)
+  (with-eval-after-load 'evil
+    (lx/ghostel-mode--apply)))
+
+(add-hook 'emacs-startup-hook #'lx/ghostel-mode--apply)
+
+(defun lx/ghostel-mode--configure ()
+  "The actual ghostel-mode configuration body (deferred)."
 
   (defun ghostel-send-escape-key () (interactive) (ghostel-send-key "escape"))
   (defun ghostel-send-10-up () (interactive) (dotimes (i 10) (ghostel-send-string "k")))
