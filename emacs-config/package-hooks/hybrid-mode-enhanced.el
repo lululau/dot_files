@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (with-eval-after-load 'hybrid-mode
   (defun hybrid-mode//update-states-for-current-buffers (style)
     "Update the active state in all current buffers given current STYLE."
