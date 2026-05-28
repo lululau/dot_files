@@ -35,12 +35,13 @@
 (autoload 'turn-company-english-helper-on "company-english-helper.el")
 (autoload 'company-en-words "company-english-helper.el")
 
-;; (autoload 'copilot-clear-overlay "copilot.el")
-;; (autoload 'copilot-complete "copilot.el")
-;; (autoload 'copilot-next-completion "copilot.el")
-;; (autoload 'copilot-previous-completion "copilot.el")
-
+(autoload 'copilot-next-completion "copilot.el")
+(autoload 'copilot-previous-completion "copilot.el")
+(autoload 'copilot-complete "copilot.el")
+(autoload 'copilot-clear-overlay "copilot.el")
 (autoload 'copilot-accept-completion "copilot.el")
+
+(autoload 'projectile-open-projects "projectile.el")
 
 (autoload 'omg-sync "omg.el")
 (autoload 'omg-setup "omg.el")
