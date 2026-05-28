@@ -4,8 +4,23 @@
         persp-name)
     (when persp
       (setq persp-name (persp-name persp))
-      (when (-contains? (projectile-open-projects) (replace-regexp-in-string "^/[^/]*/[^/]*/" "~/" persp-name))
-        persp-name))))
+      (let ((project-dir
+             (cond
+              ;; 1. Check if persp-name is a directory path
+              ((file-directory-p (expand-file-name persp-name))
+               (expand-file-name persp-name))
+              ;; 2. If it is a project name, find it in known projects
+              ((let ((matched-proj (seq-find (lambda (proj)
+                                               (string= (projectile-project-name proj) persp-name))
+                                             (projectile-known-projects))))
+                 (when matched-proj
+                   (expand-file-name matched-proj))))
+              ;; 3. Fallback to current buffer's projectile project root
+              ((and (projectile-project-p)
+                    (projectile-project-root))
+               (projectile-project-root)))))
+        (when project-dir
+          (abbreviate-file-name project-dir))))))
 
 ;;;###autoload
 (defun projectile-project-alternate-buffer ()
