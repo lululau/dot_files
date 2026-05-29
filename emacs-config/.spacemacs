@@ -434,6 +434,9 @@ It should only modify the values of Spacemacs settings."
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen.
    dotspacemacs-smooth-scrolling t
+   ;; Show the scroll bar while scrolling. The auto hide time can be configured by
+   ;; setting this variable to a number.
+   dotspacemacs-scroll-bar-while-scrolling nil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    dotspacemacs-smartparens-strict-mode nil
    ;; Select a scope to highlight delimiters. Possible value is `all',
