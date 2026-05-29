@@ -102,4 +102,6 @@
 
 (autoload 'gpt-commit-message "gpt-commit.el")
 (autoload 'gpt-commit-message-in-zh "gpt-commit.el")
+(autoload 'git-fire "git-fire.el" nil t)
+(autoload 'git-fire-and-push "git-fire.el" nil t)
 (autoload 'helm-get-file "helm-get-file.el")

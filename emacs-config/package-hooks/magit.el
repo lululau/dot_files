@@ -87,7 +87,12 @@ Like `vc-mode-line' but simpler, more efficient, and less buggy."
                 (magit-read-other-branch-or-commit prompt exclude secondary-default))))
 
 
+;; `git-fire' is vendored (vendor/git-fire.el) and autoloaded from vendor/init.el.
+;; Do NOT `require' it here: this hook is registered in `dotspacemacs/user-init'
+;; (before packages install), so on a magit reinstall it fires during the
+;; package phase and would load git-fire before the vendor dir is on `load-path',
+;; aborting magit activation with "Cannot open load file ... git-fire". Binding
+;; the autoloaded command symbols is enough; git-fire loads lazily on first use.
 (with-eval-after-load 'magit-status
-  (require 'git-fire)
   (define-key magit-status-mode-map (kbd "C-c f") #'git-fire)
   (define-key magit-status-mode-map (kbd "C-c C-f") #'git-fire-and-push))
