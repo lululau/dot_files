@@ -160,7 +160,7 @@
 (global-set-key (kbd "C-M-s-*") 'winum-select-window-8)
 (global-set-key (kbd "C-M-s-(") 'winum-select-window-9)
 
-(global-set-key (kbd "<f12>") #'lx/open-mail-custom-layout-or-mu4e-main)
+(global-set-key (kbd "<f12>") #'imenu-list-smart-toggle)
 
 (global-set-key (kbd "M-`") 'neotree-show)
 
