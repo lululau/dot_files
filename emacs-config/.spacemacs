@@ -1213,6 +1213,7 @@ This function is called at the very end of Spacemacs initialization."
   (lsp-enable-file-watchers . nil)
   (org-html-head))))
  '(lsp-semgrep-languages nil)
+ (list 'lsp-tailwindcss-server-path (concat HOMEBREW_PREFIX "/bin/tailwindcss-language-server"))
  '(sh-indentation 2)
  '(org-file-apps (quote ((auto-mode . emacs) (directory . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . emacs))))
  '(sp-highlight-pair-overlay nil)
