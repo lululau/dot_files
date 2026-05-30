@@ -75,7 +75,92 @@
     ;; Magit hunk heading: subtle dark background instead of catppuccin's bright surface2
     (face-spec-set 'magit-diff-hunk-heading '((t (:background "#1e2030" :foreground "#8087a2"))))
     (face-spec-set 'magit-diff-hunk-heading-highlight '((t (:background "#262a40" :foreground "#8087a2"))))
-    (setq default-frame-alist (assq-delete-all 'ns-appearance default-frame-alist))
+    ;; Magit blame: surface0 bg with catppuccin accent fg
+    (face-spec-set 'magit-blame-heading '((t (:background "#363a4f" :foreground "#a6da95" :extend t))))
+    (face-spec-set 'magit-blame-summary '((t (:background "#363a4f" :foreground "#eed49f" :extend t))))
+    (face-spec-set 'magit-blame-culprit '((t (:background "#363a4f" :foreground "#eed49f"))))
+    (face-spec-set 'magit-blame-name '((t (:background "#363a4f" :foreground "#eed49f"))))
+    (face-spec-set 'magit-blame-time '((t (:background "#363a4f" :foreground "#a6da95"))))
+    ;; Magit branches: tinted backgrounds with catppuccin accent colors
+    (face-spec-set 'magit-branch '((t (:foreground "#c6a0f6" :inherit bold))))
+    (face-spec-set 'magit-branch-current '((t (:background "#2a3548" :foreground "#8aadf4" :inherit bold :box t))))
+    (face-spec-set 'magit-branch-local '((t (:background "#2a3548" :foreground "#8aadf4" :inherit bold))))
+    ;; Magit reflog: pure accent foregrounds
+    (face-spec-set 'magit-reflog-amend '((t (:foreground "#c6a0f6"))))
+    (face-spec-set 'magit-reflog-checkout '((t (:foreground "#8aadf4"))))
+    (face-spec-set 'magit-reflog-cherry-pick '((t (:foreground "#a6da95"))))
+    (face-spec-set 'magit-reflog-commit '((t (:foreground "#a6da95"))))
+    (face-spec-set 'magit-reflog-merge '((t (:foreground "#a6da95"))))
+    (face-spec-set 'magit-reflog-other '((t (:foreground "#8bd5ca"))))
+    (face-spec-set 'magit-reflog-rebase '((t (:foreground "#c6a0f6"))))
+    (face-spec-set 'magit-reflog-remote '((t (:foreground "#8bd5ca"))))
+    (face-spec-set 'magit-reflog-reset '((t (:foreground "#ed8796"))))
+    ;; Magit log labels: bright accent bg + base fg (like spacemacs-dark style)
+    (face-spec-set 'magit-log-head-label-head '((t (:background "#eed49f" :foreground "#24273a" :inherit bold))))
+    (face-spec-set 'magit-log-head-label-local '((t (:background "#8aadf4" :foreground "#24273a" :inherit bold))))
+    (face-spec-set 'magit-log-head-label-remote '((t (:background "#a6da95" :foreground "#24273a" :inherit bold))))
+    (face-spec-set 'magit-log-head-label-tags '((t (:background "#c6a0f6" :foreground "#24273a" :inherit bold))))
+    (face-spec-set 'magit-log-head-label-wip '((t (:background "#8bd5ca" :foreground "#24273a" :inherit bold))))
+    (face-spec-set 'magit-log-sha1 '((t (:foreground "#8bd5ca"))))
+    ;; Magit misc
+    (face-spec-set 'magit-diff-file-heading-highlight '((t (:background "#363a4f" :foreground "#8087a2"))))
+    (face-spec-set 'magit-item-highlight '((t (:background "#1e2030" :extend t))))
+    (face-spec-set 'magit-section-title '((t (:background "#24273a" :foreground "#8aadf4" :inherit bold))))
+    ;; Spaceline: catppuccin doesn't define these spacemacs-specific faces
+    (face-spec-set 'spaceline-python-venv '((t (:foreground "#c6a0f6"))))
+    (face-spec-set 'spacemacs-transient-state-title-face '((t (:background unspecified :foreground "#c6a0f6" :box nil :inherit bold))))
+    ;; Mode-line complement
+    (face-spec-set 'mode-line-buffer-id '((t (:inherit bold :foreground "#c6a0f6"))))
+    ;; Flycheck fringe: catppuccin doesn't define fringe indicator faces
+    (face-spec-set 'flycheck-fringe-error '((t (:foreground "#ed8796" :inherit bold))))
+    (face-spec-set 'flycheck-fringe-warning '((t (:foreground "#f5a97f" :inherit bold))))
+    (face-spec-set 'flycheck-fringe-info '((t (:foreground "#8aadf4" :inherit bold))))
+    (face-spec-set 'flycheck-error-list-checker-name '((t (:foreground "#8aadf4"))))
+    ;; Smartparens: catppuccin doesn't define
+    (face-spec-set 'sp-pair-overlay-face '((t (:background "#363a4f" :foreground unspecified))))
+    (face-spec-set 'sp-show-pair-match-face '((t (:foreground "#a6da95" :inherit bold :underline t))))
+    ;; Org-mode: faces catppuccin doesn't define
+    (face-spec-set 'org-agenda-clocking '((t (:background "#363a4f" :foreground "#c6a0f6"))))
+    (face-spec-set 'org-clock-overlay '((t (:foreground "#c6a0f6"))))
+    (face-spec-set 'org-date-selected '((t (:background "#c6a0f6" :foreground "#24273a"))))
+    (face-spec-set 'org-kbd '((t (:inherit region :foreground "#cad3f5" :box (:line-width 1 :style released-button)))))
+    (face-spec-set 'org-time-grid '((t (:foreground "#8bd5ca"))))
+    (face-spec-set 'org-verse '((t (:inherit org-block :slant italic))))
+    ;; Helm: faces catppuccin doesn't define
+    (face-spec-set 'helm-match '((t (:background "#363a4f" :foreground "#8aadf4"))))
+    (face-spec-set 'helm-match-item '((t (:background "#363a4f" :foreground "#8aadf4"))))
+    (face-spec-set 'helm-selection-line '((t (:background "#1e2030"))))
+    (face-spec-set 'helm-buffer-directory '((t (:foreground "#cad3f5" :background "#24273a"))))
+    (face-spec-set 'helm-buffer-file '((t (:foreground "#cad3f5" :background "#24273a"))))
+    (face-spec-set 'helm-header-line-left-margin '((t (:foreground "#8aadf4" :background unspecified))))
+    (face-spec-set 'helm-bookmark-directory '((t (:inherit helm-ff-directory))))
+    (face-spec-set 'helm-bookmark-file '((t (:foreground "#cad3f5"))))
+    (face-spec-set 'helm-ff-dotted-symlink-directory '((t (:foreground "#8bd5ca" :background "#24273a" :inherit bold))))
+    (face-spec-set 'helm-swoop-target-line-face '((t (:background "#363a4f"))))
+    (face-spec-set 'helm-swoop-target-line-block-face '((t (:foreground "#cad3f5" :background "#363a4f"))))
+    (face-spec-set 'helm-swoop-target-word-face '((t (:background "#363a4f" :foreground "#a6da95"))))
+    ;; Which-key: catppuccin only defines command-description and key-face
+    (face-spec-set 'which-key-group-description-face '((t (:foreground "#8aadf4"))))
+    (face-spec-set 'which-key-separator-face '((t (:background unspecified :foreground "#8bd5ca"))))
+    (face-spec-set 'which-key-special-key-face '((t (:background "#c6a0f6" :foreground "#24273a"))))
+    ;; Diff
+    (face-spec-set 'diff-indicator-changed '((t (:background "#2a3548"))))
+    ;; Swiper
+    (face-spec-set 'swiper-line-face '((t (:background "#363a4f" :inherit bold))))
+    (face-spec-set 'swiper-match-face-3 '((t (:foreground "#eed49f" :underline t))))
+    (face-spec-set 'swiper-match-face-4 '((t (:foreground "#a6da95" :underline t))))
+    ;; Rainbow-delimiters
+    (face-spec-set 'rainbow-delimiters-mismatched-face '((t (:foreground "#ed8796" :overline t))))
+    ;; Misc high-impact faces
+    (face-spec-set 'link-visited '((t (:foreground "#c6a0f6" :underline t))))
+    (face-spec-set 'page-break-lines '((t (:foreground "#494d64"))))
+    (face-spec-set 'secondary-selection '((t (:background "#181926"))))
+    (face-spec-set 'eldoc-highlight-function-argument '((t (:foreground "#a6da95" :inherit bold))))
+    (face-spec-set 'hydra-face-blue '((t (:foreground "#8aadf4"))))
+    (face-spec-set 'hydra-face-red '((t (:foreground "#ed8796"))))
+    (face-spec-set 'highlight-symbol-face '((t (:background "#363a4f"))))
+    (face-spec-set 'linum-relative-current-face '((t (:foreground "#c6a0f6"))))
+    ;; System
     (add-to-list 'default-frame-alist '(ns-appearance . dark))
     (shell-command-to-string "defaults write org.gnu.Emacs TransparentTitleBar DARK")
     (shell-command-to-string "tmux set-option -g status-style bg=colour235,fg=colour244"))
