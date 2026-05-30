@@ -58,6 +58,12 @@
     (face-spec-set 'powerline-active2 '((t (:background "#363a4f" :foreground "#cad3f5"))))
     (face-spec-set 'powerline-inactive1 '((t (:background "#181926" :foreground "#6e738d"))))
     (face-spec-set 'powerline-inactive2 '((t (:background "#181926" :foreground "#6e738d"))))
+    ;; Avy: hardcoded high-contrast colors for maximum jump-target visibility
+    ;; (same as spacemacs-dark override — intentionally theme-independent)
+    (face-spec-set 'avy-lead-face   '((t (:foreground "white" :background "#e52b50"))))
+    (face-spec-set 'avy-lead-face-0 '((t (:foreground "white" :background "#4f57f9"))))
+    (face-spec-set 'avy-lead-face-1 '((t (:foreground "white" :background "gray"))))
+    (face-spec-set 'avy-lead-face-2 '((t (:foreground "white" :background "#f86bf3"))))
     ;; Linum: base bg with surface1 fg for subtlety
     (face-spec-set 'linum '((t (:background "#24273a" :foreground "#494d64"))))
     ;; diff-hl: bright, high-contrast VCS markers
