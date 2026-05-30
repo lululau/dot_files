@@ -55,6 +55,7 @@
   (defun ghostel-send-C-x-b () (interactive) (ghostel-send-ctrl-x "b"))
   (defun ghostel-send-C-x-k () (interactive) (ghostel-send-ctrl-x "k"))
   (defun ghostel-send-C-x-s () (interactive) (ghostel-send-ctrl-x "s"))
+  (defun ghostel-send-C-x-space () (interactive) (ghostel-send-ctrl-x "space"))
 
   (defun ghostel-send-frame () (interactive) (ghostel-send-cmd "frame\n"))
   (defun ghostel-send-up () (interactive) (ghostel-send-cmd "up\n"))
@@ -193,6 +194,7 @@ PROCESS is the shell process, EVENT describes the state change."
   (define-key ghostel-mode-map (kbd "C-x b") #'ghostel-send-C-x-b)
   (define-key ghostel-mode-map (kbd "C-x k") #'ghostel-send-C-x-k)
   (define-key ghostel-mode-map (kbd "C-x s") #'ghostel-send-C-x-s)
+  (define-key ghostel-mode-map (kbd "C-x SPC") #'ghostel-send-C-x-space)
   (define-key ghostel-mode-map (kbd "M-:") #'eval-expression)
   (define-key ghostel-mode-map (kbd "<M-return>") #'ghostel-send-meta-return)
   (define-key ghostel-mode-map (kbd "C-h") #'ghostel-send-ctrl-h)
@@ -232,6 +234,7 @@ PROCESS is the shell process, EVENT describes the state change."
   (define-key ghostel-semi-char-mode-map (kbd "C-x b") #'ghostel-send-C-x-b)
   (define-key ghostel-semi-char-mode-map (kbd "C-x k") #'ghostel-send-C-x-k)
   (define-key ghostel-semi-char-mode-map (kbd "C-x s") #'ghostel-send-C-x-s)
+  (define-key ghostel-semi-char-mode-map (kbd "C-x SPC") #'ghostel-send-C-x-space)
   (define-key ghostel-semi-char-mode-map (kbd "M-:") #'eval-expression)
   (define-key ghostel-semi-char-mode-map (kbd "<M-return>") #'ghostel-send-meta-return)
   (define-key ghostel-semi-char-mode-map (kbd "C-h") #'ghostel-send-ctrl-h)
