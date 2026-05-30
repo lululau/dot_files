@@ -812,6 +812,8 @@ Remove empty lines
 
 (autoload 'lx/run-chatsh "term-funcs" nil t)
 
+(autoload 'lx/run-jless "term-funcs" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "title-format" "title-format.el" (0 0 0 0))

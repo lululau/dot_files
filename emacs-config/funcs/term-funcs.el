@@ -291,3 +291,17 @@
   (interactive)
   (lx/run-in-pry-ghostel "chatsh 4" "*chatsh*"))
 
+
+;;;###autoload
+(defun lx/run-jless (&optional file)
+  "Open FILE in jless via ghostel in other window.
+If FILE is nil, use the current buffer's file.
+In dired mode, use the file at point."
+  (interactive)
+  (let* ((file (or file
+                   (if (derived-mode-p 'dired-mode)
+                       (dired-get-file-for-visit)
+                     (buffer-file-name))))
+         (cmd (format "jless %s" (shell-quote-argument file)))
+         (buffer-name (format "*jless-%s*" (file-name-nondirectory file))))
+    (lx/run-in-ghostel cmd buffer-name nil nil)))
