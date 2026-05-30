@@ -49,6 +49,8 @@
   ;; mauve=#c6a0f6  blue=#8aadf4  sapphire=#7dc4e4  green=#a6da95
   ;; red=#ed8796  peach=#f5a97f  yellow=#eed49f
   (when (string= "catppuccin" spacemacs--cur-theme)
+    ;; 用 subtext1 (#b8c0e0) 替代默认 text (#cad3f5)，降低亮度更护眼
+    (face-spec-set 'default '((t (:foreground "#b8c0e0"))))
     ;; Mode-line: use mantle as active bg, crust as inactive bg, surface1 as box border
     ;; This ensures powerline separators match the segment backgrounds exactly.
     (face-spec-set 'mode-line '((t (:background "#1e2030" :foreground "#cad3f5" :box (:line-width 1 :color "#494d64") :overline nil :underline nil))))
