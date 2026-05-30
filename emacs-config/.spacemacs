@@ -28,7 +28,7 @@
 
 (if (display-graphic-p)
     (progn
-      (setq lx/spacemacs-themes '(spacemacs-dark solarized-light))
+      (setq lx/spacemacs-themes '(catppuccin spacemacs-dark solarized-light))
       (setq lx/spacemacs-banner "~/Documents/emacs-banners/gnu_color.png")
       (setq neo-theme 'icons)
       (setq enable-org-notification nil)
@@ -300,6 +300,7 @@
                                             ;; (claude-code-ide :location (recipe :fetcher github :repo "manzaltu/claude-code-ide.el" :files ("*.el")))
                                             (clutch :location (recipe :fetcher github :repo "LuciusChen/clutch" :branch "main" :files ("*.el")))
                                             ;; (appine :location (recipe :fetcher github :repo "chaoswork/appine" :files ("*.el")))
+                                            catppuccin-theme
                                             )
 
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -479,6 +480,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;;         ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 
 
+  ;; available flavors: latte, frappe, macchiato, mocha
+  (setq catppuccin-flavor 'macchiato)
   (setq helm-descbinds-disable-which-key nil)
   (setq configuration-layer--elpa-archives
         '(("melpa"    . "melpa.org/packages/")
