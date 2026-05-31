@@ -160,6 +160,9 @@
     (face-spec-set 'swiper-line-face '((t (:background "#363a4f" :inherit bold))))
     (face-spec-set 'swiper-match-face-3 '((t (:foreground "#eed49f" :underline t))))
     (face-spec-set 'swiper-match-face-4 '((t (:foreground "#a6da95" :underline t))))
+    ;; Dired: bold directories and symlinks like spacemacs-dark
+    (face-spec-set 'dired-directory '((t (:foreground "#8aadf4" :inherit bold))))
+    (face-spec-set 'dired-symlink '((t (:foreground "#f5bde6" :inherit bold))))
     ;; Rainbow-delimiters
     (face-spec-set 'rainbow-delimiters-mismatched-face '((t (:foreground "#ed8796" :overline t))))
     ;; Misc high-impact faces
