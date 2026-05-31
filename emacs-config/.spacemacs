@@ -430,7 +430,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-inactive-transparency 90
    ;; If non nil unicode symbols are displayed in the mode line.
    dotspacemacs-mode-line-unicode-symbols t
-   dotspacemacs-mode-line-theme '(spacemacs :separator slant)
+   dotspacemacs-mode-line-theme '(spacemacs :separator nil)
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen.
@@ -519,7 +519,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-  (setq powerline-default-separator 'slant)
   (load-file lx/emacs-text-objects-init-el)
   (load-file lx/emacs-key-bindings-init-el)
   (load-file lx/emacs-vendor-init-el)
