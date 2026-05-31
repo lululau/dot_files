@@ -51,6 +51,11 @@
   (when (string= "catppuccin" spacemacs--cur-theme)
     ;; 用 subtext1 (#b8c0e0) 替代默认 text (#cad3f5)，降低亮度更护眼
     (face-spec-set 'default '((t (:foreground "#b8c0e0"))))
+    ;; Font-lock: add bold like spacemacs-dark (catppuccin only sets foreground)
+    (face-spec-set 'font-lock-function-name-face '((t (:foreground "#8aadf4" :inherit bold))))
+    (face-spec-set 'font-lock-keyword-face '((t (:foreground "#c6a0f6" :inherit bold))))
+    (face-spec-set 'font-lock-type-face '((t (:foreground "#eed49f" :inherit bold))))
+    (face-spec-set 'minibuffer-prompt '((t (:foreground "#a5adcb" :inherit bold))))
     ;; Org: DONE 标题文字用 green 与 DONE 关键字背景一致
     (face-spec-set 'org-headline-done '((t (:foreground "#a6da95"))))
     ;; Mode-line: use mantle as active bg, crust as inactive bg, surface1 as box border
@@ -163,6 +168,33 @@
     ;; Dired: bold directories and symlinks like spacemacs-dark
     (face-spec-set 'dired-directory '((t (:foreground "#8aadf4" :inherit bold))))
     (face-spec-set 'dired-symlink '((t (:foreground "#f5bde6" :inherit bold))))
+    (face-spec-set 'dired-marked '((t (:foreground "#c6a0f6" :inherit bold))))
+    (face-spec-set 'dired-perm-write '((t (:foreground "#b8c0e0" :underline t))))
+    ;; Completions: bold common part like spacemacs-dark
+    (face-spec-set 'completions-common-part '((t (:foreground "#8aadf4" :weight bold))))
+    ;; Helm: bold directories/symlinks and backgrounds like spacemacs-dark
+    (face-spec-set 'helm-ff-directory '((t (:foreground "#8aadf4" :background "#24273a" :inherit bold))))
+    (face-spec-set 'helm-ff-dotted-directory '((t (:foreground "#8aadf4" :background "#24273a" :inherit bold))))
+    (face-spec-set 'helm-ff-symlink '((t (:foreground "#8bd5ca" :background "#24273a" :inherit bold))))
+    (face-spec-set 'helm-ff-invalid-symlink '((t (:foreground "#ed8796" :background "#24273a" :inherit bold))))
+    (face-spec-set 'helm-candidate-number '((t (:foreground "#eed49f" :background "#24273a" :inherit bold))))
+    (face-spec-set 'helm-header '((t (:foreground "#b8c0e0" :background "#24273a" :underline nil :box nil))))
+    (face-spec-set 'helm-separator '((t (:foreground "#c6a0f6" :background "#24273a"))))
+    ;; Anzu: bold mode-line count like spacemacs-dark
+    (face-spec-set 'anzu-mode-line '((t (:foreground "#eed49f" :inherit bold))))
+    ;; Which-key: bold keys like spacemacs-dark
+    (face-spec-set 'which-key-key-face '((t (:foreground "#ed8796" :inherit bold))))
+    ;; Show-paren: bold + underline mismatch like spacemacs-dark
+    (face-spec-set 'show-paren-mismatch '((t (:foreground "#ed8796" :inherit bold :underline t))))
+    ;; Org: bold TODO/DONE with colored backgrounds like spacemacs-dark
+    (face-spec-set 'org-todo '((t (:foreground "#f5a97f" :inherit bold :background "#32322c"))))
+    (face-spec-set 'org-done '((t (:foreground "#a6da95" :inherit bold :background "#293235"))))
+    (face-spec-set 'org-agenda-structure '((t (:foreground "#c6a0f6" :inherit bold))))
+    ;; Markdown: bold headers like spacemacs-dark
+    (face-spec-set 'markdown-header-face-1 '((t (:foreground "#ed8796" :inherit bold :height 1.3))))
+    (face-spec-set 'markdown-header-face-2 '((t (:foreground "#f5a97f" :inherit bold :height 1.2))))
+    ;; Tab-bar: bold active tab like spacemacs-dark
+    (face-spec-set 'tab-bar-tab '((t (:foreground "#cad3f5" :background "#24273a" :weight bold))))
     ;; Rainbow-delimiters
     (face-spec-set 'rainbow-delimiters-mismatched-face '((t (:foreground "#ed8796" :overline t))))
     ;; Misc high-impact faces
