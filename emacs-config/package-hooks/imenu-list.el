@@ -2,8 +2,11 @@
 
 (spacemacs|use-package-add-hook imenu-list
   :post-config
-  ;; Make imenu-list mode-line height match spaceline by appending a transparent
+  ;; Make imenu-list mode-line height match spaceline by prepending a transparent
   ;; XPM spacer image whose height equals `powerline-height'.
+  ;; NOTE: Must prepend (not append) because the *Ilist* window is narrow;
+  ;; when mode-line content fills the window width, a trailing spacer gets
+  ;; truncated and no longer affects the mode-line height.
   (add-hook 'imenu-list-major-mode-hook
             (lambda ()
               (when (and (boundp 'powerline-height)
@@ -18,5 +21,5 @@
                                 " " 'display
                                 (list 'image :type 'xpm :data xpm-data :ascent 'center))))
                   (setq-local mode-line-format
-                              (append mode-line-format (list spacer))))))
+                              (cons spacer mode-line-format)))))
             :append))

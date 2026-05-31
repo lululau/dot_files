@@ -8,8 +8,11 @@
   (define-key neotree-mode-map (kbd "s-N") #'(lambda () (interactive) (select-window-by-number 1) (switch-to-buffer (generate-new-buffer "*Untitled*")) (undo-tree-mode)))
   (define-key neotree-mode-map [tab] #'(lambda () (interactive) (neo-buffer--toggle-expand (neo-buffer--get-filename-current-line)) (neo-buffer--refresh t)))
 
-  ;; Make neotree mode-line height match spaceline by appending a transparent
+  ;; Make neotree mode-line height match spaceline by prepending a transparent
   ;; XPM spacer image whose height equals `powerline-height'.
+  ;; NOTE: Must prepend (not append) because the neotree window is narrow;
+  ;; when mode-line content fills the window width, a trailing spacer gets
+  ;; truncated and no longer affects the mode-line height.
   (add-hook 'neotree-mode-hook
             (lambda ()
               (when (and (boundp 'powerline-height)
@@ -24,4 +27,4 @@
                                 " " 'display
                                 (list 'image :type 'xpm :data xpm-data :ascent 'center))))
                   (setq-local mode-line-format
-                              (append mode-line-format (list spacer))))))))
+                              (cons spacer mode-line-format)))))))
