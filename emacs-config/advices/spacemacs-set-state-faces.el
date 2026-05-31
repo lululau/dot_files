@@ -143,6 +143,8 @@
     (face-spec-set 'org-kbd '((t (:inherit region :foreground "#cad3f5" :box (:line-width 1 :style released-button)))))
     (face-spec-set 'org-time-grid '((t (:foreground "#8bd5ca"))))
     (face-spec-set 'org-verse '((t (:inherit org-block :slant italic))))
+    ;; Org table: mantle bg for visual separation from base background
+    (face-spec-set 'org-table '((t (:background "#1e2030" :foreground "#b8c0e0"))))
     ;; Helm: faces catppuccin doesn't define
     (face-spec-set 'helm-source-header '((t (:background "#c6a0f6" :foreground "#181926" :inherit bold))))
     (face-spec-set 'helm-match '((t (:background "#363a4f" :foreground "#8aadf4"))))
