@@ -1,6 +1,9 @@
 ;; -*- lexical-binding: t; -*-
 
 (with-eval-after-load 'markdown-mode
+  ;; Extend code block background to window right edge
+  (set-face-attribute 'markdown-code-face nil :extend t)
+
   (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "'" 'markdown-edit-code-block)
   (evil-define-key 'motion markdown-mode-map (kbd "C-i") 'markdown-cycle)
   (evil-define-key 'normal markdown-mode-map (kbd "C-i") 'markdown-cycle)

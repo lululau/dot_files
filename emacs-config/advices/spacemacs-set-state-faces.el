@@ -197,6 +197,8 @@
     ;; Markdown: bold headers like spacemacs-dark
     (face-spec-set 'markdown-header-face-1 '((t (:foreground "#ed8796" :inherit bold :height 1.3))))
     (face-spec-set 'markdown-header-face-2 '((t (:foreground "#f5a97f" :inherit bold :height 1.2))))
+    (face-spec-set 'markdown-table-face '((t (:background "#1e2030" :foreground "#b8c0e0"))))
+    (face-spec-set 'markdown-code-face '((t (:background "#1e2030"))))
     ;; Tab-bar: bold active tab like spacemacs-dark
     (face-spec-set 'tab-bar-tab '((t (:foreground "#cad3f5" :background "#24273a" :weight bold))))
     ;; Rainbow-delimiters
