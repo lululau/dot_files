@@ -48,7 +48,20 @@ Like `vc-mode-line' but simpler, more efficient, and less buggy."
     (org-set-tags ":Git:"))
   (define-key magit-mode-map (kbd "S-SPC") nil)
   (define-key magit-mode-map [S-tab] 'magit-section-cycle-global)
-  (define-key magit-mode-map [remap org-store-link] 'orgit-store-link))
+  (define-key magit-mode-map [remap org-store-link] 'orgit-store-link)
+
+  ;; Restore Magit's own Z binding (magit-worktree) in magit buffers.
+  ;; Spacemacs's evil auxiliary keymap overrides Z with the evil prefix
+  ;; (Z Q / Z Z), burying the Magit binding.  Rebinding via
+  ;; evil-normal-state-local-map in each magit buffer restores priority.
+  (defun lx/magit-restore-Z-binding ()
+    (evil-local-set-key 'normal (kbd "Z") #'magit-worktree))
+  (dolist (hook '(magit-status-mode-hook
+                  magit-diff-mode-hook
+                  magit-log-mode-hook
+                  magit-refs-mode-hook
+                  magit-process-mode-hook))
+    (add-hook hook #'lx/magit-restore-Z-binding)))
 
 (with-eval-after-load 'magit-commit
   (defun lx/git-commit-get-message ()
