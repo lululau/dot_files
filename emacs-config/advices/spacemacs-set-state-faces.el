@@ -58,9 +58,8 @@
     (face-spec-set 'minibuffer-prompt '((t (:foreground "#a5adcb" :inherit bold))))
     ;; Org: DONE 标题文字用 green 与 DONE 关键字背景一致
     (face-spec-set 'org-headline-done '((t (:foreground "#a6da95"))))
-    ;; Mode-line: use mantle as active bg, crust as inactive bg, surface1 as box border
-    ;; This ensures powerline separators match the segment backgrounds exactly.
-    (face-spec-set 'mode-line '((t (:background "#1e2030" :foreground "#cad3f5" :box (:line-width 1 :color "#494d64") :overline nil :underline nil))))
+    ;; Mode-line: use surface0 as active bg (unified with powerline segments), crust as inactive bg
+    (face-spec-set 'mode-line '((t (:background "#363a4f" :foreground "#cad3f5" :box (:line-width 1 :color "#494d64") :overline nil :underline nil))))
     (face-spec-set 'mode-line-inactive '((t (:background "#181926" :foreground "#6e738d" :box (:line-width 1 :color "#494d64") :overline nil :underline nil))))
     ;; Powerline segments: unify active1/2 to surface0, matching the separator source
     (face-spec-set 'powerline-active1 '((t (:background "#363a4f" :foreground "#cad3f5"))))
