@@ -47,7 +47,7 @@
 (defun lx/set-default-font ()
   "Set default monospaced font to 14/16"
   (interactive)
-  (lx/set-monospaced-font "SauceCodePro Nerd Font Mono" "黑体-简" 14 16 14 16))
+  (lx/set-monospaced-font "JetBrainsMono Nerd Font" "黑体-简" 14 16 14 16))
 
 ;;;###autoload
 (defun lx/unhighlight-all ()
