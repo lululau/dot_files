@@ -137,6 +137,7 @@
     (face-spec-set 'org-time-grid '((t (:foreground "#8bd5ca"))))
     (face-spec-set 'org-verse '((t (:inherit org-block :slant italic))))
     ;; Helm: faces catppuccin doesn't define
+    (face-spec-set 'helm-source-header '((t (:background "#c6a0f6" :foreground "#181926" :inherit bold))))
     (face-spec-set 'helm-match '((t (:background "#363a4f" :foreground "#8aadf4"))))
     (face-spec-set 'helm-match-item '((t (:background "#363a4f" :foreground "#8aadf4"))))
     (face-spec-set 'helm-selection-line '((t (:background "#1e2030"))))
