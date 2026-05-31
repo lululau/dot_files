@@ -119,8 +119,9 @@
     (face-spec-set 'magit-log-sha1 '((t (:foreground "#8bd5ca"))))
     ;; Magit hash: lavender instead of subtext0 (too close to default text)
     (face-spec-set 'magit-hash '((t (:foreground "#91acee"))))
-    ;; Magit misc
-    (face-spec-set 'magit-diff-file-heading-highlight '((t (:background "#363a4f" :foreground "#8087a2"))))
+    ;; Magit diff file heading: teal so "modified/new file" labels stand out
+    (face-spec-set 'magit-diff-file-heading '((t (:foreground "#8bd5ca" :extend t))))
+    (face-spec-set 'magit-diff-file-heading-highlight '((t (:foreground "#8bd5ca" :extend t))))
     (face-spec-set 'magit-item-highlight '((t (:background "#1e2030" :extend t))))
     (face-spec-set 'magit-section-title '((t (:background "#24273a" :foreground "#8aadf4" :inherit bold))))
     ;; Spaceline: catppuccin doesn't define these spacemacs-specific faces
