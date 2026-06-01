@@ -183,14 +183,10 @@
   "cb" #'byte-compile-current-buffer-file)
 
 
-(spacemacs/set-leader-keys-for-major-mode 'pdf-view-mode
-  "N" #'org-noter)
+(spacemacs/set-leader-keys-for-major-mode 'pdf-view-mode "N" #'org-noter)
 
-(spacemacs/set-leader-keys-for-major-mode 'json-mode
-  "cj" 'lx/run-jless)
+(spacemacs/set-leader-keys-for-major-mode 'json-mode "cj" 'lx/run-jless)
 
-(spacemacs/set-leader-keys-for-major-mode 'dired-mode
-  "cj" 'lx/run-jless)
+(spacemacs/set-leader-keys-for-major-mode 'dired-mode "cj" 'lx/run-jless)
 
-(spacemacs/set-leader-keys-for-major-mode 'dired-mode
-  "cl" 'lx/run-lnav)
+(spacemacs/set-leader-keys-for-major-mode 'dired-mode "cl" 'lx/run-lnav)
