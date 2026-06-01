@@ -227,7 +227,7 @@
            (set (intern (format "evil-%s-state-cursor" state))
                 (list (when dotspacemacs-colorize-cursor-according-to-state color)
                       cursor)))
-  (lx/set-monospaced-font "JetBrainsMono Nerd Font" "黑体-简" 14 16 14 16))
+  (lx/set-monospaced-font "JetBrainsMono Nerd Font" "黑体-简" 13 16 13 16))
 
 (advice-add 'spacemacs/set-state-faces :override #'lx/optimize-theme-colors-and-font)
 
