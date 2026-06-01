@@ -30,7 +30,22 @@
     (evil-define-key 'normal dired-mode-map (kbd "F") 'spacemacs/helm-find-files-recursively)
     (evil-define-key 'normal dired-mode-map (kbd "s") 'dired-sort-toggle-or-edit)
     (evil-define-key 'normal dired-mode-map (kbd "S") 'hydra-dired-quick-sort/body)
-    (evil-define-key 'normal dired-mode-map (kbd "g1") 'dired-jump-to-latest-file))
+    (evil-define-key 'normal dired-mode-map (kbd "g1") 'dired-jump-to-latest-file)
+
+    ;; <mouse-2> 智能行为：目录→展开/折叠子树，文件→在新窗口打开，否则→移动光标
+    (defun lx/dired-mouse-2-smart (event)
+      "Smart mouse-2 in dired: toggle subtree for dirs, open files, or set point."
+      (interactive "e")
+      (mouse-set-point event)
+      (let ((file (dired-get-filename t t)))
+        (cond
+         ((and file (file-directory-p file))
+          (dired-subtree-toggle))
+         (file
+          (dired-mouse-find-file-other-window event))
+         (t
+          (mouse-set-point event)))))
+    (evil-define-key 'normal dired-mode-map [mouse-2] #'lx/dired-mouse-2-smart))
 
   (unless (or (display-graphic-p) (lx/system-is-linux))
     (defun dired-delete-file (file &optional recursive trash)
