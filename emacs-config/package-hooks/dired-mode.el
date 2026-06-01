@@ -9,6 +9,20 @@
   ;; 批量删除也不再弹出确认
   (setq dired-deletion-confirmer (lambda (&rest _) t))
 
+  ;; <mouse-2> 智能行为：目录→展开/折叠子树，文件→在新窗口打开，否则→移动光标
+  (defun lx/dired-mouse-2-smart (event)
+    "Smart mouse-2 in dired: toggle subtree for dirs, open files, or set point."
+    (interactive "e")
+    (mouse-set-point event)
+    (let ((file (dired-get-filename t t)))
+      (cond
+        ((and file (file-directory-p file))
+        (dired-subtree-toggle))
+        (file
+        (dired-mouse-find-file-other-window event))
+        (t
+        (mouse-set-point event)))))
+
   (define-key dired-mode-map (kbd "n") nil)
   (define-key dired-mode-map (kbd "g") nil)
   (define-key dired-mode-map (kbd "G") nil)
@@ -24,6 +38,7 @@
   (define-key dired-mode-map (kbd "TAB") 'dired-subtree-toggle)
   (define-key dired-mode-map (kbd "gr") #'revert-buffer)
   (define-key dired-mode-map (kbd "C-L") #'dired-do-relsymlink)
+  (define-key dired-mode-map [mouse-2] #'lx/dired-mouse-2-smart)
 
   (with-eval-after-load 'evil-collection-dired
     (evil-define-key 'normal dired-mode-map (kbd "f") 'spacemacs/helm-find-files)
@@ -31,21 +46,13 @@
     (evil-define-key 'normal dired-mode-map (kbd "s") 'dired-sort-toggle-or-edit)
     (evil-define-key 'normal dired-mode-map (kbd "S") 'hydra-dired-quick-sort/body)
     (evil-define-key 'normal dired-mode-map (kbd "g1") 'dired-jump-to-latest-file)
-
-    ;; <mouse-2> 智能行为：目录→展开/折叠子树，文件→在新窗口打开，否则→移动光标
-    (defun lx/dired-mouse-2-smart (event)
-      "Smart mouse-2 in dired: toggle subtree for dirs, open files, or set point."
-      (interactive "e")
-      (mouse-set-point event)
-      (let ((file (dired-get-filename t t)))
-        (cond
-         ((and file (file-directory-p file))
-          (dired-subtree-toggle))
-         (file
-          (dired-mouse-find-file-other-window event))
-         (t
-          (mouse-set-point event)))))
-    (evil-define-key 'normal dired-mode-map [mouse-2] #'lx/dired-mouse-2-smart))
+    ;; mouse-2 必须通过 dired-mode-hook + evil-local-set-key 绑定，
+    ;; 因为 evil-collection-dired 创建的 Auxiliary keymap 优先级
+    ;; 高于 dired-mode-map 和 evil-define-key，会覆盖常规绑定。
+    (add-hook 'dired-mode-hook
+              (lambda ()
+                (evil-local-set-key 'normal [mouse-2] #'lx/dired-mouse-2-smart)))
+    )
 
   (unless (or (display-graphic-p) (lx/system-is-linux))
     (defun dired-delete-file (file &optional recursive trash)
