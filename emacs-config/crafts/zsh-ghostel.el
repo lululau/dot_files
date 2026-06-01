@@ -349,8 +349,8 @@ buffer can be found again after title-tracking renames it."
     (evil-define-key 'normal map (kbd "s-]") #'zsh-ghostel-tmux->)
     (evil-define-key 'normal map (kbd "s-[") #'zsh-ghostel-tmux-<)
 
-    (evil-define-key 'insert map (kbd "M-h") #'zsh-ghostel-self-insert)
-    (evil-define-key 'hybrid map (kbd "M-h") #'zsh-ghostel-self-insert)
+    (evil-define-key 'insert map (kbd "M-h") #'ghostel-send-meta-h)
+    (evil-define-key 'hybrid map (kbd "M-h") #'ghostel-send-meta-h)
 
     (define-key map (kbd "<s-S-return>") #'zsh-ghostel-maximize-or-tmux-zoom)
 
