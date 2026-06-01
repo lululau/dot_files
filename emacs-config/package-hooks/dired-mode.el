@@ -4,6 +4,11 @@
                                           (evil-define-key 'normal dired-mode-map [?\S-\ ] nil)))
 
 (with-eval-after-load 'dired
+  ;; 递归删除/回收不再确认
+  (setq dired-recursive-deletes 'always)
+  ;; 批量删除也不再弹出确认
+  (setq dired-deletion-confirmer (lambda (&rest _) t))
+
   (define-key dired-mode-map (kbd "n") nil)
   (define-key dired-mode-map (kbd "g") nil)
   (define-key dired-mode-map (kbd "G") nil)
