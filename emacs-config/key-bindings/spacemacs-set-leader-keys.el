@@ -190,3 +190,5 @@
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode "cj" 'lx/run-jless)
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode "cl" 'lx/run-lnav)
+
+(spacemacs/set-leader-keys-for-major-mode 'dired-mode "b" 'dired-backup-file)

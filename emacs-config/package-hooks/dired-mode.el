@@ -74,7 +74,20 @@
             (dired-mark-files-regexp "^\\\.")
             (dired-do-kill-lines))
         (progn (revert-buffer) ; otherwise just revert to re-show
-               (set (make-local-variable 'dired-dotfiles-show-p) t))))))
+               (set (make-local-variable 'dired-dotfiles-show-p) t)))))
+
+  (defun dired-backup-file ()
+    "Backup file(s) at point by copying to filename.YYYYMMDDHHMMSS.bak.
+For directories, copy recursively."
+    (interactive)
+    (dolist (file (dired-get-marked-files))
+      (let ((backup-name (concat file (format-time-string ".%Y%m%d%H%M%S") ".bak")))
+        (if (file-directory-p file)
+            (copy-directory file backup-name)
+          (copy-file file backup-name))
+        (message "Backed up: %s -> %s" file backup-name)))
+    (revert-buffer))
+  )
 
 (with-eval-after-load 'dired-x
   (define-key dired-mode-map (kbd "N") nil))
