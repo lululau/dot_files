@@ -93,6 +93,7 @@
 (global-set-key (kbd "s-r s-g") #'ghostel-agent-run-agy)
 (global-set-key (kbd "s-r s-o") #'ghostel-agent-run-opencode)
 (global-set-key (kbd "s-r s-t") #'ghostel-agent-run-aliyun-token-plan-claude)
+(global-set-key (kbd "s-r s-d") #'ghostel-agent-run-deepseek-claude)
 (global-set-key (kbd "s-r b") #'helm-ghostel-buffers)
 
 (global-set-key (kbd "s-u") 'universal-argument)

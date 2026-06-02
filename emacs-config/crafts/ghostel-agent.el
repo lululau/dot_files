@@ -424,6 +424,16 @@ session id (for example \"--resume\")."
    :resume-arg "--resume"
    :buffer-pattern "*ghostel-aliyun-tp-claude[%p]*"))
 
+(defun ghostel-agent-run-deepseek-claude ()
+  "Start a Aliyun Token Plan Claude agent shell in Ghostel."
+  (interactive)
+  (ghostel-agent--run-with-session
+   :agent-name "DeepSeek"
+   :list-fn #'ghostel-agent--list-claude-sessions
+   :base-command (format "env DISABLE_INSTALLATION_CHECKS=1 ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic ANTHROPIC_MODEL='deepseek-v4-pro[1m]' ANTHROPIC_DEFAULT_OPUS_MODEL='deepseek-v4-pro[1m]' ANTHROPIC_DEFAULT_SONNET_MODEL='deepseek-v4-flash[1m]' ANTHROPIC_DEFAULT_HAIKU_MODEL='deepseek-v4-flash[1m]' ANTHROPIC_AUTH_TOKEN=%s claude --dangerously-skip-permissions" (getenv "DEEPSEEK_API_KEY"))
+   :resume-arg "--resume"
+   :buffer-pattern "*ghostel-deepseek-claude[%p]*"))
+
 (defun ghostel-agent-run-opencode ()
   "Start an Opencode agent shell in Ghostel."
   (interactive)
