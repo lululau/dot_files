@@ -1223,6 +1223,7 @@ This function is called at the very end of Spacemacs initialization."
  '(spacemacs-theme-comment-bg nil)
  '(spacemacs-keep-legacy-current-buffer-delete-bindings nil)
  '(dired-filter-prefix ",f")
+ '(dired-compress-files-alist (quote (("\\.tgz\\'" . "tar --no-mac-metadata -cf - %i | gzip -c9 > %o") ("\\.tar\\.gz\\'" . "tar --no-mac-metadata -cf - %i | gzip -c9 > %o") ("\\.tar\\.bz2\\'" . "tar --no-mac-metadata -cf - %i | bzip2 -c9 > %o") ("\\.tar\\.xz\\'" . "tar --no-mac-metadata -cf - %i | xz -c9 > %o") ("\\.tar\\.zst\\'" . "tar --no-mac-metadata -cf - %i | zstd -19 -o %o") ("\\.rar\\'" . "rar a %o %i") ("\\.zip\\'" . "zip %o -r --filesync %i"))))
  '(helm-dired-history-max 100000)
  '(shr-use-colors nil)
  '(org-modern-star nil)
