@@ -114,6 +114,56 @@ For directories, copy recursively."
           (copy-file file backup-name))
         (message "Backed up: %s -> %s" file backup-name)))
     (revert-buffer))
+
+  (define-advice spacemacs/copy-file-path (:around (orig-fun &rest args) dired-multiple)
+    "In Dired, copy marked file paths (if any) or file path at point, newline-separated."
+    (if (derived-mode-p 'dired-mode)
+        (let* ((marked-files (dired-get-marked-files nil 'marked))
+               (files (or marked-files
+                          (let ((file (dired-get-filename nil t)))
+                            (and file (list file)))))
+               (truenames (mapcar #'file-truename files)))
+          (if truenames
+              (let ((joined-paths (mapconcat #'identity truenames "\n")))
+                (kill-new joined-paths)
+                (message "%s" joined-paths))
+            (user-error "No file at point")))
+      (apply orig-fun args)))
+
+  (define-advice spacemacs/copy-file-name (:around (orig-fun &rest args) dired-multiple)
+    "In Dired, copy marked filenames (if any) or filename at point, newline-separated."
+    (if (derived-mode-p 'dired-mode)
+        (let* ((marked-files (dired-get-marked-files nil 'marked))
+               (files (or marked-files
+                          (let ((file (dired-get-filename nil t)))
+                            (and file (list file)))))
+               (filenames (mapcar #'file-name-nondirectory files)))
+          (if filenames
+              (let ((joined-names (mapconcat #'identity filenames "\n")))
+                (kill-new joined-names)
+                (message "%s" joined-names))
+            (user-error "No file at point")))
+      (apply orig-fun args)))
+
+  (define-advice spacemacs/copy-directory-path (:around (orig-fun &rest args) dired-multiple)
+    "In Dired, copy directory paths of marked items (if any) or item at point, newline-separated."
+    (if (derived-mode-p 'dired-mode)
+        (let* ((marked-files (dired-get-marked-files nil 'marked))
+               (files (or marked-files
+                          (let ((file (dired-get-filename nil t)))
+                            (and file (list file)))))
+               (dir-paths (mapcar (lambda (f)
+                                    (if (file-directory-p f)
+                                        (file-name-as-directory (file-truename f))
+                                      (file-name-directory (file-truename f))))
+                                  files))
+               (unique-dirs (delete-dups dir-paths)))
+          (if unique-dirs
+              (let ((joined-dirs (mapconcat #'identity unique-dirs "\n")))
+                (kill-new joined-dirs)
+                (message "%s" joined-dirs))
+            (user-error "No file at point")))
+      (apply orig-fun args)))
   )
 
 (with-eval-after-load 'dired-x
