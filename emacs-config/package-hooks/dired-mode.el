@@ -119,6 +119,24 @@ For directories, copy recursively."
 (with-eval-after-load 'dired-x
   (define-key dired-mode-map (kbd "N") nil))
 
+(with-eval-after-load 'helm-dired-history
+  ;; helm-dired-history ignores DEFAULT-FILENAME; honor it so compress etc. can prefill.
+  (defun helm-dired-history-read-file-name
+      (prompt &optional dir default-filename mustmatch initial predicate)
+    (let* ((helm-mode-reverse-history nil)
+           (base-dir (or dir default-directory))
+           (basename (or initial default-filename))
+           (start (cond
+                   ((and basename (not (file-name-absolute-p basename)))
+                    (expand-file-name basename base-dir))
+                   (basename)
+                   (dir))))
+      (helm-read-file-name prompt
+                           :name base-dir
+                           :initial-input start
+                           :default default-filename
+                           :history helm-dired-history-variable))))
+
 (with-eval-after-load 'dired-aux
   (setq dired-compress-file-suffixes
         '(
@@ -154,7 +172,60 @@ For directories, copy recursively."
           ("\\.tar\\.xz\\'" . "tar -cf - %i | xz -c9 > %o")
           ("\\.tar\\.zst\\'" . "tar -cf - %i | zstd -19 -o %o")
           ("\\.rar\\'" . "rar a %o %i")
-          ("\\.zip\\'" . "zip %o -r --filesync %i"))))
+          ("\\.zip\\'" . "zip %o -r --filesync %i")))
+
+  (defun lx/dired-compress-default-filename ()
+    "Default archive name for marked dired entries: basename.tgz."
+    (let ((files (dired-get-marked-files nil nil nil nil t)))
+      (when files
+        (concat (file-name-nondirectory (directory-file-name (car files)))
+                ".tgz"))))
+
+  (defun dired-do-compress-to ()
+    "Compress selected files and directories to an archive.
+Prompt for the archive file name.
+Choose the archiving command based on the archive file-name extension
+and `dired-compress-files-alist'."
+    (interactive nil dired-mode)
+    (require 'cl-lib)
+    (let* ((in-files (dired-get-marked-files nil nil nil nil t))
+           (default-name (lx/dired-compress-default-filename))
+           (out-file (expand-file-name
+                      (read-file-name "Compress to: "
+                                      default-directory
+                                      default-name
+                                      nil
+                                      default-name)))
+           (rule (cl-find-if
+                  (lambda (x)
+                    (string-match (car x) out-file))
+                  dired-compress-files-alist)))
+      (cond ((not rule)
+             (error
+              "No compression rule found for %s, see `dired-compress-files-alist'"
+              out-file))
+            ((and (file-exists-p out-file)
+                  (not (y-or-n-p
+                        (format "%s exists, overwrite?"
+                                (abbreviate-file-name out-file)))))
+             (message "Compression aborted"))
+            (t
+             (when (zerop
+                    (dired-shell-command
+                     (format-spec (cdr rule)
+                                  `((?o . ,(shell-quote-argument
+                                            (file-local-name out-file)))
+                                    (?i . ,(mapconcat
+                                            (lambda (in-file)
+                                              (shell-quote-argument
+                                               (file-relative-name in-file)))
+                                            in-files " "))))))
+               (message (ngettext "Compressed %d file to %s"
+                                  "Compressed %d files to %s"
+                                  (length in-files))
+                        (length in-files)
+                        (file-name-nondirectory out-file))))))
+    (dired-post-do-command)))
 
 (with-eval-after-load 'dired-rsync
   (defun dired-rsync--do-run (command details)
