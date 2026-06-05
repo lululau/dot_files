@@ -108,7 +108,9 @@
   (defun ghostel-send-ctrl-x (key &optional ctrl)
     "Send C-x followed by KEY to ghostel. If CTRL is non-nil, send C-KEY."
     (ghostel-send-key "x" "ctrl")
-    (ghostel-send-key key (when ctrl "ctrl")))
+    (if (and (= (length key) 1) (not ctrl))
+        (ghostel-send-string key)
+      (ghostel-send-key key (when ctrl "ctrl"))))
 
 
   (defcustom ghostel-kill-buffer-on-normal-exit t
