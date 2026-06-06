@@ -71,5 +71,7 @@
 
 (autoload 'evil-ghostel-setup "evil-ghostel")
 (autoload 'proced-enhanced-mode "proced-enhanced")
+(autoload 'markdown-modern-mode "markdown-modern" nil t)
+(autoload 'global-markdown-modern-mode "markdown-modern" nil t)
 
 (load-file (format "%s/%s" (file-name-directory load-file-name) "spacemacs-override.el"))
