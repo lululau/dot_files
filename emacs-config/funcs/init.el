@@ -1011,6 +1011,10 @@ View the body of the message inside xwidget-webkit.
 
 (autoload 'copilot-ensure-and-complete "copilot-enhanced")
 
+
+(autoload 'lx/update-packages-and-restart "core"
+  "Update Spacemacs packages without confirmation and restart Emacs only if updates were found." t)
+
 ;;;***
 
 

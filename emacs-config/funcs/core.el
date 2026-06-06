@@ -86,3 +86,27 @@
   "Open Emacs init.el"
   (interactive)
   (find-file (format "%sinit.el" user-emacs-directory)))
+
+;;;###autoload
+(defun lx/update-packages-and-restart ()
+  "Update Spacemacs packages without confirmation and restart Emacs only if updates were found.
+Handles network and checkout errors gracefully by aborting the restart."
+  (interactive)
+  (require 'cl-lib)
+  (condition-case err
+      (let* ((distant-packages (configuration-layer//filter-distant-packages
+                                configuration-layer--used-packages t))
+             (update-packages (configuration-layer//get-packages-to-update distant-packages))
+             (upgrade-count (length (cl-set-difference update-packages dotspacemacs-frozen-packages))))
+        (if (zerop upgrade-count)
+            (message "All packages are up to date. No restart needed.")
+          (configuration-layer/update-packages t)
+          (cl-letf (((symbol-function 'save-buffers-kill-emacs) #'kill-emacs)
+                    ((symbol-function 'yes-or-no-p) (lambda (&rest _) t))
+                    ((symbol-function 'y-or-n-p) (lambda (&rest _) t)))
+            (spacemacs/restart-emacs))))
+    (error
+     (message "Error updating packages: %s" (error-message-string err))
+     (user-error "Package update failed: %s" (error-message-string err)))))
+
+
