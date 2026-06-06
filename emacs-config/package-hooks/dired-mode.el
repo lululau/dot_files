@@ -175,7 +175,9 @@ For directories, copy recursively."
       (prompt &optional dir default-filename mustmatch initial predicate)
     (let* ((helm-mode-reverse-history nil)
            (base-dir (or dir default-directory))
-           (basename (or initial default-filename))
+           (basename (or (and (stringp initial) initial)
+                         (and (consp initial) (car initial))
+                         (and (stringp default-filename) default-filename)))
            (start (cond
                    ((and basename (not (file-name-absolute-p basename)))
                     (expand-file-name basename base-dir))
