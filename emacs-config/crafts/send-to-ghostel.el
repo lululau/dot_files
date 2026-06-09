@@ -3,18 +3,20 @@
   (interactive)
   (let ((ghostel-buffer (lx/find-ghostel-buffer)))
     (if ghostel-buffer
-        (let ((str (concat (buffer-substring (line-beginning-position) (line-end-position)) "\n")))
+        (let ((str (buffer-substring (line-beginning-position) (line-end-position))))
           (with-current-buffer ghostel-buffer
-            (ghostel-send-string str))))))
+            (ghostel-paste-string str)
+            (ghostel-send-key "return"))))))
 
 ;;;###autoload
 (defun lx/ghostel-send-line-and-go ()
   (interactive)
   (let ((ghostel-buffer (lx/find-ghostel-buffer)))
     (if ghostel-buffer
-        (let ((str (concat (buffer-substring (line-beginning-position) (line-end-position)) "\n")))
+        (let ((str (buffer-substring (line-beginning-position) (line-end-position))))
           (with-current-buffer ghostel-buffer
-            (ghostel-send-string str))
+            (ghostel-paste-string str)
+            (ghostel-send-key "return"))
           (select-window (get-buffer-window ghostel-buffer))))))
 
 ;;;###autoload
