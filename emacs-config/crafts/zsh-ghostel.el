@@ -352,7 +352,7 @@ buffer can be found again after title-tracking renames it."
     (evil-define-key 'insert map (kbd "M-h") #'ghostel-send-meta-h)
     (evil-define-key 'hybrid map (kbd "M-h") #'ghostel-send-meta-h)
 
-    (define-key map (kbd "<s-S-return>") #'zsh-ghostel-maximize-or-tmux-zoom)
+    ;; (define-key map (kbd "<s-S-return>") #'zsh-ghostel-maximize-or-tmux-zoom)
 
     map))
 
