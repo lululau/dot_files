@@ -134,6 +134,12 @@ BUFFER defaults to the current buffer."
 
 (global-set-key (kbd "s-.") #'(lambda () (interactive) (eval avy-last-goto-entity)))
 
+(defun lx/helm-output-filter-inhibit-read-only-advice (orig-fun &rest args)
+  (let ((inhibit-read-only t))
+    (apply orig-fun args)))
+
+(advice-add 'helm-output-filter :around #'lx/helm-output-filter-inhibit-read-only-advice)
+
 ;; (advice-add
 ;;  'ggtags-eldoc-function
 ;;  :after-until
