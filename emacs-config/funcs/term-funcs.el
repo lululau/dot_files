@@ -2,13 +2,21 @@
 (defun lx/toggle-emacs-tmux ()
   "Toggle *tmux-emacs* tmux session maximized-window"
   (interactive)
-  (lx/run-in-zsh-ghostel "tmux-attach-or-create emacs" "*tmux-emacs*"))
+  (if (eq major-mode 'zsh-ghostel-mode)
+      (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
+          (bury-buffer)
+        (delete-window))
+    (lx/run-in-zsh-ghostel "tmux-attach-or-create emacs" "*tmux-emacs*")))
 
 ;;;###autoload
 (defun lx/toggle-emacs-tmux-popup ()
   "Toggle *tmux-emacs* tmux session popup"
   (interactive)
-  (lx/run-in-zsh-ghostel "tmux-attach-or-create emacs" "*tmux-emacs*" nil 'popup))
+  (if (eq major-mode 'zsh-ghostel-mode)
+      (if (and (eq 1 (length (window-list))) (eq (selected-window) (car (window-list))))
+          (bury-buffer)
+        (delete-window))
+    (lx/run-in-zsh-ghostel "tmux-attach-or-create emacs" "*tmux-emacs*" nil 'popup)))
 
 ;;;###autoload
 (defun lx/toggle-project-tmux-session ()
