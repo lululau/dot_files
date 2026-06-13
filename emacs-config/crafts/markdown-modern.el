@@ -1,4 +1,4 @@
-;;; markdown-modern.el --- Modern looks for Markdown tables -*- lexical-binding: t; -*-
+;;; markdown-modern.el --- Modern looks for Markdown -*- lexical-binding: t; -*-
 
 ;; A focused port of `org-modern''s table prettifier to `markdown-mode'.
 ;;
@@ -29,7 +29,7 @@
 (require 'cl-lib)
 
 (defgroup markdown-modern nil
-  "Modern looks for Markdown tables."
+  "Modern looks for Markdown tables and checkboxes."
   :group 'markdown
   :prefix "markdown-modern-")
 
@@ -46,13 +46,33 @@ collapses it into a thin overline rule.  Set to nil to disable."
   :type '(choice (const :tag "Off" nil) number)
   :group 'markdown-modern)
 
+(defcustom markdown-modern-checkbox
+  '((?X . "\xf14a")     ; [X] → nf-fa-check_square
+    (?x . "\xf14a")     ; [x] → same
+    (?- . "\xf0c8")     ; [-] → nf-fa-square (partial)
+    (?\s . "\xf096"))   ; [ ] → nf-fa-square_o (empty)
+  "Alist mapping checkbox content characters to display replacements.
+Each entry is (CHAR . STRING) where CHAR is the character inside the
+brackets and STRING is the replacement.  Set to nil to disable."
+  :type '(choice (const :tag "Off" nil)
+                 (alist :key-type character :value-type string))
+  :group 'markdown-modern)
+
 (defface markdown-modern--hide '((t :inherit default))
   "Internal face used to hide separators when vertical lines are disabled.
 Its foreground is kept in sync with the default background by
 `markdown-modern--update-faces'."
   :group 'markdown-modern)
 
+(defface markdown-modern-checkbox-face nil
+  "Face used for checkbox icons.
+You can specify a font `:family' if the default font does not
+contain the checkbox glyphs (e.g., a Nerd Font).  Inherits from
+`org-modern-symbol' when available, so it stays in sync."
+  :group 'markdown-modern)
+
 (defvar-local markdown-modern--font-lock-keywords nil)
+(defvar-local markdown-modern--checkbox-cache nil)
 (defvar-local markdown-modern--table-sp-width 0)
 (defconst markdown-modern--table-overline '(:overline t))
 (defconst markdown-modern--table-sp
@@ -64,6 +84,31 @@ Its foreground is kept in sync with the default background by
 
 (defconst markdown-modern--table-hline-regexp "^[ \t]*|[-:]"
   "Regexp matching a Markdown table separator (header underline) row.")
+
+(defconst markdown-modern--checkbox-regexp
+  "^[ \t]*\\(?:[-*+]\\|[0-9]+[.)]\\)[ \t]+\\(\\[\\([ xX-]\\)\\]\\) "
+  "Regexp matching a GFM checkbox in a list item.
+Group 1 is the full `[.]' bracket expression.
+Group 2 is the single character inside the brackets.")
+
+(defun markdown-modern--checkbox ()
+  "Prettify GFM checkboxes according to `markdown-modern-checkbox'."
+  (let* ((beg (match-beginning 1))
+         (end (match-end 1))
+         (ch  (char-after (match-beginning 2)))
+         (rep (cdr (assq ch markdown-modern--checkbox-cache))))
+    (when rep
+      (put-text-property beg end 'display rep)))
+  nil)
+
+(defun markdown-modern--make-checkbox-cache ()
+  "Build display-string cache from `markdown-modern-checkbox'."
+  (mapcar (pcase-lambda (`(,k . ,v))
+            (let ((s (if (stringp v) (copy-sequence v) (char-to-string v))))
+              (add-face-text-property 0 (length s)
+                                     'markdown-modern-checkbox-face 'append s)
+              (cons k s)))
+          markdown-modern-checkbox))
 
 (defun markdown-modern--table ()
   "Prettify the Markdown table row matched by font-lock.
@@ -145,8 +190,11 @@ table font and theme, like `org-modern--pre-redisplay'."
     (font-lock-default-unfontify-region beg end)))
 
 (defun markdown-modern--make-font-lock-keywords ()
-  "Return font-lock keywords for prettifying Markdown tables."
-  `((,markdown-modern--table-row-regexp (0 (markdown-modern--table)))))
+  "Return font-lock keywords for prettifying Markdown tables and checkboxes."
+  `(,@(when markdown-modern-checkbox
+        `((,markdown-modern--checkbox-regexp
+           (1 (markdown-modern--checkbox) prepend t))))
+    (,markdown-modern--table-row-regexp (0 (markdown-modern--table)))))
 
 ;;;###autoload
 (define-minor-mode markdown-modern-mode
@@ -155,6 +203,7 @@ table font and theme, like `org-modern--pre-redisplay'."
   (let ((kw (markdown-modern--make-font-lock-keywords)))
     (cond
      (markdown-modern-mode
+      (setq markdown-modern--checkbox-cache (markdown-modern--make-checkbox-cache))
       (setq markdown-modern--font-lock-keywords kw)
       (font-lock-add-keywords nil kw 'append)
       (setq-local font-lock-unfontify-region-function #'markdown-modern--unfontify)
