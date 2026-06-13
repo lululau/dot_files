@@ -171,21 +171,22 @@ Replace leading `#' characters with level indicators from
 `markdown-modern-heading'.  When `markdown-modern-heading-hide-leading'
 is non-nil, only the last `#' gets the icon and the preceding ones
 are hidden."
-  (let* ((beg (match-beginning 1))
-         (end (match-end 1))
-         (level (- end beg))         ; number of # characters
-         (idx (min (1- level) (1- (length markdown-modern--heading-cache))))
-         (icon (nth idx markdown-modern--heading-cache)))
-    (when icon
-      (if markdown-modern-heading-hide-leading
-          (progn
-            ;; Hide all but the last #
-            (when (> level 1)
-              (put-text-property beg (1- end) 'invisible 'markdown-modern))
-            ;; Replace the last # with the icon
-            (put-text-property (1- end) end 'display icon))
-        ;; Replace ALL # with a single icon
-        (put-text-property beg end 'display icon))))
+  (when (get-text-property (match-beginning 0) 'markdown-heading)
+    (let* ((beg (match-beginning 1))
+           (end (match-end 1))
+           (level (- end beg))         ; number of # characters
+           (idx (min (1- level) (1- (length markdown-modern--heading-cache))))
+           (icon (nth idx markdown-modern--heading-cache)))
+      (when icon
+        (if markdown-modern-heading-hide-leading
+            (progn
+              ;; Hide all but the last #
+              (when (> level 1)
+                (put-text-property beg (1- end) 'invisible 'markdown-modern))
+              ;; Replace the last # with the icon
+              (put-text-property (1- end) end 'display icon))
+          ;; Replace ALL # with a single icon
+          (put-text-property beg end 'display icon)))))
   nil)
 
 (defun markdown-modern--indent-properties ()
@@ -193,15 +194,24 @@ are hidden."
   (save-match-data
     (let ((is-heading (save-excursion
                         (goto-char (match-beginning 0))
-                        (looking-at "#+ ")))
+                        (and (looking-at "#+ ")
+                             (get-text-property (match-beginning 0) 'markdown-heading))))
           (level 0))
-      (save-excursion
-        (goto-char (match-beginning 0))
-        (if (or is-heading
-                (re-search-backward "^\\(#\\{1,6\\}\\) " nil t))
-            (setq level (if is-heading
-                            (- (match-end 0) (match-beginning 0) 1)
-                          (- (match-end 1) (match-beginning 1))))))
+      (if is-heading
+          (setq level (save-excursion
+                        (goto-char (match-beginning 0))
+                        (looking-at "\\(#+\\) ")
+                        (- (match-end 1) (match-beginning 1))))
+        (setq level (save-excursion
+                      (goto-char (match-beginning 0))
+                      (let ((found nil)
+                            (lvl 0))
+                        (while (and (not found)
+                                    (re-search-backward "^\\(#\\{1,6\\}\\) " nil t))
+                          (when (get-text-property (match-beginning 0) 'markdown-heading)
+                            (setq lvl (- (match-end 1) (match-beginning 1))
+                                  found t)))
+                        lvl))))
       (let* ((indent-width (if is-heading
                                0
                              (* level markdown-modern-indent)))
