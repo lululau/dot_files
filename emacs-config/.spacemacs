@@ -1235,6 +1235,7 @@ This function is called at the very end of Spacemacs initialization."
  '(org-modern-block-fringe nil)
  '(org-modern-table-horizontal 0.6)
  '(org-modern-keyword nil)
+ '(markdown-modern-heading nil)
  '(orgit-rev-description-format "%s. [dir: %%N] (rev: %%R)")
  '(org-babel-html-chrome-chrome-executable "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
  '(org-babel-tmux-session-prefix "")

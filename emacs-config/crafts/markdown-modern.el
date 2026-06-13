@@ -1,24 +1,14 @@
 ;;; markdown-modern.el --- Modern looks for Markdown -*- lexical-binding: t; -*-
 
-;; A focused port of `org-modern''s table prettifier to `markdown-mode'.
+;; A port of `org-modern''s visual prettifier to `markdown-mode'.
 ;;
-;; It turns ASCII pipe tables such as
-;;
-;;   | A | B |
-;;   |---|---|
-;;   | 1 | 2 |
-;;
-;; into box-drawn tables with solid vertical rules and a thin horizontal
-;; separator, mirroring how `org-modern' renders Org tables.
-;;
-;; Mechanism (identical idea to `org-modern--table'):
-;;   - Each cell separator "|" is replaced by a fixed-width stretch glyph
-;;     painted with `:inverse-video', i.e. a solid bar in the foreground
-;;     color of `markdown-table-face'.
-;;   - Separator rows ("|---|", "|:--:|", ...) get an `:overline' plus a
-;;     reduced `:height', collapsing the row into a thin horizontal rule,
-;;     while their dashes/colons become font-width spaces so columns stay
-;;     aligned.
+;; Features (all individually toggleable):
+;;   - Tables:      pipe tables get box-drawn vertical rules and thin
+;;                  horizontal separators, just like `org-modern'.
+;;   - Checkboxes:  GFM `[x]'/`[ ]' are replaced with icon glyphs.
+;;   - List bullets: `-', `*', `+' are replaced with typographic bullets.
+;;   - Headings:    leading `#' marks are replaced with level indicators.
+;;   - Horizontal rules: `---'/`***'/`___' become thin separator lines.
 ;;
 ;; Enable per buffer with `markdown-modern-mode', or everywhere with
 ;; `global-markdown-modern-mode'.
@@ -29,7 +19,7 @@
 (require 'cl-lib)
 
 (defgroup markdown-modern nil
-  "Modern looks for Markdown tables and checkboxes."
+  "Modern looks for Markdown."
   :group 'markdown
   :prefix "markdown-modern-")
 
@@ -58,6 +48,40 @@ brackets and STRING is the replacement.  Set to nil to disable."
                  (alist :key-type character :value-type string))
   :group 'markdown-modern)
 
+(defcustom markdown-modern-list
+  '((?+ . "◦")
+    (?- . "–")
+    (?* . "•"))
+  "Alist mapping list bullet characters to display replacements.
+Set to nil to disable styling list bullets."
+  :type '(choice (const :tag "Off" nil)
+                 (alist :key-type character :value-type string))
+  :group 'markdown-modern)
+
+(defcustom markdown-modern-horizontal-rule t
+  "Prettify horizontal rules (thematic breaks).
+When non-nil, lines like `---', `***', or `___' are rendered as
+thin separator lines using `:underline'.  Set to nil to disable."
+  :type 'boolean
+  :group 'markdown-modern)
+
+(defcustom markdown-modern-heading
+  '(?◉ ?○ ?◈ ?◇ ?✳ ?✦)
+  "List of characters to replace heading `#' markers.
+The Nth element replaces `#' at heading level N.  If the heading
+level exceeds the list length, the last element is reused.
+Set to nil to disable heading prettification."
+  :type '(choice (const :tag "Off" nil)
+                 (repeat character))
+  :group 'markdown-modern)
+
+(defcustom markdown-modern-heading-hide-leading t
+  "When non-nil, hide leading `#' characters in headings.
+Only the last `#' is replaced with the level icon; the rest are hidden.
+When nil, all `#' characters are replaced with the level icon."
+  :type 'boolean
+  :group 'markdown-modern)
+
 (defface markdown-modern--hide '((t :inherit default))
   "Internal face used to hide separators when vertical lines are disabled.
 Its foreground is kept in sync with the default background by
@@ -67,12 +91,24 @@ Its foreground is kept in sync with the default background by
 (defface markdown-modern-checkbox-face nil
   "Face used for checkbox icons.
 You can specify a font `:family' if the default font does not
-contain the checkbox glyphs (e.g., a Nerd Font).  Inherits from
-`org-modern-symbol' when available, so it stays in sync."
+contain the checkbox glyphs (e.g., a Nerd Font)."
+  :group 'markdown-modern)
+
+(defface markdown-modern-symbol nil
+  "Face used for heading icons, list bullets, and other symbols.
+You can specify a font `:family' if the default font does not
+render certain Unicode characters well."
+  :group 'markdown-modern)
+
+(defface markdown-modern-horizontal-rule
+  '((((background light)) :underline "gray70" :extend t)
+    (t :underline "#484b61" :extend t))
+  "Face used for horizontal rules (thematic breaks)."
   :group 'markdown-modern)
 
 (defvar-local markdown-modern--font-lock-keywords nil)
 (defvar-local markdown-modern--checkbox-cache nil)
+(defvar-local markdown-modern--heading-cache nil)
 (defvar-local markdown-modern--table-sp-width 0)
 (defconst markdown-modern--table-overline '(:overline t))
 (defconst markdown-modern--table-sp
@@ -109,6 +145,40 @@ Group 2 is the single character inside the brackets.")
                                      'markdown-modern-checkbox-face 'append s)
               (cons k s)))
           markdown-modern-checkbox))
+
+(defun markdown-modern--symbol (str)
+  "Add `markdown-modern-symbol' face to STR."
+  (setq str (if (stringp str) (copy-sequence str) (char-to-string str)))
+  (add-face-text-property 0 (length str) 'markdown-modern-symbol 'append str)
+  str)
+
+(defun markdown-modern--make-heading-cache ()
+  "Build display-string cache from `markdown-modern-heading'."
+  (cl-loop for ch in markdown-modern-heading
+           collect (markdown-modern--symbol ch)))
+
+(defun markdown-modern--heading ()
+  "Prettify Markdown heading markers.
+Replace leading `#' characters with level indicators from
+`markdown-modern-heading'.  When `markdown-modern-heading-hide-leading'
+is non-nil, only the last `#' gets the icon and the preceding ones
+are hidden."
+  (let* ((beg (match-beginning 1))
+         (end (match-end 1))
+         (level (- end beg))         ; number of # characters
+         (idx (min (1- level) (1- (length markdown-modern--heading-cache))))
+         (icon (nth idx markdown-modern--heading-cache)))
+    (when icon
+      (if markdown-modern-heading-hide-leading
+          (progn
+            ;; Hide all but the last #
+            (when (> level 1)
+              (put-text-property beg (1- end) 'invisible 'markdown-modern))
+            ;; Replace the last # with the icon
+            (put-text-property (1- end) end 'display icon))
+        ;; Replace ALL # with a single icon
+        (put-text-property beg end 'display icon))))
+  nil)
 
 (defun markdown-modern--table ()
   "Prettify the Markdown table row matched by font-lock.
@@ -190,26 +260,54 @@ table font and theme, like `org-modern--pre-redisplay'."
     (font-lock-default-unfontify-region beg end)))
 
 (defun markdown-modern--make-font-lock-keywords ()
-  "Return font-lock keywords for prettifying Markdown tables and checkboxes."
-  `(,@(when markdown-modern-checkbox
+  "Return font-lock keywords."
+  `(;; List bullets
+    ,@(when markdown-modern-list
+        (cl-loop for (ch . rep) in markdown-modern-list
+                 collect
+                 (let ((sym (markdown-modern--symbol rep)))
+                   (if (eq ch ?*)
+                       ;; `*' as list bullet requires leading whitespace
+                       ;; to avoid clashing with bold `**text**'.
+                       `("^\\([ \t]+\\)\\(\\*\\)[ \t]" 2 '(face nil display ,sym))
+                     `(,(format "^[ \t]*\\(\\%c\\)[ \t]" ch)
+                       1 '(face nil display ,sym))))))
+    ;; Checkboxes
+    ,@(when markdown-modern-checkbox
         `((,markdown-modern--checkbox-regexp
            (1 (markdown-modern--checkbox) prepend t))))
+    ;; Headings
+    ,@(when markdown-modern-heading
+        `(("^\\(#\\{1,6\\}\\) "
+           (1 (markdown-modern--heading) prepend))))
+    ;; Horizontal rules (thematic breaks): ---, ***, ___
+    ,@(when markdown-modern-horizontal-rule
+        '(("\\(^[ \t]*[-*_]\\{3,\\}\\)[ \t]*\r?\n"
+           (1 '(face nil display " "))
+           (0 '(face markdown-modern-horizontal-rule) prepend))))
+    ;; Tables (must come last — expensive)
     (,markdown-modern--table-row-regexp (0 (markdown-modern--table)))))
 
 ;;;###autoload
 (define-minor-mode markdown-modern-mode
-  "Modern looks for Markdown tables (org-modern style)."
+  "Modern looks for Markdown (org-modern style).
+
+Prettifies tables, checkboxes, list bullets, headings, and
+horizontal rules.  Each feature is individually configurable."
   :group 'markdown-modern
   (let ((kw (markdown-modern--make-font-lock-keywords)))
     (cond
      (markdown-modern-mode
+      (add-to-invisibility-spec 'markdown-modern)
       (setq markdown-modern--checkbox-cache (markdown-modern--make-checkbox-cache))
+      (setq markdown-modern--heading-cache (markdown-modern--make-heading-cache))
       (setq markdown-modern--font-lock-keywords kw)
       (font-lock-add-keywords nil kw 'append)
       (setq-local font-lock-unfontify-region-function #'markdown-modern--unfontify)
       (add-hook 'pre-redisplay-functions #'markdown-modern--pre-redisplay nil 'local)
       (markdown-modern--update-faces))
      (t
+      (remove-from-invisibility-spec 'markdown-modern)
       (font-lock-remove-keywords nil markdown-modern--font-lock-keywords)
       (setq-local font-lock-unfontify-region-function #'font-lock-default-unfontify-region)
       (remove-hook 'pre-redisplay-functions #'markdown-modern--pre-redisplay 'local)))
