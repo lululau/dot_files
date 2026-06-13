@@ -1227,6 +1227,7 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-dired-history-max 100000)
  '(shr-use-colors nil)
  '(org-modern-star nil)
+ '(org-list-allow-alphabetical t)
  '(org-modern-hide-stars nil)
  '(org-modern-block-fringe nil)
  '(org-modern-table-horizontal 0.6)
