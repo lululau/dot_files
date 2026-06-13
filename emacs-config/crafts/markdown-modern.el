@@ -82,6 +82,14 @@ When nil, all `#' characters are replaced with the level icon."
   :type 'boolean
   :group 'markdown-modern)
 
+(defcustom markdown-modern-indent 2
+  "Width of left indentation per heading level.
+When a number, indent headings and body text relative to their level.
+For example, if 2, a level 2 heading is indented by 2 spaces and its
+body text is indented by 4 spaces.  Set to nil to disable."
+  :type '(choice (const :tag "Off" nil) integer)
+  :group 'markdown-modern)
+
 (defface markdown-modern--hide '((t :inherit default))
   "Internal face used to hide separators when vertical lines are disabled.
 Its foreground is kept in sync with the default background by
@@ -180,6 +188,28 @@ are hidden."
         (put-text-property beg end 'display icon))))
   nil)
 
+(defun markdown-modern--indent-properties ()
+  "Calculate indentation properties for the matched line."
+  (save-match-data
+    (let ((is-heading (save-excursion
+                        (goto-char (match-beginning 0))
+                        (looking-at "#+ ")))
+          (level 0))
+      (save-excursion
+        (goto-char (match-beginning 0))
+        (if (or is-heading
+                (re-search-backward "^\\(#\\{1,6\\}\\) " nil t))
+            (setq level (if is-heading
+                            (- (match-end 0) (match-beginning 0) 1)
+                          (- (match-end 1) (match-beginning 1))))))
+      (let* ((indent-width (if is-heading
+                               0
+                             (* level markdown-modern-indent)))
+             (prefix (if (> indent-width 0)
+                         (make-string indent-width ?\s)
+                       nil)))
+        (list 'face nil 'line-prefix prefix 'wrap-prefix prefix)))))
+
 (defun markdown-modern--table ()
   "Prettify the Markdown table row matched by font-lock.
 Mirrors `org-modern--table', adapted to Markdown syntax where the
@@ -254,9 +284,10 @@ table font and theme, like `org-modern--pre-redisplay'."
                       :foreground (face-attribute 'default :background nil t)))
 
 (defun markdown-modern--unfontify (beg end &optional _loud)
-  "Unfontify prettified table elements between BEG and END."
+  "Unfontify prettified elements between BEG and END."
   (let ((font-lock-extra-managed-props
-         (append '(display invisible) font-lock-extra-managed-props)))
+         (append '(display invisible line-prefix wrap-prefix)
+                 font-lock-extra-managed-props)))
     (font-lock-default-unfontify-region beg end)))
 
 (defun markdown-modern--make-font-lock-keywords ()
@@ -285,6 +316,10 @@ table font and theme, like `org-modern--pre-redisplay'."
         '(("\\(^[ \t]*[-*_]\\{3,\\}\\)[ \t]*\r?\n"
            (1 '(face nil display " "))
            (0 '(face markdown-modern-horizontal-rule) prepend))))
+    ;; Indentation
+    ,@(when markdown-modern-indent
+        '(("\\(?:^.*\n\\|.+\\$\\)"
+           (0 (markdown-modern--indent-properties)))))
     ;; Tables (must come last — expensive)
     (,markdown-modern--table-row-regexp (0 (markdown-modern--table)))))
 
