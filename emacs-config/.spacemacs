@@ -1227,6 +1227,9 @@ This function is called at the very end of Spacemacs initialization."
  '(helm-dired-history-max 100000)
  '(shr-use-colors nil)
  '(org-modern-star nil)
+ '(org-modern-checkbox (quote ((88 . "\xf14a")    ; [X] → far-check-square ☑
+                               (45 . "\xf0c8")   ; [-] → far-square–
+                               (32 . "\xf096"))))
  '(org-list-allow-alphabetical t)
  '(org-modern-hide-stars nil)
  '(org-modern-block-fringe nil)
