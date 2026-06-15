@@ -270,3 +270,5 @@
 (global-set-key (kbd "s-y s r") 'agent-shell-send-region)
 (global-set-key (kbd "s-y @") 'agent-shell-send-file)
 (global-set-key (kbd "s-a q") 'clutch-query-console)
+
+(global-set-key (kbd "s-&") #'bury-buffer)
