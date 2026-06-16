@@ -262,6 +262,7 @@
                                    (cons (format "%-20s%s" "jicai.prod2" "/etc/nginx/conf.d") "/rpc:jicai.prod2:/etc/nginx/conf.d")
                                    (cons (format "%-20s%s" "jicai.prod3" "/data") "/rpc:jicai.prod3:/data")
                                    (cons (format "%-20s%s" "jicai.prod3" "/etc/nginx/conf.d") "/rpc:jicai.prod3:/etc/nginx/conf.d")
+                                   (cons (format "%-20s%s" "donghe" "/data") "/rpc:donghe:/data")
                                    ;; (cons (format "%-20s%s" "dev42" "docker") "ssh:liuxiang@dev42|docker:liuxiang@container:/var/run/docker.sock")
                                    ;; (cons (format "%-20s%s" "lcl.devb" "/etc/nginx/conf.d") "/rpc:lcl.devb:/etc/nginx/conf.d")
                                    ;; (cons (format "%-20s%s" "ceres.devb" "/etc/nginx/conf.d") "/rpc:ceres.devb:/etc/nginx/conf.d")
