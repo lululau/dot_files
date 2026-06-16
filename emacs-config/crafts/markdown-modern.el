@@ -84,10 +84,24 @@ When nil, all `#' characters are replaced with the level icon."
 
 (defcustom markdown-modern-indent 2
   "Width of left indentation per heading level.
-When a number, indent headings and body text relative to their level.
+When non-nil, indent headings and body text relative to their level.
 For example, if 2, a level 2 heading is indented by 2 spaces and its
-body text is indented by 4 spaces.  Set to nil to disable."
+body text is indented by 4 spaces.  Set to nil to disable.
+
+Indentation is provided by a separate minor mode,
+`markdown-modern-indent-mode', that mirrors the incremental,
+idle-time approach used by `org-indent-mode'.  It is toggled
+together with `markdown-modern-mode' according to the value of
+this user option."
   :type '(choice (const :tag "Off" nil) integer)
+  :set (lambda (sym val)
+         (set-default sym val)
+         (when (fboundp 'markdown-modern-indent-mode)
+           (dolist (buf (buffer-list))
+             (with-current-buffer buf
+               (when (bound-and-true-p markdown-modern-mode)
+                 (markdown-modern-indent-mode
+                  (if markdown-modern-indent 1 0)))))))
   :group 'markdown-modern)
 
 (defface markdown-modern--hide '((t :inherit default))
@@ -190,7 +204,10 @@ are hidden."
   nil)
 
 (defun markdown-modern--indent-properties ()
-  "Calculate indentation properties for the matched line."
+  "Calculate indentation properties for the matched line.
+Retained for backward compatibility only.  Indentation is normally
+driven incrementally by `markdown-modern-indent-mode', which is far
+cheaper than running this per line through font-lock."
   (save-match-data
     (let ((is-heading (save-excursion
                         (goto-char (match-beginning 0))
@@ -213,7 +230,7 @@ are hidden."
                                   found t)))
                         lvl))))
       (let* ((indent-width (if is-heading
-                               0
+                               (* (1- level) markdown-modern-indent)
                              (* level markdown-modern-indent)))
              (prefix (if (> indent-width 0)
                          (make-string indent-width ?\s)
@@ -294,9 +311,13 @@ table font and theme, like `org-modern--pre-redisplay'."
                       :foreground (face-attribute 'default :background nil t)))
 
 (defun markdown-modern--unfontify (beg end &optional _loud)
-  "Unfontify prettified elements between BEG and END."
+  "Unfontify prettified elements between BEG and END.
+Note: `line-prefix'/`wrap-prefix' are intentionally NOT managed by
+font-lock; they are owned by `markdown-modern-indent-mode'.  Managing
+them here would cause font-lock refontification to wipe the indent
+prefixes with nothing to restore them."
   (let ((font-lock-extra-managed-props
-         (append '(display invisible line-prefix wrap-prefix)
+         (append '(display invisible)
                  font-lock-extra-managed-props)))
     (font-lock-default-unfontify-region beg end)))
 
@@ -326,10 +347,12 @@ table font and theme, like `org-modern--pre-redisplay'."
         '(("\\(^[ \t]*[-*_]\\{3,\\}\\)[ \t]*\r?\n"
            (1 '(face nil display " "))
            (0 '(face markdown-modern-horizontal-rule) prepend))))
-    ;; Indentation
-    ,@(when markdown-modern-indent
-        '(("\\(?:^.*\n\\|.+\\$\\)"
-           (0 (markdown-modern--indent-properties)))))
+    ;; NOTE: Per-line indentation used to live here as a font-lock
+    ;; keyword that ran `markdown-modern--indent-properties' on every
+    ;; line (and did a `re-search-backward' for each).  That was the
+    ;; main source of editing latency.  Indentation is now provided
+    ;; incrementally by `markdown-modern-indent-mode'; see the bottom
+    ;; of this file.
     ;; Tables (must come last — expensive)
     (,markdown-modern--table-row-regexp (0 (markdown-modern--table)))))
 
@@ -338,7 +361,11 @@ table font and theme, like `org-modern--pre-redisplay'."
   "Modern looks for Markdown (org-modern style).
 
 Prettifies tables, checkboxes, list bullets, headings, and
-horizontal rules.  Each feature is individually configurable."
+horizontal rules.  Each feature is individually configurable.
+
+When `markdown-modern-indent' is non-nil, also enables
+`markdown-modern-indent-mode' for dynamic (org-indent style)
+indentation relative to heading level."
   :group 'markdown-modern
   (let ((kw (markdown-modern--make-font-lock-keywords)))
     (cond
@@ -352,13 +379,25 @@ horizontal rules.  Each feature is individually configurable."
       (add-hook 'pre-redisplay-functions #'markdown-modern--pre-redisplay nil 'local)
       (markdown-modern--update-faces))
      (t
+      ;; Disable indent mode first so its properties are cleared by
+      ;; its own teardown, not by the font-lock unfontify below.
+      (when (and (boundp 'markdown-modern-indent-mode)
+                 markdown-modern-indent-mode)
+        (markdown-modern-indent-mode 0))
       (remove-from-invisibility-spec 'markdown-modern)
       (font-lock-remove-keywords nil markdown-modern--font-lock-keywords)
       (setq-local font-lock-unfontify-region-function #'font-lock-default-unfontify-region)
       (remove-hook 'pre-redisplay-functions #'markdown-modern--pre-redisplay 'local)))
     (with-silent-modifications
       (markdown-modern--unfontify (point-min) (point-max)))
-    (font-lock-flush)))
+    (font-lock-flush)
+    ;; Enable indent mode LAST, after unfontify/font-lock-flush, so
+    ;; its line-prefix/wrap-prefix survive (they are not managed by
+    ;; font-lock and would otherwise be wiped by the unfontify above).
+    (when (and markdown-modern-mode markdown-modern-indent
+               (fboundp 'markdown-modern-indent-mode))
+      (markdown-modern-indent-mode
+       (if markdown-modern-mode 1 0)))))
 
 (defun markdown-modern--on ()
   "Enable `markdown-modern-mode' in Markdown buffers."
@@ -369,6 +408,367 @@ horizontal rules.  Each feature is individually configurable."
 (define-globalized-minor-mode global-markdown-modern-mode
   markdown-modern-mode markdown-modern--on
   :group 'markdown-modern)
+
+
+;;; Dynamic indentation (port of `org-indent-mode' semantics)
+;;
+;; `markdown-modern-indent-mode' adds `line-prefix' and `wrap-prefix'
+;; text properties so that body text is visually indented relative to
+;; its enclosing heading level, like `org-indent-mode'.  Unlike the
+;; previous font-lock based implementation, it:
+;;
+;;   - updates only the changed region on `after-change-functions'
+;;     (full re-fontification of the current section only when a
+;;     heading itself was edited);
+;;   - completes the initial pass over large buffers during idle time
+;;     via an "agent" timer, so opening a big file never blocks;
+;;   - computes the level incrementally with a single forward scan,
+;;     never `re-search-backward' from each line.
+;;
+;; Prefixes are cached per level in vectors, exactly like org-indent.
+
+(defconst markdown-modern-indent--deepest-level 8
+  "Maximum heading level tracked by `markdown-modern-indent-mode'.")
+
+(defvar-local markdown-modern-indent--heading-prefixes nil
+  "Vector of cached `line-prefix' strings for heading lines, by level.")
+
+(defvar-local markdown-modern-indent--text-prefixes nil
+  "Vector of cached `line-prefix' strings for body lines, by level.")
+
+(defvar-local markdown-modern-indent--wrap-prefixes nil
+  "Vector of cached `wrap-prefix' strings by level.")
+
+(defvar markdown-modern-indent-mode nil
+  "Non-nil when `markdown-modern-indent-mode' is enabled in a buffer.
+Declared here so the before/after-change helpers can cheaply test it
+without requiring the `define-minor-mode' form to be evaluated first.")
+
+(defvar-local markdown-modern-indent--modified-heading-flag nil
+  "Non-nil if the pending change touches a heading line.
+Mirrors `org-indent-modified-headline-flag'.")
+
+(defvar-local markdown-modern-indent--initial-marker nil
+  "Marker tracking how far the idle agent has progressed in this buffer.")
+
+(defvar markdown-modern-indent--agent-timer nil
+  "Idle timer driving `markdown-modern-indent--agent'.")
+
+(defvar markdown-modern-indent--agentized-buffers nil
+  "List of buffers still being initialized by the indent agent.")
+
+(defconst markdown-modern-indent--active-delay '(0 2 0)
+  "Idle slice used by the agent when its buffer is current.
+See `org-indent-agent-active-delay'.")
+
+(defconst markdown-modern-indent--passive-delay '(0 0 400000)
+  "Idle slice used by the agent when its buffer is not current.
+See `org-indent-agent-passive-delay'.")
+
+(defconst markdown-modern-indent--resume-delay '(0 0 100000)
+  "Idle pause left to other timers between agent slices.
+See `org-indent-agent-resume-delay'.")
+
+(defconst markdown-modern-indent--heading-regexp
+  "^\\(#\\{1,6\\}\\)\\(?:[ \t]+\\|$\\)"
+  "Regexp matching an ATX heading line, group 1 = the hashes.")
+
+(defconst markdown-modern-indent--fenced-open-regexp
+  "^[ \t]*\\(?:`\\{3,\\}\\|~\\{3,\\}\\)"
+  "Regexp matching the opening fence of a GFM/tilde code block.")
+
+(defun markdown-modern-indent--compute-prefixes ()
+  "Precompute per-level prefix strings for the current buffer.
+Populates the three vectors used by `markdown-modern-indent--add'."
+  (let ((w (max 0 (or markdown-modern-indent 0))))
+    (setq markdown-modern-indent--heading-prefixes
+          (make-vector (1+ markdown-modern-indent--deepest-level) nil))
+    (setq markdown-modern-indent--text-prefixes
+          (make-vector (1+ markdown-modern-indent--deepest-level) nil))
+    (setq markdown-modern-indent--wrap-prefixes
+          (make-vector (1+ markdown-modern-indent--deepest-level) nil))
+    (dotimes (n (1+ markdown-modern-indent--deepest-level))
+      ;; A level-N heading is indented (N-1)*w (so level-1 sits at the
+      ;; margin); its body sits one level deeper, at N*w.
+      (let* ((head-indent (max 0 (* w (max 0 (1- n)))))
+             (body-indent (* w n))
+             (head-prefix (if (> head-indent 0)
+                              (make-string head-indent ?\s)
+                            nil))
+             (text-prefix (if (> body-indent 0)
+                              (make-string body-indent ?\s)
+                            nil)))
+        (aset markdown-modern-indent--heading-prefixes n head-prefix)
+        (aset markdown-modern-indent--text-prefixes n text-prefix)
+        (aset markdown-modern-indent--wrap-prefixes n text-prefix)))))
+
+(defun markdown-modern-indent--remove-properties (beg end)
+  "Remove `line-prefix'/`wrap-prefix' between BEG and END."
+  (with-silent-modifications
+    (remove-text-properties beg end '(line-prefix nil wrap-prefix nil))))
+
+(defun markdown-modern-indent--level-at (pos)
+  "Return the ATX heading level at POS, or nil if POS is not on a heading."
+  (save-excursion
+    (goto-char pos)
+    (forward-line 0)
+    (when (looking-at markdown-modern-indent--heading-regexp)
+      (- (match-end 1) (match-beginning 1)))))
+
+(defconst markdown-modern-indent--fence-regexp
+  "^[ \t]*\\(`\\{3,\\}\\|~\\{3,\\}\\)"
+  "Regexp matching a fenced code block delimiter line (open or close).")
+
+(defun markdown-modern-indent--code-state-at (pos)
+  "Return non-nil if the line at POS is inside a fenced code block.
+Counts fence delimiter lines from `point-min' up to POS.  This is
+independent of font-lock, so it works before the buffer is fontified
+and inside the idle agent.  O(n) but only called for seeding."
+  (save-excursion
+    (save-match-data
+      (goto-char (point-min))
+      (let ((n 0)
+            (limit (save-excursion (goto-char pos) (line-end-position))))
+        (while (re-search-forward markdown-modern-indent--fence-regexp limit t)
+          (cl-incf n))
+        (cl-oddp n)))))
+
+(defun markdown-modern-indent--fence-line-p ()
+  "Return non-nil if the current line is a fenced code delimiter."
+  (save-excursion
+    (forward-line 0)
+    (looking-at-p markdown-modern-indent--fence-regexp)))
+
+(defun markdown-modern-indent--seed-level (pos)
+  "Return the heading level in effect at POS.
+Scans backward from POS for the nearest ATX heading and returns its
+level (1..6), or 0 if there is none.  A single bounded search; no
+per-line loop."
+  (save-excursion
+    (save-match-data
+      (goto-char pos)
+      (forward-line 0)
+      ;; If POS itself is a heading, its level is the answer.
+      (or (markdown-modern-indent--level-at (point))
+          (progn
+            ;; One cheap backward search; bounded by bob.
+            (if (re-search-backward markdown-modern-indent--heading-regexp
+                                    nil t)
+                (- (match-end 1) (match-beginning 1))
+              0))))))
+
+(defun markdown-modern-indent--add (beg end &optional delay)
+  "Add indent properties between BEG and END.
+
+When DELAY (a time value) is given, the pass is interruptible: it
+yields after DELAY and on pending input, returning the position
+where it should resume.  Otherwise it runs to completion.
+
+BEG is normalized to a line start.  The initial heading level is
+seeded once with `markdown-modern-indent--seed-level'; inside the
+main loop the level is advanced monotonically as headings are
+encountered, so there is no per-line backward search.
+
+Code-block membership is tracked by a fence-flipping state machine
+fed from `markdown-modern-indent--code-state-at' as the seed, then
+toggled on each delimiter line.  This is independent of font-lock
+so it works before the buffer is fontified.
+
+Code blocks are indented like ordinary body text at the current
+heading level (matching `org-indent-mode').  Their only special
+property is that `#' lines inside are never treated as headings."
+  (save-match-data
+    (save-excursion
+      (save-restriction
+        (widen)
+        (goto-char beg)
+        (forward-line 0)
+        (let* ((line-beg (point))
+               (level (markdown-modern-indent--seed-level beg))
+               (in-code (markdown-modern-indent--code-state-at line-beg))
+               (time-limit (and delay (time-add nil delay)))
+               (line-end (lambda ()
+                           (min (line-beginning-position 2) (point-max)))))
+          (with-silent-modifications
+            (while (and (< line-beg end)
+                        (not (eobp)))
+              (cond
+               ((and delay (input-pending-p))
+                (throw 'markdown-modern-indent--interrupt line-beg))
+               ((and delay (time-less-p time-limit nil))
+                (throw 'markdown-modern-indent--interrupt line-beg))
+               (t
+                (let* ((fence (looking-at markdown-modern-indent--fence-regexp))
+                       ;; `#' is a heading only outside code blocks.
+                       (here-level (and (not in-code)
+                                        (markdown-modern-indent--level-at line-beg)))
+                       (cur (or here-level level))
+                       (idx (min cur markdown-modern-indent--deepest-level))
+                       ;; Both headings and code/body lines use the
+                       ;; heading prefix when the line itself is a
+                       ;; heading; otherwise the text prefix.
+                       (prefix
+                        (if here-level
+                            (aref markdown-modern-indent--heading-prefixes idx)
+                          (aref markdown-modern-indent--text-prefixes idx)))
+                       (wrap (aref markdown-modern-indent--wrap-prefixes idx)))
+                  (add-text-properties line-beg (funcall line-end)
+                                       `(line-prefix ,prefix wrap-prefix ,wrap))
+                  (when here-level
+                    (setq level here-level))
+                  ;; Flip code state AFTER assigning the prefix: a
+                  ;; fence delimiter line belongs to the block it
+                  ;; opens/closes, so it shares that block's level.
+                  (when fence
+                    (setq in-code (not in-code))))))
+              (forward-line 1)
+              (setq line-beg (point)))))))))
+
+(defun markdown-modern-indent--notify (beg _end)
+  "Set the modified-heading flag if BEG..END overlaps a heading.
+Attached to `before-change-functions'."
+  (when markdown-modern-indent-mode
+    (setq markdown-modern-indent--modified-heading-flag
+          (save-excursion
+            (save-match-data
+              (goto-char beg)
+              (or (and (looking-at markdown-modern-indent--heading-regexp)
+                       (< beg (line-end-position)))
+                  (markdown-modern-indent--level-at beg)))))))
+
+(defun markdown-modern-indent--refresh (beg end _length)
+  "Refresh indent properties after a change in BEG..END.
+Attached to `after-change-functions'."
+  (when markdown-modern-indent-mode
+    (save-match-data
+      (save-excursion
+        (save-restriction
+          (widen)
+          (if markdown-modern-indent--modified-heading-flag
+              ;; A heading was edited: re-indent from this heading's
+              ;; start through the next heading, because the level
+              ;; shift cascades to the whole subsection.
+              (let* ((head-beg
+                      (progn (goto-char beg) (forward-line 0) (point)))
+                     (head-end
+                      (progn
+                        (goto-char end)
+                        (if (re-search-forward
+                             markdown-modern-indent--heading-regexp nil t)
+                            (line-beginning-position)
+                          (point-max)))))
+                (setq markdown-modern-indent--modified-heading-flag nil)
+                (markdown-modern-indent--add head-beg head-end))
+            ;; Plain text change: only the touched lines need refresh.
+            (markdown-modern-indent--add
+             (progn (goto-char beg) (forward-line 0) (point))
+             (progn (goto-char end) (line-end-position)))))))))
+
+(defun markdown-modern-indent--agent ()
+  "Advance initialization of agentized buffers.
+Mirrors `org-indent-initialize-agent'."
+  (when markdown-modern-indent--agentized-buffers
+    (setq markdown-modern-indent--agentized-buffers
+          (cl-remove-if-not #'buffer-live-p
+                            markdown-modern-indent--agentized-buffers)))
+  (cond
+   ((null markdown-modern-indent--agentized-buffers)
+    (when markdown-modern-indent--agent-timer
+      (cancel-timer markdown-modern-indent--agent-timer)
+      (setq markdown-modern-indent--agent-timer nil)))
+   ((memq (current-buffer) markdown-modern-indent--agentized-buffers)
+    (markdown-modern-indent--initialize-buffer
+     (current-buffer) markdown-modern-indent--active-delay))
+   (t
+    (markdown-modern-indent--initialize-buffer
+     (car (last markdown-modern-indent--agentized-buffers))
+     markdown-modern-indent--passive-delay))))
+
+(defun markdown-modern-indent--initialize-buffer (buffer delay)
+  "Continue indenting BUFFER asynchronously, yielding after DELAY."
+  (when (buffer-live-p buffer)
+    (with-current-buffer buffer
+      (when markdown-modern-indent-mode
+        (save-excursion
+          (save-restriction
+            (widen)
+            (let ((start
+                   (or (and (markerp markdown-modern-indent--initial-marker)
+                            (marker-position markdown-modern-indent--initial-marker))
+                       (point-min))))
+              (let ((resume
+                     (catch 'markdown-modern-indent--interrupt
+                       (markdown-modern-indent--add start (point-max) delay)
+                       nil)))
+                (if resume
+                    (move-marker markdown-modern-indent--initial-marker resume)
+                  (when (markerp markdown-modern-indent--initial-marker)
+                    (set-marker markdown-modern-indent--initial-marker nil))
+                  (setq markdown-modern-indent--agentized-buffers
+                        (delq buffer
+                              markdown-modern-indent--agentized-buffers))
+                  (when (null markdown-modern-indent--agentized-buffers)
+                    (when markdown-modern-indent--agent-timer
+                      (cancel-timer markdown-modern-indent--agent-timer)
+                      (setq markdown-modern-indent--agent-timer nil))))))))))))
+
+(defun markdown-modern-indent--bootstrap ()
+  "Schedule the idle agent to finish indenting the current buffer."
+  (setq markdown-modern-indent--initial-marker (copy-marker (point-min) t))
+  (cl-pushnew (current-buffer) markdown-modern-indent--agentized-buffers)
+  (unless markdown-modern-indent--agent-timer
+    (setq markdown-modern-indent--agent-timer
+          (run-with-idle-timer 0.2 t #'markdown-modern-indent--agent))))
+
+;;;###autoload
+(define-minor-mode markdown-modern-indent-mode
+  "Dynamic virtual indentation for `markdown-mode', à la `org-indent-mode'.
+
+Body text and headings are indented relative to their enclosing
+heading level via `line-prefix' and `wrap-prefix' text properties.
+
+Updates are incremental (driven by `after-change-functions') and
+the initial pass over large buffers runs during idle time, so
+editing latency is not affected.  This replaces the previous
+font-lock based indentation, which rescanned the buffer on every
+redisplay and caused noticeable lag."
+  :lighter " MInd"
+  :group 'markdown-modern
+  (cond
+   (markdown-modern-indent-mode
+    (unless markdown-modern-indent
+      (setq markdown-modern-indent 2))
+    (markdown-modern-indent--compute-prefixes)
+    (add-hook 'before-change-functions
+              #'markdown-modern-indent--notify nil 'local)
+    (add-hook 'after-change-functions
+              #'markdown-modern-indent--refresh nil 'local)
+    (markdown-modern-indent--remove-properties (point-min) (point-max))
+    ;; Small/medium buffers: indent synchronously (a few ms).  Only
+    ;; very large buffers defer to the idle agent to avoid a startup
+    ;; hiccup; `after-change-functions' keeps everything current
+    ;; afterwards regardless.
+    (if (< (buffer-size) 50000)
+        (markdown-modern-indent--add (point-min) (point-max))
+      (markdown-modern-indent--bootstrap)))
+   (t
+    (remove-hook 'before-change-functions
+                 #'markdown-modern-indent--notify 'local)
+    (remove-hook 'after-change-functions
+                 #'markdown-modern-indent--refresh 'local)
+    (setq markdown-modern-indent--agentized-buffers
+          (delq (current-buffer) markdown-modern-indent--agentized-buffers))
+    (when (markerp markdown-modern-indent--initial-marker)
+      (set-marker markdown-modern-indent--initial-marker nil))
+    (markdown-modern-indent--remove-properties (point-min) (point-max))
+    (font-lock-flush))))
+
+(defun markdown-modern-indent-fontify-buffer ()
+  "Synchronously indent the whole buffer, bypassing the idle agent.
+Useful after bulk operations (e.g. `markdown-outline-cycle-all')."
+  (interactive)
+  (markdown-modern-indent--remove-properties (point-min) (point-max))
+  (markdown-modern-indent--add (point-min) (point-max)))
 
 (provide 'markdown-modern)
 ;;; markdown-modern.el ends here
