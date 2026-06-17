@@ -136,28 +136,51 @@
       '(("osr" emacs-regexp-cheatsheet ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/cheatsheets/emacs-regexp-cheatsheets.org"))
         ("oso" org-mode-cheatsheet     ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/cheatsheets/org-mode-cheatsheets.org"))))
 
+(defun lx/find-file-or-dired (filename)
+  "Open FILENAME; directories go through `dired', files through `find-file'.
+
+Robust against the intermittent \"~/.X is a directory\" error:
+`find-file' delegates directory opening to `find-directory-functions',
+which silently degrades to `(error \"%s is a directory\")' whenever
+`dired-noselect' returns nil (e.g. when a `dired-after-readin-hook'
+member fails on a large directory).  Going straight to `dired' for
+directories bypasses that error path entirely, and falling back to
+`dired' (the interactive command) when `dired-noselect' returns nil
+keeps the user out of trouble.
+
+`file-directory-p' is wrapped in `condition-case' so an unreachable
+remote path falls back to `find-file', which will report the real
+connection error instead."
+  (let ((is-dir (condition-case nil (file-directory-p filename) (error nil))))
+    (if is-dir
+        (let ((buf (condition-case nil (dired-noselect filename) (error nil))))
+          (if (buffer-live-p buf)
+              (progn (set-buffer buf) (switch-to-buffer buf) buf)
+            (dired filename)))
+      (find-file filename))))
+
 (defmacro lx/make-open-file-function (name dir)
   `(defun ,(intern (format "lx/open-file-%s" name)) (arg)
      (interactive "P")
      ,(if (stringp dir)
-         `(find-file ,dir)
+         `(lx/find-file-or-dired ,dir)
        `(if (not arg)
-           (let* ((pwd default-directory)
-                  (is-remote (or (string-prefix-p "/scp:" pwd)
-                                 (string-prefix-p "/ssh:" pwd)
-                                 (string-prefix-p "/rpc:" pwd)
-                                 (eq major-mode 'ssh-zsh-ghostel-mode)))
-                  (remote-host (if is-remote
-                                   (if (eq major-mode 'ssh-zsh-ghostel-mode)
-                                       (plist-get ssh-zsh-ghostel-ssh-options :host)
-                                     (seq--elt-safe (split-string pwd ":") 1))
-                                  nil))
-                  (file-prefix (if remote-host (format "/rpc:%s:" remote-host) ""))
-                  (files (mapcar (lambda (x) (concat file-prefix x)) ',dir))
-                  (existing-file (seq-find (lambda (x) (file-exists-p x)) files)))
-               (find-file (or existing-file (car files))))
-          (let* ((existing-file (seq-find (lambda (x) (file-exists-p x)) ',dir)))
-            (find-file (or existing-file (car files))))))))
+            (let* ((pwd default-directory)
+                   (is-remote (or (string-prefix-p "/scp:" pwd)
+                                  (string-prefix-p "/ssh:" pwd)
+                                  (string-prefix-p "/rpc:" pwd)
+                                  (eq major-mode 'ssh-zsh-ghostel-mode)))
+                   (remote-host (if is-remote
+                                    (if (eq major-mode 'ssh-zsh-ghostel-mode)
+                                        (plist-get ssh-zsh-ghostel-ssh-options :host)
+                                      (seq--elt-safe (split-string pwd ":") 1))
+                                   nil))
+                   (file-prefix (if remote-host (format "/rpc:%s:" remote-host) ""))
+                   (files (mapcar (lambda (x) (concat file-prefix x)) ',dir))
+                   (existing-file (seq-find (lambda (x) (file-exists-p x)) files)))
+               (lx/find-file-or-dired (or existing-file (car files))))
+           (let* ((existing-file (seq-find (lambda (x) (file-exists-p x)) ',dir)))
+             (lx/find-file-or-dired (or existing-file (car files))))))))
 
 (let ((result '()))
   (dolist (elem (append lx/dirs lx/demo-files lx/config-files lx/org-files lx/cheatsheets lx/server-files) result)
