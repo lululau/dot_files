@@ -227,7 +227,12 @@
            (set (intern (format "evil-%s-state-cursor" state))
                 (list (when dotspacemacs-colorize-cursor-according-to-state color)
                       cursor)))
-  (lx/set-monospaced-font "JetBrainsMono Nerd Font" "黑体-简" 13 16 13 16))
+  (lx/set-monospaced-font "JetBrainsMono Nerd Font" "黑体-简" 13 16 13 16)
+  ;; 字体设置后修正 East Asian Ambiguous 符号的 char-width（设为半角 1 列），
+  ;; 使逻辑列宽与 JetBrainsMono 的半角像素渲染一致，消除表格竖线错位。
+  (require 'lx-fix-ambiguous-char-width nil t)
+  (when (fboundp 'lx/fix-ambiguous-char-width)
+    (lx/fix-ambiguous-char-width)))
 
 (advice-add 'spacemacs/set-state-faces :override #'lx/optimize-theme-colors-and-font)
 
