@@ -36,6 +36,17 @@
 (defun lx/ghostel-mode--configure ()
   "The actual ghostel-mode configuration body (deferred)."
 
+  ;; Make `insert' into a ghostel buffer send to the terminal process
+  ;; instead of writing into the read-only display buffer.  The completion
+  ;; commands (`current-buffer-completion', `all-buffer-completion', date
+  ;; insertion, ...) look up this `insert-function' plist entry and funcall
+  ;; it with the text to insert.  Set on the parent `ghostel-mode' so every
+  ;; derived mode (zsh-ghostel, pry-ghostel, ssh variants, ...) inherits it;
+  ;; the lookup walks the `derived-mode-parent' chain.
+  (setplist 'ghostel-mode
+            (plist-put (symbol-plist 'ghostel-mode)
+                       'insert-function 'ghostel-send-string))
+
   (defun ghostel-send-escape-key () (interactive) (ghostel-send-key "escape"))
   (defun ghostel-send-10-up () (interactive) (dotimes (i 10) (ghostel-send-string "k")))
   (defun ghostel-send-10-down () (interactive) (dotimes (i 10) (ghostel-send-string "j")))

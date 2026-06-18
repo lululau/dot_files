@@ -34,10 +34,20 @@
                                 (cons (cons sub-candidate (cons sub-candidate word-at-point)) result)))))))))
           (seq-uniq (seq-sort (lambda (a b) (< (length (car a)) (length (car b)))) candidates)))))))
 
+(defun helm-current-buffer-completion--insert-function ()
+  "Resolve the `insert-function' for the current major mode.
+Walks the `derived-mode-parent' chain so that modes deriving from a
+mode carrying an `insert-function' plist entry (e.g. ghostel modes
+deriving from `ghostel-mode') inherit it.  Falls back to `insert'."
+  (let ((mode major-mode) fn)
+    (while (and mode (not fn))
+      (setq fn (plist-get (symbol-plist mode) 'insert-function))
+      (setq mode (get mode 'derived-mode-parent)))
+    (or fn 'insert)))
+
 (defun helm-current-buffer-completion-insert (selected)
   (with-current-buffer helm-current-buffer-completion-last-buffer
-    (let* ((insert-func (plist-get (symbol-plist major-mode) 'insert-function))
-           (insert-func (or insert-func 'insert))
+    (let* ((insert-func (helm-current-buffer-completion--insert-function))
            (candidate (car selected))
            (word-at-point (cdr selected))
            (current-line (buffer-substring-no-properties (line-beginning-position) (point)))
