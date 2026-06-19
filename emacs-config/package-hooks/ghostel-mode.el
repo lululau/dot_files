@@ -133,30 +133,29 @@
   ;; vterm--sentinel pattern).  When `ghostel-kill-buffer-on-normal-exit' is
   ;; t, only kill on normal ("finished") exits so that abnormal exits are
   ;; kept for inspection.  When nil, fall through to
-  ;; `ghostel-kill-buffer-on-exit'.  A force-full-redraw is added before
-  ;; timer cancellation so the terminal state is rendered to the Emacs
-  ;; buffer when kept alive (the original sentinel only flushes without
-  ;; rendering, so the last pending chunk would be invisible).
+  ;; `ghostel-kill-buffer-on-exit'.  When the buffer is kept alive we force a
+  ;; final redraw (`ghostel--redraw-now') before annotating it so the last
+  ;; terminal frame is materialized into the Emacs buffer.
+  ;;
+  ;; This body tracks the upstream `ghostel--sentinel' (ghostel.el); keep it
+  ;; in sync on package upgrades.  Older ghostel versions exposed
+  ;; `ghostel--flush-pending-output', `ghostel--delayed-redraw' and
+  ;; `ghostel--input-timer', which have since been removed in favor of the
+  ;; `ghostel--write-vt' / `ghostel--invalidate' / `ghostel--redraw-now'
+  ;; rendering path -- do not reintroduce them.
   (defun ghostel--sentinel (process event)
     "Process sentinel: clean up when shell exits.
 PROCESS is the shell process, EVENT describes the state change."
     (let ((buf (process-buffer process)))
       (when (buffer-live-p buf)
         (with-current-buffer buf
-          (when ghostel--term
-            (ghostel--flush-pending-output))
-          (setq-local ghostel-full-redraw t)
-          (setq ghostel--force-next-redraw t)
-          (ghostel--delayed-redraw (current-buffer))
           (when ghostel--redraw-timer
             (cancel-timer ghostel--redraw-timer)
             (setq ghostel--redraw-timer nil))
-          (when ghostel--input-timer
-            (cancel-timer ghostel--input-timer)
-            (setq ghostel--input-timer nil))
           (when ghostel--plain-link-detection-timer
             (cancel-timer ghostel--plain-link-detection-timer)
-            (setq ghostel--plain-link-detection-begin nil
+            (setq ghostel--plain-link-detection-timer nil
+                  ghostel--plain-link-detection-begin nil
                   ghostel--plain-link-detection-end nil))
           (ghostel--cancel-password-confirm-timer)
           (ghostel--spinner-stop)
@@ -169,6 +168,8 @@ PROCESS is the shell process, EVENT describes the state change."
                 (kill-buffer buf)
               (if ghostel-kill-buffer-on-exit
                   (kill-buffer buf)
+                (setq ghostel--force-next-redraw t)
+                (ghostel--redraw-now buf)
                 (let ((inhibit-read-only t))
                   (goto-char (point-max))
                   (insert "\n[Process exited]\n")))))))))
