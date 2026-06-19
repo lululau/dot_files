@@ -16,6 +16,15 @@
             (pop-to-buffer buffer 'display-buffer-pop-up-window)))
       (let* ((default-directory (or directory user-home-directory))
              (command-parts (split-string-and-unquote command))
+             ;; `ghostel-exec' execs the program directly (native PTY) or via
+             ;; `/bin/sh -c' with `shell-quote-argument' (Emacs PTY); neither
+             ;; expands a leading `~'.  Expand it here so program paths like
+             ;; "~/.rvm/gems/default/bin/arql" resolve.  Bare PATH commands
+             ;; (no leading `~') are left untouched so PATH lookup still works.
+             (command-parts (if (string-prefix-p "~" (car command-parts))
+                                (cons (expand-file-name (car command-parts))
+                                      (cdr command-parts))
+                              command-parts))
              (buffer (generate-new-buffer buffer-name)))
         (unless exclusive-window (split-window-right-and-focus))
         (with-current-buffer buffer
