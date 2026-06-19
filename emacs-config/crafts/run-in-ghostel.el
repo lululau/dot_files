@@ -2,6 +2,23 @@
 
 (defvar lx/run-in-ghostel/histdb-file (expand-file-name "~/.histdb/zsh-history.db"))
 
+(defun lx/run-in-ghostel--expand-tilde-argv (parts)
+  "Expand a word-leading `~' in each token of PARTS (argv list).
+The new `ghostel-exec' execs PROGRAM/ARGS directly (native PTY) or via
+`/bin/sh -c' with `shell-quote-argument' (Emacs PTY); neither expands a
+leading `~'.  Expand it here, following shell tilde-expansion semantics
+(only at the start of a word), so both the program path and path-like
+arguments resolve.  Tokens without a leading `~' (options, bare PATH
+commands, `host:~/path' remote specs) are left untouched.
+
+Only use this for LOCAL spawns.  Remote/ssh spawns must keep `~'
+literal so it is expanded by the remote shell."
+  (mapcar (lambda (tok)
+            (if (string-prefix-p "~" tok)
+                (expand-file-name tok)
+              tok))
+          parts))
+
 (defun lx/run-in-ghostel (command buffer-name &optional directory exclusive-window)
   (interactive)
   (let* ((buffer (get-buffer buffer-name)))
@@ -18,7 +35,8 @@
               (switch-to-buffer buffer)
             (pop-to-buffer buffer 'display-buffer-pop-up-window)))
       (let* ((default-directory (or directory user-home-directory))
-             (command-parts (split-string-and-unquote command))
+             (command-parts (lx/run-in-ghostel--expand-tilde-argv
+                             (split-string-and-unquote command)))
              (buffer (generate-new-buffer buffer-name)))
         (unless exclusive-window (split-window-right-and-focus))
         (with-current-buffer buffer
@@ -137,9 +155,12 @@
              (local-dir (helm-dired-history-read-file-name "Local directory: "
                                              "~/tmp/"
                                              "~/tmp/"))
-             (local-dir (shell-quote-argument (if (string-suffix-p "/" local-dir) local-dir (concat local-dir "/"))))
+             (local-dir (if (string-suffix-p "/" local-dir) local-dir (concat local-dir "/")))
              (remote-file (replace-regexp-in-string "/$" "" remote-file))
-             (cmd (format "rsync -rzP '%s' %s" remote-file local-dir))
+             ;; Double quotes (not single) so `split-string-and-unquote' groups
+             ;; each side into ONE argv token; `ghostel-exec' no longer runs the
+             ;; command through a shell, so single quotes would survive literally.
+             (cmd (format "rsync -rzP \"%s\" \"%s\"" remote-file local-dir))
              (buffer-name (format "*rsync: %s -> %s*" remote-file local-dir))
              (ghostel-kill-buffer-on-exit nil))
         (lx/run-in-ghostel cmd buffer-name)))))
@@ -156,8 +177,11 @@
                                               "~/tmp/"
                                               "~/tmp/"))
              (remote-dir (if (string-suffix-p "/" remote-dir) remote-dir (concat remote-dir "/")))
-             (local-file (shell-quote-argument (replace-regexp-in-string "/$" "" local-file)))
-             (cmd (format "rsync -rzP %s '%s'" local-file remote-dir))
+             (local-file (replace-regexp-in-string "/$" "" local-file))
+             ;; Double quotes (not single) so `split-string-and-unquote' groups
+             ;; each side into ONE argv token; `ghostel-exec' no longer runs the
+             ;; command through a shell, so single quotes would survive literally.
+             (cmd (format "rsync -rzP \"%s\" \"%s\"" local-file remote-dir))
              (buffer-name (format "*rsync: %s -> %s*" local-file remote-dir))
              (ghostel-kill-buffer-on-exit nil))
         (lx/run-in-ghostel cmd buffer-name)))))

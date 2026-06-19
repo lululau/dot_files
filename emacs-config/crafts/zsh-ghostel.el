@@ -1,4 +1,5 @@
 (require 'ghostel)
+(require 'run-in-ghostel)
 
 (defvar zsh-ghostel-zsh-buffer-index 0)
 
@@ -32,7 +33,8 @@
             (_ (switch-to-buffer buffer))))
 
       (let* ((default-directory (or directory user-home-directory))
-             (command-parts (split-string-and-unquote command))
+             (command-parts (lx/run-in-ghostel--expand-tilde-argv
+                             (split-string-and-unquote command)))
              (buffer (generate-new-buffer buffer-name)))
         (pcase window-type
           ('split (split-window-right-and-focus))

@@ -243,7 +243,7 @@
   "Run jira CLI in ghostel"
   (interactive)
   (let ((ghostel-kill-buffer-on-exit t))
-    (lx/run-in-ghostel "jira issue list -q 'assignee = currentUser() AND status not in (CLOSE, closed, Resolved, \"ON HOLD\") and project != XYC'" "*ghostel-cmd-jira-cli*" nil t)))
+    (lx/run-in-ghostel "jira issue list -q \"assignee = currentUser() AND status not in (CLOSE, closed, Resolved, 'ON HOLD') and project != XYC\"" "*ghostel-cmd-jira-cli*" nil t)))
 
 ;;;###autoload
 (defun lx/run-git-multi-status ()
