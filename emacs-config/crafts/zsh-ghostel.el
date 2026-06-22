@@ -369,4 +369,24 @@ buffer can be found again after title-tracking renames it."
 
 (advice-add 'ghostel-semi-char-mode :after #'zsh-ghostel--restore-keymap)
 
+;; In a visual selection ghostel activates the region and flips into copy
+;; (read-only) input mode, replacing the local map with `ghostel--readonly-keymap'.
+;; That map lacks `s-C'/`s-V', so they fall through to `global-map'.  Overlay a
+;; child keymap that keeps the CLI-navigation bindings on top of ghostel's
+;; read-only map for zsh-ghostel buffers.
+(defvar zsh-ghostel-readonly-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "s-C") #'zsh-ghostel-previous-cli)
+    (define-key map (kbd "s-V") #'zsh-ghostel-next-cli)
+    map)
+  "Bindings overlaid on ghostel's read-only map in `zsh-ghostel-mode' buffers.")
+
+(defun zsh-ghostel--restore-readonly-keymap (&rest _)
+  "Overlay `zsh-ghostel-readonly-mode-map' after entering copy/Emacs mode."
+  (when (derived-mode-p 'zsh-ghostel-mode)
+    (set-keymap-parent zsh-ghostel-readonly-mode-map (ghostel--readonly-keymap))
+    (use-local-map zsh-ghostel-readonly-mode-map)))
+
+(advice-add 'ghostel--enter-readonly :after #'zsh-ghostel--restore-readonly-keymap)
+
 (provide 'zsh-ghostel)
