@@ -579,7 +579,7 @@ export PAGER='nvim +Man!'
 if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
   path=($HOME/liuxiang/bin $HOME/liuxiang/local/bin $HOME/.local/bin $path)
 else
-  path=($HOME/ServerApps/bin $HOME/bin $HOME/.local/bin $HOME/Library/Python/3.14/bin $HOME/Library/Python/2.7/bin $HOMEBREW_PREFIX/bin $HOMEBREW_PREFIX/sbin $path)
+  path=($HOME/ServerApps/bin $HOME/bin $HOME/Library/Python/3.14/bin $HOME/Library/Python/2.7/bin $HOMEBREW_PREFIX/bin $HOMEBREW_PREFIX/sbin $HOME/.local/bin $path)
 fi
 
 # OpenClaw Completion
