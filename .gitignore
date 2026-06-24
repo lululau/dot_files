@@ -125,3 +125,4 @@ emacs-config/.agenda_files
 /.antigravitycli/
 /homebrew/trust.json
 /homebrew/trust.json.lock
+/nvm/
