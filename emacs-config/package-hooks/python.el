@@ -1,5 +1,13 @@
 ;; -*- lexical-binding: t; -*-
 
+;; Recognize PEP 723 inline-script shebangs (`uv run --script`, `uvx`) as Python.
+;; `set-auto-mode' extracts the interpreter name from the shebang line, but by
+;; default `interpreter-mode-alist' only knows `python[0-9.]*'. Scripts that use
+;; `#!/usr/bin/env -S uv run --script` resolve to interpreter `uv' and otherwise
+;; fall back to fundamental-mode.
+(dolist (interp '("uv" "uvx"))
+  (add-to-list 'interpreter-mode-alist (cons interp 'python-mode)))
+
 (spacemacs|use-package-add-hook python
   :post-config
   (defun python-shell-send-line (&optional send-main)
