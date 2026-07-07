@@ -307,6 +307,12 @@ PROCESS is the shell process, EVENT describes the state change."
 
   ;; (rvm-activate-corresponding-ruby)
 
+  (defun lx/ghostel-send-string-replace-nl-advice (orig-fun string &rest args)
+    "Advice to replace all newlines with carriage returns in `ghostel-send-string'.
+This prevents bare LFs from triggering the tmux prefix key (C-j)."
+    (let ((translated (replace-regexp-in-string "\n" "\r" string)))
+      (apply orig-fun translated args)))
+  (advice-add 'ghostel-send-string :around #'lx/ghostel-send-string-replace-nl-advice)
   )
 
 (spacemacs|use-package-add-hook ghostel
