@@ -307,10 +307,16 @@ PROCESS is the shell process, EVENT describes the state change."
 
   ;; (rvm-activate-corresponding-ruby)
 
+  (defvar lx/ghostel-inhibit-nl-translation nil
+    "If non-nil, do not translate \\n to \\r in `ghostel-send-string'.")
+
   (defun lx/ghostel-send-string-replace-nl-advice (orig-fun string &rest args)
     "Advice to replace all newlines with carriage returns in `ghostel-send-string'.
-This prevents bare LFs from triggering the tmux prefix key (C-j)."
-    (let ((translated (replace-regexp-in-string "\n" "\r" string)))
+This prevents bare LFs from triggering the tmux prefix key (C-j).
+Respects `lx/ghostel-inhibit-nl-translation' to bypass translation."
+    (let ((translated (if lx/ghostel-inhibit-nl-translation
+                          string
+                        (replace-regexp-in-string "\n" "\r" string))))
       (apply orig-fun translated args)))
   (advice-add 'ghostel-send-string :around #'lx/ghostel-send-string-replace-nl-advice)
   )

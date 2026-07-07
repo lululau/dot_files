@@ -495,7 +495,8 @@ After sending, deactivate the region when applicable and select the agent buffer
                           " 行:\n\n" selection "\n"))
               (concat "@" abs-path "\n"))))
       (with-current-buffer agent-buffer
-        (ghostel-send-string str))
+        (let ((lx/ghostel-inhibit-nl-translation t))
+          (ghostel-send-string str)))
       (when had-region
         (deactivate-mark))
       (if-let* ((win (get-buffer-window agent-buffer 'visible)))
