@@ -13,8 +13,7 @@
 
 (defun ghostel-agent--agent-buffer-name-p (name)
   "Return non-nil if NAME looks like an agent Ghostel buffer from `ghostel-agent-run-*`."
-  (string-match-p "\\`\\*ghostel-\\(?:claude\\|opencode\\|cursor\\|agy\\|aliyun-tp-claude\\|deepseek-claude\\)\\[" name))
-
+  (string-match-p "\\`\\*ghostel-\\(?:claude\\|opencode\\|cursor\\|agy\\|aliyun-tp-claude\\|deepseek-claude\\|grok\\)\\[" name))
 (defun ghostel-agent--agent-buffer-p (buffer)
   "Return non-nil if BUFFER is a live Ghostel agent shell."
   (and (buffer-live-p buffer)
@@ -179,6 +178,12 @@ Return a `ghostel-agent-session' struct, or nil for a new session."
          (substring base 1)
        base))))
 
+(defun ghostel-agent--grok-project-key (dir)
+  "Return Grok session directory key for DIR.
+
+Grok stores sessions under `~/.grok/sessions/<url-encoded-cwd>/'."
+  (require 'url-util)
+  (url-hexify-string (directory-file-name (expand-file-name dir))))
 (defun ghostel-agent--json-key (key)
   "Normalize JSON object key to a symbol."
   (if (symbolp key) key (intern key)))
@@ -375,6 +380,50 @@ Return a `ghostel-agent-session' struct, or nil for a new session."
             (push session sessions)))))
     (ghostel-agent--sort-sessions sessions)))
 
+(defun ghostel-agent--parse-grok-session-dir (session-dir)
+  "Parse Grok session metadata from SESSION-DIR (contains summary.json)."
+  (let* ((summary-file (expand-file-name "summary.json" session-dir))
+         (session-id (file-name-nondirectory (directory-file-name session-dir)))
+         (mtime (float-time
+                 (file-attribute-modification-time
+                  (file-attributes session-dir)))))
+    (when (file-readable-p summary-file)
+      (with-temp-buffer
+        (insert-file-contents summary-file)
+        (when-let* ((obj (condition-case nil
+                             (json-parse-string (buffer-string) :object-type 'alist)
+                           (error nil)))
+                    (info (ghostel-agent--json-field obj "info"))
+                    (id (or (ghostel-agent--json-field info "id") session-id))
+                    (title (or (ghostel-agent--json-string-field
+                                obj "generated_title" "session_summary")
+                               id))
+                    (updated (or (ghostel-agent--json-field obj "updated_at")
+                                 (ghostel-agent--json-field obj "last_active_at")
+                                 mtime))
+                    (mtime-val (if (stringp updated)
+                                   (condition-case nil
+                                       (float-time (date-to-time updated))
+                                     (error mtime))
+                                 (if (numberp updated) updated mtime))))
+          (ghostel-agent-session-create
+           :id id
+           :title title
+           :mtime mtime-val
+           :updated updated))))))
+
+(defun ghostel-agent--list-grok-sessions (project-root)
+  "List Grok sessions for PROJECT-ROOT."
+  (let* ((key (ghostel-agent--grok-project-key project-root))
+         (dir (expand-file-name key (expand-file-name "~/.grok/sessions/")))
+         (sessions nil))
+    (when (file-directory-p dir)
+      (dolist (session-dir (directory-files dir t "\\`[^.]" t))
+        (when (file-directory-p session-dir)
+          (when-let* ((session (ghostel-agent--parse-grok-session-dir session-dir)))
+            (push session sessions)))))
+    (ghostel-agent--sort-sessions sessions)))
+
 (cl-defun ghostel-agent--run-with-session (&key agent-name list-fn base-command resume-arg buffer-pattern)
   "Start AGENT-NAME in Ghostel, optionally resuming a prior session.
 
@@ -434,6 +483,20 @@ session id (for example \"--resume\")."
    :resume-arg "--resume"
    :buffer-pattern "*ghostel-deepseek-claude[%p]*"))
 
+(defun ghostel-agent-run-grok ()
+  "Start a Grok agent shell in Ghostel.
+
+Uses `grok --always-approve' (auto-approve tool executions). Resume via
+`grok --resume SESSION_ID'. Sessions are read from
+`~/.grok/sessions/<url-encoded-cwd>/'."
+  (interactive)
+  (ghostel-agent--run-with-session
+   :agent-name "Grok"
+   :list-fn #'ghostel-agent--list-grok-sessions
+   :base-command "grok --always-approve"
+   :resume-arg "--resume"
+   :buffer-pattern "*ghostel-grok[%p]*"))
+
 (defun ghostel-agent-run-opencode ()
   "Start an Opencode agent shell in Ghostel."
   (interactive)
@@ -478,7 +541,7 @@ After sending, deactivate the region when applicable and select the agent buffer
   (let* ((had-region (use-region-p))
          (agent-buffer (ghostel-agent--first-visible-agent-buffer)))
     (unless agent-buffer
-      (user-error "No visible Ghostel agent buffer; show claude/opencode/cursor/agy Ghostel first"))
+      (user-error "No visible Ghostel agent buffer; show claude/opencode/cursor/agy/grok Ghostel first"))
     (let* ((abs-path (expand-file-name (buffer-file-name)))
            (str
             (if had-region

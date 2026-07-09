@@ -64,6 +64,7 @@
 (autoload 'ghostel-agent-run-claude "ghostel-agent")
 (autoload 'ghostel-agent-run-aliyun-token-plan-claude "ghostel-agent")
 (autoload 'ghostel-agent-run-deepseek-claude "ghostel-agent")
+(autoload 'ghostel-agent-run-grok "ghostel-agent")
 (autoload 'ghostel-agent-run-opencode "ghostel-agent")
 (autoload 'ghostel-agent-run-cursor "ghostel-agent")
 (autoload 'ghostel-agent-run-agy "ghostel-agent")
