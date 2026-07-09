@@ -299,6 +299,7 @@
                                             ghostel
                                             ;; (claude-code-ide :location (recipe :fetcher github :repo "manzaltu/claude-code-ide.el" :files ("*.el")))
                                             (clutch :location (recipe :fetcher github :repo "LuciusChen/clutch" :branch "main" :files ("*.el")))
+                                            (chirp :location (recipe :fetcher github :repo "LuciusChen/chirp" :branch "main" :files ("*.el" "lisp/*.el")))
                                             ;; (appine :location (recipe :fetcher github :repo "chaoswork/appine" :files ("*.el")))
                                             catppuccin-theme
                                             )
