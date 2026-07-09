@@ -107,7 +107,7 @@ export OPENCODE_BINARY=/opt/homebrew/bin/opencode
 if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
   path=($HOME/liuxiang/bin $HOME/liuxiang/local/bin $HOME/.local/bin $path)
 else
-  path=($HOME/ServerApps/bin $HOME/bin $HOME/Library/Python/3.14/bin $HOME/Library/Python/2.7/bin $HOMEBREW_PREFIX/bin $HOMEBREW_PREFIX/sbin $HOME/.local/bin $path)
+  path=($HOME/ServerApps/bin $HOME/bin $HOME/Library/Python/3.14/bin $HOME/Library/Python/2.7/bin $HOMEBREW_PREFIX/bin $HOMEBREW_PREFIX/sbin $HOME/.grok/bin $HOME/.local/bin $path)
 fi
 
 alias man=$HOME/bin/man-wrapper.sh
