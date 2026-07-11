@@ -1,5 +1,6 @@
 (require 'ghostel)
 (require 'run-in-ghostel)
+(require 'shell-pop)
 
 (defvar zsh-ghostel-zsh-buffer-index 0)
 

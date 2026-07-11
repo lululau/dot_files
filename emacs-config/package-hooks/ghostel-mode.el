@@ -18,20 +18,28 @@
 (defvar lx/ghostel-mode--applied nil
   "Non-nil once the ghostel-mode customizations below have been applied.")
 
-(defun lx/ghostel-mode--apply ()
-  "Apply ghostel-mode customizations when all deps are ready."
+(defun lx/ghostel-mode--apply (&optional force)
+  "Apply ghostel-mode customizations when all deps are ready.
+If FORCE is non-nil, apply the customizations even if `shell-pop'
+cannot be loaded yet."
   (when (and (not lx/ghostel-mode--applied)
              (featurep 'ghostel)
              (featurep 'evil))
-    (setq lx/ghostel-mode--applied t)
-    (require 'shell-pop nil 'noerror)
-    (lx/ghostel-mode--configure)))
+    (if (or (require 'shell-pop nil 'noerror) force)
+        (progn
+          (setq lx/ghostel-mode--applied t)
+          (lx/ghostel-mode--configure))
+      (message "ghostel-mode hook: shell-pop is not yet available, deferring configuration."))))
 
 (with-eval-after-load 'ghostel
   (with-eval-after-load 'evil
     (lx/ghostel-mode--apply)))
 
-(add-hook 'emacs-startup-hook #'lx/ghostel-mode--apply)
+(defun lx/ghostel-mode--apply-startup ()
+  "Force application of ghostel-mode customizations at startup."
+  (lx/ghostel-mode--apply t))
+
+(add-hook 'emacs-startup-hook #'lx/ghostel-mode--apply-startup)
 
 (defun lx/ghostel-mode--configure ()
   "The actual ghostel-mode configuration body (deferred)."
