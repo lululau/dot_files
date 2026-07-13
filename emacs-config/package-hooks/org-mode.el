@@ -288,3 +288,14 @@
 
 (with-eval-after-load 'evil-org
   (evil-define-key 'motion 'evil-org-mode (kbd "C-i") 'org-cycle))
+
+;; Visual Y: copy only visible text (skip folded content), then leave visual state.
+(defun lx/org-copy-visible ()
+  "Copy visible parts of the region, then exit Evil visual state."
+  (interactive)
+  (call-interactively #'org-copy-visible)
+  (when (evil-visual-state-p)
+    (evil-normal-state)))
+
+(with-eval-after-load 'org
+  (evil-define-key 'visual org-mode-map (kbd "Y") #'lx/org-copy-visible))
