@@ -75,4 +75,4 @@
         "Agent" "ViewBuffer" "EditBuffer" "ReplaceBuffer" "BufferSearch" "ListBuffers")
       :stream t :temperature 1.0 :max-tokens nil :use-context 'system :track-media nil :include-reasoning t)))
 
-(add-hook 'spacemacs-post-user-config-hook #'lx/gptel-user-config)
+;; (add-hook 'spacemacs-post-user-config-hook #'lx/gptel-user-config)
