@@ -7,6 +7,57 @@
   ;; org-modern style box-drawn tables for markdown
   (add-hook 'markdown-mode-hook #'markdown-modern-mode)
 
+  ;; 修正 markdown 表格对齐时 FE0F（Variation Selector 16）的宽度计算。
+  ;;
+  ;; 问题链：
+  ;;   1. `markdown--table-line-to-columns' 用 `buffer-substring-no-properties'
+  ;;      提取 cell 内容，丢失 emoji composition 属性。
+  ;;   2. `markdown--string-width' → `string-width' 在无 composition 的字符串上
+  ;;      对 ⚠+FE0F 返回 1（⚠=1, FE0F=0），但实际渲染为 2 列宽 emoji。
+  ;;   3. `markdown-table-align-raw' 用 `format %Ns' 做 padding，后者调用 C 层
+  ;;      `string-width'（不可 advice），同样算出 1 列，导致 over-padding。
+  ;;
+  ;; 两步修复：
+  ;;   (a) advice `markdown--string-width' 补偿 FE0F；
+  ;;   (b) advice `markdown-table-align-raw' 用手动 padding 替代 `format %Ns'，
+  ;;       确保 padding 使用修正后的 `markdown--string-width'。
+
+  (defun lx/markdown--string-width-fix-fe0f (orig-fn s)
+    "补偿 FE0F (VS16) 使前导字符以 emoji 形式宽渲染但 string-width 未计入的差异。"
+    (let ((result (funcall orig-fn s))
+          (i 0)
+          (len (length s)))
+      (while (< i len)
+        (when (and (= (aref s i) #xFE0F)
+                   (> i 0)
+                   (= (char-width (aref s (1- i))) 1))
+          (cl-incf result))
+        (cl-incf i))
+      result))
+  (advice-add 'markdown--string-width :around #'lx/markdown--string-width-fix-fe0f)
+
+  (defun lx/markdown-table-align-raw (orig-fn cells fmtspec widths)
+    "用 `markdown--string-width' 手动 padding，替代 `format %Ns' 的内置 string-width。"
+    (ignore orig-fn)
+    (let (fmt width)
+      (mapconcat
+       (lambda (cell)
+         (setq fmt (car fmtspec) fmtspec (cdr fmtspec))
+         (setq width (car widths) widths (cdr widths))
+         (let* ((cell-w (markdown--string-width cell))
+                (pad (max 0 (- width cell-w))))
+           (cond
+            ((equal fmt 'c)
+             (let ((lpad (/ pad 2))
+                   (rpad (- pad (/ pad 2))))
+               (concat " " (make-string lpad ?\s) cell (make-string rpad ?\s) " ")))
+            ((equal fmt 'r)
+             (concat " " (make-string pad ?\s) cell " "))
+            (t
+             (concat " " cell (make-string pad ?\s) " ")))))
+       cells "|")))
+  (advice-add 'markdown-table-align-raw :around #'lx/markdown-table-align-raw)
+
   (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "'" 'markdown-edit-code-block)
   (evil-define-key 'motion markdown-mode-map (kbd "C-i") 'markdown-cycle)
   (evil-define-key 'normal markdown-mode-map (kbd "C-i") 'markdown-cycle)
