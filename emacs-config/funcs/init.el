@@ -530,6 +530,8 @@ Prompt for module, method, and jump to its definition." t)
 
 (autoload 'org-journal-find-today-entry "org-journal-find-today-entry" nil t)
 
+(autoload 'org-journal-find-today-entry-same-window "org-journal-find-today-entry" nil t)
+
 (autoload 'org-journal-new-todo-entry "org-journal-find-today-entry" nil t)
 
 ;;;***
