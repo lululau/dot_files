@@ -1,4 +1,5 @@
-gsub_file "Gemfile", "https://rubygems.org", "https://gems.ruby-china.com"
+# ruby-china 镜像已于 2026-07-21 停服，改用官方源
+# gsub_file "Gemfile", "https://rubygems.org", "https://gems.ruby-china.com"
 
 # gsub_file "Procfile.dev", "web: bin/rails server -p 3000", ""
 
