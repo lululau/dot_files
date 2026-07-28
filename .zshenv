@@ -86,7 +86,7 @@ export NULLCMD=:
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
 # export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles
 export HOMEBREW_BAT=1
-[[ -e $HOME/.secretenv ]] && source $HOME/.secretenv
+[[ -r $HOME/.secretenv ]] && source $HOME/.secretenv
 export LESSOPEN="|$HOMEBREW_PREFIX/bin/lesspipe.sh %s" LESS_ADVANCED_PREPROCESSOR=1
 export BAT_CONFIG_PATH=$HOME/.config/.batrc
 export RUST_SRC_PATH=$HOMEBREW_PREFIX/Cellar/rust/1.38.0/share/rust/rust_src
@@ -112,17 +112,22 @@ fi
 
 alias man=$HOME/bin/man-wrapper.sh
 
-export OPENAI_API_KEY=$(cat ~/.config/secrets/.openai_api_key)
-export DASHSCOPE_API_KEY=$(cat ~/.config/secrets/.dashscope_api_key)
+read_secret() {
+  local file="$1"
+  [[ -r "$file" ]] && cat "$file"
+}
 
-export ANTHROPIC_AUTH_TOKEN=$(cat ~/.config/secrets/.anthropic_auth_token)
+export OPENAI_API_KEY=$(read_secret ~/.config/secrets/.openai_api_key)
+export DASHSCOPE_API_KEY=$(read_secret ~/.config/secrets/.dashscope_api_key)
+
+export ANTHROPIC_AUTH_TOKEN=$(read_secret ~/.config/secrets/.anthropic_auth_token)
 
 # export ANTHROPIC_BASE_URL=https://api.moonshot.cn/anthropic
 export ANTHROPIC_BASE_URL=https://open.bigmodel.cn/api/anthropic
 
-export SERPAPI_KEY=$(cat ~/.config/secrets/.serpapi_api_key)
-export ZHIPU_API_KEY=$(cat ~/.config/secrets/.zhipu_api_key)
-export DASHSCOPE_CODING_PLAN_API_KEY=$(cat ~/.config/secrets/.dashscope_coding_plan_api_key)
-export VOLCENGINE_CODING_PLAN_API_KEY=$(cat ~/.config/secrets/.volcengine_coding_plan_api_key)
-export ALIYUN_TOKEN_PLAN_API_KEY=$(cat ~/.config/secrets/.aliyun_token_plan_api_key)
-export DEEPSEEK_API_KEY=$(cat ~/.config/secrets/.deepseek_api_key)
+export SERPAPI_KEY=$(read_secret ~/.config/secrets/.serpapi_api_key)
+export ZHIPU_API_KEY=$(read_secret ~/.config/secrets/.zhipu_api_key)
+export DASHSCOPE_CODING_PLAN_API_KEY=$(read_secret ~/.config/secrets/.dashscope_coding_plan_api_key)
+export VOLCENGINE_CODING_PLAN_API_KEY=$(read_secret ~/.config/secrets/.volcengine_coding_plan_api_key)
+export ALIYUN_TOKEN_PLAN_API_KEY=$(read_secret ~/.config/secrets/.aliyun_token_plan_api_key)
+export DEEPSEEK_API_KEY=$(read_secret ~/.config/secrets/.deepseek_api_key)
