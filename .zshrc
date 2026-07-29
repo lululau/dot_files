@@ -83,6 +83,8 @@ plugins=(autojump
 
 [ -z "$INSIDE_EMACS" ] && plugins+=(fast-syntax-highlighting)
 
+export ZSH_COMPDUMP="${HOME}/.zcompdump"
+
 source $ZSH/oh-my-zsh.sh
 
 autoload -U compinit; compinit -d
