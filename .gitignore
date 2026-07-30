@@ -126,3 +126,4 @@ emacs-config/.agenda_files
 /homebrew/trust.json
 /homebrew/trust.json.lock
 /nvm/
+/wecom/
