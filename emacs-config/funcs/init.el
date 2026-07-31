@@ -800,6 +800,8 @@ Remove empty lines
 
 (autoload 'lx/run-duf "term-funcs" nil t)
 
+(autoload 'lx/run-lazyrsync "term-funcs" nil t)
+
 (autoload 'lx/run-jira-cli "term-funcs" nil t)
 
 (autoload 'lx/run-git-multi-status "term-funcs" nil t)

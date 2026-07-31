@@ -81,6 +81,7 @@
 (global-set-key (kbd "s-r s-r os") #'lx/run-obsidian-sync)
 (global-set-key (kbd "s-r s-r lp") #'lx/run-listening-ports)
 (global-set-key (kbd "s-r s-r df") #'lx/run-duf)
+(global-set-key (kbd "s-r s-r s-r") #'lx/run-lazyrsync)
 (global-set-key (kbd "s-r s-r j") #'lx/run-jira-cli)
 (global-set-key (kbd "s-r s-r gs") #'lx/run-git-multi-status)
 (global-set-key (kbd "s-r s-r gb") #'lx/run-git-multi-branch)

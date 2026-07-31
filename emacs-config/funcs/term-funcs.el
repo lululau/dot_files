@@ -239,6 +239,12 @@
     (lx/run-in-ghostel "sudo duf --only local" "*ghostel-cmd-duf*" default-directory t)))
 
 ;;;###autoload
+(defun lx/run-lazyrsync ()
+  "Run lazyrsync in ghostel"
+  (interactive)
+    (lx/run-in-ghostel "lazyrsync" "*ghostel-cmd-lazyrsync*" nil t))
+
+;;;###autoload
 (defun lx/run-jira-cli ()
   "Run jira CLI in ghostel"
   (interactive)
