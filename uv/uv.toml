@@ -1,4 +1,4 @@
 [[index]]
-name = "Aliyun"
-url = "https://mirrors.aliyun.com/pypi/simple/"
+name = "TUNA"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
 default = true
