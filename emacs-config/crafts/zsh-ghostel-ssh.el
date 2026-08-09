@@ -187,11 +187,12 @@ Does nothing when no host can be determined.  REMOTE-DIR defaults to \"/\"."
           (s-split "\n" (shell-command-to-string "ruby -e 'h=nil;ARGF.readlines.each {|l| l.chomp!; if l=~/^Host\\s+\\w/; puts h unless h.nil?; h=l.gsub(/^Host\\s+/, \"\"); end; if l=~/^\\s+Host[Nn]ame\\s+\\S/; puts \"%-32s [ #{l.gsub(/^\\s+Host.ame\\s+/,\"\")} ]\" % h; h=nil; end;}' ~/.ssh/config") t)))
 
 (defun helm-zsh-ghostel-ssh-run (host)
-  (let ((process-environment '("SSH_INTERACTIVE=1"))
+  ;; Must cons onto existing process-environment; replacing it entirely
+  ;; drops SSH_AUTH_SOCK and breaks agent forwarding (ssh -A / ForwardAgent).
+  (let ((process-environment (cons "SSH_INTERACTIVE=1" process-environment))
         (cmd (format "ssh %s" host))
         (buffer-name (format "*zsh-ghostel-ssh-%s*" host)))
     (lx/run-ssh-in-zsh-ghostel cmd buffer-name (plist-put nil :host host))))
-
 (defun helm-zsh-ghostel-ssh-run-without-interactive-environ ()
   (interactive)
   (with-helm-alive-p (helm-exit-and-execute-action #'helm-zsh-ghostel-ssh-run-without-interactive-environ-action)))

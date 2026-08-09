@@ -338,7 +338,11 @@ eval "$(starship init zsh)"
 
 [ -e "$HOME/Library/Preferences/org.dystroy.broot/launcher/bash/br" ] && source $HOME/Library/Preferences/org.dystroy.broot/launcher/bash/br
 
-[ -n "$SSH_CLIENT" ] && eval `ssh-agent` &> /dev/null
+# Do not start a new empty ssh-agent over a forwarded agent.
+# Only start a local agent when none is available (no ForwardAgent).
+if [ -n "$SSH_CLIENT" ] && { [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; }; then
+  eval "$(ssh-agent)" &>/dev/null
+fi
 
 zle-keymap-select () {
   zle reset-prompt
