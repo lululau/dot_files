@@ -58,7 +58,27 @@
        cells "|")))
   (advice-add 'markdown-table-align-raw :around #'lx/markdown-table-align-raw)
 
+  (defun lx/markdown-align-all-tables ()
+    "对齐当前 Markdown Buffer 中的所有表格。"
+    (interactive)
+    (unless (derived-mode-p 'markdown-mode)
+      (user-error "当前 Buffer 不是 markdown-mode"))
+    (let ((count 0))
+      (save-excursion
+        (goto-char (point-min))
+        (while (not (eobp))
+          (if (markdown-table-at-point-p)
+              (let ((table-end (markdown-table-end)))
+                (markdown-table-align)
+                (cl-incf count)
+                (goto-char (or table-end (line-end-position)))
+                (unless (eobp)
+                  (forward-line 1)))
+            (forward-line 1))))
+      (message "已成功对齐当前 Buffer 中的 %d 个表格。" count)))
+
   (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "'" 'markdown-edit-code-block)
+  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "ta" #'lx/markdown-align-all-tables)
   (evil-define-key 'motion markdown-mode-map (kbd "C-i") 'markdown-cycle)
   (evil-define-key 'normal markdown-mode-map (kbd "C-i") 'markdown-cycle)
   (define-key markdown-mode-map (kbd "C-i") 'markdown-cycle)
