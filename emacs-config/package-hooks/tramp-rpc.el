@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 
 (with-eval-after-load 'tramp-rpc-deploy
-  ;; Fix tramp-rpc-deploy--download-file header separator parsing bug
+  ;; 修复 tramp-rpc-deploy--download-file 的 HTTP 报头与 Body 分隔符解析缺陷
   (defun tramp-rpc-deploy--download-file (url dest)
     "Download URL to DEST synchronously.
 Returns t on success, nil on failure."

@@ -1,6 +1,14 @@
 ;; -*- lexical-binding: t; -*-
 
 (with-eval-after-load 'helm-files
+  ;; helm-list-dir-external needs GNU ls (-Q etc.); rpc→macOS/BSD ls fails
+  ;; silently (exit 0, empty out) and recent helm no longer falls back to lisp.
+  (defun lx/helm-list-directory-rpc-lisp (orig-fun directory &optional sel)
+    (if (equal (file-remote-p directory 'method) "rpc")
+        (helm-list-dir-lisp directory)
+      (funcall orig-fun directory sel)))
+  (advice-add 'helm-list-directory :around #'lx/helm-list-directory-rpc-lisp)
+
   (defun helm-substitute-in-filename (fname)
     (cond ((and ffap-url-regexp
                 (string-match-p ffap-url-regexp fname))
