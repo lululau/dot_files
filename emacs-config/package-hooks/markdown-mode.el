@@ -78,7 +78,7 @@
       (message "已成功对齐当前 Buffer 中的 %d 个表格。" count)))
 
   (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "'" 'markdown-edit-code-block)
-  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "ta" #'lx/markdown-align-all-tables)
+  (spacemacs/set-leader-keys-for-major-mode 'markdown-mode "aa" #'lx/markdown-align-all-tables)
   (evil-define-key 'motion markdown-mode-map (kbd "C-i") 'markdown-cycle)
   (evil-define-key 'normal markdown-mode-map (kbd "C-i") 'markdown-cycle)
   (define-key markdown-mode-map (kbd "C-i") 'markdown-cycle)
