@@ -1,6 +1,9 @@
 ;; -*- lexical-binding: t; -*-
 
 (with-eval-after-load 'helm-files
+  ;; Initial listing newest-first; filtering still re-sorts by match score.
+  (setq helm-ff-initial-sort-method 'newest)
+
   ;; helm-list-dir-external needs GNU ls (-Q etc.); rpc→macOS/BSD ls fails
   ;; silently (exit 0, empty out) and recent helm no longer falls back to lisp.
   (defun lx/helm-list-directory-rpc-lisp (orig-fun directory &optional sel)
