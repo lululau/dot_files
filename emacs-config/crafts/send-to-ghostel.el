@@ -3,7 +3,9 @@
   (interactive)
   (let ((ghostel-buffer (lx/find-ghostel-buffer)))
     (if ghostel-buffer
-        (let ((str (buffer-substring (line-beginning-position) (line-end-position)))
+        (let ((str (if (use-region-p)
+                       (buffer-substring (region-beginning) (region-end))
+                     (buffer-substring (line-beginning-position) (line-end-position))))
               (ghostel-window (get-buffer-window ghostel-buffer)))
           (if ghostel-window
               (with-selected-window ghostel-window
@@ -18,7 +20,9 @@
   (interactive)
   (let ((ghostel-buffer (lx/find-ghostel-buffer)))
     (if ghostel-buffer
-        (let ((str (buffer-substring (line-beginning-position) (line-end-position)))
+        (let ((str (if (use-region-p)
+                       (buffer-substring (region-beginning) (region-end))
+                     (buffer-substring (line-beginning-position) (line-end-position))))
               (ghostel-window (get-buffer-window ghostel-buffer)))
           (if ghostel-window
               (with-selected-window ghostel-window
