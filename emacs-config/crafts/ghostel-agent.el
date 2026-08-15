@@ -337,6 +337,68 @@ Grok stores sessions under `~/.grok/sessions/<url-encoded-cwd>/'."
                 sessions))))
     (ghostel-agent--sort-sessions sessions)))
 
+(defun ghostel-agent--parse-omp-session-file (file project-root)
+  "Parse Oh My Pi session metadata from transcript FILE under PROJECT-ROOT.
+
+OMP stores sessions as JSONL under
+`~/.omp/agent/sessions/<slug>/<timestamp>_<uuid>.jsonl'.  Each file
+starts with a `title' record followed by a `session' record carrying
+the session id and cwd; user messages appear as `message' records."
+  (let ((session-id nil)
+        (cwd nil)
+        (title nil)
+        (updated nil)
+        (mtime (float-time (file-attribute-modification-time (file-attributes file)))))
+    (ghostel-agent--jsonl-each
+     file
+     (lambda (obj)
+       (let ((type (ghostel-agent--json-field obj "type")))
+         (cond
+          ((and (equal type "title")
+                (ghostel-agent--json-field obj "updatedAt"))
+           (setq updated (ghostel-agent--json-field obj "updatedAt"))
+           (when-let* ((value (ghostel-agent--json-field obj "title")))
+             (when (not (string-empty-p (string-trim value)))
+               (setq title (string-trim value)))))
+          ((and (null session-id) (equal type "session"))
+           (setq session-id (ghostel-agent--json-field obj "id")
+                 cwd (ghostel-agent--json-field obj "cwd")))
+          ((and (null title) (equal type "message"))
+           (let* ((message (ghostel-agent--json-field obj "message")))
+             (when (equal (ghostel-agent--json-field message "role") "user")
+               (dolist (part (ghostel-agent--json-array-items
+                              (ghostel-agent--json-field message "content")))
+                 (when (and (null title)
+                            (equal (ghostel-agent--json-field part "type") "text")
+                            (stringp (ghostel-agent--json-field part "text"))
+                            (not (string-empty-p
+                                  (string-trim (ghostel-agent--json-field part "text")))))
+                   (setq title (ghostel-agent--clean-display-text
+                                (ghostel-agent--json-field part "text")))))))))))
+     )
+    (when (and session-id
+               (or (null cwd)
+                   (ghostel-agent--directory-in-project-p cwd project-root)))
+      (ghostel-agent-session-create
+       :id session-id
+       :title (or title session-id)
+       :mtime (if (stringp updated)
+                  (condition-case nil
+                      (float-time (date-to-time updated))
+                    (error mtime))
+                mtime)
+       :updated (or updated mtime)))))
+
+(defun ghostel-agent--list-omp-sessions (project-root)
+  "List Oh My Pi sessions for PROJECT-ROOT."
+  (let* ((dir (expand-file-name "~/.omp/agent/sessions/"))
+         (sessions nil))
+    (when (file-directory-p dir)
+      (dolist (file (directory-files-recursively dir "\\`[^.].*\\.jsonl\\'"))
+        (when-let* ((session (ghostel-agent--parse-omp-session-file file project-root)))
+          (push session sessions))))
+    (ghostel-agent--sort-sessions sessions)))
+
 (defun ghostel-agent--parse-antigravity-session-file (file)
   "Parse Antigravity session metadata from chat FILE."
   (let ((session-id nil)
@@ -506,6 +568,16 @@ Uses `grok --always-approve' (auto-approve tool executions). Resume via
    :base-command "opencode"
    :resume-arg "-s"
    :buffer-pattern "*ghostel-opencode[%p]*"))
+
+(defun ghostel-agent-run-omp ()
+  "Start an Oh My Pi agent shell in Ghostel."
+  (interactive)
+  (ghostel-agent--run-with-session
+   :agent-name "Oh My Pi"
+   :list-fn #'ghostel-agent--list-omp-sessions
+   :base-command "omp"
+   :resume-arg "-r"
+   :buffer-pattern "*ghostel-omp[%p]*"))
 
 (defun ghostel-agent-run-cursor ()
   "Start a Cursor agent shell in Ghostel."
