@@ -249,7 +249,10 @@
 
   (face-spec-set 'org-modern-done
                  '((t :inherit (org-done org-modern-label)
-                      :weight semibold :foreground "lime green" :inverse-video t)))
+                      :weight semibold
+                      :foreground unspecified
+                      :background unspecified
+                      :inverse-video t)))
 
   (org-link-set-parameters "excalidraw"
                            :follow 'org-excalidraw--open-file-from-svg

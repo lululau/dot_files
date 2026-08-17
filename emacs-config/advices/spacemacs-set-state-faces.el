@@ -193,6 +193,11 @@
     ;; Org: bold TODO/DONE with colored backgrounds like spacemacs-dark
     (face-spec-set 'org-todo '((t (:foreground "#f5a97f" :inherit bold :background "#32322c"))))
     (face-spec-set 'org-done '((t (:foreground "#a6da95" :inherit bold :background "#293235"))))
+    (face-spec-set 'org-modern-done '((t :inherit (org-done org-modern-label)
+                                         :weight semibold
+                                         :foreground unspecified
+                                         :background unspecified
+                                         :inverse-video t)))
     (face-spec-set 'org-agenda-structure '((t (:foreground "#c6a0f6" :inherit bold))))
     ;; Markdown: bold headers like spacemacs-dark
     (face-spec-set 'markdown-header-face-1 '((t (:foreground "#ed8796" :inherit bold :height 1.3))))

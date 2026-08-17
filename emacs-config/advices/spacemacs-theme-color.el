@@ -549,6 +549,10 @@
                         `(org-verse ((,class (:inherit org-block :slant italic))))
                         `(org-warning ((,class (:foreground ,err))))
 
+;;;;; org-modern
+                        `(org-modern-done ((,class (:inherit (org-done org-modern-label) :weight semibold :foreground unspecified :background unspecified :inverse-video t))))
+                        `(org-modern-todo ((,class (:inherit (org-todo org-modern-label) :weight semibold :foreground unspecified :background unspecified :inverse-video t))))
+
 ;;;;; perspective
                         `(persp-selected-face ((,class (:inherit bold :foreground ,func))))
 
