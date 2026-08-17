@@ -68,6 +68,7 @@
 (autoload 'ghostel-agent-run-opencode "ghostel-agent")
 (autoload 'ghostel-agent-run-cursor "ghostel-agent")
 (autoload 'ghostel-agent-run-agy "ghostel-agent")
+(autoload 'ghostel-agent-run-omp "ghostel-agent")
 (autoload 'ghostel-agent-send "ghostel-agent")
 
 (autoload 'evil-ghostel-setup "evil-ghostel")
