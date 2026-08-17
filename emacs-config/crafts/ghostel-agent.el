@@ -13,7 +13,7 @@
 
 (defun ghostel-agent--agent-buffer-name-p (name)
   "Return non-nil if NAME looks like an agent Ghostel buffer from `ghostel-agent-run-*`."
-  (string-match-p "\\`\\*ghostel-\\(?:claude\\|opencode\\|cursor\\|agy\\|aliyun-tp-claude\\|deepseek-claude\\|grok\\)\\[" name))
+  (string-match-p "\\`\\*ghostel-\\(?:claude\\|opencode\\|omp\\|cursor\\|agy\\|aliyun-tp-claude\\|deepseek-claude\\|grok\\)\\[" name))
 (defun ghostel-agent--agent-buffer-p (buffer)
   "Return non-nil if BUFFER is a live Ghostel agent shell."
   (and (buffer-live-p buffer)
@@ -613,7 +613,7 @@ After sending, deactivate the region when applicable and select the agent buffer
   (let* ((had-region (use-region-p))
          (agent-buffer (ghostel-agent--first-visible-agent-buffer)))
     (unless agent-buffer
-      (user-error "No visible Ghostel agent buffer; show claude/opencode/cursor/agy/grok Ghostel first"))
+      (user-error "No visible Ghostel agent buffer; show claude/opencode/omp/cursor/agy/grok Ghostel first"))
     (let* ((abs-path (expand-file-name (buffer-file-name)))
            (str
             (if had-region
