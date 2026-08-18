@@ -57,6 +57,8 @@
 (global-set-key (kbd "s-r 6") #'lx/ssh-to-ueos-dev)
 (global-set-key (kbd "s-r 8") #'lx/ssh-to-manjaro-z4)
 (global-set-key (kbd "s-r 9") #'lx/ssh-to-lx)
+(global-set-key (kbd "s-r s d") #'lx/ssh-to-donghe)
+(global-set-key (kbd "s-r s k") #'lx/ssh-to-donghe-hk01)
 (global-set-key (kbd "s-r l 1") #'lx/vrl-jicai-dev)
 (global-set-key (kbd "s-r l 2") #'lx/vrl-jicai-uat)
 (global-set-key (kbd "s-r l 3") #'lx/vrl-jicai-prod)

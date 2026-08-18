@@ -186,6 +186,18 @@
   (helm-zsh-ghostel-ssh-run "jicai.dev"))
 
 ;;;###autoload
+(defun lx/ssh-to-donghe ()
+  "ssh to donghe via ghostel"
+  (interactive)
+  (helm-zsh-ghostel-ssh-run "donghe"))
+
+;;;###autoload
+(defun lx/ssh-to-donghe-hk01 ()
+  "ssh to donghe.hk01 via ghostel"
+  (interactive)
+  (helm-zsh-ghostel-ssh-run "donghe.hk01"))
+
+;;;###autoload
 (defun lx/vrl-jicai-dev ()
   "Run vrl jicai-dev"
   (interactive)
