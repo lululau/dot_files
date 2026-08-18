@@ -280,7 +280,7 @@
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(calfw calfw-org browse-at-remote ranger helm-mu
-                                            jq-mode helm-dired-history go-dlv
+                                            jq-mode go-dlv
                                             dired-subtree carbon-now-sh sx daemons
                                             proxy-mode org-super-agenda es-mode ob-mermaid ob-html-chrome
                                             ob-tmux org-tree-slide helm-tramp emms
@@ -300,6 +300,7 @@
                                             ;; (claude-code-ide :location (recipe :fetcher github :repo "manzaltu/claude-code-ide.el" :files ("*.el")))
                                             (clutch :location (recipe :fetcher github :repo "LuciusChen/clutch" :branch "main" :files ("*.el")))
                                             (chirp :location (recipe :fetcher github :repo "LuciusChen/chirp" :branch "main" :files ("*.el" "lisp/*.el")))
+                                            (helm-dired-history :location (recipe :fetcher github :repo "lululau/helm-dired-history"))
                                             ;; (appine :location (recipe :fetcher github :repo "chaoswork/appine" :files ("*.el")))
                                             catppuccin-theme
                                             )
