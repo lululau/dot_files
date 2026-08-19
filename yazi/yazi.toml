@@ -7,19 +7,19 @@ show_hidden = true
 
 [opener]
 edit = [
-	{ run = 'open-file-for-yazi "$@"', block = true, desc = "Smart Open" },
-	{ run = 'nvim "$@"', block = true, desc = "Edit with nvim" },
-	{ run = 'ee "$@"', block = false, desc = "Edit with Emacs" },
-	{ run = 'open-with-neovide.sh "$@"', block = false, desc = "Edit with Neovide" },
-	{ run = '/Applications/Cursor.app/Contents/MacOS/Cursor "$@"', block = false, desc = "Edit with Cursor" },
-  { run = 'code "$@"', block = false, desc = "Edit with VS Code" },
-  { run = 'trae "$@"', block = false, desc = "Edit with Trae" },
+	{ run = 'open-file-for-yazi %s', block = true, desc = "Smart Open" },
+	{ run = 'nvim %s', block = true, desc = "Edit with nvim" },
+	{ run = 'ee %s', block = false, desc = "Edit with Emacs" },
+	{ run = 'open-with-neovide.sh %s', block = false, desc = "Edit with Neovide" },
+	{ run = '/Applications/Cursor.app/Contents/MacOS/Cursor %s', block = false, desc = "Edit with Cursor" },
+  { run = 'code %s', block = false, desc = "Edit with VS Code" },
+  { run = 'trae %s', block = false, desc = "Edit with Trae" },
 ]
 play = [
-	{ run = 'open "$@"' },
+	{ run = 'open %s' },
 ]
 open = [
-	{ run = 'open "$@"', desc = "Open" },
+	{ run = 'open %s', desc = "Open" },
 ]
 
 [plugin]
