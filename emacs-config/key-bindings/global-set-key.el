@@ -48,7 +48,7 @@
 (global-set-key (kbd "s-r t") #'lx/run-tuinnel)
 (global-set-key (kbd "s-r k") #'lx/run-k9s)
 (global-set-key (kbd "s-r h") #'lx/run-htop)
-(global-set-key (kbd "s-r 0") #'lx/ssh-to-lx-sd)
+(global-set-key (kbd "s-r 0") #'lx/ssh-to-mini-ex)
 (global-set-key (kbd "s-r 1") #'lx/ssh-to-jicai-prod1)
 (global-set-key (kbd "s-r 2") #'lx/ssh-to-jicai-prod2)
 (global-set-key (kbd "s-r 3") #'lx/ssh-to-jicai-prod3)

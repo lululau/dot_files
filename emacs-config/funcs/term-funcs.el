@@ -138,6 +138,12 @@
   (helm-zsh-ghostel-ssh-run "lx.sd"))
 
 ;;;###autoload
+(defun lx/ssh-to-mini-ex ()
+  "ssh to mini.ex via ghostel"
+  (interactive)
+  (helm-zsh-ghostel-ssh-run "mini.ex"))
+
+;;;###autoload
 (defun lx/ssh-to-jicai-prod1 ()
   "ssh to jicai.prod1 via ghostel"
   (interactive)

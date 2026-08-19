@@ -120,7 +120,7 @@
         ("oor" rails-guides-org ("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/rails-guides-org/rails-guides-index.org"))))
 
 (setq lx/server-files
-      '(("os0" lx-sd "/rpc:lx.sd:~/")
+      '(("os0" mini-ex "/rpc:mini.ex:~/")
         ("os1" jicai-prod1 "/rpc:jicai.prod1:/data")
         ("os2" jicai-prod2 "/rpc:jicai.prod2:/data")
         ("os3" jicai-prod3 "/rpc:jicai.prod3:/data")
@@ -266,7 +266,8 @@ connection error instead."
         :sources
         (list (helm-build-sync-source "Remote locations"
                 :fuzzy-match  t
-                :candidates  (list (cons (format "%-20s%s" "lx.sd" "~") "/rpc:lx.sd:~/")
+                :candidates  (list (cons (format "%-20s%s" "mini.ex" "~") "/rpc:mini.ex:~/")
+                                   (cons (format "%-20s%s" "lx.sd" "~") "/rpc:lx.sd:~")
                                    (cons (format "%-20s%s" "lx.sd16" "~") "/rpc:lx.sd16:~")
                                    (cons (format "%-20s%s" "lx.local" "~") "/rpc:lx:~")
                                    (cons (format "%-20s%s" "ueos.dev" "~") "/rpc:ueos.dev:~")

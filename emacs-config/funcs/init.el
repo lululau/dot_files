@@ -768,6 +768,8 @@ Remove empty lines
 
 (autoload 'lx/ssh-to-lx-sd "term-funcs" nil t)
 
+(autoload 'lx/ssh-to-mini-ex "term-funcs" nil t)
+
 (autoload 'lx/ssh-to-jicai-prod1 "term-funcs" nil t)
 
 (autoload 'lx/ssh-to-jicai-prod2 "term-funcs" nil t)
