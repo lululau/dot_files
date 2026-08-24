@@ -4,6 +4,12 @@
   ;; Extend code block background to window right edge
   (set-face-attribute 'markdown-code-face nil :extend t)
 
+  ;; GFM aliases: markdown-get-lang-mode only auto-resolves LANG-mode
+  ;; (typescript → typescript-mode). There is no ts-mode / tsx-mode.
+  (dolist (pair '(("ts" . typescript-mode)
+                  ("tsx" . typescript-tsx-mode)))
+    (add-to-list 'markdown-code-lang-modes pair))
+
   ;; org-modern style box-drawn tables for markdown
   (add-hook 'markdown-mode-hook #'markdown-modern-mode)
 
