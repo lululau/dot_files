@@ -8,6 +8,7 @@ fi
 
 typeset -U path
 # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
+path=($HOMEBREW_PREFIX/opt/rustup/bin $path)
 path+=(/Applications/Obsidian.app/Contents/MacOS)
 path+=($HOME/.bun/bin)
 path+=$(echo ~/.stack/programs/*/*/bin(NOn[1]))
