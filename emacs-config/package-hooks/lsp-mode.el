@@ -4,6 +4,23 @@
   (define-key lsp-mode-map (kbd "<M-return>") #'lsp-execute-code-action)
   (define-key lsp-mode-map (kbd "<S-return>") 'lsp-find-references))
 
+;; lsp-volar.el injects @vue/typescript-plugin into every ts-ls session at
+;; load time whenever vue-language-server is on PATH. Global
+;; @vue/language-server 2.0.7 (2024-04) wraps TypeScript 6 and crashes:
+;;   Debug Failure. False expression  (TextStorage.getFileTextAndSize)
+;; .vue buffers still use the separate volar-language-server client.
+(defun lx/lsp-typescript-drop-stale-vue-plugin ()
+  (when (boundp 'lsp-clients-typescript-plugins)
+    (setq lsp-clients-typescript-plugins
+          (vconcat
+           (seq-remove
+            (lambda (plugin)
+              (equal (plist-get plugin :name) "@vue/typescript-plugin"))
+            (append lsp-clients-typescript-plugins nil))))))
+
+(with-eval-after-load 'lsp-volar
+  (lx/lsp-typescript-drop-stale-vue-plugin))
+
 (with-eval-after-load 'lsp-icons
   (defcustom lx/lsp-headerline-icon-size 16
     "Size (width and height in pixels) for lsp-headerline breadcrumb icons."
