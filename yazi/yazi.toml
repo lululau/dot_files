@@ -24,6 +24,7 @@ open = [
 
 [plugin]
 prepend_previewers = [
+  { url = "*.ovpn", run = "code" },
   { url = "*.md", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
   { url = "*.markdown", run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"' },
   { url = "*.docx", run = 'piper -- markitdown "$1" | CLICOLOR_FORCE=1 glow -w=$w -s=dark' },
