@@ -575,7 +575,7 @@ Uses `grok --always-approve' (auto-approve tool executions). Resume via
   (ghostel-agent--run-with-session
    :agent-name "Oh My Pi"
    :list-fn #'ghostel-agent--list-omp-sessions
-   :base-command "omp"
+   :base-command "env OMP_NO_WEBP=1 omp"
    :resume-arg "-r"
    :buffer-pattern "*ghostel-omp[%p]*"))
 
