@@ -521,7 +521,7 @@ session id (for example \"--resume\")."
   (ghostel-agent--run-with-session
    :agent-name "Claude"
    :list-fn #'ghostel-agent--list-claude-sessions
-   :base-command (format "env DISABLE_INSTALLATION_CHECKS=1 ANTHROPIC_BASE_URL=https://open.bigmodel.cn/api/anthropic ANTHROPIC_MODEL=glm-5.3[1m] ANTHROPIC_DEFAULT_OPUS_MODEL=glm-5.3[1m] ANTHROPIC_DEFAULT_SONNET_MODEL=glm-5-turbo ANTHROPIC_DEFAULT_HAIKU_MODEL=glm-4.7 ANTHROPIC_AUTH_TOKEN=%s claude --dangerously-skip-permissions" (getenv "ZHIPU_API_KEY"))
+   :base-command (format "env DISABLE_INSTALLATION_CHECKS=1 ANTHROPIC_BASE_URL=https://open.bigmodel.cn/api/anthropic ANTHROPIC_MODEL=glm-5.3-flash[1m] ANTHROPIC_DEFAULT_OPUS_MODEL=glm-5.3-flash[1m] ANTHROPIC_DEFAULT_SONNET_MODEL=glm-5.3-flash[1m] ANTHROPIC_DEFAULT_HAIKU_MODEL=glm-5.3-flash[1m] ANTHROPIC_AUTH_TOKEN=%s claude --dangerously-skip-permissions" (getenv "ZHIPU_API_KEY"))
    :resume-arg "--resume"
    :buffer-pattern "*ghostel-claude[%p]*"))
 
