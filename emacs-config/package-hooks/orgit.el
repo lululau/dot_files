@@ -13,4 +13,11 @@
                [revs (or (magit-region-values 'commit)
                          (when-let ((c (magit-commit-at-point))) (list c)))]
                (mapc #'orgit-rev-store-1 revs)
-               t))))
+               t)))
+
+  (add-to-list 'orgit-export-alist
+               '("gitlab\\.upeastscm\\.com\\(?::[0-9]+\\)?[:/]\\(.+?\\)\\(?:\\.git\\)?$"
+                 "https://gitlab.upeastscm.com/%n"
+                 "https://gitlab.upeastscm.com/%n/commits/%r"
+                 "https://gitlab.upeastscm.com/%n/commit/%r"
+                 "https://gitlab.upeastscm.com/%n/-/blob/%r/%p%l")))
