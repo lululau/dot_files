@@ -1,0 +1,1 @@
+/Users/liuxiang/.agents/claude-commands/seal.md
