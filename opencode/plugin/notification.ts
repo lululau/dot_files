@@ -6,12 +6,12 @@ export const NotificationPlugin: Plugin = async ({ project, client, $, directory
       const projectName = project?.name || directory || "OpenCode"
 
       if (event.type === "session.idle") {
-          await $`terminal-notifier -title "OpenCode" -message "Task completed: ${projectName}" -sender ai.opencode.desktop && afplay /System/Library/Sounds/Bottle.aiff`
+          await $`terminal-notifier -title "OpenCode" -message "Task completed: ${projectName}" && afplay /System/Library/Sounds/Bottle.aiff`
       }
 
       if (event.type === "session.error") {
         const errorMsg = event.error?.message || "An error occurred"
-          await $`terminal-notifier -title "OpenCode Error" -message "${errorMsg}" -sender ai.opencode.desktop && afplay /System/Library/Sounds/Sosumi.aiff`
+          await $`terminal-notifier -title "OpenCode Error" -message "${errorMsg}" && afplay /System/Library/Sounds/Sosumi.aiff`
       }
     }
   }

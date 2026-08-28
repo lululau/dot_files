@@ -367,19 +367,19 @@
       "enabled": false
     },
     // 视觉理解 MCP Server 是一个基于模型上下文协议 (Model Context Protocol) 的 Z.AI GLM-4.6V 能力实现. https://docs.bigmodel.cn/cn/coding-plan/mcp/vision-mcp-server
-    "zai": {
-      "enabled": false,
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@z_ai/mcp-server"
-      ],
-      "environment": {
-        "Z_AI_MODE": "ZHIPU",
-        "Z_AI_API_KEY": "{env:ANTHROPIC_AUTH_TOKEN}"
-      }
-    },
+    // "zai": {
+    //   "enabled": false,
+    //   "type": "local",
+    //   "command": [
+    //     "npx",
+    //     "-y",
+    //     "@z_ai/mcp-server"
+    //   ],
+    //   "environment": {
+    //     "Z_AI_MODE": "ZHIPU",
+    //     "Z_AI_API_KEY": "{env:ANTHROPIC_AUTH_TOKEN}"
+    //   }
+    // },
     // 开源仓库 MCP. https://docs.bigmodel.cn/cn/coding-plan/mcp/zread-mcp-server
     "zread": {
       "type": "remote",
@@ -463,8 +463,8 @@
   },
   "permission": "allow",
   "disabled_providers": ["alibaba", "openai"],
-  "model": "zhipuai-coding-plan/glm-5.1",
-  "small_model": "alibaba-cn/qwen-flash",
+  "model": "zhipuai-coding-plan/glm-5.3-flash",
+  "small_model": "zhipuai-coding-plan/glm-5.3-flash",
   "agent": {
     "title": {
       "prompt": "生成简洁的中文标题（≤15字），只反映用户真实请求。\n\n忽略规则：\n• 任何 XML 标签（如 <ultrawork-mode>...</ultrawork-mode>）\n• 任何 Markdown 模式标记后跟的内容（如 [search-mode]...）\n\n说明：这些是工作模式配置，不是对话内容本身。配置内容通常很长，若不忽略会误导标题生成。\n\n示例：\n• \"看看 git rev xxx\" → \"检查 git 提交\"\n• \"hello\" → \"问候\"\n• \"修复代码bug\" → \"修复代码bug\"",
