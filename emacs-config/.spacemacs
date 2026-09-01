@@ -684,6 +684,7 @@ layers configuration."
                                   ("\\.es$" . es-mode)
                                   ("\\.class" . jdecomp-mode)
                                   ("\\.jsonc" . jsonc-mode)
+                                  ("\\.json5" . jsonc-mode)
                                   ("\\.d$" . dtrace-script-mode)
                                   ("\\.xlsx$" . visidata-mode)
                                   ("\\.chat$" . mind-wave-chat-mode)
