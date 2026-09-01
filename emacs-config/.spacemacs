@@ -301,15 +301,19 @@
                                             (clutch :location (recipe :fetcher github :repo "LuciusChen/clutch" :branch "main" :files ("*.el")))
                                             (chirp :location (recipe :fetcher github :repo "LuciusChen/chirp" :branch "main" :files ("*.el" "lisp/*.el")))
                                             (helm-dired-history :location (recipe :fetcher github :repo "lululau/helm-dired-history"))
+                                            ;; json layer 的 json-mode 已被 json5-mode (lululau/json5-mode) 替代，见 excluded-packages
+                                            (json5-mode :location (recipe :fetcher github :repo "lululau/json5-mode"))
                                             ;; (appine :location (recipe :fetcher github :repo "chaoswork/appine" :files ("*.el")))
                                             catppuccin-theme
                                             )
 
    ;; A list of packages and/or extensions that will not be install and loaded.
+   ;; json-mode 被 json5-mode (lululau/json5-mode) 替代：fork 的 major mode 仍叫
+   ;; json-mode，因此 layer 其余配置（company/flycheck/reformat/navigator 等）不受影响
    dotspacemacs-excluded-packages '(git-gutter git-gutter+ git-gutter-fringe git-gutter-fringe+
                                                chinese-pyim chinese-wbim ebuild-mode hoon-mode
                                                logcat ido evil-escape helm-xref editorconfig drupal-mode phpcbf
-                                               evil-ghostel)
+                                               evil-ghostel json-mode)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -673,6 +677,15 @@ layers configuration."
   ;; (plist-put (cdr (assoc 'google-maps search-engine-alist)) :url "http://www.google.cn/maps/search/%s")
   ;; (add-to-list 'search-engine-alist '(ip138 :name "ip138" :url "http://ip138.com/ips138.asp?ip=%s&action=2") t)
 
+  ;; json layer 的 json-mode 包已被 json5-mode (lululau/json5-mode) 替代，
+  ;; fork 中 major mode 仍为 json-mode。json-mode 包被 exclude 后，
+  ;; layer 在 json/init-json-mode 中的配置不会执行，这里补回：
+  (unless (eq json-backend 'lsp)
+    (spacemacs/declare-prefix-for-mode 'json-mode "mT" "toggle")
+    (spacemacs/declare-prefix-for-mode 'json-mode "mh" "help")
+    (spacemacs/declare-prefix-for-mode 'json-mode "m=" "format"))
+  (add-hook 'json-mode-hook #'spacemacs//json-setup-backend)
+
   (setq auto-mode-alist (append '(("\\.pryrc\\'" . ruby-mode)
                                   ("\\.rexerc\\'" . ruby-mode)
                                   ("\\.rails\\'" . ruby-mode)
@@ -684,7 +697,7 @@ layers configuration."
                                   ("\\.es$" . es-mode)
                                   ("\\.class" . jdecomp-mode)
                                   ("\\.jsonc" . jsonc-mode)
-                                  ("\\.json5" . jsonc-mode)
+                                  ("\\.json5" . json5-mode)
                                   ("\\.d$" . dtrace-script-mode)
                                   ("\\.xlsx$" . visidata-mode)
                                   ("\\.chat$" . mind-wave-chat-mode)
