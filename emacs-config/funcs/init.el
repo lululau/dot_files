@@ -812,6 +812,8 @@ Remove empty lines
 
 (autoload 'lx/run-git-multi-status "term-funcs" nil t)
 
+(autoload 'lx/run-git-multi-status-all "term-funcs" nil t)
+
 (autoload 'lx/run-git-multi-branch "term-funcs" nil t)
 
 (autoload 'lx/run-git-multi-pull "term-funcs" nil t)

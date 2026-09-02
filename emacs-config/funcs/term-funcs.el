@@ -280,6 +280,16 @@
     (lx/run-in-ghostel "git multi-status" buffer-name root t)))
 
 ;;;###autoload
+(defun lx/run-git-multi-status-all ()
+  "Run git multi-status in ghostel"
+  (interactive)
+  (let* ((ghostel-kill-buffer-on-exit nil)
+         (root (projectile-project-root))
+         (root-base-name (car (last (split-string root "/" t))))
+         (buffer-name (format "*ghostel-cmd-git-multi-status-all-%s*" root-base-name)))
+    (lx/run-in-ghostel "git multi-status all" buffer-name root t)))
+
+;;;###autoload
 (defun lx/run-git-multi-branch ()
   "Run git multi-branch in ghostel"
   (interactive)

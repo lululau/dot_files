@@ -86,6 +86,7 @@
 (global-set-key (kbd "s-r s-r s-r") #'lx/run-lazyrsync)
 (global-set-key (kbd "s-r s-r j") #'lx/run-jira-cli)
 (global-set-key (kbd "s-r s-r gs") #'lx/run-git-multi-status)
+(global-set-key (kbd "s-r s-r gS") #'lx/run-git-multi-status-all)
 (global-set-key (kbd "s-r s-r gb") #'lx/run-git-multi-branch)
 (global-set-key (kbd "s-r s-r gl") #'lx/run-git-multi-pull)
 (global-set-key (kbd "s-r s-r ga") #'lx/run-git-remote-branches)
