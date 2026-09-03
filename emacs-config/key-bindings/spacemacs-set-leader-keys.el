@@ -11,6 +11,7 @@
   "gr" 'diff-hl-revert-hunk
   "gd" 'magit-diff-buffer-file
   "gp" #'lx/magit-pull-and-show
+  "gg" #'lx/git-stage-commit-push
   "gP" #'lx/magit-push-and-show
   "gM" #'lx/magit-merge-interactive
   "aoA" #'lx/open-org-calendar

@@ -108,4 +108,10 @@ Like `vc-mode-line' but simpler, more efficient, and less buggy."
 ;; the autoloaded command symbols is enough; git-fire loads lazily on first use.
 (with-eval-after-load 'magit-status
   (define-key magit-status-mode-map (kbd "C-c f") #'git-fire)
-  (define-key magit-status-mode-map (kbd "C-c C-f") #'git-fire-and-push))
+  (define-key magit-status-mode-map (kbd "C-c C-f") #'git-fire-and-push)
+
+  ;; "g" 在 evil normal state 是前缀，普通 define-key 到 major map 不可达，
+  ;; 用 evil-local-set-key 挂到 evil normal state local map。
+  (defun lx/magit-status-stage-commit-push-keys ()
+    (evil-local-set-key 'normal (kbd "g.") #'lx/git-stage-commit-push))
+  (add-hook 'magit-status-mode-hook #'lx/magit-status-stage-commit-push-keys))

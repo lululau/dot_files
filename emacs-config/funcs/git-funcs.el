@@ -50,6 +50,17 @@
   (magit-process-buffer))
 
 ;;;###autoload
+(defun lx/git-stage-commit-push ()
+  "Stage all changes, commit with \".\", then push asynchronously.
+Show the magit process buffer in another window so the push
+output and result can be watched."
+  (interactive)
+  (magit-run-git "add" "-A")
+  (magit-run-git "commit" "-m" ".")
+  (magit-run-git-async "push")
+  (switch-to-buffer-other-window (magit-process-buffer t)))
+
+;;;###autoload
 (defun lx/magit-merge-interactive ()
   "Call magit merge interactively"
   (interactive)
