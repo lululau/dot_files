@@ -37,11 +37,12 @@ With non-nil prefix argument create a regular entry instead of a TODO entry."
 
 
   (defun org-journal-new-entry-after-advice (prefix &optional time todo insert-at-point)
-    (save-excursion
-      (insert "\n")
-      (insert "SCHEDULED: ")
-      (org-insert-time-stamp (current-time) t)
-      (org-cycle)))
+    (unless prefix
+      (save-excursion
+        (insert "\n")
+        (insert "SCHEDULED: ")
+        (org-insert-time-stamp (or time (current-time)) t)
+        (org-cycle))))
 
   (spacemacs/set-leader-keys-for-major-mode 'org-journal-mode
     "oy" #'lx/yank-babel-src
