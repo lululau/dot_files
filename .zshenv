@@ -7,6 +7,7 @@ if [ -z "$HOMEBREW_PREFIX" ]; then
 fi
 
 typeset -U path
+typeset -U fpath
 # export PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 path=($HOMEBREW_PREFIX/opt/rustup/bin $path)
 path+=(/Applications/Obsidian.app/Contents/MacOS)
@@ -104,6 +105,12 @@ if [ -e $HOME/.zshenv.local ]; then
   source $HOME/.zshenv.local
 fi
 export OPENCODE_BINARY=/opt/homebrew/bin/opencode
+
+# 仅在交互或 login shell 中加载 brew shellenv；非交互 shell 的 PATH
+# 由下方 $HOMEBREW_PREFIX/bin 前置兜底，避免每次 zsh -c 都 fork 一次 brew
+if [[ -o interactive || -o login ]] && [ -e $HOMEBREW_PREFIX/bin/brew ]; then
+  eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+fi
 
 if { uname | grep -q Linux; } && [ -e $HOME/liuxiang ] ; then
   path=($HOME/liuxiang/bin $HOME/liuxiang/local/bin $HOME/.local/bin $path)

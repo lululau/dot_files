@@ -25,9 +25,7 @@ if [ -e ~/.swiftly/env.sh ]; then
   source ~/.swiftly/env.sh
 fi
 
-if [ -e /opt/homebrew/bin/brew ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [ -e /usr/local/bin/brew ]; then
-  eval "$(/usr/local/bin/brew shellenv)"
-fi
+# path_helper 在 /etc/zprofile 中会重排 PATH，需要在它之后重新前置，
+# 顺序为 ~/bin 优先于 Homebrew，Homebrew 优先于系统路径
+path=($HOME/bin $HOMEBREW_PREFIX/bin $HOMEBREW_PREFIX/sbin $path)
 
