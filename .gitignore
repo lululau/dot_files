@@ -135,3 +135,5 @@ keepkit/cache.json
 /glab-cli/
 /.superpowers/
 /moeka/
+
+.worktrees/
