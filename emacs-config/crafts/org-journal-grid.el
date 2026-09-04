@@ -75,5 +75,14 @@ Nil means use `org-journal-dir' when bound, otherwise
   (let ((date (calendar-gregorian-from-absolute absolute-date)))
     (format "%04d-%02d-%02d" (nth 2 date) (nth 0 date) (nth 1 date))))
 
+(defun org-journal-grid-toggle-todo ()
+  "Buffer-locally toggle display of unfinished TODO headings."
+  (interactive)
+  (setq-local org-journal-grid-show-todo (not org-journal-grid-show-todo))
+  (when (fboundp 'org-journal-grid--refresh-data)
+    (org-journal-grid--refresh-data))
+  (message "TODO entries %s"
+           (if org-journal-grid-show-todo "shown" "hidden")))
+
 (provide 'org-journal-grid)
 ;;; org-journal-grid.el ends here

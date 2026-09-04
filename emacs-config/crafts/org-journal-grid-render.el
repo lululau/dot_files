@@ -3777,12 +3777,12 @@ time-grid cells prompt for the timed duration as usual."
         (org-journal-grid--backend-create title block nil (cdr entry))))))
 
 (defun org-journal-grid-open-at-cursor ()
-  "Visit the block under the cursor, or create one when the slot is empty."
+  "Visit the block under the cursor.  Empty slots do nothing."
   (interactive)
   (org-journal-grid--reveal-cursor)
   (let ((block (org-journal-grid--block-at-cursor)))
     (if (null block)
-        (org-journal-grid-create-at-cursor)
+        (message "No journal entry here")
       (let ((event (org-journal-grid-block-event block))
             (visitor (and org-journal-grid--backend
                           (org-journal-grid-backend-visit-function
@@ -4060,6 +4060,11 @@ not hold for a buffer made of tall image glyphs."
   (org-journal-grid--reload-state (org-journal-grid--calendar-state-week-start org-journal-grid--state))
   (org-journal-grid--refresh t))
 
+(defun org-journal-grid-reload ()
+  "Reload events without resetting cursor or viewport."
+  (interactive)
+  (org-journal-grid--refresh-data))
+
 (defun org-journal-grid-refresh ()
   "Manually reload the displayed week and reset its cursor and viewport."
   (interactive)
@@ -4123,25 +4128,11 @@ not hold for a buffer made of tall image glyphs."
     (keymap-set map "f" #'org-journal-grid-forward-day)
     (keymap-set map "M-b" #'org-journal-grid-previous-week)
     (keymap-set map "M-f" #'org-journal-grid-next-week)
-    (keymap-set map "g" #'org-journal-grid-refresh)
+    (keymap-set map "g" #'org-journal-grid-reload)
     ;; In vanilla Emacs the fully modified `C-x C-+' invokes text scaling,
     ;; while `C-x +' balances windows.  The latter is a convenient calendar-
     ;; local alias and matches how this command is commonly described.
     (keymap-set map "C-x +" #'text-scale-adjust)
-    ;; Remapping catches whatever key the user has put undo on, and the
-    ;; explicit bindings are the floor for a command we cannot know about.
-    (keymap-set map "<remap> <undo>" #'org-journal-grid-undo)
-    (keymap-set map "<remap> <undo-only>" #'org-journal-grid-undo)
-    (keymap-set map "<remap> <undo-redo>" #'org-journal-grid-redo)
-    (keymap-set map "C-/" #'org-journal-grid-undo)
-    (keymap-set map "C-_" #'org-journal-grid-undo)
-    (keymap-set map "C-x u" #'org-journal-grid-undo)
-    (keymap-set map "M-_" #'org-journal-grid-redo)
-    (keymap-set map "d" #'org-journal-grid-remove-selected)
-    (keymap-set map "e"
-                #'org-journal-grid-edit-selected-title)
-    (keymap-set map "<delete>"
-                #'org-journal-grid-remove-selected)
     ;; Cursor motion, which scrolls the view to follow it.
     (keymap-set map "C-n" #'org-journal-grid-cursor-forward)
     (keymap-set map "C-p" #'org-journal-grid-cursor-backward)
@@ -4154,8 +4145,8 @@ not hold for a buffer made of tall image glyphs."
     (keymap-set map "C-v" #'org-journal-grid-cursor-page-down)
     (keymap-set map "M-v" #'org-journal-grid-cursor-page-up)
     (keymap-set map "SPC" #'org-journal-grid-cursor-page-down)
-    (keymap-set map "DEL" #'org-journal-grid-remove-or-page-up)
-    (keymap-set map "<backspace>" #'org-journal-grid-remove-or-page-up)
+    (keymap-set map "DEL" #'org-journal-grid-cursor-page-up)
+    (keymap-set map "<backspace>" #'org-journal-grid-cursor-page-up)
     (keymap-set map "C-l" #'org-journal-grid-recenter)
     (keymap-set map "C-a" #'org-journal-grid-cursor-day-start)
     (keymap-set map "C-e" #'org-journal-grid-cursor-day-end)
@@ -4164,23 +4155,7 @@ not hold for a buffer made of tall image glyphs."
     (keymap-set map "p" #'org-journal-grid-previous-block)
     (keymap-set map "RET" #'org-journal-grid-open-at-cursor)
     (keymap-set map "C-g" #'org-journal-grid-dismiss)
-    ;; Keyboard editing.
-    (keymap-set map "M-<down>" #'org-journal-grid-move-later)
-    (keymap-set map "M-<up>" #'org-journal-grid-move-earlier)
-    (keymap-set map "M-<right>" #'org-journal-grid-move-next-day)
-    (keymap-set map "M-<left>" #'org-journal-grid-move-previous-day)
-    (keymap-set map "S-<down>" #'org-journal-grid-grow-end)
-    (keymap-set map "S-<up>" #'org-journal-grid-shrink-end)
-    (keymap-set map "C-S-<up>" #'org-journal-grid-grow-start)
-    (keymap-set map "C-S-<down>" #'org-journal-grid-shrink-start)
-    (keymap-set map "S-<right>" #'org-journal-grid-grow-all-day-end)
-    (keymap-set map "S-<left>" #'org-journal-grid-shrink-all-day-end)
-    (keymap-set map "C-S-<left>" #'org-journal-grid-grow-all-day-start)
-    (keymap-set map "C-S-<right>" #'org-journal-grid-shrink-all-day-start)
-    (keymap-set map "t" #'org-journal-grid-retime-selected)
-    (keymap-set map "M-w" #'org-journal-grid-copy-selected)
-    (keymap-set map "C-w" #'org-journal-grid-cut-selected)
-    (keymap-set map "C-y" #'org-journal-grid-yank)
+    (keymap-set map "t" #'org-journal-grid-toggle-todo)
     ;; Dates and files.
     (keymap-set map "j" #'org-journal-grid-goto-date)
     (keymap-set map "." #'org-journal-grid-goto-today)
@@ -4189,19 +4164,22 @@ not hold for a buffer made of tall image glyphs."
 
 ;; Keep reevaluation in a running Emacs from retaining the previous bindings.
 (dolist (key '("M-S-<down>" "M-S-<up>" "M-S-<right>" "M-S-<left>"
-               "M-S-s-<right>" "M-S-s-<left>"))
+               "M-S-s-<right>" "M-S-s-<left>"
+               "<remap> <undo>" "<remap> <undo-only>" "<remap> <undo-redo>"
+               "C-/" "C-_" "C-x u" "M-_"
+               "d" "e" "<delete>"
+               "M-<down>" "M-<up>" "M-<right>" "M-<left>"
+               "S-<down>" "S-<up>" "C-S-<up>" "C-S-<down>"
+               "S-<right>" "S-<left>" "C-S-<left>" "C-S-<right>"
+               "M-w" "C-w" "C-y"))
   (keymap-unset org-journal-grid-mode-map key t))
-(keymap-set org-journal-grid-mode-map "M-<down>" #'org-journal-grid-move-later)
-(keymap-set org-journal-grid-mode-map "M-<up>" #'org-journal-grid-move-earlier)
-(keymap-set org-journal-grid-mode-map "M-<right>" #'org-journal-grid-move-next-day)
-(keymap-set org-journal-grid-mode-map "M-<left>" #'org-journal-grid-move-previous-day)
 (keymap-set org-journal-grid-mode-map "C-x +" #'text-scale-adjust)
 (keymap-unset org-journal-grid-mode-map "M-s-<right>" t)
 (keymap-unset org-journal-grid-mode-map "M-s-<left>" t)
-(keymap-set org-journal-grid-mode-map "S-<right>" #'org-journal-grid-grow-all-day-end)
-(keymap-set org-journal-grid-mode-map "S-<left>" #'org-journal-grid-shrink-all-day-end)
-(keymap-set org-journal-grid-mode-map "C-S-<left>" #'org-journal-grid-grow-all-day-start)
-(keymap-set org-journal-grid-mode-map "C-S-<right>" #'org-journal-grid-shrink-all-day-start)
+(keymap-set org-journal-grid-mode-map "g" #'org-journal-grid-reload)
+(keymap-set org-journal-grid-mode-map "t" #'org-journal-grid-toggle-todo)
+(keymap-set org-journal-grid-mode-map "DEL" #'org-journal-grid-cursor-page-up)
+(keymap-set org-journal-grid-mode-map "<backspace>" #'org-journal-grid-cursor-page-up)
 ;; These live outside the `defvar' initializer so evaluating an updated
 ;; package installs them in an already-running Emacs as well.
 (define-key org-journal-grid-mode-map [s-down-mouse-1]
