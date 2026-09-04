@@ -125,5 +125,24 @@
       (setq org-journal-grid-show-todo saved)
       (delete-directory dir t))))
 
+(ert-deftest org-journal-grid-set-days-updates-global-default ()
+  "Setting days must update both buffer-local and global default value."
+  (let ((saved-default (default-value 'org-journal-grid-days)))
+    (unwind-protect
+        (with-temp-buffer
+          (setq-default org-journal-grid-days 7)
+          (org-journal-grid-mode)
+          (setq org-journal-grid--state (org-journal-grid--calendar-state-create
+                                         :week-start 738000))
+          (cl-letf (((symbol-function 'org-journal-grid--reload-state) #'ignore)
+                    ((symbol-function 'org-journal-grid--refresh) #'ignore))
+            (org-journal-grid-increase-days 3)
+            (should (= org-journal-grid-days 3))
+            (should (= (default-value 'org-journal-grid-days) 3))
+            (org-journal-grid-decrease-days 5)
+            (should (= org-journal-grid-days 5))
+            (should (= (default-value 'org-journal-grid-days) 5))))
+      (setq-default org-journal-grid-days saved-default))))
+
 (provide 'org-journal-grid-test)
 ;;; org-journal-grid-test.el ends here

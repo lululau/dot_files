@@ -98,7 +98,8 @@ Nil means use `org-journal-dir' when bound, otherwise
 (defun org-journal-grid-set-days (n)
   "Set the visible day count to N, keeping the right-edge date.
 N is clamped to 1 through `org-journal-grid-max-adjust-days'.
-The value is buffer-local and is not written to Customize."
+The value updates `org-journal-grid-days' locally and globally for the
+session, but is not written to Customize."
   (unless (derived-mode-p 'org-journal-grid-mode)
     (user-error "Not in a journal grid"))
   (let* ((old org-journal-grid-days)
@@ -108,6 +109,7 @@ The value is buffer-local and is not written to Customize."
     (if (= new old)
         (message "Showing last %d day%s" new (if (= new 1) "" "s"))
       (setq-local org-journal-grid-days new)
+      (setq-default org-journal-grid-days new)
       (org-journal-grid--reload-state
        (org-journal-grid--range-start-keeping-end week-start old new))
       (when-let* ((cursor (org-journal-grid--calendar-state-cursor
