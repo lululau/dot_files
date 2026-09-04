@@ -54,9 +54,9 @@
   :type 'integer)
 
 (defcustom org-journal-grid-days 7
-  "Number of consecutive days displayed in the calendar.
-The initial range ends today unless the current week's first day falls
-within that range; in that case it starts on the week's first day.
+  "Number of consecutive calendar days displayed in the calendar.
+The visible range is a trailing window of this many days ending on the
+anchor date.  It does not snap to `calendar-week-start-day'.
 The value must be a positive integer."
   :type '(integer :tag "Days"))
 
@@ -3936,7 +3936,7 @@ the duration is asked for separately, prefilled with the current one."
 ;;; Dates
 
 (defun org-journal-grid-goto-date ()
-  "Show the week containing a date read from the user."
+  "Show the trailing window of calendar days ending on a date read from the user."
   (interactive)
   (let* ((cursor-absolute
           (+ (* (+ (org-journal-grid--calendar-state-week-start org-journal-grid--state)
@@ -3956,7 +3956,7 @@ the duration is asked for separately, prefilled with the current one."
     (org-journal-grid--scroll-cursor-into-view)))
 
 (defun org-journal-grid-goto-today ()
-  "Show the week containing today.
+  "Show the trailing window of calendar days ending today.
 A visible cursor moves to the current slot; a hidden one stays hidden,
 since jumping dates should not conjure a cursor nobody asked for."
   (interactive)
@@ -4235,7 +4235,7 @@ not hold for a buffer made of tall image glyphs."
             #'org-journal-grid-header-visit)
 
 (define-derived-mode org-journal-grid-mode special-mode
-  "Org Time Grid"
+  "Journal Grid"
   "Major mode for an SVG week calendar.
 
 The calendar owns one explicit cursor and one selected event.  The cursor
@@ -4273,7 +4273,8 @@ keyboard changes pass through the same damage-based renderer.
 
 ;;;###autoload
 (defun org-journal-grid-open (backend &optional absolute-date)
-  "Open BACKEND on the week containing ABSOLUTE-DATE.
+  "Open BACKEND on the trailing window of calendar days ending on ABSOLUTE-DATE.
+Nil ABSOLUTE-DATE ends the window today.
 Revisiting an existing calendar retains its pixel scroll position."
   (unless (org-journal-grid-backend-p backend)
     (user-error "A calendar backend is required"))
