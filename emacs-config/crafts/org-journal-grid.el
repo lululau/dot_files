@@ -157,11 +157,18 @@ org-journal-mode) is copied into a temporary org-mode buffer."
       (org-journal-grid--parse-org-buffer file absolute-date))))
 
 (defun org-journal-grid--events-for-day (absolute-date)
-  "Return events for ABSOLUTE-DATE, or nil if the file is missing."
+  "Return events for ABSOLUTE-DATE, or nil if the file is missing.
+A corrupt file that still passes `file-readable-p' yields nil (empty
+column) instead of aborting `org-journal-grid--list-events'."
   (let* ((dir (org-journal-grid--resolved-directory))
          (file (expand-file-name (org-journal-grid--file-name absolute-date) dir)))
     (when (and (file-regular-p file) (file-readable-p file))
-      (delq nil (org-journal-grid--parse-file file absolute-date)))))
+      (condition-case err
+          (delq nil (org-journal-grid--parse-file file absolute-date))
+        (error
+         (message "org-journal-grid: skipping %s (%s)"
+                  file (error-message-string err))
+         nil)))))
 
 (defun org-journal-grid--list-events (start end)
   "Return journal events intersecting START and END (absolute minutes)."
@@ -194,12 +201,30 @@ org-journal-mode) is copied into a temporary org-mode buffer."
     (goto-char position)
     (org-fold-show-context 'org-goto)))
 
+(defun org-journal-grid--read-date (absolute-start _duration)
+  "Read a date with `org-read-date' and return start minutes.
+ABSOLUTE-START prefills the prompt.  The result is a cons of midnight
+absolute minutes and a nil duration, matching
+`org-journal-grid-read-timestamp-default'."
+  (let* ((day (floor absolute-start 1440))
+         (date (calendar-gregorian-from-absolute day))
+         (default-time (encode-time 0 0 12
+                                    (nth 1 date) (nth 0 date) (nth 2 date)))
+         (time (org-read-date nil t nil nil default-time))
+         (decoded (decode-time time))
+         (absolute (calendar-absolute-from-gregorian
+                    (list (nth 4 decoded) (nth 3 decoded) (nth 5 decoded)))))
+    (cons (* absolute 1440) nil)))
+
 (defvar org-journal-grid-backend
   (org-journal-grid-backend-create
    :name "org-journal"
    :list-function #'org-journal-grid--list-events
    :visit-function #'org-journal-grid--visit)
   "Read-only backend for `org-journal-grid'.")
+
+(setf (org-journal-grid-backend-read-timestamp-function org-journal-grid-backend)
+      #'org-journal-grid--read-date)
 
 (defun org-journal-grid (&optional days)
   "Open a read-only journal time grid.

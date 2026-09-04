@@ -1832,12 +1832,14 @@ The ordering favours earlier and longer spans, then title and identity."
 
 (defun org-journal-grid--rail-row-count (layout)
   "Return the visible rail row count needed for all-day LAYOUT.
-The final row is intentionally empty and can hold a cross-surface preview."
-  (let ((highest-lane (if layout
-                          (apply #'max
-                                 (mapcar #'org-journal-grid-block-rail-lane layout))
-                        -1)))
-    (1+ (min org-journal-grid-all-day-max-lanes (1+ highest-lane)))))
+Return 0 when LAYOUT is empty so only date labels remain.  When events
+exist, the final row is intentionally empty and can hold a cross-surface
+preview."
+  (if (null layout)
+      0
+    (let ((highest-lane (apply #'max
+                               (mapcar #'org-journal-grid-block-rail-lane layout))))
+      (1+ (min org-journal-grid-all-day-max-lanes (1+ highest-lane))))))
 
 (defun org-journal-grid--draw-all-day-block
     (svg block left-offset column-width top palette font-family)
@@ -2066,17 +2068,18 @@ ABSOLUTE-DATE is the first displayed day."
                     :font-size (* date-factor 14) :font-weight "500"
                     :font-family font-family :text-anchor "middle"
                     :fill (plist-get palette :foreground)))))
-    (svg-line svg 0 (1- rail-top)
-              width (1- rail-top)
-              :stroke (plist-get palette :grid) :stroke-width 1)
-    (svg-text svg "all-day" :x (+ left-offset 5)
-              :y (+ rail-top (org-journal-grid--scale-pixels 15))
-              :font-size (org-journal-grid--font-size 9) :font-family font-family
-              :fill (plist-get palette :secondary-text))
-    (dotimes (day org-journal-grid-days)
-      (let ((x (+ left-offset (org-journal-grid--label-width) (* day column-width))))
-        (svg-line svg x rail-top x height
-                  :stroke (plist-get palette :grid) :stroke-width 1)))
+    (when (> rail-rows 0)
+      (svg-line svg 0 (1- rail-top)
+                width (1- rail-top)
+                :stroke (plist-get palette :grid) :stroke-width 1)
+      (svg-text svg "all-day" :x (+ left-offset 5)
+                :y (+ rail-top (org-journal-grid--scale-pixels 15))
+                :font-size (org-journal-grid--font-size 9) :font-family font-family
+                :fill (plist-get palette :secondary-text))
+      (dotimes (day org-journal-grid-days)
+        (let ((x (+ left-offset (org-journal-grid--label-width) (* day column-width))))
+          (svg-line svg x rail-top x height
+                    :stroke (plist-get palette :grid) :stroke-width 1))))
     (dolist (block all-day)
       (when (< (org-journal-grid-block-rail-lane block) org-journal-grid-all-day-max-lanes)
         (push (org-journal-grid--draw-all-day-block
@@ -2970,9 +2973,7 @@ Leave the first non-motion event for the gesture loop to process."
                   org-journal-grid--backend)))))
     (if (and org-journal-grid--backend
              (not (functionp required-callback)))
-        (progn
-          (org-journal-grid-click (list 'mouse-1 origin-position))
-          (message "Unsupported drag"))
+        (org-journal-grid-click (list 'mouse-1 origin-position))
       (org-journal-grid--track-drag-gesture
        event
        #'org-journal-grid--mouse-position-xy
@@ -4287,12 +4288,14 @@ Revisiting an existing calendar retains its pixel scroll position."
            (run-at-time
             60 60
             (lambda () (org-journal-grid--clock-tick owner))))
-          (setq-local
-           org-journal-grid--data-timer
-           (run-at-time
-            org-journal-grid-data-refresh-seconds
-            org-journal-grid-data-refresh-seconds
-            (lambda () (org-journal-grid--data-tick owner)))))))
+          (when (and (numberp org-journal-grid-data-refresh-seconds)
+                     (> org-journal-grid-data-refresh-seconds 0))
+            (setq-local
+             org-journal-grid--data-timer
+             (run-at-time
+              org-journal-grid-data-refresh-seconds
+              org-journal-grid-data-refresh-seconds
+              (lambda () (org-journal-grid--data-tick owner))))))))
     (pop-to-buffer buffer)
     (let ((window (get-buffer-window buffer t)))
       (with-current-buffer buffer
