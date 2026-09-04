@@ -47,5 +47,33 @@
                   (calendar-absolute-from-gregorian '(9 4 2026)))
                  "2026-09-04")))
 
+(ert-deftest org-journal-grid-list-events-filters ()
+  (let* ((dir (make-temp-file "ojg-" t))
+         (org-journal-grid-directory dir)
+         (org-journal-grid-show-todo nil)
+         (org-journal-grid-default-duration-minutes 30)
+         (day (calendar-absolute-from-gregorian '(9 4 2026)))
+         (file (expand-file-name "2026-09-04" dir)))
+    (unwind-protect
+        (progn
+          (with-temp-file file
+            (insert "* 2026-09-04\n"
+                    "** DONE 10:43 压缩 PNG\n"
+                    "** TODO 07:00 研究 timegrid\n"
+                    "** 09:00 无关键字\n"
+                    "*** DONE 11:00 嵌套不应出现\n"
+                    "** DONE 无时刻\n"))
+          (let* ((start (* day 1440))
+                 (end (* (1+ day) 1440))
+                 (events (org-journal-grid--list-events start end))
+                 (titles (mapcar #'org-journal-grid-event-title events)))
+            (should (equal (sort titles #'string<)
+                           '("压缩 PNG" "无关键字")))
+            (dolist (event events)
+              (should (null (org-journal-grid-event-state event)))
+              (should (< (org-journal-grid-event-start event)
+                         (org-journal-grid-event-end event))))))
+      (delete-directory dir t))))
+
 (provide 'org-journal-grid-test)
 ;;; org-journal-grid-test.el ends here
