@@ -74,18 +74,6 @@ The renderer later replaces this with a defcustom of the same name.")
   (let ((day-end (* (1+ (floor start 1440)) 1440)))
     (min (+ start duration) day-end)))
 
-(defun org-journal-grid--last-day-index ()
-  "Return the zero-based index of the last visible day."
-  (1- org-journal-grid-days))
-
-(defun org-journal-grid--range-start (&optional absolute-date)
-  "Return the first visible day of a trailing window ending on ABSOLUTE-DATE.
-Unlike org-timegrid, this never snaps to `calendar-week-start-day'."
-  (let ((absolute (or absolute-date
-                      (calendar-absolute-from-gregorian
-                       (calendar-current-date)))))
-    (- absolute (org-journal-grid--last-day-index))))
-
 (defun org-journal-grid--file-name (absolute-date)
   "Return the YYYY-MM-DD basename for ABSOLUTE-DATE."
   (let ((date (calendar-gregorian-from-absolute absolute-date)))
