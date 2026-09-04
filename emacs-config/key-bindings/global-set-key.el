@@ -261,9 +261,11 @@
 (global-set-key (kbd "s-a s-c") #'lx/mark-and-yank-whole-buffer)
 (global-set-key (kbd "s-a s-d") #'lx/mark-and-delete-whole-buffer)
 (global-set-key (kbd "s-a j o") 'org-journal-find-today-entry-same-window)
+
 (global-set-key (kbd "s-a j O") 'org-journal-find-today-entry)
 (global-set-key (kbd "s-a j j") 'org-journal-new-todo-entry)
 (global-set-key (kbd "s-a j J") 'org-journal-new-entry)
+(global-set-key (kbd "s-a j g") #'org-journal-grid)
 (global-set-key (kbd "s-a c") 'claude-code-ide-menu)
 
 (global-unset-key (kbd "s-y"))
