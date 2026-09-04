@@ -34,10 +34,6 @@ Nil means use `org-journal-dir' when bound, otherwise
   "Duration in minutes for a heading that has only a start time."
   :type 'integer)
 
-(defvar org-journal-grid-days 7
-  "Number of consecutive calendar days shown.
-The renderer later replaces this with a defcustom of the same name.")
-
 (defun org-journal-grid--resolved-directory ()
   "Return the journal directory to scan."
   (expand-file-name

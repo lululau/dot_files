@@ -2,6 +2,7 @@
 
 (require 'ert)
 (require 'org)
+(require 'org-journal-grid-render)
 (require 'org-journal-grid)
 
 (ert-deftest org-journal-grid-parse-clock ()
