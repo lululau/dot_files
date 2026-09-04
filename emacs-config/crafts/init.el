@@ -73,6 +73,7 @@
 
 (autoload 'evil-ghostel-setup "evil-ghostel")
 (autoload 'proced-enhanced-mode "proced-enhanced")
+(autoload 'org-journal-grid "org-journal-grid" nil t)
 (autoload 'markdown-modern-mode "markdown-modern" nil t)
 (autoload 'global-markdown-modern-mode "markdown-modern" nil t)
 

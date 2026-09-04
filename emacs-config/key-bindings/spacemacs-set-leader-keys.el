@@ -70,6 +70,7 @@
   "aojo" #'org-journal-find-today-entry
   "aojj" #'org-journal-new-todo-entry
   "aojJ" #'org-journal-new-entry
+  "aojg" #'org-journal-grid
   "aht" #'helm-tramp
   "s*" #'spacemacs/helm-swoop-region-or-symbol
   "amm" #'lx/load-or-switch-to-emms
