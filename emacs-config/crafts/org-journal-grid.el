@@ -121,22 +121,40 @@ Nil means use `org-journal-dir' when bound, otherwise
            :color (org-journal-grid--tag-color tags)
            :source (list :file file :position begin)))))))
 
+(defun org-journal-grid--parse-org-buffer (file absolute-date)
+  "Parse the current org buffer (widened) for FILE on ABSOLUTE-DATE."
+  (save-restriction
+    (widen)
+    (org-element-map (org-element-parse-buffer 'headline) 'headline
+      (lambda (headline)
+        (org-journal-grid--headline-event file headline absolute-date)))))
+
+(defun org-journal-grid--parse-org-string (file absolute-date string)
+  "Parse STRING as org for FILE on ABSOLUTE-DATE."
+  (with-temp-buffer
+    (insert string)
+    (delay-mode-hooks (org-mode))
+    (org-journal-grid--parse-org-buffer file absolute-date)))
+
 (defun org-journal-grid--parse-file (file absolute-date)
-  "Return events from FILE for ABSOLUTE-DATE."
-  (let ((parse
-         (lambda ()
-           (org-element-map (org-element-parse-buffer 'headline) 'headline
-             (lambda (headline)
-               (org-journal-grid--headline-event file headline absolute-date))))))
-    (condition-case nil
-        (if-let ((buf (find-buffer-visiting file)))
-            (with-current-buffer buf
-              (funcall parse))
-          (with-temp-buffer
-            (insert-file-contents file)
-            (delay-mode-hooks (org-mode))
-            (funcall parse)))
-      (error nil))))
+  "Return events from FILE for ABSOLUTE-DATE.
+Prefer unsaved text from a visiting buffer.  Parse under org-mode with
+the restriction widened so a narrowed buffer still lists every heading.
+A visiting buffer that is not org-mode (or a derivative such as
+org-journal-mode) is copied into a temporary org-mode buffer."
+  (if-let* ((buf (find-buffer-visiting file)))
+      (with-current-buffer buf
+        (if (derived-mode-p 'org-mode 'org-journal-mode)
+            (org-journal-grid--parse-org-buffer file absolute-date)
+          (org-journal-grid--parse-org-string
+           file absolute-date
+           (save-restriction
+             (widen)
+             (buffer-string)))))
+    (with-temp-buffer
+      (insert-file-contents file)
+      (delay-mode-hooks (org-mode))
+      (org-journal-grid--parse-org-buffer file absolute-date))))
 
 (defun org-journal-grid--events-for-day (absolute-date)
   "Return events for ABSOLUTE-DATE, or nil if the file is missing."
@@ -162,7 +180,12 @@ Nil means use `org-journal-dir' when bound, otherwise
     (unless (and file (file-exists-p file))
       (user-error "Journal file disappeared: %s" file))
     (find-file file)
-    (goto-char (or position (point-min)))
+    (widen)
+    (unless (and position
+                 (>= position (point-min))
+                 (<= position (point-max)))
+      (user-error "Journal heading disappeared: %s" file))
+    (goto-char position)
     (org-fold-show-context 'org-goto)))
 
 (defvar org-journal-grid-backend
@@ -185,9 +208,13 @@ A numeric prefix DAYS overrides the width for this buffer only."
       (user-error "org-journal-grid-days must be a positive integer"))
     (unless (file-directory-p dir)
       (user-error "Journal directory does not exist: %s" dir))
+    (when-let* ((buf (get-buffer org-journal-grid-buffer-name)))
+      (with-current-buffer buf
+        (setq-local org-journal-grid-days width)
+        (setq-local org-journal-grid--stale t)))
     (let ((org-journal-grid-days width))
       (org-journal-grid-open org-journal-grid-backend)
-      (when-let ((buf (get-buffer org-journal-grid-buffer-name)))
+      (when-let* ((buf (get-buffer org-journal-grid-buffer-name)))
         (with-current-buffer buf
           (setq-local org-journal-grid-days width))))))
 
