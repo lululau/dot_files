@@ -87,7 +87,6 @@ export ZSH_COMPDUMP="${HOME}/.zcompdump"
 
 source $ZSH/oh-my-zsh.sh
 
-autoload -U compinit; compinit -d
 autoload -U zmv
 
 # Customize to your needs...
