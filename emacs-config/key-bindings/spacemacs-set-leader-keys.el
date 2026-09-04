@@ -63,6 +63,7 @@
   "tP" #'proxy-mode
   "aE" #'es-command-center
   "f." #'lx/open-current-bufffer-dir-in-finder
+  "fya" #'spacemacs/copy-file-or-region-for-agent
   "xle" #'lx/remove-empty-lines
   "xlbe" #'base64-encode-utf8-region
   "xlbd" #'base64-decode-utf8-region

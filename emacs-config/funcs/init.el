@@ -1020,6 +1020,12 @@ View the body of the message inside xwidget-webkit.
 
 (autoload 'lx/mark-and-delete-whole-buffer "util-funcs")
 
+(autoload 'spacemacs/copy-file-or-region-for-agent "util-funcs" "\
+Copy current file path or active region formatted for coding agents to clipboard." t)
+
+(autoload 'spacemacs/copy-for-agent "util-funcs" "\
+Shorthand alias for `spacemacs/copy-file-or-region-for-agent'." t)
+
 
 (autoload 'copilot-ensure-and-complete "copilot-enhanced")
 
