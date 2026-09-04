@@ -165,12 +165,18 @@ org-journal-mode) is copied into a temporary org-mode buffer."
 
 (defun org-journal-grid--list-events (start end)
   "Return journal events intersecting START and END (absolute minutes)."
-  (let* ((start-day (floor start 1440))
-         (end-day (floor (1- end) 1440))
-         events)
-    (cl-loop for day from start-day to end-day
-             do (setq events (nconc events (org-journal-grid--events-for-day day))))
-    events))
+  (let ((show-todo org-journal-grid-show-todo)
+        (start-day (floor start 1440))
+        (end-day (floor (1- end) 1440))
+        events)
+    ;; `t' does `setq-local'.  A self-let of a buffer-local custom stays in
+    ;; this buffer, so parse would see the global nil.  Bind it in a buffer
+    ;; without a local value so journal/temp buffers inherit the default.
+    (with-temp-buffer
+      (let ((org-journal-grid-show-todo show-todo))
+        (cl-loop for day from start-day to end-day
+                 do (setq events (nconc events (org-journal-grid--events-for-day day))))
+        events))))
 
 (defun org-journal-grid--visit (event)
   "Jump to EVENT's org-journal heading."

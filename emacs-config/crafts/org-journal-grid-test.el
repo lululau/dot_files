@@ -75,5 +75,31 @@
                          (org-journal-grid-event-end event))))))
       (delete-directory dir t))))
 
+(ert-deftest org-journal-grid-list-events-local-show-todo ()
+  "Buffer-local `org-journal-grid-show-todo' must survive parse buffer switches."
+  (let* ((dir (make-temp-file "ojg-" t))
+         (org-journal-grid-directory dir)
+         (day (calendar-absolute-from-gregorian '(9 4 2026)))
+         (file (expand-file-name "2026-09-04" dir))
+         (start (* day 1440))
+         (end (* (1+ day) 1440))
+         (saved org-journal-grid-show-todo))
+    (unwind-protect
+        (progn
+          ;; Match the live grid: nil global default, buffer-local t.
+          (setq org-journal-grid-show-todo nil)
+          (with-temp-file file
+            (insert "* 2026-09-04\n"
+                    "** DONE 10:43 压缩 PNG\n"
+                    "** TODO 07:00 研究 timegrid\n"))
+          (with-temp-buffer
+            (setq-local org-journal-grid-show-todo t)
+            (let ((titles (mapcar #'org-journal-grid-event-title
+                                  (org-journal-grid--list-events start end))))
+              (should (equal (sort titles #'string<)
+                             '("压缩 PNG" "研究 timegrid"))))))
+      (setq org-journal-grid-show-todo saved)
+      (delete-directory dir t))))
+
 (provide 'org-journal-grid-test)
 ;;; org-journal-grid-test.el ends here
