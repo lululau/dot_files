@@ -218,5 +218,8 @@ A numeric prefix DAYS overrides the width for this buffer only."
         (with-current-buffer buf
           (setq-local org-journal-grid-days width))))))
 
+(with-eval-after-load 'evil
+  (evil-set-initial-state 'org-journal-grid-mode 'emacs))
+
 (provide 'org-journal-grid)
 ;;; org-journal-grid.el ends here
