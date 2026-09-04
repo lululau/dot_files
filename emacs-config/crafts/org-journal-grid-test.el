@@ -42,6 +42,30 @@
   (let ((org-journal-grid-days 7))
     (should (equal (org-journal-grid--range-start 10007) 10001))))
 
+(ert-deftest org-journal-grid-range-start-keeping-end ()
+  (should (equal (org-journal-grid--range-start-keeping-end 10001 7 8) 10000))
+  (should (equal (org-journal-grid--range-start-keeping-end 10001 7 6) 10002))
+  (should (equal (org-journal-grid--range-start-keeping-end 10001 7 1) 10007)))
+
+(ert-deftest org-journal-grid-never-shows-future-dates ()
+  (let* ((org-journal-grid-days 7)
+         (today (calendar-absolute-from-gregorian (calendar-current-date))))
+    (should (equal (org-journal-grid--range-start (+ today 10))
+                   (- today 6)))
+    (should (<= (+ (org-journal-grid--clamp-week-start (- today 3) 7) 6)
+                today))
+    (should (equal (org-journal-grid--clamp-week-start (- today 3) 7)
+                   (- today 6)))
+    ;; Decrease to 4 days then restore 7 without clamp would leak into the
+    ;; future; keeping-end must clamp.
+    (let ((after-shrink (org-journal-grid--range-start-keeping-end
+                         (- today 6) 7 4)))
+      (should (equal after-shrink (- today 3)))
+      (should (<= (+ (org-journal-grid--range-start-keeping-end
+                      after-shrink 4 7)
+                     6)
+                  today)))))
+
 (ert-deftest org-journal-grid-file-name ()
   (should (equal (org-journal-grid--file-name
                   (calendar-absolute-from-gregorian '(9 4 2026)))

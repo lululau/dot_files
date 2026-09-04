@@ -92,6 +92,50 @@ Nil means use `org-journal-dir' when bound, otherwise
   (message "TODO entries %s"
            (if org-journal-grid-show-todo "shown" "hidden")))
 
+(defconst org-journal-grid-max-adjust-days 9
+  "Maximum day count set from the grid `+' / `-' / digit keys.")
+
+(defun org-journal-grid-set-days (n)
+  "Set the visible day count to N, keeping the right-edge date.
+N is clamped to 1 through `org-journal-grid-max-adjust-days'.
+The value is buffer-local and is not written to Customize."
+  (unless (derived-mode-p 'org-journal-grid-mode)
+    (user-error "Not in a journal grid"))
+  (let* ((old org-journal-grid-days)
+         (new (min org-journal-grid-max-adjust-days (max 1 n)))
+         (week-start (org-journal-grid--calendar-state-week-start
+                      org-journal-grid--state)))
+    (if (= new old)
+        (message "Showing last %d day%s" new (if (= new 1) "" "s"))
+      (setq-local org-journal-grid-days new)
+      (org-journal-grid--reload-state
+       (org-journal-grid--range-start-keeping-end week-start old new))
+      (when-let* ((cursor (org-journal-grid--calendar-state-cursor
+                           org-journal-grid--state)))
+        (setf (org-journal-grid--cursor-state-day cursor)
+              (min (org-journal-grid--cursor-state-day cursor)
+                   (1- new))))
+      (org-journal-grid--refresh t)
+      (message "Showing last %d day%s" new (if (= new 1) "" "s")))))
+
+(defun org-journal-grid-adjust-days (delta)
+  "Change the visible day count by DELTA, keeping the right-edge date."
+  (org-journal-grid-set-days (+ org-journal-grid-days delta)))
+
+(defun org-journal-grid-increase-days (&optional n)
+  "Show one more trailing day, or set the count to prefix N (1-9)."
+  (interactive "P")
+  (if n
+      (org-journal-grid-set-days (prefix-numeric-value n))
+    (org-journal-grid-adjust-days 1)))
+
+(defun org-journal-grid-decrease-days (&optional n)
+  "Show one fewer trailing day, or set the count to prefix N (1-9)."
+  (interactive "P")
+  (if n
+      (org-journal-grid-set-days (prefix-numeric-value n))
+    (org-journal-grid-adjust-days -1)))
+
 (defun org-journal-grid--tag-color (tags)
   "Return the colour for the first TAGS member in the colour alist."
   (seq-some (lambda (tag)
@@ -248,6 +292,13 @@ A numeric prefix DAYS overrides the width for this buffer only."
       (when-let* ((buf (get-buffer org-journal-grid-buffer-name)))
         (with-current-buffer buf
           (setq-local org-journal-grid-days width))))))
+
+(defun org-journal-grid--enable-tooltips ()
+  "Show full heading titles as GUI tooltips when hovering a block."
+  (when (and (display-graphic-p) (not tooltip-mode))
+    (tooltip-mode 1)))
+
+(add-hook 'org-journal-grid-mode-hook #'org-journal-grid--enable-tooltips)
 
 (with-eval-after-load 'evil
   (evil-set-initial-state 'org-journal-grid-mode 'emacs))

@@ -64,12 +64,32 @@ The value must be a positive integer."
   "Return the zero-based index of the final visible day."
   (1- org-journal-grid-days))
 
+(defun org-journal-grid--today-absolute ()
+  "Return today's absolute Gregorian date."
+  (calendar-absolute-from-gregorian (calendar-current-date)))
+
+(defun org-journal-grid--clamp-week-start (week-start &optional days)
+  "Return WEEK-START so a window of DAYS does not extend past today."
+  (let* ((n (or days org-journal-grid-days))
+         (today (org-journal-grid--today-absolute))
+         (end (+ week-start (1- n))))
+    (if (<= end today)
+        week-start
+      (- today (1- n)))))
+
 (defun org-journal-grid--range-start (&optional absolute-date)
-  "Return the first visible day of a trailing window ending on ABSOLUTE-DATE."
-  (let ((absolute (or absolute-date
-                      (calendar-absolute-from-gregorian
-                       (calendar-current-date)))))
+  "Return the first visible day of a trailing window ending on ABSOLUTE-DATE.
+The window never extends past today."
+  (let* ((today (org-journal-grid--today-absolute))
+         (absolute (min today (or absolute-date today))))
     (- absolute (org-journal-grid--last-day-index))))
+
+(defun org-journal-grid--range-start-keeping-end (week-start old-days new-days)
+  "Return a window start that keeps WEEK-START/OLD-DAYS right edge for NEW-DAYS.
+The resulting window is clamped so it does not extend past today."
+  (org-journal-grid--clamp-week-start
+   (- (+ week-start (1- old-days)) (1- new-days))
+   new-days))
 
 (defcustom org-journal-grid-pixels-per-minute 0.9
   "Vertical SVG scale in pixels per minute."
@@ -414,7 +434,9 @@ DONE and TIME-KIND describe the block's completion and timestamp kind."
               (org-journal-grid--calendar-state-blocks org-journal-grid--state)))
 
 (defun org-journal-grid--load-state (week-start)
-  "Load renderer state for WEEK-START from the current backend."
+  "Load renderer state for WEEK-START from the current backend.
+WEEK-START is clamped so the window does not extend past today."
+  (setq week-start (org-journal-grid--clamp-week-start week-start))
   (let* ((events (org-journal-grid-backend-list
                   org-journal-grid--backend
                   (* week-start 1440)
@@ -1764,8 +1786,6 @@ When REDISPLAY-NOW is non-nil, force display before returning."
         (insert (propertize " "
                             'org-journal-grid-tile tile
                             'occs-svg-image t
-                            'help-echo
-                            "Drag empty time to create; drag blocks to move or resize"
                             'display (aref org-journal-grid--static-images tile)))
         ;; No newline after the last tile.  It would leave an empty final
         ;; line, which shows up as blank space under the calendar.
@@ -2167,6 +2187,14 @@ leave no central move target."
          ((and (plist-get geometry :allow-bottom) in-bottom)
           'bottom)))))
 
+(defun org-journal-grid--geometry-help-echo (geometry)
+  "Return the full heading title for GEOMETRY, or nil."
+  (when-let* ((id (plist-get geometry :id))
+              (block (org-journal-grid--block id))
+              (title (org-journal-grid-block-title block)))
+    (unless (string-empty-p title)
+      title)))
+
 (defun org-journal-grid--image-map ()
   "Return pixel hotspots for block movement and edge resizing."
   (let (edges bodies)
@@ -2182,32 +2210,30 @@ leave no central move target."
                              (org-journal-grid--edge-height
                               geometry))))
                (slop org-journal-grid-edge-slop)
-               (boundary-edge (plist-get geometry :boundary-edge)))
+               (boundary-edge (plist-get geometry :boundary-edge))
+               (echo (org-journal-grid--geometry-help-echo geometry)))
           (cond
            (boundary-edge
             (push (list `(rect . ((,x . ,y) . (,right . ,bottom)))
                         'calendar-resize
-                        `(pointer nhdrag
-                                  help-echo ,(if (eq boundary-edge 'top)
-                                                 "Drag into this day to change the start time"
-                                               "Drag into this day to change the end time")))
+                        `(pointer hand help-echo ,echo))
                   edges))
            (t
             (when (plist-get geometry :allow-top)
               (push (list `(rect . ((,x . ,(max 0 (- y slop)))
                                     . (,right . ,(+ y edge))))
                           'calendar-resize
-                          '(pointer nhdrag help-echo "Drag to change the start time"))
+                          `(pointer hand help-echo ,echo))
                     edges))
             (when (plist-get geometry :allow-bottom)
               (push (list `(rect . ((,x . ,(- bottom edge))
                                     . (,right . ,(+ bottom slop))))
                           'calendar-resize
-                          '(pointer nhdrag help-echo "Drag to change the end time"))
+                          `(pointer hand help-echo ,echo))
                     edges))
             (push (list `(rect . ((,x . ,y) . (,right . ,bottom)))
                         'calendar-block
-                        '(pointer hand help-echo "Drag to move; double-click to open"))
+                        `(pointer hand help-echo ,echo))
                   bodies))))))
     (append edges bodies)))
 
@@ -4031,10 +4057,14 @@ not hold for a buffer made of tall image glyphs."
         minor-mode-overriding-map-alist))
 
 (defun org-journal-grid-shift-week (days)
-  "Move the SVG week by DAYS."
-  (org-journal-grid--reload-state
-   (+ (org-journal-grid--calendar-state-week-start org-journal-grid--state) days))
-  (org-journal-grid--refresh))
+  "Move the SVG week by DAYS.
+The window is clamped so it never shows dates after today."
+  (let* ((old (org-journal-grid--calendar-state-week-start org-journal-grid--state))
+         (new (org-journal-grid--clamp-week-start (+ old days))))
+    (if (= new old)
+        (message "Cannot show future dates")
+      (org-journal-grid--reload-state new)
+      (org-journal-grid--refresh))))
 
 (defun org-journal-grid-previous-week ()
   "Show the previous week."
@@ -4076,6 +4106,10 @@ not hold for a buffer made of tall image glyphs."
   (org-journal-grid--refresh)
   (when-let* ((window (get-buffer-window (current-buffer) t)))
     (org-journal-grid--set-vscroll window 0)))
+
+(declare-function org-journal-grid-toggle-todo "org-journal-grid")
+(declare-function org-journal-grid-increase-days "org-journal-grid")
+(declare-function org-journal-grid-decrease-days "org-journal-grid")
 
 (defvar org-journal-grid-mode-map
   (let ((map (make-sparse-keymap)))
@@ -4157,6 +4191,11 @@ not hold for a buffer made of tall image glyphs."
     (keymap-set map "RET" #'org-journal-grid-open-at-cursor)
     (keymap-set map "C-g" #'org-journal-grid-dismiss)
     (keymap-set map "t" #'org-journal-grid-toggle-todo)
+    (keymap-set map "-" #'org-journal-grid-decrease-days)
+    (keymap-set map "+" #'org-journal-grid-increase-days)
+    (keymap-set map "=" #'org-journal-grid-increase-days)
+    (dotimes (i 9)
+      (keymap-set map (format "%d" (1+ i)) #'digit-argument))
     ;; Dates and files.
     (keymap-set map "j" #'org-journal-grid-goto-date)
     (keymap-set map "." #'org-journal-grid-goto-today)
@@ -4179,6 +4218,11 @@ not hold for a buffer made of tall image glyphs."
 (keymap-unset org-journal-grid-mode-map "M-s-<left>" t)
 (keymap-set org-journal-grid-mode-map "g" #'org-journal-grid-reload)
 (keymap-set org-journal-grid-mode-map "t" #'org-journal-grid-toggle-todo)
+(keymap-set org-journal-grid-mode-map "-" #'org-journal-grid-decrease-days)
+(keymap-set org-journal-grid-mode-map "+" #'org-journal-grid-increase-days)
+(keymap-set org-journal-grid-mode-map "=" #'org-journal-grid-increase-days)
+(dotimes (i 9)
+  (keymap-set org-journal-grid-mode-map (format "%d" (1+ i)) #'digit-argument))
 (keymap-set org-journal-grid-mode-map "DEL" #'org-journal-grid-cursor-page-up)
 (keymap-set org-journal-grid-mode-map "<backspace>" #'org-journal-grid-cursor-page-up)
 ;; These live outside the `defvar' initializer so evaluating an updated
@@ -4260,20 +4304,17 @@ Revisiting an existing calendar retains its pixel scroll position."
   (let* ((existing (get-buffer org-journal-grid-buffer-name))
          (buffer (or existing
                      (get-buffer-create org-journal-grid-buffer-name)))
-         (requested-week (and absolute-date
-                              (org-journal-grid--range-start absolute-date)))
+         (requested-week (org-journal-grid--range-start absolute-date))
          refreshp)
     (if existing
         (with-current-buffer buffer
           (let ((current-week (org-journal-grid--calendar-state-week-start org-journal-grid--state)))
             (when (or org-journal-grid--stale
                       (not (eq org-journal-grid--backend backend))
-                      (and requested-week
-                           (/= requested-week current-week)))
+                      (/= requested-week current-week))
               (setq-local org-journal-grid--backend backend)
               (setq-local org-journal-grid--state
-                          (org-journal-grid--load-state
-                           (or requested-week current-week)))
+                          (org-journal-grid--load-state requested-week))
               (setq-local org-journal-grid--stale nil)
               (setq refreshp t))))
       (with-current-buffer buffer
@@ -4296,7 +4337,7 @@ Revisiting an existing calendar retains its pixel scroll position."
               org-journal-grid-data-refresh-seconds
               org-journal-grid-data-refresh-seconds
               (lambda () (org-journal-grid--data-tick owner))))))))
-    (pop-to-buffer buffer)
+    (switch-to-buffer buffer)
     (let ((window (get-buffer-window buffer t)))
       (with-current-buffer buffer
         (cond
