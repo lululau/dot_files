@@ -58,14 +58,54 @@ Nil means use `org-journal-dir' when bound, otherwise
          (and (<= 0 hour 23) (<= 0 minute 59)
               (+ (* hour 60) minute)))))
 
+(defun org-journal-grid--replace-bracket-links (text)
+  "Replace bracket links in TEXT with their visible labels.
+Unlike `org-link-display-format', tolerate unescaped `[' / `]' inside
+the link path by treating the first `][' after `[[' as the separator
+between path and description."
+  (let ((start 0)
+        (pieces nil))
+    (while (string-match "\\[\\[" text start)
+      (let* ((open (match-beginning 0))
+             (after-open (match-end 0)))
+        (push (substring text start open) pieces)
+        (cond
+         ;; [[path][desc]]
+         ((string-match "\\]\\[" text after-open)
+          (let* ((sep-end (match-end 0))
+                 (close (string-match "\\]\\]" text sep-end)))
+            (if (not close)
+                (progn
+                  (push (substring text open after-open) pieces)
+                  (setq start after-open))
+              (push (substring text sep-end (match-beginning 0)) pieces)
+              (setq start (+ (match-beginning 0) 2)))))
+         ;; [[path]]
+         ((string-match "\\]\\]" text after-open)
+          (push (substring text after-open (match-beginning 0)) pieces)
+          (setq start (+ (match-beginning 0) 2)))
+         (t
+          (push (substring text open after-open) pieces)
+          (setq start after-open)))))
+    (push (substring text start) pieces)
+    (apply #'concat (nreverse pieces))))
+
 (defun org-journal-grid--display-title (title)
-  "Strip a leading HH:MM from TITLE for block text."
-  (if (and (stringp title)
-           (string-match "\\`\\([0-9]\\{1,2\\}\\):\\([0-9]\\{2\\}\\)\\(?: \\|$\\)" title)
-           (org-journal-grid--parse-clock title))
-      (let ((rest (substring title (match-end 0))))
-        (if (string-empty-p rest) title rest))
-    title))
+  "Strip a leading HH:MM from TITLE and show Org link descriptions only."
+  (let ((text
+         (if (and (stringp title)
+                  (string-match "\\`\\([0-9]\\{1,2\\}\\):\\([0-9]\\{2\\}\\)\\(?: \\|$\\)" title)
+                  (org-journal-grid--parse-clock title))
+             (let ((rest (substring title (match-end 0))))
+               (if (string-empty-p rest) title rest))
+           title)))
+    (if (not (stringp text))
+        text
+      ;; Prefer Org's parser; fall back when path contains raw brackets.
+      (let ((formatted (org-link-display-format text)))
+        (if (string-match-p "\\[\\[" formatted)
+            (org-journal-grid--replace-bracket-links formatted)
+          formatted)))))
 
 (defun org-journal-grid--include-todo-p (todo-keyword)
   "Return non-nil when TODO-KEYWORD should appear on the grid."

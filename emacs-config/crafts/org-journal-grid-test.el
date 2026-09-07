@@ -16,7 +16,25 @@
 
 (ert-deftest org-journal-grid-display-title ()
   (should (equal (org-journal-grid--display-title "10:43 压缩 PNG") "压缩 PNG"))
-  (should (equal (org-journal-grid--display-title "09:00") "09:00")))
+  (should (equal (org-journal-grid--display-title "09:00") "09:00"))
+  (should (equal (org-journal-grid--display-title
+                  "19:50 [[file:/tmp/foo.md][添加 zlib 技能文档. [dir: ~/.agents/] (rev: 8b6b30b)]]")
+                 "添加 zlib 技能文档. [dir: ~/.agents/] (rev: 8b6b30b)"))
+  (should (equal (org-journal-grid--display-title
+                  "[[https://example.com][Example]]")
+                 "Example"))
+  (should (equal (org-journal-grid--display-title "[[https://example.com]]")
+                 "https://example.com"))
+  ;; Path contains raw brackets; org-link-display-format cannot parse it.
+  (should (equal (org-journal-grid--display-title
+                  (concat "19:50 [[file:/tmp/2026-03-24_添加 zlib. "
+                          "[dir_ ~/.agents_] (rev_ 8b6b30b).md]"
+                          "[添加 zlib 技能文档，封装 Z-Library CLI 实现搜索、"
+                          "下载、历史浏览与配额检查. "
+                          "[dir: ~/.agents/] (rev: 8b6b30b)]]"))
+                 (concat "添加 zlib 技能文档，封装 Z-Library CLI 实现搜索、"
+                         "下载、历史浏览与配额检查. "
+                         "[dir: ~/.agents/] (rev: 8b6b30b)"))))
 
 (ert-deftest org-journal-grid-include-todo ()
   (let ((org-not-done-keywords '("TODO" "NEXT"))
