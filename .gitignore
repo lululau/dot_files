@@ -137,3 +137,4 @@ keepkit/cache.json
 /moeka/
 
 .worktrees/
+/zlib/
