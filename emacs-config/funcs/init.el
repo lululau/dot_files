@@ -385,9 +385,14 @@ Read a timestamp from the user and insert it at point." t)
 ;;; Generated autoloads from helm-git-recentf.el
 
 (autoload 'helm-git-recentf "helm-git-recentf" "\
-Find files in the current Git repository by last commit modification time.
-Uses `git last-modified --recursive'.  With prefix ARG, refresh the cache
-first.  If the current buffer is not inside a Git repository, signal
+Find files in the current Git repository by recent modification.
+Shows two Helm sources:
+- Git untracked: non-ignored untracked files, sorted by filesystem mtime
+- Git recent files: tracked files via `git last-modified --recursive',
+  sorted by last commit time
+
+With prefix ARG, refresh the tracked-file cache first.
+If the current buffer is not inside a Git repository, signal
 \"Not git repository\".
 
 \(fn &optional ARG)" t)
