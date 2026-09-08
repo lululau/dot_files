@@ -27,6 +27,7 @@
   "s-f" #'lx/set-default-font
   "s-0" #'lx/set-default-font
   "ps" #'lx/find-or-create-projectile-snippet-file
+  "pg" #'helm-git-recentf
   "aC" #'calendar
   "col" #'copy-org-links-at-point
   "xa#" #'spacemacs/align-repeat-hash

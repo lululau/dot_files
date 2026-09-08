@@ -381,6 +381,19 @@ Read a timestamp from the user and insert it at point." t)
 
 ;;;***
 
+;;;### (autoloads nil "helm-git-recentf" "helm-git-recentf.el" (0 0 0 0))
+;;; Generated autoloads from helm-git-recentf.el
+
+(autoload 'helm-git-recentf "helm-git-recentf" "\
+Find files in the current Git repository by last commit modification time.
+Uses `git last-modified --recursive'.  With prefix ARG, refresh the cache
+first.  If the current buffer is not inside a Git repository, signal
+\"Not git repository\".
+
+\(fn &optional ARG)" t)
+
+;;;***
+
 ;;;### (autoloads nil "helm-pinyin-match-function" "helm-pinyin-match-function.el"
 ;;;;;;  (0 0 0 0))
 ;;; Generated autoloads from helm-pinyin-match-function.el
