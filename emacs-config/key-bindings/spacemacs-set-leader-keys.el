@@ -148,6 +148,11 @@
 
   "aP"  'list-processes
   "ap"  'lx/proced-same-window
+
+  "asum" #'calc-grab-sum-down
+  "sum" #'calc-grab-sum-down
+  "asuM" #'calc-grab-sum-across
+  "suM" #'calc-grab-sum-across
   )
 
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
