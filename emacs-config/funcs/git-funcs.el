@@ -55,6 +55,7 @@
 Show the magit process buffer in another window so the push
 output and result can be watched."
   (interactive)
+  (require 'magit)
   (magit-run-git "add" "-A")
   (magit-run-git "commit" "-m" ".")
   (magit-run-git-async "push")
