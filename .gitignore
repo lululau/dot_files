@@ -138,3 +138,4 @@ keepkit/cache.json
 
 .worktrees/
 /zlib/
+/lazydb/
