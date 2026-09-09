@@ -139,3 +139,4 @@ keepkit/cache.json
 .worktrees/
 /zlib/
 /lazydb/
+/d9cker/config.json
