@@ -43,7 +43,7 @@
 (global-set-key (kbd "s-r q") #'lx/run-arql)
 (global-set-key (kbd "s-r j") #'lx/run-jshell)
 (global-set-key (kbd "s-r a") #'lx/run-arthas)
-(global-set-key (kbd "s-r d") #'lx/run-alidash)
+(global-set-key (kbd "s-r s-r d k") #'lx/run-d9cker)
 (global-set-key (kbd "s-r f") #'lx/run-flo)
 (global-set-key (kbd "s-r t") #'lx/run-tuinnel)
 (global-set-key (kbd "s-r k") #'lx/run-k9s)

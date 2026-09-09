@@ -96,6 +96,12 @@
   (lx/run-in-ghostel "as.sh" "*arthas*" default-directory))
 
 ;;;###autoload
+(defun lx/run-d9cker ()
+  "Run d9cker in ghostel"
+  (interactive)
+  (lx/run-in-ghostel "d9cker" "*d9cker*" nil t))
+
+;;;###autoload
 (defun lx/run-alidash ()
   "Run alidash in ghostel"
   (interactive)
