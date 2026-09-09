@@ -1,0 +1,13 @@
+# LazyDB user settings — overrides embedded defaults (https://github.com/lazydb/lazydb)
+# Pagination: avoid special keys (PageUp/PageDown/Ctrl-Home/Ctrl-End), use plain Ctrl+letter.
+[keybindings.results]
+# Ctrl-a: first letter of the alphabet -> first page (like readline Ctrl-a = line start).
+first-page = ["Ctrl-a"]
+# Vim: Ctrl-y scrolls up -> previous page.
+previous-page = ["Ctrl-y"]
+# Vim: Ctrl-e scrolls down -> next page.
+next-page = ["Ctrl-e"]
+# Ctrl-z: last letter of the alphabet -> last page.
+last-page = ["Ctrl-z"]
+# P opens the page-size selector (unchanged from default).
+page-size = ["P"]
