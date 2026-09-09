@@ -60,7 +60,16 @@ value of `ghostel-buffer-name'."
     (with-current-buffer buf
       (unless (derived-mode-p 'pry-ghostel-mode)
         (pry-ghostel-mode)))
-    (ghostel--init-buffer buf (buffer-name buf))
+    ;; ghostel--init-buffer takes optional ROWS/COLS, not an identity string.
+    (ghostel--init-buffer buf)
+    (with-current-buffer buf
+      (setq ghostel-identity `((kind . pry-ghostel)
+                               (name . ,(buffer-name buf))
+                               (instance . 1))
+            ghostel--managed-buffer-name (buffer-name)
+            ghostel--initial-name (buffer-name))
+      (ghostel--start-process)
+      (ghostel--apply-initial-input-mode))
     buf))
 
 (defun pry-ghostel-get-current-line ()

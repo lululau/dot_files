@@ -44,12 +44,14 @@
         (setq zsh-ghostel-last-buffer (current-buffer))
         (with-current-buffer buffer
           (zsh-ghostel-mode)
-          (setq ghostel--managed-buffer-name "")  ;; prevent title tracking from renaming
-          (setq ghostel--buffer-identity (buffer-name)))
+          ;; Empty managed name prevents title tracking from renaming.
+          (setq ghostel--managed-buffer-name ""
+                ghostel-identity `((kind . zsh-ghostel-exec)
+                                   (name . ,buffer-name)
+                                   (instance . 1))))
         (pop-to-buffer buffer (append display-buffer--same-window-action
                                       '((category . comint))))
         (ghostel-exec buffer (car command-parts) (cdr command-parts))))))
-
 (defun zsh-ghostel (&optional arg)
   "Create an interactive Ghostel buffer.
 Start a new Ghostel session, or switch to an already active
@@ -69,33 +71,64 @@ value of `ghostel-buffer-name'."
   (zsh-ghostel--internal #'pop-to-buffer-same-window arg))
 
 (defun zsh-ghostel--prepare-buffer (buffer &optional identity)
-  "Put BUFFER into `ghostel-mode' and record its terminal identity.
-IDENTITY, if given, is stored as `ghostel--buffer-identity' so the
-buffer can be found again after title-tracking renames it."
+  "Put BUFFER into `zsh-ghostel-mode' and record its terminal identity.
+IDENTITY, if given, is a `ghostel-identity' alist stored on the buffer
+so it can be found again after title-tracking renames it."
   (with-current-buffer buffer
     (unless (derived-mode-p 'zsh-ghostel-mode)
-      (zsh-ghostel-mode)
-      (setq ghostel--managed-buffer-name (buffer-name))
-      (setq ghostel--buffer-identity (or identity (buffer-name))))))
+      (zsh-ghostel-mode))
+    (setq ghostel--managed-buffer-name (buffer-name))
+    (when identity
+      (setq ghostel-identity identity))))
 
 (defun zsh-ghostel--internal (pop-to-buf-fun &optional arg)
+  "Find or create a `zsh-ghostel' terminal, mirroring `ghostel--start'.
+POP-TO-BUF-FUN is retained for call-site compatibility but display uses
+the same action as stock `ghostel' so size detection sees the window.
+ARG follows `ghostel' prefix conventions: number selects an instance,
+string forces that buffer name, other non-nil creates a fresh instance."
   (ghostel--load-module t)
-  (let* ((identity (cond ((stringp arg) arg)
-                         ((numberp arg)
-                          (format "%s<%d>" ghostel-buffer-name arg))
-                         (t ghostel-buffer-name)))
-         (buffer (if (and arg (not (numberp arg)))
-                     (or (ghostel--find-buffer-by-identity identity)
-                         (generate-new-buffer (if (stringp arg) arg ghostel-buffer-name)))
-                   (or (ghostel--find-buffer-by-identity identity)
-                       (get-buffer-create identity)))))
-    (unless (with-current-buffer buffer (derived-mode-p 'zsh-ghostel-mode))
-      (zsh-ghostel--prepare-buffer buffer identity))
-    (pop-to-buffer buffer (append display-buffer--same-window-action
-                                  '((category . comint))))
-    (ghostel--init-buffer buffer identity)
-    buffer))
-
+  (let* ((fresh (and arg (not (numberp arg))))
+         (name (if (stringp arg) arg ghostel-buffer-name))
+         (context `((kind . zsh-ghostel) (name . ,name)))
+         (instance (cond ((numberp arg) arg)
+                         (fresh (ghostel--next-instance context))
+                         (t 1)))
+         (identity `(,@context (instance . ,instance)))
+         (buf-name (if (and (not (stringp arg)) (> instance 1))
+                       (format "%s<%d>" name instance)
+                     name))
+         (display-action (append display-buffer--same-window-action
+                                 '((category . comint))))
+         (existing (and (not fresh)
+                        (ghostel--find-buffer-by-identity identity))))
+    (if existing
+        (progn
+          (unless (buffer-local-value 'ghostel--term existing)
+            (user-error "Ghostel buffer %s has no terminal"
+                        (buffer-name existing)))
+          (pop-to-buffer existing display-action)
+          existing)
+      (let ((buffer (generate-new-buffer buf-name)))
+        (condition-case err
+            (progn
+              (zsh-ghostel--prepare-buffer buffer identity)
+              ;; Display before init so rows/cols come from the real window.
+              (if (functionp pop-to-buf-fun)
+                  (funcall pop-to-buf-fun buffer)
+                (pop-to-buffer buffer display-action))
+              (ghostel--init-buffer buffer)
+              (with-current-buffer buffer
+                (setq ghostel--managed-buffer-name (buffer-name)
+                      ghostel--initial-name (buffer-name)
+                      ghostel-identity identity)
+                (ghostel--start-process)
+                (ghostel--apply-initial-input-mode))
+              buffer)
+          ((error quit)
+           (when (buffer-live-p buffer)
+             (kill-buffer buffer))
+           (signal (car err) (cdr err))))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun zsh-ghostel-previous-cli-output ()

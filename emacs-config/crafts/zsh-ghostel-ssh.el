@@ -83,8 +83,16 @@ Does nothing when no host can be determined.  REMOTE-DIR defaults to \"/\"."
       (unless (derived-mode-p 'ssh-zsh-ghostel-mode)
         (ssh-zsh-ghostel-mode)
         (setq-local ssh-zsh-ghostel-ssh-options ssh-options)))
-    (ghostel--init-buffer buf (buffer-name buf))
+    ;; ghostel--init-buffer takes optional ROWS/COLS, not an identity string.
+    (ghostel--init-buffer buf)
     (with-current-buffer buf
+      (setq ghostel-identity `((kind . ssh-zsh-ghostel)
+                               (name . ,(buffer-name buf))
+                               (instance . 1))
+            ghostel--managed-buffer-name (buffer-name)
+            ghostel--initial-name (buffer-name))
+      (ghostel--start-process)
+      (ghostel--apply-initial-input-mode)
       ;; OSC 7 may never arrive; seed TRAMP cwd for docker, find-file, etc.
       (ssh-zsh-ghostel--apply-default-directory ssh-options))
     buf))
