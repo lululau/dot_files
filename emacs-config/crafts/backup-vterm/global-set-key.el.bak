@@ -145,7 +145,8 @@
                                                                      (buffer-name "*vterm-cmd-git-remote-branches*")
                                                                      (remote (if arg (magit-read-remote "Remote") "")))
                                                                 (lx/run-in-vterm (format "git remote-branches %s" remote) buffer-name (magit-toplevel) t))))
-(global-set-key (kbd "s-r s-r ad") #'arthas-class-reload-docker)
+(global-set-key (kbd "s-r s-r ad") #'lx/run-alidash)
+;; (global-set-key (kbd "s-r s-r ad") #'arthas-class-reload-docker)
 (global-set-key (kbd "s-r s-r ak") #'arthas-class-reload-k8s)
 (global-set-key (kbd "s-r b") #'helm-vterm-buffers)
 
