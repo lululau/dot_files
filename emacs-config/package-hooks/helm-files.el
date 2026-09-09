@@ -1,8 +1,72 @@
 ;; -*- lexical-binding: t; -*-
 
+;;; Helm action-buffer F-keys (C-z → *helm action*)
+;;
+;; C-z runs `helm-select-action', which shows `*helm action*'.  Labels
+;; [f1]..[f12] are the 1st..12th entries of the current source's action
+;; alist; F1..F12 call `helm-select-nth-action' with those indices.
+;; Customizing those shortcuts means editing the action alist (not the
+;; keymap).  File helms already rebind RET to
+;; `spacemacs/helm-find-files-windows', so reordering the front of the
+;; action list does not change RET open-file behavior.
+;;
+;; Desired front of file action lists:
+;;   [f1] Find file in Dired
+;;   [f2] Copy file path
+;;   [f3] Copy file name
+
+(defun lx/helm-copy-file-path (_candidate)
+  "Copy absolute path(s) of the Helm selection / marked files.
+Mirrors `spacemacs/copy-file-path' for Helm file candidates."
+  (let* ((files (helm-marked-candidates))
+         (paths (mapcar #'file-truename files))
+         (joined (mapconcat #'identity paths "\n")))
+    (kill-new joined)
+    (message "%s" joined)))
+
+(defun lx/helm-copy-file-name (_candidate)
+  "Copy basename(s) of the Helm selection / marked files.
+Mirrors `spacemacs/copy-file-name' for Helm file candidates."
+  (let* ((files (helm-marked-candidates))
+         (names (mapcar #'file-name-nondirectory files))
+         (joined (mapconcat #'identity names "\n")))
+    (kill-new joined)
+    (message "%s" joined)))
+
+(defun lx/helm-insert-copy-file-actions (actions)
+  "Put Dired / copy-path / copy-name at [f1]/[f2]/[f3] in ACTIONS.
+Idempotent on reload."
+  (let* ((actions (if (and (symbolp actions) (boundp actions))
+                      (symbol-value actions)
+                    actions))
+         (actions (cl-remove-if
+                   (lambda (a)
+                     (memq (cdr a) '(lx/helm-copy-file-path
+                                     lx/helm-copy-file-name)))
+                   actions))
+         (dired-action (or (rassq 'helm-point-file-in-dired actions)
+                           (rassq 'helm-open-dired actions)))
+         (actions (if dired-action
+                      (remove dired-action actions)
+                    actions))
+         (dired-action (or dired-action
+                           '("Find file in Dired" . helm-point-file-in-dired)))
+         (copy-path '("Copy file path" . lx/helm-copy-file-path))
+         (copy-name '("Copy file name" . lx/helm-copy-file-name)))
+    (append (list dired-action copy-path copy-name) actions)))
+
 (with-eval-after-load 'helm-files
   ;; Initial listing newest-first; filtering still re-sorts by match score.
   (setq helm-ff-initial-sort-method 'newest)
+
+  (setq helm-find-files-actions
+        (lx/helm-insert-copy-file-actions helm-find-files-actions))
+  (setq helm-type-file-actions
+        (lx/helm-insert-copy-file-actions helm-type-file-actions))
+
+  (with-eval-after-load 'helm-projectile
+    (setq helm-projectile-file-actions
+          (lx/helm-insert-copy-file-actions helm-projectile-file-actions)))
 
   ;; helm-list-dir-external needs GNU ls (-Q etc.); rpc→macOS/BSD ls fails
   ;; silently (exit 0, empty out) and recent helm no longer falls back to lisp.
