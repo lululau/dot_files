@@ -102,6 +102,12 @@
   (lx/run-in-ghostel "d9cker" "*d9cker*" nil t))
 
 ;;;###autoload
+(defun lx/run-lazydb ()
+  "Run lazydb in ghostel"
+  (interactive)
+  (lx/run-in-ghostel "lazydb --theme-file ~/.config/lazydb/themes/catppuccin-macchiato.json" "*lazydb*" nil t))
+
+;;;###autoload
 (defun lx/run-alidash ()
   "Run alidash in ghostel"
   (interactive)

@@ -91,6 +91,7 @@
 (global-set-key (kbd "s-r s-r gl") #'lx/run-git-multi-pull)
 (global-set-key (kbd "s-r s-r ga") #'lx/run-git-remote-branches)
 (global-set-key (kbd "s-r s-r ad") #'lx/run-alidash)
+(global-set-key (kbd "s-r s-r db") #'lx/run-lazydb)
 ;; (global-set-key (kbd "s-r s-r ad") #'arthas-class-reload-docker)
 (global-set-key (kbd "s-r s-r ak") #'arthas-class-reload-k8s)
 (global-set-key (kbd "s-r s-a") #'ghostel-agent-run-claude)
