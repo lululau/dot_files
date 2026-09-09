@@ -138,5 +138,6 @@ keepkit/cache.json
 
 .worktrees/
 /zlib/
-/lazydb/
+/lazydb/*
+!/lazydb/themes/
 /d9cker/config.json
