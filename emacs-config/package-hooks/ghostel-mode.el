@@ -313,6 +313,33 @@ PROCESS is the shell process, EVENT describes the state change."
 
   (ghostel-dnd-enable)
 
+  ;; Horizontal wheel: upstream ghostel only intercepts vertical scroll
+  ;; (buttons 4/5).  Forward wheel-left/right (and mouse-6/7) as buttons
+  ;; 6/7 so TUI apps with mouse tracking (e.g. lazydb Relation Data) can
+  ;; scroll horizontally, matching iTerm2 behavior.
+  (defun ghostel--scroll-intercept-left (event)
+    "Intercept wheel-left EVENT for terminal mouse tracking.
+If the terminal is tracking mouse events, forward as button 6.
+Otherwise, re-dispatch EVENT through the normal event loop."
+    (interactive "e")
+    (with-current-buffer (window-buffer (ghostel--event-window event))
+      (unless (ghostel--forward-scroll-event event 6)
+        (ghostel--redispatch-scroll-event event))))
+
+  (defun ghostel--scroll-intercept-right (event)
+    "Intercept wheel-right EVENT for terminal mouse tracking.
+If the terminal is tracking mouse events, forward as button 7.
+Otherwise, re-dispatch EVENT through the normal event loop."
+    (interactive "e")
+    (with-current-buffer (window-buffer (ghostel--event-window event))
+      (unless (ghostel--forward-scroll-event event 7)
+        (ghostel--redispatch-scroll-event event))))
+
+  (define-key ghostel--scroll-intercept-map [mouse-6] #'ghostel--scroll-intercept-left)
+  (define-key ghostel--scroll-intercept-map [mouse-7] #'ghostel--scroll-intercept-right)
+  (define-key ghostel--scroll-intercept-map [wheel-left] #'ghostel--scroll-intercept-left)
+  (define-key ghostel--scroll-intercept-map [wheel-right] #'ghostel--scroll-intercept-right)
+
   ;; (rvm-activate-corresponding-ruby)
 
   (defvar lx/ghostel-inhibit-nl-translation nil
