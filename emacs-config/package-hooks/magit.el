@@ -1,5 +1,11 @@
 ;; -*- lexical-binding: t; -*-
 
+;; Magit declares `(defvar borg-user-emacs-directory)' without a value for
+;; optional borg integration.  Staging an untracked nested git repo reads it
+;; in `magit-stage-untracked' and signals void-variable when borg is absent.
+(with-eval-after-load 'magit-apply
+  (defvar borg-user-emacs-directory nil))
+
 (spacemacs|use-package-add-hook magit-status
   :post-config
   (defun magit-refresh-vc-mode-line (rev)
