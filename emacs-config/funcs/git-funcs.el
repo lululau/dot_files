@@ -50,14 +50,25 @@
   (magit-process-buffer))
 
 ;;;###autoload
+(defun lx/git-default-commit-message ()
+  "Return default commit message from git config `lx.defaultCommitMessage'.
+Fall back to \"A commit\" when unset or empty."
+  (let ((msg (magit-get "lx.defaultCommitMessage")))
+    (if (and msg (not (string-empty-p msg)))
+        msg
+      "A commit")))
+
+;;;###autoload
 (defun lx/git-stage-commit-push ()
-  "Stage all changes, commit with \".\", then push asynchronously.
+  "Stage all changes, commit with a default message, then push asynchronously.
+The commit message comes from git config `lx.defaultCommitMessage'
+(per-repo or global); if unset, uses \"A commit\".
 Show the magit process buffer in another window so the push
 output and result can be watched."
   (interactive)
   (require 'magit)
   (magit-run-git "add" "-A")
-  (magit-run-git "commit" "-m" ".")
+  (magit-run-git "commit" "-m" (lx/git-default-commit-message))
   (magit-run-git-async "push")
   (switch-to-buffer-other-window (magit-process-buffer t)))
 
