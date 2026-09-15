@@ -940,6 +940,8 @@ Return a one liner string containing all the layout names.")
 
 (autoload 'lx/dired-rpc-switches-fix "dired-rpc-switches-fix" nil t)
 
+(autoload 'lx/dired-rpc--ls-lisp-switches "dired-rpc-switches-fix" nil t)
+
 (autoload 'lx/agent-shell-select-session "agent-shell-enhanced" nil t)
 
 (autoload 'lx/agent-shell-in-other-window "agent-shell-enhanced" nil t)

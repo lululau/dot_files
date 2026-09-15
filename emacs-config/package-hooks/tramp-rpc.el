@@ -1,5 +1,17 @@
 ;; -*- lexical-binding: t; -*-
 
+(with-eval-after-load 'tramp-rpc
+  ;; ls-lisp (which tramp-rpc delegates listings to) mangles GNU-style
+  ;; switches: "--quoting-style=..." wipes the rest of the string and
+  ;; "--sort=none" turns into -S.  Normalize them before parsing, so
+  ;; switches edited later via `dired-sort-toggle-or-edit' work too.
+  (advice-add 'tramp-rpc-handle-insert-directory :around
+              (lambda (orig filename switches &optional wildcard full-directory-p)
+                (funcall orig
+                         filename
+                         (lx/dired-rpc--ls-lisp-switches (or switches ""))
+                         wildcard full-directory-p))))
+
 (with-eval-after-load 'tramp-rpc-deploy
   ;; 修复 tramp-rpc-deploy--download-file 的 HTTP 报头与 Body 分隔符解析缺陷
   (defun tramp-rpc-deploy--download-file (url dest)
