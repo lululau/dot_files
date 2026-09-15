@@ -137,7 +137,7 @@ use in place of \"-ls\" as the final argument."
 (defun fd-name-dired (dir pattern)
   ""
   (interactive
-   "Dfd-name (directory): \nsfd-name (filename wildcard): ")
+   "Dfd-name (directory): \nsfd-name (filename regexp): ")
   (fd-dired dir (shell-quote-argument pattern)))
 
 ;; This functionality suggested by
