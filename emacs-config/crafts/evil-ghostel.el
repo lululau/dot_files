@@ -306,6 +306,11 @@ intercepted by Emacs' own `C-x' keymap."
   (evil-define-key '(normal insert) ghostel-mode-map
     (kbd "C-c C-z") 'evil-ghostel-toggle-send-escape)
 
+  ;; Terminal control via C-c prefix
+  (define-key ghostel-mode-map (kbd "C-c C-g") #'ghostel-send-C-g)
+  (evil-define-key '(normal insert hybrid) ghostel-mode-map
+    (kbd "C-c C-g") #'ghostel-send-C-g)
+
   ;; C- key passthrough in insert state
   (evil-define-key 'insert ghostel-mode-map
     (kbd "C-a") 'ghostel--self-insert
