@@ -142,3 +142,4 @@ keepkit/cache.json
 !/lazydb/themes/
 !/lazydb/settings.toml
 /d9cker/config.json
+/.zcode/
