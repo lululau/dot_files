@@ -58,6 +58,7 @@
   "it" #'lx/insert-timestamp
   "fi" 'lx/open-with-idea
   "fa" 'lx/browse-file-or-directory-in-alfred
+  "fS" 'send-to
   "fei" #'lx/open-emacs-init-file
   "te" #'toggle-company-english-helper
   "t C-s" #'lx/toggle-global-syntax-check
@@ -185,6 +186,7 @@
   "nn" 'dired-narrow
   "nr" 'dired-narrow-regexp
   "nf" 'dired-narrow-fuzzy
+  "S" 'send-to
   "rs" 'dired-rsync
   "r." 'dired-rsync-transient)
 
