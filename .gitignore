@@ -143,3 +143,4 @@ keepkit/cache.json
 !/lazydb/settings.toml
 /d9cker/config.json
 /.zcode/
+/zennotes/
