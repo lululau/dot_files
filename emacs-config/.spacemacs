@@ -488,6 +488,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
 
   ;; available flavors: latte, frappe, macchiato, mocha
+  (menu-bar-mode -1)
   (setq catppuccin-flavor 'macchiato)
   (setq helm-descbinds-disable-which-key nil)
   (setq configuration-layer--elpa-archives
