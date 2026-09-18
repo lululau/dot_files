@@ -776,6 +776,8 @@ Remove empty lines
 
 (autoload 'lx/run-alidash "term-funcs" nil t)
 
+(autoload 'lx/run-lucal "term-funcs" nil t)
+
 (autoload 'lx/run-lazydb "term-funcs" nil t)
 
 (autoload 'lx/run-d9cker "term-funcs" nil t)

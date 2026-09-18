@@ -114,6 +114,12 @@
   (lx/run-in-ghostel "alidash" "*alidash*" nil t))
 
 ;;;###autoload
+(defun lx/run-lucal ()
+  "Run lucal in ghostel"
+  (interactive)
+  (lx/run-in-ghostel "lucal" "*lucal*" nil t))
+
+;;;###autoload
 (defun lx/run-flo ()
   "Run flo in ghostel"
   (interactive)
