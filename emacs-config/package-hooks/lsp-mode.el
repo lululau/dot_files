@@ -2,7 +2,14 @@
 
 (with-eval-after-load 'lsp-mode
   (define-key lsp-mode-map (kbd "<M-return>") #'lsp-execute-code-action)
-  (define-key lsp-mode-map (kbd "<S-return>") 'lsp-find-references))
+  (define-key lsp-mode-map (kbd "<S-return>") 'lsp-find-references)
+
+  ;; sql-ls (npm sql-language-server) is unmaintained since 2021; its legacy
+  ;; dependency chain (@google-cloud/bigquery -> jws -> jwa ->
+  ;; buffer-equal-constant-time) dereferences buffer.SlowBuffer, removed in
+  ;; modern Node, so the server crashes on startup. It also registers at a
+  ;; higher priority than the Go `sqls' client, so disable it to let sqls win.
+  (add-to-list 'lsp-disabled-clients 'sql-ls))
 
 ;; lsp-volar.el injects @vue/typescript-plugin into every ts-ls session at
 ;; load time whenever vue-language-server is on PATH. Global
