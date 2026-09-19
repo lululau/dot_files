@@ -114,6 +114,15 @@
   (lx/run-in-ghostel "alidash" "*alidash*" nil t))
 
 ;;;###autoload
+(defun lx/run-mods (prompt)
+  "Run mods with PROMPT in ghostel."
+  (interactive "sMods prompt: ")
+  (let ((ghostel-kill-buffer-on-exit nil))
+    (when (get-buffer "*mods*")
+      (kill-buffer "*mods*"))
+    (lx/run-in-ghostel (combine-and-quote-strings (list "mods" prompt)) "*mods*" nil t)))
+
+;;;###autoload
 (defun lx/run-lucal ()
   "Run lucal in ghostel"
   (interactive)

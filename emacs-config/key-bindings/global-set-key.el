@@ -77,6 +77,7 @@
 (global-set-key (kbd "s-r m r") #'helm-ghostel-maven-deps-resolve)
 (global-set-key (kbd "s-r m u") #'ghostel-maven-update-local-artifact)
 (global-set-key (kbd "s-r m k") #'ghostel-maven-kill-local-artifact)
+(global-set-key (kbd "s-r m o") #'lx/run-mods)
 (global-set-key (kbd "s-r s-j") #'helm-ghostel-jenkins)
 (global-set-key (kbd "s-r s-r bw") #'lx/run-bandwhich)
 (global-set-key (kbd "s-r s-r ua") #'lx/run-update-all)
