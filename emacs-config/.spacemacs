@@ -487,8 +487,11 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   ;;         ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 
 
+  ;; Hide the menu bar unless ENABLE_EMACS_MENU_BAR is set in the environment.
+  (unless (getenv "ENABLE_EMACS_MENU_BAR")
+    (menu-bar-mode -1))
+
   ;; available flavors: latte, frappe, macchiato, mocha
-  (menu-bar-mode -1)
   (setq catppuccin-flavor 'macchiato)
   (setq helm-descbinds-disable-which-key nil)
   (setq configuration-layer--elpa-archives
