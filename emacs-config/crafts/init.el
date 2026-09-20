@@ -76,5 +76,9 @@
 (autoload 'org-journal-grid "org-journal-grid" nil t)
 (autoload 'markdown-modern-mode "markdown-modern" nil t)
 (autoload 'global-markdown-modern-mode "markdown-modern" nil t)
+(autoload 'dired-rsync-list "dired-rsync-list" nil t)
+
+(with-eval-after-load 'dired-rsync
+  (require 'dired-rsync-list))
 
 (load-file (format "%s/%s" (file-name-directory load-file-name) "spacemacs-override.el"))

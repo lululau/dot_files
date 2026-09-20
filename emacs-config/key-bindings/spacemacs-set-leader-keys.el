@@ -150,6 +150,7 @@
 
   "aP"  'list-processes
   "ap"  'lx/proced-same-window
+  "ar"  'dired-rsync-list
 
   "asum" #'calc-grab-sum-down
   "sum" #'calc-grab-sum-down
@@ -160,6 +161,7 @@
 (spacemacs/set-leader-keys-for-major-mode 'dired-mode
   "h" 'dired-dotfiles-toggle
   "aC" 'dired-async-do-copy
+  "aL" 'dired-rsync-list
   "ar" 'tda/rsync
   "aR" 'tda/rsync-delete
   "az" 'tda/zip
