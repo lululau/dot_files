@@ -188,6 +188,15 @@ future keyboard creation and navigation."
 The default matches `org-journal-grid-slot-minutes'."
   :type 'integer)
 
+(defcustom org-journal-grid-font-size 16
+  "Point size of text in grid entries.
+The default 16 is scaled up from the original reference size 10."
+  :type 'integer)
+
+(defcustom org-journal-grid-small-font-size 12
+  "Point size of text for short blocks on the SVG grid."
+  :type 'integer)
+
 (defcustom org-journal-grid-compact-font-size 11
   "Point size of text in a compact one-day strip.
 Everything else in the strip is derived from it: the line height, how many
@@ -1328,19 +1337,35 @@ Keep existing blocks when possible, but reconstruct missing date metadata."
                                (org-journal-grid--selected-id))))
          (fill (org-journal-grid--color block palette))
          (accent (org-journal-grid--accent block palette))
-         (small-font (org-journal-grid--font-size 8))
-         (font-size (if (< block-height (org-journal-grid--scale-pixels 13))
+         (small-font (org-journal-grid--font-size org-journal-grid-small-font-size))
+         (base-font (org-journal-grid--font-size org-journal-grid-font-size))
+         (font-size (if (< block-height (org-journal-grid--scale-pixels 18))
                         small-font
-                      (org-journal-grid--font-size 10)))
+                      base-font))
          (line-height (if (= font-size small-font)
-                          (org-journal-grid--scale-pixels 10)
-                        (org-journal-grid--scale-pixels 13)))
+                          (org-journal-grid--scale-pixels 14)
+                        (org-journal-grid--scale-pixels 19)))
          (characters (max 1 (floor (/ (- block-width 12)
                                       (* font-size 0.62)))))
-         (max-lines (max 1 (floor (/ (max 1 (- block-height 3))
-                                     line-height))))
+         (min-pad (org-journal-grid--scale-pixels 3))
+         (max-lines (max 1 (if (< block-height (+ font-size (* 2 min-pad)))
+                               1
+                             (1+ (floor (/ (- block-height font-size (* 2 min-pad))
+                                           line-height))))))
          (title-lines (org-journal-grid--wrap-title
                        (org-journal-grid-block-title block) characters max-lines))
+         (has-range (and (not boundary-edge) (< (length title-lines) max-lines)))
+         (total-lines (+ (if boundary-edge 0 (length title-lines))
+                         (if has-range 1 0)))
+         (total-text-height (if (> total-lines 0)
+                                (+ font-size (* (1- total-lines) line-height))
+                              0))
+         (rem (- block-height total-text-height))
+         (max-pad (org-journal-grid--scale-pixels 7))
+         (top-pad (if (<= rem 0)
+                      (max 0.0 (/ rem 2.0))
+                    (max min-pad (min max-pad (/ rem 2.0)))))
+         (ascent (* font-size 0.78))
          (clip-id (format "occs-block-%s-%x" day
                           (sxhash (org-journal-grid-block-id block))))
          (clip (svg-clip-path svg :id clip-id))
@@ -1360,25 +1385,23 @@ Keep existing blocks when possible, but reconstruct missing date metadata."
              for index from 0 do
              (svg-text svg line :x (+ x 9)
                        :y (+ y (min (- block-height 1)
-                                    (+ (if (= font-size small-font)
-                                           (org-journal-grid--scale-pixels 8)
-                                         (org-journal-grid--scale-pixels 10))
-                                       (* index line-height))))
+                                    (+ top-pad ascent (* index line-height))))
                        :font-size font-size :font-weight "600"
                        :font-family font-family
                        :clip-path (format "url(#%s)" clip-id)
                        :fill (if (org-journal-grid-block-done block)
                                  (plist-get palette :muted)
                                (plist-get palette :foreground))))
-    (when (and (not boundary-edge) (< (length title-lines) max-lines))
+    (when has-range
       (svg-text svg
                 (org-journal-grid--format-range
                  (or (org-journal-grid-block-source-start block) (org-journal-grid-block-start block))
                  (or (org-journal-grid-block-source-end block) (org-journal-grid-block-end block)))
                 :x (+ x 9)
-                :y (+ y (org-journal-grid--scale-pixels 10)
-                      (* (length title-lines) line-height))
-                :font-size (org-journal-grid--font-size 9) :font-family font-family
+                :y (+ y (min (- block-height 1)
+                             (+ top-pad ascent (* (length title-lines) line-height))))
+                :font-size (org-journal-grid--font-size (max 9 (round (* org-journal-grid-font-size 0.75))))
+                :font-family font-family
                 :clip-path (format "url(#%s)" clip-id)
                 :fill (plist-get palette :secondary-text)))
     (list :id (org-journal-grid-block-id block) :day day
@@ -1912,13 +1935,17 @@ preview."
               :stroke-linejoin "round")
     (let* ((text-x (+ x (if leftp arrow 0) 9))
            (available (max 1 (- right text-x 5)))
+           (font-size (org-journal-grid--font-size
+                       (min 14 (max 10 (- org-journal-grid-font-size 2)))))
            (characters (max 1 (floor (/ available
-                                        (org-journal-grid--scale-pixels 6.2)))))
+                                        (* font-size 0.62)))))
            (title (truncate-string-to-width
-                   (org-journal-grid-block-title block) characters nil nil "…")))
+                   (org-journal-grid-block-title block) characters nil nil "…"))
+           (ascent (* font-size 0.78))
+           (top-pad (max 0.0 (/ (- height font-size) 2.0))))
       (svg-text svg title :x text-x
-                :y (+ y (org-journal-grid--scale-pixels 13))
-                :font-size (org-journal-grid--font-size 10)
+                :y (+ y top-pad ascent)
+                :font-size font-size
                 :font-weight "600" :font-family font-family
                 :fill (plist-get palette :foreground)))
     (list :id (org-journal-grid-block-id block) :lane (org-journal-grid-block-rail-lane block)
