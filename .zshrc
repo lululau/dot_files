@@ -87,7 +87,8 @@ export ZSH_COMPDUMP="${HOME}/.zcompdump"
 
 source $ZSH/oh-my-zsh.sh
 
-autoload -U zmv
+fpath=(~/.zsh/functions $fpath)
+autoload -U zmv zcp zln
 
 # Customize to your needs...
 
