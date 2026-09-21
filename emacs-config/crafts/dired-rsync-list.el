@@ -175,7 +175,7 @@ Return a plist (:bytes :percent :speed :eta :file-progress) or nil."
 
 (defun dired-rsync-list--update-job-progress (job string)
   "Update JOB metrics from incoming rsync output STRING."
-  (when-let ((parsed (dired-rsync-list--parse-progress2 string)))
+  (when-let* ((parsed (dired-rsync-list--parse-progress2 string)))
     (when (plist-get parsed :bytes)
       (setf (dired-rsync-job-bytes-transferred job) (plist-get parsed :bytes)))
     (when (plist-get parsed :percent)
@@ -262,12 +262,12 @@ Return a plist (:bytes :percent :speed :eta :file-progress) or nil."
 
 (defun dired-rsync-list--filter-advice (proc string)
   "Advice after `dired-rsync--filter' to update job progress."
-  (when-let ((job (dired-rsync-list--find-job-by-process proc)))
+  (when-let* ((job (dired-rsync-list--find-job-by-process proc)))
     (dired-rsync-list--update-job-progress job string)))
 
 (defun dired-rsync-list--sentinel-advice (proc desc &rest _)
   "Advice before `dired-rsync--sentinel' to capture logs and finalize job."
-  (when-let ((job (dired-rsync-list--find-job-by-process proc)))
+  (when-let* ((job (dired-rsync-list--find-job-by-process proc)))
     (let ((proc-buf (process-buffer proc)))
       (when (and proc-buf (buffer-live-p proc-buf))
         ;; Save full buffer string before it gets killed
@@ -354,7 +354,7 @@ Return a plist (:bytes :percent :speed :eta :file-progress) or nil."
   (mapcar
    (lambda (job)
      (let* ((id (dired-rsync-job-id job))
-            (pid (if-let ((p (dired-rsync-job-pid job)))
+            (pid (if-let* ((p (dired-rsync-job-pid job)))
                      (number-to-string p)
                    "-"))
             (status (dired-rsync-list--format-status (dired-rsync-job-status job)))
@@ -446,10 +446,10 @@ Return a plist (:bytes :percent :speed :eta :file-progress) or nil."
 
 (defun dired-rsync-list--get-target-jobs ()
   "Return list of marked `dired-rsync-job' instances, or job at point."
-  (if-let ((marked-ids (tablist-get-marked-items)))
+  (if-let* ((marked-ids (tablist-get-marked-items)))
       (delq nil (mapcar #'dired-rsync-list--find-job-by-id marked-ids))
-    (when-let ((id (tabulated-list-get-id)))
-      (if-let ((job (dired-rsync-list--find-job-by-id id)))
+    (when-let* ((id (tabulated-list-get-id)))
+      (if-let* ((job (dired-rsync-list--find-job-by-id id)))
           (list job)
         nil))))
 
@@ -512,10 +512,10 @@ otherwise sends SIGTERM (15)."
                              (mapconcat #'number-to-string pids ", "))))
         (when (y-or-n-p prompt)
           (dolist (job running-jobs)
-            (when-let ((proc (dired-rsync-job-process job)))
+            (when-let* ((proc (dired-rsync-job-process job)))
               (when (process-live-p proc)
                 (interrupt-process proc)))
-            (when-let ((pid (dired-rsync-job-pid job)))
+            (when-let* ((pid (dired-rsync-job-pid job)))
               (ignore-errors (signal-process pid signal)))
             (setf (dired-rsync-job-status job) 'killed)
             (setf (dired-rsync-job-end-time job) (float-time)))
@@ -633,7 +633,7 @@ otherwise sends SIGTERM (15)."
 
 (defun dired-rsync-list--trigger-update ()
   "Trigger an immediate UI update if list buffer is live."
-  (when-let ((buf (get-buffer "*dired-rsync-list*")))
+  (when-let* ((buf (get-buffer "*dired-rsync-list*")))
     (when (buffer-live-p buf)
       (with-current-buffer buf
         (dired-rsync-list--refresh-buffer))))
