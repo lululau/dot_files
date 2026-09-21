@@ -9,6 +9,7 @@
 (autoload 'mfd-grep-dired "mfd-dired")
 (autoload 'fd-dired "fd-dired")
 (autoload 'fd-name-dired "fd-dired")
+(autoload 'zsh-expn-dired "zsh-expn-dired")
 (autoload 'lx/helm-projectile-open-projects "helm-open-projects")
 (autoload 'lx/helm-projectile-other-open-projects "helm-open-projects")
 (autoload 'helm-cwd-buffers "helm-cwd-buffers")

@@ -45,6 +45,7 @@
   "dg" #'find-grep-dired
   "dF" #'fd-dired
   "dN" #'fd-name-dired
+  "dz" #'zsh-expn-dired
   "d s-f" #'mfd-dired
   "d s-n" #'mfd-name-dired
   "d s-g" #'mfd-grep-dired
