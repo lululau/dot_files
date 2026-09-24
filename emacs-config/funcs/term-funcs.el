@@ -165,10 +165,22 @@
   (helm-zsh-ghostel-ssh-run "lx.sd"))
 
 ;;;###autoload
-(defun lx/ssh-to-mini-ex ()
-  "ssh to mini.ex via ghostel"
+(defun lx/ssh-to-m6-ex ()
+  "ssh to m6.ex via ghostel"
   (interactive)
-  (helm-zsh-ghostel-ssh-run "mini.ex"))
+  (helm-zsh-ghostel-ssh-run "m6.ex"))
+
+;;;###autoload
+(defun lx/ssh-to-m2 ()
+  "ssh to m2 via ghostel"
+  (interactive)
+  (helm-zsh-ghostel-ssh-run "m2"))
+
+;;;###autoload
+(defun lx/ssh-to-m4 ()
+  "ssh to m4 via ghostel"
+  (interactive)
+  (helm-zsh-ghostel-ssh-run "m4"))
 
 ;;;###autoload
 (defun lx/ssh-to-jicai-prod1 ()

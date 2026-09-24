@@ -796,7 +796,11 @@ Remove empty lines
 
 (autoload 'lx/ssh-to-lx-sd "term-funcs" nil t)
 
-(autoload 'lx/ssh-to-mini-ex "term-funcs" nil t)
+(autoload 'lx/ssh-to-m6-ex "term-funcs" nil t)
+
+(autoload 'lx/ssh-to-m2 "term-funcs" nil t)
+
+(autoload 'lx/ssh-to-m4 "term-funcs" nil t)
 
 (autoload 'lx/ssh-to-jicai-prod1 "term-funcs" nil t)
 
