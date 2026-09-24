@@ -52,7 +52,7 @@
 (global-set-key (kbd "s-r 2") #'lx/ssh-to-m2)
 (global-set-key (kbd "s-r 4") #'lx/ssh-to-m4)
 (global-set-key (kbd "s-r j 1") #'lx/ssh-to-jicai-prod1)
-(global-set-key (kbd "s-r k 2") #'lx/ssh-to-jicai-prod2)
+(global-set-key (kbd "s-r j 2") #'lx/ssh-to-jicai-prod2)
 (global-set-key (kbd "s-r j 3") #'lx/ssh-to-jicai-prod3)
 (global-set-key (kbd "s-r j d") #'lx/ssh-to-jicai-dev)
 (global-set-key (kbd "s-r j u") #'lx/ssh-to-jicai-uat)
