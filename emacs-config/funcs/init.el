@@ -1065,7 +1065,7 @@ Shorthand alias for `spacemacs/copy-file-or-region-for-agent'." t)
 
 
 (autoload 'lx/update-packages-and-restart "update-packages-and-restart" "\"
-Update packages with no confirmation, then auto-restart Emacs to install them." t)
+Update packages without confirmation; return an update report and restart Emacs." t)
 
 (autoload 'lx/restart-emacs-unconditionally "update-packages-and-restart" "\"
 Save all savable buffers, then restart Emacs without any exit confirmation." t)
