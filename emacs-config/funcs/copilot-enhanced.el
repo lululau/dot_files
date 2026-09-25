@@ -7,6 +7,7 @@
     (add-hook 'clutch-mode-hook (lambda () (copilot-mode -1)))
     (setq copilot--hooks-added t)))
 
+;;;###autoload
 (defun copilot-ensure-and-complete ()
   (interactive)
   (require 'copilot)

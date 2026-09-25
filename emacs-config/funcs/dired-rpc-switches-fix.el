@@ -1,5 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 
+;;;###autoload
 (defun lx/dired-rpc--ls-lisp-switches (switches)
   "Normalize GNU ls SWITCHES into a form ls-lisp parses correctly.
 tramp-rpc generates Dired listings via ls-lisp emulation, but
@@ -23,6 +24,7 @@ sort).  Convert such options up front instead."
     (setq s (replace-regexp-in-string "\\(?:\\`\\| \\)--[a-z][a-z-]*=[^ ]*" "" s))
     (string-trim (replace-regexp-in-string "  +" " " s))))
 
+;;;###autoload
 (defun lx/dired-rpc-switches-fix ()
   "Normalize switches of RPC Dired buffers for ls-lisp parsing.
 See `lx/dired-rpc--ls-lisp-switches'."

@@ -1064,8 +1064,11 @@ Shorthand alias for `spacemacs/copy-file-or-region-for-agent'." t)
 (autoload 'copilot-ensure-and-complete "copilot-enhanced")
 
 
-(autoload 'lx/update-packages-and-restart "core"
-  "Update Spacemacs packages without confirmation and restart Emacs only if updates were found." t)
+(autoload 'lx/update-packages-and-restart "update-packages-and-restart" "\"
+Update packages with no confirmation, then auto-restart Emacs to install them." t)
+
+(autoload 'lx/restart-emacs-unconditionally "update-packages-and-restart" "\"
+Save all savable buffers, then restart Emacs without any exit confirmation." t)
 
 ;;;***
 
