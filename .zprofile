@@ -26,6 +26,6 @@ if [ -e ~/.swiftly/env.sh ]; then
 fi
 
 # path_helper 在 /etc/zprofile 中会重排 PATH，需要在它之后重新前置，
-# 顺序为 ~/bin 优先于 Homebrew，Homebrew 优先于系统路径
-path=($HOME/bin $HOMEBREW_PREFIX/bin $HOMEBREW_PREFIX/sbin $path)
+# 顺序为 ~/bin 优先于 rustup，rustup 优先于 Homebrew，Homebrew 优先于系统路径
+path=($HOME/bin $HOMEBREW_PREFIX/opt/rustup/bin $HOMEBREW_PREFIX/bin $HOMEBREW_PREFIX/sbin $path)
 
