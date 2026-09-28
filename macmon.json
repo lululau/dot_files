@@ -1,5 +1,7 @@
 {
   "view_type": "Sparkline",
   "color": "Blue",
-  "interval": 1000
+  "interval": 2000,
+  "per_core_view": false,
+  "ratio_mode": "Scaled"
 }
