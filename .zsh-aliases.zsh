@@ -52,6 +52,7 @@ alias -g LL="2>&1 | view"
 alias -g G='| rg'
 alias -g J='| jless'
 alias -g P='| pbcopy'
+alias tls=tailscale
 alias pp='pbpaste | view'
 alias pj='pbpaste | jless'
 alias yless="jless --yaml"
