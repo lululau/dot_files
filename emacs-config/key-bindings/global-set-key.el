@@ -96,6 +96,7 @@
 (global-set-key (kbd "s-r s-r ad") #'lx/run-alidash)
 (global-set-key (kbd "s-r s-r ca") #'lx/run-lucal)
 (global-set-key (kbd "s-r s-r db") #'lx/run-lazydb)
+(global-set-key (kbd "s-r s-r lc") #'lx/run-launchdeck)
 ;; (global-set-key (kbd "s-r s-r ad") #'arthas-class-reload-docker)
 (global-set-key (kbd "s-r s-r ak") #'arthas-class-reload-k8s)
 (global-set-key (kbd "s-r s-a") #'ghostel-agent-run-claude)

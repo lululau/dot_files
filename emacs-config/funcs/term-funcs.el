@@ -108,6 +108,12 @@
   (lx/run-in-ghostel "lazydb --theme-file ~/.config/lazydb/themes/catppuccin-macchiato.json" "*lazydb*" nil t))
 
 ;;;###autoload
+(defun lx/run-launchdeck ()
+  "Run launchdeck in ghostel"
+  (interactive)
+  (lx/run-in-ghostel "launchdeck" "*launchdeck*" nil t))
+
+;;;###autoload
 (defun lx/run-alidash ()
   "Run alidash in ghostel"
   (interactive)
