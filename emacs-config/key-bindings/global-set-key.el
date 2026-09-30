@@ -34,7 +34,7 @@
 (global-set-key (kbd "s-N") #'lx/new-untitled-buffer-same-window)
 (global-set-key (kbd "s-w") 'lx/delete-window-or-bury-buffer)
 (global-set-key (kbd "s-W") #'lx/kill-buffer-and-delete-window)
-(global-set-key (kbd "s-D") 'spacemacs/kill-this-buffer)
+(global-set-key (kbd "s-D") #'kill-current-buffer)
 (global-set-key (kbd "M-s-n") #'lx/make-frame)
 (global-set-key (kbd "M-s-w") 'delete-frame)
 ;; (global-set-key (kbd "s-C") 'bzg-big-fringe-mode)
