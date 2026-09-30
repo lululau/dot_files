@@ -129,6 +129,7 @@
         ("osjd" jicai-dev "/rpc:jicai.dev:/data")
         ("osju" jicai-uat "/rpc:jicai.uat:/data")
         ("os6" ueos-dev "/rpc:ueos.dev:/data")
+        ("os7" ueos-prod "/rpc:ueos.prod:/data")
         ("os8" manjaro "/rpc:manjaro.z4:~/")
         ("osd" donghe "/rpc:donghe:/data/backup/mongodb")
         ("osk" donghe-hk01 "/rpc:donghe.hk01:/data/qwenpaw/donghe-fof-test/data/workspaces")
