@@ -74,10 +74,12 @@
         (goto-char (point-min))
         (while (not (eobp))
           (if (markdown-table-at-point-p)
-              (let ((table-end (markdown-table-end)))
+              ;; 必须在 align 之后再取 table-end。align 会插入 padding，
+              ;; 预先保存的整数位置不会随插入前移，会落回同一张表中间，导致重复计数。
+              (progn
                 (markdown-table-align)
                 (cl-incf count)
-                (goto-char (or table-end (line-end-position)))
+                (goto-char (or (markdown-table-end) (line-end-position)))
                 (unless (eobp)
                   (forward-line 1)))
             (forward-line 1))))
