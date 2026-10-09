@@ -2,9 +2,6 @@
 
 (spacemacs|use-package-add-hook imenu-list
   :post-config
-  ;; Display the *Ilist* window on the left side of the frame instead of the
-  ;; right (default). Overrides the `right' saved in .spacemacs custom block.
-  (setq imenu-list-position 'left)
   ;; Make imenu-list mode-line height match spaceline by prepending a transparent
   ;; XPM spacer image whose height equals `powerline-height'.
   ;; NOTE: Must prepend (not append) because the *Ilist* window is narrow;
