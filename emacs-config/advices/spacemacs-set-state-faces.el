@@ -237,7 +237,7 @@
     ;; System
     (add-to-list 'default-frame-alist '(ns-appearance . dark))
     (shell-command-to-string "defaults write org.gnu.Emacs TransparentTitleBar DARK")
-    (shell-command-to-string "tmux set-option -g status-style bg=colour235,fg=colour244"))
+    (shell-command-to-string "tmux set-option -g status-style bg=#24273a,fg=#cad3f5"))
 
   (cl-loop for (state color cursor) in spacemacs-evil-cursors
            do
