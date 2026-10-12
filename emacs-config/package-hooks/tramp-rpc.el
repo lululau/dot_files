@@ -13,6 +13,12 @@
                          wildcard full-directory-p))))
 
 (with-eval-after-load 'tramp-rpc-deploy
+  ;; Git 安装模式下指向 quelpa 源码目录并启用源码编译模式，
+  ;; 确保使用匹配最新 commit 的服务端二进制（避免协议版本 protocol revision 不兼容）
+  (setq tramp-rpc-deploy-source-directory
+        (expand-file-name "~/.emacs.spacemacs.d/.cache/quelpa/build/tramp-rpc")
+        tramp-rpc-deploy-git-build-policy 'build)
+
   ;; 修复 tramp-rpc-deploy--download-file 的 HTTP 报头与 Body 分隔符解析缺陷
   (defun tramp-rpc-deploy--download-file (url dest)
     "Download URL to DEST synchronously.
