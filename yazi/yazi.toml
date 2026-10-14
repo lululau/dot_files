@@ -22,6 +22,11 @@ open = [
 	{ run = 'open %s', desc = "Open" },
 ]
 
+[open]
+prepend_rules = [
+	{ url = "*.dmg", use = [ "open", "extract", "reveal" ] }
+]
+
 [plugin]
 prepend_previewers = [
   { url = "*.ovpn", run = "code" },

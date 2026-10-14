@@ -29,10 +29,10 @@ run  = "plugin smart-enter"
 desc = "Enter the child directory, or open the file"
 
 
-[[mgr.prepend_keymap]]
-on   = [ "o" ]
-run  = "plugin cursor-open"
-desc = "Open the file with cursor"
+# [[mgr.prepend_keymap]]
+# on   = [ "o" ]
+# run  = "plugin cursor-open"
+# desc = "Open the file with cursor"
 
 [[mgr.prepend_keymap]]
 on   = [ "A" ]
