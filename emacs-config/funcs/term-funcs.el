@@ -249,6 +249,12 @@
   (helm-zsh-ghostel-ssh-run "donghe.hk01"))
 
 ;;;###autoload
+(defun lx/ssh-to-donghe-hk02 ()
+  "ssh to donghe.hk02 via ghostel"
+  (interactive)
+  (helm-zsh-ghostel-ssh-run "donghe.hk02"))
+
+;;;###autoload
 (defun lx/vrl-jicai-dev ()
   "Run vrl jicai-dev"
   (interactive)
