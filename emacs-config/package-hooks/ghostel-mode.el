@@ -150,7 +150,11 @@ cannot be loaded yet."
   ;; `ghostel--flush-pending-output', `ghostel--delayed-redraw' and
   ;; `ghostel--input-timer', which have since been removed in favor of the
   ;; `ghostel--write-vt' / `ghostel--invalidate' / `ghostel--redraw-now'
-  ;; rendering path -- do not reintroduce them.
+  ;; rendering path -- do not reintroduce them.  ghostel 20261015.1933
+  ;; additionally removed `ghostel--spinner-stop' (spinner moved into
+  ;; ghostel-status.el on top of spinner.el; cleanup is now
+  ;; `ghostel--defer'ed `ghostel-status--drop-running') and added
+  ;; `ghostel--sync-read-only' / `desktop-save-buffer' teardown.
   (defun ghostel--sentinel (process event)
     "Process sentinel: clean up when shell exits.
 PROCESS is the shell process, EVENT describes the state change."
@@ -166,11 +170,13 @@ PROCESS is the shell process, EVENT describes the state change."
                   ghostel--plain-link-detection-begin nil
                   ghostel--plain-link-detection-end nil))
           (ghostel--cancel-password-confirm-timer)
-          (ghostel--spinner-stop)
+          (ghostel--defer #'ghostel-status--drop-running)
           (remove-hook 'pre-redisplay-functions #'ghostel--fake-cursor-update t)
           (ghostel--fake-cursor-clear)
-          (run-hook-with-args 'ghostel-exit-functions buf event)
+          (ghostel--run-hook-safely 'ghostel-exit-functions buf event)
           (when (buffer-live-p buf)
+            (ghostel--sync-read-only)
+            (setq desktop-save-buffer nil)
             (if (and ghostel-kill-buffer-on-normal-exit
                      (string= "finished\n" event))
                 (kill-buffer buf)
