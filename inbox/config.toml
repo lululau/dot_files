@@ -1,0 +1,105 @@
+[[accounts]]
+name = 'Liu Xiang'
+email = 'liuxiang921@gmail.com'
+badge_fg = ''
+badge_bg = ''
+
+[theme]
+name = ''
+
+[theme.status]
+bg = ''
+fg = ''
+dim = ''
+mode_bg = ''
+mode_fg = ''
+tab_bg = ''
+tab_fg = ''
+
+[theme.list]
+unread_fg = ''
+selected_fg = ''
+read_fg = ''
+selected_bg = ''
+
+[theme.detail]
+snippet_fg = ''
+border_selected = ''
+border_normal = ''
+header_label_fg = ''
+header_value_fg = ''
+link_fg = ''
+view_mode_bg = ''
+view_mode_fg = ''
+
+[theme.attachment]
+title_bg = ''
+title_fg = ''
+meta_fg = ''
+
+[theme.image]
+error_fg = ''
+meta_fg = ''
+
+[theme.modal]
+footer_fg = ''
+
+[ui]
+list_snippet_lines = 0
+refresh_interval_seconds = 0
+
+[keys]
+[keys.list]
+up = []
+down = []
+page_up = []
+page_down = []
+open = []
+toggle_read = []
+toggle_select = []
+clear_selection = []
+archive = []
+delete = []
+delete_forever = []
+undo = []
+search = []
+refresh = []
+help = []
+quit = []
+
+[keys.detail]
+up = []
+down = []
+toggle_expand = []
+toggle_view = []
+attachments = []
+back = []
+help = []
+quit = []
+
+[keys.search]
+submit = []
+cancel = []
+quit = []
+
+[keys.attachment]
+back = []
+quit = []
+
+[keys.image]
+back = []
+quit = []
+
+[keys.attachments_modal]
+up = []
+down = []
+download = []
+view = []
+close = []
+
+[links]
+unwrap_domains = []
+do_not_resolve = []
+dns_mode = ''
+dns_servers = []
+auto_scan = false
