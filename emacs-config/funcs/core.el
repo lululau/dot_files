@@ -54,13 +54,14 @@
 ;;;###autoload
 (defun lx/is-remote-buffer ()
   (or (eq 'ssh-zsh-ghostel-mode major-mode)
+      (string-prefix-p "/rpc:" default-directory)
       (string-prefix-p "/scp:" default-directory)
       (string-prefix-p "/ssh:" default-directory)))
 
 ;;;###autoload
 (defun lx/get-remote-buffer-host ()
   (cond ((eq 'ssh-zsh-ghostel-mode major-mode) (plist-get ssh-zsh-ghostel-ssh-options :host))
-        ((or (string-prefix-p "/scp:" default-directory) (string-prefix-p "/ssh:" default-directory))
+        ((or (string-prefix-p "/rpc:" default-directory) (string-prefix-p "/scp:" default-directory) (string-prefix-p "/ssh:" default-directory))
          (seq--elt-safe (split-string default-directory ":") 1))))
 
 ;;;###autoload
