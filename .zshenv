@@ -118,6 +118,18 @@ else
   path=($HOME/ServerApps/bin $HOME/bin $HOME/Library/Python/3.14/bin $HOME/Library/Python/2.7/bin $HOMEBREW_PREFIX/bin $HOMEBREW_PREFIX/sbin $HOME/.grok/bin $HOME/.local/bin $path)
 fi
 
+# 非 login shell 不读 .zlogin，RVM 不会重新前置。上面把 Homebrew 放到 PATH 前面后，
+# `#!/usr/bin/env ruby` 会落到 Homebrew 的 ruby，却仍读父进程 GEM_HOME 里为另一份
+# ruby 编译的扩展（Emacs 里 mfd 的 "extensions are not built"）。父进程已经
+# 选定 gemset 时，把对应的 bin 再放回 Homebrew 前面。
+if [[ -n ${GEM_HOME-} && ${GEM_HOME} == ${HOME}/.rvm/gems/* && -d ${GEM_HOME}/bin ]]; then
+  _rvm_bins=(${GEM_HOME}/bin)
+  [[ -d ${GEM_HOME%@*}@global/bin ]] && _rvm_bins+=(${GEM_HOME%@*}@global/bin)
+  [[ -n ${MY_RUBY_HOME-} && -d ${MY_RUBY_HOME}/bin ]] && _rvm_bins+=(${MY_RUBY_HOME}/bin)
+  path=($_rvm_bins $path)
+  unset _rvm_bins
+fi
+
 alias man=$HOME/bin/man-wrapper.sh
 
 read_secret() {
