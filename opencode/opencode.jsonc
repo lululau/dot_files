@@ -10,6 +10,250 @@
   ],
 
   "provider": {
+    "magpie": {
+      "npm": "@ai-sdk/anthropic",
+      "name": "Magpie",
+      "options": {
+        "baseURL": "http://m2.potoroo-qilin.ts.net:3425/v1"
+      },
+      "models": {
+        "antigravity/claude-sonnet-4-6": {
+          "name": "AGY · Sonnet 4.6 (Thinking)",
+          "limit": { "context": 250000, "output": 64000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "antigravity/claude-opus-4-6-thinking": {
+          "name": "AGY · Opus 4.6 (Thinking)",
+          "limit": { "context": 250000, "output": 64000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": false
+        },
+        "antigravity/gemini-3.8-flash": {
+          "name": "AGY · Gemini 3.8 Flash",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "antigravity/gemini-3.8-flash-tiered": {
+          "name": "AGY · Gemini 3.8 Flash (Tiered)",
+          "limit": { "context": 1048576, "output": 65536 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "antigravity/gpt-oss-120b-medium": {
+          "name": "AGY · GPT-OSS 120B (Medium)",
+          "limit": { "context": 131072, "output": 32768 },
+          "modalities": { "input": ["text"], "output": ["text"] },
+          "reasoning": false
+        },
+        "deepseek/deepseek-flash": {
+          "name": "DeepSeek 上东 · V4.1 Flash",
+          "limit": { "context": 1048576, "output": 393216 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "deepseek-personal/deepseek-flash": {
+          "name": "DeepSeek 个人 · V4.1 Flash",
+          "limit": { "context": 1048576, "output": 393216 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "zhipu/glm-5.3": {
+          "name": "智谱 上东 · GLM-5.3",
+          "limit": { "context": 1000000, "output": 131072 },
+          "modalities": { "input": ["text"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "zhipu/glm-5.3-flash": {
+          "name": "智谱 上东 · GLM-5.3-Flash",
+          "limit": { "context": 1000000, "output": 131072 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "zhipu-coding-plan/glm-5.3": {
+          "name": "智谱 CP · GLM-5.3",
+          "limit": { "context": 1000000, "output": 131072 },
+          "modalities": { "input": ["text"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "zhipu-coding-plan/glm-5.3-flash": {
+          "name": "智谱 CP · GLM-5.3-Flash",
+          "limit": { "context": 1000000, "output": 131072 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "grok/grok-4.7@500k": {
+          "name": "xAI · Grok 4.7 @ 500K",
+          "limit": { "context": 500000, "output": 500000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "grok/grok-4.6@500k": {
+          "name": "xAI · Grok 4.6 @ 500K",
+          "limit": { "context": 500000, "output": 500000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "grok/grok-4.5@500k": {
+          "name": "xAI · Grok 4.5 @ 500K",
+          "limit": { "context": 500000, "output": 500000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "cursor/auto": {
+          "name": "Cursor · Auto",
+          "limit": { "context": 200000, "output": 16384 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "cursor/composer-2.5": {
+          "name": "Cursor · Composer 2.5",
+          "limit": { "context": 200000, "output": 64000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": false
+        },
+        "cursor/claude-opus-5-5@1m": {
+          "name": "Cursor · Claude Opus 5.5 @ 1M",
+          "limit": { "context": 1000000, "output": 128000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "cursor/claude-fable-5-1@1m": {
+          "name": "Cursor · Claude Fable 5.1 @ 1M",
+          "limit": { "context": 1000000, "output": 128000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "cursor/gpt-5.6-sol@1m": {
+          "name": "Cursor · GPT-5.6 Sol @ 1M",
+          "limit": { "context": 1000000, "output": 128000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "cursor/gpt-5.5@1m": {
+          "name": "Cursor · GPT-5.5 @ 1M",
+          "limit": { "context": 1000000, "output": 128000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "cursor/grok-4.7@500k": {
+          "name": "Cursor · Grok 4.7 @ 500K",
+          "limit": { "context": 500000, "output": 500000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "cursor/grok-4.6": {
+          "name": "Cursor · Grok 4.6",
+          "limit": { "context": 256000, "output": 256000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "cursor/grok-4.5": {
+          "name": "Cursor · Grok 4.5",
+          "limit": { "context": 256000, "output": 256000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "moonshot-cn/kimi-k3": {
+          "name": "Kimi PAYG · K3",
+          "limit": { "context": 1048576, "output": 1048576 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "moonshot-cn/kimi-k2.7-code-highspeed": {
+          "name": "Kimi PAYG · K2.7 Code 高速",
+          "limit": { "context": 262144, "output": 262144 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "moonshot-cn/kimi-k2.7-code": {
+          "name": "Kimi PAYG · K2.7 Code",
+          "limit": { "context": 262144, "output": 262144 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "moonshot-cn/kimi-k2.6": {
+          "name": "Kimi PAYG · K2.6",
+          "limit": { "context": 262144, "output": 262144 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "alibaba/auto": {
+          "name": "东禾 Alibaba · Auto（自动选型）",
+          "limit": { "context": 128000, "output": 16384 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "alibaba/qwen3.8-max": {
+          "name": "东禾 Alibaba · Qwen3.8 Max",
+          "limit": { "context": 1000000, "output": 131072 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "alibaba/qwen3.8-flash": {
+          "name": "东禾 Alibaba · Qwen3.8 Flash",
+          "limit": { "context": 1000000, "output": 131072 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "alibaba/qwen3.7-max": {
+          "name": "东禾 Alibaba · Qwen3.7 Max",
+          "limit": { "context": 1000000, "output": 131072 },
+          "modalities": { "input": ["text"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "alibaba/qwen3.7-plus": {
+          "name": "东禾 Alibaba · Qwen3.7 Plus",
+          "limit": { "context": 1000000, "output": 64000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "alibaba/deepseek-v4.1-flash-1017": {
+          "name": "东禾 Alibaba · DeepSeek V4.1 Flash (1017)",
+          "limit": { "context": 1048576, "output": 384000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        },
+        "alibaba/deepseek-v4.1-flash": {
+          "name": "东禾 Alibaba · DeepSeek V4.1 Flash",
+          "limit": { "context": 1048576, "output": 384000 },
+          "modalities": { "input": ["text", "image"], "output": ["text"] },
+          "reasoning": true,
+          "options": { "thinking": { "type": "enabled", "budgetTokens": 8192 } }
+        }
+      }
+    },
     "google": {
       "models": {
         "antigravity-gemini-3-pro": {
