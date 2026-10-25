@@ -16,6 +16,7 @@
 (autoload 'helm-remote-buffers "helm-remote-buffers")
 (autoload 'helm-ghostel-buffers "run-in-ghostel")
 (autoload 'helm-pry-ghostel-arql "ghostel-arql")
+(autoload 'helm-pry-ghostel-monq "ghostel-monq")
 (autoload 'lx/run-in-pry-ghostel "pry-ghostel")
 (autoload 'lx/run-in-zsh-ghostel "zsh-ghostel")
 (autoload 'helm-zsh-ghostel-ssh "zsh-ghostel-ssh")

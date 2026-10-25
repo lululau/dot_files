@@ -71,6 +71,7 @@
 (global-set-key (kbd "s-r s-r p") #'ghostel-mitmproxy-local-proxy)
 (global-set-key (kbd "s-r s-s") #'helm-zsh-ghostel-ssh)
 (global-set-key (kbd "s-r s-q") #'helm-pry-ghostel-arql)
+(global-set-key (kbd "s-r s-m") #'helm-pry-ghostel-monq)
 (global-set-key (kbd "s-r s-l") #'helm-ghostel-vrl)
 (global-set-key (kbd "s-r m m") #'helm-ghostel-maven-deploy)
 (global-set-key (kbd "s-r m d") #'helm-ghostel-maven-deploy)
