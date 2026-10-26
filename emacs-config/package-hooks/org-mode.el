@@ -15,7 +15,7 @@
 
   (defun copilot-accept-or-org-cycel ()
     (interactive)
-    (if (copilot--overlay-visible)
+    (if (and (bound-and-true-p copilot--overlay) (copilot--overlay-visible))
         (copilot-accept-completion)
       (org-cycle)))
 

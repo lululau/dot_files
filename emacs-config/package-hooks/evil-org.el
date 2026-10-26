@@ -25,6 +25,9 @@
     ))
 
 (with-eval-after-load 'evil-org
+  ;; evil-org 20261025 起只在 defcustom :set 里装键位，Spacemacs 预先 setq 了
+  ;; evil-org-key-theme 导致 :set 不会触发；须在下方清除 M-hjkl 之前调用
+  (evil-org-set-key-theme)
   (let-alist evil-org-movement-bindings
     (let ((state (if evil-org-use-additional-insert
                      '(normal visual insert)
