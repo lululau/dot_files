@@ -816,6 +816,8 @@ Remove empty lines
 
 (autoload 'lx/ssh-to-donghe "term-funcs" nil t)
 
+(autoload 'lx/ssh-to-donghe-hk "term-funcs" nil t)
+
 (autoload 'lx/ssh-to-donghe-hk01 "term-funcs" nil t)
 
 (autoload 'lx/ssh-to-donghe-hk02 "term-funcs" nil t)

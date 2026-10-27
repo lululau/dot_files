@@ -243,6 +243,12 @@
   (helm-zsh-ghostel-ssh-run "donghe"))
 
 ;;;###autoload
+(defun lx/ssh-to-donghe-hk ()
+  "ssh to donghe.hk via ghostel"
+  (interactive)
+  (helm-zsh-ghostel-ssh-run "donghe.hk"))
+
+;;;###autoload
 (defun lx/ssh-to-donghe-hk01 ()
   "ssh to donghe.hk01 via ghostel"
   (interactive)

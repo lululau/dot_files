@@ -132,7 +132,9 @@
         ("os7" ueos-prod "/rpc:ueos.prod:/data")
         ("os8" manjaro "/rpc:manjaro.z4:~/")
         ("osd" donghe "/rpc:donghe:/data/backup/mongodb")
-        ("osk" donghe-hk01 "/rpc:donghe.hk01:/data/qwenpaw/donghe-fof-test/data/workspaces")
+        ("osk0" donghe-hk "/rpc:donghe.hk:/etc/nginx/conf.d")
+        ("osk1" donghe-hk01 "/rpc:donghe.hk01:/data/qwenpaw/donghe-fof-test/data/workspaces")
+        ("osk2" donghe-hk02 "/rpc:donghe.hk02:/data/qwenpaw/clerk/data/workspaces/fof-clerk")
         ("os9" lx16 "/rpc:lx:~/")
       ))
 
