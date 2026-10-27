@@ -48,6 +48,7 @@
                 ("odN" evernotes-dir ("~/Documents/evernotes"))
                 ("odw" webclips-dir ("~/Documents/materials/webclips"))
                 ("odv" volumes-dir ("/Volumes"))
+                ("odr" reveng-dir ("~/lab/reveng"))
                 ("odT" tmux-dir ("~/.tmux"))
                 ("odt" tmp-dir ("~/tmp/" "~/liuxiang/tmp" "~/lx/tmp/"))))
 
