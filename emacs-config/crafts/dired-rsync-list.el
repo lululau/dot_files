@@ -428,11 +428,11 @@ Return a plist (:bytes :percent :speed :eta :file-progress) or nil."
 
 ;; Evil integration
 (with-eval-after-load 'evil
-  (evil-define-key 'normal dired-rsync-list-mode-map
+  (evil-define-key '(normal motion) dired-rsync-list-mode-map
     (kbd "RET") #'dired-rsync-list-view-output
     "o"  #'dired-rsync-list-view-output
-    "k"  #'evil-previous-line
     "j"  #'evil-next-line
+    "k"  #'evil-previous-line
     "K"  #'dired-rsync-list-kill
     "x"  #'dired-rsync-list-kill
     "r"  #'dired-rsync-list-retry
@@ -440,6 +440,9 @@ Return a plist (:bytes :percent :speed :eta :file-progress) or nil."
     "d"  #'dired-rsync-list-jump-dest
     "c"  #'dired-rsync-list-clear-finished
     "gr" #'dired-rsync-list-refresh
+    "m"  #'tablist-mark-forward
+    "u"  #'tablist-unmark-forward
+    "U"  #'tablist-unmark-all-marks
     "q"  #'quit-window))
 
 ;;; Interactive Commands
