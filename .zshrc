@@ -588,3 +588,30 @@ fi
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# --- OSC 7 CWD report for Emacs ghostel buffers (added 2026-10-29) ---
+# 给 ghostel buffer 报告工作目录：ghostel 解析 OSC 7 后更新 buffer 的
+# default-directory，dired-jump 即可落到真实 CWD。覆盖两个场景：
+# 1) 本地/远端 tmux 内的 zsh（ghostel 自动注入只作用于它直接 spawn 的
+#    shell，进不了 tmux pane；tmux 会吞裸 OSC，需 DCS passthrough 包装，
+#    ~/.tmux.conf 已开 allow-passthrough）；
+# 2) 本机作为 ssh 目标时被 ghostel 连入（此时走的就是这份 .zshrc）。
+# 本地 ghostel 直跑 zsh 的场景无需此块（ghostel 经 ZDOTDIR bootstrap 自动
+# 注入自带集成）。不用 add-zsh-hook 而直接 precmd_functions+= 注册：
+# 部分服务器 .zshrc vterm 段的旧笔误会覆写 add-zsh-hook，直连写法在
+# 任何机器上都稳，保持全机队同一份块。
+if (( ! $+functions[_lx_osc7_report] )); then
+  _lx_osc7_report() {
+    # dumb/空 TERM（TRAMP、串口控制台等）下不要吐转义序列
+    [[ $TERM == dumb || -z $TERM ]] && return 0
+    local host
+    host=$(command hostname 2>/dev/null) || host=$HOST
+    [[ -n $host ]] || host=$HOST
+    if [[ -n $TMUX ]]; then
+      builtin printf '\ePtmux;\e\e]7;kitty-shell-cwd://%s%s\a\e\\' "$host" "$PWD"
+    else
+      builtin printf '\e]7;kitty-shell-cwd://%s%s\a' "$host" "$PWD"
+    fi
+  }
+  precmd_functions+=(_lx_osc7_report)
+fi
