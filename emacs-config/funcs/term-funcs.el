@@ -114,6 +114,12 @@
   (lx/run-in-ghostel "launchdeck" "*launchdeck*" nil t))
 
 ;;;###autoload
+(defun lx/run-gmail-inbox ()
+  "Run gmail-inbox in ghostel"
+  (interactive)
+  (lx/run-in-ghostel "inbox" "*gmail-inbox*" nil t))
+
+;;;###autoload
 (defun lx/run-alidash ()
   "Run alidash in ghostel"
   (interactive)

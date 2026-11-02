@@ -784,6 +784,8 @@ Remove empty lines
 
 (autoload 'lx/run-launchdeck "term-funcs" nil t)
 
+(autoload 'lx/run-gmail-inbox "term-funcs" nil t)
+
 (autoload 'lx/run-d9cker "term-funcs" nil t)
 
 (autoload 'lx/run-flo "term-funcs" nil t)
