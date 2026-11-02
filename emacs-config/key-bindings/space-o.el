@@ -31,7 +31,7 @@
                 ("odp" las-dir ("~/Library/Application Support/"))
                 ("odP" lp-dir ("~/Library/Preferences/"))
                 ("odL" lp2-dir ("~/Library/Preferences/"))
-                ("odM" movies-dir ("~/Movies/"))
+                ("odM" meetingrecords-dir ("~/MeetingRecords/"))
                 ("odm" materials-dir ("~/Documents/materials/"))
                 ("ods" scratch-dir ("~/Documents/materials/scratches/"))
                 ("odS" snips-dir ("~/snips/"))
