@@ -18,6 +18,12 @@
 (require 'markdown-mode)
 (require 'cl-lib)
 
+;; `posframe' is an optional runtime dependency, loaded on demand by
+;; `markdown-modern-preview-image-at-point' (see image preview below).
+(declare-function posframe-show "posframe")
+(declare-function posframe-hide "posframe")
+(declare-function posframe-poshandler-frame-center "posframe")
+
 (defgroup markdown-modern nil
   "Modern looks for Markdown."
   :group 'markdown
@@ -63,6 +69,21 @@ Set to nil to disable styling list bullets."
 When non-nil, lines like `---', `***', or `___' are rendered as
 thin separator lines using `:underline'.  Set to nil to disable."
   :type 'boolean
+  :group 'markdown-modern)
+
+(defcustom markdown-modern-image-preview t
+  "When non-nil, clicking an inline image link previews it in a posframe.
+Clicking (mouse-1) on an inline image such as `![alt](path.png)' pops
+up a centered child frame showing the image.  Requires the `posframe'
+package and a graphical Emacs frame."
+  :type 'boolean
+  :group 'markdown-modern)
+
+(defcustom markdown-modern-image-preview-max-scale 0.8
+  "Maximum fraction of the frame the image preview may occupy.
+The previewed image is scaled down, preserving aspect ratio, so that it
+fits within this fraction of the current frame's width and height."
+  :type 'number
   :group 'markdown-modern)
 
 (defcustom markdown-modern-heading
@@ -317,13 +338,106 @@ font-lock; they are owned by `markdown-modern-indent-mode'.  Managing
 them here would cause font-lock refontification to wipe the indent
 prefixes with nothing to restore them."
   (let ((font-lock-extra-managed-props
-         (append '(display invisible)
+         (append '(display invisible keymap mouse-face pointer help-echo)
                  font-lock-extra-managed-props)))
     (font-lock-default-unfontify-region beg end)))
 
+;;; Image preview in a centered posframe
+;;
+;; Clicking (mouse-1) an inline image link such as `![alt](path.png)'
+;; pops up a child frame, centered on the current frame, showing the
+;; image scaled to fit.  Dismissal is modal: the next key or click
+;; hides the preview and is swallowed (not acted upon).
+
+(defconst markdown-modern--image-preview-buffer " *markdown-modern-image-preview*"
+  "Name of the hidden buffer backing the image-preview posframe.")
+
+(defvar markdown-modern-image-link-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map [mouse-1] #'markdown-modern-preview-image-at-point)
+    map)
+  "Keymap placed on inline image links for click-to-preview.")
+
+(defun markdown-modern--match-image-link (last)
+  "Font-lock matcher for inline image links up to LAST.
+Reuses `markdown-regex-link-inline' but only succeeds on image links,
+i.e. those with a leading `!' (match group 1)."
+  (let (found)
+    (while (and (not found)
+                (re-search-forward markdown-regex-link-inline last t))
+      (when (match-beginning 1)         ; group 1 = the leading "!"
+        (setq found t)))
+    found))
+
+(defun markdown-modern--show-image-posframe (file)
+  "Display FILE in a centered image-preview posframe.
+The image is scaled to fit `markdown-modern-image-preview-max-scale' of
+the current frame.  Blocks until the next input event, which is read and
+discarded, then hides the posframe."
+  (let* ((frame (selected-frame))
+         (max-w (max 1 (round (* markdown-modern-image-preview-max-scale
+                                 (frame-pixel-width frame)))))
+         (max-h (max 1 (round (* markdown-modern-image-preview-max-scale
+                                 (frame-pixel-height frame)))))
+         (image (create-image file nil nil
+                              :max-width max-w :max-height max-h
+                              :ascent 'center))
+         (buf (get-buffer-create markdown-modern--image-preview-buffer)))
+    (with-current-buffer buf
+      (setq cursor-type nil)
+      (let ((inhibit-read-only t))
+        (erase-buffer)
+        (insert-image image)))
+    (posframe-show buf
+                   :poshandler #'posframe-poshandler-frame-center
+                   :internal-border-width 8
+                   :internal-border-color (face-attribute 'default :foreground nil t)
+                   :accept-focus nil)
+    (unwind-protect
+        ;; Modal dismissal: wait for any event, then swallow it.
+        (read-event)
+      (posframe-hide buf))))
+
+(defun markdown-modern-preview-image-at-point (&optional event)
+  "Preview the Markdown inline image at point in a centered posframe.
+When called from a mouse EVENT, use the clicked position.  Only local
+image files are supported; remote URLs are not fetched."
+  (interactive (list last-nonmenu-event))
+  (unless (display-graphic-p)
+    (user-error "Image preview requires a graphical Emacs frame"))
+  (unless (require 'posframe nil t)
+    (user-error "The `posframe' package is required for image preview"))
+  (when (and event (mouse-event-p event))
+    (select-window (posn-window (event-end event))))
+  (let* ((pos (if (and event (mouse-event-p event))
+                  (posn-point (event-end event))
+                (point)))
+         (link (and pos (markdown-link-at-pos pos)))
+         ;; Element 6 is the bang (image marker); element 3 is the URL.
+         (url (and link (nth 6 link) (nth 3 link))))
+    (unless url
+      (user-error "No image link at point"))
+    (when (string-match-p "\\`[a-z][a-z0-9+.-]*://" url)
+      (user-error "Remote image preview is not supported: %s" url))
+    (let ((file (expand-file-name
+                 url (and buffer-file-name
+                          (file-name-directory buffer-file-name)))))
+      (unless (file-readable-p file)
+        (user-error "Image file not found: %s" file))
+      (markdown-modern--show-image-posframe file))))
+
 (defun markdown-modern--make-font-lock-keywords ()
   "Return font-lock keywords."
-  `(;; List bullets
+  `(;; Inline image links: click (mouse-1) to preview in a posframe.
+    ,@(when markdown-modern-image-preview
+        `((markdown-modern--match-image-link
+           (0 '(face nil
+                keymap ,markdown-modern-image-link-map
+                mouse-face highlight
+                pointer hand
+                help-echo "mouse-1: preview image")
+              prepend))))
+    ;; List bullets
     ,@(when markdown-modern-list
         (cl-loop for (ch . rep) in markdown-modern-list
                  collect
