@@ -20,7 +20,17 @@
 
 (with-eval-after-load 'company
   ;; disable inline previews
-  (delq 'company-preview-if-just-one-frontend company-frontends))
+  (delq 'company-preview-if-just-one-frontend company-frontends)
+  ;; Spacemacs windows-scripts 层在 post-init-company 中把 bmx 的 hook 加到了
+  ;; *全局* company-completion-finished-hook，但 bmx-mode 只在 bat-mode 时才加载，
+  ;; 导致任意 buffer 补全完成时报 void-function，company-cancel 中断，
+  ;; 后续 post-completion（如 yasnippet 展开）被跳过。改为仅在 bmx-mode buffer 内局部生效。
+  (remove-hook 'company-completion-finished-hook #'bmx--company-completion-finished-hook))
+
+(add-hook 'bmx-mode-hook
+          (lambda ()
+            (add-hook 'company-completion-finished-hook
+                      #'bmx--company-completion-finished-hook nil t)))
 
 (with-eval-after-load 'company-box
   (setq company-box-icons-all-the-icons
@@ -51,3 +61,29 @@
           (Operator . ,(all-the-icons-faicon "tag" :height 0.8 :v-adjust -0.0575))
           (TypeParameter . ,(all-the-icons-faicon "cog" :height 0.8 :v-adjust -0.0575))
           (Template . ,(all-the-icons-octicon "file-code" :height 0.8 :v-adjust -0.05)))))
+
+(with-eval-after-load 'company-box
+  ;; company 20261107 起 GUI 下默认前端变为内置的 `company-childframe-unless-just-one-frontend'，
+  ;; 而 company-box 只会移除 pseudo-tooltip 前端，导致两个 childframe 前端同时工作。
+  ;; 启用 company-box 时把内置 childframe 前端从 buffer-local 的 company-frontends 中去掉。
+  (define-advice company-box--set-mode (:after (&rest _) lx/drop-builtin-childframe)
+    (when (bound-and-true-p company-box-mode)
+      (setq company-frontends
+            (seq-remove (lambda (f) (memq f '(company-childframe-frontend
+                                              company-childframe-unless-just-one-frontend)))
+                        company-frontends))))
+
+  ;; `company-box--handle-scroll-parent' 挂在 window-scroll-functions 上，只检查窗口
+  ;; 是否为弹窗来源，不检查 company 状态。窗口滚动时若补全已被清空
+  ;; （company-candidates-length 为 nil）或前缀已滚出可见区（posn-at-point 返回 nil），
+  ;; `company-box--compute-frame-position' 会对 nil 做算术，报
+  ;; (wrong-type-argument number-or-marker-p nil)。这里在这两种情况下跳过重定位。
+  (define-advice company-box--handle-scroll-parent (:before-while (win _new-start) lx/guard)
+    (and company-candidates-length
+         (stringp company-prefix)
+         (window-live-p win)
+         (pos-visible-in-window-p
+          (if (eq company-box-frame-behavior 'point)
+              (point)
+            (max (point-min) (- (point) (length company-prefix))))
+          win))))
