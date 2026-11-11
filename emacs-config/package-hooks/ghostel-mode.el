@@ -1,5 +1,15 @@
 ;; -*- lexical-binding: t; -*-
 
+;; Keep the ghostel native module (ghostel-module.dylib + version sidecar)
+;; outside the elpa tree.  Package updates recreate the package directory and
+;; drop the locally installed module (2026-11-11: the update to 20261110.2215
+;; orphaned the 0.62.0 dylib and every focus change raised void-function
+;; ghostel--focus-event).  Re-install into this dir with M-x
+;; ghostel-download-module; when the mihomo proxy path to GitHub is too slow
+;; for its 30s timeout, curl the release asset manually + write the version
+;; to ghostel-module.version, then restart Emacs.
+(setq ghostel-module-directory "~/.emacs.spacemacs.d/ghostel-module/")
+
 ;; Defer the whole ghostel-mode customization until BOTH:
 ;;   (a) ghostel itself is loaded, and
 ;;   (b) evil is loaded (we use `evil-define-key' etc.), and
