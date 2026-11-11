@@ -717,6 +717,22 @@ otherwise sends SIGTERM (15)."
     (pop-to-buffer-same-window buf)
     (dired-rsync-list--maybe-start-timer)))
 
+;;; Transient Integration
+
+(defun dired-rsync-list--read-dest (prompt initial-input _history)
+  "Read destination directory for `dired-rsync-transient', preserving TRAMP prefix."
+  (expand-file-name
+   (read-file-name prompt (or initial-input (dired-dwim-target-directory)))))
+
+(with-eval-after-load 'dired-rsync-transient
+  (when (fboundp 'transient-replace-suffix)
+    (transient-replace-suffix 'dired-rsync-transient "d"
+      '("d" "Destination" "--dest="
+        :init-value (lambda (o) (oset o value (dired-dwim-target-directory)))
+        :reader dired-rsync-list--read-dest
+        :prompt "rsync to: "
+        :always-read t))))
+
 ;;; Lifecycle Advice Setup & Teardown
 
 ;;;###autoload
