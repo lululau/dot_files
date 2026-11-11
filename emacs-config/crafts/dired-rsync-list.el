@@ -97,13 +97,13 @@
 ;;; Regular Expressions
 
 (defconst dired-rsync-list--progress2-regex
-  (rx (group (+ (any digit ",." "KMGTPEZYkmgtpezy"))) ;; 1: bytes
+  (rx (group (+ (any digit ",." "KMGTPEZYkmgtpezyB" "b"))) ;; 1: bytes
       (+ (any " \t"))
-      (group (+ digit) "%")                          ;; 2: percent
+      (group (+ digit) "%")                               ;; 2: percent
       (+ (any " \t"))
-      (group (+ (any digit ".KMGTPEZYkmgtpezyB/s" "b/s"))) ;; 3: speed
+      (group (+ (any digit "-.KMGTPEZYkmgtpezyB/s" "b/s"))) ;; 3: speed
       (+ (any " \t"))
-      (group (+ digit) ":" (+ digit) (? ":" (+ digit)))   ;; 4: eta
+      (group (+ (any digit ":-?")))                       ;; 4: eta
       (? (+ (any " \t"))
          (group "(" (+ (not (any ")\n\r"))) ")")))        ;; 5: files-info
   "Regex to extract rsync --info=progress2 output fields.")
@@ -165,13 +165,19 @@
 
 (defun dired-rsync-list--parse-progress2 (string)
   "Parse rsync progress2 output from STRING.
+Find the latest progress report in STRING.
 Return a plist (:bytes :percent :speed :eta :file-progress) or nil."
-  (when (and string (string-match dired-rsync-list--progress2-regex string))
-    (list :bytes (match-string 1 string)
-          :percent (match-string 2 string)
-          :speed (match-string 3 string)
-          :eta (match-string 4 string)
-          :file-progress (match-string 5 string))))
+  (when string
+    (let ((pos 0)
+          (last-match nil))
+      (while (string-match dired-rsync-list--progress2-regex string pos)
+        (setq last-match (list :bytes (match-string 1 string)
+                               :percent (match-string 2 string)
+                               :speed (match-string 3 string)
+                               :eta (match-string 4 string)
+                               :file-progress (match-string 5 string)))
+        (setq pos (match-end 0)))
+      last-match)))
 
 (defun dired-rsync-list--update-job-progress (job string)
   "Update JOB metrics from incoming rsync output STRING."
@@ -238,7 +244,8 @@ Return a plist (:bytes :percent :speed :eta :file-progress) or nil."
           (list :sfiles sfiles
                 :dest dest
                 :dired-buffer (current-buffer))))
-    (apply orig-fun args)))
+    (prog1 (apply orig-fun args)
+      (dired-rsync-list))))
 
 (defun dired-rsync-list--around-do-run (orig-fun command details)
   "Advice around `dired-rsync--do-run' to capture the process and track the job."
@@ -254,16 +261,27 @@ Return a plist (:bytes :percent :speed :eta :file-progress) or nil."
         (when (and job (processp proc))
           (setf (dired-rsync-job-process job) proc)
           (setf (dired-rsync-job-pid job) (process-id proc))
-          (setf (dired-rsync-job-proc-buffer-name job) (buffer-name (process-buffer proc)))
+          (when-let* ((pbuf (process-buffer proc)))
+            (setf (dired-rsync-job-proc-buffer-name job) (buffer-name pbuf))
+            (with-current-buffer pbuf
+              (dired-rsync-log-mode)
+              (when (fboundp 'evil-motion-state)
+                (evil-motion-state))))
           (process-put proc 'dired-rsync-job job)
           (dired-rsync-list--add-job job)
           (dired-rsync-list--maybe-start-timer)
           (dired-rsync-list--trigger-update))))))
 
+(defun dired-rsync-list--around-filter (orig-fun proc string)
+  "Advice around `dired-rsync--filter' to allow writing into read-only log buffers."
+  (let ((inhibit-read-only t))
+    (funcall orig-fun proc string)))
+
 (defun dired-rsync-list--filter-advice (proc string)
   "Advice after `dired-rsync--filter' to update job progress."
   (when-let* ((job (dired-rsync-list--find-job-by-process proc)))
-    (dired-rsync-list--update-job-progress job string)))
+    (dired-rsync-list--update-job-progress job string)
+    (dired-rsync-list--maybe-start-timer)))
 
 (defun dired-rsync-list--sentinel-advice (proc desc &rest _)
   "Advice before `dired-rsync--sentinel' to capture logs and finalize job."
@@ -392,6 +410,25 @@ Return a plist (:bytes :percent :speed :eta :file-progress) or nil."
 
 ;;; Major Mode Definition
 
+(defun dired-rsync-log-quit ()
+  "Quit the log window and refresh list buffer."
+  (interactive)
+  (quit-window)
+  (dired-rsync-list--maybe-start-timer)
+  (when-let* ((buf (get-buffer "*dired-rsync-list*")))
+    (when (buffer-live-p buf)
+      (with-current-buffer buf
+        (dired-rsync-list--refresh-buffer)))))
+
+(defvar-keymap dired-rsync-log-mode-map
+  :parent special-mode-map
+  "q" #'dired-rsync-log-quit
+  "Q" #'dired-rsync-log-quit)
+
+(define-derived-mode dired-rsync-log-mode special-mode "Rsync-Log"
+  "Major mode for viewing dired-rsync process output logs."
+  (setq buffer-read-only t))
+
 (defvar-keymap dired-rsync-list-mode-map
   :parent tablist-mode-map
   "RET" #'dired-rsync-list-view-output
@@ -428,6 +465,10 @@ Return a plist (:bytes :percent :speed :eta :file-progress) or nil."
 
 ;; Evil integration
 (with-eval-after-load 'evil
+  (evil-set-initial-state 'dired-rsync-log-mode 'motion)
+  (evil-define-key 'motion dired-rsync-log-mode-map
+    "q" #'dired-rsync-log-quit
+    "Q" #'dired-rsync-log-quit)
   (evil-define-key '(normal motion) dired-rsync-list-mode-map
     (kbd "RET") #'dired-rsync-list-view-output
     "o"  #'dired-rsync-list-view-output
@@ -449,8 +490,11 @@ Return a plist (:bytes :percent :speed :eta :file-progress) or nil."
 
 (defun dired-rsync-list--get-target-jobs ()
   "Return list of marked `dired-rsync-job' instances, or job at point."
-  (if-let* ((marked-ids (tablist-get-marked-items)))
-      (delq nil (mapcar #'dired-rsync-list--find-job-by-id marked-ids))
+  (if-let* ((marked-items (tablist-get-marked-items)))
+      (delq nil (mapcar (lambda (item)
+                          (let ((id (if (consp item) (car item) item)))
+                            (dired-rsync-list--find-job-by-id id)))
+                        marked-items))
     (when-let* ((id (tabulated-list-get-id)))
       (if-let* ((job (dired-rsync-list--find-job-by-id id)))
           (list job)
@@ -467,7 +511,13 @@ Otherwise, display cached output log in a read-only buffer."
     (let ((proc (dired-rsync-job-process job)))
       (if (and proc (process-live-p proc) (buffer-live-p (process-buffer proc)))
           ;; Running job: pop to live buffer
-          (pop-to-buffer (process-buffer proc))
+          (let ((buf (process-buffer proc)))
+            (with-current-buffer buf
+              (unless (derived-mode-p 'dired-rsync-log-mode)
+                (dired-rsync-log-mode))
+              (when (fboundp 'evil-motion-state)
+                (evil-motion-state)))
+            (pop-to-buffer buf))
         ;; Finished or buffer killed: pop up read-only view
         (let* ((buf-name (format "*dired-rsync-log: #%s*" (dired-rsync-job-id job)))
                (log-buf (get-buffer-create buf-name))
@@ -494,7 +544,9 @@ Otherwise, display cached output log in a read-only buffer."
                                (dired-rsync-job-end-time job))))
               (insert "\n=== Output Log ===\n\n")
               (insert log-content))
-            (special-mode)
+            (dired-rsync-log-mode)
+            (when (fboundp 'evil-motion-state)
+              (evil-motion-state))
             (goto-char (point-min)))
           (pop-to-buffer log-buf))))))
 
@@ -517,9 +569,12 @@ otherwise sends SIGTERM (15)."
           (dolist (job running-jobs)
             (when-let* ((proc (dired-rsync-job-process job)))
               (when (process-live-p proc)
-                (interrupt-process proc)))
+                (if sigkill
+                    (kill-process proc)
+                  (interrupt-process proc))))
             (when-let* ((pid (dired-rsync-job-pid job)))
-              (ignore-errors (signal-process pid signal)))
+              (ignore-errors (signal-process pid signal))
+              (ignore-errors (signal-process (- pid) signal)))
             (setf (dired-rsync-job-status job) 'killed)
             (setf (dired-rsync-job-end-time job) (float-time)))
           (dired-rsync-list-refresh)
@@ -604,21 +659,18 @@ otherwise sends SIGTERM (15)."
 
 (defun dired-rsync-list--timer-callback ()
   "Timer callback to refresh *dired-rsync-list* if visible and active."
-  (let ((buf (get-buffer "*dired-rsync-list*")))
-    (if (and buf (buffer-live-p buf) (get-buffer-window buf t))
-        (if (dired-rsync-list--active-jobs-p)
-            (with-current-buffer buf
-              (dired-rsync-list--refresh-buffer))
-          ;; No running jobs, stop timer
-          (dired-rsync-list--stop-timer))
-      ;; Buffer hidden or killed, stop timer
-      (dired-rsync-list--stop-timer))))
+  (if (dired-rsync-list--active-jobs-p)
+      (when-let* ((buf (get-buffer "*dired-rsync-list*")))
+        (when (and (buffer-live-p buf) (get-buffer-window buf t))
+          (with-current-buffer buf
+            (dired-rsync-list--refresh-buffer))))
+    ;; No running jobs, stop timer
+    (dired-rsync-list--stop-timer)))
 
 (defun dired-rsync-list--maybe-start-timer ()
   "Start refresh timer if needed."
   (when (and (null dired-rsync-list--timer)
-             (dired-rsync-list--active-jobs-p)
-             (get-buffer-window "*dired-rsync-list*" t))
+             (dired-rsync-list--active-jobs-p))
     (setq dired-rsync-list--timer
           (run-at-time dired-rsync-list-refresh-interval
                        dired-rsync-list-refresh-interval
@@ -655,14 +707,14 @@ otherwise sends SIGTERM (15)."
 
 ;;;###autoload
 (defun dired-rsync-list ()
-  "Display the list of dired-rsync processes."
+  "Display the list of dired-rsync processes in the current window."
   (interactive)
   (let ((buf (get-buffer-create "*dired-rsync-list*")))
     (with-current-buffer buf
       (unless (derived-mode-p 'dired-rsync-list-mode)
         (dired-rsync-list-mode))
       (dired-rsync-list--refresh-buffer))
-    (pop-to-buffer buf)
+    (pop-to-buffer-same-window buf)
     (dired-rsync-list--maybe-start-timer)))
 
 ;;; Lifecycle Advice Setup & Teardown
@@ -673,6 +725,7 @@ otherwise sends SIGTERM (15)."
   (interactive)
   (advice-add 'dired-rsync :around #'dired-rsync-list--around-dired-rsync)
   (advice-add 'dired-rsync--do-run :around #'dired-rsync-list--around-do-run)
+  (advice-add 'dired-rsync--filter :around #'dired-rsync-list--around-filter)
   (advice-add 'dired-rsync--filter :after #'dired-rsync-list--filter-advice)
   (advice-add 'dired-rsync--sentinel :before #'dired-rsync-list--sentinel-advice))
 
@@ -682,6 +735,7 @@ otherwise sends SIGTERM (15)."
   (interactive)
   (advice-remove 'dired-rsync #'dired-rsync-list--around-dired-rsync)
   (advice-remove 'dired-rsync--do-run #'dired-rsync-list--around-do-run)
+  (advice-remove 'dired-rsync--filter #'dired-rsync-list--around-filter)
   (advice-remove 'dired-rsync--filter #'dired-rsync-list--filter-advice)
   (advice-remove 'dired-rsync--sentinel #'dired-rsync-list--sentinel-advice)
   (dired-rsync-list--stop-timer))
