@@ -1,12 +1,50 @@
 ;; -*- lexical-binding: t; -*-
 
+(defvar helm-fd-switches)
+(defvar helm-pattern)
+
+(defun lx/helm-fd-keywords-process ()
+  "Search with fd, requiring every shell-quoted term in `helm-pattern'."
+  (let ((patterns (delete "" (split-string-shell-command helm-pattern))))
+    (if patterns
+        (let ((helm-fd-switches
+               (append helm-fd-switches
+                       (mapcar (lambda (pattern) (concat "--and=" pattern))
+                               patterns)))
+              (helm-pattern ""))
+          (helm-fd-process))
+      ;; Async Helm sources require a process, even with no candidates.
+      (let ((process (make-pipe-process :name "fd-empty" :noquery t)))
+        (delete-process process)
+        process))))
+
 ;;;###autoload
-(defun lx/helm-find-project-files ()
-  (interactive)
+(defun lx/helm-find-project-files (&optional raw)
+  "Find project files matching all space-separated regular expressions.
+Use quotes to group a pattern containing spaces.  Patterns may match in
+any order.  With prefix argument RAW, use the original fd command-line
+syntax, including options and search directories."
+  (interactive "P")
   (require 'helm-fd)
+  (require 'shell)
   (let ((directory (projectile-project-root)))
     (helm-set-local-variable 'helm-fd-switches helm-fd-switches)
-    (helm-fd-1 directory)))
+    (if raw
+        (helm-fd-1 directory)
+      (cl-assert (executable-find helm-fd-executable) nil "Could not find fd executable")
+      (cl-assert (not (file-remote-p directory)) nil "Fd not supported on remote directories")
+      (let ((default-directory directory))
+        (helm :sources (helm-make-source "Fd (all keywords)" 'helm-fd-class
+                         :candidates-process #'lx/helm-fd-keywords-process
+                         :header-name
+                         (lambda (name)
+                           (format "%s (%s)"
+                                   name (abbreviate-file-name default-directory)))
+                         :help-message
+                         "Space-separated regexps must all match, in any order.
+Quote patterns containing spaces.  Use C-u before this command for raw fd syntax.")
+              :prompt "Project files (AND): "
+              :buffer "*helm fd*")))))
 
 ;;;###autoload
 (defun lx/helm-dired-histories ()
