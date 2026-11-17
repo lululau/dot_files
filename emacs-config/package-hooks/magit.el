@@ -103,7 +103,11 @@ Like `vc-mode-line' but simpler, more efficient, and less buggy."
   (advice-add 'magit-read-other-branches-or-commits
               :override
               (lambda (prompt &optional exclude secondary-default)
-                (magit-read-other-branch-or-commit prompt exclude secondary-default))))
+                (magit-read-other-branch-or-commit prompt exclude secondary-default)))
+  (transient-append-suffix 'magit-merge "d"
+    '("i" "Merge into (stay)" lx/magit-merge-into))
+  (transient-append-suffix 'magit-merge "i"
+    '("I" "Merge into (switch)" lx/magit-merge-into-and-checkout)))
 
 
 ;; `git-fire' is vendored (vendor/git-fire.el) and autoloaded from vendor/init.el.

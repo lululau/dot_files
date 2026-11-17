@@ -329,6 +329,10 @@ Read a timestamp from the user and insert it at point." t)
 
 (autoload 'lx/magit-merge-interactive "git-funcs" nil t)
 
+(autoload 'lx/magit-merge-into "git-funcs" nil t)
+
+(autoload 'lx/magit-merge-into-and-checkout "git-funcs" nil t)
+
 ;;;***
 
 ;;;### (autoloads nil "git-link-handler" "git-link-handler.el" (0

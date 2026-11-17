@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 ;;;###autoload
 (defun lx/magit-status-smart (arg)
   "Call magit-status. With prefix arg, switch to existing magit buffer if any"
@@ -77,3 +79,50 @@ output and result can be watched."
   "Call magit merge interactively"
   (interactive)
   (call-interactively 'magit-merge))
+
+(defun lx/magit--read-merge-into-args ()
+  "Prompt for target branch to merge current HEAD into, plus `magit-merge' args."
+  (let ((branch (magit-get-current-branch)))
+    (list (magit-read-other-local-branch
+           (format "Merge `%s' into" (or branch (magit-rev-parse "HEAD")))
+           nil
+           (and branch (magit-get-local-upstream-branch branch)))
+          (magit-merge-arguments))))
+
+;;;###autoload
+(defun lx/magit-merge-into (branch &optional args)
+  "Merge current branch/HEAD into BRANCH without switching away or deleting it."
+  (interactive (lx/magit--read-merge-into-args))
+  (let ((source (or (magit-get-current-branch)
+                    (magit-rev-parse "HEAD")))
+        (repo (magit-toplevel)))
+    (if (and (not (member "--no-ff" args))
+             (magit-rev-ancestor-p branch source))
+        ;; Fast-forward in place without touching the working tree.
+        (magit-run-git "fetch" "." (format "HEAD:%s" branch))
+      (magit-merge-assert)
+      (when (zerop (magit-call-git "checkout" branch))
+        (magit-run-git-async "merge" args "--no-edit" source)
+        (set-process-sentinel
+         magit-this-process
+         (lambda (process event)
+           (when (memq (process-status process) '(exit signal))
+             (if (> (process-exit-status process) 0)
+                 (progn
+                   (magit-process-sentinel process event)
+                   (message "Merge into `%s' did not complete cleanly; staying on `%s' (source `%s' preserved)."
+                            branch branch source))
+               (process-put process 'inhibit-refresh t)
+               (magit-process-sentinel process event)
+               (let ((default-directory repo))
+                 (magit-run-git "checkout" source))))))))))
+
+;;;###autoload
+(defun lx/magit-merge-into-and-checkout (branch &optional args)
+  "Merge current branch/HEAD into BRANCH and switch to BRANCH, keeping original."
+  (interactive (lx/magit--read-merge-into-args))
+  (let ((source (or (magit-get-current-branch)
+                    (magit-rev-parse "HEAD"))))
+    (magit-merge-assert)
+    (when (zerop (magit-call-git "checkout" branch))
+      (magit-run-git-async "merge" args "--no-edit" source))))
