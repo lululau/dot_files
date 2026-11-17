@@ -54,4 +54,22 @@ Returns t on success, nil on failure."
                   (kill-buffer buffer))))))
       (error
        (message "Download failed: %s" (error-message-string err))
-       nil))))
+       nil)))
+
+  ;; 修复 macOS (Darwin) 远端 scpx PTY MAX_CANON=1024 导致超长单行激活命令卡死的问题：
+  ;; 原版将临时/目标路径重复拼接 9 次（>2000 字节），改用短变量与局部函数压缩至 ~550 字节内。
+  (defun tramp-rpc-deploy--activation-command (temporary destination checksum)
+    "Build a compact atomic remote activation transaction under PTY MAX_CANON."
+    (let ((tmp (tramp-shell-quote-argument temporary))
+          (dest (tramp-shell-quote-argument destination))
+          (digest (tramp-shell-quote-argument checksum)))
+      (format
+       (concat
+        "_t=%s _d=%s _c=%s && "
+        "_r(){ test -f \"$1\" && ! test -L \"$1\"; } && "
+        "_r \"$_t\" && chmod +x \"$_t\" && _r \"$_t\" && "
+        "(test ! -e \"$_d\" && ! test -L \"$_d\" || _r \"$_d\") && "
+        "a=$({ sha256sum \"$_t\" || shasum -a 256 \"$_t\"; } 2>/dev/null | cut -d' ' -f1) && "
+        "test \"$a\" = \"$_c\" && mv -f \"$_t\" \"$_d\" && "
+        "_r \"$_d\" && test -x \"$_d\"")
+       tmp dest digest))))
