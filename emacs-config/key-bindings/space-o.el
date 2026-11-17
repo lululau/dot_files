@@ -191,11 +191,55 @@ connection error instead."
              (lx/find-file-or-dired (or existing-file (car files))))))))
 
 (let ((result '()))
-  (dolist (elem (append lx/dirs lx/demo-files lx/config-files lx/org-files lx/cheatsheets lx/server-files) result)
+  (dolist (elem (append lx/dirs lx/demo-files lx/config-files lx/org-files lx/cheatsheets) result)
     (let ((kbd (nth 0 elem))
           (func-name (nth 1 elem))
           (dir (nth 2 elem)))
       (eval `(lx/make-open-file-function ,func-name ,dir))
+      (add-to-list 'result kbd t)
+      (add-to-list 'result (intern (format "lx/open-file-%s" func-name)) t)))
+  (apply 'spacemacs/set-leader-keys result))
+
+(defun lx/open-server-file (default-dir arg)
+  "Open DEFAULT-DIR on the remote server, or current buffer's path with prefix ARG.
+When ARG is nil, open DEFAULT-DIR directly.
+When ARG is non-nil (e.g. via `C-u'), take the current buffer's file path
+\(or directory for dired/non-file buffers), strip any remote TRAMP prefix to
+get the bare absolute path, and open that path on the server corresponding
+to DEFAULT-DIR.  Report a one-line error if the path does not exist there."
+  (if (not arg)
+      (lx/find-file-or-dired default-dir)
+    (let* ((raw-path (or (buffer-file-name)
+                         (and (derived-mode-p 'dired-mode)
+                              (dired-current-directory))
+                         default-directory))
+           (local-path (and raw-path
+                            (or (file-remote-p raw-path 'localname)
+                                (expand-file-name raw-path))))
+           (remote-prefix (file-remote-p default-dir)))
+      (unless (and local-path remote-prefix)
+        (user-error "Cannot resolve path for current buffer or server: %s" default-dir))
+      (let* ((target-path (concat remote-prefix local-path))
+             (exists (condition-case err
+                         (file-exists-p target-path)
+                       (error
+                        (user-error "Failed to check remote path %s: %s"
+                                    target-path (error-message-string err))))))
+        (if exists
+            (lx/find-file-or-dired target-path)
+          (user-error "Remote path does not exist: %s" target-path))))))
+
+(defmacro lx/make-open-server-file-function (name dir)
+  `(defun ,(intern (format "lx/open-file-%s" name)) (arg)
+     (interactive "P")
+     (lx/open-server-file ,dir arg)))
+
+(let ((result '()))
+  (dolist (elem lx/server-files result)
+    (let ((kbd (nth 0 elem))
+          (func-name (nth 1 elem))
+          (dir (nth 2 elem)))
+      (eval `(lx/make-open-server-file-function ,func-name ,dir))
       (add-to-list 'result kbd t)
       (add-to-list 'result (intern (format "lx/open-file-%s" func-name)) t)))
   (apply 'spacemacs/set-leader-keys result))
