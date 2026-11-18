@@ -44,6 +44,8 @@ alias nv=open-with-neovide.sh
 alias cs='cargo search --registry=crates-io'
 alias lzd=lazydocker
 alias p=pbpaste
+alias ting='tailscale ping'
+alias tping='tailscale ping'
 alias -g L="| view"
 alias -g M='| nvim +Man!'
 alias -g V="| view"
