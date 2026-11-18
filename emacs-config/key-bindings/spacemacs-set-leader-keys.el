@@ -50,6 +50,7 @@
   "d s-n" #'mfd-name-dired
   "d s-g" #'mfd-grep-dired
   "d TAB" #'lx/switch-to-dired-buffer
+  "dR" #'lx/helm-remote-dired-histories
   "pL" #'lx/helm-persp-replace-project
   "bL" #'lx/persp-swith-to-buffer-project
   "jw" #'evil-avy-goto-word-0

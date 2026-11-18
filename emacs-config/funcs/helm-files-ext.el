@@ -46,21 +46,46 @@ Quote patterns containing spaces.  Use C-u before this command for raw fd syntax
               :prompt "Project files (AND): "
               :buffer "*helm fd*")))))
 
-;;;###autoload
-(defun lx/helm-dired-histories ()
-  (interactive)
-  (helm :prompt "Dired Histories: "
-        :buffer "*helm-dired-histories*"
+(defun lx/helm-dired-histories--run (candidates &optional prompt buffer)
+  "Run Helm over CANDIDATES with optional PROMPT and BUFFER."
+  (helm :prompt (or prompt "Dired Histories: ")
+        :buffer (or buffer "*helm-dired-histories*")
         :sources
         (list (helm-build-sync-source (format "%s History" "Dired")
                 :header-name (lambda (name)
                                (concat name (substitute-command-keys
                                              helm-find-files-doc-header)))
                 :mode-line  helm-read-file-name-mode-line-string
-                :candidates helm-dired-history-variable
+                :candidates candidates
                 :nohighlight t
                 :fuzzy-match t
                 :action 'find-file))))
+
+;;;###autoload
+(defun lx/helm-dired-histories ()
+  (interactive)
+  (lx/helm-dired-histories--run helm-dired-history-variable))
+
+;;;###autoload
+(defun lx/helm-remote-dired-histories ()
+  "Like `lx/helm-dired-histories', but filter to current host in /rpc: or `ssh-zsh-ghostel-mode' buffers."
+  (interactive)
+  (let* ((remote-host (and (or (eq 'ssh-zsh-ghostel-mode major-mode)
+                               (string-prefix-p "/rpc:" default-directory))
+                           (lx/get-remote-buffer-host)))
+         (candidates (if remote-host
+                         (let ((pattern (concat "\\`/[^:]+:" (regexp-quote remote-host) ":")))
+                           (seq-filter (lambda (dir) (string-match-p pattern dir))
+                                       helm-dired-history-variable))
+                       helm-dired-history-variable)))
+    (lx/helm-dired-histories--run
+     candidates
+     (if remote-host
+         (format "Dired Histories (%s): " remote-host)
+       "Dired Histories: ")
+     (if remote-host
+         (format "*helm-dired-histories: %s*" remote-host)
+       "*helm-dired-histories*"))))
 
 ;;;###autoload
 (defun lx/projectile-dired-histories ()

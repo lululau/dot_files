@@ -383,6 +383,9 @@ Read a timestamp from the user and insert it at point." t)
 
 (autoload 'lx/helm-projectile-dired-histories "helm-files-ext" nil t)
 
+(autoload 'lx/helm-remote-dired-histories "helm-files-ext"
+"Like `lx/helm-dired-histories', but filter to current host in /rpc: or `ssh-zsh-ghostel-mode' buffers." t)
+
 ;;;***
 
 ;;;### (autoloads nil "helm-git-recentf" "helm-git-recentf.el" (0 0 0 0))
