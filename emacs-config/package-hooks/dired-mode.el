@@ -92,6 +92,60 @@
     (dired-sort-by-date)
     (evil-goto-first-line 4))
 
+  (defun lx/dired--pin-dot-entries (beg end)
+    "Move \".\" and \"..\" entries to the top of the listing in [BEG, END]."
+    (save-excursion
+      (save-restriction
+        (narrow-to-region beg end)
+        (let ((inhibit-read-only t)
+              first-entry-pos
+              dot-already
+              dotdot-already
+              dot-line
+              dotdot-line)
+          (goto-char (point-min))
+          ;; Skip header / total / wildcard lines to find the first file entry.
+          (while (and (not (eobp)) (not first-entry-pos))
+            (if (dired-get-filename 'no-dir t)
+                (setq first-entry-pos (line-beginning-position))
+              (forward-line 1)))
+          (when first-entry-pos
+            ;; Fast path: already pinned at the first two entries.
+            (goto-char first-entry-pos)
+            (when (equal (dired-get-filename 'no-dir t) ".")
+              (setq dot-already t)
+              (forward-line 1))
+            (when (and (not (eobp))
+                       (equal (dired-get-filename 'no-dir t) ".."))
+              (setq dotdot-already t))
+            (unless (and dot-already dotdot-already)
+              (goto-char first-entry-pos)
+              (while (and (or (not dot-line) (not dotdot-line))
+                          (re-search-forward "[[:space:]]\\.\\.?/?$" nil t))
+                (let ((name (dired-get-filename 'no-dir t)))
+                  (cond
+                   ((and (not dot-line) (equal name "."))
+                    (setq dot-line (delete-and-extract-region
+                                    (line-beginning-position)
+                                    (line-beginning-position 2))))
+                   ((and (not dotdot-line) (equal name ".."))
+                    (setq dotdot-line (delete-and-extract-region
+                                       (line-beginning-position)
+                                       (line-beginning-position 2))))
+                   (t
+                    (forward-line 1)))))
+              (goto-char first-entry-pos)
+              (when dot-line (insert dot-line))
+              (when dotdot-line (insert dotdot-line))))))))
+
+  (define-advice dired-insert-directory
+      (:around (orig-fn dir switches &optional file-list wildcard hdr) pin-dot-entries)
+    "Keep \".\" and \"..\" at the top of every Dired directory listing."
+    (let ((beg (point)))
+      (funcall orig-fn dir switches file-list wildcard hdr)
+      (unless (or file-list wildcard)
+        (lx/dired--pin-dot-entries beg (point)))))
+
   (defun dired-dotfiles-toggle ()
     "Show/hide dot-files"
     (interactive)
