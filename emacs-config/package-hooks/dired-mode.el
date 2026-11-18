@@ -8,6 +8,8 @@
   (setq dired-recursive-deletes 'always)
   ;; 批量删除也不再弹出确认
   (setq dired-deletion-confirmer (lambda (&rest _) t))
+  ;; 远程文件不走系统 Trash，避免 system-move-file-to-trash 丢失 recursive 参数导致非空目录删除失败
+  (setq remote-file-name-inhibit-delete-by-moving-to-trash t)
 
   ;; <mouse-2> 智能行为：目录→展开/折叠子树，文件→在新窗口打开，否则→移动光标
   (defun lx/dired-mouse-2-smart (event)
