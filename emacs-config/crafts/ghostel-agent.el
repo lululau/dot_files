@@ -13,7 +13,7 @@
 
 (defun ghostel-agent--agent-buffer-name-p (name)
   "Return non-nil if NAME looks like an agent Ghostel buffer from `ghostel-agent-run-*`."
-  (string-match-p "\\`\\*ghostel-\\(?:claude\\|opencode\\|omp\\|cursor\\|agy\\|aliyun-tp-claude\\|deepseek-claude\\|grok\\)\\[" name))
+  (string-match-p "\\`\\*ghostel-\\(?:claude\\|opencode\\|omp\\|cursor\\|agy\\|aliyun-tp-claude\\|deepseek-claude\\|pasode\\|grok\\)\\[" name))
 (defun ghostel-agent--agent-buffer-p (buffer)
   "Return non-nil if BUFFER is a live Ghostel agent shell."
   (and (buffer-live-p buffer)
@@ -337,6 +337,77 @@ Grok stores sessions under `~/.grok/sessions/<url-encoded-cwd>/'."
                 sessions))))
     (ghostel-agent--sort-sessions sessions)))
 
+
+(defun ghostel-agent--paseo-home ()
+  "Return the Paseo home directory from `PASEO_HOME' or `~/.paseo'."
+  (let ((env-home (getenv "PASEO_HOME")))
+    (expand-file-name
+     (if (and env-home (not (string-empty-p env-home)))
+         env-home
+       "~/.paseo"))))
+
+(defun ghostel-agent--parse-pasode-session-file (file project-root &optional project-root-true)
+  "Parse Pasode (Paseo) session metadata from FILE under PROJECT-ROOT.
+
+PROJECT-ROOT-TRUE, when non-nil, is the resolved `file-truename' of
+PROJECT-ROOT so symlinked paths such as `/tmp' match `/private/tmp'."
+  (when (file-readable-p file)
+    (with-temp-buffer
+      (insert-file-contents file)
+      (when-let* ((obj (condition-case nil
+                           (json-parse-string (buffer-string)
+                                              :object-type 'alist
+                                              :null-object nil
+                                              :false-object nil)
+                         (error nil)))
+                  (id (ghostel-agent--json-string-field obj "id"))
+                  (cwd (ghostel-agent--json-string-field obj "cwd")))
+        (when (and (not (ghostel-agent--json-string-field obj "archivedAt"))
+                   (not (ghostel-agent--json-field obj "internal"))
+                   (not (ghostel-agent--json-field obj "background"))
+                   (or (ghostel-agent--directory-in-project-p cwd project-root)
+                       (and project-root-true
+                            (ghostel-agent--directory-in-project-p
+                             cwd project-root-true))))
+          (let* ((raw-title (ghostel-agent--json-string-field obj "title"))
+                 (clean-title
+                  (and raw-title
+                       (string-trim
+                        (replace-regexp-in-string "[ \t\n\r]+" " " raw-title))))
+                 (title (if (and clean-title (not (string-empty-p clean-title)))
+                            clean-title
+                          id))
+                 (file-mtime (float-time
+                              (file-attribute-modification-time
+                               (file-attributes file))))
+                 (updated (or (ghostel-agent--json-string-field
+                               obj "lastActivityAt" "updatedAt" "createdAt")
+                              file-mtime))
+                 (mtime (if (stringp updated)
+                            (condition-case nil
+                                (float-time (date-to-time updated))
+                              (error file-mtime))
+                          file-mtime)))
+            (ghostel-agent-session-create
+             :id id
+             :title title
+             :mtime mtime
+             :updated mtime)))))))
+
+(defun ghostel-agent--list-pasode-sessions (project-root)
+  "List Pasode (Paseo) sessions for PROJECT-ROOT."
+  (let* ((dir (expand-file-name "agents" (ghostel-agent--paseo-home)))
+         (project-root-true (and project-root
+                                 (file-exists-p project-root)
+                                 (file-truename project-root)))
+         (sessions nil))
+    (when (file-directory-p dir)
+      (dolist (file (directory-files-recursively dir "\\`[^.].*\\.json\\'"))
+        (when-let* ((session (ghostel-agent--parse-pasode-session-file
+                              file project-root project-root-true)))
+          (push session sessions))))
+    (ghostel-agent--sort-sessions sessions)))
+
 (defun ghostel-agent--parse-omp-session-file (file project-root)
   "Parse Oh My Pi session metadata from transcript FILE under PROJECT-ROOT.
 
@@ -568,6 +639,16 @@ Uses `grok --always-approve' (auto-approve tool executions). Resume via
    :base-command "opencode"
    :resume-arg "-s"
    :buffer-pattern "*ghostel-opencode[%p]*"))
+
+(defun ghostel-agent-run-pasode ()
+  "Start an Pasode agent shell in Ghostel."
+  (interactive)
+  (ghostel-agent--run-with-session
+   :agent-name "Pasode"
+   :list-fn #'ghostel-agent--list-pasode-sessions
+   :base-command "pasode"
+   :resume-arg "-s"
+   :buffer-pattern "*ghostel-pasode[%p]*"))
 
 (defun ghostel-agent-run-omp ()
   "Start an Oh My Pi agent shell in Ghostel."
