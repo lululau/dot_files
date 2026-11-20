@@ -1,5 +1,12 @@
 ;; -*- lexical-binding: t; -*-
 
+(require 'cl-lib)
+
+(declare-function tramp-rpc--call "tramp-rpc-transport" (vec method params &optional connection))
+(declare-function tramp-rpc--get-route-connection-property "tramp-rpc-transport" (vec property default))
+(declare-function tramp-rpc--set-route-connection-property "tramp-rpc-transport" (vec property value))
+(declare-function tramp-rpc-file-name-p "tramp-rpc" (vec-or-filename))
+
 (with-eval-after-load 'tramp-rpc
   ;; ls-lisp (which tramp-rpc delegates listings to) mangles GNU-style
   ;; switches: "--quoting-style=..." wipes the rest of the string and
@@ -10,7 +17,34 @@
                 (funcall orig
                          filename
                          (lx/dired-rpc--ls-lisp-switches (or switches ""))
-                         wildcard full-directory-p))))
+                         wildcard full-directory-p)))
+
+  ;; Cache confirmed ENOENT (`file-missing') as nil in capability probes
+  ;; (`getfacl --version', `selinuxenabled').  On macOS remotes those binaries
+  ;; do not exist, so upstream's `(error nil)' leaves the property unset and
+  ;; re-probes on every `write-region'.  Transport/timeout errors stay uncached.
+  (defun lx/tramp-rpc--cached-capability-probe (vec property command args)
+    "Return cached capability PROPERTY for VEC, caching `file-missing' as nil."
+    (let* ((missing (make-symbol "missing"))
+           (cached (tramp-rpc--get-route-connection-property
+                    vec property missing)))
+      (if (not (eq cached missing))
+          cached
+        (condition-case nil
+            (let* ((result (tramp-rpc--call vec "process.run"
+                                            `((cmd . ,command)
+                                              (args . ,args)
+                                              (cwd . "/"))))
+                   (enabled (zerop (alist-get 'exit_code result))))
+              (tramp-rpc--set-route-connection-property vec property enabled)
+              enabled)
+          (file-missing
+           (tramp-rpc--set-route-connection-property vec property nil)
+           nil)
+          (error nil)))))
+
+  (advice-add 'tramp-rpc--cached-capability-probe
+              :override #'lx/tramp-rpc--cached-capability-probe))
 
 (with-eval-after-load 'tramp-rpc-deploy
   ;; Git 安装模式下指向 quelpa 源码目录并启用源码编译模式，
@@ -147,3 +181,37 @@ Returns t on success, nil on failure."
                              'remote-file-error
                              (list (format "Cross-build (%s) failed (exit %d):\n%s"
                                            subcmd exit-code (buffer-string)))))))))))))
+
+(with-eval-after-load 'tramp-rpc-magit
+  ;; Ignore Git fsmonitor--daemon cookie churn alongside .git/index(.lock)
+  ;; during Magit status setup/refresh/prefetch.  Otherwise repositories with
+  ;; `core.fsmonitor=true' emit FSEvents for cookies created by the prefetch
+  ;; batch itself and immediately wipe the freshly built prefetch cache.
+  (defvar tramp-rpc-magit--git-index-event-regexp)
+  (setq tramp-rpc-magit--git-index-event-regexp
+        (rx (or bos "/") ".git/"
+            (* (or "worktrees" "modules") "/" (+ (not "/")) "/")
+            (or (seq "index" (? ".lock"))
+                (seq "fsmonitor--daemon/cookies" (? "/" (+ (not "/")))))
+            eos)))
+
+(with-eval-after-load 'magit-git
+  ;; On TRAMP-RPC, `process-file' captures remote stderr in the RPC response
+  ;; and local Emacs writes it to the destination file.  Using a remote file
+  ;; via `make-nearby-temp-file' burns ~25 RPCs per call (create, delete,
+  ;; re-write even on empty stderr, delete).  Use a local temp file instead.
+  (defun lx/magit--git-insert-tramp-rpc-local-stderr (orig return-error &rest args)
+    (if (and (or return-error (bound-and-true-p magit-git-debug))
+             (file-remote-p default-directory)
+             (fboundp 'tramp-rpc-file-name-p)
+             (tramp-rpc-file-name-p default-directory))
+        (cl-letf (((symbol-function 'make-nearby-temp-file)
+                   (lambda (prefix &optional dir-flag suffix text)
+                     (let ((temporary-file-directory
+                            (default-toplevel-value 'temporary-file-directory)))
+                       (make-temp-file prefix dir-flag suffix text)))))
+          (apply orig return-error args))
+      (apply orig return-error args)))
+
+  (advice-add 'magit--git-insert
+              :around #'lx/magit--git-insert-tramp-rpc-local-stderr))

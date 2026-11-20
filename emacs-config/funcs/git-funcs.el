@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
+(defvar magit--refresh-cache)
+
 ;;;###autoload
 (defun lx/magit-status-smart (arg)
   "Call magit-status. With prefix arg, switch to existing magit buffer if any"
@@ -9,14 +11,15 @@
         (require 'magit-mode)
         (let ((magit-buf (--find (s-starts-with? "magit:" (buffer-name it)) (magit-mode-get-buffers))))
           (if magit-buf (switch-to-buffer magit-buf) (magit-status))))
-    (cond
-     ;; Matches `magit-status' interactive logic: `(not (magit-toplevel))' means out of repo.
-     ((and (require 'magit nil t) (magit-toplevel))
-      (magit-status))
-     ((bound-and-true-p main-git-directory)
-      (magit-status main-git-directory))
-     (t
-      (magit-status)))))
+    (let ((magit--refresh-cache (list (cons 0 0))))
+      (cond
+       ;; Matches `magit-status' interactive logic: `(not (magit-toplevel))' means out of repo.
+       ((and (require 'magit nil t) (magit-toplevel))
+        (magit-status nil magit--refresh-cache))
+       ((bound-and-true-p main-git-directory)
+        (magit-status main-git-directory magit--refresh-cache))
+       (t
+        (magit-status nil magit--refresh-cache))))))
 
 ;;;###autoload
 (defun lx/magit-smart-checkout (arg)
