@@ -121,7 +121,7 @@ cannot be loaded yet."
        (with-current-buffer (get-buffer zsh-ghostel-last-buffer)
          (let ((remote-host (lx/get-remote-buffer-host)))
            (if remote-host
-               (replace-regexp-in-string (message "^/\\(scp\\|ssh\\):%s:" remote-host) "" default-directory)
+               (replace-regexp-in-string (message "^/\\(scp\\|rpc\\|ssh\\):%s:" remote-host) "" default-directory)
              (or (projectile-project-root) default-directory)))))))
 
   (defun ghostel-cd-to-file-dir ()
@@ -134,7 +134,7 @@ cannot be loaded yet."
        (with-current-buffer buffer
          (let ((remote-host (lx/get-remote-buffer-host)))
            (if remote-host
-               (replace-regexp-in-string (message "^/\\(scp\\|ssh\\):%s:" remote-host) "" default-directory)
+               (replace-regexp-in-string (message "^/\\(scp\\|rpc\\|ssh\\):%s:" remote-host) "" default-directory)
              (if buffer-file-name
                  (setq buffer-file-directory (file-name-directory buffer-file-name))
                (if (eq 'dired-mode (with-current-buffer buffer major-mode))
