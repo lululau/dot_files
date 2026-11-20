@@ -54,7 +54,8 @@
          (jenkins-project-name (replace-regexp-in-string ".*build\\s-*\\|:.*" "" alias))
          (cmd  (format "jk %s" alias-name))
          (buffer-name (format "*ghostel-jk-%s-%s*" alias-name jenkins-project-name)))
-    (lx/run-in-ghostel cmd buffer-name nil t)))
+    ;; Local jk CLI: pin locally.
+    (lx/run-in-ghostel cmd buffer-name user-home-directory t)))
 
 (defun helm-ghostel-jenkins-option-list ()
   (let ((project-root-dir (projectile-project-root)))

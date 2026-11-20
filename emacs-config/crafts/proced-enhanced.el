@@ -29,8 +29,10 @@ Uses marked processes, or the process at point."
   (interactive (list (proced-enhanced--get-pids)) proced-mode)
   (if pids
       (let ((ghostel-kill-buffer-on-exit nil))
+        ;; proced lists LOCAL processes: pin the spawn locally so PIDs
+        ;; resolve even when proced was opened from a remote directory.
         (lx/run-in-ghostel (format "~/bin/pstree %s" (mapconcat #'number-to-string pids " "))
-                           "*pstree*" nil t))
+                           "*pstree*" user-home-directory t))
     (message "No process at point")))
 
 (defun proced-enhanced-lsof (pid)
@@ -38,7 +40,9 @@ Uses marked processes, or the process at point."
   (interactive (list (proced-pid-at-point)) proced-mode)
   (if pid
       (let ((ghostel-kill-buffer-on-exit nil))
-        (lx/run-in-ghostel (format "lsof -Pnp %d" pid) (format "*lsof-%d*" pid) nil t))
+        ;; Local PIDs (see `proced-enhanced-pstree').
+        (lx/run-in-ghostel (format "lsof -Pnp %d" pid) (format "*lsof-%d*" pid)
+                           user-home-directory t))
     (message "No process at point")))
 
 (defun proced-enhanced-sigkill (pids)

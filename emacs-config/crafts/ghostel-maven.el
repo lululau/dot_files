@@ -300,12 +300,14 @@
 (defun ghostel-maven-update-local-artifact ()
   (interactive)
   (let ((ghostel-kill-buffer-on-exit nil))
-    (lx/run-in-ghostel (format "%s/ghostel-maven-update-local-artifact.sh" ghostel-maven-dir) "*ghostel-maven-update-local-artifact*" nil t)))
+    ;; Local helper script: pin locally.
+    (lx/run-in-ghostel (format "%s/ghostel-maven-update-local-artifact.sh" ghostel-maven-dir) "*ghostel-maven-update-local-artifact*" user-home-directory t)))
 
 (defun ghostel-maven-kill-local-artifact ()
   (interactive)
   (let ((ghostel-kill-buffer-on-exit nil))
-    (lx/run-in-ghostel (format "%s/ghostel-maven-kill-local-artifact.sh" ghostel-maven-dir) "*ghostel-maven-kill-local-artifact*" nil t)))
+    ;; Local helper script: pin locally.
+    (lx/run-in-ghostel (format "%s/ghostel-maven-kill-local-artifact.sh" ghostel-maven-dir) "*ghostel-maven-kill-local-artifact*" user-home-directory t)))
 
 (defun helm-ghostel-maven-deps-resolve ()
   (interactive)

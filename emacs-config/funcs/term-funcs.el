@@ -401,27 +401,31 @@
 (defun lx/run-jless (&optional file)
   "Open FILE in jless via ghostel in other window.
 If FILE is nil, use the current buffer's file.
-In dired mode, use the file at point."
+In dired mode, use the file at point.
+Spawns on the host FILE lives on: a TRAMP file runs the remote jless
+with the file's local name."
   (interactive)
   (let* ((file (or file
                    (if (derived-mode-p 'dired-mode)
                        (dired-get-file-for-visit)
                      (buffer-file-name))))
-         (cmd (format "jless %s" (shell-quote-argument file)))
+         (cmd (format "jless %s" (shell-quote-argument (file-local-name file))))
          (buffer-name (format "*jless-%s*" (file-name-nondirectory file))))
-    (lx/run-in-ghostel cmd buffer-name nil nil)))
+    (lx/run-in-ghostel cmd buffer-name (file-name-directory file) nil)))
 
 
 ;;;###autoload
 (defun lx/run-lnav (&optional file)
   "Open FILE in lnav via ghostel in other window.
 If FILE is nil, use the current buffer's file.
-In dired mode, use the file at point."
+In dired mode, use the file at point.
+Spawns on the host FILE lives on: a TRAMP file runs the remote lnav
+with the file's local name."
   (interactive)
   (let* ((file (or file
                    (if (derived-mode-p 'dired-mode)
                        (dired-get-file-for-visit)
                      (buffer-file-name))))
-         (cmd (format "lnav %s" (shell-quote-argument file)))
+         (cmd (format "lnav %s" (shell-quote-argument (file-local-name file))))
          (buffer-name (format "*lnav-%s*" (file-name-nondirectory file))))
-    (lx/run-in-ghostel cmd buffer-name nil nil)))
+    (lx/run-in-ghostel cmd buffer-name (file-name-directory file) nil)))

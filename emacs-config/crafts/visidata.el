@@ -5,6 +5,7 @@
          (cmd (format "visidata %s" file))
          (buf-name (format "*visidata %s*" file)))
     (kill-buffer)
-    (lx/run-in-ghostel cmd buf-name nil t)))
+    ;; Local visidata binary: pin locally (it cannot open TRAMP paths).
+    (lx/run-in-ghostel cmd buf-name user-home-directory t)))
 
 (provide 'visidata-mode)

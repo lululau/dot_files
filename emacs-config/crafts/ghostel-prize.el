@@ -58,7 +58,8 @@
          (args (cadr fields))
          (cmd  (format "~/.rvm/gems/default/bin/prize %s" args))
          (buffer-name (format "*ghostel-prize-%s*" name)))
-    (lx/run-in-ghostel cmd buffer-name nil t)))
+    ;; Local rvm gem binary: pin locally (keeps local tilde expansion).
+    (lx/run-in-ghostel cmd buffer-name user-home-directory t)))
 
 (defun helm-ghostel-prize-run ()
   (interactive)

@@ -20,6 +20,15 @@ literal so it is expanded by the remote shell."
           parts))
 
 (defun lx/run-in-ghostel (command buffer-name &optional directory exclusive-window)
+  "Run COMMAND in a ghostel terminal buffer named BUFFER-NAME.
+DIRECTORY selects the spawn host: when non-nil it becomes the spawn
+`default-directory' verbatim, so a TRAMP path like \"/rpc:host:/path\"
+spawns on the remote host (via `ghostel-exec'\\='s `:file-handler'
+path).  When nil, a remote `default-directory' in the current buffer
+is inherited (spawn remotely); otherwise fall back to
+`user-home-directory' (spawn locally).  Callers that must never
+follow a remote context (rsync, local-only tools) should pass
+`user-home-directory' explicitly."
   (interactive)
   (let* ((buffer (get-buffer buffer-name)))
     (set (intern (format "%s-command" buffer-name)) (list command buffer-name directory exclusive-window))
@@ -34,9 +43,17 @@ literal so it is expanded by the remote shell."
           (if exclusive-window
               (switch-to-buffer buffer)
             (pop-to-buffer buffer 'display-buffer-pop-up-window)))
-      (let* ((default-directory (or directory user-home-directory))
-             (command-parts (lx/run-in-ghostel--expand-tilde-argv
-                             (split-string-and-unquote command)))
+      (let* ((default-directory (or directory
+                                    (if (file-remote-p default-directory)
+                                        default-directory
+                                      user-home-directory)))
+             (command-parts
+              (if (file-remote-p default-directory)
+                  ;; Remote: keep `~' literal so the remote shell expands
+                  ;; it (see `lx/run-in-ghostel--expand-tilde-argv').
+                  (split-string-and-unquote command)
+                (lx/run-in-ghostel--expand-tilde-argv
+                 (split-string-and-unquote command))))
              (buffer (generate-new-buffer buffer-name)))
         (unless exclusive-window (split-window-right-and-focus))
         (with-current-buffer buffer
@@ -163,7 +180,9 @@ literal so it is expanded by the remote shell."
              (cmd (format "rsync -rzP \"%s\" \"%s\"" remote-file local-dir))
              (buffer-name (format "*rsync: %s -> %s*" remote-file local-dir))
              (ghostel-kill-buffer-on-exit nil))
-        (lx/run-in-ghostel cmd buffer-name)))))
+        ;; rsync must run LOCALLY (remote: -> local sync); never inherit a
+        ;; remote `default-directory' from the calling buffer.
+        (lx/run-in-ghostel cmd buffer-name user-home-directory)))))
 
 (defun lx/run-in-ghostel/upload (dir)
   (interactive)
@@ -184,7 +203,9 @@ literal so it is expanded by the remote shell."
              (cmd (format "rsync -rzP \"%s\" \"%s\"" local-file remote-dir))
              (buffer-name (format "*rsync: %s -> %s*" local-file remote-dir))
              (ghostel-kill-buffer-on-exit nil))
-        (lx/run-in-ghostel cmd buffer-name)))))
+        ;; rsync must run LOCALLY (local -> remote: sync); never inherit a
+        ;; remote `default-directory' from the calling buffer.
+        (lx/run-in-ghostel cmd buffer-name user-home-directory)))))
 
 (defun lx/run-in-ghostel/find-remote-file (file &optional host)
   (interactive)

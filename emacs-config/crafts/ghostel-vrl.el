@@ -55,7 +55,9 @@
 (defun helm-ghostel-vrl-run-function (env)
   (let ((cmd  (format "~/bin/vrl %s" env))
         (buffer-name (format "*ghostel-vrl-%s*" env)))
-    (lx/run-in-ghostel cmd buffer-name nil t)))
+    ;; Local binary + local ~/.vrl.yml: pin locally (also keeps the local
+    ;; tilde expansion of ~/bin/vrl).
+    (lx/run-in-ghostel cmd buffer-name user-home-directory t)))
 
 (defun helm-ghostel-vrl-run ()
   (interactive)
@@ -65,7 +67,8 @@
 (defun helm-ghostel-vrl-run-auto-function (env)
   (let ((cmd  (format "~/bin/vrl %s -a" env))
         (buffer-name (format "*ghostel-vrl-%s*" env)))
-    (lx/run-in-ghostel cmd buffer-name nil t)))
+    ;; Local binary + local ~/.vrl.yml: pin locally.
+    (lx/run-in-ghostel cmd buffer-name user-home-directory t)))
 
 (defvar helm-ghostel-vrl-map
   (let ((map (make-sparse-keymap)))
