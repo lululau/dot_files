@@ -416,7 +416,7 @@ with the file's local name."
 
 ;;;###autoload
 (defun lx/run-lnav (&optional file)
-  "Open FILE in lnav via ghostel in other window.
+  "Open FILE in lnav via ghostel in the current window.
 If FILE is nil, use the current buffer's file.
 In dired mode, use the file at point.
 Spawns on the host FILE lives on: a TRAMP file runs the remote lnav
@@ -428,4 +428,4 @@ with the file's local name."
                      (buffer-file-name))))
          (cmd (format "lnav %s" (shell-quote-argument (file-local-name file))))
          (buffer-name (format "*lnav-%s*" (file-name-nondirectory file))))
-    (lx/run-in-ghostel cmd buffer-name (file-name-directory file) nil)))
+    (lx/run-in-ghostel cmd buffer-name (file-name-directory file) t)))
